@@ -1,0 +1,65 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-rubik: 'Rubik', sans-serif;
+  --font-montserrat: 'Montserrat', sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+  color-scheme: dark;
+}
+
+body {
+  background-color: #0A0D0E;
+  color: #FFFFFF;
+  font-family: var(--font-montserrat), Montserrat, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #0A0D0E;
+}
+::-webkit-scrollbar-thumb {
+  background: #252D32;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #25E2CC;
+}
+
+/* Neon glow & text highlights */
+.text-neon {
+  color: #25E2CC;
+}
+
+.bg-neon {
+  background-color: #25E2CC;
+}
+
+.border-neon {
+  border-color: #25E2CC;
+}
+
+.glow-teal {
+  box-shadow: 0 0 25px rgba(37, 226, 204, 0.35);
+}
+
+.card-blur {
+  background: rgba(20, 23, 24, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+/* Pause marquee on hover */
+.pause-hover:hover {
+  animation-play-state: paused;
+}

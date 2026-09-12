@@ -1,0 +1,6 @@
+# Bun configuration
+[install]
+lockfile = "bun.lock"
+
+[run]
+# Bun run defaults

@@ -1,0 +1,1183 @@
+{
+  "id": "f958ed8f-191c-44a5-b8fb-005d92ca0e11",
+  "displayName": "Menu header",
+  "data": {
+    "url": null,
+    "name": "Menu header",
+    "btnLabel": null,
+    "btnLink": null,
+    "linkContent": null,
+    "btnLinkContent": null,
+    "image": null,
+    "icon": null,
+    "isGroup": null,
+    "child1name": null,
+    "child1icon": null,
+    "child1url": null,
+    "child2name": null,
+    "child2icon": null,
+    "child2url": null,
+    "child3name": null,
+    "child3icon": null,
+    "child3url": null
+  },
+  "parent": {
+    "_name": "sai-website",
+    "_id": "b07de0ce-ab36-4953-bb4c-38d08af0938e",
+    "type": "portal:site"
+  },
+  "children": [
+    {
+      "id": "6876679b-92c8-4d9c-b271-7caf54495bec",
+      "name": "our-work",
+      "type": "com.saidigital.website:header-menu",
+      "data": {
+        "url": null,
+        "name": "Our Work",
+        "btnLabel": null,
+        "btnLink": null,
+        "linkContent": {
+          "_path": "our-work"
+        },
+        "btnLinkContent": null,
+        "image": null,
+        "icon": null,
+        "isGroup": null,
+        "child1name": null,
+        "child1icon": null,
+        "child1url": null,
+        "child2name": null,
+        "child2icon": null,
+        "child2url": null,
+        "child3name": null,
+        "child3icon": null,
+        "child3url": null
+      },
+      "children": []
+    },
+    {
+      "id": "f182fecb-1e14-4112-8c52-128b7221b787",
+      "name": "our-work-copy-3",
+      "type": "com.saidigital.website:header-menu",
+      "data": {
+        "url": null,
+        "name": "Our Products",
+        "btnLabel": null,
+        "btnLink": null,
+        "linkContent": null,
+        "btnLinkContent": null,
+        "image": {
+          "mediaUrl": "https://www.sai-digital.com/site/sai-website/master/_/attachment/inline/49b19171-1c4e-406b-8f23-397e84d9642e:cec7fc2c0a424db4ffcabed07670c7f3543d3cfc/menu-catalyzer.jpg"
+        },
+        "icon": null,
+        "isGroup": null,
+        "child1name": null,
+        "child1icon": null,
+        "child1url": null,
+        "child2name": null,
+        "child2icon": null,
+        "child2url": null,
+        "child3name": null,
+        "child3icon": null,
+        "child3url": null
+      },
+      "children": [
+        {
+          "id": "1efaafd0-ed47-4329-a950-356efe5f1c1c",
+          "_name": "catalyzer",
+          "type": "com.saidigital.website:header-menu",
+          "data": {
+            "url": null,
+            "name": "Our Products",
+            "btnLabel": null,
+            "btnLink": null,
+            "linkContent": null,
+            "btnLinkContent": null,
+            "image": null,
+            "icon": null,
+            "isGroup": null,
+            "child1name": null,
+            "child1icon": null,
+            "child1url": null,
+            "child2name": null,
+            "child2icon": null,
+            "child2url": null,
+            "child3name": null,
+            "child3icon": null,
+            "child3url": null
+          },
+          "children": [
+            {
+              "id": "bd3fc020-7c0c-442e-8151-86da6e91411b",
+              "_name": "smart-order-copy-7",
+              "type": "com.saidigital.website:header-menu",
+              "data": {
+                "url": null,
+                "name": "SpeedX",
+                "btnLabel": null,
+                "btnLink": null,
+                "linkContent": {
+                  "_path": "speedx"
+                },
+                "btnLinkContent": null,
+                "image": null,
+                "icon": {
+                  "mediaUrl": "https://www.sai-digital.com/site/sai-website/master/_/attachment/inline/b86803c3-a7e8-4a71-87f7-77bb81ec8d7b:9aa853ffd76cedf578118533fa78e9bd517af4d7/our-product-menu%20(1).svg"
+                },
+                "isGroup": false,
+                "child1name": null,
+                "child1icon": null,
+                "child1url": null,
+                "child2name": null,
+                "child2icon": null,
+                "child2url": null,
+                "child3name": null,
+                "child3icon": null,
+                "child3url": null
+              }
+            },
+            {
+              "id": "e0602998-d6f7-4970-b1f5-a8f7002dbb8b",
+              "_name": "smart-order-copy-6",
+              "type": "com.saidigital.website:header-menu",
+              "data": {
+                "url": null,
+                "name": "SmartCommerce",
+                "btnLabel": null,
+                "btnLink": null,
+                "linkContent": {
+                  "_path": "smartcommerce"
+                },
+                "btnLinkContent": null,
+                "image": null,
+                "icon": {
+                  "mediaUrl": "https://www.sai-digital.com/site/sai-website/master/_/attachment/inline/b49189b6-f53c-4252-975d-0a094aaf6100:beba5f707392288f82aa4ccaabcb0ba029e44c7e/our-product-menu%20(2).svg"
+                },
+                "isGroup": false,
+                "child1name": null,
+                "child1icon": null,
+                "child1url": null,
+                "child2name": null,
+                "child2icon": null,
+                "child2url": null,
+                "child3name": null,
+                "child3icon": null,
+                "child3url": null
+              }
+            },
+            {
+              "id": "0aa34596-c644-46f6-ae42-b3c31fc9b426",
+              "_name": "CA-11.svg",
+              "type": "media:vector"
+            },
+            {
+              "id": "658b8c86-936c-478d-a0d4-bb79155926cb",
+              "_name": "CA.svg",
+              "type": "media:vector"
+            },
+            {
+              "id": "ad2a87e1-0be8-4e00-9dea-25d5da5e29a4",
+              "_name": "smart-order-copy",
+              "type": "com.saidigital.website:header-menu",
+              "data": {
+                "url": null,
+                "name": "SmartLoyalty",
+                "btnLabel": null,
+                "btnLink": null,
+                "linkContent": {
+                  "_path": "catalyzer/loyalty"
+                },
+                "btnLinkContent": null,
+                "image": null,
+                "icon": {
+                  "mediaUrl": "https://www.sai-digital.com/site/sai-website/master/_/attachment/inline/19cf5a9b-3258-4783-9a65-79468a5c0a17:480f08767d80349ab49a4715783b113e0a3e2587/our-product-menu%20(3).svg"
+                },
+                "isGroup": false,
+                "child1name": null,
+                "child1icon": null,
+                "child1url": null,
+                "child2name": null,
+                "child2icon": null,
+                "child2url": null,
+                "child3name": null,
+                "child3icon": null,
+                "child3url": null
+              }
+            },
+            {
+              "id": "484e8bb4-7df3-46fc-bf88-c91acfd2b848",
+              "_name": "smart-order-copy-2",
+              "type": "com.saidigital.website:header-menu",
+              "data": {
+                "url": null,
+                "name": "SmartPrice",
+                "btnLabel": null,
+                "btnLink": null,
+                "linkContent": {
+                  "_path": "catalyzer/smartprice"
+                },
+                "btnLinkContent": null,
+                "image": null,
+                "icon": {
+                  "mediaUrl": "https://www.sai-digital.com/site/sai-website/master/_/attachment/inline/7ee6cd84-6a55-4de3-877b-fdf001f8ad9e:f786e8529435cdd5505ecde7b6efab4a280aa3cb/our-product-menu%20(4).svg"
+                },
+                "isGroup": false,
+                "child1name": null,
+                "child1icon": null,
+                "child1url": null,
+                "child2name": null,
+                "child2icon": null,
+                "child2url": null,
+                "child3name": null,
+                "child3icon": null,
+                "child3url": null
+              }
+            }
+          ]
+        },
+        {
+          "id": "49b19171-1c4e-406b-8f23-397e84d9642e",
+          "_name": "demo.jpg",
+          "type": "media:image",
+          "children": []
+        },
+        {
+          "id": "181db11b-943b-452d-8ef7-a816e7ea4e58",
+          "_name": "CA-1.svg",
+          "type": "media:vector",
+          "children": []
+        },
+        {
+          "id": "c2c7be66-1197-43ec-bf7e-cc137892d63f",
+          "_name": "CA.svg",
+          "type": "media:vector",
+          "children": []
+        },
+        {
+          "id": "35836767-e8f9-4feb-a9ad-16c32533ebcc",
+          "_name": "menu1.jpeg",
+          "type": "media:image",
+          "children": []
+        }
+      ]
+    },
+    {
+      "id": "2b15c843-906f-474f-95c1-d5563e1b7508",
+      "name": "our-work-copy-4",
+      "type": "com.saidigital.website:header-menu",
+      "data": {
+        "url": null,
+        "name": "Our Services",
+        "btnLabel": "All services",
+        "btnLink": null,
+        "linkContent": null,
+        "btnLinkContent": {
+          "_path": "services/all-services"
+        },
+        "image": null,
+        "icon": null,
+        "isGroup": null,
+        "child1name": null,
+        "child1icon": null,
+        "child1url": null,
+        "child2name": null,
+        "child2icon": null,
+        "child2url": null,
+        "child3name": null,
+        "child3icon": null,
+        "child3url": null
+      },
+      "children": [
+        {
+          "id": "a1131000-c631-4647-bf43-6cf9c5af66cb",
+          "_name": "services",
+          "type": "com.saidigital.website:header-menu",
+          "data": {
+            "url": null,
+            "name": "Our Services",
+            "btnLabel": null,
+            "btnLink": null,
+            "linkContent": {
+              "_path": "services/all-services"
+            },
+            "btnLinkContent": null,
+            "image": null,
+            "icon": null,
+            "isGroup": false,
+            "child1name": null,
+            "child1icon": null,
+            "child1url": null,
+            "child2name": null,
+            "child2icon": null,
+            "child2url": null,
+            "child3name": null,
+            "child3icon": null,
+            "child3url": null
+          },
+          "children": [
+            {
+              "id": "6a347164-584f-4304-b6bb-87bcca419304",
+              "_name": "artificial-intelligence",
+              "type": "com.saidigital.website:header-menu",
+              "data": {
+                "url": null,
+                "name": "Strategy & Design",
+                "btnLabel": null,
+                "btnLink": null,
+                "linkContent": {
+                  "_path": "services/all-services/strategy-design"
+                },
+                "btnLinkContent": null,
+                "image": null,
+                "icon": {
+                  "mediaUrl": "https://www.sai-digital.com/site/sai-website/master/_/attachment/inline/dd6b1d03-fe3c-4d49-baf4-c770bef3dd1a:826c9f2febeab8ca04a051919eddec92cb8a7af7/menu_01.svg"
+                },
+                "isGroup": true,
+                "child1name": "Commerce Strategy & Consulting",
+                "child1icon": {
+                  "mediaUrl": "https://www.sai-digital.com/site/sai-website/master/_/attachment/inline/a201b5d5-20df-4a5c-9d5b-d754cdc97c4d:062f4d6faf679cb69ea8503223c044d328b58deb/Document.svg"
+                },
+                "child1url": {
+                  "_path": "services/all-services/strategy-design/commerce-strategy-consulting"
+                },
+                "child2name": "Experience Design & Brand",
+                "child2icon": {
+                  "mediaUrl": "https://www.sai-digital.com/site/sai-website/master/_/attachment/inline/a201b5d5-20df-4a5c-9d5b-d754cdc97c4d:062f4d6faf679cb69ea8503223c044d328b58deb/Document.svg"
+                },
+                "child2url": {
+                  "_path": "services/all-services/strategy-design/experience-design-brand"
+                },
+                "child3name": "Marketing Strategy & Planning",
+                "child3icon": {
+                  "mediaUrl": "https://www.sai-digital.com/site/sai-website/master/_/attachment/inline/a201b5d5-20df-4a5c-9d5b-d754cdc97c4d:062f4d6faf679cb69ea8503223c044d328b58deb/Document.svg"
+                },
+                "child3url": {
+                  "_path": "services/all-services/strategy-design/marketing-strategy-planning"
+                }
+              }
+            },
+            {
+              "id": "024efced-4d18-4026-9983-52d1a3b705c7",
+              "_name": "creative",
+              "type": "com.saidigital.website:header-menu",
+              "data": {
+                "url": null,
+                "name": "Data & Analytics",
+                "btnLabel": null,
+                "btnLink": null,
+                "linkContent": {
+                  "_path": "services/all-services/data-analytics"
+                },
+                "btnLinkContent": null,
+                "image": null,
+                "icon": {
+                  "mediaUrl": "https://www.sai-digital.com/site/sai-website/master/_/attachment/inline/629e29a7-4106-4eab-b9dc-64b2119eabc0:23fdde0c23235730b0ba17003a623400637e2047/menu_02.svg"
+                },
+                "isGroup": true,
+                "child1name": "AI & Machine Learning Services",
+                "child1icon": {
+                  "mediaUrl": "https://www.sai-digital.com/site/sai-website/master/_/attachment/inline/629e29a7-4106-4eab-b9dc-64b2119eabc0:23fdde0c23235730b0ba17003a623400637e2047/menu_02.svg"
+                },
+                "child1url": {
+                  "_path": "services/all-services/data-analytics/ai-machine-learning-services"
+                },
+                "child2name": "Advanced Analytics & Forecasting",
+                "child2icon": {
+                  "mediaUrl": "https://www.sai-digital.com/site/sai-website/master/_/attachment/inline/629e29a7-4106-4eab-b9dc-64b2119eabc0:23fdde0c23235730b0ba17003a623400637e2047/menu_02.svg"
+                },
+                "child2url": {
+                  "_path": "services/all-services/data-analytics/advanced-analytics-forecasting"
+                },
+                "child3name": "Business Intelligence & Marketing Analytics",
+                "child3icon": {
+                  "mediaUrl": "https://www.sai-digital.com/site/sai-website/master/_/attachment/inline/629e29a7-4106-4eab-b9dc-64b2119eabc0:23fdde0c23235730b0ba17003a623400637e2047/menu_02.svg"
+                },
+                "child3url": {
+                  "_path": "services/all-services/data-analytics/business-intelligence-marketing-analytics"
+                }
+              }
+            },
+            {
+              "id": "93825339-dec8-4578-8517-42b6d1678335",
+              "_name": "creative-copy",
+              "type": "com.saidigital.website:header-menu",
+              "data": {
+                "url": null,
+                "name": "Enterprise Technology",
+                "btnLabel": null,
+                "btnLink": null,
+                "linkContent": {
+                  "_path": "services/all-services/enterprise-technology"
+                },
+                "btnLinkContent": null,
+                "image": null,
+                "icon": {
+                  "mediaUrl": "https://www.sai-digital.com/site/sai-website/master/_/attachment/inline/2039c28c-95a4-4991-a484-3f916a9708b1:fe9c27cfee43267437f54d8ab873b77bf8152c36/menu_03.svg"
+                },
+                "isGroup": true,
+                "child1name": "Commerce Platform Implementation",
+                "child1icon": {
+                  "mediaUrl": "https://www.sai-digital.com/site/sai-website/master/_/attachment/inline/2039c28c-95a4-4991-a484-3f916a9708b1:fe9c27cfee43267437f54d8ab873b77bf8152c36/menu_03.svg"
+                },
+                "child1url": {
+                  "_path": "services/all-services/enterprise-technology/commerce-platform-implementation"
+                },
+                "child2name": "Enterprise Systems Integration",
+                "child2icon": {
+                  "mediaUrl": "https://www.sai-digital.com/site/sai-website/master/_/attachment/inline/2039c28c-95a4-4991-a484-3f916a9708b1:fe9c27cfee43267437f54d8ab873b77bf8152c36/menu_03.svg"
+                },
+                "child2url": {
+                  "_path": "services/all-services/enterprise-technology/enterprise-systems-integration"
+                },
+                "child3name": "Cloud & Application Services",
+                "child3icon": {
+                  "mediaUrl": "https://www.sai-digital.com/site/sai-website/master/_/attachment/inline/2039c28c-95a4-4991-a484-3f916a9708b1:fe9c27cfee43267437f54d8ab873b77bf8152c36/menu_03.svg"
+                },
+                "child3url": {
+                  "_path": "services/all-services/enterprise-technology/cloud-application-services"
+                }
+              }
+            },
+            {
+              "id": "906348be-23ca-4035-8e25-45674370a5e0",
+              "_name": "creative-copy-2",
+              "type": "com.saidigital.website:header-menu",
+              "data": {
+                "url": null,
+                "name": "Commerce  & CX Operations",
+                "btnLabel": null,
+                "btnLink": null,
+                "linkContent": {
+                  "_path": "services/all-services/commerce-cx--operations"
+                },
+                "btnLinkContent": null,
+                "image": null,
+                "icon": {
+                  "mediaUrl": "https://www.sai-digital.com/site/sai-website/master/_/attachment/inline/146dc087-0285-435e-99e4-26577be41b9a:94d28a63e261fa1273e5e64b68f34ff874d1f80f/menu_04.svg"
+                },
+                "isGroup": true,
+                "child1name": "Commerce Operations ",
+                "child1icon": {
+                  "mediaUrl": "https://www.sai-digital.com/site/sai-website/master/_/attachment/inline/146dc087-0285-435e-99e4-26577be41b9a:94d28a63e261fa1273e5e64b68f34ff874d1f80f/menu_04.svg"
+                },
+                "child1url": {
+                  "_path": "services/all-services/commerce-cx--operations"
+                },
+                "child2name": "Creative Operations",
+                "child2icon": {
+                  "mediaUrl": "https://www.sai-digital.com/site/sai-website/master/_/attachment/inline/146dc087-0285-435e-99e4-26577be41b9a:94d28a63e261fa1273e5e64b68f34ff874d1f80f/menu_04.svg"
+                },
+                "child2url": {
+                  "_path": "services/all-services/commerce-cx--operations/creative-operations"
+                },
+                "child3name": "Marketing & AI Operations",
+                "child3icon": {
+                  "mediaUrl": "https://www.sai-digital.com/site/sai-website/master/_/attachment/inline/146dc087-0285-435e-99e4-26577be41b9a:94d28a63e261fa1273e5e64b68f34ff874d1f80f/menu_04.svg"
+                },
+                "child3url": {
+                  "_path": "services/all-services/commerce-cx--operations/marketing-ai-operations"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "id": "0573ee19-01ba-48a0-8203-810e778f0f14",
+          "_name": "industries",
+          "type": "com.saidigital.website:header-menu",
+          "data": {
+            "url": null,
+            "name": "Industries",
+            "btnLabel": null,
+            "btnLink": null,
+            "linkContent": {
+              "_path": "services/industries"
+            },
+            "btnLinkContent": null,
+            "image": null,
+            "icon": null,
+            "isGroup": false,
+            "child1name": null,
+            "child1icon": null,
+            "child1url": null,
+            "child2name": null,
+            "child2icon": null,
+            "child2url": null,
+            "child3name": null,
+            "child3icon": null,
+            "child3url": null
+          },
+          "children": [
+            {
+              "id": "a29d3a31-6f25-45db-95cd-089fd4e1076b",
+              "_name": "automotive",
+              "type": "com.saidigital.website:header-menu",
+              "data": {
+                "url": null,
+                "name": "Automotive",
+                "btnLabel": null,
+                "btnLink": null,
+                "linkContent": {
+                  "_path": "services/all-services/automotive"
+                },
+                "btnLinkContent": null,
+                "image": null,
+                "icon": {
+                  "mediaUrl": "https://www.sai-digital.com/site/sai-website/master/_/attachment/inline/1b4e88e4-e7b5-41bd-9fab-bf025124b0d4:244cb2437159b7fb37b0166b4b0397bdb29d8057/Automation(Black)1.svg"
+                },
+                "isGroup": null,
+                "child1name": null,
+                "child1icon": null,
+                "child1url": null,
+                "child2name": null,
+                "child2icon": null,
+                "child2url": null,
+                "child3name": null,
+                "child3icon": null,
+                "child3url": null
+              }
+            },
+            {
+              "id": "f9bc9be9-0ef7-4306-9080-5bac210f3033",
+              "_name": "banking-insurance-copy-18",
+              "type": "com.saidigital.website:header-menu",
+              "data": {
+                "url": null,
+                "name": "Banking & Insurance",
+                "btnLabel": null,
+                "btnLink": null,
+                "linkContent": {
+                  "_path": "services/all-services/banking-insurance"
+                },
+                "btnLinkContent": null,
+                "image": null,
+                "icon": {
+                  "mediaUrl": "https://www.sai-digital.com/site/sai-website/master/_/attachment/inline/c5ba2384-b52d-405a-a031-b810f6d0a0c8:7a53917e5aa04f4cc121ff8284dba88bd6c8c416/Banking(Black)1.svg"
+                },
+                "isGroup": null,
+                "child1name": null,
+                "child1icon": null,
+                "child1url": null,
+                "child2name": null,
+                "child2icon": null,
+                "child2url": null,
+                "child3name": null,
+                "child3icon": null,
+                "child3url": null
+              }
+            },
+            {
+              "id": "da25e621-6808-44a2-8b14-378fc184069b",
+              "_name": "banking-insurance-copy-20",
+              "type": "com.saidigital.website:header-menu",
+              "data": {
+                "url": null,
+                "name": "Chemicals",
+                "btnLabel": null,
+                "btnLink": null,
+                "linkContent": {
+                  "_path": "services/all-services/chemicals"
+                },
+                "btnLinkContent": null,
+                "image": null,
+                "icon": {
+                  "mediaUrl": "https://www.sai-digital.com/site/sai-website/master/_/attachment/inline/b8120088-fc07-4fd9-ae77-275121f62643:8a8d66c903b34a46d4f82748b156fd12bc7c219d/Chemical(Black)1.svg"
+                },
+                "isGroup": null,
+                "child1name": null,
+                "child1icon": null,
+                "child1url": null,
+                "child2name": null,
+                "child2icon": null,
+                "child2url": null,
+                "child3name": null,
+                "child3icon": null,
+                "child3url": null
+              }
+            },
+            {
+              "id": "b93b4b32-54ca-40b8-b2a0-e99b2da3201a",
+              "_name": "banking-insurance-copy-22",
+              "type": "com.saidigital.website:header-menu",
+              "data": {
+                "url": null,
+                "name": "Consumer Goods",
+                "btnLabel": null,
+                "btnLink": null,
+                "linkContent": {
+                  "_path": "services/all-services/consumer-goods"
+                },
+                "btnLinkContent": null,
+                "image": null,
+                "icon": {
+                  "mediaUrl": "https://www.sai-digital.com/site/sai-website/master/_/attachment/inline/5ad7f986-1131-45c5-a5f2-9d510660d78a:b448c239a3ed38a38c0141e23c991cbf56040cc2/Icon_ConsumerGoods.svg"
+                },
+                "isGroup": null,
+                "child1name": null,
+                "child1icon": null,
+                "child1url": null,
+                "child2name": null,
+                "child2icon": null,
+                "child2url": null,
+                "child3name": null,
+                "child3icon": null,
+                "child3url": null
+              }
+            },
+            {
+              "id": "7b48295a-96dd-4552-915c-2a185782a3a0",
+              "_name": "banking-insurance-copy-21",
+              "type": "com.saidigital.website:header-menu",
+              "data": {
+                "url": null,
+                "name": "Fashion & Lifestyle",
+                "btnLabel": null,
+                "btnLink": null,
+                "linkContent": {
+                  "_path": "services/all-services/fashion"
+                },
+                "btnLinkContent": null,
+                "image": null,
+                "icon": {
+                  "mediaUrl": "https://www.sai-digital.com/site/sai-website/master/_/attachment/inline/49c8e515-f647-40c2-95e8-eef477aeb772:7d0e8027b3cbad1f6a401c563d0b719566f1f1bb/Icon_Fashion.svg"
+                },
+                "isGroup": null,
+                "child1name": null,
+                "child1icon": null,
+                "child1url": null,
+                "child2name": null,
+                "child2icon": null,
+                "child2url": null,
+                "child3name": null,
+                "child3icon": null,
+                "child3url": null
+              }
+            },
+            {
+              "id": "e2b153e7-c32c-45a7-82e5-46c2a0fbca0c",
+              "_name": "banking-insurance-copy-15",
+              "type": "com.saidigital.website:header-menu",
+              "data": {
+                "url": null,
+                "name": "Health & Science",
+                "btnLabel": null,
+                "btnLink": null,
+                "linkContent": {
+                  "_path": "services/all-services/health-science"
+                },
+                "btnLinkContent": null,
+                "image": null,
+                "icon": {
+                  "mediaUrl": "https://www.sai-digital.com/site/sai-website/master/_/attachment/inline/4181d678-ad4d-4563-b055-25c00f9730e8:33fad3633e4dd0de71365c4d42d94e2aa2b2db13/Science(Black)1.svg"
+                },
+                "isGroup": null,
+                "child1name": null,
+                "child1icon": null,
+                "child1url": null,
+                "child2name": null,
+                "child2icon": null,
+                "child2url": null,
+                "child3name": null,
+                "child3icon": null,
+                "child3url": null
+              }
+            }
+          ]
+        },
+        {
+          "id": "448f4537-2f19-4e1c-b3ed-c3e3859deda0",
+          "_name": "solutions",
+          "type": "com.saidigital.website:header-menu",
+          "data": {
+            "url": null,
+            "name": "Partners",
+            "btnLabel": null,
+            "btnLink": null,
+            "linkContent": {
+              "_path": "partners"
+            },
+            "btnLinkContent": null,
+            "image": null,
+            "icon": null,
+            "isGroup": false,
+            "child1name": null,
+            "child1icon": null,
+            "child1url": null,
+            "child2name": null,
+            "child2icon": null,
+            "child2url": null,
+            "child3name": null,
+            "child3icon": null,
+            "child3url": null
+          },
+          "children": [
+            {
+              "id": "d7568271-b63d-4256-86d8-af8d7ed2d6d7",
+              "_name": "shopify-copy-2",
+              "type": "com.saidigital.website:header-menu",
+              "data": {
+                "url": null,
+                "name": "SAP",
+                "btnLabel": null,
+                "btnLink": null,
+                "linkContent": {
+                  "_path": "partners/sap"
+                },
+                "btnLinkContent": null,
+                "image": null,
+                "icon": null,
+                "isGroup": false,
+                "child1name": null,
+                "child1icon": null,
+                "child1url": null,
+                "child2name": null,
+                "child2icon": null,
+                "child2url": null,
+                "child3name": null,
+                "child3icon": null,
+                "child3url": null
+              }
+            },
+            {
+              "id": "7aa0a1e5-011c-4017-ae76-238814bcf942",
+              "_name": "shopify",
+              "type": "com.saidigital.website:header-menu",
+              "data": {
+                "url": null,
+                "name": "Shopify Plus",
+                "btnLabel": null,
+                "btnLink": null,
+                "linkContent": {
+                  "_path": "partners/shopify-plus"
+                },
+                "btnLinkContent": null,
+                "image": null,
+                "icon": null,
+                "isGroup": false,
+                "child1name": null,
+                "child1icon": null,
+                "child1url": null,
+                "child2name": null,
+                "child2icon": null,
+                "child2url": null,
+                "child3name": null,
+                "child3icon": null,
+                "child3url": null
+              }
+            },
+            {
+              "id": "aa8ef8ad-39ae-496d-94f4-e8bec9d5de43",
+              "_name": "shopify-copy",
+              "type": "com.saidigital.website:header-menu",
+              "data": {
+                "url": null,
+                "name": "Sitecore",
+                "btnLabel": null,
+                "btnLink": null,
+                "linkContent": {
+                  "_path": "partners/site-core"
+                },
+                "btnLinkContent": null,
+                "image": null,
+                "icon": null,
+                "isGroup": false,
+                "child1name": null,
+                "child1icon": null,
+                "child1url": null,
+                "child2name": null,
+                "child2icon": null,
+                "child2url": null,
+                "child3name": null,
+                "child3icon": null,
+                "child3url": null
+              }
+            },
+            {
+              "id": "decf67fc-a436-4b1e-936e-64f3a54453c8",
+              "_name": "shopify-copy-3",
+              "type": "com.saidigital.website:header-menu",
+              "data": {
+                "url": null,
+                "name": "Stripe",
+                "btnLabel": null,
+                "btnLink": null,
+                "linkContent": {
+                  "_path": "partners/Stripe"
+                },
+                "btnLinkContent": null,
+                "image": null,
+                "icon": null,
+                "isGroup": false,
+                "child1name": null,
+                "child1icon": null,
+                "child1url": null,
+                "child2name": null,
+                "child2icon": null,
+                "child2url": null,
+                "child3name": null,
+                "child3icon": null,
+                "child3url": null
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "f1ba517d-9a09-4f27-b9c6-8a7ac6b06de4",
+      "name": "our-work-copy-2",
+      "type": "com.saidigital.website:header-menu",
+      "data": {
+        "url": null,
+        "name": "Insights",
+        "btnLabel": "All insights",
+        "btnLink": null,
+        "linkContent": null,
+        "btnLinkContent": {
+          "_path": "insights"
+        },
+        "image": null,
+        "icon": null,
+        "isGroup": null,
+        "child1name": null,
+        "child1icon": null,
+        "child1url": null,
+        "child2name": null,
+        "child2icon": null,
+        "child2url": null,
+        "child3name": null,
+        "child3icon": null,
+        "child3url": null
+      },
+      "children": [
+        {
+          "id": "79bfa34c-58eb-47ba-853a-100189c63a06",
+          "_name": "insights",
+          "type": "com.saidigital.website:header-menu",
+          "data": {
+            "url": null,
+            "name": "Insights",
+            "btnLabel": null,
+            "btnLink": null,
+            "linkContent": {
+              "_path": "insights"
+            },
+            "btnLinkContent": null,
+            "image": null,
+            "icon": null,
+            "isGroup": false,
+            "child1name": null,
+            "child1icon": null,
+            "child1url": null,
+            "child2name": null,
+            "child2icon": null,
+            "child2url": null,
+            "child3name": null,
+            "child3icon": null,
+            "child3url": null
+          },
+          "children": [
+            {
+              "id": "11e0bebe-2c64-40b5-8525-2a6c3c25391e",
+              "_name": "blog-copy-2",
+              "type": "com.saidigital.website:header-menu",
+              "data": {
+                "url": null,
+                "name": "Webinars",
+                "btnLabel": null,
+                "btnLink": null,
+                "linkContent": {
+                  "_path": "webinars"
+                },
+                "btnLinkContent": null,
+                "image": null,
+                "icon": {
+                  "mediaUrl": "https://www.sai-digital.com/site/sai-website/master/_/attachment/inline/0fcbea7b-cfc1-4f3e-b10a-59833d71d4fa:1d1cd0cd29101fb6297cb4b8a722ead480fd5b71/Webinar(Black)1.svg"
+                },
+                "isGroup": null,
+                "child1name": null,
+                "child1icon": null,
+                "child1url": null,
+                "child2name": null,
+                "child2icon": null,
+                "child2url": null,
+                "child3name": null,
+                "child3icon": null,
+                "child3url": null
+              }
+            },
+            {
+              "id": "05d4ce7e-bd23-4bf0-a28c-2a5407430e83",
+              "_name": "blog-copy-3",
+              "type": "com.saidigital.website:header-menu",
+              "data": {
+                "url": null,
+                "name": "Announcements",
+                "btnLabel": null,
+                "btnLink": null,
+                "linkContent": {
+                  "_path": "announcements"
+                },
+                "btnLinkContent": null,
+                "image": null,
+                "icon": {
+                  "mediaUrl": "https://www.sai-digital.com/site/sai-website/master/_/attachment/inline/e06aa557-c40e-4f0b-931f-bc0d60b973fc:a764bb92a64d77c7ed6a262dc4baaadae5b4a9a6/Annoucement(Black)1.svg"
+                },
+                "isGroup": null,
+                "child1name": null,
+                "child1icon": null,
+                "child1url": null,
+                "child2name": null,
+                "child2icon": null,
+                "child2url": null,
+                "child3name": null,
+                "child3icon": null,
+                "child3url": null
+              }
+            },
+            {
+              "id": "50dab8b4-ed18-448d-b97e-cabb79addae4",
+              "_name": "blog",
+              "type": "com.saidigital.website:header-menu",
+              "data": {
+                "url": null,
+                "name": "White Papers",
+                "btnLabel": null,
+                "btnLink": null,
+                "linkContent": {
+                  "_path": "white-papers"
+                },
+                "btnLinkContent": null,
+                "image": null,
+                "icon": {
+                  "mediaUrl": "https://www.sai-digital.com/site/sai-website/master/_/attachment/inline/f6388e8d-73d9-40bb-838a-cb9ad94a85d5:c4f2bcb40d1e63d413ec806fe694844b40d72687/WhitePaper(Black)1.svg"
+                },
+                "isGroup": null,
+                "child1name": null,
+                "child1icon": null,
+                "child1url": null,
+                "child2name": null,
+                "child2icon": null,
+                "child2url": null,
+                "child3name": null,
+                "child3icon": null,
+                "child3url": null
+              }
+            },
+            {
+              "id": "5e554d5c-89b2-48d9-8acc-2038403455b0",
+              "_name": "blog-copy",
+              "type": "com.saidigital.website:header-menu",
+              "data": {
+                "url": null,
+                "name": "Blog",
+                "btnLabel": null,
+                "btnLink": null,
+                "linkContent": {
+                  "_path": "blog"
+                },
+                "btnLinkContent": null,
+                "image": null,
+                "icon": {
+                  "mediaUrl": "https://www.sai-digital.com/site/sai-website/master/_/attachment/inline/8cfc61b9-c536-42c0-a473-ce627bd9853f:218f39e595d53f1dd2067f1c0f08b6c4f3f6bc14/Blog(Black)1.svg"
+                },
+                "isGroup": null,
+                "child1name": null,
+                "child1icon": null,
+                "child1url": null,
+                "child2name": null,
+                "child2icon": null,
+                "child2url": null,
+                "child3name": null,
+                "child3icon": null,
+                "child3url": null
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "c335d8aa-397b-4b55-836c-9cbb4cf8fe19",
+      "name": "our-work-copy",
+      "type": "com.saidigital.website:header-menu",
+      "data": {
+        "url": null,
+        "name": "Company",
+        "btnLabel": null,
+        "btnLink": null,
+        "linkContent": null,
+        "btnLinkContent": null,
+        "image": {
+          "mediaUrl": "https://www.sai-digital.com/site/sai-website/master/_/attachment/inline/17c3ad25-6965-4efd-8437-1a67cab64791:1287e31fae126165a295666fa09fc80a7279404d/menu-company.jpg"
+        },
+        "icon": null,
+        "isGroup": null,
+        "child1name": null,
+        "child1icon": null,
+        "child1url": null,
+        "child2name": null,
+        "child2icon": null,
+        "child2url": null,
+        "child3name": null,
+        "child3icon": null,
+        "child3url": null
+      },
+      "children": [
+        {
+          "id": "e07e90c4-7d7c-4b5c-8d51-50bd42fb2b48",
+          "_name": "menu-company.jpg",
+          "type": "media:image",
+          "children": []
+        },
+        {
+          "id": "893f0495-ee93-4e8b-8c2b-5a0a628cee00",
+          "_name": "company",
+          "type": "com.saidigital.website:header-menu",
+          "data": {
+            "url": null,
+            "name": "Company",
+            "btnLabel": null,
+            "btnLink": null,
+            "linkContent": null,
+            "btnLinkContent": null,
+            "image": null,
+            "icon": null,
+            "isGroup": null,
+            "child1name": null,
+            "child1icon": null,
+            "child1url": null,
+            "child2name": null,
+            "child2icon": null,
+            "child2url": null,
+            "child3name": null,
+            "child3icon": null,
+            "child3url": null
+          },
+          "children": [
+            {
+              "id": "6bc645ed-a7bc-4228-abc1-bfc2682e1b1e",
+              "_name": "our-value",
+              "type": "com.saidigital.website:header-menu",
+              "data": {
+                "url": null,
+                "name": "About us",
+                "btnLabel": null,
+                "btnLink": null,
+                "linkContent": {
+                  "_path": "company"
+                },
+                "btnLinkContent": null,
+                "image": null,
+                "icon": {
+                  "mediaUrl": "https://www.sai-digital.com/site/sai-website/master/_/attachment/inline/e48d049f-7199-4878-b459-c1d3e05483c6:b3c9f88064f0795238594e9b26ee6070bdb7fc9b/Company(Black)1.svg"
+                },
+                "isGroup": null,
+                "child1name": null,
+                "child1icon": null,
+                "child1url": null,
+                "child2name": null,
+                "child2icon": null,
+                "child2url": null,
+                "child3name": null,
+                "child3icon": null,
+                "child3url": null
+              }
+            },
+            {
+              "id": "abc78f16-6756-4992-9a0e-e5a2c8b63a1a",
+              "_name": "our-value-copy",
+              "type": "com.saidigital.website:header-menu",
+              "data": {
+                "url": null,
+                "name": "Careers",
+                "btnLabel": null,
+                "btnLink": null,
+                "linkContent": {
+                  "_path": "career"
+                },
+                "btnLinkContent": null,
+                "image": null,
+                "icon": {
+                  "mediaUrl": "https://www.sai-digital.com/site/sai-website/master/_/attachment/inline/35e22b16-4670-4b79-8d76-1f3ff979e351:050e2a1cc1b66221af73f0f0c79470994315d5a3/Career(Black)1.svg"
+                },
+                "isGroup": null,
+                "child1name": null,
+                "child1icon": null,
+                "child1url": null,
+                "child2name": null,
+                "child2icon": null,
+                "child2url": null,
+                "child3name": null,
+                "child3icon": null,
+                "child3url": null
+              }
+            },
+            {
+              "id": "d8687f46-36e3-46e0-b9a4-85826e99328f",
+              "_name": "our-value-copy-2",
+              "type": "com.saidigital.website:header-menu",
+              "data": {
+                "url": null,
+                "name": "Our People",
+                "btnLabel": null,
+                "btnLink": null,
+                "linkContent": {
+                  "_path": "people"
+                },
+                "btnLinkContent": null,
+                "image": null,
+                "icon": {
+                  "mediaUrl": "https://www.sai-digital.com/site/sai-website/master/_/attachment/inline/312f6b17-5971-4e77-8488-d65356ee70b7:725fee4b04f6a87e95c9a89300d579dea87694cd/People(Black)1.svg"
+                },
+                "isGroup": null,
+                "child1name": null,
+                "child1icon": null,
+                "child1url": null,
+                "child2name": null,
+                "child2icon": null,
+                "child2url": null,
+                "child3name": null,
+                "child3icon": null,
+                "child3url": null
+              }
+            },
+            {
+              "id": "6310dc06-90b6-4c1b-ae54-91b8d01ec354",
+              "_name": "our-offices",
+              "type": "com.saidigital.website:header-menu",
+              "data": {
+                "url": "https://www.sai-digital.com/contact-us?sel=offices",
+                "name": "Our Offices",
+                "btnLabel": null,
+                "btnLink": null,
+                "linkContent": null,
+                "btnLinkContent": null,
+                "image": null,
+                "icon": {
+                  "mediaUrl": "https://www.sai-digital.com/site/sai-website/master/_/attachment/inline/6c5cc863-0ebf-4a48-bf9b-6a5205c2245a:5b349ec3c3264149265410bd28a6b856940442bf/2b46daf2-65c6-43fb-ac9b-075c98b12c9d.svg"
+                },
+                "isGroup": null,
+                "child1name": null,
+                "child1icon": null,
+                "child1url": null,
+                "child2name": null,
+                "child2icon": null,
+                "child2url": null,
+                "child3name": null,
+                "child3icon": null,
+                "child3url": null
+              }
+            }
+          ]
+        },
+        {
+          "id": "17c3ad25-6965-4efd-8437-1a67cab64791",
+          "_name": "demo-1.jpg",
+          "type": "media:image",
+          "children": []
+        }
+      ]
+    }
+  ]
+}
