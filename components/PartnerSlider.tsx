@@ -3,23 +3,23 @@
 import React from 'react';
 
 const partnersRow1 = [
-  { name: 'SAP Silver', logo: '/assets/logo_sapsilver.svg' },
-  { name: 'Sitecore', logo: '/assets/Logo_Brands-4.png' },
-  { name: 'Magento', logo: '/assets/Logo_Brands-7.png' },
-  { name: 'Qualtrics', logo: '/assets/Logo_Brands-6.png' },
   { name: 'Shopify', logo: '/assets/Logo_Brands-8.png' },
-  { name: 'Salesforce', logo: '/assets/Logo_Brands-9.png' },
+  { name: 'Stripe', logo: '/assets/Logo_Brands-5.png' },
+  { name: 'TikTok Shop', logo: '/assets/Logo_Brands-4.png' },
+  { name: 'Amazon', logo: '/assets/Logo_Brands-7.png' },
+  { name: 'eBay', logo: '/assets/Logo_Brands-6.png' },
+  { name: 'Etsy', logo: '/assets/Logo_Brands-9.png' },
   { name: 'Klaviyo', logo: '/assets/Logo_Brands-1.png' },
 ];
 
 const partnersRow2 = [
-  { name: 'Emarsys', logo: '/assets/Logo_Brands-3.png' },
-  { name: 'Stripe', logo: '/assets/Logo_Brands-5.png' },
-  { name: 'Microsoft Dynamics 365', logo: '/assets/Logo_Brands-10.png' },
-  { name: 'Adobe', logo: '/assets/Logo_Brands-11.png' },
-  { name: 'OutSystems', logo: '/assets/Logo_Brands-12.png' },
-  { name: 'AppSheet', logo: '/assets/Logo_Brands-13.png' },
-  { name: 'commercetools', logo: '/assets/logo_commercetools.svg' },
+  { name: 'Meta Ads', logo: '/assets/Logo_Brands-3.png' },
+  { name: 'Google Ads', logo: '/assets/Logo_Brands-10.png' },
+  { name: 'WooCommerce', logo: '/assets/Logo_Brands-11.png' },
+  { name: 'USPS', logo: '/assets/Logo_Brands-12.png' },
+  { name: 'FedEx', logo: '/assets/Logo_Brands-13.png' },
+  { name: 'DHL Express', logo: '/assets/logo_sapsilver.svg' },
+  { name: 'Printify Network', logo: '/assets/logo_commercetools.svg' },
 ];
 
 export default function PartnerSlider() {

@@ -12,45 +12,46 @@ interface NavItem {
 }
 
 const NAV_ITEMS: NavItem[] = [
-  { label: 'Our Work', href: '/our-work' },
   {
-    label: 'Our Products',
-    href: '/smartcommerce',
-    children: [
-      { label: 'SmartCX', href: '/smartcommerce', desc: '40+ intelligent commerce modules' },
-      { label: 'SpeedX', href: '/speedx', desc: 'Headless accelerator for enterprise commerce' },
-      { label: 'Smart Loyalty', href: '/smartcommerce', desc: 'AI-driven loyalty & retention' },
-    ],
-  },
-  {
-    label: 'Our Services',
+    label: 'Solutions',
     href: '/services/all-services',
     children: [
-      { label: 'All Services', href: '/services/all-services', desc: 'Complete CX transformation capabilities' },
-      { label: 'Strategy & Design', href: '/services/all-services', desc: 'Commerce strategy & experience design' },
-      { label: 'Data & Analytics', href: '/services/all-services', desc: 'AI, machine learning & predictive analytics' },
-      { label: 'Enterprise Technology', href: '/services/all-services', desc: 'Platform implementation & cloud integration' },
-      { label: 'Commerce & CX Operations', href: '/services/all-services', desc: '24/7 commerce & marketing AI operations' },
+      { label: 'All Capabilities', href: '/services/all-services', desc: 'End-to-end e-commerce growth ecosystem' },
+      { label: 'US POD Fulfillment', href: '/speedx', desc: '24H production, 23-inch print from $6' },
+      { label: 'Sales Automation', href: '/smartcommerce', desc: 'Real-time multi-channel sync' },
+      { label: 'Performance Digital Ads', href: '/services/all-services', desc: 'ROAS 4.8x paid conversion campaigns' },
     ],
   },
+  {
+    label: 'Products',
+    href: '/smartcommerce',
+    children: [
+      { label: 'Eweb-platform', href: '/smartcommerce', desc: 'Central store, WMS & billing dashboard' },
+      { label: 'Eweb-character', href: '/speedx', desc: 'AI order normalization & 24h POD engine' },
+      { label: 'Eweb-builder', href: '/smartcommerce', desc: 'High-converting international storefronts' },
+    ],
+  },
+  { label: 'Case Studies', href: '/our-work' },
+  { label: 'Partners', href: '/partners' },
   {
     label: 'Insights',
     href: '/insights',
     children: [
-      { label: 'All Insights', href: '/insights', desc: 'Latest articles, whitepapers & trends' },
-      { label: 'Concentrix Acquisition', href: '/articles/Concentrix-Acquires-SAI-Digital', desc: 'Strengthening APAC tech capabilities' },
-      { label: 'MACH Architecture Guide', href: '/insights', desc: 'Composable enterprise architecture' },
-      { label: 'Scaling with Shopify Plus', href: '/insights', desc: 'Modern enterprise migration playbooks' },
+      { label: 'All Insights', href: '/insights', desc: 'Cross-border playbooks & market trends' },
+      { label: 'Global Market Expansion', href: '/articles/global-market-expansion-cross-border-ecommerce', desc: 'Scale sustainably across US & Europe' },
+      { label: 'TikTok Shop US Compliance', href: '/articles/tiktok-shop-us-compliance-sub-24h-pod-fulfillment', desc: 'Fast dispatch SLA & account safety' },
+      { label: 'WMS Barcode & Sync', href: '/articles/wms-barcode-real-time-multi-channel-sync', desc: '99.9% inventory precision & zero stockouts' },
     ],
   },
   {
     label: 'Company',
     href: '/company',
     children: [
-      { label: 'About Us', href: '/company', desc: 'Our mission, vision & leadership' },
-      { label: 'Careers', href: '/career', desc: 'Join our world-class engineering team' },
-      { label: 'Testimonials', href: '/testimonial', desc: 'What global enterprise leaders say' },
-      { label: 'Partners', href: '/partners', desc: 'Certified strategic tech ecosystems' },
+      { label: 'About Us', href: '/company', desc: 'Our mission, scale & Buon Ma Thuot HQ' },
+      { label: 'Our People', href: '/people', desc: 'Meet the leaders and experts behind our success' },
+      { label: 'Careers', href: '/career', desc: 'Join our engineering & ops team' },
+      { label: 'Testimonials', href: '/testimonial', desc: 'Voices of global sellers' },
+      { label: 'Contact Us', href: '/contact-us', desc: 'Get free consultation' },
     ],
   },
 ];
@@ -95,9 +96,9 @@ export default function Header() {
           {/* Logo */}
           <Link href="/" className="flex items-center shrink-0 transition-opacity hover:opacity-90">
             <img
-              src="/assets/SAI_CNX_2026_logo.svg"
-              alt="SAI Digital | A Concentrix Company"
-              className="h-7 sm:h-8 md:h-9 w-auto object-contain"
+              src="https://egeadcompany.com/images/egead/logo.png"
+              alt="E-GEAD — Automate Operations, Scale Global Sales"
+              className="h-8 sm:h-9 md:h-10 w-auto object-contain"
             />
           </Link>
 

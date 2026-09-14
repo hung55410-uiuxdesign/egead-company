@@ -19,16 +19,17 @@ const montserrat = Montserrat({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://www.sai-digital.com'),
-  title: 'SAI Digital: Innovative Solutions for Your Business Success Online',
-  description: 'Unlock your business potential with SAI Digital innovative online solutions. Elevate your brand, enhance customer engagement, and drive success today! A Concentrix Company.',
+  metadataBase: new URL('https://egeadcompany.com'),
+  title: 'E-GEAD — Automate Operations, Scale Global Sales',
+  description: 'Unify order management across every channel, automate multi-marketplace workflows, and synchronize inventory in real time — cutting costs while accelerating revenue growth.',
   icons: {
-    icon: '/assets/icon.svg',
+    icon: 'https://egeadcompany.com/images/egead/logo.png',
   },
   openGraph: {
-    title: 'SAI Digital | A Concentrix Company',
-    description: 'We help leading enterprises design, build, run, and grow intelligent customer experiences.',
-    images: ['/assets/smartcx-2.png'],
+    title: 'E-GEAD — Automate Operations, Scale Global Sales',
+    description: 'Unify order management across every channel, automate multi-marketplace workflows, and synchronize inventory in real time — cutting costs while accelerating revenue growth.',
+    images: ['https://egeadcompany.com/images/egead/logo.png'],
+    siteName: 'E-GEAD',
   },
 };
 

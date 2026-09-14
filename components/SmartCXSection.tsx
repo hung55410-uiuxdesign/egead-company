@@ -19,19 +19,19 @@ export default function SmartCXSection() {
 
         {/* Title */}
         <h2 className="text-3xl sm:text-5xl lg:text-[54px] font-bold tracking-tight leading-[1.15] text-white font-rubik max-w-4xl">
-          <span className="text-[#25E2CC]">Intelligent solutions</span> for specific challenges.
+          <span className="text-[#25E2CC]">Intelligent automation</span> for global commerce.
         </h2>
 
         {/* Description */}
         <p className="mt-6 text-sm sm:text-base md:text-lg text-[#8C8C8C] font-normal leading-relaxed font-montserrat max-w-3xl mx-auto">
-          40+ intelligent modules built from 15 years of enterprise commerce experience. Each addresses specific challenges with measurable impact: 93% demand forecasting accuracy, real-time dynamic pricing, inventory optimization. Built into your operations from day one, refined continuously based on your data.
+          Proprietary software suite engineered for high-velocity global sellers. Connect multiple storefronts, automate order dispatching, eliminate fulfillment errors with 99.9% barcode accuracy, and track net profit margins in real time.
         </p>
 
         {/* Large Center Diagram Graphic */}
         <div className="w-full max-w-5xl my-10 sm:my-14 flex justify-center">
           <img
             src="/assets/smartcx-2.png"
-            alt="SmartCX Architecture"
+            alt="Eweb Suite Architecture"
             className="w-full h-auto object-contain drop-shadow-[0_20px_50px_rgba(0,0,0,0.8)]"
           />
         </div>
@@ -45,7 +45,7 @@ export default function SmartCXSection() {
             <svg width="15" height="15" viewBox="0 0 19 18" fill="none" xmlns="http://www.w3.org/2000/svg" className="fill-[#003D5B]">
               <path d="M15.125 10.875L10.625 15.375L9.56 14.31L12.2525 11.625H3.875V2.625H5.375V10.125H12.2525L9.56 7.44L10.625 6.375L15.125 10.875Z" />
             </svg>
-            <span>Discover SmartCX</span>
+            <span>Discover Eweb Suite</span>
           </Link>
         </div>
       </div>

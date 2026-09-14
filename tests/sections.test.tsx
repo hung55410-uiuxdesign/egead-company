@@ -21,6 +21,9 @@ import {
   TransformationMatrix,
   CaseStudiesPortfolio,
   PlaybookDownloads,
+  EcosystemMatrix,
+  IntegrationBridgeVisualizer,
+  EcosystemHeroGraphic,
 } from '../components/sections';
 import type {
   BentoItem,
@@ -48,12 +51,15 @@ import type {
   TransformationMatrixProps,
   CaseStudiesPortfolioProps,
   PlaybookDownloadsProps,
+  EcosystemMatrixProps,
+  IntegrationBridgeVisualizerProps,
+  EcosystemHeroGraphicProps,
 } from '../components/sections';
 
-describe('Phase 1, 2, 3, 4 & 5 Components Verification', () => {
+describe('Phase 1, 2, 3, 4, 5 & 6 Components Verification', () => {
 
   describe('Module Exports', () => {
-    test('all 19 section components are exported and defined', () => {
+    test('all 22 section components are exported and defined', () => {
       expect(BentoGrid).toBeDefined();
       expect(typeof BentoGrid).toBe('function');
 
@@ -110,6 +116,15 @@ describe('Phase 1, 2, 3, 4 & 5 Components Verification', () => {
 
       expect(PlaybookDownloads).toBeDefined();
       expect(typeof PlaybookDownloads).toBe('function');
+
+      expect(EcosystemMatrix).toBeDefined();
+      expect(typeof EcosystemMatrix).toBe('function');
+
+      expect(IntegrationBridgeVisualizer).toBeDefined();
+      expect(typeof IntegrationBridgeVisualizer).toBe('function');
+
+      expect(EcosystemHeroGraphic).toBeDefined();
+      expect(typeof EcosystemHeroGraphic).toBe('function');
     });
   });
 
@@ -675,6 +690,61 @@ describe('Phase 1, 2, 3, 4 & 5 Components Verification', () => {
     });
   });
 
+  describe('EcosystemMatrix Component', () => {
+    test('renders category tabs and partner cards with accessibility tags', () => {
+      const html = renderToStaticMarkup(
+        <EcosystemMatrix id="custom-ecosystem" className="custom-ecosystem-class" />
+      );
+
+      expect(html).toContain('id="custom-ecosystem"');
+      expect(html).toContain('custom-ecosystem-class');
+      expect(html).toContain('role="region"');
+      expect(html).toContain('role="tablist"');
+      expect(html).toContain('role="tab"');
+      expect(html).toContain('role="tabpanel"');
+      expect(html).toContain('aria-live="polite"');
+      expect(html).toContain('TikTok Shop US');
+      expect(html).toContain('Amazon Global Selling');
+      expect(html).toContain('Shopify &amp; Shopify Plus');
+    });
+  });
+
+  describe('IntegrationBridgeVisualizer Component', () => {
+    test('renders 4 interactive pipeline stages and sample telemetry', () => {
+      const html = renderToStaticMarkup(
+        <IntegrationBridgeVisualizer id="custom-bridge" className="custom-bridge-class" />
+      );
+
+      expect(html).toContain('id="custom-bridge"');
+      expect(html).toContain('custom-bridge-class');
+      expect(html).toContain('role="region"');
+      expect(html).toContain('role="tablist"');
+      expect(html).toContain('role="tab"');
+      expect(html).toContain('role="tabpanel"');
+      expect(html).toContain('aria-live="polite"');
+      expect(html).toContain('Input Rails: Omnichannel Ingestion');
+      expect(html).toContain('Security Gateway: Idempotency &amp; Auth');
+      expect(html).toContain('Execution Core: WMS &amp; Postal Intelligence');
+      expect(html).toContain('Output Rails: Tracking &amp; Ledger Settlement');
+      expect(html).toContain('Telemetry Payload Event');
+    });
+  });
+
+  describe('EcosystemHeroGraphic Component', () => {
+    test('renders topology mesh nodes and live status indicators', () => {
+      const html = renderToStaticMarkup(
+        <EcosystemHeroGraphic className="custom-hero-graphic" />
+      );
+
+      expect(html).toContain('custom-hero-graphic');
+      expect(html).toContain('role="region"');
+      expect(html).toContain('Global Commerce Mesh');
+      expect(html).toContain('TikTok Shop US');
+      expect(html).toContain('Amazon SP-API');
+      expect(html).toContain('E-GEAD Core Orchestration Highway');
+    });
+  });
+
   describe('Type Definition Verification', () => {
     test('TypeScript interface contract assignments compile correctly', () => {
       const bentoProps: BentoGridProps = {
@@ -749,6 +819,17 @@ describe('Phase 1, 2, 3, 4 & 5 Components Verification', () => {
         id: 'playbook',
         className: 'playbook-class',
       };
+      const ecosystemProps: EcosystemMatrixProps = {
+        id: 'eco',
+        className: 'eco-class',
+      };
+      const bridgeProps: IntegrationBridgeVisualizerProps = {
+        id: 'bridge',
+        className: 'bridge-class',
+      };
+      const heroGraphicProps: EcosystemHeroGraphicProps = {
+        className: 'graphic-class',
+      };
 
       expect(bentoProps.title).toBe('Title');
       expect(metricsProps.metrics).toBeArray();
@@ -769,6 +850,9 @@ describe('Phase 1, 2, 3, 4 & 5 Components Verification', () => {
       expect(matrixProps.id).toBe('matrix');
       expect(portfolioProps.className).toBe('portfolio-class');
       expect(playbookProps.id).toBe('playbook');
+      expect(ecosystemProps.id).toBe('eco');
+      expect(bridgeProps.id).toBe('bridge');
+      expect(heroGraphicProps.className).toBe('graphic-class');
     });
   });
 });

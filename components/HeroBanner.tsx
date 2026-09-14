@@ -51,17 +51,17 @@ export default function HeroBanner() {
       <div className="relative z-10 w-full flex items-center justify-between pt-2 sm:pt-4">
         <div className="hidden sm:block w-32 shrink-0"></div>
 
-        {/* Center: Concentrix Announcement Pill */}
+        {/* Center: US POD Announcement Pill */}
         <div className="mx-auto sm:mx-0">
           <Link
-            href="/articles/Concentrix-Acquires-SAI-Digital"
+            href="/speedx"
             className="group inline-flex items-center gap-2 px-4 sm:px-5 py-1.5 rounded-full bg-[#d3f9f5]/10 hover:bg-[#d3f9f5]/20 backdrop-blur-md border border-[#d3f9f5]/30 text-white text-[11px] sm:text-xs tracking-wider uppercase font-medium transition shadow-lg"
           >
             <img src="/assets/icon.svg" alt="" className="w-3.5 h-3.5 object-contain" />
             <span>
-              SAI DIGITAL IS NOW A{' '}
+              US PRINT-ON-DEMAND ·{' '}
               <span className="underline decoration-[#25E2CC] font-bold text-white group-hover:text-[#25E2CC] transition">
-                CONCENTRIX COMPANY
+                FULFILLED IN UNDER 24 HOURS
               </span>
             </span>
           </Link>
@@ -79,13 +79,13 @@ export default function HeroBanner() {
       {/* Main Hero Typography: Full Width bottom-left */}
       <div className="relative z-10 w-full mb-12 sm:mb-16">
         <h1 className="font-montserrat font-bold text-4xl sm:text-6xl md:text-7xl lg:text-[76px] tracking-tight uppercase leading-[1.08] text-white max-w-5xl">
-          BUILD <span className="text-[#25E2CC]">FASTER.</span>
+          AUTOMATE <span className="text-[#25E2CC]">OPERATIONS.</span>
           <br />
-          RUN <span className="text-[#25E2CC]">SMARTER.</span> SCALE <span className="text-[#25E2CC]">GLOBALLY.</span>
+          SCALE <span className="text-[#25E2CC]">GLOBAL SALES.</span>
         </h1>
 
         <p className="mt-4 sm:mt-5 text-sm sm:text-base md:text-lg text-[#b3b3b3] font-normal max-w-3xl leading-relaxed font-montserrat">
-          We help leading enterprises design, build, run, and grow intelligent experiences
+          Unify order management across every channel, automate multi-marketplace workflows, and synchronize inventory in real time — cutting costs while accelerating revenue growth.
         </p>
       </div>
 

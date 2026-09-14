@@ -55,4 +55,14 @@ export type { CaseStudiesPortfolioProps, CaseStudyItem } from './CaseStudiesPort
 export { PlaybookDownloads } from './PlaybookDownloads';
 export type { PlaybookDownloadsProps, PlaybookResource } from './PlaybookDownloads';
 
+export { EcosystemMatrix } from './EcosystemMatrix';
+export type { EcosystemMatrixProps, EcosystemPartner } from './EcosystemMatrix';
+
+export { IntegrationBridgeVisualizer } from './IntegrationBridgeVisualizer';
+export type { IntegrationBridgeVisualizerProps, BridgeStage } from './IntegrationBridgeVisualizer';
+
+export { EcosystemHeroGraphic } from './EcosystemHeroGraphic';
+export type { EcosystemHeroGraphicProps } from './EcosystemHeroGraphic';
+
+
 

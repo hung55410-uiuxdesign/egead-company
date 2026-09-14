@@ -5,32 +5,32 @@ import Link from 'next/link';
 
 const caseStudies = [
   {
-    client: 'Suntory',
-    title: 'A global beverage and wellness company',
-    desc: 'Multi-channel experience and optimized customer engagement.',
-    bg: '/assets/case_suntory.jpg',
-    href: '/case-studies/multi-channel-experience-and-optimized-customer-engagement',
+    client: 'UrbanVibe',
+    title: 'Under-24H POD fulfillment for TikTok Shop US',
+    desc: 'Maintained 0% Late Dispatch Rate (LDR) and 100% account compliance during high-volume Q4 campaigns.',
+    bg: 'https://egeadcompany.com/images/egead/why/us-pod.png',
+    href: '/our-work',
   },
   {
-    client: 'Brother',
-    title: 'An international printing and electronics solutions company',
-    desc: 'Building a global consolidated experience.',
-    bg: '/assets/case_brother.jpg',
-    href: '/case-studies/building-a-global-consolidated-experience',
+    client: 'HomeCraft',
+    title: 'Automated multi-channel order & inventory sync',
+    desc: 'Eliminated stockouts and manual spreadsheet errors across Amazon, Etsy, and Shopify stores.',
+    bg: 'https://egeadcompany.com/images/egead/why/sync.png',
+    href: '/our-work',
   },
   {
-    client: 'Weir',
-    title: 'A global mining equipment and mineral processing solutions company',
-    desc: 'Digitizing a B2B legacy across 14 markets.',
-    bg: '/assets/case_weir.jpg',
-    href: '/case-studies/digitizing-a-b2b-legacy-across-14-markets',
+    client: 'Lumina',
+    title: 'Scaling international retail with 4.8x ROAS digital ads',
+    desc: 'High-intent paid acquisition strategy delivering 92K monthly traffic and $8.4 average CPA.',
+    bg: 'https://egeadcompany.com/images/egead/why/ads.png',
+    href: '/our-work',
   },
   {
-    client: 'Manulife',
-    title: 'A multi-market financial services and insurance provider',
-    desc: 'Making Digital Insurance Transformation Accessible to Everyone.',
-    bg: '/assets/case_manulife.jpg',
-    href: '/case-studies/navigating-millennials-to-manulife-a-digital-insurance-transformation',
+    client: 'PrintWave',
+    title: 'Processing 10,000+ daily orders via Open RESTful API',
+    desc: 'Direct WMS connectivity, real-time webhooks, and sub-150ms automated print routing.',
+    bg: 'https://egeadcompany.com/images/egead/why/api.png',
+    href: '/our-work',
   },
 ];
 
@@ -42,13 +42,13 @@ export default function CaseStudiesSection() {
       {/* Centered Header Block matching live site */}
       <div className="w-full px-6 sm:px-10 lg:px-14 xl:px-16 text-center max-w-4xl mx-auto mb-12 sm:mb-16">
         <span className="text-xs sm:text-sm font-semibold tracking-widest uppercase text-[#25E2CC] block mb-3 font-montserrat">
-          Case Studies
+          Proven Results
         </span>
         <h2 className="text-3xl sm:text-5xl lg:text-[54px] font-bold tracking-tight leading-[1.15] text-white font-rubik">
-          <span className="text-[#25E2CC]">Proven results</span> through integration.
+          <span className="text-[#25E2CC]">Proven results</span> for global sellers.
         </h2>
         <p className="mt-4 text-sm sm:text-base md:text-lg text-[#8C8C8C] font-normal leading-relaxed font-montserrat max-w-2xl mx-auto">
-          When strategy, technology, and operations work as one continuous team, sustained excellence becomes achievable.
+          When automation technology, US-standard POD fulfillment, and high-performance digital marketing work together, sustained growth becomes achievable.
         </p>
       </div>
 

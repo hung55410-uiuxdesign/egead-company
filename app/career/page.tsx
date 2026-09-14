@@ -4,40 +4,40 @@ import { ArrowUpRight, MapPin, Briefcase, Users, HeartHandshake } from 'lucide-r
 import ContactBlock from '@/components/ContactBlock';
 
 export const metadata = {
-  title: 'Careers at SAI Digital | A Concentrix Company',
-  description: 'Join a world-class team of engineers, architects, and commerce strategists delivering intelligent enterprise experiences.',
+  title: 'Careers at E-GEAD | Build the Future of Global Commerce',
+  description: 'Join E-GEAD in Buon Ma Thuot, Vietnam or Remote. Shape the next generation of e-commerce automation, POD fulfillment, and performance advertising.',
 };
 
 const jobs = [
   {
-    title: 'Senior Next.js & React Frontend Architect',
-    location: 'Ho Chi Minh City, Vietnam (Hybrid)',
+    title: 'Senior Next.js & Fullstack Engineer',
+    location: 'Buon Ma Thuot, Dak Lak (Hybrid / Remote)',
     type: 'Full-time',
     department: 'Engineering',
   },
   {
-    title: 'SAP Commerce Cloud Lead Solution Architect',
-    location: 'Singapore / Remote APAC',
+    title: 'US POD Operations & Order Specialist (US Shift)',
+    location: 'Buon Ma Thuot, Dak Lak',
     type: 'Full-time',
-    department: 'Enterprise Architecture',
+    department: 'Operations & Fulfillment',
   },
   {
-    title: 'AI & Data Science Lead (Demand Forecasting)',
-    location: 'Hanoi / Ho Chi Minh City, Vietnam',
+    title: 'Performance Digital Media Buyer (TikTok / Meta Ads)',
+    location: 'Buon Ma Thuot / Remote',
     type: 'Full-time',
-    department: 'Data & Analytics',
+    department: 'Growth Marketing',
   },
   {
-    title: 'Principal Composable Commerce Consultant',
-    location: 'Sydney, Australia',
+    title: 'WMS & Open API Systems Integration Engineer',
+    location: 'Buon Ma Thuot / Remote',
     type: 'Full-time',
-    department: 'Strategy & Consulting',
+    department: 'Software Architecture',
   },
   {
-    title: '24/7 Site Reliability Engineer (SRE)',
-    location: 'Ho Chi Minh City, Vietnam',
+    title: 'Global E-Commerce Account Manager',
+    location: 'Buon Ma Thuot, Dak Lak',
     type: 'Full-time',
-    department: 'Operations',
+    department: 'Client Success',
   },
 ];
 
@@ -47,14 +47,14 @@ export default function CareerPage() {
       <section className="w-full px-6 sm:px-10 lg:px-14 xl:px-16 mb-20 sm:mb-28">
         <div className="max-w-4xl">
           <span className="text-xs sm:text-sm font-bold tracking-widest uppercase text-[#7ceee0] block mb-4">
-            Join Our Global Team
+            Join Our Team
           </span>
           <h1 className="text-4xl sm:text-6xl md:text-7xl font-black tracking-tight leading-[1.1] mb-6">
             BUILD THE FUTURE OF <br />
-            <span className="text-[#7ceee0]">DIGITAL COMMERCE.</span>
+            <span className="text-[#7ceee0]">GLOBAL COMMERCE.</span>
           </h1>
           <p className="text-lg sm:text-xl text-gray-300 font-normal leading-relaxed max-w-3xl">
-            We are looking for ambitious engineers, visionary designers, and relentless problem-solvers to craft intelligent commerce experiences for the world's most influential brands.
+            We are looking for passionate software engineers, operations specialists, and performance media buyers to scale intelligent automation for thousands of global merchants.
           </p>
         </div>
       </section>

@@ -24,8 +24,8 @@ export default function MegaMenu({ isOpen, onClose }: MegaMenuProps) {
           <div className="flex items-center justify-between border-b border-gray-100 pb-6 mb-8">
             <Link href="/" onClick={onClose} className="flex items-center">
               <img
-                src="/assets/SAI_CNX_2026_logo_black.svg"
-                alt="SAI Digital Concentrix"
+                src="https://egeadcompany.com/images/egead/logo.png"
+                alt="E-GEAD Company"
                 className="h-8 sm:h-9 w-auto"
               />
             </Link>
@@ -36,7 +36,7 @@ export default function MegaMenu({ isOpen, onClose }: MegaMenuProps) {
                 onClick={onClose}
                 className="hidden sm:inline-flex items-center gap-2 bg-[#25E2CC] hover:bg-[#1ec2af] text-black font-semibold text-sm px-6 py-2.5 rounded-full transition"
               >
-                <span>Let's talk</span>
+                <span>Get Free Consultation</span>
                 <ArrowUpRight className="w-4 h-4" />
               </Link>
               <button
@@ -107,7 +107,7 @@ export default function MegaMenu({ isOpen, onClose }: MegaMenuProps) {
             <div className="lg:col-span-8">
               {activeTab === 'services' && (
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
-                  {/* Column 1: Core Services */}
+                  {/* Column 1: Core Capabilities */}
                   <div>
                     <h3 className="text-xs font-bold uppercase tracking-wider text-gray-400 mb-4">
                       Core Capabilities
@@ -115,41 +115,41 @@ export default function MegaMenu({ isOpen, onClose }: MegaMenuProps) {
                     <ul className="space-y-3.5">
                       <li>
                         <Link
-                          href="/services/all-services/strategy-design"
+                          href="/speedx"
                           onClick={onClose}
                           className="group flex items-center justify-between text-sm font-medium text-gray-800 hover:text-[#007380] transition"
                         >
-                          <span>Strategy & Design</span>
+                          <span>US POD Fulfillment</span>
                           <ChevronRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
                         </Link>
                       </li>
                       <li>
                         <Link
-                          href="/services/all-services/data-analytics"
+                          href="/smartcommerce"
                           onClick={onClose}
                           className="group flex items-center justify-between text-sm font-medium text-gray-800 hover:text-[#007380] transition"
                         >
-                          <span>Data & Analytics</span>
+                          <span>Sales Automation</span>
                           <ChevronRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
                         </Link>
                       </li>
                       <li>
                         <Link
-                          href="/services/all-services/enterprise-technology"
+                          href="/services/all-services"
                           onClick={onClose}
                           className="group flex items-center justify-between text-sm font-medium text-gray-800 hover:text-[#007380] transition"
                         >
-                          <span>Enterprise Technology</span>
+                          <span>Digital Growth Marketing</span>
                           <ChevronRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
                         </Link>
                       </li>
                       <li>
                         <Link
-                          href="/services/all-services/commerce-cx--operations"
+                          href="/services/all-services"
                           onClick={onClose}
                           className="group flex items-center justify-between text-sm font-medium text-gray-800 hover:text-[#007380] transition"
                         >
-                          <span>Commerce & CX Operations</span>
+                          <span>Developers Hub & WMS</span>
                           <ChevronRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
                         </Link>
                       </li>
@@ -161,19 +161,19 @@ export default function MegaMenu({ isOpen, onClose }: MegaMenuProps) {
                         onClick={onClose}
                         className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wide text-[#007380] hover:underline"
                       >
-                        <span>View All Services</span>
+                        <span>View All Capabilities</span>
                         <ArrowUpRight className="w-3.5 h-3.5" />
                       </Link>
                     </div>
                   </div>
 
-                  {/* Column 2: Industries */}
+                  {/* Column 2: Target Categories */}
                   <div>
                     <h3 className="text-xs font-bold uppercase tracking-wider text-gray-400 mb-4">
-                      Industries
+                      Sellers & Categories
                     </h3>
                     <ul className="space-y-3.5">
-                      {['Automotive', 'Banking & Insurance', 'Chemicals', 'Consumer Goods', 'Fashion & Lifestyle', 'Health & Science'].map((ind) => (
+                      {['TikTok Shop US Brands', 'Amazon FBM & POD', 'Etsy Apparel Creators', 'Shopify DTC Retailers', 'Custom Graphic Apparel', 'Global Cross-Border Brands'].map((ind) => (
                         <li key={ind}>
                           <Link
                             href="/services/all-services"
@@ -188,13 +188,13 @@ export default function MegaMenu({ isOpen, onClose }: MegaMenuProps) {
                     </ul>
                   </div>
 
-                  {/* Column 3: Strategic Partners */}
+                  {/* Column 3: Platform Integrations */}
                   <div>
                     <h3 className="text-xs font-bold uppercase tracking-wider text-gray-400 mb-4">
-                      Strategic Partners
+                      Platform Integrations
                     </h3>
                     <ul className="space-y-3.5">
-                      {['SAP Silver Partner', 'Shopify Plus Partner', 'Sitecore', 'Stripe', 'commercetools', 'Salesforce'].map((p) => (
+                      {['TikTok Shop US', 'Amazon Marketplace', 'Etsy & eBay', 'Shopify & WooCommerce', 'Meta & Google Ads', 'USPS / Major US Carriers'].map((p) => (
                         <li key={p}>
                           <Link
                             href="/partners"
@@ -214,10 +214,10 @@ export default function MegaMenu({ isOpen, onClose }: MegaMenuProps) {
               {activeTab === 'products' && (
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                   <div className="p-5 rounded-2xl bg-gray-50 border border-gray-100 hover:border-[#25E2CC] transition">
-                    <span className="text-xs font-bold uppercase tracking-wider text-[#007380]">Intelligent Platform</span>
-                    <h4 className="text-lg font-bold text-gray-900 mt-1">SmartCommerce</h4>
+                    <span className="text-xs font-bold uppercase tracking-wider text-[#007380]">Operations Dashboard</span>
+                    <h4 className="text-lg font-bold text-gray-900 mt-1">Eweb-platform</h4>
                     <p className="text-sm text-gray-600 mt-2">
-                      Enterprise headless commerce engine built for high-throughput multi-market brands.
+                      Connect storefronts, WMS inventory, and financial reconciliation in real time without manual spreadsheets.
                     </p>
                     <Link
                       href="/smartcommerce"
@@ -229,10 +229,10 @@ export default function MegaMenu({ isOpen, onClose }: MegaMenuProps) {
                   </div>
 
                   <div className="p-5 rounded-2xl bg-gray-50 border border-gray-100 hover:border-[#25E2CC] transition">
-                    <span className="text-xs font-bold uppercase tracking-wider text-[#007380]">High Velocity</span>
-                    <h4 className="text-lg font-bold text-gray-900 mt-1">SpeedX</h4>
+                    <span className="text-xs font-bold uppercase tracking-wider text-[#007380]">AI & POD Engine</span>
+                    <h4 className="text-lg font-bold text-gray-900 mt-1">Eweb-character</h4>
                     <p className="text-sm text-gray-600 mt-2">
-                      Accelerate go-to-market rollout for global eCommerce platforms in weeks, not months.
+                      Smart AI order normalization, address validation, fraud risk filtering, and sub-24h US POD fulfillment.
                     </p>
                     <Link
                       href="/speedx"
@@ -244,10 +244,10 @@ export default function MegaMenu({ isOpen, onClose }: MegaMenuProps) {
                   </div>
 
                   <div className="p-5 rounded-2xl bg-gray-50 border border-gray-100 hover:border-[#25E2CC] transition">
-                    <span className="text-xs font-bold uppercase tracking-wider text-[#007380]">Customer Retention</span>
-                    <h4 className="text-lg font-bold text-gray-900 mt-1">SmartLoyalty</h4>
+                    <span className="text-xs font-bold uppercase tracking-wider text-[#007380]">High-Converting Storefront</span>
+                    <h4 className="text-lg font-bold text-gray-900 mt-1">Eweb-builder</h4>
                     <p className="text-sm text-gray-600 mt-2">
-                      Omnichannel reward mechanisms with real-time customer behavior segmentation.
+                      Ultra-fast, SEO-optimized storefront development pre-connected to E-GEAD fulfillment APIs for US and EU markets.
                     </p>
                     <Link
                       href="/smartcommerce"
@@ -259,17 +259,17 @@ export default function MegaMenu({ isOpen, onClose }: MegaMenuProps) {
                   </div>
 
                   <div className="p-5 rounded-2xl bg-gray-50 border border-gray-100 hover:border-[#25E2CC] transition">
-                    <span className="text-xs font-bold uppercase tracking-wider text-[#007380]">Dynamic Intelligence</span>
-                    <h4 className="text-lg font-bold text-gray-900 mt-1">SmartPrice</h4>
+                    <span className="text-xs font-bold uppercase tracking-wider text-[#007380]">Instant Estimator</span>
+                    <h4 className="text-lg font-bold text-gray-900 mt-1">Rate Calculator</h4>
                     <p className="text-sm text-gray-600 mt-2">
-                      AI-driven dynamic pricing and promotion optimization based on live elasticity metrics.
+                      Calculate print costs, dimensional weights, and multi-state shipping rates in seconds with full margin visibility.
                     </p>
                     <Link
-                      href="/smartcommerce"
+                      href="/contact-us"
                       onClick={onClose}
                       className="inline-flex items-center gap-1 text-sm font-semibold text-[#007380] mt-3 hover:underline"
                     >
-                      Learn more <ChevronRight className="w-4 h-4" />
+                      Calculate rate <ChevronRight className="w-4 h-4" />
                     </Link>
                   </div>
                 </div>
@@ -278,31 +278,31 @@ export default function MegaMenu({ isOpen, onClose }: MegaMenuProps) {
               {activeTab === 'insights' && (
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                   <Link
-                    href="/articles/Concentrix-Acquires-SAI-Digital"
+                    href="/articles/global-market-expansion-cross-border-ecommerce"
                     onClick={onClose}
                     className="p-5 rounded-2xl bg-gray-50 hover:bg-gray-100 transition border border-gray-100 block group"
                   >
                     <span className="inline-block px-2.5 py-1 text-xs font-semibold rounded-full bg-[#D3F9F5] text-[#007380] mb-2">
-                      Announcement
+                      Strategy
                     </span>
                     <h4 className="text-base font-bold text-gray-900 group-hover:text-[#007380] transition">
-                      Concentrix Acquires SAI Digital to Supercharge its Digital Commerce Solutions
+                      Global Market Expansion: Scaling Cross-Border E-Commerce in US & EU
                     </h4>
-                    <p className="text-xs text-gray-500 mt-2">5 mins read · September 2025</p>
+                    <p className="text-xs text-gray-500 mt-2">6 mins read · August 2026</p>
                   </Link>
 
                   <Link
-                    href="/articles/how-to-use-MACH-architecture-in-eCommerce"
+                    href="/articles/tiktok-shop-us-compliance-sub-24h-pod-fulfillment"
                     onClick={onClose}
                     className="p-5 rounded-2xl bg-gray-50 hover:bg-gray-100 transition border border-gray-100 block group"
                   >
                     <span className="inline-block px-2.5 py-1 text-xs font-semibold rounded-full bg-blue-100 text-blue-700 mb-2">
-                      Technical Architecture
+                      Compliance & SLA
                     </span>
                     <h4 className="text-base font-bold text-gray-900 group-hover:text-[#007380] transition">
-                      How to use MACH architecture in modern enterprise eCommerce
+                      Protecting TikTok Shop US Accounts: Fast Dispatch SLA & 24H POD
                     </h4>
-                    <p className="text-xs text-gray-500 mt-2">7 mins read · Technical Insights</p>
+                    <p className="text-xs text-gray-500 mt-2">5 mins read · August 2026</p>
                   </Link>
 
                   <div className="col-span-full pt-2">
@@ -311,7 +311,7 @@ export default function MegaMenu({ isOpen, onClose }: MegaMenuProps) {
                       onClick={onClose}
                       className="inline-flex items-center gap-1 text-sm font-semibold text-[#007380] hover:underline"
                     >
-                      Explore all webinars, white papers & articles <ChevronRight className="w-4 h-4" />
+                      Explore all insights, playbooks & guides <ChevronRight className="w-4 h-4" />
                     </Link>
                   </div>
                 </div>
@@ -325,46 +325,54 @@ export default function MegaMenu({ isOpen, onClose }: MegaMenuProps) {
                       onClick={onClose}
                       className="block p-4 rounded-xl hover:bg-gray-50 transition border border-transparent hover:border-gray-200"
                     >
-                      <h4 className="font-bold text-gray-900">About Us</h4>
-                      <p className="text-xs text-gray-600 mt-1">Our mission, global footprint, and engineering culture.</p>
+                      <h4 className="font-bold text-gray-900">About E-GEAD</h4>
+                      <p className="text-xs text-gray-600 mt-1">Our mission, technology ecosystem, and global operations.</p>
                     </Link>
                     <Link
-                      href="/company#leadership"
-                      onClick={onClose}
-                      className="block p-4 rounded-xl hover:bg-gray-50 transition border border-transparent hover:border-gray-200"
-                    >
-                      <h4 className="font-bold text-gray-900">Leadership Team</h4>
-                      <p className="text-xs text-gray-600 mt-1">Meet our visionary founders and global executive directors.</p>
-                    </Link>
-                  </div>
-
-                  <div className="space-y-4">
-                    <Link
-                      href="/company"
-                      onClick={onClose}
-                      className="block p-4 rounded-xl hover:bg-gray-50 transition border border-transparent hover:border-gray-200"
-                    >
-                      <h4 className="font-bold text-gray-900">Careers</h4>
-                      <p className="text-xs text-gray-600 mt-1">Join 200+ engineers, designers, and commerce specialists.</p>
-                    </Link>
-                    <Link
-                      href="/company"
+                      href="/people"
                       onClick={onClose}
                       className="block p-4 rounded-xl hover:bg-gray-50 transition border border-transparent hover:border-gray-200"
                     >
                       <h4 className="font-bold text-gray-900">Our People</h4>
-                      <p className="text-xs text-gray-600 mt-1">Life inside SAI Digital and our diversity commitments.</p>
+                      <p className="text-xs text-gray-600 mt-1">Meet the leaders, architects, and experts driving our success.</p>
                     </Link>
                   </div>
 
                   <div className="space-y-4">
+                    <Link
+                      href="/career"
+                      onClick={onClose}
+                      className="block p-4 rounded-xl hover:bg-gray-50 transition border border-transparent hover:border-gray-200"
+                    >
+                      <h4 className="font-bold text-gray-900">Careers</h4>
+                      <p className="text-xs text-gray-600 mt-1">Join our engineering and operations team in Buon Ma Thuot.</p>
+                    </Link>
+                    <Link
+                      href="/testimonial"
+                      onClick={onClose}
+                      className="block p-4 rounded-xl hover:bg-gray-50 transition border border-transparent hover:border-gray-200"
+                    >
+                      <h4 className="font-bold text-gray-900">Testimonials</h4>
+                      <p className="text-xs text-gray-600 mt-1">Feedback from international sellers and brand founders.</p>
+                    </Link>
+                  </div>
+
+                  <div className="space-y-4">
+                    <Link
+                      href="/our-work"
+                      onClick={onClose}
+                      className="block p-4 rounded-xl hover:bg-gray-50 transition border border-transparent hover:border-gray-200"
+                    >
+                      <h4 className="font-bold text-gray-900">Case Studies</h4>
+                      <p className="text-xs text-gray-600 mt-1">Real results from TikTok Shop, Amazon, and DTC brand partners.</p>
+                    </Link>
                     <Link
                       href="/contact-us"
                       onClick={onClose}
                       className="block p-4 rounded-xl hover:bg-gray-50 transition border border-transparent hover:border-gray-200"
                     >
-                      <h4 className="font-bold text-gray-900">Global Offices</h4>
-                      <p className="text-xs text-gray-600 mt-1">8 strategic hubs across APAC, Australia, and North America.</p>
+                      <h4 className="font-bold text-gray-900">Headquarters</h4>
+                      <p className="text-xs text-gray-600 mt-1">217/9 Ngo Quyen Street, Buon Ma Thuot City, Vietnam.</p>
                     </Link>
                   </div>
                 </div>
@@ -375,23 +383,23 @@ export default function MegaMenu({ isOpen, onClose }: MegaMenuProps) {
             <div className="lg:col-span-4 rounded-2xl bg-gradient-to-br from-[#0A0D0E] to-[#141718] p-6 text-white flex flex-col justify-between relative overflow-hidden border border-gray-800">
               <div className="relative z-10">
                 <span className="inline-block px-3 py-1 text-xs font-semibold rounded-full bg-[#25E2CC]/20 text-[#25E2CC] border border-[#25E2CC]/30 mb-4">
-                  Featured Milestone
+                  US POD Production
                 </span>
                 <h3 className="text-xl font-bold leading-snug">
-                  SAI Digital is now a Concentrix Company
+                  Fulfilled in Under 24 Hours From $6 All-In
                 </h3>
                 <p className="text-xs text-gray-300 mt-3 leading-relaxed">
-                  Scaling digital commerce and customer experience tech solutions across global enterprises with deep AI integrations.
+                  End-to-end production with 23-inch large-format printing technology, 100% TikTok Shop US compliance, and real-time barcode accuracy.
                 </p>
               </div>
 
               <div className="mt-8 relative z-10">
                 <Link
-                  href="/articles/Concentrix-Acquires-SAI-Digital"
+                  href="/contact-us"
                   onClick={onClose}
                   className="inline-flex items-center gap-2 bg-[#25E2CC] hover:bg-[#1ec2af] text-black font-semibold text-xs px-5 py-2.5 rounded-full transition"
                 >
-                  <span>Read Announcement</span>
+                  <span>Request POD Pricing</span>
                   <ArrowUpRight className="w-3.5 h-3.5" />
                 </Link>
               </div>

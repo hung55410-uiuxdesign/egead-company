@@ -23,6 +23,7 @@ A pixel-perfect, high-performance enterprise digital commerce web platform model
   - `Home (/)`: Hero banner, 4 Core Service Pillars, Case Studies slider, SmartCX showcase, Testimonials, Insights list, Culture, and Contact CTA.
   - `Our Work (/our-work)`: Filterable case studies portfolio across Consumer Goods, Manufacturing, Finance, and Electronics.
   - `Company (/company)`: Mission, global team presence, core values, and key stats.
+  - `Our People (/people)`: Leadership governance, industry experts directory, quotes, and culture in motion showcase.
   - `Services (/services/all-services)`: Detailed breakdown of Strategy & Design, Enterprise Technology, Data & Analytics, and CX Operations.
   - `SmartCommerce (/smartcommerce)` & `SpeedX (/speedx)`: Proprietary AI modules and acceleration engines.
   - `Testimonials (/testimonial)`: Enterprise customer reviews and testimonials.

@@ -4,28 +4,46 @@ import { Calendar, Clock, ArrowUpRight } from 'lucide-react';
 import ContactBlock from '@/components/ContactBlock';
 
 export const metadata = {
-  title: 'Insights & News | SAI Digital',
-  description: 'Latest articles, architecture guides, webinars, and enterprise commerce trends from SAI Digital experts.',
+  title: 'Insights & Knowledge Base | E-GEAD Company',
+  description: 'Explore expert playbooks on cross-border e-commerce, TikTok Shop US compliance, sub-24h POD fulfillment, and multi-channel inventory sync.',
 };
 
 const allInsights = [
   {
-    slug: 'Concentrix-Acquires-SAI-Digital',
-    title: 'Concentrix Acquires SAI Digital to Supercharge its Digital Commerce and Customer Experience Tech Solutions',
-    tag: 'Announcement',
-    date: 'September 09, 2025',
-    readTime: '5 mins read',
-    image: '/assets/SAI_x_CNX_Announcement_Blog__1_.png',
-    desc: 'Concentrix Corporation today announced its strategic acquisition of SAI Digital, scaling its presence in Vietnam as an engineering innovation hub.',
+    slug: 'expanding-cross-border-ecommerce-playbook',
+    title: 'The 2026 Global E-Commerce Playbook: Expanding Across US, UK, and Australian Marketplaces',
+    tag: 'Market Expansion',
+    date: 'January 15, 2026',
+    readTime: '6 mins read',
+    image: '/assets/case_brother.jpg',
+    desc: 'A comprehensive operational blueprint for cross-border merchants: multi-channel catalog orchestration, automated US fulfillment routing, and currency risk mitigation.',
   },
   {
-    slug: 'how-to-use-MACH-architecture-in-eCommerce',
-    title: 'How to use MACH architecture in eCommerce to scale global operations',
-    tag: 'Technology',
-    date: 'August 15, 2025',
-    readTime: '7 mins read',
-    image: '/assets/image-20250416171203-2.jpeg',
-    desc: 'A comprehensive architectural guide to decoupling your frontend and adopting microservices, APIs, and cloud-native headless commerce.',
+    slug: 'tiktok-shop-us-sla-compliance-guide',
+    title: 'Conquering TikTok Shop US: How Sub-24h Fulfillment Eliminates Late Dispatch Penalties',
+    tag: 'Operations & SLA',
+    date: 'February 02, 2026',
+    readTime: '5 mins read',
+    image: '/assets/case_suntory.jpg',
+    desc: 'TikTok Shop US enforces strict 48-hour order-to-tracking SLA windows. Learn how automated WMS routing and on-demand US manufacturing ensure zero late-dispatch strikes.',
+  },
+  {
+    slug: 'wms-barcode-automation-inventory-accuracy',
+    title: 'Achieving 99.9% Fulfillment Accuracy: Why Barcode WMS is Essential for High-Volume Sellers',
+    tag: 'Technology & WMS',
+    date: 'February 20, 2026',
+    readTime: '5 mins read',
+    image: '/assets/case_weir.jpg',
+    desc: 'Manual packing errors destroy margins through return shipping costs and platform strikes. Discover how barcode scanning workflows safeguard your seller metrics.',
+  },
+  {
+    slug: 'transparent-pod-pricing-landed-cost-optimization',
+    title: 'Mastering E-Commerce Unit Economics: Flat-Rate $6 All-In POD and Net Margin Protection',
+    tag: 'Financial Strategy',
+    date: 'March 01, 2026',
+    readTime: '5 mins read',
+    image: '/assets/case_manulife.jpg',
+    desc: 'How transparent manufacturing pricing and automated landed cost calculations allow cross-border sellers to predict profit margins before scaling advertising campaigns.',
   },
 ];
 
@@ -35,14 +53,14 @@ export default function InsightsPage() {
       <section className="w-full px-6 sm:px-10 lg:px-14 xl:px-16 mb-20 sm:mb-28">
         <div className="max-w-4xl">
           <span className="text-xs sm:text-sm font-bold tracking-widest uppercase text-[#7ceee0] block mb-4">
-            Thought Leadership
+            Knowledge & Industry Insights
           </span>
           <h1 className="text-4xl sm:text-6xl md:text-7xl font-black tracking-tight leading-[1.1] mb-6">
-            INSIGHTS, TRENDS & <br />
-            <span className="text-[#7ceee0]">ENGINEERING NEWS.</span>
+            CROSS-BORDER COMMERCE, <br />
+            <span className="text-[#7ceee0]">STRATEGIES & PLAYBOOKS.</span>
           </h1>
           <p className="text-lg sm:text-xl text-gray-300 font-normal leading-relaxed max-w-3xl">
-            Stay ahead of global consumer behavior, AI-driven operations, composable architectures, and enterprise digital strategy.
+            Actionable blueprints for global e-commerce sellers: optimizing TikTok Shop US dispatch SLAs, automating multi-channel warehouse operations, and maximizing net margins.
           </p>
         </div>
       </section>

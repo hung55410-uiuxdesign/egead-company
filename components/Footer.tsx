@@ -9,13 +9,12 @@ interface TimezoneLocation {
 }
 
 const locations: TimezoneLocation[] = [
-  { name: 'Singapore', tz: 'Asia/Singapore' },
-  { name: 'Japan', tz: 'Asia/Tokyo' },
-  { name: 'Australia', tz: 'Australia/Sydney' },
-  { name: 'Hong Kong', tz: 'Asia/Hong_Kong' },
-  { name: 'Vietnam', tz: 'Asia/Ho_Chi_Minh' },
-  { name: 'South Korea', tz: 'Asia/Seoul' },
-  { name: 'India', tz: 'Asia/Kolkata' },
+  { name: 'US (Pacific)', tz: 'America/Los_Angeles' },
+  { name: 'US (Eastern)', tz: 'America/New_York' },
+  { name: 'London (UK)', tz: 'Europe/London' },
+  { name: 'Frankfurt (DE)', tz: 'Europe/Berlin' },
+  { name: 'Vietnam (HQ)', tz: 'Asia/Ho_Chi_Minh' },
+  { name: 'Sydney (AU)', tz: 'Australia/Sydney' },
 ];
 
 export default function Footer() {
@@ -69,8 +68,8 @@ export default function Footer() {
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-8 pb-12 border-b border-gray-100">
           <Link href="/" className="inline-block">
             <img
-              src="/assets/SAI_CNX_2026_logo_black.svg"
-              alt="SAI Digital"
+              src="https://egeadcompany.com/images/egead/logo-wordmark.png"
+              alt="E-GEAD Company"
               className="h-8 sm:h-9 w-auto"
             />
           </Link>
@@ -83,7 +82,7 @@ export default function Footer() {
               <a
                 target="_blank"
                 rel="noopener noreferrer"
-                href="https://www.facebook.com/saidigitalofficial/"
+                href="https://www.facebook.com/"
                 className="w-9 h-9 rounded-full bg-gray-100 hover:bg-[#25E2CC] flex items-center justify-center transition p-2"
                 aria-label="Facebook"
               >
@@ -92,7 +91,7 @@ export default function Footer() {
               <a
                 target="_blank"
                 rel="noopener noreferrer"
-                href="https://www.linkedin.com/company/2861256/"
+                href="https://www.linkedin.com/"
                 className="w-9 h-9 rounded-full bg-gray-100 hover:bg-[#25E2CC] flex items-center justify-center transition p-2"
                 aria-label="LinkedIn"
               >
@@ -101,7 +100,7 @@ export default function Footer() {
               <a
                 target="_blank"
                 rel="noopener noreferrer"
-                href="https://www.youtube.com/channel/UCjZQrM0j-xcgux24mfP4geA"
+                href="https://www.youtube.com/"
                 className="w-9 h-9 rounded-full bg-gray-100 hover:bg-[#25E2CC] flex items-center justify-center transition p-2"
                 aria-label="YouTube"
               >
@@ -110,20 +109,11 @@ export default function Footer() {
               <a
                 target="_blank"
                 rel="noopener noreferrer"
-                href="https://twitter.com/SAIDigitalTweet"
+                href="https://x.com/"
                 className="w-9 h-9 rounded-full bg-gray-100 hover:bg-[#25E2CC] flex items-center justify-center transition p-2"
                 aria-label="X"
               >
                 <img src="/assets/X_Black.svg" alt="X" className="w-full h-full object-contain" />
-              </a>
-              <a
-                target="_blank"
-                rel="noopener noreferrer"
-                href="https://8card.net/c/2897508/account"
-                className="w-9 h-9 rounded-full bg-gray-100 hover:bg-[#25E2CC] flex items-center justify-center transition p-2"
-                aria-label="Eight"
-              >
-                <img src="/assets/Eight_Black.svg" alt="Eight" className="w-full h-full object-contain" />
               </a>
             </div>
           </div>
@@ -167,8 +157,18 @@ export default function Footer() {
                   </Link>
                 </li>
                 <li>
+                  <Link href="/people" className="hover:text-black hover:underline transition">
+                    Our People
+                  </Link>
+                </li>
+                <li>
                   <Link href="/career" className="hover:text-black hover:underline transition">
                     Careers
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/testimonial" className="hover:text-black hover:underline transition">
+                    Testimonials
                   </Link>
                 </li>
                 <li>
@@ -195,8 +195,8 @@ export default function Footer() {
                   </Link>
                 </li>
                 <li>
-                  <Link href="/sai-privacy" className="hover:text-black hover:underline transition">
-                    SAI Digital T&C
+                  <Link href="/privacy-policy" className="hover:text-black hover:underline transition">
+                    Terms & Conditions
                   </Link>
                 </li>
               </ul>
@@ -303,7 +303,7 @@ export default function Footer() {
 
           {/* Copyright Right */}
           <div className="text-right">
-            <span>Copyright (C) 2026 SAI Digital</span>
+            <span>© 2026 E-Gead Company. All rights reserved.</span>
           </div>
         </div>
       </div>

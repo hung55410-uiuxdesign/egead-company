@@ -4,45 +4,45 @@ import { Quote } from 'lucide-react';
 import ContactBlock from '@/components/ContactBlock';
 
 export const metadata = {
-  title: 'Client Testimonials | SAI Digital',
-  description: 'Discover feedback and recommendations from IT Directors, CEOs, and CMOs who transformed their commerce platforms with SAI Digital.',
+  title: 'Client Testimonials | E-GEAD Company',
+  description: 'Read reviews and success stories from global e-commerce founders, brand owners, and operations directors who scale with E-GEAD.',
 };
 
 const allTestimonials = [
   {
-    quote: "The professionalism shown has impressed me immensely. On behalf of the Suntory management, I'd like to extend our appreciation for the amazing work done by SAI team.",
-    role: "IT Manager",
-    company: "Suntory PepsiCo",
+    quote: "The sub-24h fulfillment speed in the US has been a total lifesaver for our TikTok Shop US store. Since partnering with E-GEAD, our Late Dispatch Rate has remained at 0%, and our store achieved sustained Top Seller status.",
+    role: "Founder & Creative Director",
+    company: "UrbanVibe Apparel (US)",
     avatar: "/assets/portrait-beautiful-young-asian-woman-using-laptop.jpg",
   },
   {
-    quote: "SAI Digital's agile methodology matched the speed we were looking for to reinvent our digital presence across Japan and international markets.",
-    role: "Chief Executive Officer",
-    company: "Edwin Japan",
+    quote: "Managing simultaneous listings across Amazon and Etsy used to require hours of manual data entry daily. Eweb-platform automated our multi-channel sync, cutting admin labor by 85% and completely eliminating out-of-stock cancellations.",
+    role: "E-Commerce Director",
+    company: "HomeCraft Studio (UK)",
     avatar: "/assets/2151266584__1_.jpg",
   },
   {
-    quote: "We chose SAI Digital for their strategic partnership rather than contractual, their experience with large-scale international projects, and their track record of delivering Commerce Cloud projects successfully.",
-    role: "SAP Director, APAC",
-    company: "Enterprise Commerce Leader",
+    quote: "The transparent $6 all-in pricing has zero hidden fees. Having predictable unit economics and automated net margin calculation lets us know our exact profit before deploying paid advertising budget.",
+    role: "Chief Operating Officer",
+    company: "Lumina DTC Brand (Australia)",
     avatar: "/assets/millennial-asia-businessmen-businesswomen-meeting-brainstorming-ideas-about-new-paperwork-project-colleagues-working-together-planning-success-strategy-enjoy-teamwork-small-modern-night-office__1_.jpg",
   },
   {
-    quote: "SAI Digital was instrumental in our move to Shopify Plus, their expertise guided us seamlessly across our entire tech stack migration without any lost revenue.",
-    role: "Chief Marketing Officer",
-    company: "The Dinner Ladies",
+    quote: "The 23-inch large-format print quality is exceptionally sharp, colors stay vibrant after repeated washings, and garment breathability is fantastic. Our US customers frequently praise the print longevity in 5-star reviews.",
+    role: "Merchandise Lead",
+    company: "Pacific Graphic Tees (California, US)",
     avatar: "/assets/portrait-beautiful-young-asian-woman-using-laptop.jpg",
   },
   {
-    quote: "Their deep understanding of multi-currency payments and headless API infrastructure saved our team months of trial and error.",
-    role: "Head of Digital Technology",
-    company: "Global Retail Brand",
+    quote: "E-GEAD's RESTful API documentation is clean, modern, and reliable. Their engineering team supported our proprietary ERP integration seamlessly in less than 3 business days.",
+    role: "Lead Systems Architect",
+    company: "PrintWave Global Network",
     avatar: "/assets/2151266584__1_.jpg",
   },
   {
-    quote: "The 24/7 proactive care team has been indispensable during Black Friday and seasonal flash sale events. Zero unplanned downtime.",
-    role: "Operations VP",
-    company: "APAC Fashion Group",
+    quote: "The TikTok and Meta Ads performance marketing team helped us scale our blended ROAS from 2.1x to 4.8x. Our Q4 holiday revenue grew over 180% year-over-year.",
+    role: "Head of Digital Marketing",
+    company: "TrendWave Commerce (Vietnam)",
     avatar: "/assets/millennial-asia-businessmen-businesswomen-meeting-brainstorming-ideas-about-new-paperwork-project-colleagues-working-together-planning-success-strategy-enjoy-teamwork-small-modern-night-office__1_.jpg",
   },
 ];
@@ -53,14 +53,14 @@ export default function TestimonialPage() {
       <section className="w-full px-6 sm:px-10 lg:px-14 xl:px-16 mb-20 sm:mb-28">
         <div className="max-w-4xl">
           <span className="text-xs sm:text-sm font-bold tracking-widest uppercase text-[#7ceee0] block mb-4">
-            Client Success
+            Client Success & Reviews
           </span>
           <h1 className="text-4xl sm:text-6xl md:text-7xl font-black tracking-tight leading-[1.1] mb-6">
             WHAT OUR <br />
             <span className="text-[#7ceee0]">PARTNERS SAY.</span>
           </h1>
           <p className="text-lg sm:text-xl text-gray-300 font-normal leading-relaxed max-w-3xl">
-            From Fortune 500 enterprise giants to hyper-growth digital pioneers, hear directly from the leaders who trust SAI Digital with their mission-critical customer experiences.
+            From high-growth DTC apparel brands to high-volume marketplace sellers, discover how E-GEAD automates fulfillment, protects SLAs, and drives global e-commerce scale.
           </p>
         </div>
       </section>

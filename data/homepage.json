@@ -1,219 +1,192 @@
 {
   "header": {
-    "logo": "ecf905df-0952-45b8-bc29-ae27d02aed97",
-    "btnLabel": "Let's talk",
+    "logo": "https://egeadcompany.com/images/egead/logo.png",
+    "btnLabel": "Get Free Consultation",
     "btnLink": "/contact-us"
   },
   "hero": {
-    "firstText": "Build <span class='animate-text'>Faster.</span> <br/>Run <span class='animate-text'>Smarter.</span> Scale <span class='animate-text'>Globally.</span>",
-    "secondText": "We help leading enterprises design, build, run, and grow intelligent experiences",
-    "video": "3fbfff50-6ded-4852-81cf-cd4b9d4e92bb"
+    "firstText": "Automate <span class='animate-text'>Operations.</span> <br/>Scale <span class='animate-text'>Global Sales.</span>",
+    "secondText": "Unify order management across every channel, automate multi-marketplace workflows, and synchronize inventory in real time — cutting costs while accelerating revenue growth.",
+    "video": "/assets/bg_video.mp4"
   },
   "services": {
-    "title": "Complete <span>CX transformation</span> capabilities.",
-    "subTitle": "Services",
+    "title": "End-to-End <span>E-Commerce Growth</span> Ecosystem.",
+    "subTitle": "Capabilities",
     "items": [
       {
-        "image": "d0a2be04-62cd-4e84-8db3-79c1ea5f2b40",
-        "itemTitle": "Strategy & Design",
-        "itemSubTitle": "Strategy & Design",
-        "itemDesc": "Commerce strategy, experience design, marketing planning",
-        "itemBtnLink": "/services/all-services/strategy-design"
+        "image": "https://egeadcompany.com/images/egead/why/us-pod.png",
+        "itemTitle": "US POD Fulfillment",
+        "itemSubTitle": "Under 24H Production",
+        "itemDesc": "23-inch large-format printing technology, 100% TikTok Shop US compliance, and all-in pricing from $6 per unit.",
+        "itemBtnLink": "/speedx"
       },
       {
-        "image": "81f8e005-e861-4905-a1fe-487358b6d214",
-        "itemTitle": "Data & Analytics",
-        "itemSubTitle": "Data & Analytics",
-        "itemDesc": "AI, machine learning, predictive analytics, business intelligence",
-        "itemBtnLink": "/services/all-services/data-analytics"
+        "image": "https://egeadcompany.com/images/egead/why/sync.png",
+        "itemTitle": "Sales Automation",
+        "itemSubTitle": "Real-Time Multi-Channel Sync",
+        "itemDesc": "Automatically synchronize order workflows and real-time inventory across Amazon, Etsy, TikTok Shop, and Shopify.",
+        "itemBtnLink": "/smartcommerce"
       },
       {
-        "image": "d847660a-cf8e-417b-9ef6-2418e70c55c6",
-        "itemTitle": "Enterprise Technology",
-        "itemSubTitle": "Enterprise Technology",
-        "itemDesc": "Platform implementation, system integration, cloud infrastructure",
-        "itemBtnLink": "/services/all-services/enterprise-technology"
+        "image": "https://egeadcompany.com/images/egead/why/ads.png",
+        "itemTitle": "Digital Growth Marketing",
+        "itemSubTitle": "ROAS 4.8x Performance Campaigns",
+        "itemDesc": "Optimize high-intent paid conversion campaigns across Meta, Google, and TikTok to scale in the US and Europe.",
+        "itemBtnLink": "/services/all-services"
       },
       {
-        "image": "324f036a-ebba-4b2c-86b7-a3372490c09d",
-        "itemTitle": "Commerce & CX Operations",
-        "itemSubTitle": "Commerce & CX Operations",
-        "itemDesc": "24/7 commerce operations, AI operations, creative & marketing operations",
-        "itemBtnLink": "/services/all-services/commerce-cx--operations"
+        "image": "https://egeadcompany.com/images/egead/why/api.png",
+        "itemTitle": "Developers Hub & WMS",
+        "itemSubTitle": "API & Warehouse Automation",
+        "itemDesc": "Open RESTful API infrastructure, real-time webhooks, and 99.9% barcode scan precision with transparent billing.",
+        "itemBtnLink": "/services/all-services"
       }
     ],
-    "btnLabel": "Explore Integrated Capabilities",
+    "btnLabel": "Explore All Capabilities",
     "btnUrl": "/services/all-services",
-    "background": "b9e5497a-d24f-49b2-ab5f-103e51b685a8"
+    "background": "/assets/bg_services.jpg"
   },
   "caseStudies": {
-    "title": "<span>Proven results</span> through integration.",
+    "title": "<span>Proven results</span> for global sellers.",
     "subTitle": "Case Studies",
-    "description": "When strategy, technology, and operations work as one continuous team,  sustained excellence becomes achievable.",
+    "description": "When automation technology, US-standard POD fulfillment, and high-performance digital marketing work together, sustainable global growth becomes achievable.",
     "btnLabel": "All Case Studies",
     "btnUrl": "/our-work",
     "caseStudy": [
-      "9bdf65d6-3755-46b4-bd1f-d0a68d984a3d",
-      "7fa7a376-5c00-43d7-aa4d-c0661b9d620a",
-      "d5fab4dd-8b94-4364-97cd-7150e96932b9",
-      "c7c49b91-96a5-49b0-a073-940316ba1d6d"
+      "urbanvibe-tiktok-shop-us",
+      "homecraft-multi-channel-sync",
+      "lumina-performance-ads",
+      "printwave-open-api"
     ]
   },
   "smartcx": {
-    "title": "<span>Intelligent solutions</span> for specific challenges.",
-    "subTitle": "Our Difference",
-    "description": "40+ intelligent modules built from 15 years of enterprise commerce experience. Each addresses specific challenges with measurable impact: 93% demand forecasting accuracy, real-time dynamic pricing, inventory optimization. Built into your operations from day one, refined continuously based on your data.",
-    "btnLabel": "Discover SmartCX",
+    "title": "<span>Intelligent automation</span> for global sellers.",
+    "subTitle": "Eweb Suite",
+    "description": "Our proprietary Eweb Suite brings together Eweb-character (AI order normalization & 24h POD routing), Eweb-platform (Unified multi-channel stock & margin dashboard), and Eweb-builder (High-converting SEO storefronts). Guaranteeing 99.9% fulfillment accuracy and zero SLA breaches.",
+    "btnLabel": "Discover Eweb Suite",
     "btnUrl": "/smartcommerce",
-    "image": "675d2409-db77-4235-8e0a-a79a7019539d",
-    "video": "adc067e9-46c2-41d2-9b44-251d5690547e",
-    "sectionImage": "96ca09f2-de5a-40d1-a139-cb4aa44c4f18"
+    "image": "/images/egead/platform/laptop.png",
+    "video": "",
+    "sectionImage": "/images/egead/why/sync.png"
   },
   "partners": {
-    "subTitle": "Partners",
+    "subTitle": "Platform Integrations",
     "logoList": [
       {
-        "logoItem": "9475a8cd-b34b-47e3-96f8-2547b413ac72",
-        "mediaUrl": "https://www.sai-digital.com/site/sai-website/master/_/attachment/inline/9475a8cd-b34b-47e3-96f8-2547b413ac72:033d3a0e09c073e611d21a97098a4bb9f35063df/logo_sapsilver.svg"
+        "name": "Amazon",
+        "mediaUrl": "https://egeadcompany.com/images/egead/partners/amazon.svg"
       },
       {
-        "logoItem": "9653281c-ef5a-45c0-9c78-02bc06db92fc",
-        "mediaUrl": "https://www.sai-digital.com/site/sai-website/master/_/attachment/inline/9653281c-ef5a-45c0-9c78-02bc06db92fc:35cc602251aa505af797b5db82b9eba086a465e9/Logo%20Brands-4.png"
+        "name": "TikTok Shop",
+        "mediaUrl": "https://egeadcompany.com/images/egead/partners/tiktok.svg"
       },
       {
-        "logoItem": "90f7f64c-688d-44b0-bc8d-3f7eaef89acf",
-        "mediaUrl": "https://www.sai-digital.com/site/sai-website/master/_/attachment/inline/90f7f64c-688d-44b0-bc8d-3f7eaef89acf:093c6cebeceed6f85652819d5dba1e0ad8948be4/Logo%20Brands-7.png"
+        "name": "Etsy",
+        "mediaUrl": "https://egeadcompany.com/images/egead/partners/etsy.svg"
       },
       {
-        "logoItem": "35fed952-fc19-4503-b3c5-2a8389cdd158",
-        "mediaUrl": "https://www.sai-digital.com/site/sai-website/master/_/attachment/inline/35fed952-fc19-4503-b3c5-2a8389cdd158:c60c9179f7a33931e4fa7938276c5613d38ad416/Logo%20Brands-6.png"
+        "name": "Shopify",
+        "mediaUrl": "https://egeadcompany.com/images/egead/partners/shopify.svg"
       },
       {
-        "logoItem": "bb22a977-8ccf-446c-9ec7-d00752cfa487",
-        "mediaUrl": "https://www.sai-digital.com/site/sai-website/master/_/attachment/inline/bb22a977-8ccf-446c-9ec7-d00752cfa487:ac7fff024735e94af4d6e8fb7243090813ee1d1e/Logo%20Brands-8.png"
+        "name": "eBay",
+        "mediaUrl": "https://egeadcompany.com/images/egead/partners/ebay.svg"
       },
       {
-        "logoItem": "df24ac90-929a-47dc-a79a-4b61003514ab",
-        "mediaUrl": "https://www.sai-digital.com/site/sai-website/master/_/attachment/inline/df24ac90-929a-47dc-a79a-4b61003514ab:07e90f3cad59f143b38f9123a280d3368ea616b8/Logo%20Brands-9.png"
+        "name": "WooCommerce",
+        "mediaUrl": "https://egeadcompany.com/images/egead/partners/woocommerce.svg"
       },
       {
-        "logoItem": "b1772408-e496-4680-93e1-c2bb12daf0cd",
-        "mediaUrl": "https://www.sai-digital.com/site/sai-website/master/_/attachment/inline/b1772408-e496-4680-93e1-c2bb12daf0cd:d93516041a3dadb45da1dca3df68af04ad8c1a2a/Logo%20Brands-1.png"
+        "name": "Google",
+        "mediaUrl": "https://egeadcompany.com/images/egead/partners/google.svg"
       },
       {
-        "logoItem": "82f359ec-6193-4958-b927-551bfdc0712b",
-        "mediaUrl": "https://www.sai-digital.com/site/sai-website/master/_/attachment/inline/82f359ec-6193-4958-b927-551bfdc0712b:8da816c9598769579174271b7ddc607de2b1234b/Logo%20Brands-3.png"
-      },
-      {
-        "logoItem": "92977742-7fb3-40fa-8679-e1348f02c886",
-        "mediaUrl": "https://www.sai-digital.com/site/sai-website/master/_/attachment/inline/92977742-7fb3-40fa-8679-e1348f02c886:c00cb5fb21b57d87e0a720ed9f5b4392f36219a8/Logo%20Brands-5.png"
-      },
-      {
-        "logoItem": "acdd274d-3b7c-4170-929f-670b5a0854ef",
-        "mediaUrl": "https://www.sai-digital.com/site/sai-website/master/_/attachment/inline/acdd274d-3b7c-4170-929f-670b5a0854ef:3c4964ee2d2a162ad5c97424d8efbbe411e3fe90/Logo%20Brands-10.png"
-      },
-      {
-        "logoItem": "9cf8339a-c638-42ea-80b5-727de4534d11",
-        "mediaUrl": "https://www.sai-digital.com/site/sai-website/master/_/attachment/inline/9cf8339a-c638-42ea-80b5-727de4534d11:506f2725ee8f23f1f1741d08cbdea2da1ef1a816/Logo%20Brands-11.png"
-      },
-      {
-        "logoItem": "59af7e35-905d-4096-9e43-d632e4c55d55",
-        "mediaUrl": "https://www.sai-digital.com/site/sai-website/master/_/attachment/inline/59af7e35-905d-4096-9e43-d632e4c55d55:e918b4aac39a6dbd66f37d0a0dd45e265edec648/Logo%20Brands-12.png"
-      },
-      {
-        "logoItem": "02c2d748-5519-4f93-9b71-f9694448de14",
-        "mediaUrl": "https://www.sai-digital.com/site/sai-website/master/_/attachment/inline/02c2d748-5519-4f93-9b71-f9694448de14:cef01436f210b527d66cf4e665cd395e9669b96e/Logo%20Brands-13.png"
+        "name": "Meta",
+        "mediaUrl": "https://egeadcompany.com/images/egead/partners/meta.svg"
       }
     ],
-    "isCenter": false
+    "isCenter": true
   },
   "testimonials": {
-    "title": "Discover the transformative experiences of our clients.",
+    "title": "Discover the transformative results of our sellers.",
     "subTitle": "Testimonials",
-    "description": "From enhanced productivity to unparalleled satisfaction, our services have made an impact. Don't just take our word for it:",
+    "description": "From 0% late dispatch on TikTok Shop to 4.8x ROAS in North American campaigns, see how global brands scale with E-GEAD:",
     "btnLabel": "View All Testimonials",
     "btnUrl": "/testimonial"
   },
   "insights": {
-    "title": "Our latest news.",
+    "title": "Latest e-commerce insights & playbooks.",
     "subTitle": "Insights",
     "btnLabel": "View All Insights",
     "btnUrl": "/insights"
   },
   "culture": {
-    "title": "We believe business without humanity is a failure. Our team shoots for the stars to deliver our partner’s out-of-this-world results.",
-    "subTitle": "Our Culture",
-    "mainBlockTitle": "Members",
-    "mainBlockValue": "200",
-    "subBlockTitle": "Offices",
-    "subBlockValue": "8",
-    "mainBtnLabel": "About Us",
+    "title": "We are more than just an operations partner; we drive comprehensive growth through an automation technology ecosystem, US-standard POD production, and global market scaling.",
+    "subTitle": "Our Scale & Impact",
+    "mainBlockTitle": "Projects Delivered",
+    "mainBlockValue": "100+",
+    "subBlockTitle": "Global Partners",
+    "subBlockValue": "20+",
+    "mainBtnLabel": "About E-GEAD",
     "mainBtnUrl": "/company",
     "subBtnLabel": "Careers",
     "subBtnUrl": "/career",
-    "image": "4c4a8ffe-3205-4e7c-8f92-42846f139648",
-    "imageHover": "4c4a8ffe-3205-4e7c-8f92-42846f139648"
+    "image": "https://egeadcompany.com/images/egead/strengths/projects.png",
+    "imageHover": "https://egeadcompany.com/images/egead/strengths/projects.png"
   },
   "contact": {
-    "title": "<p>Let's <strong>boost</strong> your <br />\ncommerce outcomes.</p>\n",
-    "btn_label": "Let's talk",
+    "title": "<p>Let's <strong>automate</strong> your<br />e-commerce operations.</p>",
+    "btn_label": "Get Free Consultation",
     "btn_url": "/contact-us"
   },
   "footer": {
-    "footerLogo": "b57b9b00-83e8-4476-aa2c-3f327f36c957",
-    "copyRight": "Copyright (C) 2023 SAI Digital",
+    "footerLogo": "https://egeadcompany.com/images/egead/logo-wordmark.png",
+    "copyRight": "© 2026 E-Gead Company. All rights reserved.",
+    "address": "217/9 Ngo Quyen Street, Tan An Ward, Buon Ma Thuot City, Dak Lak Province, Vietnam",
+    "email": "support@egead.com",
     "item_social": [
       {
-        "imageSocial": "98d85278-6d07-42f5-ab00-471326b1d8f1",
-        "url": "https://www.facebook.com/saidigitalofficial/"
+        "imageSocial": "/assets/Facebook_Black.svg",
+        "url": "https://www.facebook.com/"
       },
       {
-        "imageSocial": "abb54b8f-ba04-4600-8ba2-f66b3248c67f",
-        "url": "https://www.linkedin.com/company/2861256/"
+        "imageSocial": "/assets/LinkedIn_Black.svg",
+        "url": "https://www.linkedin.com/"
       },
       {
-        "imageSocial": "bb0ea88e-66c9-4b6c-bdbe-3d07abc87507",
-        "url": "https://www.youtube.com/channel/UCjZQrM0j-xcgux24mfP4geA"
+        "imageSocial": "/assets/Twitter_Black.svg",
+        "url": "https://x.com/"
       },
       {
-        "imageSocial": "31aa8178-3383-4d89-aef2-39261d96d43f",
-        "url": "https://twitter.com/SAIDigitalTweet"
-      },
-      {
-        "imageSocial": "95e43da9-5dc6-403e-9187-7c234b349ee7",
-        "url": "https://8card.net/c/2897508/account"
+        "imageSocial": "/assets/Youtube_Black.svg",
+        "url": "https://www.youtube.com/"
       }
     ],
     "location_list": [
       {
-        "location_name": "North America",
+        "location_name": "US (Pacific)",
         "location_time": "America/Los_Angeles"
       },
       {
-        "location_name": "Japan",
-        "location_time": "Asia/Tokyo"
+        "location_name": "US (Eastern)",
+        "location_time": "America/New_York"
       },
       {
-        "location_name": "Singapore",
-        "location_time": "Asia/Singapore"
+        "location_name": "London (UK)",
+        "location_time": "Europe/London"
       },
       {
-        "location_name": "Australia",
+        "location_name": "Frankfurt (DE)",
+        "location_time": "Europe/Berlin"
+      },
+      {
+        "location_name": "Vietnam (HQ)",
+        "location_time": "Asia/Ho_Chi_Minh"
+      },
+      {
+        "location_name": "Sydney (AU)",
         "location_time": "Australia/Sydney"
-      },
-      {
-        "location_name": "Hongkong",
-        "location_time": "Asia/Hong_Kong"
-      },
-      {
-        "location_name": "Vietnam",
-        "location_time": "Asia/Bangkok"
-      },
-      {
-        "location_name": "India",
-        "location_time": "Asia/Colombo"
       }
-    ],
-    "socialTitle": "JOIN OUR NETWORK"
+    ]
   }
 }

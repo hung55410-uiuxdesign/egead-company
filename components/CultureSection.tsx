@@ -15,7 +15,7 @@ export default function CultureSection() {
               Our Culture
             </span>
             <h2 className="text-2xl sm:text-4xl lg:text-[44px] font-bold tracking-tight leading-[1.2] text-white font-rubik mb-10">
-              We believe business without humanity is a failure. Our team shoots for the stars to deliver our partner’s out-of-this-world results.
+              Empowering global commerce through relentless operational innovation, technology automation, and transparent collaboration.
             </h2>
 
             {/* 2 Buttons matching live site: About Us (white) & Careers (black border) */}
@@ -46,7 +46,7 @@ export default function CultureSection() {
             <div className="relative w-full max-w-lg rounded-[40px] overflow-hidden bg-gradient-to-br from-[#141718] to-[#0A0D0E] border border-white/10 p-6 sm:p-10 shadow-2xl">
               <img
                 src="/assets/Group_8839.png"
-                alt="SAI Digital Culture"
+                alt="E-GEAD Company Culture"
                 className="w-full h-auto object-contain mx-auto transition-transform duration-700 hover:scale-105"
               />
             </div>

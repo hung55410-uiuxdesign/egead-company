@@ -4,29 +4,29 @@ import { ArrowUpRight, Award, Shield, Users, Globe2, Lightbulb, HeartHandshake }
 import ContactBlock from '@/components/ContactBlock';
 
 export const metadata = {
-  title: 'Company | SAI Digital: Transform Today, Lead Tomorrow',
-  description: 'Learn about SAI Digital history, leadership, engineering culture, and our strategic global footprint as a Concentrix Company.',
+  title: 'About Us | E-GEAD: More Than An Operations Partner',
+  description: 'E-GEAD is based in Buon Ma Thuot, Vietnam, empowering cross-border e-commerce brands across 10+ countries with US POD fulfillment in under 24 hours, WMS automation, and global sales scaling.',
 };
 
 const values = [
   {
-    title: 'Humanity First',
-    desc: 'We believe business without humanity is a failure. We put our people, client relationships, and end-user empathy at the heart of every technical decision.',
-    icon: HeartHandshake,
-  },
-  {
-    title: 'Engineering Rigor',
-    desc: 'We do not build minimum viable compromises. We architect scalable, high-throughput systems with SOC 2 compliance, automated testing, and sub-second performance.',
-    icon: Shield,
-  },
-  {
-    title: 'Continuous Velocity',
-    desc: 'Agile sprints, rapid prototyping, and modular headless architectures enable our clients to move at startup speed with enterprise resilience.',
+    title: 'Automation-First Ecosystem',
+    desc: 'We believe automation is critical to modern e-commerce. From AI address normalization and real-time multi-channel sync to barcode WMS order routing, E-GEAD eliminates 99% of manual fulfillment errors.',
     icon: Lightbulb,
   },
   {
-    title: 'Global Delivery',
-    desc: 'With delivery hubs in Vietnam and regional offices across Japan, Singapore, Australia, Korea, and the US, we provide seamless 24/7 global support.',
+    title: 'Sub-24H Fulfillment SLA',
+    desc: 'Speed is our defining advantage. Industrial 23-inch large-format printing in the US enables us to complete and dispatch orders in under 24 hours, safeguarding 100% compliance with strict TikTok Shop US, Amazon, and Etsy SLAs.',
+    icon: Shield,
+  },
+  {
+    title: 'Absolute Financial Transparency',
+    desc: 'Sustainable growth is built on trust. E-GEAD guarantees all-in unit pricing from $6 with zero hidden fees, real-time landed cost calculators, and automated net profit reconciliation.',
+    icon: HeartHandshake,
+  },
+  {
+    title: 'Global Scale with Local Dedication',
+    desc: 'Founded and engineered by a passionate technology team in Buon Ma Thuot, Vietnam, alongside an extensive US fulfillment network, we bring Vietnamese engineering excellence to thousands of global sellers.',
     icon: Globe2,
   },
 ];
@@ -38,14 +38,14 @@ export default function CompanyPage() {
       <section className="w-full px-6 sm:px-10 lg:px-14 xl:px-16 mb-20 sm:mb-28">
         <div className="max-w-4xl">
           <span className="text-xs sm:text-sm font-bold tracking-widest uppercase text-[#7ceee0] block mb-4">
-            About SAI Digital
+            About E-GEAD
           </span>
           <h1 className="text-4xl sm:text-6xl md:text-7xl font-black tracking-tight leading-[1.1] mb-6">
-            TRANSFORM TODAY, <br />
-            <span className="text-[#7ceee0]">LEAD TOMORROW.</span>
+            MORE THAN AN OPERATIONS PARTNER, <br />
+            <span className="text-[#7ceee0]">DRIVING GLOBAL SCALE.</span>
           </h1>
           <p className="text-lg sm:text-xl text-gray-300 font-normal leading-relaxed max-w-3xl">
-            SAI Digital is an end-to-end digital commerce and customer experience (CX) technology solutions company. We are proud to be a Concentrix Company, scaling enterprise innovation globally.
+            E-GEAD is an all-in-one logistics, automation technology, and digital growth platform based in Buon Ma Thuot, Vietnam. We empower e-commerce brands and cross-border sellers across 10+ countries to automate workflows, fulfill US print-on-demand orders in under 24 hours, and sustainably expand into global marketplaces.
           </p>
         </div>
       </section>
@@ -55,13 +55,13 @@ export default function CompanyPage() {
         <div className="relative rounded-[36px] overflow-hidden border border-white/10 shadow-2xl">
           <img
             src="/assets/company.png"
-            alt="SAI Digital Global Team"
+            alt="E-GEAD Operations & Engineering Hub"
             className="w-full h-auto object-cover max-h-[550px]"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-[#0A0D0E] via-transparent to-transparent opacity-80" />
           <div className="absolute bottom-8 left-8 right-8 flex flex-wrap items-center justify-between gap-4 text-xs">
             <span className="px-4 py-2 rounded-full bg-black/60 backdrop-blur-md border border-white/20 font-mono text-white">
-              CONCENTRIX DIGITAL COMMERCE HUB
+              BUON MA THUOT HQ & US FULFILLMENT NETWORK
             </span>
           </div>
         </div>
@@ -71,20 +71,20 @@ export default function CompanyPage() {
       <section className="w-full px-6 sm:px-10 lg:px-14 xl:px-16 mb-28">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 p-8 sm:p-12 rounded-[32px] bg-[#141718] border border-white/10 text-center">
           <div>
-            <span className="text-4xl sm:text-5xl font-black text-[#7ceee0] font-mono">200+</span>
-            <p className="text-xs sm:text-sm text-gray-400 mt-2 font-semibold uppercase tracking-wider">Specialists & Engineers</p>
+            <span className="text-4xl sm:text-5xl font-black text-[#7ceee0] font-mono">100+</span>
+            <p className="text-xs sm:text-sm text-gray-400 mt-2 font-semibold uppercase tracking-wider">Projects Delivered</p>
           </div>
           <div>
-            <span className="text-4xl sm:text-5xl font-black text-[#7ceee0] font-mono">8</span>
-            <p className="text-xs sm:text-sm text-gray-400 mt-2 font-semibold uppercase tracking-wider">Global Strategic Hubs</p>
+            <span className="text-4xl sm:text-5xl font-black text-[#7ceee0] font-mono">20+</span>
+            <p className="text-xs sm:text-sm text-gray-400 mt-2 font-semibold uppercase tracking-wider">Global Business Partners</p>
           </div>
           <div>
-            <span className="text-4xl sm:text-5xl font-black text-[#7ceee0] font-mono">15+</span>
-            <p className="text-xs sm:text-sm text-gray-400 mt-2 font-semibold uppercase tracking-wider">Years of Excellence</p>
+            <span className="text-4xl sm:text-5xl font-black text-[#7ceee0] font-mono">10+</span>
+            <p className="text-xs sm:text-sm text-gray-400 mt-2 font-semibold uppercase tracking-wider">Countries Reached</p>
           </div>
           <div>
-            <span className="text-4xl sm:text-5xl font-black text-[#7ceee0] font-mono">150+</span>
-            <p className="text-xs sm:text-sm text-gray-400 mt-2 font-semibold uppercase tracking-wider">Enterprise Deliveries</p>
+            <span className="text-4xl sm:text-5xl font-black text-[#7ceee0] font-mono">99%</span>
+            <p className="text-xs sm:text-sm text-gray-400 mt-2 font-semibold uppercase tracking-wider">Client Satisfaction</p>
           </div>
         </div>
       </section>
@@ -93,10 +93,10 @@ export default function CompanyPage() {
       <section className="w-full px-6 sm:px-10 lg:px-14 xl:px-16 mb-28">
         <div className="text-center max-w-3xl mx-auto mb-16">
           <span className="text-xs sm:text-sm font-bold tracking-widest uppercase text-[#7ceee0] block mb-3">
-            Our DNA
+            Our DNA & Philosophy
           </span>
           <h2 className="text-3xl sm:text-5xl font-bold text-white">
-            Principles that guide our engineering and partnerships.
+            Principles that power our automation and global fulfillment.
           </h2>
         </div>
 

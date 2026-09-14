@@ -5,28 +5,28 @@ import Link from 'next/link';
 
 const testimonials = [
   {
-    quote: "The professionalism shown has impressed me immensely. On behalf of the Suntory management, I'd like to extend our appreciation for the amazing work done by SAI team.",
-    role: "IT Manager",
+    quote: "Switching our US TikTok Shop fulfillment to E-GEAD was the best operational decision we made in 2025. Sub-24h turnaround and zero late-shipment strikes allowed us to scale from 200 to 2,500 daily orders seamlessly.",
+    role: "Founder & CEO, UrbanVibe Apparel (US)",
   },
   {
-    quote: "SAI Digital's agile methodology matched the speed we were looking for.",
-    role: "CEO",
+    quote: "E-GEAD's automated multi-channel sync eliminated our inventory discrepancies across Amazon and Etsy completely. We cut manual fulfillment labor by 70% and doubled our catalog reach.",
+    role: "Operations Director, HomeCraft Living",
   },
   {
-    quote: "We chose SAI Digital for their strategic partnership rather than contractual, their experience with large-scale international projects, and their track record of delivering Commerce Cloud projects successfully.",
-    role: "SAP director, APAC",
+    quote: "Their performance marketing team transformed our ad economics. Scaling TikTok and Meta Ads while maintaining a 4.8x blended ROAS during Q4 gave us unprecedented seasonal profitability.",
+    role: "Head of Growth, Lumina Beauty Group",
   },
   {
-    quote: "SAI Digital was instrumental in our move to Shopify, their expertise in front-end development, UX/UI, and general eCommerce best practices allowed a seamless transition.",
-    role: "The Dinner Ladies CMO",
+    quote: "The barcode WMS integration and sub-24 hour dispatch reliability made our direct-to-garment POD operation rock solid. Zero SLA breaches and 99.9% fulfillment accuracy.",
+    role: "Co-Founder & VP Operations, PrintWave Studios",
   },
   {
-    quote: "Despite our initial apprehension about offshoring our implementation, everything went smoothly from start to finish thanks to SAI expertise and commitment.",
-    role: "Head of IT and Systems",
+    quote: "Working with E-GEAD gives us complete peace of mind. Transparent unit economics at $6 all-in with automated US carrier tracking kept our customer satisfaction score above 4.9 stars.",
+    role: "Managing Director, Apex Retail Brands",
   },
   {
-    quote: "Bringing brilliant creativity and strategic alignment, SAI developed a great integrated marketing plan. We have earned massive records for both customer engagements and distribution sales, specifically reaching our KPIs' targets in less than two weeks.",
-    role: "Product Manager",
+    quote: "E-GEAD's engineering team built custom API bridges between our ERP and TikTok Shop in less than two weeks. Flawless execution and world-class developer communication.",
+    role: "Chief Technology Officer, Global Merch Partners",
   },
 ];
 
@@ -43,7 +43,7 @@ export default function TestimonialsSection() {
             Discover the transformative experiences of our clients.
           </h2>
           <p className="mt-4 text-sm sm:text-base text-[#8C8C8C] font-normal leading-relaxed font-montserrat max-w-2xl">
-            From enhanced productivity to unparalleled satisfaction, our services have made an impact. Don't just take our word for it:
+            From accelerated fulfillment to predictable profit margins, our automation solutions deliver measurable growth. See what global e-commerce sellers say about E-GEAD:
           </p>
         </div>
 

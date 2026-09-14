@@ -6,31 +6,31 @@ import Link from 'next/link';
 const services = [
   {
     num: '01',
-    title: 'Strategy & Design',
-    desc: 'Commerce strategy, experience design, marketing planning',
+    title: 'US POD Fulfillment',
+    desc: 'Under 24H production, 23-inch large-format printing, TikTok Shop US compliance, from $6 all-in.',
     icon: '/assets/home-icon__1_.svg',
-    href: '/services/all-services/strategy-design',
+    href: '/speedx',
   },
   {
     num: '02',
-    title: 'Data & Analytics',
-    desc: 'AI, machine learning, predictive analytics, business intelligence',
+    title: 'Sales Automation',
+    desc: 'Real-time multi-channel order and inventory synchronization across Amazon, Etsy, TikTok Shop, and Shopify.',
     icon: '/assets/home-icon__2_.svg',
-    href: '/services/all-services/data-analytics',
+    href: '/smartcommerce',
   },
   {
     num: '03',
-    title: 'Enterprise Technology',
-    desc: 'Platform implementation, system integration, cloud infrastructure',
+    title: 'Digital Growth Marketing',
+    desc: 'Targeted high-intent conversion campaigns on Meta, Google, and TikTok Ads driving 4.8x average ROAS.',
     icon: '/assets/home-icon__3_.svg',
-    href: '/services/all-services/enterprise-technology',
+    href: '/services/all-services',
   },
   {
     num: '04',
-    title: 'Commerce & CX Operations',
-    desc: '24/7 commerce operations, AI operations, creative & marketing operations',
+    title: 'Developers Hub & WMS',
+    desc: 'Open RESTful API infrastructure, real-time webhooks, and 99.9% barcode scan warehouse accuracy.',
     icon: '/assets/home-icon__4_.svg',
-    href: '/services/all-services/commerce-cx--operations',
+    href: '/services/all-services',
   },
 ];
 
@@ -54,10 +54,10 @@ export default function ServicesSection() {
         <div className="w-full flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12 sm:mb-16">
           <div>
             <span className="text-xs sm:text-sm font-semibold tracking-widest uppercase text-[#25E2CC] block mb-3 font-montserrat">
-              Services
+              Capabilities
             </span>
             <h2 className="text-3xl sm:text-5xl lg:text-[54px] font-bold tracking-tight leading-[1.15] text-white font-rubik">
-              Complete <span className="text-[#25E2CC]">CX transformation</span> capabilities.
+              End-to-End <span className="text-[#25E2CC]">E-Commerce Growth</span> Ecosystem.
             </h2>
           </div>
 
@@ -68,7 +68,7 @@ export default function ServicesSection() {
             <svg width="15" height="15" viewBox="0 0 19 18" fill="none" xmlns="http://www.w3.org/2000/svg" className="fill-white group-hover:fill-[#25E2CC] transition">
               <path d="M15.125 10.875L10.625 15.375L9.56 14.31L12.2525 11.625H3.875V2.625H5.375V10.125H12.2525L9.56 7.44L10.625 6.375L15.125 10.875Z" />
             </svg>
-            <span>Explore Integrated Capabilities</span>
+            <span>Explore All Capabilities</span>
           </Link>
         </div>
 

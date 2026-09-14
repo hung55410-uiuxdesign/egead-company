@@ -6,59 +6,31 @@ import { Mail, MapPin, Phone, Send, CheckCircle, ArrowUpRight } from 'lucide-rea
 const offices = [
   {
     country: 'Vietnam',
-    city: 'Ho Chi Minh City & Hanoi',
-    address: 'Floor 10, Saigon Center Tower 2, 67 Le Loi, District 1, HCMC',
-    email: 'vietnam@sai-digital.com',
-    type: 'Primary Delivery Center',
+    city: 'Buon Ma Thuot City, Dak Lak Province',
+    address: '217/9 Ngo Quyen Street, Tan An Ward, Buon Ma Thuot City, Dak Lak Province, Vietnam',
+    email: 'support@egead.com',
+    type: 'Headquarters & Engineering Hub',
   },
   {
-    country: 'Singapore',
-    city: 'Singapore',
-    address: '16 Collyer Quay, #18-00, Singapore 049318',
-    email: 'singapore@sai-digital.com',
-    type: 'APAC Headquarters',
+    country: 'United States',
+    city: 'California & East Coast Centers',
+    address: 'High-throughput 23-inch POD manufacturing lines and WMS distribution facilities',
+    email: 'contact@egeadcompany.com',
+    type: 'US Production & Logistics Network',
   },
   {
-    country: 'Japan',
-    city: 'Tokyo',
-    address: 'Roppongi Hills Mori Tower, Minato City, Tokyo',
-    email: 'japan@sai-digital.com',
-    type: 'Regional Office',
+    country: 'International Support',
+    city: 'US, UK & EU Timezones',
+    address: '24/7 client support and real-time SLA operations monitoring',
+    email: 'support@egead.com',
+    type: '24/7 Operations Desk',
   },
   {
-    country: 'Australia',
-    city: 'Sydney',
-    address: 'Level 24, 200 George Street, Sydney NSW 2000',
-    email: 'australia@sai-digital.com',
-    type: 'Regional Office',
-  },
-  {
-    country: 'Hong Kong',
-    city: 'Hong Kong',
-    address: 'Two International Finance Centre, 8 Finance Street, Central',
-    email: 'hongkong@sai-digital.com',
-    type: 'Regional Office',
-  },
-  {
-    country: 'South Korea',
-    city: 'Seoul',
-    address: 'Teheran-ro, Gangnam-gu, Seoul',
-    email: 'korea@sai-digital.com',
-    type: 'Regional Office',
-  },
-  {
-    country: 'India',
-    city: 'Bangalore',
-    address: 'Outer Ring Road, Bellandur, Bangalore',
-    email: 'india@sai-digital.com',
-    type: 'Engineering Center',
-  },
-  {
-    country: 'North America',
-    city: 'Newark, California',
-    address: 'Concentrix Global Campus, Newark, CA, USA',
-    email: 'usa@sai-digital.com',
-    type: 'Global Corporate Office',
+    country: 'Global Developers',
+    city: 'Remote & Cloud',
+    address: 'RESTful API integration, webhook endpoints, and ERP synchronization',
+    email: 'contact@egeadcompany.com',
+    type: 'Developer Hub',
   },
 ];
 
@@ -68,7 +40,7 @@ export default function ContactUsPage() {
     name: '',
     email: '',
     company: '',
-    service: 'Strategy & Design',
+    service: 'US Print-on-Demand Fulfillment (<24H SLA)',
     message: '',
   });
 
@@ -86,11 +58,11 @@ export default function ContactUsPage() {
             Get in Touch
           </span>
           <h1 className="text-4xl sm:text-6xl md:text-7xl font-black tracking-tight leading-[1.1] mb-6">
-            Thinking of Leading <br />
-            <span className="text-[#7ceee0]">Tomorrow?</span>
+            AUTOMATE OPERATIONS, <br />
+            <span className="text-[#7ceee0]">SCALE GLOBALLY.</span>
           </h1>
           <p className="text-lg sm:text-xl text-gray-300 font-normal leading-relaxed">
-            Let's discuss how SAI Digital and Concentrix can accelerate your digital commerce outcomes, optimize customer retention, and scale globally.
+            Let's discuss how E-GEAD can automate your multi-channel storefronts, guarantee sub-24h US POD fulfillment, and scale your brand across international marketplaces.
           </p>
         </div>
       </section>
@@ -104,7 +76,7 @@ export default function ContactUsPage() {
               Send us a message
             </h2>
             <p className="text-sm text-gray-400 mb-8">
-              Fill out the form below and one of our commerce directors will respond within 24 hours.
+              Fill out the form below and one of our operations directors will respond within 24 hours.
             </p>
 
             {submitted ? (
@@ -112,7 +84,7 @@ export default function ContactUsPage() {
                 <CheckCircle className="w-12 h-12 text-[#7ceee0] mx-auto mb-4" />
                 <h3 className="text-xl font-bold text-white mb-2">Message received!</h3>
                 <p className="text-sm text-gray-300 max-w-md mx-auto">
-                  Thank you for reaching out to SAI Digital. Our team has received your inquiry and will be in touch shortly.
+                  Thank you for reaching out to E-GEAD. Our operations team has received your inquiry and will be in touch within 24 hours.
                 </p>
                 <button
                   onClick={() => setSubmitted(false)}
@@ -175,11 +147,11 @@ export default function ContactUsPage() {
                       onChange={(e) => setFormData({ ...formData, service: e.target.value })}
                       className="w-full bg-[#0A0D0E] border border-white/15 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-[#7ceee0]"
                     >
-                      <option value="Strategy & Design">Strategy & Design</option>
-                      <option value="Data & Analytics">Data & Analytics</option>
-                      <option value="Enterprise Technology">Enterprise Technology</option>
-                      <option value="Commerce & CX Operations">Commerce & CX Operations</option>
-                      <option value="SmartCommerce / SmartCX">SmartCommerce / SmartCX</option>
+                      <option value="US Print-on-Demand Fulfillment (<24H SLA)">US Print-on-Demand Fulfillment (&lt;24H SLA)</option>
+                      <option value="Sales Automation & Multi-Channel Sync">Sales Automation & Multi-Channel Sync</option>
+                      <option value="Digital Advertising & ROAS Scaling">Digital Advertising & ROAS Scaling</option>
+                      <option value="WMS & Open API Systems Integration">WMS & Open API Systems Integration</option>
+                      <option value="Eweb Suite Platform Onboarding">Eweb Suite Platform Onboarding</option>
                     </select>
                   </div>
                 </div>
@@ -191,7 +163,7 @@ export default function ContactUsPage() {
                   <textarea
                     required
                     rows={4}
-                    placeholder="Tell us about your upcoming digital transformation or challenges..."
+                    placeholder="Tell us about your storefront, order volume, or operational challenges..."
                     value={formData.message}
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                     className="w-full bg-[#0A0D0E] border border-white/15 rounded-xl px-4 py-3 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-[#7ceee0]"
@@ -219,28 +191,39 @@ export default function ContactUsPage() {
                     <Mail className="w-4 h-4" />
                   </div>
                   <div>
-                    <span className="block text-xs text-gray-400 font-semibold">General Inquiries</span>
-                    <a href="mailto:contact@sai-digital.com" className="hover:text-[#7ceee0] transition">
-                      contact@sai-digital.com
+                    <span className="block text-xs text-gray-400 font-semibold">General & Sales Inquiries</span>
+                    <a href="mailto:support@egead.com" className="hover:text-[#7ceee0] transition">
+                      support@egead.com
                     </a>
                   </div>
                 </div>
                 <div className="flex items-center gap-3">
                   <div className="w-9 h-9 rounded-full bg-white/5 flex items-center justify-center text-[#7ceee0]">
-                    <Phone className="w-4 h-4" />
+                    <Mail className="w-4 h-4" />
                   </div>
                   <div>
-                    <span className="block text-xs text-gray-400 font-semibold">Singapore Office</span>
-                    <span>+65 6808 6000</span>
+                    <span className="block text-xs text-gray-400 font-semibold">Partnership & US Operations</span>
+                    <a href="mailto:contact@egeadcompany.com" className="hover:text-[#7ceee0] transition">
+                      contact@egeadcompany.com
+                    </a>
+                  </div>
+                </div>
+                <div className="flex items-center gap-3">
+                  <div className="w-9 h-9 rounded-full bg-white/5 flex items-center justify-center text-[#7ceee0]">
+                    <MapPin className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <span className="block text-xs text-gray-400 font-semibold">Headquarters</span>
+                    <span>Buon Ma Thuot City, Dak Lak, Vietnam</span>
                   </div>
                 </div>
               </div>
             </div>
 
             <div className="p-8 rounded-[32px] bg-[#141718] border border-white/10">
-              <h3 className="text-xl font-bold text-white mb-2">SOC 2 Type II Certified</h3>
+              <h3 className="text-xl font-bold text-white mb-2">99.9% Fulfillment Accuracy</h3>
               <p className="text-xs text-gray-400 mb-4 leading-relaxed">
-                SAI Digital adheres to the highest global standards for data security, availability, confidentiality, and privacy verified by independent third-party audits.
+                E-GEAD enforces strict barcode verification, enterprise data protection, and 100% marketplace SLA compliance verified across millions of shipments.
               </p>
               <img src="/assets/Badges_SOC.svg" alt="SOC Badge" className="h-10 w-auto" />
             </div>
@@ -252,10 +235,10 @@ export default function ContactUsPage() {
       <section id="offices" className="w-full px-6 sm:px-10 lg:px-14 xl:px-16">
         <div className="mb-12">
           <span className="text-xs sm:text-sm font-bold tracking-widest uppercase text-[#7ceee0] block mb-2">
-            Global Footprint
+            Global Operations
           </span>
           <h2 className="text-3xl sm:text-4xl font-bold text-white">
-            Our Regional Hubs & Delivery Centers
+            Our Headquarters & Operational Network
           </h2>
         </div>
 
