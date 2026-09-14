@@ -42,3 +42,17 @@ export type { NetMarginLedgerProps } from './NetMarginLedger';
 
 export { default as BusinessRulesBuilder } from './BusinessRulesBuilder';
 export type { BusinessRulesBuilderProps } from './BusinessRulesBuilder';
+
+export { EfficiencyVisualizer } from './EfficiencyVisualizer';
+export type { EfficiencyVisualizerProps } from './EfficiencyVisualizer';
+
+export { TransformationMatrix } from './TransformationMatrix';
+export type { TransformationMatrixProps, TransformationMetric } from './TransformationMatrix';
+
+export { CaseStudiesPortfolio } from './CaseStudiesPortfolio';
+export type { CaseStudiesPortfolioProps, CaseStudyItem } from './CaseStudiesPortfolio';
+
+export { PlaybookDownloads } from './PlaybookDownloads';
+export type { PlaybookDownloadsProps, PlaybookResource } from './PlaybookDownloads';
+
+

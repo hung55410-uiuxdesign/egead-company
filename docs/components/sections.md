@@ -1,7 +1,7 @@
-# UI Layout Components Reference Catalog & Accessibility Guide (Phase 1, 2, 3 & 4)
+# UI Layout Components Reference Catalog & Accessibility Guide (Phases 1 - 5)
 
-> **Document Version**: 1.3.0  
-> **Status**: Production Ready (Phase 1, Phase 2, Phase 3 & Phase 4 Complete)  
+> **Document Version**: 1.4.0  
+> **Status**: Production Ready (Phases 1 - 5 Complete)  
 > **Target Audience**: Frontend Engineers, UX/UI Designers, Solution Architects  
 > **Scope**: Standardized Layout Sections for E-GEAD Company 2026 Portal ([`components/sections`](file:///C:/Develop/egead/egead-company/components/sections/index.ts))  
 > **WCAG Target**: WCAG 2.1 Level AA Compliant
@@ -26,11 +26,17 @@ During **Phase 4**, the enterprise platform page overhaul for [Phase 4: SmartCom
 - [`NetMarginLedger.tsx`](file:///C:/Develop/egead/egead-company/components/sections/NetMarginLedger.tsx): Interactive financial reconciliation ledger table with selectable sample orders, cost deductions breakdown (Gross Payment, Print Cost, Postage, Channel Fee, Ad CPA, True Net Profit & Net Margin %), simulated CSV/QuickBooks export, and WAI-ARIA table semantics.
 - [`BusinessRulesBuilder.tsx`](file:///C:/Develop/egead/egead-company/components/sections/BusinessRulesBuilder.tsx): Visual If-This-Then-That automation workflow builder with accessible switch toggles (`role="switch"`, `aria-checked`), keyboard-selectable rule cards (`role="button"`, `tabIndex={0}`), condition evaluator, and proven business ROI metrics.
 
-These components serve as the foundational layout building blocks for subsequent page overhauls across Phase 5 through Phase 8:
+During **Phase 5**, the case studies & client transformation page overhaul for [Phase 5: Our Work (`app/our-work/page.tsx`)](file:///C:/Develop/egead/egead-company/app/our-work/page.tsx) was delivered, engineering four specialized interactive section components:
+- [`EfficiencyVisualizer.tsx`](file:///C:/Develop/egead/egead-company/components/sections/EfficiencyVisualizer.tsx): Interactive operational scale simulator with volume range slider (500 to 25,000 orders/mo), 1K/4K/10K/20K presets, automated headcount calculation (Ops FTEs avoidance), net annual cost savings, reclaimed founder hours (~4.2 mins/order), and dual polite ARIA live regions.
+- [`TransformationMatrix.tsx`](file:///C:/Develop/egead/egead-company/components/sections/TransformationMatrix.tsx): Empirical Before-vs-After comparison table with WAI-ARIA table semantics (`role="table"`, `<th scope="col">`), 4 category filters (SLA & Logistics, Labor & Ops, ROAS & Scale, All Indicators), delta metrics (`-95.5% LDR`, `-93.5% CSV Hours`, `-86.8% RTO`, `+128.6% ROAS`), and active filter live regions.
+- [`CaseStudiesPortfolio.tsx`](file:///C:/Develop/egead/egead-company/components/sections/CaseStudiesPortfolio.tsx): Comprehensive portfolio showcase featuring an interactive category filter bar (`role="tablist"`), flagship deep dive into UrbanVibe Apparel (100% sub-24h dispatch, 0.18% LDR, +180% Q4 growth), and a responsive 6-brand portfolio grid with Next.js optimized `<Image>` components, verified SLA tags, and metric chips.
+- [`PlaybookDownloads.tsx`](file:///C:/Develop/egead/egead-company/components/sections/PlaybookDownloads.tsx): Executive knowledge base component with 3 downloadable strategy resources (TikTok Shop US SLA Survival Guide, Omnichannel Inventory & Safety Buffer Blueprint, Unit Economics & True Net Margin Master Sheet), simulated download feedback states (1.2s timeout), and polite ARIA announcement regions.
+
+These components serve as the foundational layout building blocks for subsequent page overhauls across Phase 6 through Phase 8:
 - [Phase 2: All Services (`app/services/all-services/page.tsx`)](file:///C:/Develop/egead/egead-company/app/services/all-services/page.tsx) — **COMPLETED (11/11 Sections Integrated)**
 - [Phase 3: SpeedX (`app/speedx/page.tsx`)](file:///C:/Develop/egead/egead-company/app/speedx/page.tsx) — **COMPLETED (12/12 Sections Integrated)**
 - [Phase 4: SmartCommerce (`app/smartcommerce/page.tsx`)](file:///C:/Develop/egead/egead-company/app/smartcommerce/page.tsx) — **COMPLETED (11/11 Sections Integrated)**
-- [Phase 5: Our Work (`app/our-work/page.tsx`)](file:///C:/Develop/egead/egead-company/app/our-work/page.tsx)
+- [Phase 5: Our Work (`app/our-work/page.tsx`)](file:///C:/Develop/egead/egead-company/app/our-work/page.tsx) — **COMPLETED (10/10 Sections Integrated)**
 - [Phase 6: Partners (`app/partners/page.tsx`)](file:///C:/Develop/egead/egead-company/app/partners/page.tsx)
 - [Phase 7: Insights (`app/insights/page.tsx`)](file:///C:/Develop/egead/egead-company/app/insights/page.tsx)
 - [Phase 8: Company (`app/company/page.tsx`)](file:///C:/Develop/egead/egead-company/app/company/page.tsx)
@@ -70,6 +76,10 @@ components/sections/
 ├── InventoryBufferEngine.tsx # Multi-channel dynamic safety buffer allocation simulator
 ├── NetMarginLedger.tsx       # Automated net margin reconciliation ledger table
 ├── BusinessRulesBuilder.tsx  # Visual If-This-Then-That automation workflow builder
+├── EfficiencyVisualizer.tsx  # Interactive headcount avoidance & net savings simulator
+├── TransformationMatrix.tsx  # Quantitative before-vs-after empirical transformation matrix
+├── CaseStudiesPortfolio.tsx  # Interactive filter bar, UrbanVibe deep dive & 6-brand portfolio
+├── PlaybookDownloads.tsx     # Executive strategy guides & SOP downloads with live feedback
 └── index.ts                  # Barrel export for components and TypeScript types
 ```
 
@@ -92,6 +102,10 @@ import {
   InventoryBufferEngine,
   NetMarginLedger,
   BusinessRulesBuilder,
+  EfficiencyVisualizer,
+  TransformationMatrix,
+  CaseStudiesPortfolio,
+  PlaybookDownloads,
 } from '@/components/sections';
 import type {
   BentoItem,
@@ -109,6 +123,13 @@ import type {
   InventoryBufferEngineProps,
   NetMarginLedgerProps,
   BusinessRulesBuilderProps,
+  EfficiencyVisualizerProps,
+  TransformationMatrixProps,
+  TransformationMetric,
+  CaseStudiesPortfolioProps,
+  CaseStudyItem,
+  PlaybookDownloadsProps,
+  PlaybookResource,
 } from '@/components/sections';
 ```
 
@@ -1232,33 +1253,281 @@ export default function AutomationWorkflowsSection() {
 
 ---
 
+### 2.16 EfficiencyVisualizer
+
+- **Source Code**: [`components/sections/EfficiencyVisualizer.tsx`](file:///C:/Develop/egead/egead-company/components/sections/EfficiencyVisualizer.tsx)
+- **Component Type**: Client Component (`'use client'`)
+- **Primary Use**: Interactive operational efficiency and scale simulator calculating traditional manual fulfillment costs vs E-GEAD automated infrastructure, displaying headcount avoidance (Ops FTEs), net annual savings, and reclaimed founder hours.
+- **Page Integration**: Serves as **Section 6** on [Our Work (`app/our-work/page.tsx`)](file:///C:/Develop/egead/egead-company/app/our-work/page.tsx) (`<EfficiencyVisualizer id="efficiency-calculator" initialVolume={4000} />`).
+
+#### TypeScript Interface
+
+```typescript
+export interface EfficiencyVisualizerProps {
+  id?: string;
+  className?: string;
+  initialVolume?: number;
+}
+```
+
+#### State & Financial Mathematical Model
+
+- `volume: number` (`useState<number>(initialVolume)`): Range slider from 500 to 25,000 monthly orders (step 250), with quick-preset pill buttons (1,000, 4,000, 10,000, 20,000).
+- `traditionalFteCount = Math.max(1, Math.ceil(volume / 2000))`: 1 full-time ops coordinator required per 2,000 orders.
+- `traditionalStaffCost = traditionalFteCount * 3200`: $3,200/month average salary per FTE.
+- `traditionalErrorFrictionCost = Math.round(volume * 0.48)`: $0.48/order in manual errors, missed cut-offs, and RTO reshipments.
+- `traditionalTotalCost = traditionalStaffCost + traditionalErrorFrictionCost`.
+- `egeadCost = Math.round(volume * 0.22)`: $0.22/order flat efficiency cost (0 manual FTEs needed).
+- `netMonthlySavings = Math.max(0, traditionalTotalCost - egeadCost)`.
+- `netAnnualSavings = netMonthlySavings * 12`.
+- `hoursSavedPerMonth = Math.round(volume * 0.042)`: Reclaims ~4.2 minutes per order in manual processing.
+
+#### Accessibility & WCAG 2.1 AA Compliance
+
+1. **Dynamic ARIA Live Regions (`aria-live="polite"` & `aria-atomic="true"`)**:
+   - Encloses the live financial results and provides dedicated hidden live regions for assistive technologies announcing recalculated metrics on volume change.
+2. **Range Slider Accessibility**:
+   - Linked to unique `useId()` label, labeled with `aria-label="Monthly Order Volume"`, `aria-valuemin={500}`, `aria-valuemax={25000}`, `aria-valuenow={volume}`, and `aria-valuetext={`${volume.toLocaleString()} orders per month`}`.
+3. **Accessible Preset Group (`role="group"` & `aria-pressed`)**:
+   - Preset buttons container features `role="group"` with `aria-label="Select common order volume presets"`.
+   - Each preset pill includes `aria-pressed={volume === preset}`.
+4. **Keyboard Focus & Contrast**:
+   - All interactive controls feature distinct `focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#25E2CC]`.
+   - Large metrics formatted in high-contrast monospace typography (`#25E2CC`, `#10B981`, white) exceeding 11:1 contrast on `#141718`.
+5. **Decorative Graphics**:
+   - Icons (`TrendingUp`, `Clock`, `DollarSign`, `Users`, `Sparkles`, `ArrowRight`) carry `aria-hidden="true"`.
+
+#### Usage Example
+
+```tsx
+import React from 'react';
+import { EfficiencyVisualizer } from '@/components/sections';
+
+export default function OperationalScaleSection() {
+  return <EfficiencyVisualizer id="efficiency-calculator" initialVolume={4000} />;
+}
+```
+
+---
+
+### 2.17 TransformationMatrix
+
+- **Source Code**: [`components/sections/TransformationMatrix.tsx`](file:///C:/Develop/egead/egead-company/components/sections/TransformationMatrix.tsx)
+- **Component Type**: Client Component (`'use client'`)
+- **Primary Use**: Empirical Before-vs-After transformation comparison matrix with category filtering, displaying validated client performance deltas across SLA compliance, labor reduction, postal accuracy, and blended ROAS scaling.
+- **Page Integration**: Serves as **Section 5** on [Our Work (`app/our-work/page.tsx`)](file:///C:/Develop/egead/egead-company/app/our-work/page.tsx) (`<TransformationMatrix id="transformation-matrix" />`).
+
+#### TypeScript Interface
+
+```typescript
+export interface TransformationMetric {
+  id: string;
+  category: 'sla' | 'cost' | 'marketing' | 'all';
+  metricName: string;
+  metricLabel: string;
+  beforeValue: string;
+  beforeContext: string;
+  afterValue: string;
+  afterContext: string;
+  deltaPercent: string;
+  trendType: 'decrease-positive' | 'increase-positive';
+  impactStatement: string;
+}
+
+export interface TransformationMatrixProps {
+  id?: string;
+  className?: string;
+  title?: string;
+  description?: string;
+}
+```
+
+#### Empirical Indicators & Delta Performance
+
+1. **TikTok Shop Late Dispatch Rate (LDR)**: Before `4.5%` (Critical Risk · Algorithmic Throttle) -> After `0.2%` (SLA Shield · Fast Dispatch Badge) | **`-95.5%` Delta**.
+2. **Weekly Hours on Manual CSVs & Routing**: Before `18.5 hrs/wk` (Manual file uploads) -> After `1.2 hrs/wk` (Automated webhook sync) | **`-93.5%` Delta** (Reclaims 70+ hours each month).
+3. **Address-Related Return to Origin (RTO)**: Before `6.8%` (Failed carrier delivery) -> After `0.9%` (AI CASS pre-dispatch verification) | **`-86.8%` Delta**.
+4. **Blended Advertising ROAS (Meta & TikTok)**: Before `2.1x` (Break-even boundary) -> After `4.8x` (Confident scaling past $25K/day) | **`+128.6%` Delta**.
+
+#### Accessibility & WCAG 2.1 AA Compliance
+
+1. **Semantic WAI-ARIA Table**:
+   - Rendered with `role="table"`, `<th scope="col">` column headers, and explicit `aria-label="Before versus After E-GEAD Implementation Matrix"`.
+2. **Accessible Category Filter Group (`role="group"` & `aria-pressed`)**:
+   - Filter container carries `role="group"` with `aria-label="Filter transformation metrics by category"`.
+   - Category buttons include `aria-pressed={activeCategory === cat.key}`.
+3. **Polite Screen Reader Live Region (`aria-live="polite"` & `aria-atomic="true"`)**:
+   - Announces filtered indicator counts when switching categories (`"Showing X transformation metrics for category Y."`).
+4. **Visual Contrast**:
+   - Clear semantic differentiation between legacy problem states (`text-rose-300`, 7.2:1 contrast) and optimized automated states (`text-[#25E2CC]`, 11.2:1 contrast).
+5. **Decorative Icons**: All icons (`TrendingDown`, `TrendingUp`, `CheckCircle2`, `AlertTriangle`, `ShieldCheck`, `Zap`) carry `aria-hidden="true"`.
+
+#### Usage Example
+
+```tsx
+import React from 'react';
+import { TransformationMatrix } from '@/components/sections';
+
+export default function EmpiricalResultsSection() {
+  return <TransformationMatrix id="transformation-matrix" />;
+}
+```
+
+---
+
+### 2.18 CaseStudiesPortfolio
+
+- **Source Code**: [`components/sections/CaseStudiesPortfolio.tsx`](file:///C:/Develop/egead/egead-company/components/sections/CaseStudiesPortfolio.tsx)
+- **Component Type**: Client Component (`'use client'`)
+- **Primary Use**: Comprehensive multi-section client transformation portfolio combining an interactive category filter bar (`role="tablist"`), flagship case study deep dive for UrbanVibe Apparel, and a 6-brand portfolio grid with Next.js optimized `<Image>` assets.
+- **Page Integration**: Powers **Section 2 (Filter Bar)**, **Section 3 (Flagship UrbanVibe Deep Dive)**, and **Section 4 (6-Brand Portfolio Grid)** on [Our Work (`app/our-work/page.tsx`)](file:///C:/Develop/egead/egead-company/app/our-work/page.tsx).
+
+#### TypeScript Interface
+
+```typescript
+export interface CaseStudyItem {
+  id: string;
+  client: string;
+  location: string;
+  category: string;
+  industry: 'pod-fulfillment' | 'marketplace-sync' | 'performance-ads' | 'api-integration';
+  title: string;
+  summary: string;
+  image: string;
+  metrics: string[];
+  resultsBreakdown: {
+    highlight: string;
+    description: string;
+  };
+  linkHref?: string;
+}
+
+export interface CaseStudiesPortfolioProps {
+  className?: string;
+}
+```
+
+#### Portfolio Clients & Capabilities
+
+1. **UrbanVibe Apparel** (Los Angeles, CA): Print-on-Demand Fashion | Sub-24H Dispatch SLA, 0.18% Late Dispatch Rate, +180% Q4 Revenue ($420K GMV over 28,000 orders).
+2. **HomeCraft Studio** (London & Seattle): Home Living & Custom Gifts | 99.9% WMS barcode accuracy, -85% manual ops, zero Amazon stockout cancellations.
+3. **Lumina DTC Brand** (Singapore & US): Performance Fashion & DTC | Scaled blended ROAS to 4.8x, CPA reduced to $8.40, ad spend expanded to $25K/day.
+4. **PrintWave Enterprise Network** (Austin, TX): Enterprise API Infrastructure | 10,000+ daily orders, 99.9% API uptime, <120ms webhook dispatch latency.
+5. **Nordic Threads** (Berlin & Stockholm): Apparel & Merch Expansion | Cross-border US expansion at flat $6 all-in DTF rate with 34% net profit margin.
+6. **AuraGlow Custom Decor** (Melbourne, Australia): Personalized Decor | -91% RTO return losses, 99.7% postal delivery rate, $38K reclaimed via AI CASS normalization.
+
+#### Accessibility & WCAG 2.1 AA Compliance
+
+1. **WAI-ARIA Tablist Pattern**:
+   - Category filter pills render with `role="tablist"`, `role="tab"`, unique `id={`tab-${tab.id}`}`, `aria-selected={isActive}`, and `aria-controls="case-studies-grid"`.
+2. **Next.js Image Optimization**:
+   - Visual cards use Next.js `<Image>` with descriptive `alt` tags, `fill`, responsive `sizes`, and `priority` on above-the-fold flagship assets.
+3. **Live Screen Reader Announcements**:
+   - Polite live region (`aria-live="polite"` & `aria-atomic="true"`) announces the number of displayed case studies when filtering by domain.
+4. **Reduced Motion Support (`motion-reduce:transition-none`)**:
+   - Smooth zoom on hover disables when `prefers-reduced-motion: reduce` is active.
+5. **Semantic Headings**:
+   - Structured `<h2>` for flagship narrative and `<h3>` for grid case study cards.
+
+#### Usage Example
+
+```tsx
+import React from 'react';
+import { CaseStudiesPortfolio } from '@/components/sections';
+
+export default function CaseStudiesSection() {
+  return <CaseStudiesPortfolio className="w-full" />;
+}
+```
+
+---
+
+### 2.19 PlaybookDownloads
+
+- **Source Code**: [`components/sections/PlaybookDownloads.tsx`](file:///C:/Develop/egead/egead-company/components/sections/PlaybookDownloads.tsx)
+- **Component Type**: Client Component (`'use client'`)
+- **Primary Use**: Executive resource and strategy guide distribution component featuring downloadable SOPs, Notion/Excel financial models, simulated downloading state feedback, and screen reader announcements.
+- **Page Integration**: Serves as **Section 8** on [Our Work (`app/our-work/page.tsx`)](file:///C:/Develop/egead/egead-company/app/our-work/page.tsx) (`<PlaybookDownloads id="operational-playbooks" />`).
+
+#### TypeScript Interface
+
+```typescript
+export interface PlaybookResource {
+  id: string;
+  title: string;
+  format: 'PDF Guide' | 'Excel / Notion Sheet';
+  pagesOrSize: string;
+  description: string;
+  keyTakeaway: string;
+  downloadsCount: string;
+}
+
+export interface PlaybookDownloadsProps {
+  id?: string;
+  className?: string;
+}
+```
+
+#### Curated Executive Playbooks
+
+1. **The 2026 TikTok Shop US SLA Survival Guide** (24 Pages · Comprehensive PDF): CASS normalization SOPs, carrier cut-offs, maintaining sub-1% LDR.
+2. **The Omnichannel Inventory & Safety Buffer Blueprint** (18 Pages · Architecture PDF): Dynamic holdback math formulas and webhook throttling algorithms across Amazon, TikTok Shop, Etsy, and Shopify.
+3. **Unit Economics & True Net Margin Master Sheet** (Interactive Template · Notion & XLSX): Full financial waterfall mapping gross GMV to clean net profit after DTF print costs, postage, and blended CPA.
+
+#### Accessibility & WCAG 2.1 AA Compliance
+
+1. **Dynamic Polite Live Region (`aria-live="polite"` & `aria-atomic="true"`)**:
+   - Announces `"Preparing your guide for download..."` and completed download states to screen readers.
+2. **Accessible Action Buttons**:
+   - Download triggers carry explicit `aria-label={`Download ${book.title} (${book.format})`}` and `aria-busy={downloadingId === book.id}` during file generation.
+3. **Clear State Feedback**:
+   - Visual transition from `Download` icon to animated spinner, resolving to emerald `CheckCircle2` with `"Downloaded (Ready)"` confirmation.
+4. **Keyboard Accessibility**:
+   - All buttons feature `focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#25E2CC]`.
+5. **Decorative Graphics**:
+   - Icons (`Download`, `FileText`, `FileSpreadsheet`, `CheckCircle2`, `BookOpen`, `Sparkles`) carry `aria-hidden="true"`.
+
+#### Usage Example
+
+```tsx
+import React from 'react';
+import { PlaybookDownloads } from '@/components/sections';
+
+export default function OperationalPlaybooksSection() {
+  return <PlaybookDownloads id="operational-playbooks" />;
+}
+```
+
+---
+
 ## 3. Cross-Phase Implementation Matrix
 
-The table below outlines how the 15 section layout components map directly to the requirements of subsequent phases as defined in the master technical plan ([`docs/plans/plan.md`](file:///C:/Develop/egead/egead-company/docs/plans/plan.md)):
+The table below outlines how the 19 section layout components map directly to the requirements of subsequent phases as defined in the master technical plan ([`docs/plans/plan.md`](file:///C:/Develop/egead/egead-company/docs/plans/plan.md)):
 
-| Phase & Target Page | Status | BentoGrid | MetricsRibbon | ComparisonTable | FaqAccordion | WorkflowTimeline | RoleTabs | MarginSimulator | AddressDemo | PricingCalculator | ApiTerminal | LiveCountdownCard | CockpitHudCard | InventoryBufferEngine | NetMarginLedger | BusinessRulesBuilder | Custom Section Additions |
-| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :--- |
-| **Phase 2: All Services** (`/services/all-services`) | **COMPLETED** | 6 Pillars Grid | Production Metrics Strip | Head-to-Head 3PL Matrix | Service & SLA FAQ | 5-Step Order-to-Door Pipeline | 4-Persona Architecture Switcher | Section 7 (Interactive ROI & SLA Simulator) | — | — | — | — | — | — | — | — | Split Hero with Live Dispatch HUD, SLA Protection Badges, Client Spotlight (UrbanVibe), Mega CTA & ContactBlock |
-| **Phase 3: SpeedX** (`/speedx`) | **COMPLETED** | Section 5 (23" DTF Tech Deep Dive) | Section 2 (SpeedX SLA Metrics) | Section 3 (Legacy POD Crisis Matrix) | Section 11 (SpeedX Technical FAQ) | Section 6 (6-Station WMS Pipeline) | — | — | Section 4 (AI Normalization Demo) | Section 7 ($6 All-In Base Rate Calculator) | Section 10 (REST & Webhook Developer Terminal) | Section 1 (Live 24H SLA Countdown Card in Hero) | — | — | — | — | Section 8 (TikTok Shop LDR Shield), Section 9 (Blanks Catalog), Section 12 (High-Octane Mega CTA & ContactBlock) |
-| **Phase 4: SmartCommerce** (`/smartcommerce`) | **COMPLETED** | Section 4 (Central Operations Bento Grid) | Section 2 (Platform KPIs Strip) | Section 3 (Omnichannel Chaos Matrix) | — | Section 6 (4-Step WMS Flow) | — | — | — | — | — | — | Section 1 (Telemetry Cockpit HUD in Hero) | Section 5 (Multi-Channel Dynamic Safety Buffer) | Section 7 (Automated Net Margin Reconciliation Ledger) | Section 8 (Intelligent No-Code Rules Engine) | Section 9 (Enterprise Cloud Resilience Standards), Section 10 (Platform Integrations Ecosystem), Section 11 (High-Velocity Conversion Mega CTA & ContactBlock) |
-| **Phase 5: Our Work** (`/our-work`) | PENDING | Project Showcase Grid | Cumulative GMV & Unit Metrics | Quantitative Before/After Matrix | Client Onboarding FAQ | Brand Launch Pipeline | Industry Sector Switcher (Fashion / Merch / Tech) | — | — | — | — | — | — | — | — | — | UrbanVibe Case Study Deep Dive, Testimonial Slider |
-| **Phase 6: Partners** (`/partners`) | PENDING | Ecosystem Benefits Grid | Channel GMV Impact Strip | Native App vs Generic Connector | Integration FAQ | 3-Step Partner Certification | Technology vs Agency Partner Switcher | — | — | — | — | — | — | — | — | — | Integration Badges Matrix, Co-Marketing Simulator |
-| **Phase 7: Insights** (`/insights`) | PENDING | Featured Article Bento | Readership & Community Stats | Self-Hosted vs Managed POD Analysis | Content & Editorial FAQ | Research-to-Publication Flow | Role-Based Reading Tracks | — | — | — | — | — | — | — | — | — | Newsletter Subscriptions, Interactive Read Filters |
-| **Phase 8: Company** (`/company`) | PENDING | Culture & Mission Bento | Facility Footprint & Team Numbers | In-House Ethics vs Offshored Labor | Talent & Career FAQ | Company Evolution Timeline | Department Tour Switcher | — | — | — | — | — | — | — | — | — | Leadership Grid, Interactive US Hub Map |
+| Phase & Target Page | Status | BentoGrid | MetricsRibbon | ComparisonTable | FaqAccordion | WorkflowTimeline | RoleTabs | MarginSimulator | AddressDemo | PricingCalculator | ApiTerminal | LiveCountdownCard | CockpitHudCard | InventoryBufferEngine | NetMarginLedger | BusinessRulesBuilder | EfficiencyVisualizer | TransformationMatrix | CaseStudiesPortfolio | PlaybookDownloads | Custom Section Additions |
+| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :--- |
+| **Phase 2: All Services** (`/services/all-services`) | **COMPLETED** | 6 Pillars Grid | Production Metrics Strip | Head-to-Head 3PL Matrix | Service & SLA FAQ | 5-Step Order-to-Door Pipeline | 4-Persona Architecture Switcher | Section 7 (Interactive ROI & SLA Simulator) | — | — | — | — | — | — | — | — | — | — | — | — | Split Hero with Live Dispatch HUD, SLA Protection Badges, Client Spotlight (UrbanVibe), Mega CTA & ContactBlock |
+| **Phase 3: SpeedX** (`/speedx`) | **COMPLETED** | Section 5 (23" DTF Tech Deep Dive) | Section 2 (SpeedX SLA Metrics) | Section 3 (Legacy POD Crisis Matrix) | Section 11 (SpeedX Technical FAQ) | Section 6 (6-Station WMS Pipeline) | — | — | Section 4 (AI Normalization Demo) | Section 7 ($6 All-In Base Rate Calculator) | Section 10 (REST & Webhook Developer Terminal) | Section 1 (Live 24H SLA Countdown Card in Hero) | — | — | — | — | — | — | — | — | Section 8 (TikTok Shop LDR Shield), Section 9 (Blanks Catalog), Section 12 (High-Octane Mega CTA & ContactBlock) |
+| **Phase 4: SmartCommerce** (`/smartcommerce`) | **COMPLETED** | Section 4 (Central Operations Bento Grid) | Section 2 (Platform KPIs Strip) | Section 3 (Omnichannel Chaos Matrix) | — | Section 6 (4-Step WMS Flow) | — | — | — | — | — | — | Section 1 (Telemetry Cockpit HUD in Hero) | Section 5 (Multi-Channel Dynamic Safety Buffer) | Section 7 (Automated Net Margin Reconciliation Ledger) | Section 8 (Intelligent No-Code Rules Engine) | — | — | — | — | Section 9 (Enterprise Cloud Resilience Standards), Section 10 (Platform Integrations Ecosystem), Section 11 (High-Velocity Conversion Mega CTA & ContactBlock) |
+| **Phase 5: Our Work** (`/our-work`) | **COMPLETED** | — | Section 1 (Impact Hero Aggregate Portfolio Metrics Strip) | — | Section 9 (Case Studies & Partnership FAQ Accordion) | — | — | — | — | — | — | — | — | — | — | — | Section 6 (Headcount & Scale Savings Simulator) | Section 5 (Quantitative Before-vs-After Transformation Matrix) | Sections 2, 3 & 4 (Filter Bar, Flagship UrbanVibe Deep Dive, 6-Brand Portfolio Grid) | Section 8 (Executive Knowledge Base & Downloadable SOPs) | Section 7 (Verified Founder Audio/Video Quotes), Section 10 (High-Conversion Growth Audit Booking CTA & ContactBlock) |
+| **Phase 6: Partners** (`/partners`) | PENDING | Ecosystem Benefits Grid | Channel GMV Impact Strip | Native App vs Generic Connector | Integration FAQ | 3-Step Partner Certification | Technology vs Agency Partner Switcher | — | — | — | — | — | — | — | — | — | — | — | — | — | Integration Badges Matrix, Co-Marketing Simulator |
+| **Phase 7: Insights** (`/insights`) | PENDING | Featured Article Bento | Readership & Community Stats | Self-Hosted vs Managed POD Analysis | Content & Editorial FAQ | Research-to-Publication Flow | Role-Based Reading Tracks | — | — | — | — | — | — | — | — | — | — | — | — | — | Newsletter Subscriptions, Interactive Read Filters |
+| **Phase 8: Company** (`/company`) | PENDING | Culture & Mission Bento | Facility Footprint & Team Numbers | In-House Ethics vs Offshored Labor | Talent & Career FAQ | Company Evolution Timeline | Department Tour Switcher | — | — | — | — | — | — | — | — | — | — | — | — | — | Leadership Grid, Interactive US Hub Map |
 
 ---
 
 ## 4. Verification & Testing Protocol
 
 All components and integrated page layouts have been rigorously verified via automated testing using **Bun Test** and **React Server DOM Rendering**:
-- **Components Test Suite**: [`tests/sections.test.tsx`](file:///C:/Develop/egead/egead-company/tests/sections.test.tsx) (`bun test tests/sections.test.tsx`) — **20/20 tests PASS (100%)**
+- **Components Test Suite**: [`tests/sections.test.tsx`](file:///C:/Develop/egead/egead-company/tests/sections.test.tsx) (`bun test tests/sections.test.tsx`) — **24/24 tests PASS (100%)**
 - **All Services Page Suite**: [`tests/all-services.test.tsx`](file:///C:/Develop/egead/egead-company/tests/all-services.test.tsx) (`bun test tests/all-services.test.tsx`) — **13/13 tests PASS (100%)**
 - **SpeedX Page Suite**: [`tests/speedx.test.tsx`](file:///C:/Develop/egead/egead-company/tests/speedx.test.tsx) (`bun test tests/speedx.test.tsx`) — **17/17 tests PASS (100%)**
 - **SmartCommerce Page Suite**: [`tests/smartcommerce.test.tsx`](file:///C:/Develop/egead/egead-company/tests/smartcommerce.test.tsx) (`bun test tests/smartcommerce.test.tsx`) — **16/16 tests PASS (100%)**
-- **Combined Command**: `bun run test` — **66 tests PASS across 4 test suites (619 assertions, 0 errors)**
+- **Our Work Page Suite**: [`tests/our-work.test.tsx`](file:///C:/Develop/egead/egead-company/tests/our-work.test.tsx) (`bun test tests/our-work.test.tsx`) — **15/15 tests PASS (100%)**
+- **Combined Command**: `bun run test` — **85 tests PASS across 5 test suites (781 assertions, 0 errors)**
 
 ### Test Coverage Summary:
-1. **Module Exports**: Confirms all 15 section components and TypeScript type contracts are properly exported through [`components/sections/index.ts`](file:///C:/Develop/egead/egead-company/components/sections/index.ts).
+1. **Module Exports**: Confirms all 19 section components and TypeScript type contracts are properly exported through [`components/sections/index.ts`](file:///C:/Develop/egead/egead-company/components/sections/index.ts).
 2. **BentoGrid**: Tests grid span generation (`col-span-1`, `md:col-span-2`, `lg:col-span-3`), custom visual node rendering, and badge/title display.
 3. **MetricsRibbon**: Tests responsive column distribution (2/3/4 columns), numeric trends, and minimalist fallback configurations.
 4. **ComparisonTable**: Tests complete WAI-ARIA table semantics (`role="table"`, `role="rowgroup"`, `role="row"`, `role="columnheader"`, `role="cell"`, `role="rowheader"`) and screen reader `.sr-only` accessibility text for boolean checks and crosses.
@@ -1277,3 +1546,8 @@ All components and integrated page layouts have been rigorously verified via aut
 17. **Page Integration (All Services)**: Tests all 11 dedicated sections in [`app/services/all-services/page.tsx`](file:///C:/Develop/egead/egead-company/app/services/all-services/page.tsx) including metadata, live dispatch HUD, metrics ribbon, role tabs, bento pillars, workflow timeline, comparison table, margin simulator, SLA compliance badges, client spotlight, FAQ accordion, and conversion mega CTA with ContactBlock.
 18. **Page Integration (SpeedX)**: Tests all 12 dedicated sections in [`app/speedx/page.tsx`](file:///C:/Develop/egead/egead-company/app/speedx/page.tsx) including metadata, kinetic hero with LiveCountdownCard, metrics strip, legacy POD crisis comparison, AddressDemo, DTF technology deep dive, 6-station WMS workflow, PricingCalculator, TikTok Shop LDR shield, blanks catalog, ApiTerminal, FAQ accordion, and high-octane conversion CTA with ContactBlock.
 19. **Page Integration (SmartCommerce)**: Tests all 11 dedicated sections in [`app/smartcommerce/page.tsx`](file:///C:/Develop/egead/egead-company/app/smartcommerce/page.tsx) including metadata, enterprise cockpit hero with CockpitHudCard, core performance metrics ribbon, omnichannel chaos comparison matrix, central operations bento grid, InventoryBufferEngine, barcode-verified WMS module, NetMarginLedger, BusinessRulesBuilder, cloud resilience standards, native platform integrations ecosystem, and high-velocity conversion mega CTA with ContactBlock.
+20. **EfficiencyVisualizer**: Tests interactive volume slider (500 to 25,000 orders/mo), volume preset buttons (`role="group"`, `aria-pressed`), headcount calculation (Ops FTEs avoidance), net annual savings, and polite ARIA live region (`aria-live="polite"`).
+21. **TransformationMatrix**: Tests empirical before-vs-after comparison table with WAI-ARIA table semantics (`role="table"`, `<th scope="col">`), category filtering (`role="group"`, `aria-pressed`), delta metrics (`-95.5% LDR`, `-93.5% CSV Hours`, `-86.8% RTO`, `+128.6% ROAS`), and polite ARIA live region.
+22. **CaseStudiesPortfolio**: Tests interactive capability filter bar (`role="tablist"`, `role="tab"`), flagship UrbanVibe deep dive section, 6-brand portfolio grid, Next.js optimized `<Image>` tags, verified SLA badges, and live filter notifications.
+23. **PlaybookDownloads**: Tests executive strategy resources cards, download action buttons (`aria-label`, `aria-busy`), simulated download transition states, and polite ARIA announcement regions (`aria-live="polite"`).
+24. **Page Integration (Our Work)**: Tests all 10 dedicated sections in [`app/our-work/page.tsx`](file:///C:/Develop/egead/egead-company/app/our-work/page.tsx) including metadata, impact-driven hero with aggregate portfolio metrics, interactive capability filter bar, flagship UrbanVibe deep dive, 6-brand case study grid, quantitative transformation matrix, efficiency visualizer, verified founder quotes, operational playbooks, FAQ accordion with Schema JSON-LD, and high-conversion audit booking CTA with ContactBlock.

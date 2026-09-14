@@ -17,6 +17,10 @@ import {
   InventoryBufferEngine,
   NetMarginLedger,
   BusinessRulesBuilder,
+  EfficiencyVisualizer,
+  TransformationMatrix,
+  CaseStudiesPortfolio,
+  PlaybookDownloads,
 } from '../components/sections';
 import type {
   BentoItem,
@@ -40,11 +44,16 @@ import type {
   InventoryBufferEngineProps,
   NetMarginLedgerProps,
   BusinessRulesBuilderProps,
+  EfficiencyVisualizerProps,
+  TransformationMatrixProps,
+  CaseStudiesPortfolioProps,
+  PlaybookDownloadsProps,
 } from '../components/sections';
 
-describe('Phase 1, 2, 3 & 4 Components Verification', () => {
+describe('Phase 1, 2, 3, 4 & 5 Components Verification', () => {
+
   describe('Module Exports', () => {
-    test('all 15 section components are exported and defined', () => {
+    test('all 19 section components are exported and defined', () => {
       expect(BentoGrid).toBeDefined();
       expect(typeof BentoGrid).toBe('function');
 
@@ -89,6 +98,18 @@ describe('Phase 1, 2, 3 & 4 Components Verification', () => {
 
       expect(BusinessRulesBuilder).toBeDefined();
       expect(typeof BusinessRulesBuilder).toBe('function');
+
+      expect(EfficiencyVisualizer).toBeDefined();
+      expect(typeof EfficiencyVisualizer).toBe('function');
+
+      expect(TransformationMatrix).toBeDefined();
+      expect(typeof TransformationMatrix).toBe('function');
+
+      expect(CaseStudiesPortfolio).toBeDefined();
+      expect(typeof CaseStudiesPortfolio).toBe('function');
+
+      expect(PlaybookDownloads).toBeDefined();
+      expect(typeof PlaybookDownloads).toBe('function');
     });
   });
 
@@ -593,6 +614,67 @@ describe('Phase 1, 2, 3 & 4 Components Verification', () => {
     });
   });
 
+  describe('EfficiencyVisualizer Component', () => {
+    test('renders interactive volume slider and cost savings calculation', () => {
+      const html = renderToStaticMarkup(
+        <EfficiencyVisualizer id="custom-eff" className="custom-eff-class" initialVolume={5000} />
+      );
+
+      expect(html).toContain('id="custom-eff"');
+      expect(html).toContain('custom-eff-class');
+      expect(html).toContain('role="region"');
+      expect(html).toContain('Monthly Order Volume');
+      expect(html).toContain('Net Monthly Cash Saved');
+      expect(html).toContain('Human Hours Reclaimed');
+      expect(html).toContain('Headcount Avoidance');
+    });
+  });
+
+  describe('TransformationMatrix Component', () => {
+    test('renders transformation matrix with accessible WAI-ARIA table and filters', () => {
+      const html = renderToStaticMarkup(
+        <TransformationMatrix id="custom-matrix" className="custom-matrix-class" />
+      );
+
+      expect(html).toContain('id="custom-matrix"');
+      expect(html).toContain('custom-matrix-class');
+      expect(html).toContain('role="table"');
+      expect(html).toContain('scope="col"');
+      expect(html).toContain('scope="row"');
+      expect(html).toContain('TikTok Shop Late Dispatch Rate (LDR)');
+      expect(html).toContain('-95.5%');
+    });
+  });
+
+  describe('CaseStudiesPortfolio Component', () => {
+    test('renders interactive category filter tabs and 6 case studies articles', () => {
+      const html = renderToStaticMarkup(<CaseStudiesPortfolio className="custom-portfolio-class" />);
+
+      expect(html).toContain('custom-portfolio-class');
+      expect(html).toContain('id="case-study-filters"');
+      expect(html).toContain('id="flagship-case-study"');
+      expect(html).toContain('id="case-studies-grid"');
+      expect(html).toContain('role="tablist"');
+      expect(html).toContain('UrbanVibe Apparel');
+      expect(html).toContain('HomeCraft Studio');
+    });
+  });
+
+  describe('PlaybookDownloads Component', () => {
+    test('renders downloadable guides with action buttons and live regions', () => {
+      const html = renderToStaticMarkup(
+        <PlaybookDownloads id="custom-playbooks" className="custom-playbooks-class" />
+      );
+
+      expect(html).toContain('id="custom-playbooks"');
+      expect(html).toContain('custom-playbooks-class');
+      expect(html).toContain('The 2026 TikTok Shop US SLA Survival Guide');
+      expect(html).toContain('The Omnichannel Inventory &amp; Safety Buffer Blueprint');
+      expect(html).toContain('Unit Economics &amp; True Net Margin Master Sheet');
+      expect(html).toContain('Download Free Guide');
+    });
+  });
+
   describe('Type Definition Verification', () => {
     test('TypeScript interface contract assignments compile correctly', () => {
       const bentoProps: BentoGridProps = {
@@ -652,6 +734,21 @@ describe('Phase 1, 2, 3 & 4 Components Verification', () => {
         id: 'rules',
         className: 'rules-class',
       };
+      const effProps: EfficiencyVisualizerProps = {
+        id: 'eff',
+        className: 'eff-class',
+      };
+      const matrixProps: TransformationMatrixProps = {
+        id: 'matrix',
+        className: 'matrix-class',
+      };
+      const portfolioProps: CaseStudiesPortfolioProps = {
+        className: 'portfolio-class',
+      };
+      const playbookProps: PlaybookDownloadsProps = {
+        id: 'playbook',
+        className: 'playbook-class',
+      };
 
       expect(bentoProps.title).toBe('Title');
       expect(metricsProps.metrics).toBeArray();
@@ -668,6 +765,10 @@ describe('Phase 1, 2, 3 & 4 Components Verification', () => {
       expect(bufferProps.id).toBe('buffer');
       expect(ledgerProps.id).toBe('ledger');
       expect(rulesProps.id).toBe('rules');
+      expect(effProps.id).toBe('eff');
+      expect(matrixProps.id).toBe('matrix');
+      expect(portfolioProps.className).toBe('portfolio-class');
+      expect(playbookProps.id).toBe('playbook');
     });
   });
 });
