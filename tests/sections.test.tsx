@@ -13,6 +13,10 @@ import {
   PricingCalculator,
   ApiTerminal,
   LiveCountdownCard,
+  CockpitHudCard,
+  InventoryBufferEngine,
+  NetMarginLedger,
+  BusinessRulesBuilder,
 } from '../components/sections';
 import type {
   BentoItem,
@@ -32,11 +36,15 @@ import type {
   PricingCalculatorProps,
   ApiTerminalProps,
   LiveCountdownCardProps,
+  CockpitHudCardProps,
+  InventoryBufferEngineProps,
+  NetMarginLedgerProps,
+  BusinessRulesBuilderProps,
 } from '../components/sections';
 
-describe('Phase 1, 2 & 3 Components Verification', () => {
+describe('Phase 1, 2, 3 & 4 Components Verification', () => {
   describe('Module Exports', () => {
-    test('all 11 section components are exported and defined', () => {
+    test('all 15 section components are exported and defined', () => {
       expect(BentoGrid).toBeDefined();
       expect(typeof BentoGrid).toBe('function');
 
@@ -69,6 +77,18 @@ describe('Phase 1, 2 & 3 Components Verification', () => {
 
       expect(LiveCountdownCard).toBeDefined();
       expect(typeof LiveCountdownCard).toBe('function');
+
+      expect(CockpitHudCard).toBeDefined();
+      expect(typeof CockpitHudCard).toBe('function');
+
+      expect(InventoryBufferEngine).toBeDefined();
+      expect(typeof InventoryBufferEngine).toBe('function');
+
+      expect(NetMarginLedger).toBeDefined();
+      expect(typeof NetMarginLedger).toBe('function');
+
+      expect(BusinessRulesBuilder).toBeDefined();
+      expect(typeof BusinessRulesBuilder).toBe('function');
     });
   });
 
@@ -491,6 +511,88 @@ describe('Phase 1, 2 & 3 Components Verification', () => {
     });
   });
 
+  describe('CockpitHudCard Component', () => {
+    test('renders operations cockpit HUD with channels and throughput indicators', () => {
+      const html = renderToStaticMarkup(
+        <CockpitHudCard className="custom-hud-class" />
+      );
+
+      expect(html).toContain('custom-hud-class');
+      expect(html).toContain('Live Operations Cockpit HUD');
+      expect(html).toContain('Multi-Channel Mesh: Optimal');
+      expect(html).toContain('Global Throughput Rate');
+      expect(html).toContain('Median Sync Latency');
+      expect(html).toContain('TikTok Shop US');
+      expect(html).toContain('Amazon FBM');
+      expect(html).toContain('Shopify Plus DTC');
+      expect(html).toContain('Etsy Global');
+      expect(html).toContain('Safety Stock Buffer Protected');
+    });
+  });
+
+  describe('InventoryBufferEngine Component', () => {
+    test('renders multi-channel buffer engine with slider and live region', () => {
+      const html = renderToStaticMarkup(
+        <InventoryBufferEngine id="custom-buffer-engine" className="custom-engine-class" />
+      );
+
+      expect(html).toContain('id="custom-buffer-engine"');
+      expect(html).toContain('custom-engine-class');
+      expect(html).toContain('Physical Blank Inventory in US Hubs');
+      expect(html).toContain('type="range"');
+      expect(html).toContain('Safety Buffer Protection Threshold');
+      expect(html).toContain('aria-live="polite"');
+      expect(html).toContain('aria-atomic="true"');
+      expect(html).toContain('Synchronized Virtual Queues');
+      expect(html).toContain('Safety Reserve (Unlisted)');
+      expect(html).toContain('Active Available Stock');
+      expect(html).toContain('TikTok Shop US (40%)');
+      expect(html).toContain('Amazon FBM (40%)');
+      expect(html).toContain('Etsy Global (20%)');
+    });
+  });
+
+  describe('NetMarginLedger Component', () => {
+    test('renders financial reconciliation ledger with selectable tabs and ARIA table', () => {
+      const html = renderToStaticMarkup(
+        <NetMarginLedger id="custom-ledger" className="custom-ledger-class" />
+      );
+
+      expect(html).toContain('id="custom-ledger"');
+      expect(html).toContain('custom-ledger-class');
+      expect(html).toContain('role="tablist"');
+      expect(html).toContain('role="tab"');
+      expect(html).toContain('role="tabpanel"');
+      expect(html).toContain('role="table"');
+      expect(html).toContain('aria-live="polite"');
+      expect(html).toContain('Export P&amp;L Ledger (CSV)');
+      expect(html).toContain('Gross Customer Payment');
+      expect(html).toContain('True Clean Net Profit');
+      expect(html).toContain('Auto-syncs with Xero &amp; QuickBooks Online');
+    });
+  });
+
+  describe('BusinessRulesBuilder Component', () => {
+    test('renders business rules builder with accessible switches and If-Then visualizer', () => {
+      const html = renderToStaticMarkup(
+        <BusinessRulesBuilder id="custom-rules" className="custom-rules-class" />
+      );
+
+      expect(html).toContain('id="custom-rules"');
+      expect(html).toContain('custom-rules-class');
+      expect(html).toContain('role="switch"');
+      expect(html).toContain('aria-checked="true"');
+      expect(html).toContain('role="button"');
+      expect(html).toContain('High-Value VIP Order Acceleration');
+      expect(html).toContain('Non-Contiguous Surcharge Shield');
+      expect(html).toContain('Automated CASS Address Intercept');
+      expect(html).toContain('Step 1: Ingestion Trigger');
+      expect(html).toContain('Step 2: Conditional Evaluation (IF)');
+      expect(html).toContain('Step 3: Automated Action (THEN)');
+      expect(html).toContain('Proven Merchant ROI Impact');
+    });
+  });
+
   describe('Type Definition Verification', () => {
     test('TypeScript interface contract assignments compile correctly', () => {
       const bentoProps: BentoGridProps = {
@@ -535,6 +637,21 @@ describe('Phase 1, 2 & 3 Components Verification', () => {
       const countdownProps: LiveCountdownCardProps = {
         className: 'countdown-class',
       };
+      const hudProps: CockpitHudCardProps = {
+        className: 'hud-class',
+      };
+      const bufferProps: InventoryBufferEngineProps = {
+        id: 'buffer',
+        className: 'buffer-class',
+      };
+      const ledgerProps: NetMarginLedgerProps = {
+        id: 'ledger',
+        className: 'ledger-class',
+      };
+      const rulesProps: BusinessRulesBuilderProps = {
+        id: 'rules',
+        className: 'rules-class',
+      };
 
       expect(bentoProps.title).toBe('Title');
       expect(metricsProps.metrics).toBeArray();
@@ -547,6 +664,10 @@ describe('Phase 1, 2 & 3 Components Verification', () => {
       expect(pricingProps.id).toBe('pricing');
       expect(apiProps.id).toBe('api');
       expect(countdownProps.className).toBe('countdown-class');
+      expect(hudProps.className).toBe('hud-class');
+      expect(bufferProps.id).toBe('buffer');
+      expect(ledgerProps.id).toBe('ledger');
+      expect(rulesProps.id).toBe('rules');
     });
   });
 });
