@@ -1,7 +1,7 @@
-# UI Layout Components Reference Catalog & Accessibility Guide (Phase 1 & Phase 2)
+# UI Layout Components Reference Catalog & Accessibility Guide (Phase 1, 2 & 3)
 
-> **Document Version**: 1.1.0  
-> **Status**: Production Ready (Phase 1 & Phase 2 Complete)  
+> **Document Version**: 1.2.0  
+> **Status**: Production Ready (Phase 1, Phase 2 & Phase 3 Complete)  
 > **Target Audience**: Frontend Engineers, UX/UI Designers, Solution Architects  
 > **Scope**: Standardized Layout Sections for E-GEAD Company 2026 Portal ([`components/sections`](file:///C:/Develop/egead/egead-company/components/sections/index.ts))  
 > **WCAG Target**: WCAG 2.1 Level AA Compliant
@@ -12,11 +12,17 @@
 
 During **Phase 1**, six modular, responsive, and accessible UI layout section components were engineered under [`components/sections/`](file:///C:/Develop/egead/egead-company/components/sections/index.ts).
 
-During **Phase 2**, the first complete page overhaul was executed for [Phase 2: All Services (`app/services/all-services/page.tsx`)](file:///C:/Develop/egead/egead-company/app/services/all-services/page.tsx). As part of this overhaul, an interactive financial calculator component, [`MarginSimulator.tsx`](file:///C:/Develop/egead/egead-company/components/sections/MarginSimulator.tsx), was engineered and integrated as Section 7 of the 11-section architecture.
+During **Phase 2**, the first complete page overhaul was executed for [Phase 2: All Services (`app/services/all-services/page.tsx`)](file:///C:/Develop/egead/egead-company/app/services/all-services/page.tsx), introducing the [`MarginSimulator.tsx`](file:///C:/Develop/egead/egead-company/components/sections/MarginSimulator.tsx) operational efficiency component.
 
-These components serve as the foundational layout building blocks for subsequent page overhauls across Phase 3 through Phase 8:
+During **Phase 3**, the comprehensive page overhaul for [Phase 3: SpeedX (`app/speedx/page.tsx`)](file:///C:/Develop/egead/egead-company/app/speedx/page.tsx) was delivered, engineering four specialized interactive section components:
+- [`AddressDemo.tsx`](file:///C:/Develop/egead/egead-company/components/sections/AddressDemo.tsx): Interactive raw vs USPS CASS normalized delivery points demonstration with sub-35ms AI risk scoring.
+- [`PricingCalculator.tsx`](file:///C:/Develop/egead/egead-company/components/sections/PricingCalculator.tsx): Transparent $6 all-in unit economics calculator with live net margin projection and negative loss styling.
+- [`ApiTerminal.tsx`](file:///C:/Develop/egead/egead-company/components/sections/ApiTerminal.tsx): Dark developer terminal with tabbed endpoints (dispatch, webhook, inventory) and safe clipboard interaction.
+- [`LiveCountdownCard.tsx`](file:///C:/Develop/egead/egead-company/components/sections/LiveCountdownCard.tsx): Real-time 24H SLA production countdown clock with milestone timestamps, semantic `<time>` tag, and motion-reduction guard.
+
+These components serve as the foundational layout building blocks for subsequent page overhauls across Phase 4 through Phase 8:
 - [Phase 2: All Services (`app/services/all-services/page.tsx`)](file:///C:/Develop/egead/egead-company/app/services/all-services/page.tsx) — **COMPLETED (11/11 Sections Integrated)**
-- [Phase 3: SpeedX (`app/speedx/page.tsx`)](file:///C:/Develop/egead/egead-company/app/speedx/page.tsx)
+- [Phase 3: SpeedX (`app/speedx/page.tsx`)](file:///C:/Develop/egead/egead-company/app/speedx/page.tsx) — **COMPLETED (12/12 Sections Integrated)**
 - [Phase 4: SmartCommerce (`app/smartcommerce/page.tsx`)](file:///C:/Develop/egead/egead-company/app/smartcommerce/page.tsx)
 - [Phase 5: Our Work (`app/our-work/page.tsx`)](file:///C:/Develop/egead/egead-company/app/our-work/page.tsx)
 - [Phase 6: Partners (`app/partners/page.tsx`)](file:///C:/Develop/egead/egead-company/app/partners/page.tsx)
@@ -50,6 +56,10 @@ components/sections/
 ├── WorkflowTimeline.tsx   # Sequential step pipeline with glowing line & ol/li
 ├── RoleTabs.tsx           # WAI-ARIA role/persona tab switcher with metrics & CTA
 ├── MarginSimulator.tsx    # Interactive ROI, margin & SLA efficiency simulator
+├── AddressDemo.tsx        # Interactive raw vs USPS CASS normalized delivery points demo
+├── PricingCalculator.tsx  # Transparent per-unit base pricing & live net margin calculator
+├── ApiTerminal.tsx        # Tabbed dark developer terminal (REST dispatch, webhooks, inventory)
+├── LiveCountdownCard.tsx  # Real-time 24H SLA production countdown clock & milestones
 └── index.ts               # Barrel export for components and TypeScript types
 ```
 
@@ -64,6 +74,10 @@ import {
   WorkflowTimeline,
   RoleTabs,
   MarginSimulator,
+  AddressDemo,
+  PricingCalculator,
+  ApiTerminal,
+  LiveCountdownCard,
 } from '@/components/sections';
 import type {
   BentoItem,
@@ -73,6 +87,10 @@ import type {
   WorkflowStep,
   RoleTabItem,
   MarginSimulatorProps,
+  AddressDemoProps,
+  PricingCalculatorProps,
+  ApiTerminalProps,
+  LiveCountdownCardProps,
 } from '@/components/sections';
 ```
 
@@ -740,31 +758,250 @@ export default function ServicesPage() {
 
 ---
 
+### 2.8 AddressDemo
+
+- **Source Code**: [`components/sections/AddressDemo.tsx`](file:///C:/Develop/egead/egead-company/components/sections/AddressDemo.tsx)
+- **Component Type**: Client Component (`'use client'`)
+- **Primary Use**: Interactive address comparison demo showing raw marketplace payloads vs USPS CASS normalized delivery points, RTO risk scoring, test cases selector, and polite ARIA live regions.
+- **Page Integration**: Serves as **Section 4** on [SpeedX (`app/speedx/page.tsx`)](file:///C:/Develop/egead/egead-company/app/speedx/page.tsx) (`<AddressDemo id="ai-address-normalization" />`).
+
+#### TypeScript Interface
+
+```typescript
+export interface AddressDemoProps {
+  id?: string;
+  className?: string;
+}
+```
+
+#### State & Comparison Mechanics
+
+- `selectedCaseId: string` (`useState<string>('missing-zip')`): Interactive scenario switcher providing 3 real-world e-commerce test cases:
+  1. **Incomplete Zip & Abbreviation**: `jhn smth`, `apt 4b 125 n main st`, `new york, ny 1000` (92% RTO Risk) → Sanitized to `John Smith`, `125 N Main St Apt 4B`, `New York, NY 10001-2834`, Carrier Route `C012`, USPS DPV Confirmed Delivery Point, 0.1% Safe Risk.
+  2. **Typo in Street & City**: `emily rodriguz`, `742 evergreen terrce`, `spriengfield, oregon 97477` (84% RTO Risk) → Sanitized to `Emily Rodriguez`, `742 Evergreen Ter`, `Springfield, OR 97477-5246`, Carrier Route `R004`, USPS CASS Standardized & Corrected, 0.2% Safe Risk.
+  3. **Missing Suite / Unit Number**: `marcus vance`, `1600 amphitheatre pkwy bldg 43`, `mountain view, ca 94043` (76% RTO Risk) → Sanitized to `Marcus Vance`, `1600 Amphitheatre Pkwy Bldg 43`, `Mountain View, CA 94043-1351`, Carrier Route `C031`, USPS Commercial Drop Point Validated, 0.1% Safe Risk.
+
+#### Accessibility & WCAG 2.1 AA Compliance
+
+1. **Polite ARIA Live Region (`aria-live="polite"` & `aria-atomic="true"`)**:
+   - The AI sanitized output card container is equipped with `aria-live="polite"` and `aria-atomic="true"`.
+   - When users toggle between test scenarios, assistive technologies gracefully announce the normalized fields without interrupting active voice synthesis.
+2. **Accessible Scenario Button Group (`role="group"` & `aria-pressed`)**:
+   - Case switcher pills are contained in `<div role="group" aria-label="Select address test scenario">`.
+   - Buttons implement dynamic `aria-pressed={isActive}`, providing clear active state announcement to screen reader users.
+3. **Keyboard Focusability & Visual Rings**:
+   - Buttons utilize visible focus indicators: `focus:outline-none focus-visible:ring-2 focus-visible:ring-[#25E2CC]`.
+4. **Color Contrast & Semantic Alert Badging**:
+   - Hazardous input card features high-visibility red contrast styling (`text-red-400`, `border-red-500/30`, `bg-[#101416]`) paired with `AlertTriangle`.
+   - Verified output card uses signature cyan `#25E2CC` (11.2:1 contrast ratio) and emerald accents (`text-emerald-400`).
+5. **Decorative Icon Hiding**:
+   - Icons (`Sparkles`, `CheckCircle2`, `AlertTriangle`, `ShieldCheck`) include `aria-hidden="true"`.
+
+#### Usage Example
+
+```tsx
+import React from 'react';
+import { AddressDemo } from '@/components/sections';
+
+export default function AddressValidationSection() {
+  return <AddressDemo id="ai-address-normalization" />;
+}
+```
+
+---
+
+### 2.9 PricingCalculator
+
+- **Source Code**: [`components/sections/PricingCalculator.tsx`](file:///C:/Develop/egead/egead-company/components/sections/PricingCalculator.tsx)
+- **Component Type**: Client Component (`'use client'`)
+- **Primary Use**: Interactive per-unit margin calculator with base blanks pricing, marketplace fee calculation, shipping rates, and live net margin projection with negative loss styling.
+- **Page Integration**: Serves as **Section 7** on [SpeedX (`app/speedx/page.tsx`)](file:///C:/Develop/egead/egead-company/app/speedx/page.tsx) (`<PricingCalculator id="pricing-calculator" />`).
+
+#### TypeScript Interface
+
+```typescript
+export interface PricingCalculatorProps {
+  id?: string;
+  className?: string;
+}
+```
+
+#### State & Mathematical Calculation Model
+
+- `selectedTierId: string` (`useState<string>('tee')`): Selection among 3 production garment tiers:
+  - `Classic Streetwear Tee (Gildan 5000)`: Base cost $6.00, default retail $24.99 (5.3 oz, 23-inch DTF).
+  - `Vintage Washed Tee (Comfort Colors 1717)`: Base cost $9.50, default retail $32.00 (Ringspun garment-dyed 6.1 oz).
+  - `Heavy Blend Fleece Hoodie (Gildan 18500)`: Base cost $14.50, default retail $48.00 (Warm 8.0 oz poly-fleece).
+- `retailPrice: number` (`useState<number>(activeTier.defaultRetail)`): Range slider ($15.00 to $65.00, step $0.50).
+- **Formulas**:
+  - `platformFee = Math.round(retailPrice * 0.06 * 100) / 100` (6% average marketplace commission fee)
+  - `shippingEst = 4.50` (USPS Ground Advantage domestic baseline)
+  - `totalLandedCost = activeTier.baseCost + platformFee + shippingEst`
+  - `netProfit = Math.round((retailPrice - totalLandedCost) * 100) / 100`
+  - `marginPercent = retailPrice > 0 ? Math.round((netProfit / retailPrice) * 100) : 0`
+  - `monthlyProfitAt1000 = netProfit * 1000`
+
+#### Dynamic Negative Loss Alert Styling
+
+- When `netProfit < 0` (retail selling price set below total landed cost):
+  - Label dynamically changes from `"Your Net Profit Per Garment:"` to `"Net Loss Per Garment:"` with `text-red-400`.
+  - Negative value is formatted as `-$X.XX` with large `font-rubik text-red-400`.
+  - Net Margin badge switches from cyan `bg-[#25E2CC]/15 text-[#25E2CC]` to warning `bg-red-500/15 text-red-400`.
+  - Monthly projection card displays `"Estimated Net Loss"` in red, providing sellers with an unambiguous safeguard against underpriced listings.
+
+#### Accessibility & WCAG 2.1 AA Compliance
+
+1. **Dynamic ARIA Live Region (`aria-live="polite"` & `aria-atomic="true"`)**:
+   - Encloses the live P&L analysis card, announcing recalculations when either garment tier or retail price slider changes.
+2. **Accessible Garment Tier Group (`role="group"` & `aria-pressed`)**:
+   - Garment tier cards container features `role="group"` and `aria-label="Select Garment Blank"`.
+   - Tier selection buttons include `aria-pressed={selectedTierId === tier.id}`.
+3. **Range Slider Accessibility**:
+   - Linked to `<label htmlFor="retail-slider">`, explicitly labeled via `aria-label="Retail Selling Price"`, and outputs formatted currency units through `aria-valuetext={`$${retailPrice.toFixed(2)} retail price`}`.
+4. **Keyboard Focusability & Ring Styling**:
+   - Interactive buttons, slider thumb, and CTA link include `focus:outline-none focus-visible:ring-2 focus-visible:ring-[#25E2CC]`.
+5. **Decorative Icons**: All icons (`DollarSign`, `ArrowRight`, `Percent`, `Check`) use `aria-hidden="true"`.
+
+#### Usage Example
+
+```tsx
+import React from 'react';
+import { PricingCalculator } from '@/components/sections';
+
+export default function UnitEconomicsSection() {
+  return <PricingCalculator id="pricing-calculator" />;
+}
+```
+
+---
+
+### 2.10 ApiTerminal
+
+- **Source Code**: [`components/sections/ApiTerminal.tsx`](file:///C:/Develop/egead/egead-company/components/sections/ApiTerminal.tsx)
+- **Component Type**: Client Component (`'use client'`)
+- **Primary Use**: Tabbed dark developer terminal demonstrating RESTful dispatch, event-driven webhooks, and real-time inventory queries with safe clipboard execution and WAI-ARIA tab pattern.
+- **Page Integration**: Serves as **Section 10** on [SpeedX (`app/speedx/page.tsx`)](file:///C:/Develop/egead/egead-company/app/speedx/page.tsx) (`<ApiTerminal id="api-terminal" />`).
+
+#### TypeScript Interface
+
+```typescript
+export interface ApiTerminalProps {
+  id?: string;
+  className?: string;
+}
+```
+
+#### Endpoints & Architectural Payloads
+
+1. **`POST /v1/orders/dispatch`** (Latency: `85ms`): Ingests TikTok Shop US and Shopify orders with routing rules, USPS normalized customer address, SKU, blank specifications, artwork URL, and 23-inch DTF print method. Output returns production hub assignment, SLA deadline, and unit cost.
+2. **`EVENT webhook: order.in_transit`** (Latency: `Real-Time`): Granular event-driven webhook broadcast upon carrier physical handoff, containing tracking number, origin scan timestamp, turnaround hours (e.g. 16.2h), and `tiktok_shop_ldr_compliant: true`.
+3. **`GET /v1/inventory/blanks`** (Latency: `42ms`): Real-time curl query for blanks availability across US East and US West facilities with facility-level stock counters and daily capacity limits.
+
+#### Accessibility & WCAG 2.1 AA Compliance
+
+1. **WAI-ARIA Tablist Pattern**:
+   - Parent tab container uses `role="tablist"` with `aria-label="API Endpoint Selector"`.
+   - Each endpoint button renders with `role="tab"`, unique `id={`api-tab-${ep.id}`}`, `aria-selected={isActive}`, and `aria-controls="api-terminal-panel"`.
+   - Active code panel is marked with `id="api-terminal-panel"`, `role="tabpanel"`, and `aria-labelledby={`api-tab-${activeEndpoint.id}`}`.
+2. **Safe Clipboard Execution**:
+   - `handleCopy` checks for `typeof navigator !== 'undefined' && navigator?.clipboard?.writeText` inside a safe `try/catch` wrapper to prevent runtime exceptions in restricted iframes or non-HTTPS contexts.
+   - Screen reader users receive feedback via dynamic accessible label `"Copied!"` along with visual check icon for 2000ms.
+   - Copy button features explicit `aria-label="Copy code sample to clipboard"`.
+3. **Code Contrast & Semantic Tags**:
+   - Code blocks render inside semantic `<pre>` and `<code>` elements with text color `#D3F9F5` (13.5:1 contrast) and emerald responses (`text-emerald-300`).
+4. **Decorative Window Controls & Icons**:
+   - Window dots and icons (`Code2`, `Copy`, `Check`, `Zap`) carry `aria-hidden="true"`.
+
+#### Usage Example
+
+```tsx
+import React from 'react';
+import { ApiTerminal } from '@/components/sections';
+
+export default function DeveloperArchitectureSection() {
+  return <ApiTerminal id="api-terminal" />;
+}
+```
+
+---
+
+### 2.11 LiveCountdownCard
+
+- **Source Code**: [`components/sections/LiveCountdownCard.tsx`](file:///C:/Develop/egead/egead-company/components/sections/LiveCountdownCard.tsx)
+- **Component Type**: Client Component (`'use client'`)
+- **Primary Use**: Real-time 24H SLA production countdown clock with milestone timestamps, motion-reduction support (`motion-reduce:animate-none`), semantic `<time>` tag, and TikTok Shop compliance badge.
+- **Page Integration**: Serves as the interactive floating widget in **Section 1 (Hero)** on [SpeedX (`app/speedx/page.tsx`)](file:///C:/Develop/egead/egead-company/app/speedx/page.tsx).
+
+#### TypeScript Interface
+
+```typescript
+export interface LiveCountdownCardProps {
+  className?: string;
+}
+```
+
+#### State & Dynamic Clock Mechanics
+
+- `secondsRemaining: number` (`useState<number>(23 * 3600 + 58 * 60 + 42)`): Simulated real-time 1-second interval timer. Automatically resets if reaching zero.
+- Formatted as zero-padded two-digit strings for `hours`, `minutes`, and `seconds` (`HH:MM:SS`).
+- **Production Milestone Pipeline**:
+  - `08:00 AM • Order Ingestion` (Webhook Pull)
+  - `11:30 AM • 23" DTF Printed` (Roll Cured)
+  - `03:45 PM • Carrier Physical Scan` (USPS / UPS Carrier Hand-Off)
+- **Compliance Badge**: Highlights active TikTok Shop US Compliance with verified `LDR: 0.18%` status.
+
+#### Accessibility & WCAG 2.1 AA Compliance
+
+1. **Motion Reduction Guard (`motion-reduce:animate-none`)**:
+   - The spinning clock icon uses `animate-spin motion-reduce:animate-none`.
+   - Users with vestibular disorders or who configured `prefers-reduced-motion: reduce` in their operating system experience zero distracting or disorienting spinning animations.
+2. **Semantic `<time>` Element**:
+   - The countdown timer uses semantic `<time dateTime={`PT${hours}H${minutes}M${seconds}S`} aria-label={`${hours} hours, ${minutes} minutes, and ${seconds} seconds remaining`}>`.
+   - Conveys ISO 8601 machine-readable duration and announces fully expanded, human-comprehensible time strings to screen readers.
+3. **High Contrast Display**:
+   - Digits utilize font `mono` with glowing `#25E2CC` (11.2:1 contrast ratio against obsidian dark container `#0A0D0E`).
+4. **Decorative Icons**:
+   - Icons (`Clock`, `CheckCircle2`, `ShieldCheck`, `Zap`) carry `aria-hidden="true"`.
+
+#### Usage Example
+
+```tsx
+import React from 'react';
+import { LiveCountdownCard } from '@/components/sections';
+
+export default function HeroVisual() {
+  return <LiveCountdownCard className="w-full max-w-lg" />;
+}
+```
+
+---
+
 ## 3. Cross-Phase Implementation Matrix
 
-The table below outlines how the 7 section layout components map directly to the requirements of subsequent phases as defined in the master technical plan ([`docs/plans/plan.md`](file:///C:/Develop/egead/egead-company/docs/plans/plan.md)):
+The table below outlines how the 11 section layout components map directly to the requirements of subsequent phases as defined in the master technical plan ([`docs/plans/plan.md`](file:///C:/Develop/egead/egead-company/docs/plans/plan.md)):
 
-| Phase & Target Page | Status | BentoGrid | MetricsRibbon | ComparisonTable | FaqAccordion | WorkflowTimeline | RoleTabs | MarginSimulator | Custom Section Additions |
-| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :--- |
-| **Phase 2: All Services** (`/services/all-services`) | **COMPLETED** | 6 Pillars Grid | Production Metrics Strip | Head-to-Head 3PL Matrix | Service & SLA FAQ | 5-Step Order-to-Door Pipeline | 4-Persona Architecture Switcher | Section 7 (Interactive ROI & SLA Simulator) | Split Hero with Live Dispatch HUD, SLA Protection Badges, Client Spotlight (UrbanVibe), Mega CTA & ContactBlock |
-| **Phase 3: SpeedX** (`/speedx`) | READY | Hardware & Ink Stack | 24H SLA Numbers | Legacy POD Pain Points Table | SpeedX Technical FAQ | 6-Station WMS Pipeline | Creator vs Agency Switcher | — | Kinetic Countdown Clock, Before/After AI Address Cleanse |
-| **Phase 4: SmartCommerce** (`/smartcommerce`) | PENDING | 4-Pillar Cockpit Grid | Sync Latency Benchmarks | Omnichannel Chaos vs Unified Matrix | Platform Architecture FAQ | Dynamic Stock Buffer Pipeline | Enterprise Operations Switcher | — | HUD Cockpit Hero, Net Margin Reconciliation Table |
-| **Phase 5: Our Work** (`/our-work`) | PENDING | Project Showcase Grid | Cumulative GMV & Unit Metrics | Quantitative Before/After Matrix | Client Onboarding FAQ | Brand Launch Pipeline | Industry Sector Switcher (Fashion / Merch / Tech) | — | UrbanVibe Case Study Deep Dive, Testimonial Slider |
-| **Phase 6: Partners** (`/partners`) | PENDING | Ecosystem Benefits Grid | Channel GMV Impact Strip | Native App vs Generic Connector | Integration FAQ | 3-Step Partner Certification | Technology vs Agency Partner Switcher | — | Integration Badges Matrix, Co-Marketing Simulator |
-| **Phase 7: Insights** (`/insights`) | PENDING | Featured Article Bento | Readership & Community Stats | Self-Hosted vs Managed POD Analysis | Content & Editorial FAQ | Research-to-Publication Flow | Role-Based Reading Tracks | — | Newsletter Subscriptions, Interactive Read Filters |
-| **Phase 8: Company** (`/company`) | PENDING | Culture & Mission Bento | Facility Footprint & Team Numbers | In-House Ethics vs Offshored Labor | Talent & Career FAQ | Company Evolution Timeline | Department Tour Switcher | — | Leadership Grid, Interactive US Hub Map |
+| Phase & Target Page | Status | BentoGrid | MetricsRibbon | ComparisonTable | FaqAccordion | WorkflowTimeline | RoleTabs | MarginSimulator | AddressDemo | PricingCalculator | ApiTerminal | LiveCountdownCard | Custom Section Additions |
+| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :--- |
+| **Phase 2: All Services** (`/services/all-services`) | **COMPLETED** | 6 Pillars Grid | Production Metrics Strip | Head-to-Head 3PL Matrix | Service & SLA FAQ | 5-Step Order-to-Door Pipeline | 4-Persona Architecture Switcher | Section 7 (Interactive ROI & SLA Simulator) | — | — | — | — | Split Hero with Live Dispatch HUD, SLA Protection Badges, Client Spotlight (UrbanVibe), Mega CTA & ContactBlock |
+| **Phase 3: SpeedX** (`/speedx`) | **COMPLETED** | Section 5 (23" DTF Tech Deep Dive) | Section 2 (SpeedX SLA Metrics) | Section 3 (Legacy POD Crisis Matrix) | Section 11 (SpeedX Technical FAQ) | Section 6 (6-Station WMS Pipeline) | — | — | Section 4 (AI Normalization Demo) | Section 7 ($6 All-In Base Rate Calculator) | Section 10 (REST & Webhook Developer Terminal) | Section 1 (Live 24H SLA Countdown Card in Hero) | Section 8 (TikTok Shop LDR Shield), Section 9 (Blanks Catalog), Section 12 (High-Octane Mega CTA & ContactBlock) |
+| **Phase 4: SmartCommerce** (`/smartcommerce`) | PENDING | 4-Pillar Cockpit Grid | Sync Latency Benchmarks | Omnichannel Chaos vs Unified Matrix | Platform Architecture FAQ | Dynamic Stock Buffer Pipeline | Enterprise Operations Switcher | — | — | — | — | — | HUD Cockpit Hero, Net Margin Reconciliation Table |
+| **Phase 5: Our Work** (`/our-work`) | PENDING | Project Showcase Grid | Cumulative GMV & Unit Metrics | Quantitative Before/After Matrix | Client Onboarding FAQ | Brand Launch Pipeline | Industry Sector Switcher (Fashion / Merch / Tech) | — | — | — | — | — | UrbanVibe Case Study Deep Dive, Testimonial Slider |
+| **Phase 6: Partners** (`/partners`) | PENDING | Ecosystem Benefits Grid | Channel GMV Impact Strip | Native App vs Generic Connector | Integration FAQ | 3-Step Partner Certification | Technology vs Agency Partner Switcher | — | — | — | — | — | Integration Badges Matrix, Co-Marketing Simulator |
+| **Phase 7: Insights** (`/insights`) | PENDING | Featured Article Bento | Readership & Community Stats | Self-Hosted vs Managed POD Analysis | Content & Editorial FAQ | Research-to-Publication Flow | Role-Based Reading Tracks | — | — | — | — | — | Newsletter Subscriptions, Interactive Read Filters |
+| **Phase 8: Company** (`/company`) | PENDING | Culture & Mission Bento | Facility Footprint & Team Numbers | In-House Ethics vs Offshored Labor | Talent & Career FAQ | Company Evolution Timeline | Department Tour Switcher | — | — | — | — | — | Leadership Grid, Interactive US Hub Map |
 
 ---
 
 ## 4. Verification & Testing Protocol
 
 All components and integrated page layouts have been rigorously verified via automated testing using **Bun Test** and **React Server DOM Rendering**:
-- **Components Test Suite**: [`tests/sections.test.tsx`](file:///C:/Develop/egead/egead-company/tests/sections.test.tsx) (`bun test tests/sections.test.tsx`) — **12/12 tests PASS (100%)**
-- **Page Integration Test Suite**: [`tests/all-services.test.tsx`](file:///C:/Develop/egead/egead-company/tests/all-services.test.tsx) (`bun test tests/all-services.test.tsx`) — **13/13 tests PASS (100%)**
-- **Combined Command**: `bun run test` — **25 tests PASS across 2 test suites (273 assertions, 0 errors)**
+- **Components Test Suite**: [`tests/sections.test.tsx`](file:///C:/Develop/egead/egead-company/tests/sections.test.tsx) (`bun test tests/sections.test.tsx`) — **16/16 tests PASS (100%)**
+- **All Services Page Suite**: [`tests/all-services.test.tsx`](file:///C:/Develop/egead/egead-company/tests/all-services.test.tsx) (`bun test tests/all-services.test.tsx`) — **13/13 tests PASS (100%)**
+- **SpeedX Page Suite**: [`tests/speedx.test.tsx`](file:///C:/Develop/egead/egead-company/tests/speedx.test.tsx) (`bun test tests/speedx.test.tsx`) — **17/17 tests PASS (100%)**
+- **Combined Command**: `bun run test` — **46 tests PASS across 3 test suites (448 assertions, 0 errors)**
 
 ### Test Coverage Summary:
-1. **Module Exports**: Confirms all 7 section components and TypeScript type contracts are properly exported through [`components/sections/index.ts`](file:///C:/Develop/egead/egead-company/components/sections/index.ts).
+1. **Module Exports**: Confirms all 11 section components and TypeScript type contracts are properly exported through [`components/sections/index.ts`](file:///C:/Develop/egead/egead-company/components/sections/index.ts).
 2. **BentoGrid**: Tests grid span generation (`col-span-1`, `md:col-span-2`, `lg:col-span-3`), custom visual node rendering, and badge/title display.
 3. **MetricsRibbon**: Tests responsive column distribution (2/3/4 columns), numeric trends, and minimalist fallback configurations.
 4. **ComparisonTable**: Tests complete WAI-ARIA table semantics (`role="table"`, `role="rowgroup"`, `role="row"`, `role="columnheader"`, `role="cell"`, `role="rowheader"`) and screen reader `.sr-only` accessibility text for boolean checks and crosses.
@@ -772,4 +1009,9 @@ All components and integrated page layouts have been rigorously verified via aut
 6. **WorkflowTimeline**: Tests ordered sequential hierarchy (`<ol>`, `<li>`), badge chips, subtext tags, and dual mobile/desktop view paths.
 7. **RoleTabs**: Tests WAI-ARIA tabs pattern (`role="tablist"`, `role="tab"`, `role="tabpanel"`, `tabIndex`), bullet points, quantitative metric rows, and empty input fallbacks.
 8. **MarginSimulator**: Tests interactive elements, channel selector `aria-pressed` states, accessible `role="group"`, volume range input, dynamic `aria-live="polite"` region, and real-time efficiency metrics calculations.
-9. **Page Integration (All Services)**: Tests all 11 dedicated sections in [`app/services/all-services/page.tsx`](file:///C:/Develop/egead/egead-company/app/services/all-services/page.tsx) including metadata, live dispatch HUD, metrics ribbon, role tabs, bento pillars, workflow timeline, comparison table, margin simulator, SLA compliance badges, client spotlight, FAQ accordion, and conversion mega CTA with ContactBlock.
+9. **AddressDemo**: Tests address comparison cards, interactive scenario pills (`role="group"`, `aria-pressed`), and polite ARIA live region (`aria-live="polite"`, `aria-atomic="true"`).
+10. **PricingCalculator**: Tests garment tier selector (`role="group"`), retail price slider (`aria-valuetext`), dynamic `aria-live="polite"` region, and negative profit warning styles.
+11. **ApiTerminal**: Tests tabbed developer terminal with full WAI-ARIA tablist pattern (`role="tablist"`, `role="tab"`, `role="tabpanel"`, `aria-controls`), endpoint switching, and safe clipboard execution.
+12. **LiveCountdownCard**: Tests real-time 24H SLA countdown clock, semantic `<time>` tag formatting, and motion reduction guard (`motion-reduce:animate-none`).
+13. **Page Integration (All Services)**: Tests all 11 dedicated sections in [`app/services/all-services/page.tsx`](file:///C:/Develop/egead/egead-company/app/services/all-services/page.tsx) including metadata, live dispatch HUD, metrics ribbon, role tabs, bento pillars, workflow timeline, comparison table, margin simulator, SLA compliance badges, client spotlight, FAQ accordion, and conversion mega CTA with ContactBlock.
+14. **Page Integration (SpeedX)**: Tests all 12 dedicated sections in [`app/speedx/page.tsx`](file:///C:/Develop/egead/egead-company/app/speedx/page.tsx) including metadata, kinetic hero with LiveCountdownCard, metrics strip, legacy POD crisis comparison, AddressDemo, DTF technology deep dive, 6-station WMS workflow, PricingCalculator, TikTok Shop LDR shield, blanks catalog, ApiTerminal, FAQ accordion, and high-octane conversion CTA with ContactBlock.

@@ -9,6 +9,10 @@ import {
   WorkflowTimeline,
   RoleTabs,
   MarginSimulator,
+  AddressDemo,
+  PricingCalculator,
+  ApiTerminal,
+  LiveCountdownCard,
 } from '../components/sections';
 import type {
   BentoItem,
@@ -24,11 +28,15 @@ import type {
   RoleTabItem,
   RoleTabsProps,
   MarginSimulatorProps,
+  AddressDemoProps,
+  PricingCalculatorProps,
+  ApiTerminalProps,
+  LiveCountdownCardProps,
 } from '../components/sections';
 
-describe('Phase 1 & 2 Components Verification', () => {
+describe('Phase 1, 2 & 3 Components Verification', () => {
   describe('Module Exports', () => {
-    test('all 7 section components are exported and defined', () => {
+    test('all 11 section components are exported and defined', () => {
       expect(BentoGrid).toBeDefined();
       expect(typeof BentoGrid).toBe('function');
 
@@ -49,6 +57,18 @@ describe('Phase 1 & 2 Components Verification', () => {
 
       expect(MarginSimulator).toBeDefined();
       expect(typeof MarginSimulator).toBe('function');
+
+      expect(AddressDemo).toBeDefined();
+      expect(typeof AddressDemo).toBe('function');
+
+      expect(PricingCalculator).toBeDefined();
+      expect(typeof PricingCalculator).toBe('function');
+
+      expect(ApiTerminal).toBeDefined();
+      expect(typeof ApiTerminal).toBe('function');
+
+      expect(LiveCountdownCard).toBeDefined();
+      expect(typeof LiveCountdownCard).toBe('function');
     });
   });
 
@@ -381,6 +401,96 @@ describe('Phase 1 & 2 Components Verification', () => {
     });
   });
 
+  describe('AddressDemo Component', () => {
+    test('renders address comparison card with interactive pills and live region', () => {
+      const html = renderToStaticMarkup(
+        <AddressDemo id="custom-address-demo" className="custom-demo-class" />
+      );
+
+      expect(html).toContain('id="custom-address-demo"');
+      expect(html).toContain('custom-demo-class');
+      expect(html).toContain('Watch AI');
+      expect(html).toContain('Sanitize &amp; Fix');
+      expect(html).toContain('role="group"');
+      expect(html).toContain('aria-label="Select address test scenario"');
+      expect(html).toContain('Incomplete Zip &amp; Abbreviation');
+      expect(html).toContain('Typo in Street &amp; City');
+      expect(html).toContain('Missing Suite / Unit Number');
+      expect(html).toContain('Raw Marketplace Payload');
+      expect(html).toContain('Eweb-character AI Sanitized');
+      expect(html).toContain('aria-live="polite"');
+      expect(html).toContain('aria-atomic="true"');
+      expect(html).toContain('USPS DPV Confirmed Delivery Point');
+    });
+  });
+
+  describe('PricingCalculator Component', () => {
+    test('renders pricing calculator with garment options, retail slider, and live margin analysis', () => {
+      const html = renderToStaticMarkup(
+        <PricingCalculator id="custom-pricing-calc" className="custom-pricing-class" />
+      );
+
+      expect(html).toContain('id="custom-pricing-calc"');
+      expect(html).toContain('custom-pricing-class');
+      expect(html).toContain('$6 All-In Base Rate');
+      expect(html).toContain('role="group"');
+      expect(html).toContain('aria-label="Select Garment Blank"');
+      expect(html).toContain('Classic Streetwear Tee (Gildan 5000)');
+      expect(html).toContain('Vintage Washed Tee (Comfort Colors 1717)');
+      expect(html).toContain('Heavy Blend Fleece Hoodie (Gildan 18500)');
+      expect(html).toContain('Your Retail Selling Price');
+      expect(html).toContain('type="range"');
+      expect(html).toContain('aria-live="polite"');
+      expect(html).toContain('aria-atomic="true"');
+      expect(html).toContain('Live P&amp;L Analysis');
+      expect(html).toContain('Per-Unit Profitability');
+      expect(html).toContain('Gross Retail Revenue:');
+      expect(html).toContain('(-) E-GEAD All-In Base Rate:');
+      expect(html).toContain('(-) Est. Marketplace Fee (6%):');
+      expect(html).toContain('(-) Est. US Domestic Shipping:');
+    });
+  });
+
+  describe('ApiTerminal Component', () => {
+    test('renders developer terminal with WAI-ARIA tabs and copy button', () => {
+      const html = renderToStaticMarkup(
+        <ApiTerminal id="custom-api-terminal" className="custom-terminal-class" />
+      );
+
+      expect(html).toContain('id="custom-api-terminal"');
+      expect(html).toContain('custom-terminal-class');
+      expect(html).toContain('RESTful API &amp;');
+      expect(html).toContain('Event-Driven Webhook');
+      expect(html).toContain('role="tablist"');
+      expect(html).toContain('aria-label="API Endpoint Selector"');
+      expect(html).toContain('role="tab"');
+      expect(html).toContain('aria-controls="api-terminal-panel"');
+      expect(html).toContain('id="api-terminal-panel"');
+      expect(html).toContain('role="tabpanel"');
+      expect(html).toContain('aria-label="Copy code sample to clipboard"');
+      expect(html).toContain('/v1/orders/dispatch');
+      expect(html).toContain('HTTP/2 200 OK');
+    });
+  });
+
+  describe('LiveCountdownCard Component', () => {
+    test('renders countdown clock with semantic time tag and motion-reduction class', () => {
+      const html = renderToStaticMarkup(
+        <LiveCountdownCard className="custom-countdown-class" />
+      );
+
+      expect(html).toContain('custom-countdown-class');
+      expect(html).toContain('24-Hour Production SLA Clock');
+      expect(html).toContain('motion-reduce:animate-none');
+      expect(html).toContain('<time');
+      expect(html).toContain('Guaranteed Carrier Origin Scan Window');
+      expect(html).toContain('08:00 AM • Order Ingestion');
+      expect(html).toContain('11:30 AM • 23&quot; DTF Printed');
+      expect(html).toContain('03:45 PM • Carrier Physical Scan');
+      expect(html).toContain('TikTok Shop US Compliance');
+    });
+  });
+
   describe('Type Definition Verification', () => {
     test('TypeScript interface contract assignments compile correctly', () => {
       const bentoProps: BentoGridProps = {
@@ -410,6 +520,21 @@ describe('Phase 1 & 2 Components Verification', () => {
         id: 'sim',
         className: 'sim-class',
       };
+      const addressProps: AddressDemoProps = {
+        id: 'address',
+        className: 'address-class',
+      };
+      const pricingProps: PricingCalculatorProps = {
+        id: 'pricing',
+        className: 'pricing-class',
+      };
+      const apiProps: ApiTerminalProps = {
+        id: 'api',
+        className: 'api-class',
+      };
+      const countdownProps: LiveCountdownCardProps = {
+        className: 'countdown-class',
+      };
 
       expect(bentoProps.title).toBe('Title');
       expect(metricsProps.metrics).toBeArray();
@@ -418,6 +543,10 @@ describe('Phase 1 & 2 Components Verification', () => {
       expect(workflowProps.steps).toBeArray();
       expect(roleProps.tabs).toBeArray();
       expect(simulatorProps.id).toBe('sim');
+      expect(addressProps.id).toBe('address');
+      expect(pricingProps.id).toBe('pricing');
+      expect(apiProps.id).toBe('api');
+      expect(countdownProps.className).toBe('countdown-class');
     });
   });
 });
