@@ -1,172 +1,771 @@
 import React from 'react';
+import type { Metadata } from 'next';
 import Link from 'next/link';
-import { ArrowUpRight, CheckCircle2, ChevronRight, Layers, Sparkles, Cpu, Activity } from 'lucide-react';
+import {
+  ArrowRight,
+  ArrowUpRight,
+  CheckCircle2,
+  ShieldCheck,
+  Zap,
+  Activity,
+  Cpu,
+  Layers,
+  Sparkles,
+  Lock,
+  ExternalLink,
+  Flame,
+} from 'lucide-react';
+import {
+  BentoGrid,
+  MetricsRibbon,
+  ComparisonTable,
+  FaqAccordion,
+  WorkflowTimeline,
+  RoleTabs,
+  MarginSimulator,
+} from '@/components/sections';
+import type { BentoItem, MetricItem, ComparisonRow, FaqItem, WorkflowStep, RoleTabItem } from '@/components/sections';
 import ContactBlock from '@/components/ContactBlock';
 
-export const metadata = {
-  title: 'Our Services | SAI Digital: Complete CX Transformation Capabilities',
-  description: 'Explore SAI Digital comprehensive capabilities across Strategy & Design, Data & Analytics, Enterprise Technology, and Commerce Operations.',
+export const metadata: Metadata = {
+  title: 'All Services & Capabilities | E-GEAD: End-to-End E-Commerce & POD Solutions',
+  description:
+    'Explore E-GEAD complete operational and technology ecosystem: Sub-24H US POD fulfillment, multi-channel sales automation, WMS precision, and 4.8x ROAS digital marketing.',
+  keywords: [
+    'end-to-end ecommerce operations',
+    'cross-border fulfillment solutions',
+    'ecommerce automation platform',
+    'US POD fulfillment 24 hours',
+    'TikTok Shop US compliant fulfillment',
+    'multi-channel inventory sync',
+  ],
 };
 
-const servicePillars = [
+const complianceBadges = [
   {
-    id: 'strategy-design',
-    number: '01',
-    title: 'Strategy & Design',
-    desc: 'We define the roadmap for your enterprise digital commerce ecosystem, ensuring user-centric journeys that turn browsers into lifelong brand advocates.',
-    icon: '/assets/home-icon__1_.svg',
-    subServices: [
-      {
-        name: 'Commerce Strategy Consulting',
-        description: 'Omnichannel roadmaps, business model modernization, marketplace strategies, and international expansion planning.',
-      },
-      {
-        name: 'Experience Design & Brand Architecture',
-        description: 'UI/UX systems, user research, customer journey mapping, and conversion rate optimization (CRO).',
-      },
-      {
-        name: 'Marketing Strategy & Planning',
-        description: 'Audience segmentation, personalized engagement workflows, and full-funnel retention frameworks.',
-      },
-    ],
+    title: 'TikTok Shop US LDR Shield',
+    description:
+      'Maintains Late Dispatch Rate under 1% (platform threshold < 4%), securing Fast Dispatch badges and algorithm visibility.',
+    icon: <Flame className="w-6 h-6" aria-hidden="true" />,
   },
   {
-    id: 'data-analytics',
-    number: '02',
-    title: 'Data & Analytics',
-    desc: 'Turn disparate enterprise data streams into actionable predictive intelligence with machine learning and automated forecasting.',
-    icon: '/assets/home-icon__2_.svg',
-    subServices: [
-      {
-        name: 'Advanced Analytics & Forecasting',
-        description: '93% accurate demand forecasting, inventory level optimization, and dynamic SKU performance prediction.',
-      },
-      {
-        name: 'AI & Machine Learning Services',
-        description: 'Predictive customer lifetime value (CLV), churn prevention algorithms, and automated product recommendations.',
-      },
-      {
-        name: 'Business Intelligence & Marketing Analytics',
-        description: 'Unified executive dashboards, attribution modeling, and automated cross-channel reporting.',
-      },
-    ],
+    title: 'Amazon FBM VTR Guarantee',
+    description:
+      'Automated origin tracking injection ensures Valid Tracking Rate (VTR) stays above 95% across all Amazon FBM orders.',
+    icon: <CheckCircle2 className="w-6 h-6" aria-hidden="true" />,
   },
   {
-    id: 'enterprise-technology',
-    number: '03',
-    title: 'Enterprise Technology',
-    desc: 'Enterprise-grade headless and composable commerce architectures built for extreme scale, security, and sub-second global performance.',
-    icon: '/assets/home-icon__3_.svg',
-    subServices: [
-      {
-        name: 'Commerce Platform Implementation',
-        description: 'Certified expertise in SAP Commerce Cloud, Shopify Plus, commercetools, and Adobe Magento.',
-      },
-      {
-        name: 'Enterprise Systems Integration',
-        description: 'Robust connectors between ERP (SAP, Oracle, NetSuite), CRM (Salesforce), OMS, and payment gateways.',
-      },
-      {
-        name: 'Cloud Infrastructure & MACH Architecture',
-        description: 'Microservices, API-first, Cloud-native SaaS, and Headless architectures deployed on AWS and GCP.',
-      },
-    ],
+    title: 'Bank-Grade Data Privacy',
+    description:
+      'Customer PII data is secured with AES-256 encryption, fully compliant with GDPR and California CCPA privacy standards.',
+    icon: <Lock className="w-6 h-6" aria-hidden="true" />,
   },
   {
-    id: 'commerce-cx-operations',
-    number: '04',
-    title: 'Commerce & CX Operations',
-    desc: 'Uninterrupted 24/7 operations, creative content updates, and continuous platform enhancements so your business never stops selling.',
-    icon: '/assets/home-icon__4_.svg',
-    subServices: [
-      {
-        name: '24/7 Global Commerce Operations',
-        description: 'Real-time site reliability monitoring, emergency escalation teams, SLA guarantees, and security patch management.',
-      },
-      {
-        name: 'Marketing & AI Operations',
-        description: 'Automated campaign execution, dynamic asset generation, and personalized promo engine management.',
-      },
-      {
-        name: 'Creative Operations & Content Management',
-        description: 'Catalog updates, seasonal promotional banners, multi-market localized merchandising, and digital asset workflows.',
-      },
-    ],
+    title: '99.9% Uptime Cloud SLA',
+    description:
+      'Enterprise cloud routing across AWS and Cloudflare Edge guarantees uninterrupted storefront operations during peak holiday rushes.',
+    icon: <ShieldCheck className="w-6 h-6" aria-hidden="true" />,
   },
 ];
 
 export default function AllServicesPage() {
+  // Section 2: Metrics
+  const globalMetrics: MetricItem[] = [
+    {
+      value: '< 24h',
+      label: 'Average US Fulfillment SLA',
+      trend: 'Guaranteed',
+      description: 'Under 24-hour printing and domestic carrier first scan in the US.',
+    },
+    {
+      value: '99.9%',
+      label: 'Barcode WMS Accuracy',
+      trend: 'Zero-Defect',
+      description: 'Digitized barcode checkpoints across picking, printing, and packing.',
+    },
+    {
+      value: '4.8x',
+      label: 'Average Blended ROAS',
+      trend: 'Scale Mode',
+      description: 'Performance marketing on TikTok Shop, Meta, and Google Shopping.',
+    },
+    {
+      value: '$6 All-in',
+      label: 'Transparent Unit Base Rate',
+      trend: 'No Hidden Fees',
+      description: 'Predictable manufacturing, 23-inch DTF printing, blanks, and packaging.',
+    },
+  ];
+
+  // Section 3: Role Tabs
+  const roleTabsData: RoleTabItem[] = [
+    {
+      id: 'pod-sellers',
+      label: 'POD & Marketplace Sellers',
+      badge: 'Sub-24H SLA',
+      headline: 'Sub-24H Dispatch SLA & TikTok Shop Compliance',
+      description:
+        'Protect your seller account health against Late Dispatch Rate (LDR) strikes while scaling oversized streetwear, apparel, and trending merchandise effortlessly.',
+      bullets: [
+        'Guaranteed carrier origin scan within 24 hours, keeping TikTok Shop LDR < 1%',
+        '23-inch wide roll-fed DTF printing delivering premium edge-to-edge color vibrancy',
+        'Automated AI address sanitization with USPS Zip+4 validation to eliminate RTO',
+      ],
+      metrics: [
+        { value: '0.0%', label: 'LDR Violations' },
+        { value: '< 24H', label: 'Carrier Injection' },
+        { value: '$6.00', label: 'All-In Base Rate' },
+      ],
+      ctaText: 'Explore SpeedX POD Engine',
+      ctaHref: '/speedx',
+    },
+    {
+      id: 'dtc-brands',
+      label: 'DTC & Omnichannel Brands',
+      badge: 'Zero Stockouts',
+      headline: 'Zero Stockouts Across Amazon, Etsy & Shopify',
+      description:
+        'Unify scattered multi-store orders and inventory with automated bidirectional synchronization, dynamic buffer calculation, and automated multi-hub routing.',
+      bullets: [
+        'Bidirectional inventory synchronization across Amazon, Etsy, TikTok Shop, and Shopify',
+        'Intelligent safety stock buffers that prevent algorithmic overselling penalties',
+        'Automated landed cost calculation and consolidated multi-currency net margin reporting',
+      ],
+      metrics: [
+        { value: '100%', label: 'Stockout Protection' },
+        { value: '< 1.2s', label: 'Sync Latency' },
+        { value: '5+ Channels', label: 'Centralized OMS' },
+      ],
+      ctaText: 'Explore SmartCommerce Platform',
+      ctaHref: '/smartcommerce',
+    },
+    {
+      id: 'marketers',
+      label: 'Media Buyers & Growth Marketers',
+      badge: '4.8x ROAS',
+      headline: 'Performance Advertising Tuned for Profitable Scale',
+      description:
+        'High-velocity creative testing engines on TikTok and Meta Ads paired with live unit economics modeling to scale profitable global customer acquisition.',
+      bullets: [
+        'Trend-reactive short-form video creatives optimized for high impulse-buy conversion',
+        'Automated ROAS bid management and high-intent audience segmentation',
+        'Real-time product unit margin calculators ensuring front-end customer acquisition remains profitable',
+      ],
+      metrics: [
+        { value: '4.8x', label: 'Average ROAS' },
+        { value: '$8.40', label: 'Average CPA' },
+        { value: '92K+', label: 'Monthly Traffic' },
+      ],
+      ctaText: 'Schedule Growth Strategy Call',
+      ctaHref: '/contact-us',
+    },
+    {
+      id: 'developers',
+      label: 'Technical Teams & Developers',
+      badge: 'API-First',
+      headline: 'Developer-First RESTful API & Event-Driven Webhooks',
+      description:
+        'Direct programmatic control over order creation, SKU mapping, artwork asset queuing, and real-time tracking callbacks with enterprise-grade resilience.',
+      bullets: [
+        'Sub-150ms API endpoint response latency with 99.9% uptime SLA guarantee',
+        'Event-driven webhooks for instant order transitions: created, queued, printed, dispatched',
+        'Interactive OpenAPI schema documentation and sandboxed test environment',
+      ],
+      metrics: [
+        { value: '99.9%', label: 'API Availability' },
+        { value: '< 150ms', label: 'Endpoint Latency' },
+        { value: '100%', label: 'Webhook Delivery' },
+      ],
+      ctaText: 'View Developer Sandbox',
+      ctaHref: '/speedx',
+    },
+  ];
+
+  // Section 4: Bento Grid 6 Pillars
+  const bentoPillars: BentoItem[] = [
+    {
+      id: 'sales-automation',
+      title: '01. Sales Automation',
+      tag: 'Core Pipeline',
+      description:
+        'Aggregate and normalize incoming orders from Amazon, Etsy, TikTok Shop, and Shopify into a unified automated pipeline, eliminating 99% of manual spreadsheet workflows.',
+      stats: { value: '99%', label: 'Reduction in Manual Work' },
+      colSpan: 2,
+      highlight: true,
+      icon: <Layers className="w-6 h-6 text-[#25E2CC]" aria-hidden="true" />,
+      ctaText: 'Learn About Order Sync',
+      ctaHref: '/smartcommerce',
+    },
+    {
+      id: 'pod-marketplace-integration',
+      title: '02. POD Marketplace Integration',
+      tag: 'Sub-24H US SLA',
+      description:
+        'Bi-directional API bridge connecting your storefronts directly to automated US print facilities for sub-24H domestic dispatch.',
+      stats: { value: '23-Inch', label: 'Roll-Fed DTF Prints' },
+      colSpan: 1,
+      icon: <Zap className="w-6 h-6 text-[#25E2CC]" aria-hidden="true" />,
+      ctaText: 'Discover SpeedX POD',
+      ctaHref: '/speedx',
+    },
+    {
+      id: 'fulfillment-automation',
+      title: '03. Fulfillment Automation',
+      tag: 'WMS Precision',
+      description:
+        'Digitize warehouse logistics with barcode scanning at every station—picking, heat pressing, quality inspection, and carrier sorting.',
+      stats: { value: '99.9%', label: 'Packing & Label Accuracy' },
+      colSpan: 1,
+      icon: <CheckCircle2 className="w-6 h-6 text-[#25E2CC]" aria-hidden="true" />,
+      ctaText: 'See WMS Checkpoints',
+      ctaHref: '/speedx',
+    },
+    {
+      id: 'ecommerce-platform',
+      title: '04. E-Commerce Platform',
+      tag: 'High Velocity',
+      description:
+        'Custom headless commerce storefronts engineered for sub-1.5s mobile page loads, frictionless 1-step checkout, and multi-currency conversion.',
+      stats: { value: '< 1.5s', label: 'Mobile Page Load Speed' },
+      colSpan: 2,
+      icon: <Cpu className="w-6 h-6 text-[#25E2CC]" aria-hidden="true" />,
+      ctaText: 'Explore Platform Tech',
+      ctaHref: '/smartcommerce',
+    },
+    {
+      id: 'cloud-hosting',
+      title: '05. Website & Cloud Hosting',
+      tag: 'Enterprise Infra',
+      description:
+        'Cloudflare Edge and AWS auto-scaling infrastructure built to withstand massive Black Friday and viral TikTok traffic surges without slowdown.',
+      stats: { value: '99.9%', label: 'Guaranteed System Uptime' },
+      colSpan: 1,
+      icon: <ShieldCheck className="w-6 h-6 text-[#25E2CC]" aria-hidden="true" />,
+      ctaText: 'Review Infrastructure',
+      ctaHref: '/company',
+    },
+    {
+      id: 'growth-marketing',
+      title: '06. Digital Advertising Services',
+      tag: 'Performance Marketing',
+      description:
+        'Full-funnel paid media campaigns across TikTok Shop, Meta, and Google Ads paired with rigorous unit economics modeling to drive consistent 4.8x ROAS.',
+      stats: { value: '4.8x', label: 'Average Blended ROAS' },
+      colSpan: 2,
+      highlight: true,
+      icon: <Activity className="w-6 h-6 text-[#25E2CC]" aria-hidden="true" />,
+      ctaText: 'Book Strategy Audit',
+      ctaHref: '/contact-us',
+    },
+  ];
+
+  // Section 5: Workflow Timeline
+  const workflowSteps: WorkflowStep[] = [
+    {
+      step: '01',
+      title: 'Order Ingestion',
+      description: 'Webhook automatically triggers order capture across TikTok Shop, Amazon, Etsy, or Shopify.',
+      subtext: 'Latency < 1s • Instant Webhook Event',
+      badge: 'Real-Time',
+    },
+    {
+      step: '02',
+      title: 'AI Sanitization & Verification',
+      description: 'AI normalizes USPS postal standards, validates Zip+4, and flags high-risk fraudulent orders.',
+      subtext: 'USPS CASS Certified • Zero RTO',
+      badge: 'AI Precision',
+    },
+    {
+      step: '03',
+      title: 'Automated DTF Production',
+      description: 'High-res 23-inch print files are automatically auto-ganged, printed, and heat-pressed onto blanks.',
+      subtext: 'Sub-12H Print Queue • OEKO-TEX Inks',
+      badge: 'Industrial DTF',
+    },
+    {
+      step: '04',
+      title: 'Barcode QC & Scan Injection',
+      description: 'Technicians scan barcode checkpoints, inspect garment finish, and automatically dispatch tracking to platform.',
+      subtext: 'Sub-20H First Carrier Scan',
+      badge: '99.9% Accuracy',
+    },
+    {
+      step: '05',
+      title: 'Domestic Delivery Handshake',
+      description: 'Packages handed over to USPS / UPS hubs with real-time end-customer tracking updates.',
+      subtext: '2-4 Days Domestic US Transit',
+      badge: 'Delivered',
+    },
+  ];
+
+  // Section 6: Comparison Table Rows
+  const comparisonRows: ComparisonRow[] = [
+    {
+      feature: 'Fulfillment & Carrier Dispatch Speed',
+      category: 'Production SLA',
+      egead: '< 24 Hours dispatch guarantee',
+      traditional: '3-5 Business Days',
+      egeadNote: 'Direct domestic carrier handshake, 0% TikTok LDR strikes',
+      traditionalNote: 'Frequent delayed dispatch penalties and customer cancellations',
+      highlight: true,
+    },
+    {
+      feature: 'Print Format & Garment Versatility',
+      category: 'Print Quality',
+      egead: '23-Inch Large-Format Roll-Fed DTF',
+      traditional: 'Standard 12x14 Inch DTG Flatbed',
+      egeadNote: 'Full-coverage oversize, hoodies, streetwear, and dark garments',
+      traditionalNote: 'Limited print areas and heavy garment pre-treatment stains',
+    },
+    {
+      feature: 'Address Normalization & RTO Prevention',
+      category: 'AI Technology',
+      egead: 'Automated AI USPS verification',
+      traditional: 'Manual review or raw import',
+      egeadNote: 'Flags invalid addresses before printing, saving up to 8% in RTO',
+      traditionalNote: 'High return rates and costly shipping label reprints',
+    },
+    {
+      feature: 'Multi-Channel Inventory Synchronization',
+      category: 'Software OMS',
+      egead: 'Real-time 2-way API synchronization',
+      traditional: 'Batch CSV spreadsheet uploads',
+      egeadNote: 'Instant safety stock buffer updates across all channels',
+      traditionalNote: 'High risk of overselling and marketplace account suspension',
+      highlight: true,
+    },
+    {
+      feature: 'Pricing Model & Cost Predictability',
+      category: 'Unit Economics',
+      egead: '$6 Flat All-In per unit base rate',
+      traditional: 'Base cost + pick + pack + handling fees',
+      egeadNote: 'Includes garment blank, 23-inch print, sorting, and packaging',
+      traditionalNote: 'Opaque monthly invoices with unexpected surcharges',
+    },
+    {
+      feature: 'Financial & Net Margin Reporting',
+      category: 'Analytics',
+      egead: 'Live Net Margin Dashboard',
+      traditional: 'End-of-month Excel statement',
+      egeadNote: 'Track real-time ad spend, landed costs, and true net profit',
+      traditionalNote: 'Delayed visibility causing unmitigated ad budget burn',
+    },
+  ];
+
+  // Section 10: FAQ Accordion
+  const faqs: FaqItem[] = [
+    {
+      question: 'How quickly does E-GEAD dispatch US print-on-demand orders?',
+      answer:
+        'Over 95% of standard orders are printed, quality-inspected, and handed over to US domestic carriers (USPS/UPS) within 12 to 24 hours of receiving the order webhook. Carrier origin scan occurs well within strict marketplace deadlines.',
+      category: 'Operations & SLA',
+    },
+    {
+      question: 'Can E-GEAD integrate with our existing custom ERP or Shopify store?',
+      answer:
+        'Yes. We offer fully documented Open RESTful APIs and real-time Webhooks that allow direct two-way synchronization with any custom ERP, WMS, or Shopify Plus store with sub-150ms response latency.',
+      category: 'Integrations & API',
+    },
+    {
+      question: 'What is included in the $6 all-in unit rate?',
+      answer:
+        'Our transparent $6 base rate covers the premium blank garment, high-resolution 23-inch roll-fed DTF printing, barcode WMS sorting, standard protective packaging, and labor with zero hidden picking or handling fees.',
+      category: 'Pricing & Economics',
+    },
+    {
+      question: 'How does E-GEAD safeguard our TikTok Shop seller account health?',
+      answer:
+        'By ensuring physical carrier origin scans occur well within TikTok Shop US strict 48-hour SLA deadline. This keeps your Late Dispatch Rate (LDR) far below the 4% penalty ceiling, protecting your account from order volume limits (OVL).',
+      category: 'Operations & SLA',
+    },
+    {
+      question: 'What advertising channels does your digital growth team manage?',
+      answer:
+        'We specialize in TikTok Shop Ads, Meta (Facebook & Instagram), and Google Shopping / Performance Max campaigns. We focus on high-intent creative testing, CPA containment, and maximizing blended return on ad spend (ROAS).',
+      category: 'Growth & Ads',
+    },
+    {
+      question: 'Is there any minimum order quantity (MOQ) to get started with E-GEAD?',
+      answer:
+        'No MOQ. Whether you process 10 orders a day as an emerging brand or 5,000 orders daily during Q4 peak holiday campaigns, E-GEAD infrastructure scales elastically to match your demand.',
+      category: 'Operations & SLA',
+    },
+  ];
+
   return (
-    <div className="w-full bg-[#0A0D0E] text-white pt-32 sm:pt-40">
-      {/* Services Hero Header */}
-      <section className="w-full px-6 sm:px-10 lg:px-14 xl:px-16 mb-20 sm:mb-28">
-        <div className="max-w-4xl">
-          <span className="text-xs sm:text-sm font-bold tracking-widest uppercase text-[#7ceee0] block mb-4">
-            Services & Capabilities
-          </span>
-          <h1 className="text-4xl sm:text-6xl md:text-7xl font-black tracking-tight leading-[1.1] mb-6">
-            FROM CHALLENGES <br />
-            TO <span className="text-[#7ceee0]">OPPORTUNITIES.</span>
-          </h1>
-          <p className="text-lg sm:text-xl text-gray-300 font-normal leading-relaxed max-w-3xl">
-            We deliver end-to-end digital commerce transformations that merge visionary strategy, robust enterprise technology, and relentless operational care.
-          </p>
+    <div className="w-full bg-[#0A0D0E] text-white pt-24 sm:pt-32">
+      {/* SECTION 1: Immersive Hero & Live Capability Ticker */}
+      <section
+        id="services-hero"
+        className="relative w-full px-6 sm:px-10 lg:px-14 xl:px-16 py-16 sm:py-24 max-w-7xl mx-auto overflow-hidden"
+      >
+        {/* Subtle background glow */}
+        <div className="absolute top-1/3 left-1/3 w-[550px] h-[350px] bg-[#25E2CC]/10 blur-[160px] rounded-full pointer-events-none" />
+
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14 items-center relative z-10">
+          {/* Left Column */}
+          <div className="lg:col-span-7">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#141718] border border-[#262C30] text-[#25E2CC] text-xs font-semibold tracking-wider uppercase mb-6 font-montserrat shadow-[0_0_15px_rgba(37,226,204,0.15)]">
+              <span className="w-2 h-2 rounded-full bg-[#25E2CC] animate-pulse" />
+              Live System: 10,000+ Daily Dispatches Across US Hubs
+            </div>
+
+            <h1 className="text-4xl sm:text-6xl lg:text-[68px] font-extrabold tracking-tight text-white font-rubik leading-[1.08] mb-6">
+              AUTOMATE OPERATIONS. <br />
+              SCALE <span className="text-[#25E2CC]">GLOBAL COMMERCE.</span>
+            </h1>
+
+            <p className="text-base sm:text-lg lg:text-xl text-[#8C8C8C] leading-relaxed font-montserrat max-w-2xl mb-8">
+              E-GEAD delivers an enterprise-grade technology and logistics ecosystem: automating multi-channel order pipelines, manufacturing US print-on-demand goods in under 24 hours, and scaling revenue through high-impact performance advertising.
+            </p>
+
+            <div className="flex flex-wrap items-center gap-4">
+              <a
+                href="#solutions-by-role"
+                className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-[#25E2CC] text-black font-bold text-sm font-montserrat hover:bg-[#1ec2af] transition-all duration-200 shadow-[0_0_25px_rgba(37,226,204,0.35)] hover:scale-105 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#25E2CC]"
+              >
+                <span>Explore Solutions Matrix</span>
+                <ArrowRight className="w-4 h-4" aria-hidden="true" />
+              </a>
+
+              <Link
+                href="/contact-us"
+                className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-[#141718] text-white border border-[#262C30] font-semibold text-sm font-montserrat hover:border-[#25E2CC]/40 hover:text-[#25E2CC] transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#25E2CC]"
+              >
+                <span>Request Operations Audit</span>
+                <ArrowUpRight className="w-4 h-4" aria-hidden="true" />
+              </Link>
+            </div>
+          </div>
+
+          {/* Right Column: Real-time Order Throughput Dashboard HUD */}
+          <div className="lg:col-span-5">
+            <div className="w-full rounded-[32px] bg-[#141718]/90 border border-[#262C30] p-6 sm:p-8 backdrop-blur-xl shadow-[0_0_40px_rgba(0,0,0,0.6)] relative overflow-hidden">
+              <div className="flex items-center justify-between pb-4 border-b border-[#262C30] mb-6">
+                <div className="flex items-center gap-2.5">
+                  <div className="w-3 h-3 rounded-full bg-[#25E2CC] animate-ping" />
+                  <span className="text-xs uppercase tracking-widest font-bold text-white font-montserrat">
+                    Live Dispatch HUD
+                  </span>
+                </div>
+                <span className="text-[10px] font-mono font-bold bg-[#25E2CC]/10 text-[#25E2CC] px-2.5 py-1 rounded-full border border-[#25E2CC]/20">
+                  Latency: 120ms
+                </span>
+              </div>
+
+              {/* HUD Stats */}
+              <div className="space-y-4">
+                <div className="p-4 rounded-2xl bg-[#0A0D0E]/80 border border-[#262C30] flex items-center justify-between">
+                  <div>
+                    <span className="text-[11px] text-[#8C8C8C] uppercase font-montserrat">
+                      Today's US Dispatch Queue
+                    </span>
+                    <div className="text-2xl font-bold text-[#25E2CC] font-rubik mt-0.5">
+                      12,480 Units
+                    </div>
+                  </div>
+                  <span className="text-xs font-mono font-semibold text-[#D3F9F5] bg-[#25E2CC]/10 px-2 py-1 rounded">
+                    100% On Time
+                  </span>
+                </div>
+
+                <div className="p-4 rounded-2xl bg-[#0A0D0E]/80 border border-[#262C30] flex items-center justify-between">
+                  <div>
+                    <span className="text-[11px] text-[#8C8C8C] uppercase font-montserrat">
+                      TikTok Shop LDR Status
+                    </span>
+                    <div className="text-2xl font-bold text-white font-rubik mt-0.5">
+                      0.18% <span className="text-xs text-[#8C8C8C] font-normal">(Ceiling: 4.0%)</span>
+                    </div>
+                  </div>
+                  <span className="text-xs font-mono font-semibold text-emerald-400 bg-emerald-500/10 px-2 py-1 rounded">
+                    Safe Shield
+                  </span>
+                </div>
+
+                <div className="p-4 rounded-2xl bg-[#0A0D0E]/80 border border-[#262C30] flex items-center justify-between">
+                  <div>
+                    <span className="text-[11px] text-[#8C8C8C] uppercase font-montserrat">
+                      Active Production Facilities
+                    </span>
+                    <div className="text-2xl font-bold text-white font-rubik mt-0.5">
+                      US East &amp; West Hubs
+                    </div>
+                  </div>
+                  <span className="text-xs font-mono font-semibold text-[#25E2CC] bg-[#25E2CC]/10 px-2 py-1 rounded">
+                    Operational
+                  </span>
+                </div>
+              </div>
+
+              {/* Status bar */}
+              <div className="mt-6 pt-4 border-t border-[#262C30] flex items-center justify-between text-xs text-[#8C8C8C] font-montserrat">
+                <span className="flex items-center gap-1.5">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-[#25E2CC]" aria-hidden="true" />
+                  Carrier Handshake: Connected
+                </span>
+                <span className="font-mono text-[11px] text-[#D3F9F5]">
+                  USPS / UPS / DHL
+                </span>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* Services Detailed Pillars */}
-      <section className="w-full px-6 sm:px-10 lg:px-14 xl:px-16 space-y-16 sm:space-y-24 mb-28">
-        {servicePillars.map((pillar) => (
-          <div
-            key={pillar.id}
-            id={pillar.id}
-            className="p-8 sm:p-12 lg:p-16 rounded-[36px] bg-[#141718] border border-white/10 hover:border-[#7ceee0]/40 transition duration-300"
-          >
-            <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-8 pb-10 border-b border-white/10">
-              <div>
-                <div className="flex items-center gap-4 mb-4">
-                  <span className="text-sm font-mono font-bold text-[#7ceee0] bg-[#7ceee0]/10 px-3 py-1 rounded-full border border-[#7ceee0]/30">
-                    {pillar.number}
-                  </span>
-                  <h2 className="text-3xl sm:text-4xl font-bold text-white">
-                    {pillar.title}
-                  </h2>
+      {/* SECTION 2: Global Operations Metrics Bar */}
+      <MetricsRibbon
+        id="operations-metrics"
+        badge="Enterprise Performance"
+        title="Backed by Proven Operating Benchmarks"
+        subtitle="Real-time production and growth indicators achieved across 100+ global storefronts"
+        metrics={globalMetrics}
+      />
+
+      {/* SECTION 3: Interactive Role-Based Solutions Switcher */}
+      <RoleTabs
+        id="solutions-by-role"
+        badge="Tailored Ecosystem Solutions"
+        title={
+          <>
+            Engineered for <span className="text-[#25E2CC]">Your Exact Business Model</span>
+          </>
+        }
+        subtitle="Select your operating persona to explore dedicated infrastructure, integrations, and performance guarantees."
+        tabs={roleTabsData}
+      />
+
+      {/* SECTION 4: The 6 Service Pillars Bento Grid Deep Dive */}
+      <BentoGrid
+        id="core-services-grid"
+        badge="Complete Capabilities Portfolio"
+        title={
+          <>
+            Complete Operational Spectrum: <br />
+            <span className="text-[#25E2CC]">From Ingestion to Delivery &amp; Growth</span>
+          </>
+        }
+        description="Every link in your e-commerce chain is strengthened by specialized technology, automated manufacturing, and data-driven marketing."
+        items={bentoPillars}
+      />
+
+      {/* SECTION 5: End-to-End Automated Workflow Pipeline */}
+      <WorkflowTimeline
+        id="workflow-pipeline"
+        badge="The Order Journey"
+        title={
+          <>
+            From Customer Click to <span className="text-[#25E2CC]">US Porch Delivery</span>
+          </>
+        }
+        subtitle="Experience a zero-touch, automated fulfillment pipeline that turns multi-channel orders into delivered packages in days."
+        steps={workflowSteps}
+      />
+
+      {/* SECTION 6: Head-to-Head Comparison: E-GEAD vs Traditional 3PL */}
+      <ComparisonTable
+        id="comparison-matrix"
+        badge="Head-to-Head Comparison"
+        title={
+          <>
+            Why Modern Sellers Switch from <span className="text-[#25E2CC]">Legacy 3PL Vendors</span>
+          </>
+        }
+        subtitle="Examine the tangible operational advantages that keep your accounts healthy and your unit economics predictable."
+        egeadTitle="E-GEAD Ecosystem"
+        egeadSubtitle="AI Precision & Sub-24H US POD"
+        traditionalTitle="Legacy 3PL / Print Vendors"
+        traditionalSubtitle="Batch Manual Processing"
+        rows={comparisonRows}
+      />
+
+      {/* SECTION 7: Interactive Fulfillment & Margin Simulator */}
+      <MarginSimulator id="margin-simulator" />
+
+      {/* SECTION 8: Enterprise SLA Protection & Compliance Badges */}
+      <section
+        id="sla-compliance"
+        className="relative w-full py-20 sm:py-24 bg-[#0A0D0E] border-t border-[#262C30] text-white overflow-hidden"
+      >
+        <div className="relative z-10 w-full px-6 sm:px-10 lg:px-14 xl:px-16 max-w-7xl mx-auto">
+          <div className="text-center max-w-3xl mx-auto mb-14 sm:mb-16">
+            <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#141718] border border-[#262C30] text-[#25E2CC] text-xs sm:text-sm font-semibold tracking-wider uppercase mb-4 font-montserrat">
+              <ShieldCheck className="w-3.5 h-3.5 text-[#25E2CC]" aria-hidden="true" />
+              Account Safety &amp; SLAs
+            </span>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-white font-rubik leading-[1.2]">
+              Enterprise SLA Protection &amp; Compliance Badges
+            </h2>
+            <p className="mt-4 text-base sm:text-lg text-[#8C8C8C] leading-relaxed font-montserrat max-w-2xl mx-auto">
+              Eliminate account suspension risks. Our automated operations maintain perfect compliance with the world's strictest marketplace algorithms.
+            </p>
+          </div>
+
+          {/* 4 Compliance Cards rendered cleanly via DRY map */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {complianceBadges.map((badge, idx) => (
+              <div
+                key={idx}
+                className="p-7 rounded-[26px] bg-[#141718]/90 border border-[#262C30] hover:border-[#25E2CC]/40 transition-all duration-300 group"
+              >
+                <div className="w-12 h-12 rounded-2xl bg-[#1D2224] border border-[#262C30] flex items-center justify-center text-[#25E2CC] mb-5 group-hover:scale-110 transition-transform">
+                  {badge.icon}
                 </div>
-                <p className="text-base sm:text-lg text-gray-300 max-w-2xl leading-relaxed">
-                  {pillar.desc}
+                <h3 className="text-lg font-bold text-white font-rubik mb-2 group-hover:text-[#25E2CC] transition-colors">
+                  {badge.title}
+                </h3>
+                <p className="text-xs sm:text-sm text-[#8C8C8C] font-montserrat leading-relaxed">
+                  {badge.description}
                 </p>
               </div>
-
-              <div className="w-16 h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center flex-shrink-0">
-                <img
-                  src={pillar.icon}
-                  alt={pillar.title}
-                  className="w-8 h-8 object-contain filter invert"
-                />
-              </div>
-            </div>
-
-            {/* Sub-capabilities Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-10">
-              {pillar.subServices.map((sub, i) => (
-                <div
-                  key={i}
-                  className="p-6 rounded-2xl bg-[#0A0D0E]/60 border border-white/5 hover:border-white/20 transition"
-                >
-                  <h3 className="text-lg font-bold text-white mb-2 flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#7ceee0]" />
-                    {sub.name}
-                  </h3>
-                  <p className="text-sm text-gray-400 leading-relaxed">
-                    {sub.description}
-                  </p>
-                </div>
-              ))}
-            </div>
+            ))}
           </div>
-        ))}
+        </div>
       </section>
 
+      {/* SECTION 9: Featured Client Transformation Spotlight */}
+      <section
+        id="client-spotlight"
+        className="relative w-full py-20 sm:py-24 bg-[#0A0D0E] text-white overflow-hidden"
+      >
+        <div className="relative z-10 w-full px-6 sm:px-10 lg:px-14 xl:px-16 max-w-6xl mx-auto">
+          <div className="rounded-[32px] bg-gradient-to-br from-[#141718] to-[#101416] border border-[#262C30] p-8 sm:p-12 lg:p-16 backdrop-blur-md relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-96 h-96 bg-[#25E2CC]/5 blur-[120px] rounded-full pointer-events-none" />
+
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+              {/* Left Column: Client Profile Card */}
+              <div className="lg:col-span-5 space-y-4">
+                <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#25E2CC]/10 text-[#25E2CC] text-xs font-semibold uppercase tracking-wider font-montserrat">
+                  Case Study Spotlight
+                </span>
+                <h2 className="text-2xl sm:text-3xl font-extrabold text-white font-rubik leading-snug">
+                  UrbanVibe Apparel
+                </h2>
+                <p className="text-sm text-[#8C8C8C] font-montserrat">
+                  Top-Tier US Streetwear Brand scaling on TikTok Shop US &amp; Shopify DTC.
+                </p>
+
+                <div className="p-4 rounded-2xl bg-[#0A0D0E]/80 border border-[#262C30] space-y-3 pt-4">
+                  <div className="flex justify-between items-center text-xs font-montserrat">
+                    <span className="text-[#8C8C8C]">Before Migration:</span>
+                    <span className="text-red-400 font-bold">4.2% LDR (Order Limit Strike)</span>
+                  </div>
+                  <div className="flex justify-between items-center text-xs font-montserrat">
+                    <span className="text-[#8C8C8C]">After E-GEAD:</span>
+                    <span className="text-[#25E2CC] font-bold">0.2% LDR (Sub-24H Dispatch)</span>
+                  </div>
+                  <div className="flex justify-between items-center text-xs font-montserrat pt-2 border-t border-[#262C30]">
+                    <span className="text-[#8C8C8C]">Q4 GMV Growth:</span>
+                    <span className="text-emerald-400 font-bold text-sm">+180% ($420,000 GMV)</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Right Column: Narrative & Quote */}
+              <div className="lg:col-span-7 flex flex-col justify-center">
+                <blockquote className="text-lg sm:text-xl text-white font-montserrat font-medium italic leading-relaxed mb-6">
+                  &ldquo;E-GEAD eliminated our sleepless nights. We scaled our TikTok Shop ad spend knowing our fulfillment would never drop the ball. With sub-24H dispatch and 23-inch DTF quality, our customer ratings surged to 4.9 stars.&rdquo;
+                </blockquote>
+                <div className="flex items-center gap-3">
+                  <div className="w-11 h-11 rounded-full bg-[#25E2CC]/20 border border-[#25E2CC] flex items-center justify-center text-[#25E2CC] font-bold font-rubik text-sm">
+                    MV
+                  </div>
+                  <div>
+                    <div className="text-white font-bold text-sm font-rubik">Marcus Vance</div>
+                    <div className="text-xs text-[#8C8C8C] font-montserrat">Founder &amp; CEO, UrbanVibe Apparel</div>
+                  </div>
+                </div>
+
+                <div className="mt-8 pt-6 border-t border-[#262C30]">
+                  <Link
+                    href="/our-work"
+                    className="inline-flex items-center gap-2 text-sm font-bold text-[#25E2CC] hover:text-[#1ec2af] transition-colors group"
+                  >
+                    <span>Read Full Client Transformation Case Study</span>
+                    <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* SECTION 10: Categorized FAQ Accordion */}
+      <FaqAccordion
+        id="services-faq"
+        badge="Frequently Answered Inquiries"
+        title={
+          <>
+            Got Questions? <span className="text-[#25E2CC]">We Have Answers.</span>
+          </>
+        }
+        subtitle="Review key details regarding our SLAs, custom integrations, pricing model, and account protections."
+        items={faqs}
+        categories={['Operations & SLA', 'Integrations & API', 'Pricing & Economics', 'Growth & Ads']}
+      />
+
+      {/* SECTION 11: High-Velocity Conversion Mega CTA */}
+      <section
+        id="services-cta"
+        className="relative w-full py-20 sm:py-28 bg-[#0A0D0E] text-white overflow-hidden"
+      >
+        <div className="relative z-10 w-full px-6 sm:px-10 lg:px-14 xl:px-16 max-w-5xl mx-auto">
+          <div className="rounded-[36px] bg-gradient-to-br from-[#141718] via-[#101416] to-[#0A0D0E] border-2 border-[#25E2CC]/40 p-8 sm:p-12 lg:p-16 text-center shadow-[0_0_60px_rgba(37,226,204,0.15)] relative overflow-hidden">
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-[#25E2CC]/10 blur-[140px] rounded-full pointer-events-none" />
+
+            <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#141718] border border-[#262C30] text-[#25E2CC] text-xs font-semibold tracking-wider uppercase mb-6 font-montserrat">
+              <Sparkles className="w-3.5 h-3.5 text-[#25E2CC]" aria-hidden="true" />
+              Scale Without Limits
+            </span>
+
+            <h2 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-white font-rubik leading-[1.1] mb-6 tracking-tight">
+              Ready to Automate Operations &amp; <br />
+              <span className="text-[#25E2CC]">Dominate Global Commerce?</span>
+            </h2>
+
+            <p className="text-base sm:text-lg text-[#8C8C8C] font-montserrat max-w-2xl mx-auto leading-relaxed mb-10">
+              Connect with our solutions architects today. Receive a complimentary operations audit and review your custom unit economics in under 24 hours.
+            </p>
+
+            <div className="flex flex-wrap items-center justify-center gap-4">
+              <Link
+                href="/contact-us"
+                className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-[#25E2CC] text-black font-bold text-sm sm:text-base font-montserrat hover:bg-[#1ec2af] transition-all duration-200 shadow-[0_0_30px_rgba(37,226,204,0.4)] hover:scale-105 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#25E2CC]"
+              >
+                <span>Schedule Operations Consultation</span>
+                <ArrowRight className="w-4 h-4" aria-hidden="true" />
+              </Link>
+
+              <Link
+                href="/speedx"
+                className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-[#141718] text-white border border-[#262C30] font-bold text-sm sm:text-base font-montserrat hover:border-[#25E2CC]/40 hover:text-[#25E2CC] transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#25E2CC]"
+              >
+                <span>Explore SpeedX Tech Specs</span>
+                <ExternalLink className="w-4 h-4" aria-hidden="true" />
+              </Link>
+            </div>
+
+            {/* Trust highlights */}
+            <div className="flex flex-wrap items-center justify-center gap-6 sm:gap-10 mt-12 pt-8 border-t border-[#262C30]/60 text-xs text-[#8C8C8C] font-montserrat">
+              <span className="flex items-center gap-2">
+                <CheckCircle2 className="w-4 h-4 text-[#25E2CC]" aria-hidden="true" />
+                Zero Setup Fees
+              </span>
+              <span className="flex items-center gap-2">
+                <CheckCircle2 className="w-4 h-4 text-[#25E2CC]" aria-hidden="true" />
+                14-Day Free API Sandbox
+              </span>
+              <span className="flex items-center gap-2">
+                <CheckCircle2 className="w-4 h-4 text-[#25E2CC]" aria-hidden="true" />
+                Dedicated Account Architect
+              </span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Global Contact & Inquiry Block */}
       <ContactBlock />
     </div>
   );
