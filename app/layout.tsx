@@ -38,7 +38,7 @@ export default function RootLayout({
       suppressHydrationWarning
       data-scroll-behavior="smooth"
     >
-      <body className="bg-[#0A0D0E] text-white min-h-screen flex flex-col font-sans selection:bg-[#25E2CC] selection:text-black">
+      <body className="bg-[#0A0D0E] text-white min-h-screen flex flex-col font-sans selection:bg-[#10E774] selection:text-black">
         <Header />
         <main className="flex-grow">{children}</main>
         <Footer />

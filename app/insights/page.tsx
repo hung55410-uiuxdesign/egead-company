@@ -52,12 +52,12 @@ export default function InsightsPage() {
     <div className="w-full bg-[#0A0D0E] text-white pt-32 sm:pt-40">
       <section className="w-full px-6 sm:px-10 lg:px-14 xl:px-16 mb-20 sm:mb-28">
         <div className="w-full">
-          <span className="text-sm sm:text-base font-normal text-[#d3f9f5] block mb-4">
+          <p className="text-base sm:text-lg font-normal text-[#D4FAE6] mb-4 font-montserrat">
             Knowledge &amp; Industry Insights
-          </span>
-          <h1 className="text-4xl sm:text-6xl lg:text-[72px] font-medium tracking-tight leading-[1.08] text-[#d3f9f5] font-montserrat mb-6">
+          </p>
+          <h1 className="text-4xl sm:text-6xl lg:text-[72px] font-medium tracking-tight leading-[1.08] text-[#D4FAE6] font-montserrat mb-6">
             Cross-Border Commerce, <br />
-            <span className="text-[#7ceee0] font-medium">Strategies &amp; Playbooks.</span>
+            <span className="text-[#5EFC8D] font-medium">Strategies &amp; Playbooks.</span>
           </h1>
           <p className="text-base sm:text-lg lg:text-xl text-[#b3b3b3] font-light leading-[1.75] font-montserrat max-w-3xl">
             Actionable blueprints for global e-commerce sellers: optimizing TikTok Shop US dispatch SLAs, automating multi-channel warehouse operations, and maximizing net margins.
@@ -71,7 +71,7 @@ export default function InsightsPage() {
             <Link
               key={item.slug}
               href={`/articles/${item.slug}`}
-              className="group rounded-[36px] overflow-hidden bg-[#141718] border border-white/10 hover:border-[#7ceee0]/40 transition-all duration-300 flex flex-col shadow-2xl hover:-translate-y-1.5"
+              className="group rounded-[36px] overflow-hidden bg-[#141718] border border-white/10 hover:border-[#5EFC8D]/40 transition-all duration-300 flex flex-col shadow-2xl hover:-translate-y-1.5"
             >
               <div className="relative h-72 w-full overflow-hidden bg-[#0A0D0E]">
                 <img
@@ -80,7 +80,7 @@ export default function InsightsPage() {
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                 />
                 <div className="absolute top-6 left-6">
-                  <span className="px-3 py-1 rounded-full bg-[#7ceee0] text-black font-medium text-xs">
+                  <span className="px-3 py-1 rounded-full bg-[#5EFC8D] text-black font-medium text-xs">
                     {item.tag}
                   </span>
                 </div>
@@ -88,19 +88,19 @@ export default function InsightsPage() {
 
               <div className="p-8 sm:p-10 flex-1 flex flex-col justify-between">
                 <div>
-                  <div className="flex items-center gap-4 text-xs text-gray-400 mb-4 font-mono">
+                  <div className="flex items-center gap-4 text-xs text-gray-400 mb-4 font-montserrat">
                     <span className="flex items-center gap-1.5">
-                      <Calendar className="w-3.5 h-3.5 text-[#7ceee0]" />
+                      <Calendar className="w-3.5 h-3.5 text-[#5EFC8D]" />
                       {item.date}
                     </span>
                     <span>•</span>
                     <span className="flex items-center gap-1.5">
-                      <Clock className="w-3.5 h-3.5 text-[#7ceee0]" />
+                      <Clock className="w-3.5 h-3.5 text-[#5EFC8D]" />
                       {item.readTime}
                     </span>
                   </div>
 
-                  <h3 className="text-xl sm:text-2xl font-medium text-[#d3f9f5] group-hover:text-[#7ceee0] transition-colors leading-snug font-montserrat">
+                  <h3 className="text-xl sm:text-2xl font-medium text-[#D4FAE6] group-hover:text-[#5EFC8D] transition-colors leading-snug font-montserrat">
                     {item.title}
                   </h3>
 
@@ -110,10 +110,10 @@ export default function InsightsPage() {
                 </div>
 
                 <div className="mt-8 pt-6 border-t border-white/10 flex items-center justify-between">
-                  <span className="text-xs font-medium uppercase tracking-wider text-[#7ceee0]">
+                  <span className="text-xs font-medium uppercase tracking-wider text-[#5EFC8D]">
                     Read full article
                   </span>
-                  <div className="w-9 h-9 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-[#7ceee0] group-hover:text-black transition duration-300">
+                  <div className="w-9 h-9 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-[#5EFC8D] group-hover:text-black transition duration-300">
                     <ArrowUpRight className="w-4 h-4" />
                   </div>
                 </div>

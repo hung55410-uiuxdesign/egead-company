@@ -49,7 +49,7 @@ export function EfficiencyVisualizer({
       {/* Background ambient lighting */}
       <div 
         aria-hidden="true" 
-        className="absolute -top-24 -right-24 w-96 h-96 bg-[#25E2CC]/10 rounded-full blur-3xl pointer-events-none" 
+        className="absolute -top-24 -right-24 w-96 h-96 bg-[#10E774]/10 rounded-full blur-3xl pointer-events-none" 
       />
       <div 
         aria-hidden="true" 
@@ -59,14 +59,14 @@ export function EfficiencyVisualizer({
       {/* Header & Description */}
       <div className="relative z-10 flex flex-col md:flex-row md:items-end justify-between gap-6 pb-8 border-b border-white/10">
         <div className="max-w-2xl">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#25E2CC]/10 border border-[#25E2CC]/25 text-[#25E2CC] text-xs font-mono font-medium uppercase tracking-wider mb-3">
-            <Sparkles className="w-3.5 h-3.5" aria-hidden="true" />
+          <p className="text-base sm:text-lg font-normal text-[#D4FAE6] mb-3 font-montserrat flex items-center gap-2">
+            <Sparkles className="w-4 h-4 text-[#5EFC8D]" aria-hidden="true" />
             Interactive Scale Simulator
-          </div>
-          <h3 className="text-2xl sm:text-3xl lg:text-4xl font-black text-white tracking-tight">
-            Calculate Headcount & Cost Savings
+          </p>
+          <h3 className="text-2xl sm:text-3xl lg:text-[34px] font-medium text-[#D4FAE6] font-montserrat leading-[1.3]">
+            Calculate Headcount &amp; Cost Savings
           </h3>
-          <p className="mt-2 text-sm sm:text-base text-gray-400 font-normal leading-relaxed">
+          <p className="mt-4 text-base sm:text-[17px] text-[#b3b3b3] font-light leading-[1.75] font-montserrat">
             Drag the slider to your current or target monthly order volume. See how E-GEAD eliminates the traditional headcount scaling trap through pure automation.
           </p>
         </div>
@@ -88,10 +88,10 @@ export function EfficiencyVisualizer({
                 htmlFor={sliderId} 
                 className="text-sm font-semibold uppercase tracking-wider text-gray-300 flex items-center gap-2"
               >
-                <TrendingUp className="w-4 h-4 text-[#25E2CC]" aria-hidden="true" />
+                <TrendingUp className="w-4 h-4 text-[#10E774]" aria-hidden="true" />
                 Monthly Order Volume
               </label>
-              <span className="text-2xl sm:text-3xl font-mono font-black text-[#25E2CC]">
+              <span className="text-2xl sm:text-3xl font-montserrat font-black text-[#10E774]">
                 {volume.toLocaleString()} <span className="text-sm font-sans font-medium text-gray-400">orders/mo</span>
               </span>
             </div>
@@ -111,12 +111,12 @@ export function EfficiencyVisualizer({
                 aria-valuemax={20000}
                 aria-valuenow={volume}
                 aria-valuetext={`${volume.toLocaleString()} orders per month`}
-                className="w-full h-3 bg-white/10 rounded-lg appearance-none cursor-pointer accent-[#25E2CC] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#25E2CC] focus-visible:ring-offset-2 focus-visible:ring-offset-[#141718]"
+                className="w-full h-3 bg-white/10 rounded-lg appearance-none cursor-pointer accent-[#10E774] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#10E774] focus-visible:ring-offset-2 focus-visible:ring-offset-[#141718]"
               />
             </div>
 
             {/* Scale End Labels */}
-            <div className="flex justify-between text-xs font-mono text-gray-500 mt-1">
+            <div className="flex justify-between text-xs font-montserrat text-gray-500 mt-1">
               <span>500 orders</span>
               <span>5,000</span>
               <span>10,000</span>
@@ -132,9 +132,9 @@ export function EfficiencyVisualizer({
                   type="button"
                   onClick={() => setVolume(preset)}
                   aria-pressed={volume === preset}
-                  className={`px-3.5 py-1.5 rounded-lg text-xs font-mono font-semibold transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#25E2CC] ${
+                  className={`px-3.5 py-1.5 rounded-lg text-xs font-montserrat font-semibold transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#10E774] ${
                     volume === preset
-                      ? 'bg-[#25E2CC] text-black shadow-lg shadow-[#25E2CC]/25 font-bold'
+                      ? 'bg-[#10E774] text-black shadow-lg shadow-[#10E774]/25 font-bold'
                       : 'bg-white/5 text-gray-300 hover:bg-white/10 border border-white/10'
                   }`}
                 >
@@ -146,13 +146,13 @@ export function EfficiencyVisualizer({
 
           {/* Visual Cost Comparison Progress Bars */}
           <div className="bg-[#0A0D0E]/80 backdrop-blur-md rounded-2xl border border-white/10 p-6 sm:p-8 space-y-5">
-            <h4 className="text-xs font-mono uppercase tracking-widest text-gray-400">
+            <h4 className="text-xs font-montserrat uppercase tracking-widest text-gray-400">
               Monthly Operational Cost Comparison
             </h4>
 
             {/* Traditional Ops Bar */}
             <div>
-              <div className="flex justify-between items-center text-xs font-mono mb-1.5">
+              <div className="flex justify-between items-center text-xs font-montserrat mb-1.5">
                 <span className="text-rose-300 flex items-center gap-1.5 font-medium">
                   <span className="w-2 h-2 rounded-full bg-rose-500" aria-hidden="true" />
                   Legacy Headcount & Manual Routing ({traditionalFteCount} FTE)
@@ -170,16 +170,16 @@ export function EfficiencyVisualizer({
 
             {/* E-GEAD Automated Bar */}
             <div>
-              <div className="flex justify-between items-center text-xs font-mono mb-1.5">
-                <span className="text-[#25E2CC] flex items-center gap-1.5 font-medium">
-                  <span className="w-2 h-2 rounded-full bg-[#25E2CC]" aria-hidden="true" />
+              <div className="flex justify-between items-center text-xs font-montserrat mb-1.5">
+                <span className="text-[#10E774] flex items-center gap-1.5 font-medium">
+                  <span className="w-2 h-2 rounded-full bg-[#10E774]" aria-hidden="true" />
                   E-GEAD Automated Infrastructure (0 FTEs Needed)
                 </span>
-                <span className="text-[#25E2CC] font-bold">${egeadCost.toLocaleString()}/mo</span>
+                <span className="text-[#10E774] font-bold">${egeadCost.toLocaleString()}/mo</span>
               </div>
               <div className="w-full h-3.5 bg-white/5 rounded-full overflow-hidden p-0.5 border border-white/10">
                 <div 
-                  className="h-full bg-gradient-to-r from-[#25E2CC] to-cyan-300 rounded-full transition-all duration-300 motion-reduce:transition-none shadow-sm shadow-[#25E2CC]/50"
+                  className="h-full bg-gradient-to-r from-[#10E774] to-cyan-300 rounded-full transition-all duration-300 motion-reduce:transition-none shadow-sm shadow-[#10E774]/50"
                   style={{ width: `${egeadBarPercent}%` }}
                   aria-hidden="true"
                 />
@@ -196,25 +196,25 @@ export function EfficiencyVisualizer({
         <div className="lg:col-span-5 flex flex-col space-y-4">
           
           {/* Main Net Savings Highlight Card */}
-          <div className="rounded-2xl bg-gradient-to-br from-[#25E2CC]/15 via-[#1A2224] to-[#0A0D0E] border border-[#25E2CC]/40 p-6 sm:p-8 shadow-xl relative overflow-hidden">
+          <div className="rounded-2xl bg-gradient-to-br from-[#10E774]/15 via-[#1A2224] to-[#0A0D0E] border border-[#10E774]/40 p-6 sm:p-8 shadow-xl relative overflow-hidden">
             <div 
               aria-hidden="true" 
-              className="absolute top-0 right-0 w-32 h-32 bg-[#25E2CC]/20 rounded-full blur-2xl pointer-events-none" 
+              className="absolute top-0 right-0 w-32 h-32 bg-[#10E774]/20 rounded-full blur-2xl pointer-events-none" 
             />
             
-            <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-wider text-[#25E2CC] mb-2">
+            <div className="flex items-center gap-2 text-xs font-montserrat font-bold uppercase tracking-wider text-[#10E774] mb-2">
               <DollarSign className="w-4 h-4" aria-hidden="true" />
               Net Monthly Cash Saved
             </div>
             
-            <div className="text-4xl sm:text-5xl font-mono font-black text-white tracking-tight">
+            <div className="text-4xl sm:text-5xl font-montserrat font-black text-white tracking-tight">
               ${netMonthlySavings.toLocaleString()}
               <span className="text-lg font-sans font-medium text-gray-400">/mo</span>
             </div>
 
-            <div className="mt-4 pt-4 border-t border-white/10 flex items-center justify-between text-xs font-mono">
+            <div className="mt-4 pt-4 border-t border-white/10 flex items-center justify-between text-xs font-montserrat">
               <span className="text-gray-400">Projected Annual Savings:</span>
-              <span className="text-[#25E2CC] font-bold text-sm">
+              <span className="text-[#10E774] font-bold text-sm">
                 +${netAnnualSavings.toLocaleString()}/yr
               </span>
             </div>
@@ -225,11 +225,11 @@ export function EfficiencyVisualizer({
             
             {/* Hours Reclaimed */}
             <div className="rounded-2xl bg-[#0A0D0E]/80 backdrop-blur-md border border-white/10 p-5 flex flex-col justify-between">
-              <div className="flex items-center gap-2 text-xs font-mono text-gray-400 mb-2">
-                <Clock className="w-3.5 h-3.5 text-[#25E2CC]" aria-hidden="true" />
+              <div className="flex items-center gap-2 text-xs font-montserrat text-gray-400 mb-2">
+                <Clock className="w-3.5 h-3.5 text-[#10E774]" aria-hidden="true" />
                 Human Hours Reclaimed
               </div>
-              <div className="text-2xl sm:text-3xl font-mono font-black text-white">
+              <div className="text-2xl sm:text-3xl font-montserrat font-black text-white">
                 {hoursSavedPerMonth.toLocaleString()}
                 <span className="text-xs font-sans text-gray-400 ml-1">hrs/mo</span>
               </div>
@@ -240,11 +240,11 @@ export function EfficiencyVisualizer({
 
             {/* FTE Team Avoidance */}
             <div className="rounded-2xl bg-[#0A0D0E]/80 backdrop-blur-md border border-white/10 p-5 flex flex-col justify-between">
-              <div className="flex items-center gap-2 text-xs font-mono text-gray-400 mb-2">
-                <Users className="w-3.5 h-3.5 text-[#25E2CC]" aria-hidden="true" />
+              <div className="flex items-center gap-2 text-xs font-montserrat text-gray-400 mb-2">
+                <Users className="w-3.5 h-3.5 text-[#10E774]" aria-hidden="true" />
                 Headcount Avoidance
               </div>
-              <div className="text-2xl sm:text-3xl font-mono font-black text-white">
+              <div className="text-2xl sm:text-3xl font-montserrat font-black text-white">
                 {traditionalFteCount}
                 <span className="text-xs font-sans text-gray-400 ml-1">Ops FTEs</span>
               </div>
@@ -259,10 +259,10 @@ export function EfficiencyVisualizer({
           <div className="pt-2">
             <a
               href="#work-cta"
-              className="inline-flex items-center justify-between w-full px-6 py-4 rounded-xl bg-white/5 hover:bg-[#25E2CC]/15 border border-white/10 hover:border-[#25E2CC]/40 text-white font-semibold text-sm transition-all duration-300 group"
+              className="inline-flex items-center justify-between w-full px-6 py-4 rounded-xl bg-white/5 hover:bg-[#10E774]/15 border border-white/10 hover:border-[#10E774]/40 text-white font-semibold text-sm transition-all duration-300 group"
             >
               <span>Unlock these savings in your store</span>
-              <ArrowRight className="w-4 h-4 text-[#25E2CC] group-hover:translate-x-1 transition-transform motion-reduce:transform-none" aria-hidden="true" />
+              <ArrowRight className="w-4 h-4 text-[#10E774] group-hover:translate-x-1 transition-transform motion-reduce:transform-none" aria-hidden="true" />
             </a>
           </div>
 

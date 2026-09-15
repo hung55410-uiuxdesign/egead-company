@@ -88,15 +88,14 @@ export default function AddressDemo({ id = 'ai-address-normalization', className
     >
       <div className="relative z-10 w-full px-6 sm:px-10 lg:px-14 xl:px-16">
         {/* Header Block */}
-        <div className="text-center max-w-3xl mx-auto mb-14 sm:mb-16">
-          <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#141718] border border-white/10 text-[#d3f9f5] text-xs sm:text-sm font-normal tracking-wider uppercase mb-4 font-montserrat">
-            <Sparkles className="w-3.5 h-3.5 text-[#7ceee0]" aria-hidden="true" />
+        <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-14">
+          <p className="text-base sm:text-lg font-normal text-[#D4FAE6] mb-3 font-montserrat">
             Proprietary AI Algorithm
-          </span>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-medium tracking-tight text-[#d3f9f5] font-montserrat leading-[1.2]">
-            Watch AI <span className="text-[#7ceee0] font-medium">Sanitize &amp; Fix</span> Addresses in 35ms
+          </p>
+          <h2 className="text-2xl sm:text-3xl lg:text-[34px] font-medium text-[#D4FAE6] font-montserrat leading-[1.3]">
+            Watch AI <span className="text-[#5EFC8D] font-medium">Sanitize &amp; Fix</span> Addresses in 35ms
           </h2>
-          <p className="mt-4 text-base sm:text-lg text-[#b3b3b3] font-light leading-[1.75] font-montserrat max-w-2xl mx-auto">
+          <p className="mt-4 text-base sm:text-[17px] text-[#b3b3b3] font-light leading-[1.75] font-montserrat max-w-2xl mx-auto">
             Over 80% of Return-To-Origin (RTO) returns stem from customer typos, missing Zip+4 codes, and abbreviations. Eweb-character resolves them before print production begins.
           </p>
         </div>
@@ -111,10 +110,10 @@ export default function AddressDemo({ id = 'ai-address-normalization', className
                 type="button"
                 aria-pressed={isActive}
                 onClick={() => setSelectedCaseId(sc.id)}
-                className={`px-5 py-2.5 rounded-full text-xs sm:text-sm font-bold font-montserrat transition-all duration-200 border focus:outline-none focus-visible:ring-2 focus-visible:ring-[#25E2CC] ${
+                className={`px-5 py-2.5 rounded-full text-xs sm:text-sm font-bold font-montserrat transition-all duration-200 border focus:outline-none focus-visible:ring-2 focus-visible:ring-[#10E774] ${
                   isActive
-                    ? 'bg-[#25E2CC] text-black border-[#25E2CC] shadow-[0_0_20px_rgba(37,226,204,0.3)]'
-                    : 'bg-[#141718] text-[#8C8C8C] border-[#262C30] hover:text-white hover:border-[#25E2CC]/40'
+                    ? 'bg-[#10E774] text-black border-[#10E774] shadow-[0_0_20px_rgba(16, 231, 116, 0.3)]'
+                    : 'bg-[#141718] text-[#8C8C8C] border-[#262C30] hover:text-white hover:border-[#10E774]/40'
                 }`}
               >
                 {sc.title}
@@ -135,12 +134,12 @@ export default function AddressDemo({ id = 'ai-address-normalization', className
                     Raw Marketplace Payload
                   </span>
                 </div>
-                <span className="text-[10px] font-mono font-bold bg-red-500/10 text-red-400 px-2.5 py-1 rounded border border-red-500/20">
+                <span className="text-[10px] font-montserrat font-bold bg-red-500/10 text-red-400 px-2.5 py-1 rounded border border-red-500/20">
                   {activeCase.raw.risk}
                 </span>
               </div>
 
-              <div className="space-y-4 font-mono text-sm">
+              <div className="space-y-4 font-montserrat text-sm">
                 <div>
                   <span className="text-[11px] uppercase text-[#8C8C8C] block font-montserrat">Customer Name</span>
                   <div className="text-red-300/90 font-medium bg-[#101416] p-2.5 rounded-xl border border-[#262C30]">
@@ -186,29 +185,29 @@ export default function AddressDemo({ id = 'ai-address-normalization', className
 
           {/* Right: AI Sanitized Output (Clean) */}
           <div
-            className="rounded-[28px] bg-[#141718]/90 border border-[#25E2CC]/40 p-6 sm:p-8 flex flex-col justify-between relative overflow-hidden backdrop-blur-md shadow-[0_0_35px_rgba(37,226,204,0.1)]"
+            className="rounded-[28px] bg-[#141718]/90 border border-[#10E774]/40 p-6 sm:p-8 flex flex-col justify-between relative overflow-hidden backdrop-blur-md shadow-[0_0_35px_rgba(16, 231, 116, 0.1)]"
             aria-live="polite"
             aria-atomic="true"
           >
             <div>
               <div className="flex items-center justify-between pb-4 border-b border-[#262C30] mb-6">
                 <div className="flex items-center gap-2">
-                  <span className="w-2.5 h-2.5 rounded-full bg-[#25E2CC] animate-pulse" />
-                  <span className="text-xs uppercase font-bold tracking-wider text-[#25E2CC] font-montserrat">
+                  <span className="w-2.5 h-2.5 rounded-full bg-[#10E774] animate-pulse" />
+                  <span className="text-xs uppercase font-bold tracking-wider text-[#10E774] font-montserrat">
                     Eweb-character AI Sanitized
                   </span>
                 </div>
-                <span className="text-[10px] font-mono font-bold bg-[#25E2CC]/10 text-[#25E2CC] px-2.5 py-1 rounded border border-[#25E2CC]/20">
+                <span className="text-[10px] font-montserrat font-bold bg-[#10E774]/10 text-[#10E774] px-2.5 py-1 rounded border border-[#10E774]/20">
                   Latency: 35ms
                 </span>
               </div>
 
-              <div className="space-y-4 font-mono text-sm">
+              <div className="space-y-4 font-montserrat text-sm">
                 <div>
                   <span className="text-[11px] uppercase text-[#8C8C8C] block font-montserrat">Normalized Name</span>
                   <div className="text-white font-medium bg-[#0A0D0E] p-2.5 rounded-xl border border-[#262C30] flex items-center justify-between">
                     <span>{activeCase.sanitized.name}</span>
-                    <CheckCircle2 className="w-4 h-4 text-[#25E2CC]" aria-hidden="true" />
+                    <CheckCircle2 className="w-4 h-4 text-[#10E774]" aria-hidden="true" />
                   </div>
                 </div>
 
@@ -216,7 +215,7 @@ export default function AddressDemo({ id = 'ai-address-normalization', className
                   <span className="text-[11px] uppercase text-[#8C8C8C] block font-montserrat">Standardized Street</span>
                   <div className="text-white font-medium bg-[#0A0D0E] p-2.5 rounded-xl border border-[#262C30] flex items-center justify-between">
                     <span>{activeCase.sanitized.street}</span>
-                    <CheckCircle2 className="w-4 h-4 text-[#25E2CC]" aria-hidden="true" />
+                    <CheckCircle2 className="w-4 h-4 text-[#10E774]" aria-hidden="true" />
                   </div>
                 </div>
 
@@ -235,31 +234,31 @@ export default function AddressDemo({ id = 'ai-address-normalization', className
                   </div>
                   <div>
                     <span className="text-[11px] uppercase text-[#8C8C8C] block font-montserrat">ZIP+4</span>
-                    <div className="text-[#25E2CC] font-bold bg-[#0A0D0E] p-2.5 rounded-xl border border-[#25E2CC]/40">
+                    <div className="text-[#10E774] font-bold bg-[#0A0D0E] p-2.5 rounded-xl border border-[#10E774]/40">
                       {activeCase.sanitized.zipPlus4}
                     </div>
                   </div>
                 </div>
 
-                <div className="p-3 rounded-xl bg-[#25E2CC]/10 border border-[#25E2CC]/20 text-xs font-montserrat space-y-1">
+                <div className="p-3 rounded-xl bg-[#10E774]/10 border border-[#10E774]/20 text-xs font-montserrat space-y-1">
                   <div className="flex justify-between">
                     <span className="text-[#8C8C8C]">Carrier Route:</span>
-                    <span className="text-white font-mono font-bold">{activeCase.sanitized.carrierRoute}</span>
+                    <span className="text-white font-montserrat font-bold">{activeCase.sanitized.carrierRoute}</span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-[#8C8C8C]">Verification:</span>
-                    <span className="text-[#25E2CC] font-medium">{activeCase.sanitized.validation}</span>
+                    <span className="text-[#10E774] font-medium">{activeCase.sanitized.validation}</span>
                   </div>
                 </div>
               </div>
             </div>
 
-            <div className="mt-6 pt-4 border-t border-[#262C30] flex items-center justify-between text-xs text-[#25E2CC] font-montserrat">
+            <div className="mt-6 pt-4 border-t border-[#262C30] flex items-center justify-between text-xs text-[#10E774] font-montserrat">
               <span className="flex items-center gap-1.5">
-                <ShieldCheck className="w-4 h-4 text-[#25E2CC]" aria-hidden="true" />
+                <ShieldCheck className="w-4 h-4 text-[#10E774]" aria-hidden="true" />
                 Auto-approved for instant print queue
               </span>
-              <span className="font-mono text-[11px] text-emerald-400">
+              <span className="font-montserrat text-[11px] text-emerald-400">
                 Risk: {activeCase.sanitized.risk}
               </span>
             </div>

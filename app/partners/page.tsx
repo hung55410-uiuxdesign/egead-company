@@ -199,14 +199,14 @@ export default function PartnersPage() {
             
             {/* Left Headline & Positioning */}
             <div className="lg:col-span-7">
-              <div className="inline-flex items-center gap-2 text-sm sm:text-base font-normal text-[#d3f9f5] mb-6 font-montserrat">
-                <Sparkles className="w-4 h-4 text-[#7ceee0]" aria-hidden="true" />
+              <div className="inline-flex items-center gap-2 text-sm sm:text-base font-normal text-[#D4FAE6] mb-6 font-montserrat">
+                <Sparkles className="w-4 h-4 text-[#5EFC8D]" aria-hidden="true" />
                 Global Commerce Alliances
               </div>
 
-              <h1 className="text-4xl sm:text-6xl lg:text-[72px] font-medium tracking-tight leading-[1.08] text-[#d3f9f5] font-montserrat mb-6">
+              <h1 className="text-4xl sm:text-6xl lg:text-[72px] font-medium tracking-tight leading-[1.08] text-[#D4FAE6] font-montserrat mb-6">
                 Integrated with the World&apos;s <br />
-                <span className="text-[#7ceee0] font-medium">Leading Commerce Ecosystems.</span>
+                <span className="text-[#5EFC8D] font-medium">Leading Commerce Ecosystems.</span>
               </h1>
 
               <p className="text-base sm:text-lg lg:text-xl text-[#b3b3b3] font-light leading-[1.75] font-montserrat max-w-2xl mb-8">
@@ -217,14 +217,14 @@ export default function PartnersPage() {
               <div className="flex flex-wrap items-center gap-4">
                 <a
                   href="#ecosystem-matrix"
-                  className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-[#7ceee0] text-black font-medium text-sm sm:text-base font-montserrat hover:bg-[#68d8ca] transition duration-300"
+                  className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-[#5EFC8D] text-black font-medium text-sm sm:text-base font-montserrat hover:bg-[#4ee37e] transition duration-300"
                 >
                   <span>Explore Partner Matrix</span>
                   <ArrowRight className="w-4 h-4" aria-hidden="true" />
                 </a>
                 <a
                   href="#partners-cta"
-                  className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-[#141718] border border-white/20 text-[#d3f9f5] font-medium text-sm sm:text-base font-montserrat hover:border-[#7ceee0] hover:text-[#7ceee0] transition duration-300"
+                  className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-[#141718] border border-white/20 text-[#D4FAE6] font-medium text-sm sm:text-base font-montserrat hover:border-[#5EFC8D] hover:text-[#5EFC8D] transition duration-300"
                 >
                   <span>Become an Ecosystem Partner</span>
                 </a>
@@ -305,14 +305,14 @@ export default function PartnersPage() {
         <div className="w-full">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-12">
             <div>
-              <span className="text-xs font-mono uppercase tracking-widest text-[#25E2CC] block mb-2 font-semibold">
+              <p className="text-base sm:text-lg font-normal text-[#D4FAE6] mb-3 font-montserrat">
                 Strategic Benefits
-              </span>
-              <h2 className="text-3xl sm:text-4xl font-black text-white tracking-tight">
+              </p>
+              <h2 className="text-2xl sm:text-3xl lg:text-[34px] font-medium text-[#D4FAE6] font-montserrat leading-[1.3]">
                 Exclusive Advantages from Our Alliances
               </h2>
             </div>
-            <p className="text-sm text-gray-400 max-w-md font-normal leading-relaxed">
+            <p className="text-base sm:text-[17px] text-[#b3b3b3] font-light leading-[1.75] font-montserrat max-w-md">
               Selling through E-GEAD unlocks institutional advantages and cost structures individual merchants cannot negotiate on their own.
             </p>
           </div>
@@ -320,55 +320,55 @@ export default function PartnersPage() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             
             {/* Benefit 1 */}
-            <div className="p-8 rounded-3xl bg-[#141718] border border-white/10 hover:border-[#25E2CC]/40 transition-all duration-300 shadow-xl flex flex-col justify-between group">
+            <div className="p-8 rounded-3xl bg-[#141718] border border-white/10 hover:border-[#10E774]/40 transition-all duration-300 shadow-xl flex flex-col justify-between group">
               <div>
-                <div className="w-12 h-12 rounded-2xl bg-[#25E2CC]/10 border border-[#25E2CC]/25 flex items-center justify-center text-[#25E2CC] mb-6 group-hover:scale-105 transition-transform motion-reduce:transform-none">
+                <div className="w-12 h-12 rounded-2xl bg-[#10E774]/10 border border-[#10E774]/25 flex items-center justify-center text-[#10E774] mb-6 group-hover:scale-105 transition-transform motion-reduce:transform-none">
                   <Truck className="w-6 h-6" aria-hidden="true" />
                 </div>
-                <h3 className="text-xl font-bold text-white mb-3 group-hover:text-[#25E2CC] transition-colors">
+                <h3 className="text-xl font-bold text-white mb-3 group-hover:text-[#10E774] transition-colors">
                   Commercial Postage Discounts
                 </h3>
                 <p className="text-sm text-gray-400 leading-relaxed font-normal">
-                  Save between <span className="text-[#25E2CC] font-bold font-mono">$1.50 and $3.00</span> on every US parcel. Benefit from E-GEAD&apos;s aggregated multi-million package volume contracts with USPS Ground Advantage and UPS Express.
+                  Save between <span className="text-[#10E774] font-bold font-montserrat">$1.50 and $3.00</span> on every US parcel. Benefit from E-GEAD&apos;s aggregated multi-million package volume contracts with USPS Ground Advantage and UPS Express.
                 </p>
               </div>
-              <div className="mt-8 pt-4 border-t border-white/10 text-xs font-mono text-gray-500">
+              <div className="mt-8 pt-4 border-t border-white/10 text-xs font-montserrat text-gray-500">
                 Direct Origin Manifest Rates
               </div>
             </div>
 
             {/* Benefit 2 */}
-            <div className="p-8 rounded-3xl bg-[#141718] border border-white/10 hover:border-[#25E2CC]/40 transition-all duration-300 shadow-xl flex flex-col justify-between group">
+            <div className="p-8 rounded-3xl bg-[#141718] border border-white/10 hover:border-[#10E774]/40 transition-all duration-300 shadow-xl flex flex-col justify-between group">
               <div>
-                <div className="w-12 h-12 rounded-2xl bg-[#25E2CC]/10 border border-[#25E2CC]/25 flex items-center justify-center text-[#25E2CC] mb-6 group-hover:scale-105 transition-transform motion-reduce:transform-none">
+                <div className="w-12 h-12 rounded-2xl bg-[#10E774]/10 border border-[#10E774]/25 flex items-center justify-center text-[#10E774] mb-6 group-hover:scale-105 transition-transform motion-reduce:transform-none">
                   <Headphones className="w-6 h-6" aria-hidden="true" />
                 </div>
-                <h3 className="text-xl font-bold text-white mb-3 group-hover:text-[#25E2CC] transition-colors">
+                <h3 className="text-xl font-bold text-white mb-3 group-hover:text-[#10E774] transition-colors">
                   Priority Policy Escalation
                 </h3>
                 <p className="text-sm text-gray-400 leading-relaxed font-normal">
                   Enjoy direct engineering and account health escalation desks with TikTok Shop US and Amazon Seller Central. Rapidly resolve algorithmic false positives and preserve seller privileges.
                 </p>
               </div>
-              <div className="mt-8 pt-4 border-t border-white/10 text-xs font-mono text-gray-500">
+              <div className="mt-8 pt-4 border-t border-white/10 text-xs font-montserrat text-gray-500">
                 Dedicated Partner Support Desks
               </div>
             </div>
 
             {/* Benefit 3 */}
-            <div className="p-8 rounded-3xl bg-[#141718] border border-white/10 hover:border-[#25E2CC]/40 transition-all duration-300 shadow-xl flex flex-col justify-between group">
+            <div className="p-8 rounded-3xl bg-[#141718] border border-white/10 hover:border-[#10E774]/40 transition-all duration-300 shadow-xl flex flex-col justify-between group">
               <div>
-                <div className="w-12 h-12 rounded-2xl bg-[#25E2CC]/10 border border-[#25E2CC]/25 flex items-center justify-center text-[#25E2CC] mb-6 group-hover:scale-105 transition-transform motion-reduce:transform-none">
+                <div className="w-12 h-12 rounded-2xl bg-[#10E774]/10 border border-[#10E774]/25 flex items-center justify-center text-[#10E774] mb-6 group-hover:scale-105 transition-transform motion-reduce:transform-none">
                   <Zap className="w-6 h-6" aria-hidden="true" />
                 </div>
-                <h3 className="text-xl font-bold text-white mb-3 group-hover:text-[#25E2CC] transition-colors">
+                <h3 className="text-xl font-bold text-white mb-3 group-hover:text-[#10E774] transition-colors">
                   Early Access Alpha APIs
                 </h3>
                 <p className="text-sm text-gray-400 leading-relaxed font-normal">
                   Access cutting-edge platform capabilities before public release: TikTok Live automated order ingestion, Amazon Custom direct print APIs, and Meta Instant Checkout social triggers.
                 </p>
               </div>
-              <div className="mt-8 pt-4 border-t border-white/10 text-xs font-mono text-gray-500">
+              <div className="mt-8 pt-4 border-t border-white/10 text-xs font-montserrat text-gray-500">
                 Quarterly Alpha Testing Cohorts
               </div>
             </div>
@@ -388,17 +388,17 @@ export default function PartnersPage() {
           <div className="rounded-[36px] bg-[#141718] border border-white/10 p-8 sm:p-12 lg:p-16 shadow-2xl relative overflow-hidden">
             <div 
               aria-hidden="true" 
-              className="absolute -top-32 -right-32 w-96 h-96 bg-[#25E2CC]/10 rounded-full blur-3xl pointer-events-none" 
+              className="absolute -top-32 -right-32 w-96 h-96 bg-[#10E774]/10 rounded-full blur-3xl pointer-events-none" 
             />
 
             <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
               
               {/* Left Quote Content (8 cols) */}
               <div className="lg:col-span-8 space-y-6">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#25E2CC]/10 border border-[#25E2CC]/25 text-[#25E2CC] text-xs font-mono font-medium uppercase tracking-wider">
-                  <ShieldCheck className="w-3.5 h-3.5" aria-hidden="true" />
+                <p className="text-base sm:text-lg font-normal text-[#D4FAE6] mb-3 font-montserrat flex items-center gap-2">
+                  <ShieldCheck className="w-4 h-4 text-[#5EFC8D]" aria-hidden="true" />
                   Carrier Co-Innovation Spotlight
-                </div>
+                </p>
 
                 <blockquote className="text-lg sm:text-xl text-gray-200 font-normal leading-relaxed italic">
                   &ldquo;E-GEAD&apos;s high-speed barcode manifest scanning ensures that thousands of packages enter our sortation facilities perfectly organized and 100% compliant with origin scan windows. They set the benchmark for modern cross-border fulfillment efficiency.&rdquo;
@@ -406,11 +406,11 @@ export default function PartnersPage() {
 
                 <div className="pt-4 border-t border-white/10">
                   <div className="font-bold text-white text-base">Marcus Sterling</div>
-                  <div className="text-xs text-[#25E2CC] font-mono mt-0.5">
+                  <div className="text-xs text-[#10E774] font-montserrat mt-0.5">
                     Director of Carrier Alliances, North American Postal Network
                   </div>
-                  <div className="text-xs text-gray-500 font-mono mt-2 flex items-center gap-2">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-[#25E2CC]" aria-hidden="true" />
+                  <div className="text-xs text-gray-500 font-montserrat mt-2 flex items-center gap-2">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-[#10E774]" aria-hidden="true" />
                     <span>Handling 500,000+ Verified Scans Per Quarter</span>
                   </div>
                 </div>
@@ -419,8 +419,8 @@ export default function PartnersPage() {
               {/* Right Carrier Stat Box (4 cols) */}
               <div className="lg:col-span-4 flex flex-col space-y-4">
                 <div className="p-6 rounded-2xl bg-[#0A0D0E] border border-white/10">
-                  <span className="text-[11px] font-mono text-gray-400 uppercase block">USPS Scan Compliance</span>
-                  <span className="text-3xl sm:text-4xl font-mono font-black text-[#25E2CC] mt-1 block">
+                  <span className="text-[11px] font-montserrat text-gray-400 uppercase block">USPS Scan Compliance</span>
+                  <span className="text-3xl sm:text-4xl font-montserrat font-black text-[#10E774] mt-1 block">
                     99.8%
                   </span>
                   <p className="text-xs text-gray-400 mt-2">
@@ -429,8 +429,8 @@ export default function PartnersPage() {
                 </div>
 
                 <div className="p-6 rounded-2xl bg-[#0A0D0E] border border-white/10">
-                  <span className="text-[11px] font-mono text-gray-400 uppercase block">Transit Time Average</span>
-                  <span className="text-3xl sm:text-4xl font-mono font-black text-white mt-1 block">
+                  <span className="text-[11px] font-montserrat text-gray-400 uppercase block">Transit Time Average</span>
+                  <span className="text-3xl sm:text-4xl font-montserrat font-black text-white mt-1 block">
                     2.8 Days
                   </span>
                   <p className="text-xs text-gray-400 mt-2">
@@ -468,21 +468,21 @@ export default function PartnersPage() {
         className="w-full px-6 sm:px-10 lg:px-14 xl:px-16 mb-20 scroll-mt-28"
       >
         <div className="w-full">
-          <div className="rounded-[36px] bg-gradient-to-br from-[#1A2224] via-[#141718] to-[#0A0D0E] border border-[#25E2CC]/40 p-8 sm:p-14 lg:p-16 shadow-2xl relative overflow-hidden">
+          <div className="rounded-[36px] bg-gradient-to-br from-[#1A2224] via-[#141718] to-[#0A0D0E] border border-[#10E774]/40 p-8 sm:p-14 lg:p-16 shadow-2xl relative overflow-hidden">
             <div 
               aria-hidden="true" 
-              className="absolute top-0 right-0 w-80 h-80 bg-[#25E2CC]/15 rounded-full blur-3xl pointer-events-none" 
+              className="absolute top-0 right-0 w-80 h-80 bg-[#10E774]/15 rounded-full blur-3xl pointer-events-none" 
             />
 
             <div className="relative z-10 max-w-3xl">
-              <div className="inline-flex items-center gap-2 text-sm sm:text-base font-normal text-[#d3f9f5] mb-6 font-montserrat">
-                <Globe2 className="w-4 h-4 text-[#7ceee0]" aria-hidden="true" />
+              <div className="inline-flex items-center gap-2 text-sm sm:text-base font-normal text-[#D4FAE6] mb-6 font-montserrat">
+                <Globe2 className="w-4 h-4 text-[#5EFC8D]" aria-hidden="true" />
                 Alliance Partnership Program
               </div>
 
-              <h2 className="text-3xl sm:text-5xl lg:text-[54px] font-medium text-[#d3f9f5] font-montserrat tracking-tight leading-[1.15]">
+              <h2 className="text-3xl sm:text-5xl lg:text-[54px] font-medium text-[#D4FAE6] font-montserrat tracking-tight leading-[1.15]">
                 Expand Your Reach Within the <br />
-                <span className="text-[#7ceee0] font-medium">E-GEAD Global Network.</span>
+                <span className="text-[#5EFC8D] font-medium">E-GEAD Global Network.</span>
               </h2>
 
               <p className="mt-4 text-base sm:text-lg text-[#b3b3b3] font-light leading-[1.75] font-montserrat">
@@ -492,31 +492,31 @@ export default function PartnersPage() {
               <div className="mt-8 flex flex-wrap items-center gap-4">
                 <a
                   href="#contact"
-                  className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-[#7ceee0] text-black font-medium text-sm sm:text-base font-montserrat hover:bg-[#68d8ca] transition duration-300"
+                  className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-[#5EFC8D] text-black font-medium text-sm sm:text-base font-montserrat hover:bg-[#4ee37e] transition duration-300"
                 >
                   <span>Apply for Technology Partnership</span>
                   <ArrowRight className="w-4 h-4" aria-hidden="true" />
                 </a>
                 <Link
                   href="/services/all-services"
-                  className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-[#141718] border border-white/20 text-[#d3f9f5] font-medium text-sm sm:text-base font-montserrat hover:border-[#7ceee0] hover:text-[#7ceee0] transition duration-300"
+                  className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-[#141718] border border-white/20 text-[#D4FAE6] font-medium text-sm sm:text-base font-montserrat hover:border-[#5EFC8D] hover:text-[#5EFC8D] transition duration-300"
                 >
                   <span>Access Developer Sandbox</span>
                   <ArrowUpRight className="w-4 h-4 text-gray-400" aria-hidden="true" />
                 </Link>
               </div>
 
-              <div className="mt-8 pt-6 border-t border-white/10 flex flex-wrap items-center gap-6 text-xs font-mono text-gray-400">
+              <div className="mt-8 pt-6 border-t border-white/10 flex flex-wrap items-center gap-6 text-xs font-montserrat text-gray-400">
                 <div className="flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-[#25E2CC]" aria-hidden="true" />
+                  <CheckCircle2 className="w-4 h-4 text-[#10E774]" aria-hidden="true" />
                   <span>Open API 3.1 &amp; Webhook Standard</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-[#25E2CC]" aria-hidden="true" />
+                  <CheckCircle2 className="w-4 h-4 text-[#10E774]" aria-hidden="true" />
                   <span>Free Sandbox Testing Environment</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-[#25E2CC]" aria-hidden="true" />
+                  <CheckCircle2 className="w-4 h-4 text-[#10E774]" aria-hidden="true" />
                   <span>Dedicated Developer Technical Support</span>
                 </div>
               </div>

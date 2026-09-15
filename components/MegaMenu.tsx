@@ -34,7 +34,7 @@ export default function MegaMenu({ isOpen, onClose }: MegaMenuProps) {
               <Link
                 href="/contact-us"
                 onClick={onClose}
-                className="hidden sm:inline-flex items-center gap-2 bg-[#25E2CC] hover:bg-[#1ec2af] text-black font-semibold text-sm px-6 py-2.5 rounded-full transition"
+                className="hidden sm:inline-flex items-center gap-2 bg-[#10E774] hover:bg-[#0ecb66] text-black font-semibold text-sm px-6 py-2.5 rounded-full transition"
               >
                 <span>Get Free Consultation</span>
                 <ArrowUpRight className="w-4 h-4" />
@@ -56,7 +56,7 @@ export default function MegaMenu({ isOpen, onClose }: MegaMenuProps) {
               onClick={() => setActiveTab('services')}
               className={`pb-2 border-b-2 transition ${
                 activeTab === 'services'
-                  ? 'border-[#25E2CC] text-black'
+                  ? 'border-[#10E774] text-black'
                   : 'border-transparent text-gray-500 hover:text-black'
               }`}
             >
@@ -66,7 +66,7 @@ export default function MegaMenu({ isOpen, onClose }: MegaMenuProps) {
               onClick={() => setActiveTab('products')}
               className={`pb-2 border-b-2 transition ${
                 activeTab === 'products'
-                  ? 'border-[#25E2CC] text-black'
+                  ? 'border-[#10E774] text-black'
                   : 'border-transparent text-gray-500 hover:text-black'
               }`}
             >
@@ -83,7 +83,7 @@ export default function MegaMenu({ isOpen, onClose }: MegaMenuProps) {
               onClick={() => setActiveTab('insights')}
               className={`pb-2 border-b-2 transition ${
                 activeTab === 'insights'
-                  ? 'border-[#25E2CC] text-black'
+                  ? 'border-[#10E774] text-black'
                   : 'border-transparent text-gray-500 hover:text-black'
               }`}
             >
@@ -93,7 +93,7 @@ export default function MegaMenu({ isOpen, onClose }: MegaMenuProps) {
               onClick={() => setActiveTab('company')}
               className={`pb-2 border-b-2 transition ${
                 activeTab === 'company'
-                  ? 'border-[#25E2CC] text-black'
+                  ? 'border-[#10E774] text-black'
                   : 'border-transparent text-gray-500 hover:text-black'
               }`}
             >
@@ -117,7 +117,7 @@ export default function MegaMenu({ isOpen, onClose }: MegaMenuProps) {
                         <Link
                           href="/speedx"
                           onClick={onClose}
-                          className="group flex items-center justify-between text-sm font-medium text-gray-800 hover:text-[#007380] transition"
+                          className="group flex items-center justify-between text-sm font-medium text-gray-800 hover:text-[#007A3D] transition"
                         >
                           <span>US POD Fulfillment</span>
                           <ChevronRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
@@ -127,7 +127,7 @@ export default function MegaMenu({ isOpen, onClose }: MegaMenuProps) {
                         <Link
                           href="/smartcommerce"
                           onClick={onClose}
-                          className="group flex items-center justify-between text-sm font-medium text-gray-800 hover:text-[#007380] transition"
+                          className="group flex items-center justify-between text-sm font-medium text-gray-800 hover:text-[#007A3D] transition"
                         >
                           <span>Sales Automation</span>
                           <ChevronRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
@@ -137,7 +137,7 @@ export default function MegaMenu({ isOpen, onClose }: MegaMenuProps) {
                         <Link
                           href="/services/all-services"
                           onClick={onClose}
-                          className="group flex items-center justify-between text-sm font-medium text-gray-800 hover:text-[#007380] transition"
+                          className="group flex items-center justify-between text-sm font-medium text-gray-800 hover:text-[#007A3D] transition"
                         >
                           <span>Digital Growth Marketing</span>
                           <ChevronRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
@@ -147,7 +147,7 @@ export default function MegaMenu({ isOpen, onClose }: MegaMenuProps) {
                         <Link
                           href="/services/all-services"
                           onClick={onClose}
-                          className="group flex items-center justify-between text-sm font-medium text-gray-800 hover:text-[#007380] transition"
+                          className="group flex items-center justify-between text-sm font-medium text-gray-800 hover:text-[#007A3D] transition"
                         >
                           <span>Developers Hub & WMS</span>
                           <ChevronRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
@@ -159,7 +159,7 @@ export default function MegaMenu({ isOpen, onClose }: MegaMenuProps) {
                       <Link
                         href="/services/all-services"
                         onClick={onClose}
-                        className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wide text-[#007380] hover:underline"
+                        className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wide text-[#007A3D] hover:underline"
                       >
                         <span>View All Capabilities</span>
                         <ArrowUpRight className="w-3.5 h-3.5" />
@@ -178,7 +178,7 @@ export default function MegaMenu({ isOpen, onClose }: MegaMenuProps) {
                           <Link
                             href="/services/all-services"
                             onClick={onClose}
-                            className="group flex items-center justify-between text-sm font-medium text-gray-800 hover:text-[#007380] transition"
+                            className="group flex items-center justify-between text-sm font-medium text-gray-800 hover:text-[#007A3D] transition"
                           >
                             <span>{ind}</span>
                             <ChevronRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
@@ -199,7 +199,7 @@ export default function MegaMenu({ isOpen, onClose }: MegaMenuProps) {
                           <Link
                             href="/partners"
                             onClick={onClose}
-                            className="group flex items-center justify-between text-sm font-medium text-gray-800 hover:text-[#007380] transition"
+                            className="group flex items-center justify-between text-sm font-medium text-gray-800 hover:text-[#007A3D] transition"
                           >
                             <span>{p}</span>
                             <ChevronRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
@@ -213,8 +213,8 @@ export default function MegaMenu({ isOpen, onClose }: MegaMenuProps) {
 
               {activeTab === 'products' && (
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                  <div className="p-5 rounded-2xl bg-gray-50 border border-gray-100 hover:border-[#25E2CC] transition">
-                    <span className="text-xs font-bold uppercase tracking-wider text-[#007380]">Operations Dashboard</span>
+                  <div className="p-5 rounded-2xl bg-gray-50 border border-gray-100 hover:border-[#10E774] transition">
+                    <span className="text-xs font-bold uppercase tracking-wider text-[#007A3D]">Operations Dashboard</span>
                     <h4 className="text-lg font-bold text-gray-900 mt-1">Eweb-platform</h4>
                     <p className="text-sm text-gray-600 mt-2">
                       Connect storefronts, WMS inventory, and financial reconciliation in real time without manual spreadsheets.
@@ -222,14 +222,14 @@ export default function MegaMenu({ isOpen, onClose }: MegaMenuProps) {
                     <Link
                       href="/smartcommerce"
                       onClick={onClose}
-                      className="inline-flex items-center gap-1 text-sm font-semibold text-[#007380] mt-3 hover:underline"
+                      className="inline-flex items-center gap-1 text-sm font-semibold text-[#007A3D] mt-3 hover:underline"
                     >
                       Learn more <ChevronRight className="w-4 h-4" />
                     </Link>
                   </div>
 
-                  <div className="p-5 rounded-2xl bg-gray-50 border border-gray-100 hover:border-[#25E2CC] transition">
-                    <span className="text-xs font-bold uppercase tracking-wider text-[#007380]">AI & POD Engine</span>
+                  <div className="p-5 rounded-2xl bg-gray-50 border border-gray-100 hover:border-[#10E774] transition">
+                    <span className="text-xs font-bold uppercase tracking-wider text-[#007A3D]">AI & POD Engine</span>
                     <h4 className="text-lg font-bold text-gray-900 mt-1">Eweb-character</h4>
                     <p className="text-sm text-gray-600 mt-2">
                       Smart AI order normalization, address validation, fraud risk filtering, and sub-24h US POD fulfillment.
@@ -237,14 +237,14 @@ export default function MegaMenu({ isOpen, onClose }: MegaMenuProps) {
                     <Link
                       href="/speedx"
                       onClick={onClose}
-                      className="inline-flex items-center gap-1 text-sm font-semibold text-[#007380] mt-3 hover:underline"
+                      className="inline-flex items-center gap-1 text-sm font-semibold text-[#007A3D] mt-3 hover:underline"
                     >
                       Learn more <ChevronRight className="w-4 h-4" />
                     </Link>
                   </div>
 
-                  <div className="p-5 rounded-2xl bg-gray-50 border border-gray-100 hover:border-[#25E2CC] transition">
-                    <span className="text-xs font-bold uppercase tracking-wider text-[#007380]">High-Converting Storefront</span>
+                  <div className="p-5 rounded-2xl bg-gray-50 border border-gray-100 hover:border-[#10E774] transition">
+                    <span className="text-xs font-bold uppercase tracking-wider text-[#007A3D]">High-Converting Storefront</span>
                     <h4 className="text-lg font-bold text-gray-900 mt-1">Eweb-builder</h4>
                     <p className="text-sm text-gray-600 mt-2">
                       Ultra-fast, SEO-optimized storefront development pre-connected to E-GEAD fulfillment APIs for US and EU markets.
@@ -252,14 +252,14 @@ export default function MegaMenu({ isOpen, onClose }: MegaMenuProps) {
                     <Link
                       href="/smartcommerce"
                       onClick={onClose}
-                      className="inline-flex items-center gap-1 text-sm font-semibold text-[#007380] mt-3 hover:underline"
+                      className="inline-flex items-center gap-1 text-sm font-semibold text-[#007A3D] mt-3 hover:underline"
                     >
                       Learn more <ChevronRight className="w-4 h-4" />
                     </Link>
                   </div>
 
-                  <div className="p-5 rounded-2xl bg-gray-50 border border-gray-100 hover:border-[#25E2CC] transition">
-                    <span className="text-xs font-bold uppercase tracking-wider text-[#007380]">Instant Estimator</span>
+                  <div className="p-5 rounded-2xl bg-gray-50 border border-gray-100 hover:border-[#10E774] transition">
+                    <span className="text-xs font-bold uppercase tracking-wider text-[#007A3D]">Instant Estimator</span>
                     <h4 className="text-lg font-bold text-gray-900 mt-1">Rate Calculator</h4>
                     <p className="text-sm text-gray-600 mt-2">
                       Calculate print costs, dimensional weights, and multi-state shipping rates in seconds with full margin visibility.
@@ -267,7 +267,7 @@ export default function MegaMenu({ isOpen, onClose }: MegaMenuProps) {
                     <Link
                       href="/contact-us"
                       onClick={onClose}
-                      className="inline-flex items-center gap-1 text-sm font-semibold text-[#007380] mt-3 hover:underline"
+                      className="inline-flex items-center gap-1 text-sm font-semibold text-[#007A3D] mt-3 hover:underline"
                     >
                       Calculate rate <ChevronRight className="w-4 h-4" />
                     </Link>
@@ -282,10 +282,10 @@ export default function MegaMenu({ isOpen, onClose }: MegaMenuProps) {
                     onClick={onClose}
                     className="p-5 rounded-2xl bg-gray-50 hover:bg-gray-100 transition border border-gray-100 block group"
                   >
-                    <span className="inline-block px-2.5 py-1 text-xs font-semibold rounded-full bg-[#D3F9F5] text-[#007380] mb-2">
+                    <span className="inline-block px-2.5 py-1 text-xs font-semibold rounded-full bg-[#D4FAE6] text-[#007A3D] mb-2">
                       Strategy
                     </span>
-                    <h4 className="text-base font-bold text-gray-900 group-hover:text-[#007380] transition">
+                    <h4 className="text-base font-bold text-gray-900 group-hover:text-[#007A3D] transition">
                       Global Market Expansion: Scaling Cross-Border E-Commerce in US & EU
                     </h4>
                     <p className="text-xs text-gray-500 mt-2">6 mins read · August 2026</p>
@@ -299,7 +299,7 @@ export default function MegaMenu({ isOpen, onClose }: MegaMenuProps) {
                     <span className="inline-block px-2.5 py-1 text-xs font-semibold rounded-full bg-blue-100 text-blue-700 mb-2">
                       Compliance & SLA
                     </span>
-                    <h4 className="text-base font-bold text-gray-900 group-hover:text-[#007380] transition">
+                    <h4 className="text-base font-bold text-gray-900 group-hover:text-[#007A3D] transition">
                       Protecting TikTok Shop US Accounts: Fast Dispatch SLA & 24H POD
                     </h4>
                     <p className="text-xs text-gray-500 mt-2">5 mins read · August 2026</p>
@@ -309,7 +309,7 @@ export default function MegaMenu({ isOpen, onClose }: MegaMenuProps) {
                     <Link
                       href="/insights"
                       onClick={onClose}
-                      className="inline-flex items-center gap-1 text-sm font-semibold text-[#007380] hover:underline"
+                      className="inline-flex items-center gap-1 text-sm font-semibold text-[#007A3D] hover:underline"
                     >
                       Explore all insights, playbooks & guides <ChevronRight className="w-4 h-4" />
                     </Link>
@@ -382,7 +382,7 @@ export default function MegaMenu({ isOpen, onClose }: MegaMenuProps) {
             {/* Right Promotional Feature Card */}
             <div className="lg:col-span-4 rounded-2xl bg-gradient-to-br from-[#0A0D0E] to-[#141718] p-6 text-white flex flex-col justify-between relative overflow-hidden border border-gray-800">
               <div className="relative z-10">
-                <span className="inline-block px-3 py-1 text-xs font-semibold rounded-full bg-[#25E2CC]/20 text-[#25E2CC] border border-[#25E2CC]/30 mb-4">
+                <span className="inline-block px-3 py-1 text-xs font-semibold rounded-full bg-[#10E774]/20 text-[#10E774] border border-[#10E774]/30 mb-4">
                   US POD Production
                 </span>
                 <h3 className="text-xl font-bold leading-snug">
@@ -397,7 +397,7 @@ export default function MegaMenu({ isOpen, onClose }: MegaMenuProps) {
                 <Link
                   href="/contact-us"
                   onClick={onClose}
-                  className="inline-flex items-center gap-2 bg-[#25E2CC] hover:bg-[#1ec2af] text-black font-semibold text-xs px-5 py-2.5 rounded-full transition"
+                  className="inline-flex items-center gap-2 bg-[#10E774] hover:bg-[#0ecb66] text-black font-semibold text-xs px-5 py-2.5 rounded-full transition"
                 >
                   <span>Request POD Pricing</span>
                   <ArrowUpRight className="w-3.5 h-3.5" />
@@ -405,7 +405,7 @@ export default function MegaMenu({ isOpen, onClose }: MegaMenuProps) {
               </div>
 
               {/* Graphic in background */}
-              <div className="absolute -bottom-10 -right-10 w-40 h-40 bg-[#25E2CC]/10 rounded-full blur-2xl pointer-events-none" />
+              <div className="absolute -bottom-10 -right-10 w-40 h-40 bg-[#10E774]/10 rounded-full blur-2xl pointer-events-none" />
             </div>
           </div>
         </div>

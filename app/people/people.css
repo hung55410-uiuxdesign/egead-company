@@ -17,7 +17,7 @@
   font-size: 20px;
   font-weight: 450;
   line-height: 28px;
-  color: #d3f9f5;
+  color: #D4FAE6;
   padding: 0 20px;
   margin-bottom: 0;
   padding-top: 35px !important;
@@ -58,7 +58,7 @@
   font-weight: 500;
   line-height: 86px;
   font-size: 72px;
-  color: #d3f9f5;
+  color: #D4FAE6;
   display: block;
   padding-left: 0;
 }
@@ -75,7 +75,7 @@
 }
 
 .sai-heading-text h1 span:nth-child(2) {
-  color: #7ceee0;
+  color: #5EFC8D;
 }
 
 /* PEOPLE BLOCK (LEADERSHIP TEAM) */
@@ -111,7 +111,7 @@
   position: relative;
   z-index: 2;
   scrollbar-width: thin;
-  scrollbar-color: #7ceee0 #15171c;
+  scrollbar-color: #5EFC8D #15171c;
 }
 
 @media (min-width: 768px) {
@@ -126,7 +126,7 @@
 }
 
 .people-block__list::-webkit-scrollbar-thumb {
-  background: #7ceee0;
+  background: #5EFC8D;
   border-radius: 4px;
   height: 5px;
 }
@@ -191,15 +191,15 @@
   padding-bottom: 105px;
   border-radius: 20px;
   background: rgba(0, 0, 0, 0.2);
-  border: 1px solid #007380;
+  border: 1px solid #007A3D;
   max-width: 300px;
   flex: 0 0 300px;
   cursor: pointer;
 }
 
 .people-card--lead:hover {
-  border-color: #7ceee0;
-  box-shadow: 0 0 30px rgba(124, 238, 224, 0.2);
+  border-color: #5EFC8D;
+  box-shadow: 0 0 30px rgba(94, 252, 141,  0.2);
 }
 
 .people-card--lead .people-card__role {
@@ -243,7 +243,7 @@
   font-weight: 550;
   line-height: 26px;
   margin-bottom: 8px;
-  color: #d3f9f5;
+  color: #D4FAE6;
   padding: 0 24px;
 }
 
@@ -378,7 +378,7 @@
 .people-card--more:hover {
   transform: translateY(-4px);
   border-color: rgba(0, 115, 128, 0.6);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), 0 0 25px rgba(124, 238, 224, 0.15);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), 0 0 25px rgba(94, 252, 141,  0.15);
 }
 
 .people-card--more .people-card__thumb {
@@ -457,7 +457,7 @@
   font-weight: 550;
   line-height: 24px;
   margin-bottom: 6px;
-  color: #d3f9f5;
+  color: #D4FAE6;
   padding: 0 24px;
 }
 
@@ -520,7 +520,7 @@
 .contact-block__title {
   font-size: 34px;
   font-weight: 500;
-  color: #d3f9f5;
+  color: #D4FAE6;
   text-align: center;
   margin-bottom: 30px;
   line-height: 1.2;
@@ -539,7 +539,7 @@
 
 .contact-block b,
 .contact-block strong {
-  color: #7ceee0;
+  color: #5EFC8D;
   font-weight: 500;
 }
 
@@ -548,7 +548,7 @@
   letter-spacing: 0.16px;
   padding: 16px 36px;
   border-radius: 40px;
-  background: #7ceee0;
+  background: #5EFC8D;
   color: #000000;
   font-weight: 550;
   display: inline-flex;
@@ -556,12 +556,12 @@
   justify-content: center;
   text-decoration: none;
   transition: all 0.3s ease;
-  box-shadow: 0 0 25px rgba(124, 238, 224, 0.3);
+  box-shadow: 0 0 25px rgba(94, 252, 141,  0.3);
 }
 
 .contact-block .ant-btn-primary:hover {
   background: #68d6c8;
-  box-shadow: 0 0 35px rgba(124, 238, 224, 0.5);
+  box-shadow: 0 0 35px rgba(94, 252, 141,  0.5);
   transform: translateY(-2px);
 }
 
@@ -582,7 +582,7 @@
   overflow: hidden;
   border-radius: 20px;
   background: rgba(0, 0, 0, 0.55);
-  border: 1px solid #007380;
+  border: 1px solid #007A3D;
   backdrop-filter: blur(15px);
   padding: 0 0 105px 0;
   cursor: pointer;
@@ -611,8 +611,8 @@
 
 .tree-node-card:hover {
   transform: translateY(-4px);
-  border-color: #7ceee0;
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.7), 0 0 30px rgba(124, 238, 224, 0.25);
+  border-color: #5EFC8D;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.7), 0 0 30px rgba(94, 252, 141,  0.25);
 }
 
 .tree-node-card .tree-node-card__thumb {
@@ -656,7 +656,7 @@
   font-weight: 550;
   line-height: 24px;
   margin-bottom: 4px;
-  color: #d3f9f5;
+  color: #D4FAE6;
   padding: 0 20px;
 }
 

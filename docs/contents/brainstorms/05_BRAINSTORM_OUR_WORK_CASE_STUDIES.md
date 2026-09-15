@@ -41,11 +41,11 @@ export const metadata = {
 ```tsx
 <section className="w-full px-6 sm:px-10 lg:px-14 xl:px-16 mb-16 sm:mb-20">
   <div className="max-w-4xl">
-    <span className="text-xs sm:text-sm font-bold tracking-widest uppercase text-[#7ceee0] block mb-4">
+    <span className="text-xs sm:text-sm font-bold tracking-widest uppercase text-[#5EFC8D] block mb-4">
       Proven Results
     </span>
     <h1 className="text-4xl sm:text-6xl md:text-7xl font-black tracking-tight leading-[1.1] mb-6">
-      <span className="text-[#7ceee0]">Measurable Growth</span> <br />
+      <span className="text-[#5EFC8D]">Measurable Growth</span> <br />
       for Global E-Commerce Sellers.
     </h1>
     <p className="text-lg sm:text-xl text-gray-300 font-normal leading-relaxed max-w-3xl">

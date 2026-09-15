@@ -49,18 +49,17 @@ export default function RoleTabs({
     >
       <div className="relative z-10 w-full px-6 sm:px-10 lg:px-14 xl:px-16">
         {/* Header Block */}
-        <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-14">
+        <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-14">
           {badge && (
-            <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#141718] border border-white/10 text-[#d3f9f5] text-xs sm:text-sm font-normal tracking-wider uppercase mb-4 font-montserrat">
-              <Sparkles className="w-3.5 h-3.5 text-[#7ceee0]" aria-hidden="true" />
+            <p className="text-base sm:text-lg font-normal text-[#D4FAE6] mb-3 font-montserrat">
               {badge}
-            </span>
+            </p>
           )}
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-medium tracking-tight text-[#d3f9f5] font-montserrat leading-[1.2]">
+          <h2 className="text-2xl sm:text-3xl lg:text-[34px] font-medium text-[#D4FAE6] font-montserrat leading-[1.3]">
             {title}
           </h2>
           {subtitle && (
-            <p className="mt-4 text-base sm:text-lg text-[#b3b3b3] font-light leading-[1.75] font-montserrat max-w-2xl mx-auto">
+            <p className="mt-4 text-base sm:text-[17px] text-[#b3b3b3] font-light leading-[1.75] font-montserrat max-w-2xl mx-auto">
               {subtitle}
             </p>
           )}
@@ -84,10 +83,10 @@ export default function RoleTabs({
                 tabIndex={isActive ? 0 : -1}
                 type="button"
                 onClick={() => setActiveTabId(tab.id)}
-                className={`relative px-6 py-3 rounded-full text-xs sm:text-sm font-medium font-montserrat transition-all duration-300 flex items-center gap-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7ceee0] ${
+                className={`relative px-6 py-3 rounded-full text-xs sm:text-sm font-medium font-montserrat transition-all duration-300 flex items-center gap-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#5EFC8D] ${
                   isActive
-                    ? 'bg-[#7ceee0] text-black shadow-[0_0_25px_rgba(124,238,224,0.35)] scale-105'
-                    : 'bg-[#141718] text-[#b3b3b3] border border-white/10 hover:text-[#d3f9f5] hover:border-[#7ceee0]/40'
+                    ? 'bg-[#5EFC8D] text-black shadow-[0_0_25px_rgba(94, 252, 141, 0.35)] scale-105'
+                    : 'bg-[#141718] text-[#b3b3b3] border border-white/10 hover:text-[#D4FAE6] hover:border-[#5EFC8D]/40'
                 }`}
               >
                 <span>{tab.label}</span>
@@ -96,7 +95,7 @@ export default function RoleTabs({
                     className={`text-[10px] uppercase tracking-wider px-1.5 py-0.5 rounded font-medium ${
                       isActive
                         ? 'bg-black/20 text-black font-medium'
-                        : 'bg-[#7ceee0]/10 text-[#7ceee0]'
+                        : 'bg-[#5EFC8D]/10 text-[#5EFC8D]'
                     }`}
                   >
                     {tab.badge}
@@ -118,10 +117,10 @@ export default function RoleTabs({
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
             {/* Left Content Column */}
             <div className="lg:col-span-7 flex flex-col">
-              <span className="text-xs font-medium uppercase tracking-widest text-[#7ceee0] mb-2 font-montserrat">
+              <span className="text-xs font-medium uppercase tracking-widest text-[#5EFC8D] mb-2 font-montserrat">
                 Target Architecture
               </span>
-              <h3 className="text-2xl sm:text-3xl lg:text-4xl font-medium text-[#d3f9f5] font-montserrat leading-tight mb-4">
+              <h3 className="text-2xl sm:text-3xl lg:text-4xl font-medium text-[#D4FAE6] font-montserrat leading-tight mb-4">
                 {activeTab.headline}
               </h3>
               <p className="text-sm sm:text-base text-[#b3b3b3] font-light font-montserrat leading-[1.75] mb-6">
@@ -132,10 +131,10 @@ export default function RoleTabs({
               <ul className="space-y-3 mb-8">
                 {activeTab.bullets.map((bullet, idx) => (
                   <li key={idx} className="flex items-start gap-3">
-                    <span className="w-5 h-5 rounded-full bg-[#7ceee0]/10 border border-[#7ceee0]/30 flex items-center justify-center text-[#7ceee0] flex-shrink-0 mt-0.5">
+                    <span className="w-5 h-5 rounded-full bg-[#5EFC8D]/10 border border-[#5EFC8D]/30 flex items-center justify-center text-[#5EFC8D] flex-shrink-0 mt-0.5">
                       <Check className="w-3.5 h-3.5 stroke-[2.5]" aria-hidden="true" />
                     </span>
-                    <span className="text-sm sm:text-base text-[#d3f9f5]/90 font-light font-montserrat leading-relaxed">
+                    <span className="text-sm sm:text-base text-[#D4FAE6]/90 font-light font-montserrat leading-relaxed">
                       {bullet}
                     </span>
                   </li>
@@ -147,7 +146,7 @@ export default function RoleTabs({
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 py-4 mb-8 border-y border-white/10">
                   {activeTab.metrics.map((m, idx) => (
                     <div key={idx}>
-                      <div className="text-2xl sm:text-3xl font-medium text-[#7ceee0] font-montserrat tracking-tight">
+                      <div className="text-2xl sm:text-3xl font-medium text-[#5EFC8D] font-montserrat tracking-tight">
                         {m.value}
                       </div>
                       <div className="text-xs text-[#b3b3b3] uppercase tracking-wider font-montserrat mt-0.5">
@@ -164,7 +163,7 @@ export default function RoleTabs({
                   <Link
                     href={activeTab.ctaHref}
                     aria-label={`${activeTab.ctaText}: ${activeTab.label}`}
-                    className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-[#7ceee0] text-black font-medium text-sm font-montserrat hover:bg-[#68d8ca] transition-all duration-200 shadow-[0_0_20px_rgba(124,238,224,0.3)] hover:scale-105"
+                    className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-[#5EFC8D] text-black font-medium text-sm font-montserrat hover:bg-[#4ee37e] transition-all duration-200 shadow-[0_0_20px_rgba(94, 252, 141, 0.3)] hover:scale-105"
                   >
                     <span>{activeTab.ctaText}</span>
                     <ArrowRight className="w-4 h-4" aria-hidden="true" />
@@ -179,20 +178,20 @@ export default function RoleTabs({
                 {activeTab.previewContent ? (
                   activeTab.previewContent
                 ) : (
-                  <div className="space-y-4 font-mono text-xs text-[#b3b3b3]">
+                  <div className="space-y-4 font-montserrat text-xs text-[#b3b3b3]">
                     <div className="flex items-center justify-between pb-3 border-b border-white/10">
-                      <span className="text-[#d3f9f5] font-medium font-montserrat">
+                      <span className="text-[#D4FAE6] font-medium font-montserrat">
                         System Configuration
                       </span>
-                      <span className="text-[#7ceee0] text-[10px] bg-[#7ceee0]/10 px-2 py-0.5 rounded">
+                      <span className="text-[#5EFC8D] text-[10px] bg-[#5EFC8D]/10 px-2 py-0.5 rounded">
                         Active Profile
                       </span>
                     </div>
                     <div className="p-3 rounded-xl bg-[#141718] border border-white/10 space-y-1.5">
-                      <div className="text-[#d3f9f5] text-sm font-medium font-montserrat">
+                      <div className="text-[#D4FAE6] text-sm font-medium font-montserrat">
                         {activeTab.label}
                       </div>
-                      <div className="text-[#7ceee0]">
+                      <div className="text-[#5EFC8D]">
                         Status: Fully Optimized
                       </div>
                       <div className="text-[11px] text-[#8C8C8C]">
@@ -201,7 +200,7 @@ export default function RoleTabs({
                     </div>
                     <div className="grid grid-cols-2 gap-2 text-center">
                       <div className="p-2.5 rounded-lg bg-[#141718] border border-[#262C30]">
-                        <div className="text-[#25E2CC] font-bold text-base">
+                        <div className="text-[#10E774] font-bold text-base">
                           99.9%
                         </div>
                         <div className="text-[10px] text-[#8C8C8C]">
@@ -209,7 +208,7 @@ export default function RoleTabs({
                         </div>
                       </div>
                       <div className="p-2.5 rounded-lg bg-[#141718] border border-[#262C30]">
-                        <div className="text-[#25E2CC] font-bold text-base">
+                        <div className="text-[#10E774] font-bold text-base">
                           &lt; 24H
                         </div>
                         <div className="text-[10px] text-[#8C8C8C]">

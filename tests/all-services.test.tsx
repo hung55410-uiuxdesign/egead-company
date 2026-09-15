@@ -22,13 +22,13 @@ describe('Phase 2 All Services Page Verification', () => {
     });
   });
 
-  describe('All 11 Dedicated Sections Present and Rendered', () => {
+  describe('Dedicated Services Sections Present and Rendered', () => {
     // 1. Hero Section
     test('renders Section 1: Hero with live dispatch HUD, ticker, and CTAs', () => {
       expect(html).toContain('id="services-hero"');
-      expect(html).toContain('AUTOMATE OPERATIONS.');
-      expect(html).toContain('SCALE');
-      expect(html).toContain('GLOBAL COMMERCE.');
+      expect(html).toContain('Automate Operations.');
+      expect(html).toContain('Scale');
+      expect(html).toContain('Global Commerce.');
       expect(html).toContain('Live System: 10,000+ Daily Dispatches');
       expect(html).toContain('Live Dispatch HUD');
       expect(html).toContain('12,480 Units');
@@ -39,7 +39,7 @@ describe('Phase 2 All Services Page Verification', () => {
       expect(html).toContain('Request Operations Audit');
     });
 
-    // 2. Metrics Ribbon
+    // 2. Metrics Ribbon / Grid
     test('renders Section 2: Global Operations Metrics Ribbon with core KPIs', () => {
       expect(html).toContain('id="operations-metrics"');
       expect(html).toContain('Enterprise Performance');
@@ -55,27 +55,7 @@ describe('Phase 2 All Services Page Verification', () => {
       expect(html).toContain('No Hidden Fees');
     });
 
-    // 3. Role Solutions
-    test('renders Section 3: Interactive Role-Based Solutions Switcher', () => {
-      expect(html).toContain('id="solutions-by-role"');
-      expect(html).toContain('Tailored Ecosystem Solutions');
-      expect(html).toContain('Your Exact Business Model');
-      expect(html).toContain('role="tablist"');
-      expect(html).toContain('role="tab"');
-      expect(html).toContain('role="tabpanel"');
-      expect(html).toContain('POD &amp; Marketplace Sellers');
-      expect(html).toContain('DTC &amp; Omnichannel Brands');
-      expect(html).toContain('Media Buyers &amp; Growth Marketers');
-      expect(html).toContain('Technical Teams &amp; Developers');
-      expect(html).toContain('Sub-24H Dispatch SLA &amp; TikTok Shop Compliance');
-      expect(html).toContain('Explore SpeedX POD Engine');
-      expect(html).toContain('Sub-24H SLA');
-      expect(html).toContain('Zero Stockouts');
-      expect(html).toContain('4.8x ROAS');
-      expect(html).toContain('API-First');
-    });
-
-    // 4. Bento Pillars
+    // 4. Core Services Pillars
     test('renders Section 4: The 6 Service Pillars Bento Grid Deep Dive', () => {
       expect(html).toContain('id="core-services-grid"');
       expect(html).toContain('Complete Capabilities Portfolio');
@@ -131,26 +111,6 @@ describe('Phase 2 All Services Page Verification', () => {
       expect(html).toContain('$6 Flat All-In per unit base rate');
     });
 
-    // 7. Margin Simulator
-    test('renders Section 7: Interactive Fulfillment & Margin Simulator', () => {
-      expect(html).toContain('id="margin-simulator"');
-      expect(html).toContain('ROI &amp; Efficiency Simulator');
-      expect(html).toContain('Estimate Your');
-      expect(html).toContain('Operational Freedom');
-      expect(html).toContain('Primary Sales Channel');
-      expect(html).toContain('TikTok Shop US');
-      expect(html).toContain('Amazon FBM');
-      expect(html).toContain('Etsy Global');
-      expect(html).toContain('Shopify DTC');
-      expect(html).toContain('Monthly Order Volume');
-      expect(html).toContain('orders/mo');
-      expect(html).toContain('Verified Benchmark');
-      expect(html).toContain('Monthly Efficiency Metrics');
-      expect(html).toContain('Time Saved');
-      expect(html).toContain('RTO Avoided');
-      expect(html).toContain('Late Dispatch');
-    });
-
     // 8. SLA Badges
     test('renders Section 8: Enterprise SLA Protection & Compliance Badges', () => {
       expect(html).toContain('id="sla-compliance"');
@@ -162,20 +122,6 @@ describe('Phase 2 All Services Page Verification', () => {
       expect(html).toContain('99.9% Uptime Cloud SLA');
       expect(html).toContain('AES-256 encryption');
       expect(html).toContain('Cloudflare Edge');
-    });
-
-    // 9. Client Spotlight
-    test('renders Section 9: Featured Client Transformation Spotlight', () => {
-      expect(html).toContain('id="client-spotlight"');
-      expect(html).toContain('Case Study Spotlight');
-      expect(html).toContain('UrbanVibe Apparel');
-      expect(html).toContain('4.2% LDR (Order Limit Strike)');
-      expect(html).toContain('0.2% LDR (Sub-24H Dispatch)');
-      expect(html).toContain('+180% ($420,000 GMV)');
-      expect(html).toContain('E-GEAD eliminated our sleepless nights');
-      expect(html).toContain('Marcus Vance');
-      expect(html).toContain('Founder &amp; CEO, UrbanVibe Apparel');
-      expect(html).toContain('Read Full Client Transformation Case Study');
     });
 
     // 10. Categorized FAQ Accordion
@@ -198,17 +144,26 @@ describe('Phase 2 All Services Page Verification', () => {
       expect(html).toContain('FAQPage');
     });
 
-    // 11. Conversion Mega CTA
-    test('renders Section 11: High-Velocity Conversion Mega CTA', () => {
-      expect(html).toContain('id="services-cta"');
-      expect(html).toContain('Scale Without Limits');
-      expect(html).toContain('Ready to Automate Operations &amp;');
-      expect(html).toContain('Dominate Global Commerce?');
-      expect(html).toContain('Schedule Operations Consultation');
-      expect(html).toContain('Explore SpeedX Tech Specs');
-      expect(html).toContain('Zero Setup Fees');
-      expect(html).toContain('14-Day Free API Sandbox');
-      expect(html).toContain('Dedicated Account Architect');
+    // Verification of Removed Sections (Per User Request)
+    test('verifies that the 4 requested sections are cleanly removed', () => {
+      // 1. Tailored Ecosystem Solutions
+      expect(html).not.toContain('id="solutions-by-role"');
+      expect(html).not.toContain('Tailored Ecosystem Solutions');
+      expect(html).not.toContain('Engineered for Your Exact Business Model');
+
+      // 2. Margin Simulator
+      expect(html).not.toContain('id="margin-simulator"');
+      expect(html).not.toContain('ROI &amp; Efficiency Simulator');
+      expect(html).not.toContain('Estimate Your Operational Freedom');
+
+      // 3. Client Spotlight (UrbanVibe)
+      expect(html).not.toContain('id="client-spotlight"');
+      expect(html).not.toContain('UrbanVibe Apparel');
+
+      // 4. Conversion Mega CTA (Scale Without Limits)
+      expect(html).not.toContain('id="services-cta"');
+      expect(html).not.toContain('Scale Without Limits');
+      expect(html).not.toContain('Ready to Automate Operations &amp;');
     });
 
     // Global Contact Block Check

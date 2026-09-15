@@ -42,12 +42,12 @@
 ```tsx
 <section className="w-full px-6 sm:px-10 lg:px-14 xl:px-16 mb-20 sm:mb-28">
   <div className="max-w-4xl">
-    <span className="text-xs sm:text-sm font-bold tracking-widest uppercase text-[#7ceee0] block mb-4">
+    <span className="text-xs sm:text-sm font-bold tracking-widest uppercase text-[#5EFC8D] block mb-4">
       About E-GEAD
     </span>
     <h1 className="text-4xl sm:text-6xl md:text-7xl font-black tracking-tight leading-[1.1] mb-6">
       MORE THAN AN OPERATIONS PARTNER, <br />
-      <span className="text-[#7ceee0]">DRIVING GLOBAL SCALE.</span>
+      <span className="text-[#5EFC8D]">DRIVING GLOBAL SCALE.</span>
     </h1>
     <p className="text-lg sm:text-xl text-gray-300 font-normal leading-relaxed max-w-3xl">
       E-GEAD is an all-in-one logistics, automation technology, and digital growth platform based in Buon Ma Thuot, Vietnam. We empower e-commerce brands and cross-border sellers across 10+ countries to automate workflows, fulfill US print-on-demand orders in under 24 hours, and sustainably expand into global marketplaces.
@@ -81,7 +81,7 @@ Cập nhật chính xác số liệu công bố trên website chính thức [ege
 <div className="grid grid-cols-2 md:grid-cols-4 gap-6 p-8 sm:p-12 rounded-[32px] bg-[#141718] border border-white/10 text-center">
   {/* Cột 1 */}
   <div>
-    <span className="text-4xl sm:text-5xl font-black text-[#7ceee0] font-mono">100+</span>
+    <span className="text-4xl sm:text-5xl font-black text-[#5EFC8D] font-mono">100+</span>
     <p className="text-xs sm:text-sm text-gray-400 mt-2 font-semibold uppercase tracking-wider">
       Projects Delivered
     </p>
@@ -90,7 +90,7 @@ Cập nhật chính xác số liệu công bố trên website chính thức [ege
 
   {/* Cột 2 */}
   <div>
-    <span className="text-4xl sm:text-5xl font-black text-[#7ceee0] font-mono">20+</span>
+    <span className="text-4xl sm:text-5xl font-black text-[#5EFC8D] font-mono">20+</span>
     <p className="text-xs sm:text-sm text-gray-400 mt-2 font-semibold uppercase tracking-wider">
       Global Business Partners
     </p>
@@ -99,7 +99,7 @@ Cập nhật chính xác số liệu công bố trên website chính thức [ege
 
   {/* Cột 3 */}
   <div>
-    <span className="text-4xl sm:text-5xl font-black text-[#7ceee0] font-mono">10+</span>
+    <span className="text-4xl sm:text-5xl font-black text-[#5EFC8D] font-mono">10+</span>
     <p className="text-xs sm:text-sm text-gray-400 mt-2 font-semibold uppercase tracking-wider">
       Countries Reached
     </p>
@@ -108,7 +108,7 @@ Cập nhật chính xác số liệu công bố trên website chính thức [ege
 
   {/* Cột 4 */}
   <div>
-    <span className="text-4xl sm:text-5xl font-black text-[#7ceee0] font-mono">99%</span>
+    <span className="text-4xl sm:text-5xl font-black text-[#5EFC8D] font-mono">99%</span>
     <p className="text-xs sm:text-sm text-gray-400 mt-2 font-semibold uppercase tracking-wider">
       Client Satisfaction
     </p>

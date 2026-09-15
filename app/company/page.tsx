@@ -47,12 +47,12 @@ export default function CompanyPage() {
       {/* SECTION 1: Top Heading Title matching Sai Digital */}
       <section className="w-full px-6 sm:px-10 lg:px-14 xl:px-16 pt-6 pb-12 sm:pb-16">
         <div className="w-full">
-          <p className="text-base sm:text-lg font-normal text-[#d3f9f5] mb-4 font-montserrat">
+          <p className="text-base sm:text-lg font-normal text-[#D4FAE6] mb-4 font-montserrat">
             Our Values
           </p>
-          <h1 className="text-4xl sm:text-6xl lg:text-[72px] font-medium tracking-normal uppercase leading-[1.15] font-montserrat text-[#d3f9f5]">
+          <h1 className="text-4xl sm:text-6xl lg:text-[72px] font-medium tracking-normal uppercase leading-[1.15] font-montserrat text-[#D4FAE6]">
             <span className="block">TRANSFORM TODAY,</span>
-            <span className="text-[#7ceee0] block font-medium">LEAD TOMORROW.</span>
+            <span className="text-[#5EFC8D] block font-medium">LEAD TOMORROW.</span>
           </h1>
         </div>
       </section>
@@ -67,7 +67,7 @@ export default function CompanyPage() {
           />
           <div className="absolute inset-0 bg-gradient-to-t from-[#0A0D0E]/80 via-transparent to-transparent pointer-events-none" />
           <div className="absolute bottom-6 left-6 sm:bottom-10 sm:left-10 flex items-center gap-3">
-            <span className="px-4 py-2 rounded-full bg-black/60 backdrop-blur-md border border-white/20 font-mono text-xs text-white uppercase tracking-wider">
+            <span className="px-4 py-2 rounded-full bg-black/60 backdrop-blur-md border border-white/20 font-montserrat text-xs text-white uppercase tracking-wider">
               BUON MA THUOT HQ &amp; US FULFILLMENT NETWORK
             </span>
           </div>
@@ -79,10 +79,10 @@ export default function CompanyPage() {
         <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start">
           {/* Left Column: Subtitle & Big Heading */}
           <div className="lg:col-span-6 space-y-4">
-            <p className="text-base sm:text-lg font-normal text-[#d3f9f5] font-montserrat">
+            <p className="text-base sm:text-lg font-normal text-[#D4FAE6] font-montserrat">
               End-to-end enterprise commerce solutions
             </p>
-            <h2 className="text-2xl sm:text-3xl lg:text-[40px] font-medium tracking-normal text-[#d3f9f5] font-montserrat leading-[1.25]">
+            <h2 className="text-2xl sm:text-3xl lg:text-[40px] font-medium tracking-normal text-[#D4FAE6] font-montserrat leading-[1.25]">
               We consult Customer Experience transformation across all business functions.
             </h2>
           </div>
@@ -105,10 +105,10 @@ export default function CompanyPage() {
       {/* SECTION 4: Our 4D Method (video-text) */}
       <section id="our-4d-method" className="w-full px-6 sm:px-10 lg:px-14 xl:px-16 mb-24 sm:mb-32">
         <div className="w-full mb-8 sm:mb-12">
-          <p className="text-base sm:text-lg font-normal text-[#d3f9f5] mb-3 font-montserrat">
+          <p className="text-base sm:text-lg font-normal text-[#D4FAE6] mb-3 font-montserrat">
             Our 4D Method
           </p>
-          <h2 className="text-2xl sm:text-3xl lg:text-[34px] font-medium text-[#d3f9f5] font-montserrat leading-[1.3]">
+          <h2 className="text-2xl sm:text-3xl lg:text-[34px] font-medium text-[#D4FAE6] font-montserrat leading-[1.3]">
             End-to-end innovative and forward-thinking solutions to make digital commerce simpler to navigate.
           </h2>
         </div>
@@ -128,19 +128,19 @@ export default function CompanyPage() {
       {/* SECTION 5: Value System (3 Items Cards matching Sai Digital) */}
       <section className="w-full px-6 sm:px-10 lg:px-14 xl:px-16 mb-24 sm:mb-32">
         <div className="w-full mb-12 sm:mb-16">
-          <p className="text-base sm:text-lg font-normal text-[#d3f9f5] mb-3 font-montserrat">
+          <p className="text-base sm:text-lg font-normal text-[#D4FAE6] mb-3 font-montserrat">
             Value System
           </p>
-          <h2 className="text-2xl sm:text-3xl lg:text-[34px] font-medium text-[#d3f9f5] font-montserrat leading-[1.3]">
+          <h2 className="text-2xl sm:text-3xl lg:text-[34px] font-medium text-[#D4FAE6] font-montserrat leading-[1.3]">
             We believe in building transformative experiences to empower individuals, businesses and communities.
           </h2>
         </div>
 
         <div className="w-full grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
           {/* Card 01 */}
-          <div className="group p-8 sm:p-10 rounded-[32px] bg-[#141718] border border-white/10 hover:border-[#25E2CC]/50 transition-all duration-300 flex flex-col justify-between min-h-[360px]">
+          <div className="group p-8 sm:p-10 rounded-[32px] bg-[#141718] border border-white/10 hover:border-[#10E774]/50 transition-all duration-300 flex flex-col justify-between min-h-[360px]">
             <div>
-              <p className="text-2xl sm:text-3xl font-medium text-white/50 font-mono mb-6 group-hover:text-[#7ceee0] transition-colors">
+              <p className="text-2xl sm:text-3xl font-medium text-white/50 font-montserrat mb-6 group-hover:text-[#5EFC8D] transition-colors">
                 01
               </p>
               <div className="w-14 h-14 mb-6 flex items-center justify-center">
@@ -160,9 +160,9 @@ export default function CompanyPage() {
           </div>
 
           {/* Card 02 */}
-          <div className="group p-8 sm:p-10 rounded-[32px] bg-[#141718] border border-white/10 hover:border-[#25E2CC]/50 transition-all duration-300 flex flex-col justify-between min-h-[360px]">
+          <div className="group p-8 sm:p-10 rounded-[32px] bg-[#141718] border border-white/10 hover:border-[#10E774]/50 transition-all duration-300 flex flex-col justify-between min-h-[360px]">
             <div>
-              <p className="text-2xl sm:text-3xl font-medium text-white/50 font-mono mb-6 group-hover:text-[#7ceee0] transition-colors">
+              <p className="text-2xl sm:text-3xl font-medium text-white/50 font-montserrat mb-6 group-hover:text-[#5EFC8D] transition-colors">
                 02
               </p>
               <div className="w-14 h-14 mb-6 flex items-center justify-center">
@@ -182,9 +182,9 @@ export default function CompanyPage() {
           </div>
 
           {/* Card 03 */}
-          <div className="group p-8 sm:p-10 rounded-[32px] bg-[#141718] border border-white/10 hover:border-[#25E2CC]/50 transition-all duration-300 flex flex-col justify-between min-h-[360px]">
+          <div className="group p-8 sm:p-10 rounded-[32px] bg-[#141718] border border-white/10 hover:border-[#10E774]/50 transition-all duration-300 flex flex-col justify-between min-h-[360px]">
             <div>
-              <p className="text-2xl sm:text-3xl font-medium text-white/50 font-mono mb-6 group-hover:text-[#7ceee0] transition-colors">
+              <p className="text-2xl sm:text-3xl font-medium text-white/50 font-montserrat mb-6 group-hover:text-[#5EFC8D] transition-colors">
                 03
               </p>
               <div className="w-14 h-14 mb-6 flex items-center justify-center">
@@ -208,10 +208,10 @@ export default function CompanyPage() {
       {/* SECTION 6: Clients Logo Slider */}
       <section className="w-full py-12 sm:py-16 mb-16 overflow-hidden border-t border-b border-white/5 bg-[#0D1011]">
         <div className="w-full px-6 sm:px-10 lg:px-14 xl:px-16 mb-8">
-          <p className="text-base sm:text-lg font-normal text-[#d3f9f5] mb-2 font-montserrat">
+          <p className="text-base sm:text-lg font-normal text-[#D4FAE6] mb-2 font-montserrat">
             Clients
           </p>
-          <h3 className="text-xl sm:text-2xl lg:text-[34px] font-medium text-[#d3f9f5] font-montserrat leading-snug">
+          <h3 className="text-xl sm:text-2xl lg:text-[34px] font-medium text-[#D4FAE6] font-montserrat leading-snug">
             We work with established global enterprises and ambitious brands.
           </h3>
         </div>
@@ -238,10 +238,10 @@ export default function CompanyPage() {
       {/* SECTION 7: Tech Partners Logo Slider */}
       <section className="w-full py-12 sm:py-16 mb-24 sm:mb-32 overflow-hidden border-b border-white/5 bg-[#0A0D0E]">
         <div className="w-full px-6 sm:px-10 lg:px-14 xl:px-16 mb-8">
-          <p className="text-base sm:text-lg font-normal text-[#d3f9f5] mb-2 font-montserrat">
+          <p className="text-base sm:text-lg font-normal text-[#D4FAE6] mb-2 font-montserrat">
             Services
           </p>
-          <h3 className="text-xl sm:text-2xl lg:text-[34px] font-medium text-[#d3f9f5] font-montserrat leading-snug">
+          <h3 className="text-xl sm:text-2xl lg:text-[34px] font-medium text-[#D4FAE6] font-montserrat leading-snug">
             We are partnering with leading tech providers.
           </h3>
         </div>
@@ -284,9 +284,9 @@ export default function CompanyPage() {
       <section className="w-full px-6 sm:px-10 lg:px-14 xl:px-16 mb-28 sm:mb-36">
         <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
           {/* Card 1: Our People */}
-          <div className="group p-8 sm:p-12 rounded-[32px] bg-[#141718] border border-white/10 hover:border-[#25E2CC]/50 transition-all duration-300 flex flex-col justify-between min-h-[380px]">
+          <div className="group p-8 sm:p-12 rounded-[32px] bg-[#141718] border border-white/10 hover:border-[#10E774]/50 transition-all duration-300 flex flex-col justify-between min-h-[380px]">
             <div>
-              <p className="text-base sm:text-lg font-normal text-[#d3f9f5] mb-4 font-montserrat">
+              <p className="text-base sm:text-lg font-normal text-[#D4FAE6] mb-4 font-montserrat">
                 Our People
               </p>
               <div className="relative w-24 h-24 sm:w-28 sm:h-28 mb-8">
@@ -301,7 +301,7 @@ export default function CompanyPage() {
                   className="w-full h-full object-contain absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
                 />
               </div>
-              <h3 className="text-2xl sm:text-3xl lg:text-[34px] font-medium text-[#d3f9f5] mb-6 font-montserrat leading-snug">
+              <h3 className="text-2xl sm:text-3xl lg:text-[34px] font-medium text-[#D4FAE6] mb-6 font-montserrat leading-snug">
                 Meet the people behind your success.
               </h3>
             </div>
@@ -309,7 +309,7 @@ export default function CompanyPage() {
             <div>
               <Link
                 href="/people"
-                className="group/btn inline-flex items-center gap-2.5 px-6 py-3.5 rounded-full bg-white text-black font-medium text-sm hover:bg-[#25E2CC] transition-all duration-300"
+                className="group/btn inline-flex items-center gap-2.5 px-6 py-3.5 rounded-full bg-white text-black font-medium text-sm hover:bg-[#10E774] transition-all duration-300"
               >
                 <svg
                   width="15"
@@ -327,9 +327,9 @@ export default function CompanyPage() {
           </div>
 
           {/* Card 2: Job Opportunities */}
-          <div className="group p-8 sm:p-12 rounded-[32px] bg-[#141718] border border-white/10 hover:border-[#25E2CC]/50 transition-all duration-300 flex flex-col justify-between min-h-[380px]">
+          <div className="group p-8 sm:p-12 rounded-[32px] bg-[#141718] border border-white/10 hover:border-[#10E774]/50 transition-all duration-300 flex flex-col justify-between min-h-[380px]">
             <div>
-              <p className="text-base sm:text-lg font-normal text-[#d3f9f5] mb-4 font-montserrat">
+              <p className="text-base sm:text-lg font-normal text-[#D4FAE6] mb-4 font-montserrat">
                 Job Opportunities
               </p>
               <div className="relative w-24 h-24 sm:w-28 sm:h-28 mb-8">
@@ -344,7 +344,7 @@ export default function CompanyPage() {
                   className="w-full h-full object-contain absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
                 />
               </div>
-              <h3 className="text-2xl sm:text-3xl lg:text-[34px] font-medium text-[#d3f9f5] mb-6 font-montserrat leading-snug">
+              <h3 className="text-2xl sm:text-3xl lg:text-[34px] font-medium text-[#D4FAE6] mb-6 font-montserrat leading-snug">
                 Be a Part of our wonderful team.
               </h3>
             </div>
@@ -352,7 +352,7 @@ export default function CompanyPage() {
             <div>
               <Link
                 href="/career"
-                className="group/btn inline-flex items-center gap-2.5 px-6 py-3.5 rounded-full bg-white text-black font-medium text-sm hover:bg-[#25E2CC] transition-all duration-300"
+                className="group/btn inline-flex items-center gap-2.5 px-6 py-3.5 rounded-full bg-white text-black font-medium text-sm hover:bg-[#10E774] transition-all duration-300"
               >
                 <svg
                   width="15"

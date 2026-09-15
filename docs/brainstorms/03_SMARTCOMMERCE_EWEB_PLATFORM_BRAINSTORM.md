@@ -33,10 +33,10 @@ flowchart TD
   - Cột trái: Badge màu ngọc bích `"CENTRALIZED COMMERCE OS"`, Tiêu đề H1 lớn, đoạn mô tả giải pháp, 2 nút CTA (`Launch Live Demo` & `Book Architecture Review`).
   - Cột phải: Card đồ họa mô phỏng buồng lái điều hành (Operations Cockpit HUD): Hiển thị biểu đồ luồng đơn hàng chảy về từ Amazon, Etsy, TikTok Shop và Shopify với các chấm tín hiệu màu xanh nhấp nháy báo trạng thái "Syncing in 0.8s".
 - **Thẻ Heading & SEO Keywords**:
-  - `H1`: Eweb-platform: Unified Operations. <br/><span className="text-[#7ceee0]">Master Multi-Channel Margins.</span>
+  - `H1`: Eweb-platform: Unified Operations. <br/><span className="text-[#5EFC8D]">Master Multi-Channel Margins.</span>
   - Từ khóa SEO: `multi-channel ecommerce management platform`, `real time inventory sync`, `ecommerce operations cockpit`, `automated margin reconciliation`.
 - **Nội dung Copywriting**:
-  - *Headline (H1)*: Eweb-platform: Unified Operations. <br/><span className="text-[#7ceee0]">Master Multi-Channel Margins.</span>
+  - *Headline (H1)*: Eweb-platform: Unified Operations. <br/><span className="text-[#5EFC8D]">Master Multi-Channel Margins.</span>
   - *Sub-headline*: Connect every storefront, warehouse fulfillment node, and financial settlement stream into a single high-velocity operations cockpit. Eliminate manual spreadsheets, prevent stockout cancellations, and monitor net profit margins in real time.
   - *CTAs*: `Explore Cockpit Demo` (Primary neon) | `View Integration Hub` (Anchor xuống Sec 10).
 
@@ -64,7 +64,7 @@ flowchart TD
     - Dùng 10 file Google Sheets nối công thức VLOOKUP để kiểm tra tồn kho, thường xuyên lỗi dữ liệu.
     - Bị phạt trừ điểm do hủy đơn hàng hết tồn kho trên sàn.
     - Không rõ một đơn hàng thực tế lãi bao nhiêu tiền sau khi trừ chi phí in, ship và hoa hồng sàn.
-  - Cột phải ("The Eweb-platform Standard" - Nền đen viền xanh cyan `#7ceee0`):
+  - Cột phải ("The Eweb-platform Standard" - Nền đen viền xanh cyan `#5EFC8D`):
     - Một màn hình duy nhất kiểm soát 100% đơn hàng và tồn kho đa kênh.
     - Cập nhật kho tự động hai chiều qua API trong 1 giây.
     - Cơ chế Safety Stock Buffer thông minh bảo vệ gian hàng khỏi overselling trong các dịp Flash Sale.

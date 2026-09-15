@@ -99,14 +99,14 @@ export default function NetMarginLedger({
       <div className="relative z-10 w-full px-6 sm:px-10 lg:px-14 xl:px-16">
         {/* Header Block */}
         <div className="text-center max-w-3xl mx-auto mb-14 sm:mb-16">
-          <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#141718] border border-white/10 text-[#d3f9f5] text-xs sm:text-sm font-normal tracking-wider uppercase mb-4 font-montserrat">
-            <DollarSign className="w-3.5 h-3.5 text-[#7ceee0]" aria-hidden="true" />
+          <p className="text-base sm:text-lg font-normal text-[#D4FAE6] mb-3 font-montserrat flex items-center justify-center gap-2">
+            <DollarSign className="w-4 h-4 text-[#5EFC8D]" aria-hidden="true" />
             Zero-Spreadsheet Financial Control
-          </span>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-medium tracking-tight text-[#d3f9f5] font-montserrat leading-[1.2]">
-            Automated Net Margin &amp; <span className="text-[#7ceee0] font-medium">Financial Reconciliation</span> Ledger
+          </p>
+          <h2 className="text-2xl sm:text-3xl lg:text-[34px] font-medium text-[#D4FAE6] font-montserrat leading-[1.3]">
+            Automated Net Margin &amp; <span className="text-[#5EFC8D] font-medium">Financial Reconciliation</span> Ledger
           </h2>
-          <p className="mt-4 text-base sm:text-lg text-[#b3b3b3] font-light leading-[1.75] font-montserrat max-w-2xl mx-auto">
+          <p className="mt-4 text-base sm:text-[17px] text-[#b3b3b3] font-light leading-[1.75] font-montserrat max-w-2xl mx-auto">
             Stop guessing your real profitability across 10 messy Excel sheets. Eweb-platform reconciles revenue, manufacturing, postage, platform fees, and ad spend for every SKU in real time.
           </p>
         </div>
@@ -126,14 +126,14 @@ export default function NetMarginLedger({
                     aria-selected={isActive}
                     aria-controls="financial-ledger-details"
                     onClick={() => setSelectedOrderId(order.id)}
-                    className={`px-3.5 py-1.5 rounded-xl text-xs font-mono font-semibold transition-all duration-200 flex items-center gap-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#25E2CC] ${
+                    className={`px-3.5 py-1.5 rounded-xl text-xs font-montserrat font-semibold transition-all duration-200 flex items-center gap-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#10E774] ${
                       isActive
-                        ? 'bg-[#1D2224] text-white border border-[#25E2CC]/40 shadow-[0_0_10px_rgba(37,226,204,0.15)]'
+                        ? 'bg-[#1D2224] text-white border border-[#10E774]/40 shadow-[0_0_10px_rgba(16, 231, 116, 0.15)]'
                         : 'text-[#8C8C8C] hover:text-white hover:bg-white/5'
                     }`}
                   >
                     <span>{order.orderNumber}</span>
-                    <span className="text-[10px] text-[#25E2CC]">({order.platform})</span>
+                    <span className="text-[10px] text-[#10E774]">({order.platform})</span>
                   </button>
                 );
               })}
@@ -143,12 +143,12 @@ export default function NetMarginLedger({
             <button
               type="button"
               onClick={handleExport}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[#141718] border border-[#262C30] text-xs text-[#8C8C8C] hover:text-[#25E2CC] hover:border-[#25E2CC]/40 transition-all font-montserrat font-semibold focus:outline-none focus-visible:ring-2 focus-visible:ring-[#25E2CC]"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[#141718] border border-[#262C30] text-xs text-[#8C8C8C] hover:text-[#10E774] hover:border-[#10E774]/40 transition-all font-montserrat font-semibold focus:outline-none focus-visible:ring-2 focus-visible:ring-[#10E774]"
             >
               {exported ? (
                 <>
                   <Check className="w-4 h-4 text-emerald-400" aria-hidden="true" />
-                  <span className="text-emerald-400 font-mono">QuickBooks CSV Exported!</span>
+                  <span className="text-emerald-400 font-montserrat">QuickBooks CSV Exported!</span>
                 </>
               ) : (
                 <>
@@ -170,15 +170,15 @@ export default function NetMarginLedger({
             {/* Header info */}
             <div className="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-[#262C30]">
               <div>
-                <span className="text-xs font-mono text-[#b3b3b3] uppercase tracking-wider block">
+                <span className="text-xs font-montserrat text-[#b3b3b3] uppercase tracking-wider block">
                   Order Inspection: {activeOrder.orderNumber} • {activeOrder.platform}
                 </span>
-                <h3 className="text-lg sm:text-xl font-medium text-[#d3f9f5] font-montserrat mt-0.5">
+                <h3 className="text-lg sm:text-xl font-medium text-[#D4FAE6] font-montserrat mt-0.5">
                   {activeOrder.item}
                 </h3>
               </div>
               <div className="flex items-center gap-3">
-                <span className="px-3.5 py-1.5 rounded-full bg-[#7ceee0]/15 text-[#7ceee0] text-sm font-medium font-mono">
+                <span className="px-3.5 py-1.5 rounded-full bg-[#5EFC8D]/15 text-[#5EFC8D] text-sm font-medium font-montserrat">
                   {activeOrder.marginPercent}% Net Margin
                 </span>
               </div>
@@ -187,7 +187,7 @@ export default function NetMarginLedger({
             {/* Full Cost Deduction Breakdown Table */}
             <div className="overflow-x-auto">
               <table className="w-full text-left font-montserrat text-xs sm:text-sm" role="table">
-                <thead className="text-[11px] text-[#b3b3b3] uppercase border-b border-white/10 font-mono">
+                <thead className="text-[11px] text-[#b3b3b3] uppercase border-b border-white/10 font-montserrat">
                   <tr>
                     <th scope="col" className="pb-3 pr-4 font-medium">Ledger Component</th>
                     <th scope="col" className="pb-3 px-4 font-medium">Operational Category</th>
@@ -195,12 +195,12 @@ export default function NetMarginLedger({
                     <th scope="col" className="pb-3 pl-4 text-right font-medium">Impact (USD)</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-white/10 font-mono">
+                <tbody className="divide-y divide-white/10 font-montserrat">
                   <tr>
-                    <td className="py-3 pr-4 font-medium text-[#d3f9f5] font-montserrat">Gross Customer Payment</td>
+                    <td className="py-3 pr-4 font-medium text-[#D4FAE6] font-montserrat">Gross Customer Payment</td>
                     <td className="py-3 px-4 text-[#b3b3b3]">Storefront Revenue</td>
                     <td className="py-3 px-4 text-emerald-400">Captured via Marketplace API</td>
-                    <td className="py-3 pl-4 text-right font-medium text-[#d3f9f5]">${activeOrder.grossPayment.toFixed(2)}</td>
+                    <td className="py-3 pl-4 text-right font-medium text-[#D4FAE6]">${activeOrder.grossPayment.toFixed(2)}</td>
                   </tr>
                   <tr>
                     <td className="py-3 pr-4 text-red-400 font-montserrat">(-) E-GEAD 23&quot; DTF Print &amp; Blank</td>
@@ -227,16 +227,16 @@ export default function NetMarginLedger({
                     <td className="py-3 pl-4 text-right text-red-400">-${activeOrder.adCpa.toFixed(2)}</td>
                   </tr>
                   <tr className="bg-[#1D2224]/50">
-                    <td className="py-4 pr-4 font-medium text-[#7ceee0] text-base font-montserrat">
+                    <td className="py-4 pr-4 font-medium text-[#5EFC8D] text-base font-montserrat">
                       True Clean Net Profit
                     </td>
-                    <td className="py-4 px-4 text-[#d3f9f5] font-medium font-montserrat">
+                    <td className="py-4 px-4 text-[#D4FAE6] font-medium font-montserrat">
                       Take-Home Operating Income
                     </td>
-                    <td className="py-4 px-4 text-[#7ceee0]">
+                    <td className="py-4 px-4 text-[#5EFC8D]">
                       Settled to Merchant Account
                     </td>
-                    <td className="py-4 pl-4 text-right font-medium text-2xl text-[#7ceee0] font-montserrat">
+                    <td className="py-4 pl-4 text-right font-medium text-2xl text-[#5EFC8D] font-montserrat">
                       +${activeOrder.netProfit.toFixed(2)}
                     </td>
                   </tr>
@@ -247,10 +247,10 @@ export default function NetMarginLedger({
             {/* Bottom summary note */}
             <div className="pt-2 flex flex-wrap items-center justify-between gap-4 text-xs text-[#8C8C8C] font-montserrat">
               <span className="flex items-center gap-1.5">
-                <ShieldCheck className="w-4 h-4 text-[#25E2CC]" aria-hidden="true" />
+                <ShieldCheck className="w-4 h-4 text-[#10E774]" aria-hidden="true" />
                 Direct API reconciliation with TikTok Shop, Amazon Seller Central, and Stripe Settlement
               </span>
-              <span className="font-mono text-[#25E2CC]">
+              <span className="font-montserrat text-[#10E774]">
                 Auto-syncs with Xero &amp; QuickBooks Online
               </span>
             </div>

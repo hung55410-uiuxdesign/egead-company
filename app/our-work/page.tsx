@@ -82,14 +82,14 @@ export default function OurWorkPage() {
             
             {/* Left Headline & Positioning */}
             <div className="lg:col-span-7">
-              <div className="inline-flex items-center gap-2 text-sm sm:text-base font-normal text-[#d3f9f5] mb-6 font-montserrat">
-                <Sparkles className="w-4 h-4 text-[#7ceee0]" aria-hidden="true" />
+              <div className="inline-flex items-center gap-2 text-sm sm:text-base font-normal text-[#D4FAE6] mb-6 font-montserrat">
+                <Sparkles className="w-4 h-4 text-[#5EFC8D]" aria-hidden="true" />
                 Proven Global Case Studies &amp; ROI
               </div>
 
-              <h1 className="text-4xl sm:text-6xl lg:text-[72px] font-medium tracking-tight leading-[1.08] text-[#d3f9f5] font-montserrat mb-6">
+              <h1 className="text-4xl sm:text-6xl lg:text-[72px] font-medium tracking-tight leading-[1.08] text-[#D4FAE6] font-montserrat mb-6">
                 Measurable Growth. <br />
-                <span className="text-[#7ceee0] font-medium">Battle-Tested Results.</span>
+                <span className="text-[#5EFC8D] font-medium">Battle-Tested Results.</span>
               </h1>
 
               <p className="text-base sm:text-lg lg:text-xl text-[#b3b3b3] font-light leading-[1.75] font-montserrat max-w-2xl mb-8">
@@ -100,14 +100,14 @@ export default function OurWorkPage() {
               <div className="flex flex-wrap items-center gap-4">
                 <a
                   href="#case-studies-grid"
-                  className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-[#7ceee0] text-black font-medium text-sm sm:text-base font-montserrat hover:bg-[#68d8ca] transition duration-300"
+                  className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-[#5EFC8D] text-black font-medium text-sm sm:text-base font-montserrat hover:bg-[#4ee37e] transition duration-300"
                 >
                   <span>Explore Case Studies</span>
                   <ArrowRight className="w-4 h-4" aria-hidden="true" />
                 </a>
                 <a
                   href="#work-cta"
-                  className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-[#141718] border border-white/20 text-[#d3f9f5] font-medium text-sm sm:text-base font-montserrat hover:border-[#7ceee0] hover:text-[#7ceee0] transition duration-300"
+                  className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-[#141718] border border-white/20 text-[#D4FAE6] font-medium text-sm sm:text-base font-montserrat hover:border-[#5EFC8D] hover:text-[#5EFC8D] transition duration-300"
                 >
                   <span>Book Operations Audit</span>
                 </a>
@@ -119,15 +119,15 @@ export default function OurWorkPage() {
               <div className="relative rounded-3xl bg-[#141718] border border-white/10 p-6 sm:p-8 shadow-2xl overflow-hidden">
                 <div 
                   aria-hidden="true" 
-                  className="absolute -top-16 -right-16 w-48 h-48 bg-[#25E2CC]/15 rounded-full blur-2xl pointer-events-none" 
+                  className="absolute -top-16 -right-16 w-48 h-48 bg-[#10E774]/15 rounded-full blur-2xl pointer-events-none" 
                 />
 
                 <div className="flex items-center justify-between pb-4 mb-6 border-b border-white/10">
-                  <span className="text-xs font-mono font-semibold uppercase tracking-wider text-gray-400">
+                  <span className="text-xs font-montserrat font-semibold uppercase tracking-wider text-gray-400">
                     Cumulative Portfolio Impact
                   </span>
-                  <span className="flex items-center gap-1.5 text-xs font-mono text-[#25E2CC]">
-                    <span className="w-2 h-2 rounded-full bg-[#25E2CC] animate-pulse motion-reduce:animate-none" aria-hidden="true" />
+                  <span className="flex items-center gap-1.5 text-xs font-montserrat text-[#10E774]">
+                    <span className="w-2 h-2 rounded-full bg-[#10E774] animate-pulse motion-reduce:animate-none" aria-hidden="true" />
                     Live Audited
                   </span>
                 </div>
@@ -135,7 +135,7 @@ export default function OurWorkPage() {
                 <div className="grid grid-cols-2 gap-4 sm:gap-6">
                   {/* Metric 1 */}
                   <div className="p-4 rounded-2xl bg-[#0A0D0E] border border-white/5">
-                    <div className="text-2xl sm:text-3xl font-medium text-[#7ceee0]">
+                    <div className="text-2xl sm:text-3xl font-medium text-[#5EFC8D]">
                       +$45M
                     </div>
                     <div className="text-xs text-[#b3b3b3] mt-1 font-light">
@@ -145,7 +145,7 @@ export default function OurWorkPage() {
 
                   {/* Metric 2 */}
                   <div className="p-4 rounded-2xl bg-[#0A0D0E] border border-white/5">
-                    <div className="text-2xl sm:text-3xl font-medium text-[#d3f9f5]">
+                    <div className="text-2xl sm:text-3xl font-medium text-[#D4FAE6]">
                       100+
                     </div>
                     <div className="text-xs text-[#b3b3b3] mt-1 font-light">
@@ -155,7 +155,7 @@ export default function OurWorkPage() {
 
                   {/* Metric 3 */}
                   <div className="p-4 rounded-2xl bg-[#0A0D0E] border border-white/5">
-                    <div className="text-2xl sm:text-3xl font-medium text-[#7ceee0]">
+                    <div className="text-2xl sm:text-3xl font-medium text-[#5EFC8D]">
                       99.8%
                     </div>
                     <div className="text-xs text-[#b3b3b3] mt-1 font-light">
@@ -165,7 +165,7 @@ export default function OurWorkPage() {
 
                   {/* Metric 4 */}
                   <div className="p-4 rounded-2xl bg-[#0A0D0E] border border-white/5">
-                    <div className="text-2xl sm:text-3xl font-medium text-[#d3f9f5]">
+                    <div className="text-2xl sm:text-3xl font-medium text-[#D4FAE6]">
                       0%
                     </div>
                     <div className="text-xs text-gray-400 mt-1 font-normal">
@@ -174,7 +174,7 @@ export default function OurWorkPage() {
                   </div>
                 </div>
 
-                <div className="mt-6 pt-4 border-t border-white/10 flex items-center justify-between text-xs font-mono text-gray-500">
+                <div className="mt-6 pt-4 border-t border-white/10 flex items-center justify-between text-xs font-montserrat text-gray-500">
                   <span>Audited across 100+ Merchant Accounts</span>
                   <span className="text-gray-400">2024–2026 Data</span>
                 </div>
@@ -218,14 +218,14 @@ export default function OurWorkPage() {
         <div className="w-full">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-12">
             <div>
-              <span className="text-xs font-mono uppercase tracking-widest text-[#25E2CC] block mb-2">
+              <p className="text-base sm:text-lg font-normal text-[#D4FAE6] mb-3 font-montserrat">
                 Executive Perspectives
-              </span>
-              <h2 className="text-3xl sm:text-4xl font-black text-white tracking-tight">
+              </p>
+              <h2 className="text-2xl sm:text-3xl lg:text-[34px] font-medium text-[#D4FAE6] font-montserrat leading-[1.3]">
                 Verified Founder Voices
               </h2>
             </div>
-            <p className="text-sm text-gray-400 max-w-md font-normal leading-relaxed">
+            <p className="text-base sm:text-[17px] text-[#b3b3b3] font-light leading-[1.75] font-montserrat max-w-md">
               Unfiltered reflections from founders and operations directors who scaled cross-border e-commerce businesses on our infrastructure.
             </p>
           </div>
@@ -233,15 +233,15 @@ export default function OurWorkPage() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             
             {/* Voice 1: Marcus Vance */}
-            <div className="flex flex-col justify-between p-8 rounded-3xl bg-[#141718] border border-white/10 hover:border-[#25E2CC]/40 transition-all duration-300 relative group shadow-xl">
+            <div className="flex flex-col justify-between p-8 rounded-3xl bg-[#141718] border border-white/10 hover:border-[#10E774]/40 transition-all duration-300 relative group shadow-xl">
               <div>
                 {/* Media badge */}
                 <div className="flex items-center justify-between mb-6">
-                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#25E2CC]/10 border border-[#25E2CC]/25 text-[11px] font-mono text-[#25E2CC] font-semibold">
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#10E774]/10 border border-[#10E774]/25 text-[11px] font-montserrat text-[#10E774] font-semibold">
                     <Volume2 className="w-3.5 h-3.5" aria-hidden="true" />
                     Audio Recording · 1m 18s
                   </span>
-                  <Quote className="w-5 h-5 text-gray-600 group-hover:text-[#25E2CC] transition-colors" aria-hidden="true" />
+                  <Quote className="w-5 h-5 text-gray-600 group-hover:text-[#10E774] transition-colors" aria-hidden="true" />
                 </div>
 
                 <blockquote className="text-sm text-gray-300 leading-relaxed italic">
@@ -251,24 +251,24 @@ export default function OurWorkPage() {
 
               <div className="mt-8 pt-6 border-t border-white/10">
                 <div className="font-bold text-white text-base">Marcus Vance</div>
-                <div className="text-xs text-[#25E2CC] font-mono mt-0.5">Founder, UrbanVibe Apparel (US)</div>
-                <div className="flex items-center gap-1.5 text-[11px] text-gray-500 font-mono mt-2">
-                  <ShieldCheck className="w-3.5 h-3.5 text-[#25E2CC]" aria-hidden="true" />
+                <div className="text-xs text-[#10E774] font-montserrat mt-0.5">Founder, UrbanVibe Apparel (US)</div>
+                <div className="flex items-center gap-1.5 text-[11px] text-gray-500 font-montserrat mt-2">
+                  <ShieldCheck className="w-3.5 h-3.5 text-[#10E774]" aria-hidden="true" />
                   <span>Verified Top 500 TikTok Shop US Seller</span>
                 </div>
               </div>
             </div>
 
             {/* Voice 2: Elena Rostova */}
-            <div className="flex flex-col justify-between p-8 rounded-3xl bg-[#141718] border border-white/10 hover:border-[#25E2CC]/40 transition-all duration-300 relative group shadow-xl">
+            <div className="flex flex-col justify-between p-8 rounded-3xl bg-[#141718] border border-white/10 hover:border-[#10E774]/40 transition-all duration-300 relative group shadow-xl">
               <div>
                 {/* Media badge */}
                 <div className="flex items-center justify-between mb-6">
-                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-cyan-400/10 border border-cyan-400/25 text-[11px] font-mono text-cyan-300 font-semibold">
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-cyan-400/10 border border-cyan-400/25 text-[11px] font-montserrat text-cyan-300 font-semibold">
                     <Video className="w-3.5 h-3.5" aria-hidden="true" />
                     Video Case · 2m 04s
                   </span>
-                  <Quote className="w-5 h-5 text-gray-600 group-hover:text-[#25E2CC] transition-colors" aria-hidden="true" />
+                  <Quote className="w-5 h-5 text-gray-600 group-hover:text-[#10E774] transition-colors" aria-hidden="true" />
                 </div>
 
                 <blockquote className="text-sm text-gray-300 leading-relaxed italic">
@@ -278,24 +278,24 @@ export default function OurWorkPage() {
 
               <div className="mt-8 pt-6 border-t border-white/10">
                 <div className="font-bold text-white text-base">Elena Rostova</div>
-                <div className="text-xs text-[#25E2CC] font-mono mt-0.5">Head of Operations, HomeCraft Studio</div>
-                <div className="flex items-center gap-1.5 text-[11px] text-gray-500 font-mono mt-2">
-                  <ShieldCheck className="w-3.5 h-3.5 text-[#25E2CC]" aria-hidden="true" />
+                <div className="text-xs text-[#10E774] font-montserrat mt-0.5">Head of Operations, HomeCraft Studio</div>
+                <div className="flex items-center gap-1.5 text-[11px] text-gray-500 font-montserrat mt-2">
+                  <ShieldCheck className="w-3.5 h-3.5 text-[#10E774]" aria-hidden="true" />
                   <span>Verified Merchant · 1,500+ Active SKUs</span>
                 </div>
               </div>
             </div>
 
             {/* Voice 3: David Nguyen */}
-            <div className="flex flex-col justify-between p-8 rounded-3xl bg-[#141718] border border-white/10 hover:border-[#25E2CC]/40 transition-all duration-300 relative group shadow-xl">
+            <div className="flex flex-col justify-between p-8 rounded-3xl bg-[#141718] border border-white/10 hover:border-[#10E774]/40 transition-all duration-300 relative group shadow-xl">
               <div>
                 {/* Media badge */}
                 <div className="flex items-center justify-between mb-6">
-                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#25E2CC]/10 border border-[#25E2CC]/25 text-[11px] font-mono text-[#25E2CC] font-semibold">
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#10E774]/10 border border-[#10E774]/25 text-[11px] font-montserrat text-[#10E774] font-semibold">
                     <Volume2 className="w-3.5 h-3.5" aria-hidden="true" />
                     Audio Recording · 1m 45s
                   </span>
-                  <Quote className="w-5 h-5 text-gray-600 group-hover:text-[#25E2CC] transition-colors" aria-hidden="true" />
+                  <Quote className="w-5 h-5 text-gray-600 group-hover:text-[#10E774] transition-colors" aria-hidden="true" />
                 </div>
 
                 <blockquote className="text-sm text-gray-300 leading-relaxed italic">
@@ -305,9 +305,9 @@ export default function OurWorkPage() {
 
               <div className="mt-8 pt-6 border-t border-white/10">
                 <div className="font-bold text-white text-base">David Nguyen</div>
-                <div className="text-xs text-[#25E2CC] font-mono mt-0.5">Co-Founder, Lumina DTC Brand</div>
-                <div className="flex items-center gap-1.5 text-[11px] text-gray-500 font-mono mt-2">
-                  <ShieldCheck className="w-3.5 h-3.5 text-[#25E2CC]" aria-hidden="true" />
+                <div className="text-xs text-[#10E774] font-montserrat mt-0.5">Co-Founder, Lumina DTC Brand</div>
+                <div className="flex items-center gap-1.5 text-[11px] text-gray-500 font-montserrat mt-2">
+                  <ShieldCheck className="w-3.5 h-3.5 text-[#10E774]" aria-hidden="true" />
                   <span>Verified DTC Brand · $1.8M GMV</span>
                 </div>
               </div>
@@ -349,21 +349,21 @@ export default function OurWorkPage() {
         className="w-full px-6 sm:px-10 lg:px-14 xl:px-16 mb-20 scroll-mt-28"
       >
         <div className="w-full">
-          <div className="rounded-[36px] bg-gradient-to-br from-[#1A2224] via-[#141718] to-[#0A0D0E] border border-[#25E2CC]/40 p-8 sm:p-14 lg:p-16 shadow-2xl relative overflow-hidden">
+          <div className="rounded-[36px] bg-gradient-to-br from-[#1A2224] via-[#141718] to-[#0A0D0E] border border-[#10E774]/40 p-8 sm:p-14 lg:p-16 shadow-2xl relative overflow-hidden">
             <div 
               aria-hidden="true" 
-              className="absolute top-0 right-0 w-80 h-80 bg-[#25E2CC]/15 rounded-full blur-3xl pointer-events-none" 
+              className="absolute top-0 right-0 w-80 h-80 bg-[#10E774]/15 rounded-full blur-3xl pointer-events-none" 
             />
 
             <div className="relative z-10 max-w-3xl">
-              <div className="inline-flex items-center gap-2 text-sm sm:text-base font-normal text-[#d3f9f5] mb-6 font-montserrat">
-                <Calendar className="w-4 h-4 text-[#7ceee0]" aria-hidden="true" />
+              <div className="inline-flex items-center gap-2 text-sm sm:text-base font-normal text-[#D4FAE6] mb-6 font-montserrat">
+                <Calendar className="w-4 h-4 text-[#5EFC8D]" aria-hidden="true" />
                 Free 30-Minute Confidential Strategy Session
               </div>
 
-              <h2 className="text-3xl sm:text-5xl lg:text-[54px] font-medium text-[#d3f9f5] font-montserrat tracking-tight leading-[1.15]">
+              <h2 className="text-3xl sm:text-5xl lg:text-[54px] font-medium text-[#D4FAE6] font-montserrat tracking-tight leading-[1.15]">
                 Ready to Write Your Own <br />
-                <span className="text-[#7ceee0] font-medium">Growth Story?</span>
+                <span className="text-[#5EFC8D] font-medium">Growth Story?</span>
               </h2>
 
               <p className="mt-4 text-base sm:text-lg text-[#b3b3b3] font-light leading-[1.75] font-montserrat">
@@ -373,31 +373,31 @@ export default function OurWorkPage() {
               <div className="mt-8 flex flex-wrap items-center gap-4">
                 <a
                   href="#contact"
-                  className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-[#7ceee0] text-black font-medium text-sm sm:text-base font-montserrat hover:bg-[#68d8ca] transition duration-300"
+                  className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-[#5EFC8D] text-black font-medium text-sm sm:text-base font-montserrat hover:bg-[#4ee37e] transition duration-300"
                 >
                   <span>Claim Your Free Operations Audit</span>
                   <ArrowRight className="w-4 h-4" aria-hidden="true" />
                 </a>
                 <Link
                   href="/services/all-services"
-                  className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-[#141718] border border-white/20 text-[#d3f9f5] font-medium text-sm sm:text-base font-montserrat hover:border-[#7ceee0] hover:text-[#7ceee0] transition duration-300"
+                  className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-[#141718] border border-white/20 text-[#D4FAE6] font-medium text-sm sm:text-base font-montserrat hover:border-[#5EFC8D] hover:text-[#5EFC8D] transition duration-300"
                 >
                   <span>Explore Technical Documentation</span>
                   <ArrowUpRight className="w-4 h-4 text-gray-400" aria-hidden="true" />
                 </Link>
               </div>
 
-              <div className="mt-8 pt-6 border-t border-white/10 flex flex-wrap items-center gap-6 text-xs font-mono text-gray-400">
+              <div className="mt-8 pt-6 border-t border-white/10 flex flex-wrap items-center gap-6 text-xs font-montserrat text-gray-400">
                 <div className="flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-[#25E2CC]" aria-hidden="true" />
+                  <CheckCircle2 className="w-4 h-4 text-[#10E774]" aria-hidden="true" />
                   <span>100% Strict Mutual NDA Protection</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-[#25E2CC]" aria-hidden="true" />
+                  <CheckCircle2 className="w-4 h-4 text-[#10E774]" aria-hidden="true" />
                   <span>No Setup Fees or Retainers</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-[#25E2CC]" aria-hidden="true" />
+                  <CheckCircle2 className="w-4 h-4 text-[#10E774]" aria-hidden="true" />
                   <span>Custom Unit Economics Model Provided</span>
                 </div>
               </div>

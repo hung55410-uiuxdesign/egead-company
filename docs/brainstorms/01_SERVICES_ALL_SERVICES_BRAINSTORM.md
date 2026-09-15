@@ -30,14 +30,14 @@ flowchart TD
 - **Anchor ID**: `#services-hero`
 - **Mục đích UX/Chuyển đổi**: Tạo ấn tượng thị giác mạnh mẽ ngay khi tải trang; khẳng định vị thế "All-in-one E-Commerce Operations & Growth Ecosystem".
 - **Bố cục UI Layout (Split Hero Pattern)**:
-  - Cột trái: Badge nhấp nháy phát sáng neon `"ECOSYSTEM PORTFOLIO 2026"`, H1 cỡ lớn 64px với chữ gradient cyan `#7ceee0`, đoạn mô tả súc tích (sub-copy), 2 nút CTA (`Explore Capabilities` & `Book Technical Consultation`).
+  - Cột trái: Badge nhấp nháy phát sáng neon `"ECOSYSTEM PORTFOLIO 2026"`, H1 cỡ lớn 64px với chữ gradient cyan `#5EFC8D`, đoạn mô tả súc tích (sub-copy), 2 nút CTA (`Explore Capabilities` & `Book Technical Consultation`).
   - Cột phải: Floating Dashboard Card hiển thị đồ thị luồng xử lý đơn hàng theo thời gian thực (Real-time Order Throughput), số liệu live orders, độ trễ API 120ms.
 - **Thẻ Heading & SEO Keywords**:
   - `H1`: AUTOMATE OPERATIONS. SCALE GLOBAL COMMERCE.
   - Từ khóa SEO chính: `end-to-end ecommerce operations`, `cross-border fulfillment solutions`, `ecommerce automation platform`.
 - **Nội dung Copywriting**:
   - *Announcement Badge*: `● LIVE SYSTEM: 10,000+ DAILY DISPATCHES ACROSS US HUBS`
-  - *Headline (H1)*: Automate Operations. <br/><span className="text-[#7ceee0]">Scale Global Commerce.</span>
+  - *Headline (H1)*: Automate Operations. <br/><span className="text-[#5EFC8D]">Scale Global Commerce.</span>
   - *Sub-headline*: E-GEAD delivers an enterprise-grade technology and logistics ecosystem: automating multi-channel order pipelines, manufacturing US print-on-demand goods in under 24 hours, and scaling revenue through high-impact performance advertising.
   - *Primary CTA*: `Explore Solutions Matrix` (Anchor trượt xuống Sec 3)
   - *Secondary CTA*: `Request Operations Audit` (Liên kết `/contact-us`)
@@ -213,7 +213,7 @@ flowchart TD
 - **Anchor ID**: `#services-cta`
 - **Mục đích UX**: Chốt đơn chuyển đổi cho người dùng sau khi đã xem toàn bộ năng lực dịch vụ.
 - **Bố cục UI Layout (Contrasting Glow Card 36px)**:
-  - Nền đen sâu viền gradient cyan `#7ceee0/40`, typography kích thước lớn, 2 nút hành động rõ ràng.
+  - Nền đen sâu viền gradient cyan `#5EFC8D/40`, typography kích thước lớn, 2 nút hành động rõ ràng.
 - **Nội dung Copywriting**:
   - *Heading*: Ready to Automate Your Operations and Dominate Global Sales?
   - *Sub-text*: Connect with our e-commerce solutions architects today. Get a complimentary operations audit and review your custom unit economics in under 24 hours.

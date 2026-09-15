@@ -34,10 +34,10 @@ flowchart TD
   - Cột trái: Pill badge neon xanh `"PROPELLED BY EWEB-CHARACTER AI"`, Tiêu đề H1 cỡ lớn, đoạn mô tả giá trị cốt lõi, 2 nút bấm (`Connect Storefront` & `Test Address AI`).
   - Cột phải: Thẻ tương tác **Live 24H SLA Countdown Simulator**. Đồng hồ đếm ngược `23:59:42` minh họa quá trình: Đơn nhận lúc 08:00 AM -> In lúc 11:30 AM -> Quét bưu điện lúc 03:45 PM cùng ngày.
 - **Thẻ Heading & SEO Keywords**:
-  - `H1`: Eweb-character: AI Precision. <br/><span className="text-[#7ceee0]">Sub-24H US POD Fulfillment.</span>
+  - `H1`: Eweb-character: AI Precision. <br/><span className="text-[#5EFC8D]">Sub-24H US POD Fulfillment.</span>
   - Từ khóa SEO: `24 hour POD fulfillment USA`, `TikTok Shop compliant POD`, `AI address normalization ecommerce`, `DTF print on demand US`.
 - **Copywriting**:
-  - *Headline (H1)*: Eweb-character: AI Precision. <br/><span className="text-[#7ceee0]">Sub-24H US POD Fulfillment.</span>
+  - *Headline (H1)*: Eweb-character: AI Precision. <br/><span className="text-[#5EFC8D]">Sub-24H US POD Fulfillment.</span>
   - *Sub-headline*: Eliminate return-to-origin (RTO) with proprietary AI address correction, print oversized 23-inch DTF graphics on industrial machinery, and dispatch orders to US domestic carriers in under 24 hours from just $6 all-in.
   - *CTAs*: `Start Fulfilling in 24H` (Primary) | `View Live Address Demo` (Anchor xuống Sec 4).
 
@@ -65,7 +65,7 @@ flowchart TD
     - *TikTok Shop Account Bans*: Bị dính gậy LDR > 4%, giảm hiển thị feed hoặc khóa shop vĩnh viễn.
     - *Hidden Fees*: Giá quảng cáo $4 nhưng cộng thêm phí dập mác $1, phí đóng gói $1.5, phí xử lý $1.
     - *Format Limitations*: Chỉ in được khổ nhỏ A4/A3 (12x14 inch), không in được áo oversize.
-  - Cột phải (The Eweb-character Standard - Nền đen viền cyan phát sáng `#7ceee0`):
+  - Cột phải (The Eweb-character Standard - Nền đen viền cyan phát sáng `#5EFC8D`):
     - *Guaranteed Sub-24H Production*: Bàn giao bưu điện trong ngày, bảo vệ 100% tài khoản.
     - *Proprietary AI Address Cleansing*: Tự động sửa lỗi Zip, tên đường, bang trước khi in.
     - *Transparent $6 Flat All-In*: Một giá duy nhất, không phụ phí ẩn.

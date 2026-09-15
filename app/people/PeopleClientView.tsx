@@ -126,7 +126,7 @@ export default function PeopleClientView() {
                 placeholder="Search experts, skills..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full px-4 py-2 pl-9 rounded-full border border-gray-300 bg-gray-50 text-gray-900 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-[#007380] focus:bg-white transition"
+                className="w-full px-4 py-2 pl-9 rounded-full border border-gray-300 bg-gray-50 text-gray-900 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-[#007A3D] focus:bg-white transition"
               />
               <Search className="w-3.5 h-3.5 text-gray-400 absolute left-3 top-3" />
               {searchQuery && (
@@ -231,7 +231,7 @@ export default function PeopleClientView() {
           <div className="mt-14 text-center">
             <button
               onClick={() => setIsExpanded(!isExpanded)}
-              className="px-8 py-3.5 rounded-full bg-[#000000] hover:bg-[#7ceee0] text-white hover:text-black font-semibold text-sm transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105"
+              className="px-8 py-3.5 rounded-full bg-[#000000] hover:bg-[#5EFC8D] text-white hover:text-black font-semibold text-sm transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105"
             >
               {isExpanded
                 ? 'Show Fewer Members'
@@ -269,20 +269,20 @@ export default function PeopleClientView() {
         >
           <div
             onClick={(e) => e.stopPropagation()}
-            className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-[24px] bg-[#000000] border border-[#007380] p-6 sm:p-8 text-white shadow-[0_20px_60px_rgba(0,0,0,0.9),0_0_40px_rgba(0,115,128,0.3)]"
+            className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-[24px] bg-[#000000] border border-[#007A3D] p-6 sm:p-8 text-white shadow-[0_20px_60px_rgba(0,0,0,0.9),0_0_40px_rgba(0,115,128,0.3)]"
           >
             {/* Close Button */}
             <button
               onClick={() => setSelectedMember(null)}
-              className="absolute top-6 right-6 w-9 h-9 rounded-full bg-white/10 hover:bg-[#7ceee0] hover:text-black flex items-center justify-center transition"
+              className="absolute top-6 right-6 w-9 h-9 rounded-full bg-white/10 hover:bg-[#5EFC8D] hover:text-black flex items-center justify-center transition"
               aria-label="Close modal"
             >
               <X className="w-4 h-4" />
             </button>
 
             {/* Modal Header */}
-            <div className="flex flex-col sm:flex-row gap-6 items-start sm:items-center border-b border-[#007380]/40 pb-6 mb-6">
-              <div className="relative w-24 h-24 sm:w-28 sm:h-28 rounded-[16px] overflow-hidden bg-black/50 shrink-0 border border-[#007380]">
+            <div className="flex flex-col sm:flex-row gap-6 items-start sm:items-center border-b border-[#007A3D]/40 pb-6 mb-6">
+              <div className="relative w-24 h-24 sm:w-28 sm:h-28 rounded-[16px] overflow-hidden bg-black/50 shrink-0 border border-[#007A3D]">
                 <img
                   src={selectedMember.image}
                   alt={selectedMember.name}
@@ -291,17 +291,17 @@ export default function PeopleClientView() {
               </div>
 
               <div>
-                <span className="inline-block px-3 py-1 rounded-full bg-[#7ceee0]/10 border border-[#7ceee0]/30 text-[#7ceee0] text-xs font-semibold mb-2">
+                <span className="inline-block px-3 py-1 rounded-full bg-[#5EFC8D]/10 border border-[#5EFC8D]/30 text-[#5EFC8D] text-xs font-semibold mb-2">
                   {selectedMember.department}
                 </span>
-                <h3 className="text-2xl sm:text-3xl font-bold text-[#d3f9f5]">
+                <h3 className="text-2xl sm:text-3xl font-bold text-[#D4FAE6]">
                   {selectedMember.name}
                 </h3>
-                <p className="text-sm sm:text-base text-[#7ceee0] font-medium">
+                <p className="text-sm sm:text-base text-[#5EFC8D] font-medium">
                   {selectedMember.role}
                 </p>
                 <div className="flex items-center gap-1.5 text-xs text-gray-400 mt-2">
-                  <MapPin className="w-3.5 h-3.5 text-[#7ceee0]" />
+                  <MapPin className="w-3.5 h-3.5 text-[#5EFC8D]" />
                   <span>{selectedMember.location}</span>
                 </div>
               </div>
@@ -309,9 +309,9 @@ export default function PeopleClientView() {
 
             {/* Quote Block */}
             {selectedMember.quote && (
-              <div className="rounded-[16px] bg-white/[0.04] border border-[#007380]/40 p-4 mb-6 relative">
+              <div className="rounded-[16px] bg-white/[0.04] border border-[#007A3D]/40 p-4 mb-6 relative">
                 <div className="mb-2">
-                  <QuoteIcon className="w-4 h-4 text-[#7ceee0]" />
+                  <QuoteIcon className="w-4 h-4 text-[#5EFC8D]" />
                 </div>
                 <p className="text-sm sm:text-base text-gray-200 italic leading-relaxed">
                   "{selectedMember.quote}"
@@ -340,7 +340,7 @@ export default function PeopleClientView() {
                     key={index}
                     className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-white/5 border border-white/10 text-xs font-medium text-gray-200"
                   >
-                    <CheckCircle2 className="w-3.5 h-3.5 text-[#7ceee0]" />
+                    <CheckCircle2 className="w-3.5 h-3.5 text-[#5EFC8D]" />
                     <span>{skill}</span>
                   </span>
                 ))}
@@ -348,7 +348,7 @@ export default function PeopleClientView() {
             </div>
 
             {/* Modal Footer Actions */}
-            <div className="flex flex-wrap items-center justify-between gap-4 pt-6 border-t border-[#007380]/40">
+            <div className="flex flex-wrap items-center justify-between gap-4 pt-6 border-t border-[#007A3D]/40">
               {selectedMember.linkedin ? (
                 <a
                   href={selectedMember.linkedin}

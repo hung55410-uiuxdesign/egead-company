@@ -31,10 +31,10 @@ flowchart TD
   - Cột trái: Badge neon `"GLOBAL COMMERCE ALLIANCES 2026"`, H1 cỡ lớn, đoạn giới thiệu tầm nhìn hệ sinh thái tích hợp không ma sát.
   - Cột phải: Khối đồ họa động hiển thị logo E-GEAD ở trung tâm, kết nối bằng các tia sáng neon lan tỏa tới logo của TikTok Shop, Amazon, Etsy, Shopify, Google, Meta, USPS và Stripe.
 - **Thẻ Heading & SEO Keywords**:
-  - `H1`: Integrated with the World's <br/><span className="text-[#7ceee0]">Leading Commerce Ecosystems.</span>
+  - `H1`: Integrated with the World's <br/><span className="text-[#5EFC8D]">Leading Commerce Ecosystems.</span>
   - Từ khóa SEO: `ecommerce marketplace integrations`, `tiktok shop api partner`, `amazon sp-api integration`, `shopify pod fulfillment partner`, `usps commercial shipping partner`.
 - **Nội dung Copywriting**:
-  - *Headline (H1)*: Integrated with the World's <br/><span className="text-[#7ceee0]">Leading Commerce Ecosystems.</span>
+  - *Headline (H1)*: Integrated with the World's <br/><span className="text-[#5EFC8D]">Leading Commerce Ecosystems.</span>
   - *Sub-headline*: E-GEAD bridges your business directly with the world's most powerful marketplaces, storefront technologies, advertising platforms, and national logistics networks. Seamless, secure, and fully automated operations from day one.
   - *CTAs*: `Explore Partner Matrix` | `Become an Ecosystem Partner`.
 

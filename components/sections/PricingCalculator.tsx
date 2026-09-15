@@ -39,16 +39,15 @@ export default function PricingCalculator({ id = 'pricing-calculator', className
     >
       <div className="relative z-10 w-full px-6 sm:px-10 lg:px-14 xl:px-16">
         {/* Header Block */}
-        <div className="text-center max-w-3xl mx-auto mb-14 sm:mb-16">
-          <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#141718] border border-white/10 text-[#d3f9f5] text-xs sm:text-sm font-normal tracking-wider uppercase mb-4 font-montserrat">
-            <DollarSign className="w-3.5 h-3.5 text-[#7ceee0]" aria-hidden="true" />
+        <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-14">
+          <p className="text-base sm:text-lg font-normal text-[#D4FAE6] mb-3 font-montserrat">
             Transparent Unit Economics
-          </span>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-medium tracking-tight text-[#d3f9f5] font-montserrat leading-[1.2]">
-            Transparent <span className="text-[#7ceee0] font-medium">$6 All-In Base Rate</span> &amp; Profit Calculator
+          </p>
+          <h2 className="text-2xl sm:text-3xl lg:text-[34px] font-medium text-[#D4FAE6] font-montserrat leading-[1.3]">
+            Transparent <span className="text-[#5EFC8D] font-medium">$6 All-In Base Rate</span> &amp; Profit Calculator
           </h2>
-          <p className="mt-4 text-base sm:text-lg text-[#b3b3b3] font-light leading-[1.75] font-montserrat max-w-2xl mx-auto">
-            No surprise picking fees, setup charges, or monthly minimums. See your exact take-home profit before printing a single shirt.
+          <p className="mt-4 text-base sm:text-[17px] text-[#b3b3b3] font-light leading-[1.75] font-montserrat max-w-2xl mx-auto">
+            Test real-world profit margins across blank garments, 23-inch DTF prints, and domestic USPS postage with zero hidden surcharges.
           </p>
         </div>
 
@@ -68,14 +67,14 @@ export default function PricingCalculator({ id = 'pricing-calculator', className
                       type="button"
                       aria-pressed={selectedTierId === tier.id}
                       onClick={() => handleTierChange(tier)}
-                      className={`w-full p-4 rounded-2xl text-left border transition-all duration-200 flex items-center justify-between focus:outline-none focus-visible:ring-2 focus-visible:ring-[#25E2CC] ${
+                      className={`w-full p-4 rounded-2xl text-left border transition-all duration-200 flex items-center justify-between focus:outline-none focus-visible:ring-2 focus-visible:ring-[#10E774] ${
                         selectedTierId === tier.id
-                          ? 'bg-[#25E2CC]/15 border-[#25E2CC] text-white shadow-[0_0_20px_rgba(37,226,204,0.15)]'
+                          ? 'bg-[#10E774]/15 border-[#10E774] text-white shadow-[0_0_20px_rgba(16, 231, 116, 0.15)]'
                           : 'bg-[#101416] border-[#262C30] text-[#8C8C8C] hover:text-white hover:border-[#262C30]/80'
                       }`}
                     >
                       <div>
-                        <div className="font-medium text-[#d3f9f5] text-sm sm:text-base font-montserrat">
+                        <div className="font-medium text-[#D4FAE6] text-sm sm:text-base font-montserrat">
                           {tier.name}
                         </div>
                         <div className="text-xs text-[#b3b3b3] font-light font-montserrat mt-0.5">
@@ -83,7 +82,7 @@ export default function PricingCalculator({ id = 'pricing-calculator', className
                         </div>
                       </div>
                       <div className="text-right">
-                        <span className="text-lg sm:text-xl font-medium text-[#7ceee0] font-montserrat">
+                        <span className="text-lg sm:text-xl font-medium text-[#5EFC8D] font-montserrat">
                           ${tier.baseCost.toFixed(2)}
                         </span>
                         <span className="text-[10px] text-[#b3b3b3] uppercase block font-montserrat">All-In</span>
@@ -99,7 +98,7 @@ export default function PricingCalculator({ id = 'pricing-calculator', className
                   <label htmlFor="retail-slider" className="text-xs uppercase tracking-widest font-medium text-[#b3b3b3] font-montserrat">
                     Your Retail Selling Price
                   </label>
-                  <span className="text-2xl sm:text-3xl font-medium text-[#d3f9f5] font-montserrat">
+                  <span className="text-2xl sm:text-3xl font-medium text-[#D4FAE6] font-montserrat">
                     ${retailPrice.toFixed(2)}
                   </span>
                 </div>
@@ -113,11 +112,11 @@ export default function PricingCalculator({ id = 'pricing-calculator', className
                   value={retailPrice}
                   aria-valuetext={`$${retailPrice.toFixed(2)} retail price`}
                   onChange={(e) => setRetailPrice(Number(e.target.value))}
-                  className="w-full h-2 bg-[#1D2224] rounded-lg appearance-none cursor-pointer accent-[#25E2CC] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#25E2CC]"
+                  className="w-full h-2 bg-[#1D2224] rounded-lg appearance-none cursor-pointer accent-[#10E774] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#10E774]"
                   aria-label="Retail Selling Price"
                 />
 
-                <div className="flex justify-between text-[11px] text-[#8C8C8C] font-mono mt-2">
+                <div className="flex justify-between text-[11px] text-[#8C8C8C] font-montserrat mt-2">
                   <span>$15.00 min</span>
                   <span>$35.00 avg</span>
                   <span>$65.00 premium</span>
@@ -126,23 +125,23 @@ export default function PricingCalculator({ id = 'pricing-calculator', className
 
               {/* What $6 includes checklist */}
               <div className="p-4 rounded-2xl bg-[#0A0D0E]/80 border border-[#262C30] space-y-2 text-xs font-montserrat">
-                <span className="text-xs font-bold text-[#25E2CC] uppercase tracking-wider block mb-1">
+                <span className="text-xs font-bold text-[#10E774] uppercase tracking-wider block mb-1">
                   What&apos;s Included in E-GEAD Base Rate:
                 </span>
                 <div className="flex items-center gap-2 text-white">
-                  <Check className="w-3.5 h-3.5 text-[#25E2CC]" aria-hidden="true" />
+                  <Check className="w-3.5 h-3.5 text-[#10E774]" aria-hidden="true" />
                   Premium garment blank (pre-shrunk, 100% cotton)
                 </div>
                 <div className="flex items-center gap-2 text-white">
-                  <Check className="w-3.5 h-3.5 text-[#25E2CC]" aria-hidden="true" />
+                  <Check className="w-3.5 h-3.5 text-[#10E774]" aria-hidden="true" />
                   23-inch full-coverage roll-fed DTF printing
                 </div>
                 <div className="flex items-center gap-2 text-white">
-                  <Check className="w-3.5 h-3.5 text-[#25E2CC]" aria-hidden="true" />
+                  <Check className="w-3.5 h-3.5 text-[#10E774]" aria-hidden="true" />
                   Barcode WMS optical quality scan &amp; sorting
                 </div>
                 <div className="flex items-center gap-2 text-white">
-                  <Check className="w-3.5 h-3.5 text-[#25E2CC]" aria-hidden="true" />
+                  <Check className="w-3.5 h-3.5 text-[#10E774]" aria-hidden="true" />
                   Protective poly-mailer packaging &amp; carrier dispatch
                 </div>
               </div>
@@ -159,14 +158,14 @@ export default function PricingCalculator({ id = 'pricing-calculator', className
                   <span className="text-xs uppercase tracking-wider text-[#8C8C8C] font-semibold font-montserrat">
                     Live P&amp;L Analysis
                   </span>
-                  <h3 className="text-lg font-medium text-[#d3f9f5] font-montserrat mt-0.5">
+                  <h3 className="text-lg font-medium text-[#D4FAE6] font-montserrat mt-0.5">
                     Per-Unit Profitability
                   </h3>
                 </div>
                 <span
-                  className={`px-3 py-1 rounded-full text-xs font-medium font-mono ${
+                  className={`px-3 py-1 rounded-full text-xs font-medium font-montserrat ${
                     marginPercent >= 0
-                      ? 'bg-[#7ceee0]/15 text-[#7ceee0]'
+                      ? 'bg-[#5EFC8D]/15 text-[#5EFC8D]'
                       : 'bg-red-500/15 text-red-400'
                   }`}
                 >
@@ -178,27 +177,27 @@ export default function PricingCalculator({ id = 'pricing-calculator', className
               <div className="space-y-3 text-xs sm:text-sm font-montserrat">
                 <div className="flex justify-between items-center text-[#b3b3b3]">
                   <span>Gross Retail Revenue:</span>
-                  <span className="font-mono text-[#d3f9f5] font-medium">${retailPrice.toFixed(2)}</span>
+                  <span className="font-montserrat text-[#D4FAE6] font-medium">${retailPrice.toFixed(2)}</span>
                 </div>
                 <div className="flex justify-between items-center text-red-400/90">
                   <span>(-) E-GEAD All-In Base Rate:</span>
-                  <span className="font-mono">-${activeTier.baseCost.toFixed(2)}</span>
+                  <span className="font-montserrat">-${activeTier.baseCost.toFixed(2)}</span>
                 </div>
                 <div className="flex justify-between items-center text-red-400/90">
                   <span>(-) Est. Marketplace Fee (6%):</span>
-                  <span className="font-mono">-${platformFee.toFixed(2)}</span>
+                  <span className="font-montserrat">-${platformFee.toFixed(2)}</span>
                 </div>
                 <div className="flex justify-between items-center text-red-400/90">
                   <span>(-) Est. US Domestic Shipping:</span>
-                  <span className="font-mono">-${shippingEst.toFixed(2)}</span>
+                  <span className="font-montserrat">-${shippingEst.toFixed(2)}</span>
                 </div>
                 <div className="pt-3 border-t border-white/10 flex justify-between items-center text-base sm:text-lg font-medium">
-                  <span className={netProfit >= 0 ? 'text-[#7ceee0]' : 'text-red-400'}>
+                  <span className={netProfit >= 0 ? 'text-[#5EFC8D]' : 'text-red-400'}>
                     {netProfit >= 0 ? 'Your Net Profit Per Garment:' : 'Net Loss Per Garment:'}
                   </span>
                   <span
                     className={`text-3xl font-medium font-montserrat ${
-                      netProfit >= 0 ? 'text-[#7ceee0]' : 'text-red-400'
+                      netProfit >= 0 ? 'text-[#5EFC8D]' : 'text-red-400'
                     }`}
                   >
                     {netProfit < 0 ? `-$${Math.abs(netProfit).toFixed(2)}` : `$${netProfit.toFixed(2)}`}
@@ -214,7 +213,7 @@ export default function PricingCalculator({ id = 'pricing-calculator', className
                   </span>
                   <span
                     className={`text-2xl font-medium font-montserrat ${
-                      netProfit >= 0 ? 'text-[#d3f9f5]' : 'text-red-400'
+                      netProfit >= 0 ? 'text-[#D4FAE6]' : 'text-red-400'
                     }`}
                   >
                     {netProfit >= 0
@@ -225,7 +224,7 @@ export default function PricingCalculator({ id = 'pricing-calculator', className
                     {netProfit >= 0 ? 'Clean Net Profit' : 'Estimated Net Loss'}
                   </span>
                 </div>
-                <div className="w-10 h-10 rounded-xl bg-[#25E2CC]/10 border border-[#25E2CC]/30 flex items-center justify-center text-[#25E2CC]">
+                <div className="w-10 h-10 rounded-xl bg-[#10E774]/10 border border-[#10E774]/30 flex items-center justify-center text-[#10E774]">
                   <Percent className="w-5 h-5" aria-hidden="true" />
                 </div>
               </div>
@@ -233,7 +232,7 @@ export default function PricingCalculator({ id = 'pricing-calculator', className
               {/* CTA */}
               <Link
                 href="/contact-us"
-                className="w-full inline-flex items-center justify-center gap-2 py-4 px-6 rounded-2xl bg-[#25E2CC] text-black font-bold text-sm font-montserrat hover:bg-[#1ec2af] transition-all duration-200 shadow-[0_0_20px_rgba(37,226,204,0.3)] hover:scale-[1.02] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#25E2CC]"
+                className="w-full inline-flex items-center justify-center gap-2 py-4 px-6 rounded-2xl bg-[#10E774] text-black font-bold text-sm font-montserrat hover:bg-[#0ecb66] transition-all duration-200 shadow-[0_0_20px_rgba(16, 231, 116, 0.3)] hover:scale-[1.02] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#10E774]"
               >
                 <span>Start Fulfilling at $6 All-In</span>
                 <ArrowRight className="w-4 h-4" aria-hidden="true" />

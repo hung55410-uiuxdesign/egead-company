@@ -36,7 +36,7 @@ flowchart TD
     - `99.8%`: *Aggregate On-Time Dispatch SLA Rate*
     - `0%`: *Account Health Violations Across Partners*
 - **Thẻ Heading & SEO Keywords**:
-  - `H1`: Measurable Growth. <br/><span className="text-[#7ceee0]">Battle-Tested Results.</span>
+  - `H1`: Measurable Growth. <br/><span className="text-[#5EFC8D]">Battle-Tested Results.</span>
   - Từ khóa SEO: `ecommerce case studies`, `tiktok shop us success story`, `pod fulfillment case study`, `cross-border scaling results`.
 
 ---

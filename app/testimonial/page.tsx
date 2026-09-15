@@ -52,12 +52,12 @@ export default function TestimonialPage() {
     <div className="w-full bg-[#0A0D0E] text-white pt-32 sm:pt-40">
       <section className="w-full px-6 sm:px-10 lg:px-14 xl:px-16 mb-20 sm:mb-28">
         <div className="w-full">
-          <span className="text-sm sm:text-base font-normal text-[#d3f9f5] block mb-4">
+          <p className="text-base sm:text-lg font-normal text-[#D4FAE6] mb-4 font-montserrat">
             Client Success &amp; Reviews
-          </span>
-          <h1 className="text-4xl sm:text-6xl lg:text-[72px] font-medium tracking-tight leading-[1.08] text-[#d3f9f5] font-montserrat mb-6">
+          </p>
+          <h1 className="text-4xl sm:text-6xl lg:text-[72px] font-medium tracking-tight leading-[1.08] text-[#D4FAE6] font-montserrat mb-6">
             What Our <br />
-            <span className="text-[#7ceee0] font-medium">Partners Say.</span>
+            <span className="text-[#5EFC8D] font-medium">Partners Say.</span>
           </h1>
           <p className="text-base sm:text-lg lg:text-xl text-[#b3b3b3] font-light leading-[1.75] font-montserrat max-w-3xl">
             From high-growth DTC apparel brands to high-volume marketplace sellers, discover how E-GEAD automates fulfillment, protects SLAs, and drives global e-commerce scale.
@@ -70,10 +70,10 @@ export default function TestimonialPage() {
           {allTestimonials.map((t, idx) => (
             <div
               key={idx}
-              className="p-8 sm:p-10 rounded-[32px] bg-[#141718] border border-white/10 hover:border-[#7ceee0]/40 transition duration-300 flex flex-col justify-between"
+              className="p-8 sm:p-10 rounded-[32px] bg-[#141718] border border-white/10 hover:border-[#5EFC8D]/40 transition duration-300 flex flex-col justify-between"
             >
               <div>
-                <Quote className="w-8 h-8 text-[#7ceee0] opacity-60 mb-6" />
+                <Quote className="w-8 h-8 text-[#5EFC8D] opacity-60 mb-6" />
                 <p className="text-base text-[#b3b3b3] font-light leading-relaxed mb-8">
                   &ldquo;{t.quote}&rdquo;
                 </p>
@@ -84,8 +84,8 @@ export default function TestimonialPage() {
                   <img src={t.avatar} alt={t.role} className="w-full h-full object-cover" />
                 </div>
                 <div>
-                  <h4 className="text-base font-medium text-[#d3f9f5] font-montserrat">{t.role}</h4>
-                  <p className="text-xs text-[#7ceee0] font-light mt-0.5">{t.company}</p>
+                  <h4 className="text-base font-medium text-[#D4FAE6] font-montserrat">{t.role}</h4>
+                  <p className="text-xs text-[#5EFC8D] font-light mt-0.5">{t.company}</p>
                 </div>
               </div>
             </div>

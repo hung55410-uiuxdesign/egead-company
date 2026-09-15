@@ -172,20 +172,20 @@ export function IntegrationBridgeVisualizer({
       {/* Header section */}
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-8 border-b border-white/10">
         <div>
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#25E2CC]/10 border border-[#25E2CC]/25 text-[#25E2CC] text-xs font-mono font-medium uppercase tracking-wider mb-3">
-            <Cpu className="w-3.5 h-3.5" aria-hidden="true" />
+          <p className="text-base sm:text-lg font-normal text-[#D4FAE6] mb-3 font-montserrat flex items-center gap-2">
+            <Cpu className="w-4 h-4 text-[#5EFC8D]" aria-hidden="true" />
             Programmatic Architecture
-          </div>
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-white tracking-tight">
+          </p>
+          <h2 className="text-2xl sm:text-3xl lg:text-[34px] font-medium text-[#D4FAE6] font-montserrat leading-[1.3]">
             {title}
           </h2>
-          <p className="mt-2 text-sm sm:text-base text-gray-400 max-w-2xl font-normal leading-relaxed">
+          <p className="mt-4 text-base sm:text-[17px] text-[#b3b3b3] font-light leading-[1.75] font-montserrat max-w-2xl">
             {subtitle}
           </p>
         </div>
 
-        <div className="text-xs font-mono text-gray-400">
-          <span className="text-[#25E2CC] font-bold">4-Stage Pipeline</span> · Click any block to inspect telemetry
+        <div className="text-xs font-montserrat text-gray-400">
+          <span className="text-[#10E774] font-bold">4-Stage Pipeline</span> · Click any block to inspect telemetry
         </div>
       </div>
 
@@ -213,24 +213,24 @@ export function IntegrationBridgeVisualizer({
               aria-selected={isSelected}
               aria-controls="stage-telemetry-panel"
               onClick={() => setSelectedStageId(stage.id)}
-              className={`text-left p-5 rounded-2xl border transition-all duration-300 relative focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#25E2CC] ${
+              className={`text-left p-5 rounded-2xl border transition-all duration-300 relative focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#10E774] ${
                 isSelected
-                  ? 'bg-gradient-to-br from-[#25E2CC]/20 via-[#1A2224] to-[#0A0D0E] border-[#25E2CC] shadow-xl shadow-[#25E2CC]/15 scale-[1.02]'
+                  ? 'bg-gradient-to-br from-[#10E774]/20 via-[#1A2224] to-[#0A0D0E] border-[#10E774] shadow-xl shadow-[#10E774]/15 scale-[1.02]'
                   : 'bg-[#0A0D0E]/80 border-white/10 hover:border-white/20 text-gray-300 hover:text-white'
               }`}
             >
               {/* Connector dot */}
               <div className="flex items-center justify-between mb-3">
-                <span className="w-7 h-7 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center font-mono text-xs font-bold text-[#25E2CC]">
+                <span className="w-7 h-7 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center font-montserrat text-xs font-bold text-[#10E774]">
                   {stage.stepNumber}
                 </span>
-                <span className="text-[11px] font-mono text-[#25E2CC] font-semibold">
+                <span className="text-[11px] font-montserrat text-[#10E774] font-semibold">
                   {stage.latency}
                 </span>
               </div>
 
               <div className="flex items-center gap-2 mb-1.5">
-                <StageIcon className="w-4 h-4 text-[#25E2CC] shrink-0" aria-hidden="true" />
+                <StageIcon className="w-4 h-4 text-[#10E774] shrink-0" aria-hidden="true" />
                 <h3 className="font-bold text-sm text-white line-clamp-1">
                   {stage.title}
                 </h3>
@@ -256,7 +256,7 @@ export function IntegrationBridgeVisualizer({
           {/* Left Column: Stage Details & Specs (7 cols) */}
           <div className="lg:col-span-7 space-y-6">
             <div>
-              <div className="flex items-center gap-2 text-xs font-mono text-[#25E2CC] mb-2 uppercase font-semibold">
+              <div className="flex items-center gap-2 text-xs font-montserrat text-[#10E774] mb-2 uppercase font-semibold">
                 <Activity className="w-3.5 h-3.5" aria-hidden="true" />
                 <span>Stage {currentStage.stepNumber} · {currentStage.protocol}</span>
               </div>
@@ -271,38 +271,38 @@ export function IntegrationBridgeVisualizer({
             {/* Telemetry specs grid */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4 border-t border-white/10">
               <div className="p-4 rounded-xl bg-white/[0.03] border border-white/5">
-                <div className="text-[11px] font-mono text-gray-400 uppercase">Throughput Scale</div>
-                <div className="text-sm font-mono font-bold text-white mt-1">
+                <div className="text-[11px] font-montserrat text-gray-400 uppercase">Throughput Scale</div>
+                <div className="text-sm font-montserrat font-bold text-white mt-1">
                   {currentStage.telemetry.eventVolume}
                 </div>
               </div>
 
               <div className="p-4 rounded-xl bg-white/[0.03] border border-white/5">
-                <div className="text-[11px] font-mono text-gray-400 uppercase">Security Protocol</div>
-                <div className="text-sm font-mono font-bold text-[#25E2CC] mt-1">
+                <div className="text-[11px] font-montserrat text-gray-400 uppercase">Security Protocol</div>
+                <div className="text-sm font-montserrat font-bold text-[#10E774] mt-1">
                   {currentStage.telemetry.encryption}
                 </div>
               </div>
 
               <div className="p-4 rounded-xl bg-white/[0.03] border border-white/5">
-                <div className="text-[11px] font-mono text-gray-400 uppercase">Reliability Model</div>
-                <div className="text-sm font-mono font-bold text-white mt-1">
+                <div className="text-[11px] font-montserrat text-gray-400 uppercase">Reliability Model</div>
+                <div className="text-sm font-montserrat font-bold text-white mt-1">
                   {currentStage.telemetry.idempotency}
                 </div>
               </div>
             </div>
 
-            <div className="flex items-center gap-2 text-xs font-mono text-gray-400">
-              <ShieldCheck className="w-4 h-4 text-[#25E2CC]" aria-hidden="true" />
+            <div className="flex items-center gap-2 text-xs font-montserrat text-gray-400">
+              <ShieldCheck className="w-4 h-4 text-[#10E774]" aria-hidden="true" />
               <span>Full compliance with SOC2 Type II, CCPA, and GDPR data isolation standards.</span>
             </div>
           </div>
 
           {/* Right Column: Code Payload Telemetry (5 cols) */}
           <div className="lg:col-span-5 flex flex-col justify-between">
-            <div className="rounded-xl bg-[#141718] border border-white/10 p-4 font-mono text-xs overflow-hidden shadow-inner">
+            <div className="rounded-xl bg-[#141718] border border-white/10 p-4 font-montserrat text-xs overflow-hidden shadow-inner">
               <div className="flex items-center justify-between pb-3 mb-3 border-b border-white/10 text-gray-400">
-                <span className="flex items-center gap-1.5 text-[#25E2CC]">
+                <span className="flex items-center gap-1.5 text-[#10E774]">
                   <Code2 className="w-3.5 h-3.5" aria-hidden="true" />
                   <span>Telemetry Payload Event</span>
                 </span>
@@ -310,12 +310,12 @@ export function IntegrationBridgeVisualizer({
                   type="button"
                   onClick={handleCopy}
                   aria-label={copied ? 'Copied payload JSON' : 'Copy payload JSON to clipboard'}
-                  className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-white/5 hover:bg-white/10 border border-white/10 text-[11px] font-mono text-gray-300 hover:text-white transition focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#25E2CC]"
+                  className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-white/5 hover:bg-white/10 border border-white/10 text-[11px] font-montserrat text-gray-300 hover:text-white transition focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#10E774]"
                 >
                   {copied ? (
                     <>
-                      <Check className="w-3 h-3 text-[#25E2CC]" aria-hidden="true" />
-                      <span className="text-[#25E2CC]">Copied</span>
+                      <Check className="w-3 h-3 text-[#10E774]" aria-hidden="true" />
+                      <span className="text-[#10E774]">Copied</span>
                     </>
                   ) : (
                     <>
@@ -328,7 +328,7 @@ export function IntegrationBridgeVisualizer({
               <pre 
                 tabIndex={0} 
                 aria-label="Sample telemetry JSON stream payload"
-                className="text-gray-300 text-[11px] sm:text-xs overflow-x-auto p-1 max-h-64 leading-relaxed focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#25E2CC] rounded"
+                className="text-gray-300 text-[11px] sm:text-xs overflow-x-auto p-1 max-h-64 leading-relaxed focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#10E774] rounded"
               >
                 <code>{currentStage.telemetry.samplePayload}</code>
               </pre>

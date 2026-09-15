@@ -25,7 +25,7 @@ const initialChannels: ChannelStream[] = [
     status: 'Syncing in 0.8s',
     activeOrders: 618,
     syncLatency: '820ms',
-    color: '#25E2CC',
+    color: '#10E774',
   },
   {
     id: 'amazon',
@@ -73,14 +73,14 @@ export default function CockpitHudCard({ className = '' }: CockpitHudCardProps) 
       {/* Title Bar */}
       <div className="flex items-center justify-between pb-4 border-b border-[#262C30] mb-6">
         <div className="flex items-center gap-2">
-          <Activity className="w-4 h-4 text-[#25E2CC] animate-pulse motion-reduce:animate-none" aria-hidden="true" />
+          <Activity className="w-4 h-4 text-[#10E774] animate-pulse motion-reduce:animate-none" aria-hidden="true" />
           <span className="text-xs uppercase tracking-widest font-bold text-white font-montserrat">
             Live Operations Cockpit HUD
           </span>
         </div>
         <div className="flex items-center gap-2">
           <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping motion-reduce:animate-none" />
-          <span className="text-[10px] font-mono font-bold bg-[#25E2CC]/10 text-[#25E2CC] px-2.5 py-1 rounded-full border border-[#25E2CC]/20">
+          <span className="text-[10px] font-montserrat font-bold bg-[#10E774]/10 text-[#10E774] px-2.5 py-1 rounded-full border border-[#10E774]/20">
             Multi-Channel Mesh: Optimal
           </span>
         </div>
@@ -93,10 +93,10 @@ export default function CockpitHudCard({ className = '' }: CockpitHudCardProps) 
             Global Throughput Rate
           </span>
           <div className="flex items-baseline gap-2">
-            <span className="text-2xl sm:text-3xl font-extrabold text-white font-mono">
+            <span className="text-2xl sm:text-3xl font-extrabold text-white font-montserrat">
               {throughput.toLocaleString()}
             </span>
-            <span className="text-xs text-[#25E2CC] font-semibold">orders/hr</span>
+            <span className="text-xs text-[#10E774] font-semibold">orders/hr</span>
           </div>
         </div>
 
@@ -105,7 +105,7 @@ export default function CockpitHudCard({ className = '' }: CockpitHudCardProps) 
             Median Sync Latency
           </span>
           <div className="flex items-baseline gap-2">
-            <span className="text-2xl sm:text-3xl font-extrabold text-[#25E2CC] font-mono">
+            <span className="text-2xl sm:text-3xl font-extrabold text-[#10E774] font-montserrat">
               0.8s
             </span>
             <span className="text-xs text-emerald-400 font-semibold">Zero Desync</span>
@@ -118,7 +118,7 @@ export default function CockpitHudCard({ className = '' }: CockpitHudCardProps) 
         {initialChannels.map((channel) => (
           <div
             key={channel.id}
-            className="flex items-center justify-between p-3.5 rounded-xl bg-[#0A0D0E]/70 border border-[#262C30] hover:border-[#25E2CC]/30 transition-all duration-200"
+            className="flex items-center justify-between p-3.5 rounded-xl bg-[#0A0D0E]/70 border border-[#262C30] hover:border-[#10E774]/30 transition-all duration-200"
           >
             <div className="flex items-center gap-3">
               <span
@@ -130,17 +130,17 @@ export default function CockpitHudCard({ className = '' }: CockpitHudCardProps) 
                 <span className="text-sm font-bold text-white block">
                   {channel.name}
                 </span>
-                <span className="text-[10px] text-[#8C8C8C] font-mono block">
+                <span className="text-[10px] text-[#8C8C8C] font-montserrat block">
                   {channel.badge}
                 </span>
               </div>
             </div>
 
             <div className="text-right">
-              <span className="text-xs font-mono font-bold text-[#25E2CC] block">
+              <span className="text-xs font-montserrat font-bold text-[#10E774] block">
                 {channel.activeOrders} queued
               </span>
-              <span className="text-[10px] text-emerald-400/90 font-mono inline-flex items-center gap-1">
+              <span className="text-[10px] text-emerald-400/90 font-montserrat inline-flex items-center gap-1">
                 <RefreshCw className="w-2.5 h-2.5 animate-spin motion-reduce:animate-none" style={{ animationDuration: '4s' }} aria-hidden="true" />
                 {channel.syncLatency}
               </span>
@@ -152,10 +152,10 @@ export default function CockpitHudCard({ className = '' }: CockpitHudCardProps) 
       {/* Safety Buffer Guarantee Footer */}
       <div className="mt-6 pt-4 border-t border-[#262C30] flex items-center justify-between text-xs text-[#8C8C8C] font-montserrat">
         <span className="flex items-center gap-1.5 text-white">
-          <CheckCircle2 className="w-3.5 h-3.5 text-[#25E2CC]" aria-hidden="true" />
+          <CheckCircle2 className="w-3.5 h-3.5 text-[#10E774]" aria-hidden="true" />
           Safety Stock Buffer Protected
         </span>
-        <span className="font-mono text-[11px] text-emerald-400 font-semibold">
+        <span className="font-montserrat text-[11px] text-emerald-400 font-semibold">
           0 Overselling Incidents
         </span>
       </div>

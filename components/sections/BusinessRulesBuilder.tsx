@@ -80,14 +80,14 @@ export default function BusinessRulesBuilder({
       <div className="relative z-10 w-full px-6 sm:px-10 lg:px-14 xl:px-16">
         {/* Header Block */}
         <div className="text-center max-w-3xl mx-auto mb-14 sm:mb-16">
-          <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#141718] border border-white/10 text-[#d3f9f5] text-xs sm:text-sm font-normal tracking-wider uppercase mb-4 font-montserrat">
-            <Cpu className="w-3.5 h-3.5 text-[#7ceee0]" aria-hidden="true" />
+          <p className="text-base sm:text-lg font-normal text-[#D4FAE6] mb-3 font-montserrat flex items-center justify-center gap-2">
+            <Cpu className="w-4 h-4 text-[#5EFC8D]" aria-hidden="true" />
             No-Code Automation Builder
-          </span>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-medium tracking-tight text-[#d3f9f5] font-montserrat leading-[1.2]">
-            Intelligent Business Rules &amp; <span className="text-[#7ceee0] font-medium">Exception Handling</span> Engine
+          </p>
+          <h2 className="text-2xl sm:text-3xl lg:text-[34px] font-medium text-[#D4FAE6] font-montserrat leading-[1.3]">
+            Intelligent Business Rules &amp; <span className="text-[#5EFC8D] font-medium">Exception Handling</span> Engine
           </h2>
-          <p className="mt-4 text-base sm:text-lg text-[#b3b3b3] font-light leading-[1.75] font-montserrat max-w-2xl mx-auto">
+          <p className="mt-4 text-base sm:text-[17px] text-[#b3b3b3] font-light leading-[1.75] font-montserrat max-w-2xl mx-auto">
             Build custom fulfillment workflows in plain English. Automate carrier upgrades, intercept flawed addresses, and protect margins without writing a single line of code.
           </p>
         </div>
@@ -101,7 +101,7 @@ export default function BusinessRulesBuilder({
                 <span className="text-xs uppercase font-bold tracking-wider text-[#8C8C8C] font-montserrat">
                   Configured Workflow Rules
                 </span>
-                <span className="text-xs font-mono text-[#25E2CC] font-bold">
+                <span className="text-xs font-montserrat text-[#10E774] font-bold">
                   {totalExecutions.toLocaleString()} executions/mo
                 </span>
               </div>
@@ -121,14 +121,14 @@ export default function BusinessRulesBuilder({
                         setSelectedRuleId(rule.id);
                       }
                     }}
-                    className={`p-4 rounded-2xl border transition-all duration-200 cursor-pointer text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-[#25E2CC] ${
+                    className={`p-4 rounded-2xl border transition-all duration-200 cursor-pointer text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-[#10E774] ${
                       isSelected
-                        ? 'bg-[#1D2224] border-[#25E2CC]/50 shadow-[0_0_15px_rgba(37,226,204,0.15)]'
+                        ? 'bg-[#1D2224] border-[#10E774]/50 shadow-[0_0_15px_rgba(16, 231, 116, 0.15)]'
                         : 'bg-[#0A0D0E]/80 border-[#262C30] hover:border-[#8C8C8C]/40'
                     }`}
                   >
                     <div className="flex items-center justify-between mb-2">
-                      <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded bg-[#141718] text-[#25E2CC] border border-[#25E2CC]/20">
+                      <span className="text-[10px] font-montserrat uppercase px-2 py-0.5 rounded bg-[#141718] text-[#10E774] border border-[#10E774]/20">
                         {rule.category}
                       </span>
 
@@ -142,8 +142,8 @@ export default function BusinessRulesBuilder({
                           e.stopPropagation();
                           toggleRule(rule.id);
                         }}
-                        className={`relative inline-flex h-5 w-10 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus-visible:ring-2 focus-visible:ring-[#25E2CC] ${
-                          rule.active ? 'bg-[#25E2CC]' : 'bg-[#262C30]'
+                        className={`relative inline-flex h-5 w-10 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus-visible:ring-2 focus-visible:ring-[#10E774] ${
+                          rule.active ? 'bg-[#10E774]' : 'bg-[#262C30]'
                         }`}
                       >
                         <span
@@ -155,11 +155,11 @@ export default function BusinessRulesBuilder({
                       </button>
                     </div>
 
-                    <h4 className="text-sm font-medium text-[#d3f9f5] font-montserrat leading-snug">
+                    <h4 className="text-sm font-medium text-[#D4FAE6] font-montserrat leading-snug">
                       {rule.title}
                     </h4>
 
-                    <div className="mt-2 flex items-center justify-between text-[11px] font-mono text-[#8C8C8C]">
+                    <div className="mt-2 flex items-center justify-between text-[11px] font-montserrat text-[#8C8C8C]">
                       <span>{rule.active ? 'Active Rule' : 'Paused'}</span>
                       <span className="text-emerald-400">
                         {rule.active ? `${rule.monthlyExecutions} runs` : 'Inactive'}
@@ -180,12 +180,12 @@ export default function BusinessRulesBuilder({
                   <span className="text-xs uppercase tracking-wider text-[#8C8C8C] font-semibold font-montserrat">
                     Visual Automation Logic
                   </span>
-                  <h3 className="text-lg font-medium text-[#d3f9f5] font-montserrat mt-0.5">
+                  <h3 className="text-lg font-medium text-[#D4FAE6] font-montserrat mt-0.5">
                     {activeRule.title}
                   </h3>
                 </div>
                 <span
-                  className={`px-3 py-1 rounded-full text-xs font-bold font-mono ${
+                  className={`px-3 py-1 rounded-full text-xs font-bold font-montserrat ${
                     activeRule.active
                       ? 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/30'
                       : 'bg-[#262C30] text-[#8C8C8C]'
@@ -197,28 +197,28 @@ export default function BusinessRulesBuilder({
 
               {/* Step 1: TRIGGER */}
               <div className="p-4 rounded-2xl bg-[#141718] border border-[#262C30]">
-                <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#25E2CC] block mb-1">
+                <span className="text-[10px] font-montserrat font-bold uppercase tracking-wider text-[#10E774] block mb-1">
                   Step 1: Ingestion Trigger
                 </span>
                 <div className="flex items-center gap-2 text-white font-bold font-montserrat text-sm">
-                  <Zap className="w-4 h-4 text-[#25E2CC]" aria-hidden="true" />
+                  <Zap className="w-4 h-4 text-[#10E774]" aria-hidden="true" />
                   <span>{activeRule.trigger}</span>
                 </div>
               </div>
 
               {/* Step 2: CONDITION (IF) */}
-              <div className="p-4 rounded-2xl bg-[#1D2224]/70 border border-[#25E2CC]/30 relative">
-                <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-amber-400 block mb-1">
+              <div className="p-4 rounded-2xl bg-[#1D2224]/70 border border-[#10E774]/30 relative">
+                <span className="text-[10px] font-montserrat font-bold uppercase tracking-wider text-amber-400 block mb-1">
                   Step 2: Conditional Evaluation (IF)
                 </span>
-                <div className="text-white font-mono text-xs sm:text-sm font-semibold bg-[#0A0D0E] p-3 rounded-xl border border-[#262C30]">
+                <div className="text-white font-montserrat text-xs sm:text-sm font-semibold bg-[#0A0D0E] p-3 rounded-xl border border-[#262C30]">
                   <code>IF ({activeRule.condition})</code>
                 </div>
               </div>
 
               {/* Step 3: ACTION (THEN) */}
               <div className="p-4 rounded-2xl bg-[#141718] border border-[#262C30]">
-                <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-emerald-400 block mb-1">
+                <span className="text-[10px] font-montserrat font-bold uppercase tracking-wider text-emerald-400 block mb-1">
                   Step 3: Automated Action (THEN)
                 </span>
                 <div className="flex items-start gap-2 text-white font-montserrat text-xs sm:text-sm leading-relaxed">
@@ -228,16 +228,16 @@ export default function BusinessRulesBuilder({
               </div>
 
               {/* Business Impact Metric */}
-              <div className="p-4 rounded-2xl bg-[#25E2CC]/10 border border-[#25E2CC]/30 flex items-center justify-between">
+              <div className="p-4 rounded-2xl bg-[#10E774]/10 border border-[#10E774]/30 flex items-center justify-between">
                 <div>
                   <span className="text-[10px] uppercase tracking-wider text-[#8C8C8C] font-montserrat block">
                     Proven Merchant ROI Impact
                   </span>
-                  <span className="text-xs sm:text-sm font-medium text-[#7ceee0] font-montserrat block mt-0.5">
+                  <span className="text-xs sm:text-sm font-medium text-[#5EFC8D] font-montserrat block mt-0.5">
                     {activeRule.businessImpact}
                   </span>
                 </div>
-                <Sparkles className="w-5 h-5 text-[#25E2CC] flex-shrink-0" aria-hidden="true" />
+                <Sparkles className="w-5 h-5 text-[#10E774] flex-shrink-0" aria-hidden="true" />
               </div>
             </div>
           </div>

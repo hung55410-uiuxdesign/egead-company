@@ -42,12 +42,12 @@ export const metadata = {
 ```tsx
 <section className="w-full px-6 sm:px-10 lg:px-14 xl:px-16 mb-20 sm:mb-28">
   <div className="max-w-4xl">
-    <span className="text-xs sm:text-sm font-bold tracking-widest uppercase text-[#7ceee0] block mb-4">
+    <span className="text-xs sm:text-sm font-bold tracking-widest uppercase text-[#5EFC8D] block mb-4">
       Services & Solutions Portfolio
     </span>
     <h1 className="text-4xl sm:text-6xl md:text-7xl font-black tracking-tight leading-[1.1] mb-6">
       AUTOMATE OPERATIONS, <br />
-      SCALE <span className="text-[#7ceee0]">GLOBAL COMMERCE.</span>
+      SCALE <span className="text-[#5EFC8D]">GLOBAL COMMERCE.</span>
     </h1>
     <p className="text-lg sm:text-xl text-gray-300 font-normal leading-relaxed max-w-3xl">
       E-GEAD mang đến hệ sinh thái giải pháp trọn vẹn từ tự động hóa quy trình bán hàng, tích hợp sàn TMĐT quốc tế, hoàn tất sản xuất POD tại Mỹ dưới 24 giờ đến bứt phá doanh số bằng quảng cáo hiệu suất cao.

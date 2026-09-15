@@ -54,12 +54,12 @@ export default function ContactUsPage() {
       {/* Hero Header */}
       <section className="w-full px-6 sm:px-10 lg:px-14 xl:px-16 mb-16 sm:mb-24">
         <div className="w-full">
-          <span className="text-sm sm:text-base font-normal text-[#d3f9f5] block mb-4">
+          <p className="text-base sm:text-lg font-normal text-[#D4FAE6] mb-4 font-montserrat">
             Get in Touch
-          </span>
-          <h1 className="text-4xl sm:text-6xl lg:text-[72px] font-medium tracking-tight leading-[1.08] text-[#d3f9f5] font-montserrat mb-6">
+          </p>
+          <h1 className="text-4xl sm:text-6xl lg:text-[72px] font-medium tracking-tight leading-[1.08] text-[#D4FAE6] font-montserrat mb-6">
             Automate Operations, <br />
-            <span className="text-[#7ceee0] font-medium">Scale Globally.</span>
+            <span className="text-[#5EFC8D] font-medium">Scale Globally.</span>
           </h1>
           <p className="text-base sm:text-lg lg:text-xl text-[#b3b3b3] font-light leading-[1.75] font-montserrat max-w-3xl">
             Let's discuss how E-GEAD can automate your multi-channel storefronts, guarantee sub-24h US POD fulfillment, and scale your brand across international marketplaces.
@@ -72,7 +72,7 @@ export default function ContactUsPage() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
           {/* Left Form */}
           <div className="lg:col-span-7 bg-[#141718] p-8 sm:p-12 rounded-[36px] border border-white/10 shadow-2xl">
-            <h2 className="text-2xl sm:text-3xl font-medium text-[#d3f9f5] mb-2 font-montserrat">
+            <h2 className="text-2xl sm:text-3xl font-medium text-[#D4FAE6] mb-2 font-montserrat">
               Send us a message
             </h2>
             <p className="text-sm text-[#b3b3b3] font-light mb-8">
@@ -80,15 +80,15 @@ export default function ContactUsPage() {
             </p>
 
             {submitted ? (
-              <div className="p-8 rounded-2xl bg-[#7ceee0]/10 border border-[#7ceee0]/30 text-center py-12">
-                <CheckCircle className="w-12 h-12 text-[#7ceee0] mx-auto mb-4" />
+              <div className="p-8 rounded-2xl bg-[#5EFC8D]/10 border border-[#5EFC8D]/30 text-center py-12">
+                <CheckCircle className="w-12 h-12 text-[#5EFC8D] mx-auto mb-4" />
                 <h3 className="text-xl font-bold text-white mb-2">Message received!</h3>
                 <p className="text-sm text-gray-300 max-w-md mx-auto">
                   Thank you for reaching out to E-GEAD. Our operations team has received your inquiry and will be in touch within 24 hours.
                 </p>
                 <button
                   onClick={() => setSubmitted(false)}
-                  className="mt-6 px-6 py-2.5 rounded-full bg-[#7ceee0] text-black text-xs font-bold uppercase tracking-wider"
+                  className="mt-6 px-6 py-2.5 rounded-full bg-[#5EFC8D] text-black text-xs font-bold uppercase tracking-wider"
                 >
                   Send another inquiry
                 </button>
@@ -106,7 +106,7 @@ export default function ContactUsPage() {
                       placeholder="Jane Doe"
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      className="w-full bg-[#0A0D0E] border border-white/15 rounded-xl px-4 py-3 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-[#7ceee0]"
+                      className="w-full bg-[#0A0D0E] border border-white/15 rounded-xl px-4 py-3 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-[#5EFC8D]"
                     />
                   </div>
                   <div>
@@ -119,7 +119,7 @@ export default function ContactUsPage() {
                       placeholder="jane@company.com"
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      className="w-full bg-[#0A0D0E] border border-white/15 rounded-xl px-4 py-3 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-[#7ceee0]"
+                      className="w-full bg-[#0A0D0E] border border-white/15 rounded-xl px-4 py-3 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-[#5EFC8D]"
                     />
                   </div>
                 </div>
@@ -135,7 +135,7 @@ export default function ContactUsPage() {
                       placeholder="Acme Corp"
                       value={formData.company}
                       onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-                      className="w-full bg-[#0A0D0E] border border-white/15 rounded-xl px-4 py-3 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-[#7ceee0]"
+                      className="w-full bg-[#0A0D0E] border border-white/15 rounded-xl px-4 py-3 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-[#5EFC8D]"
                     />
                   </div>
                   <div>
@@ -145,7 +145,7 @@ export default function ContactUsPage() {
                     <select
                       value={formData.service}
                       onChange={(e) => setFormData({ ...formData, service: e.target.value })}
-                      className="w-full bg-[#0A0D0E] border border-white/15 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-[#7ceee0]"
+                      className="w-full bg-[#0A0D0E] border border-white/15 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-[#5EFC8D]"
                     >
                       <option value="US Print-on-Demand Fulfillment (<24H SLA)">US Print-on-Demand Fulfillment (&lt;24H SLA)</option>
                       <option value="Sales Automation & Multi-Channel Sync">Sales Automation & Multi-Channel Sync</option>
@@ -166,13 +166,13 @@ export default function ContactUsPage() {
                     placeholder="Tell us about your storefront, order volume, or operational challenges..."
                     value={formData.message}
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                    className="w-full bg-[#0A0D0E] border border-white/15 rounded-xl px-4 py-3 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-[#7ceee0]"
+                    className="w-full bg-[#0A0D0E] border border-white/15 rounded-xl px-4 py-3 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-[#5EFC8D]"
                   />
                 </div>
 
                 <button
                   type="submit"
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-[#7ceee0] hover:bg-[#68d8ca] text-black font-medium text-sm px-8 py-3.5 rounded-full transition duration-300"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-[#5EFC8D] hover:bg-[#4ee37e] text-black font-medium text-sm px-8 py-3.5 rounded-full transition duration-300"
                 >
                   <span>Submit Inquiry</span>
                   <Send className="w-4 h-4" />
@@ -187,29 +187,29 @@ export default function ContactUsPage() {
               <h3 className="text-xl font-bold text-white mb-4">Direct Contacts</h3>
               <div className="space-y-4 text-sm text-gray-300">
                 <div className="flex items-center gap-3">
-                  <div className="w-9 h-9 rounded-full bg-white/5 flex items-center justify-center text-[#7ceee0]">
+                  <div className="w-9 h-9 rounded-full bg-white/5 flex items-center justify-center text-[#5EFC8D]">
                     <Mail className="w-4 h-4" />
                   </div>
                   <div>
                     <span className="block text-xs text-gray-400 font-semibold">General & Sales Inquiries</span>
-                    <a href="mailto:support@egead.com" className="hover:text-[#7ceee0] transition">
+                    <a href="mailto:support@egead.com" className="hover:text-[#5EFC8D] transition">
                       support@egead.com
                     </a>
                   </div>
                 </div>
                 <div className="flex items-center gap-3">
-                  <div className="w-9 h-9 rounded-full bg-white/5 flex items-center justify-center text-[#7ceee0]">
+                  <div className="w-9 h-9 rounded-full bg-white/5 flex items-center justify-center text-[#5EFC8D]">
                     <Mail className="w-4 h-4" />
                   </div>
                   <div>
                     <span className="block text-xs text-gray-400 font-semibold">Partnership & US Operations</span>
-                    <a href="mailto:contact@egeadcompany.com" className="hover:text-[#7ceee0] transition">
+                    <a href="mailto:contact@egeadcompany.com" className="hover:text-[#5EFC8D] transition">
                       contact@egeadcompany.com
                     </a>
                   </div>
                 </div>
                 <div className="flex items-center gap-3">
-                  <div className="w-9 h-9 rounded-full bg-white/5 flex items-center justify-center text-[#7ceee0]">
+                  <div className="w-9 h-9 rounded-full bg-white/5 flex items-center justify-center text-[#5EFC8D]">
                     <MapPin className="w-4 h-4" />
                   </div>
                   <div>
@@ -234,10 +234,10 @@ export default function ContactUsPage() {
       {/* Global Offices Section */}
       <section id="offices" className="w-full px-6 sm:px-10 lg:px-14 xl:px-16">
         <div className="mb-12">
-          <span className="text-sm sm:text-base font-normal text-[#d3f9f5] block mb-2 font-montserrat">
+          <span className="text-sm sm:text-base font-normal text-[#D4FAE6] block mb-2 font-montserrat">
             Global Operations
           </span>
-          <h2 className="text-2xl sm:text-3xl lg:text-[34px] font-medium text-[#d3f9f5] font-montserrat">
+          <h2 className="text-2xl sm:text-3xl lg:text-[34px] font-medium text-[#D4FAE6] font-montserrat">
             Our Headquarters &amp; Operational Network
           </h2>
         </div>
@@ -246,16 +246,16 @@ export default function ContactUsPage() {
           {offices.map((off, idx) => (
             <div
               key={idx}
-              className="p-6 rounded-2xl bg-[#141718] border border-white/10 hover:border-[#7ceee0]/40 transition duration-300"
+              className="p-6 rounded-2xl bg-[#141718] border border-white/10 hover:border-[#5EFC8D]/40 transition duration-300"
             >
-              <span className="text-xs text-[#7ceee0] uppercase block mb-1 font-normal">
+              <span className="text-xs text-[#5EFC8D] uppercase block mb-1 font-normal">
                 {off.type}
               </span>
-              <h3 className="text-lg sm:text-xl font-medium text-[#d3f9f5] mb-2 font-montserrat">{off.country}</h3>
+              <h3 className="text-lg sm:text-xl font-medium text-[#D4FAE6] mb-2 font-montserrat">{off.country}</h3>
               <p className="text-xs text-[#b3b3b3] font-light mb-3 leading-relaxed">{off.address}</p>
               <a
                 href={`mailto:${off.email}`}
-                className="text-xs text-[#7ceee0] hover:underline font-mono"
+                className="text-xs text-[#5EFC8D] hover:underline font-montserrat"
               >
                 {off.email}
               </a>

@@ -32,7 +32,7 @@ describe('Phase 4 SmartCommerce Page Verification', () => {
     // 1. Hero Section
     test('renders Section 1: Enterprise Cockpit Hero with Real-Time Data HUD', () => {
       expect(html).toContain('id="platform-hero"');
-      expect(html).toContain('CENTRALIZED COMMERCE OS');
+      expect(html).toContain('Centralized Commerce OS');
       expect(html).toContain('Eweb-platform: Unified Operations.');
       expect(html).toContain('Master Multi-Channel Margins.');
       expect(html).toContain('Explore Cockpit Demo');

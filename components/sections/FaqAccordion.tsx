@@ -76,22 +76,21 @@ export default function FaqAccordion({
       )}
 
       {/* Subtle background glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-[#25E2CC]/5 blur-[160px] rounded-full pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-[#10E774]/5 blur-[160px] rounded-full pointer-events-none" />
 
       <div className="relative z-10 w-full px-6 sm:px-10 lg:px-14 xl:px-16">
         {/* Header Block */}
-        <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
+        <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-14">
           {badge && (
-            <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#141718] border border-white/10 text-[#d3f9f5] text-xs sm:text-sm font-normal tracking-wider uppercase mb-4 font-montserrat">
-              <HelpCircle className="w-3.5 h-3.5 text-[#7ceee0]" aria-hidden="true" />
+            <p className="text-base sm:text-lg font-normal text-[#D4FAE6] mb-3 font-montserrat">
               {badge}
-            </span>
+            </p>
           )}
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-medium tracking-tight text-[#d3f9f5] font-montserrat leading-[1.2]">
+          <h2 className="text-2xl sm:text-3xl lg:text-[34px] font-medium text-[#D4FAE6] font-montserrat leading-[1.3]">
             {title}
           </h2>
           {subtitle && (
-            <p className="mt-4 text-base sm:text-lg text-[#b3b3b3] font-light leading-[1.75] font-montserrat max-w-2xl mx-auto">
+            <p className="mt-4 text-base sm:text-[17px] text-[#b3b3b3] font-light leading-[1.75] font-montserrat max-w-2xl mx-auto">
               {subtitle}
             </p>
           )}
@@ -110,8 +109,8 @@ export default function FaqAccordion({
                 }}
                 className={`px-4 py-2 rounded-full text-xs sm:text-sm font-medium font-montserrat transition-all duration-200 focus:outline-none ${
                   activeCategory === cat
-                    ? 'bg-[#7ceee0] text-black shadow-[0_0_20px_rgba(124,238,224,0.3)]'
-                    : 'bg-[#141718] text-[#b3b3b3] border border-white/10 hover:text-[#d3f9f5] hover:border-[#7ceee0]/40'
+                    ? 'bg-[#5EFC8D] text-black shadow-[0_0_20px_rgba(94, 252, 141, 0.3)]'
+                    : 'bg-[#141718] text-[#b3b3b3] border border-white/10 hover:text-[#D4FAE6] hover:border-[#5EFC8D]/40'
                 }`}
               >
                 {cat}
@@ -132,7 +131,7 @@ export default function FaqAccordion({
                 key={idx}
                 className={`rounded-[24px] border transition-all duration-300 overflow-hidden bg-[#141718]/90 backdrop-blur-sm ${
                   isOpen
-                    ? 'border-[#7ceee0]/40 shadow-[0_0_25px_rgba(124,238,224,0.08)]'
+                    ? 'border-[#5EFC8D]/40 shadow-[0_0_25px_rgba(94, 252, 141, 0.08)]'
                     : 'border-white/10 hover:border-white/20'
                 }`}
               >
@@ -145,13 +144,13 @@ export default function FaqAccordion({
                     aria-controls={panelId}
                     className="w-full text-left px-6 sm:px-8 py-6 flex items-center justify-between gap-4 focus:outline-none"
                   >
-                    <span className="font-medium text-[#d3f9f5] text-base sm:text-lg font-montserrat leading-snug group-hover:text-[#7ceee0] transition-colors">
+                    <span className="font-medium text-[#D4FAE6] text-base sm:text-lg font-montserrat leading-snug group-hover:text-[#5EFC8D] transition-colors">
                       {item.question}
                     </span>
                     <div
                       className={`w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0 transition-transform duration-300 ${
                         isOpen
-                          ? 'bg-[#7ceee0] text-black rotate-180 shadow-[0_0_15px_rgba(124,238,224,0.4)]'
+                          ? 'bg-[#5EFC8D] text-black rotate-180 shadow-[0_0_15px_rgba(94, 252, 141, 0.4)]'
                           : 'bg-[#1D2224] text-[#b3b3b3] border border-white/10'
                       }`}
                     >

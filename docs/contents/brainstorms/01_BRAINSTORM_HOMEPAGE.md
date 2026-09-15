@@ -45,7 +45,7 @@ Biến toàn bộ Trang chủ thành một phễu bán lẻ & giải pháp công
   <span className="group inline-flex items-center gap-2 ...">
     <img src="/assets/icon.svg" alt="" className="w-3.5 h-3.5 object-contain" />
     <span>
-      US POD FULFILLMENT · <span className="underline decoration-[#25E2CC] font-bold text-white group-hover:text-[#25E2CC]">FULFILLED IN UNDER 24 HOURS</span>
+      US POD FULFILLMENT · <span className="underline decoration-[#10E774] font-bold text-white group-hover:text-[#10E774]">FULFILLED IN UNDER 24 HOURS</span>
     </span>
   </span>
   ```
@@ -56,13 +56,13 @@ Biến toàn bộ Trang chủ thành một phễu bán lẻ & giải pháp công
 - **Nội dung cũ**:
   - H1: `BUILD FASTER. RUN SMARTER. SCALE GLOBALLY.`
   - P: `We help leading enterprises design, build, run, and grow intelligent experiences`
-- **Nội dung đề xuất mới (Khớp 100% style & màu nhấn `#25E2CC`)**:
+- **Nội dung đề xuất mới (Khớp 100% style & màu nhấn `#10E774`)**:
   - H1:
     ```tsx
     <h1 className="font-montserrat font-bold text-4xl sm:text-6xl md:text-7xl lg:text-[76px] tracking-tight uppercase leading-[1.08] text-white max-w-5xl">
-      AUTOMATE <span className="text-[#25E2CC]">OPERATIONS.</span>
+      AUTOMATE <span className="text-[#10E774]">OPERATIONS.</span>
       <br />
-      SCALE <span className="text-[#25E2CC]">GLOBAL SALES.</span>
+      SCALE <span className="text-[#10E774]">GLOBAL SALES.</span>
     </h1>
     ```
   - P:
@@ -94,7 +94,7 @@ Web gốc `egeadcompany.com` có 5 slide trình chiếu:
 - **Subtitle**: `CAPABILITIES & ECOSYSTEM` (thay vì `Services`).
 - **H2 Title**:
   - Cũ: `Complete CX transformation capabilities.`
-  - Mới: `End-to-End <span className="text-[#25E2CC]">E-Commerce Growth</span> Ecosystem.`
+  - Mới: `End-to-End <span className="text-[#10E774]">E-Commerce Growth</span> Ecosystem.`
 - **CTA Link**: `Explore All Capabilities` -> `/services/all-services`.
 
 #### B. Ma trận 4 Thẻ Dịch vụ Cốt lõi (Giữ nguyên cấu trúc 4 card grid, `min-h-[380px]`)
@@ -142,7 +142,7 @@ Component này có thiết kế rất sang trọng với badge, tiêu đề, đo
 - **Badge Subtitle**: `PROPRIETARY TECHNOLOGY` (Công nghệ độc quyền).
 - **Tiêu đề H2**:
   - Cũ: `Intelligent solutions for specific challenges.`
-  - Mới: `Intelligent Automation <span className="text-[#25E2CC]">For Global Sellers</span>.`
+  - Mới: `Intelligent Automation <span className="text-[#10E774]">For Global Sellers</span>.`
 - **Đoạn văn mô tả (Description)**:
   - Cũ: "40+ intelligent modules built from 15 years of enterprise commerce experience. Each addresses specific challenges with measurable impact: 93% demand forecasting accuracy..."
   - Mới: 

@@ -140,7 +140,7 @@ export default function Header() {
                           onClick={() => setActiveDropdown(null)}
                           className="group p-2.5 rounded-xl hover:bg-white/10 transition flex flex-col"
                         >
-                          <span className="text-[13.5px] font-semibold text-white group-hover:text-[#25E2CC] transition">
+                          <span className="text-[13.5px] font-semibold text-white group-hover:text-[#10E774] transition">
                             {sub.label}
                           </span>
                           {sub.desc && (
@@ -183,7 +183,7 @@ export default function Header() {
                       }}
                       className={`w-full text-left px-3 py-2 rounded-xl text-xs font-semibold transition ${
                         selectedLang === lang
-                          ? 'bg-[#25E2CC]/20 text-[#25E2CC]'
+                          ? 'bg-[#10E774]/20 text-[#10E774]'
                           : 'text-gray-300 hover:bg-white/10 hover:text-white'
                       }`}
                     >
@@ -197,7 +197,7 @@ export default function Header() {
             {/* Let's Talk Button - exact live site styling: rgb(0, 61, 91), border-radius 40px, padding 14px 22px */}
             <Link
               href="/contact-us"
-              className="inline-flex items-center gap-2 bg-[#25E2CC] hover:bg-[#1ec2af] text-[#003D5B] font-semibold text-[15px] px-5 sm:px-6 py-2.5 sm:py-3 rounded-full transition duration-200 shadow-[0_0_20px_rgba(37,226,204,0.35)] hover:shadow-[0_0_25px_rgba(37,226,204,0.5)] shrink-0"
+              className="inline-flex items-center gap-2 bg-[#10E774] hover:bg-[#0ecb66] text-[#003D5B] font-semibold text-[15px] px-5 sm:px-6 py-2.5 sm:py-3 rounded-full transition duration-200 shadow-[0_0_20px_rgba(16, 231, 116, 0.35)] hover:shadow-[0_0_25px_rgba(16, 231, 116, 0.5)] shrink-0"
             >
               <svg
                 width="16"

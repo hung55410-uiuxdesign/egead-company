@@ -24,7 +24,12 @@ body {
   padding: 0;
 }
 
+code, pre, kbd, samp {
+  font-family: var(--font-montserrat), Montserrat, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
 h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-montserrat), Montserrat, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   font-weight: 500;
 }
 
@@ -44,24 +49,25 @@ b, strong {
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #25E2CC;
+  background: #10E774;
 }
 
 /* Neon glow & text highlights */
 .text-neon {
-  color: #25E2CC;
+  color: #10E774;
 }
 
 .bg-neon {
-  background-color: #25E2CC;
+  background-color: #10E774;
 }
 
 .border-neon {
-  border-color: #25E2CC;
+  border-color: #10E774;
 }
 
-.glow-teal {
-  box-shadow: 0 0 25px rgba(37, 226, 204, 0.35);
+.glow-teal,
+.glow-neon {
+  box-shadow: 0 0 25px rgba(16, 231, 116, 0.35);
 }
 
 .card-blur {
@@ -74,3 +80,370 @@ b, strong {
 .pause-hover:hover {
   animation-play-state: paused;
 }
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  animation: marquee 35s linear infinite;
+}
+
+/* ==========================================================================
+   SPEEDX SIGNATURE SECTION STYLES (SAI DIGITAL 1:1 FIDELITY)
+   ========================================================================== */
+
+.speedx {
+  position: relative;
+  overflow: hidden;
+}
+
+.speedx .product-overview__header {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+@media (min-width: 1024px) {
+  .speedx .product-overview__header {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 60px;
+  }
+}
+
+.speedx-subtitle,
+.why-speedx-subtitle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 35px;
+  padding: 8px 16px;
+  border-radius: 8px;
+  background: #1c1e24;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.speedx .ant-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 28px;
+  border-radius: 60px;
+  background: #10E774;
+  color: #040404;
+  font-weight: 600;
+  font-size: 15px;
+  line-height: 1;
+  text-decoration: none;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 0 20px rgba(16, 231, 116, 0.25);
+  cursor: pointer;
+}
+
+.speedx .ant-btn-primary:hover {
+  background: #5EFC8D;
+  transform: translateY(-2px);
+  box-shadow: 0 0 30px rgba(16, 231, 116, 0.45);
+}
+
+.speedx .normal-button {
+  background: #1c1e24;
+  color: #FFFFFF;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: none;
+}
+
+.speedx .normal-button:hover {
+  background: #252a32;
+  border-color: #10E774;
+  color: #10E774;
+  transform: translateY(-2px);
+}
+
+
+.speedx-subtitle span,
+.why-speedx-subtitle span {
+  background: linear-gradient(269deg, #10E774 5.74%, #D4FAE6 81.65%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.speedx-title {
+  font-size: 34px;
+  font-weight: 550;
+  line-height: 44px;
+  color: #D4FAE6;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+@media (min-width: 768px) {
+  .speedx-title {
+    font-size: 48px;
+    line-height: 56px;
+  }
+}
+
+.speedx-desc {
+  font-size: 17px;
+  font-weight: 350;
+  line-height: 28px;
+  color: #b3b3b3;
+  margin-bottom: 32px;
+}
+
+.speedx-right-inner {
+  border-radius: 26px;
+  overflow: hidden;
+  border: 1px solid rgba(16, 231, 116, 0.35);
+  box-shadow: 0 0 50px rgba(16, 231, 116, 0.12);
+  background: #0A0D0E;
+}
+
+/* Why SpeedX */
+.why-speedx {
+  padding: 100px 24px 80px;
+  position: relative;
+}
+
+@media (min-width: 768px) {
+  .why-speedx {
+    padding: 138px 60px 100px;
+  }
+}
+
+.why-speedx .top-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.why-speedx-title {
+  color: #D4FAE6;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 32px;
+  margin: 0 auto 50px;
+}
+
+@media (min-width: 768px) {
+  .why-speedx-title {
+    font-size: 28px;
+    line-height: 38px;
+    margin-bottom: 70px;
+  }
+}
+
+.why-speedx-text {
+  display: none;
+}
+
+.speedx .desktop-banner {
+  width: 100%;
+  height: auto;
+  margin: 0 auto;
+  display: block;
+  border-radius: 20px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+}
+
+.speedx-pill-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 35px;
+  padding: 8px 18px;
+  border-radius: 8px;
+  background: #1c1e24;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.wsb-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 0;
+  border-radius: 0;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  transition: all 0.3s ease;
+}
+
+.wsb-block-img {
+  width: 100%;
+  height: auto;
+  margin: 0 auto 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.wsb-block-img img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+.wsb-block-text-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.wsb-block-text1 {
+  font-size: 28px;
+  font-weight: 600;
+  line-height: 36px;
+  color: #10E774;
+}
+
+.wsb-block-text2 {
+  font-size: 26px;
+  font-weight: 400;
+  line-height: 36px;
+  color: #FFFFFF;
+}
+
+.wsb-block-text11 {
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 34px;
+  color: #FFFFFF;
+  text-align: center;
+}
+
+/* How SpeedX Works */
+.how-speedx {
+  padding: 0 24px 100px;
+}
+
+@media (min-width: 768px) {
+  .how-speedx {
+    padding: 0 60px 100px;
+  }
+}
+
+.how-speedx .how-speedx-inner {
+  border-top: 1px solid #262C30;
+  padding-top: 80px;
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+}
+
+@media (min-width: 1024px) {
+  .how-speedx .how-speedx-inner {
+    padding-top: 120px;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 70px;
+  }
+}
+
+.how-speedx-inner .left-info {
+  width: 100%;
+}
+
+@media (min-width: 1024px) {
+  .how-speedx-inner .left-info {
+    width: 52%;
+    position: sticky;
+    top: 120px;
+  }
+}
+
+.how-speedx-title {
+  font-size: 30px;
+  font-weight: 500;
+  line-height: 40px;
+  color: #D4FAE6;
+  margin-top: 20px;
+  margin-bottom: 28px;
+}
+
+@media (min-width: 768px) {
+  .how-speedx-title {
+    font-size: 40px;
+    line-height: 50px;
+  }
+}
+
+.how-speedx-logo {
+  width: 100%;
+  margin-top: 40px;
+  border-radius: 24px;
+  overflow: hidden;
+}
+
+.how-speedx-inner .right-info {
+  width: 100%;
+}
+
+@media (min-width: 1024px) {
+  .how-speedx-inner .right-info {
+    width: 48%;
+  }
+}
+
+.how-speedx-inner .info-block {
+  margin-bottom: 70px;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.how-speedx-inner .info-block:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.how-speedx-inner .info-block .hsr-heading {
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 32px;
+  color: #FFFFFF;
+  margin-bottom: 16px;
+}
+
+.how-speedx-inner .info-block .hsr-content {
+  font-size: 16px;
+  font-weight: 350;
+  line-height: 26px;
+  color: #b3b3b3;
+}
+
+/* What to Expect With SpeedX */
+.what-speedx {
+  padding: 60px 24px 100px;
+  text-align: center;
+  border-top: 1px solid #262C30;
+}
+
+@media (min-width: 768px) {
+  .what-speedx {
+    padding: 80px 60px 120px;
+  }
+}
+

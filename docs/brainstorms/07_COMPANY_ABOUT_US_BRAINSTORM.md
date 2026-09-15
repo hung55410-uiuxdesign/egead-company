@@ -33,10 +33,10 @@ flowchart TD
   - Cột trái: Badge neon `"OUR IDENTITY & GLOBAL MISSION"`, Tiêu đề H1 lớn, đoạn tuyên ngôn sứ mệnh.
   - Cột phải: Bản đồ toàn cầu trừu tượng với các đường nối phát sáng neon biểu thị luồng kết nối liên lục địa giữa **Buôn Ma Thuột Tech Hub** và **các xưởng in tại Bờ Đông / Bờ Tây nước Mỹ**.
 - **Thẻ Heading & SEO Keywords**:
-  - `H1`: More Than An Operations Partner. <br/><span className="text-[#7ceee0]">Driving Global Scale.</span>
+  - `H1`: More Than An Operations Partner. <br/><span className="text-[#5EFC8D]">Driving Global Scale.</span>
   - Từ khóa SEO: `about E-GEAD Company`, `Buon Ma Thuot ecommerce technology`, `US POD fulfillment network`, `cross-border operations company Vietnam`.
 - **Nội dung Copywriting**:
-  - *Headline (H1)*: More Than An Operations Partner. <br/><span className="text-[#7ceee0]">Driving Global Scale.</span>
+  - *Headline (H1)*: More Than An Operations Partner. <br/><span className="text-[#5EFC8D]">Driving Global Scale.</span>
   - *Sub-headline*: Founded in Buon Ma Thuot, Vietnam, with high-velocity fulfillment facilities across the United States, E-GEAD empowers e-commerce brands across 10+ countries to automate complex retail workflows, fulfill print-on-demand orders in under 24 hours, and expand fearlessly into global markets.
   - *CTAs*: `Explore Our Journey` | `Meet Our Leadership`.
 

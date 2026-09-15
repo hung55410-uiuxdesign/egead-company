@@ -39,7 +39,7 @@ export default function ComparisonTable({
   const renderValue = (val: string | boolean, isEgead: boolean) => {
     if (typeof val === 'boolean') {
       return val ? (
-        <span className="inline-flex items-center justify-center w-7 h-7 rounded-full bg-[#25E2CC]/15 text-[#25E2CC] border border-[#25E2CC]/30">
+        <span className="inline-flex items-center justify-center w-7 h-7 rounded-full bg-[#10E774]/15 text-[#10E774] border border-[#10E774]/30">
           <Check className="w-4 h-4 stroke-[2.5]" aria-hidden="true" />
           <span className="sr-only">Supported</span>
         </span>
@@ -54,7 +54,7 @@ export default function ComparisonTable({
     return (
       <span
         className={`font-semibold text-sm sm:text-base ${
-          isEgead ? 'text-[#25E2CC]' : 'text-[#8C8C8C]'
+          isEgead ? 'text-[#10E774]' : 'text-[#8C8C8C]'
         }`}
       >
         {val}
@@ -69,18 +69,17 @@ export default function ComparisonTable({
     >
       <div className="relative z-10 w-full px-6 sm:px-10 lg:px-14 xl:px-16">
         {/* Header Block */}
-        <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
+        <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-14">
           {badge && (
-            <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#141718] border border-white/10 text-[#d3f9f5] text-xs sm:text-sm font-normal tracking-wider uppercase mb-4 font-montserrat">
-              <Sparkles className="w-3.5 h-3.5 text-[#7ceee0]" aria-hidden="true" />
+            <p className="text-base sm:text-lg font-normal text-[#D4FAE6] mb-3 font-montserrat">
               {badge}
-            </span>
+            </p>
           )}
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-medium tracking-tight text-[#d3f9f5] font-montserrat leading-[1.2]">
+          <h2 className="text-2xl sm:text-3xl lg:text-[34px] font-medium text-[#D4FAE6] font-montserrat leading-[1.3]">
             {title}
           </h2>
           {subtitle && (
-            <p className="mt-4 text-base sm:text-lg text-[#b3b3b3] font-light leading-[1.75] font-montserrat max-w-2xl mx-auto">
+            <p className="mt-4 text-base sm:text-[17px] text-[#b3b3b3] font-light leading-[1.75] font-montserrat max-w-2xl mx-auto">
               {subtitle}
             </p>
           )}
@@ -105,13 +104,13 @@ export default function ComparisonTable({
               {/* E-GEAD Header (Highlighted) */}
               <div
                 role="columnheader"
-                className="col-span-4 p-6 sm:p-7 bg-[#7ceee0]/10 border-x border-[#7ceee0]/30 flex flex-col justify-center relative"
+                className="col-span-4 p-6 sm:p-7 bg-[#5EFC8D]/10 border-x border-[#5EFC8D]/30 flex flex-col justify-center relative"
               >
                 <div className="flex items-center gap-2">
-                  <h3 className="text-lg sm:text-xl font-medium text-[#7ceee0] font-montserrat">
+                  <h3 className="text-lg sm:text-xl font-medium text-[#5EFC8D] font-montserrat">
                     {egeadTitle}
                   </h3>
-                  <span className="text-[10px] font-medium uppercase tracking-wider px-2 py-0.5 rounded bg-[#7ceee0] text-black">
+                  <span className="text-[10px] font-medium uppercase tracking-wider px-2 py-0.5 rounded bg-[#5EFC8D] text-black">
                     Recommended
                   </span>
                 </div>
@@ -124,7 +123,7 @@ export default function ComparisonTable({
                 role="columnheader"
                 className="col-span-3 p-6 sm:p-7 flex flex-col justify-center"
               >
-                <h3 className="text-lg sm:text-xl font-medium text-[#d3f9f5] font-montserrat">
+                <h3 className="text-lg sm:text-xl font-medium text-[#D4FAE6] font-montserrat">
                   {traditionalTitle}
                 </h3>
                 <p className="text-xs text-[#b3b3b3] mt-1 font-montserrat font-light">
@@ -141,7 +140,7 @@ export default function ComparisonTable({
                 key={idx}
                 role="row"
                 className={`grid grid-cols-12 transition-colors hover:bg-white/[0.02] ${
-                  row.highlight ? 'bg-[#25E2CC]/[0.03]' : ''
+                  row.highlight ? 'bg-[#10E774]/[0.03]' : ''
                 }`}
               >
                 {/* Feature Name */}
@@ -162,13 +161,13 @@ export default function ComparisonTable({
                 {/* E-GEAD Cell */}
                 <div
                   role="cell"
-                  className="col-span-4 p-5 sm:p-6 bg-[#25E2CC]/[0.06] border-x border-[#25E2CC]/25 flex flex-col justify-center"
+                  className="col-span-4 p-5 sm:p-6 bg-[#10E774]/[0.06] border-x border-[#10E774]/25 flex flex-col justify-center"
                 >
                   <div className="flex items-center gap-3">
                     {renderValue(row.egead, true)}
                   </div>
                   {row.egeadNote && (
-                    <p className="text-xs text-[#D3F9F5]/70 mt-1 font-montserrat">
+                    <p className="text-xs text-[#D4FAE6]/70 mt-1 font-montserrat">
                       {row.egeadNote}
                     </p>
                   )}
@@ -200,20 +199,20 @@ export default function ComparisonTable({
               key={idx}
               className="p-5 rounded-2xl bg-[#141718] border border-white/10 space-y-3"
             >
-              <div className="font-medium text-[#d3f9f5] text-base font-montserrat">
+              <div className="font-medium text-[#D4FAE6] text-base font-montserrat">
                 {row.feature}
               </div>
 
               {/* E-GEAD pill */}
-              <div className="p-3 rounded-xl bg-[#7ceee0]/10 border border-[#7ceee0]/30">
+              <div className="p-3 rounded-xl bg-[#5EFC8D]/10 border border-[#5EFC8D]/30">
                 <div className="flex items-center justify-between">
-                  <span className="text-xs font-medium text-[#7ceee0] font-montserrat">
+                  <span className="text-xs font-medium text-[#5EFC8D] font-montserrat">
                     {egeadTitle}:
                   </span>
                   <div>{renderValue(row.egead, true)}</div>
                 </div>
                 {row.egeadNote && (
-                  <p className="text-[11px] text-[#d3f9f5]/80 mt-1 font-montserrat font-light">
+                  <p className="text-[11px] text-[#D4FAE6]/80 mt-1 font-montserrat font-light">
                     {row.egeadNote}
                   </p>
                 )}

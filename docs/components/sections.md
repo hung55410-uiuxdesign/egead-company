@@ -54,8 +54,8 @@ These components serve as the foundational layout building blocks for subsequent
 | **Card / Surface BG** | `#141718` | Elevated container backdrop (90% opacity + blur) | ~ 1.2:1 (Subtle border separation) |
 | **Pill / Icon BG** | `#1D2224` | Nested badge, icon wrapper, elevated state | ~ 1.5:1 |
 | **Border / Divider** | `#262C30` | Structural card borders and dividing rules | ~ 2.0:1 |
-| **Primary Accent (Cyan)** | `#25E2CC` | Interactive highlights, active states, key metrics | **11.2:1 (AAA Pass)** |
-| **Cyan Light (Text/Tint)** | `#D3F9F5` | Secondary labels, high-legibility body snippets | **13.5:1 (AAA Pass)** |
+| **Primary Accent (Cyan)** | `#10E774` | Interactive highlights, active states, key metrics | **11.2:1 (AAA Pass)** |
+| **Cyan Light (Text/Tint)** | `#D4FAE6` | Secondary labels, high-legibility body snippets | **13.5:1 (AAA Pass)** |
 | **Muted Text / Paragraph** | `#8C8C8C` | Supporting descriptive copy, metadata | **4.7:1 (AA Normal Pass)** |
 | **Headings Font** | `Rubik`, sans-serif | Bold geometric headers (`h2`, `h3`), large numbers | High legibility |
 | **Body & UI Font** | `Montserrat`, sans-serif | Badges, buttons, descriptions, table items | Highly readable at small scales |
@@ -193,7 +193,7 @@ export interface BentoGridProps {
 1. **Semantic Structure**: Rendered as a semantic `<section>` with an anchorable `id`. Header block uses proper hierarchical heading levels (`<h2>` title, `<h3>` for cards).
 2. **Keyboard Navigability**: Embedded CTA links (`<Link>`) feature distinct focus indicators: `focus:outline-none focus-visible:underline`.
 3. **Screen Reader Context**: CTAs have explicit `aria-label={`${item.ctaText}: ${item.title}`}` preventing ambiguous "Learn more" screen reader links. Decorative icons use `aria-hidden="true"`.
-4. **Contrast**: Highlighted cards use `#25E2CC` borders and text over `#141718` background (exceeds 10:1 ratio).
+4. **Contrast**: Highlighted cards use `#10E774` borders and text over `#141718` background (exceeds 10:1 ratio).
 
 #### Usage Example
 
@@ -207,7 +207,7 @@ export default function ServicesPillarsSection() {
     <BentoGrid
       id="pillars"
       badge="Core Architecture"
-      title={<>Engineered for <span className="text-[#25E2CC]">Sub-24H Scale</span></>}
+      title={<>Engineered for <span className="text-[#10E774]">Sub-24H Scale</span></>}
       description="Six tightly integrated modules powering high-volume Print-on-Demand and omni-channel e-commerce."
       items={[
         {
@@ -277,7 +277,7 @@ export interface MetricsRibbonProps {
 #### Accessibility & WCAG 2.1 AA Compliance
 
 1. **Responsive Grid Hierarchy**: Adapts cleanly from 2-column on mobile (`grid-cols-2`) to 4-column on desktop (`lg:grid-cols-4`), preventing cramped text and overlapping numbers.
-2. **Text Legibility**: Large quantitative values utilize font `Rubik` with high contrast `#FFFFFF` and hover `#25E2CC`, accompanied by high-contrast secondary labels (`#D3F9F5`).
+2. **Text Legibility**: Large quantitative values utilize font `Rubik` with high contrast `#FFFFFF` and hover `#10E774`, accompanied by high-contrast secondary labels (`#D4FAE6`).
 3. **Pulsing Indicator**: Decorative status dot includes pulse animation with non-flashing low frequency (safe for vestibular and seizure accessibility).
 
 #### Usage Example
@@ -386,7 +386,7 @@ export default function FulfillmentComparison() {
     <ComparisonTable
       id="comparison"
       badge="Head-to-Head Comparison"
-      title={<>Why Top Sellers Migrate to <span className="text-[#25E2CC]">E-GEAD</span></>}
+      title={<>Why Top Sellers Migrate to <span className="text-[#10E774]">E-GEAD</span></>}
       subtitle="Comparing our automated API ecosystem against legacy manual fulfillment models."
       egeadTitle="E-GEAD Ecosystem"
       egeadSubtitle="AI Routing & Sub-24H Dispatch"
@@ -466,7 +466,7 @@ export interface FaqAccordionProps {
    - Triggers include `aria-expanded={isOpen}` and `aria-controls={`faq-answer-${idx}`}`.
    - Panels feature `role="region"` and `aria-labelledby={`faq-btn-${idx}`}`.
 2. **Keyboard Interactivity**:
-   - Full keyboard focusability with visible ring: `focus-visible:ring-2 focus-visible:ring-[#25E2CC] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0A0D0E]`.
+   - Full keyboard focusability with visible ring: `focus-visible:ring-2 focus-visible:ring-[#10E774] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0A0D0E]`.
    - `Enter` and `Space` toggle active accordion state.
 3. **Structured Data (SEO)**:
    - Injects `application/ld+json` for Google Rich Results (`FAQPage` entity).
@@ -485,7 +485,7 @@ export default function ServicesFaq() {
     <FaqAccordion
       id="faq"
       badge="Help & Knowledge Base"
-      title={<>Frequently Asked <span className="text-[#25E2CC]">Questions</span></>}
+      title={<>Frequently Asked <span className="text-[#10E774]">Questions</span></>}
       subtitle="Everything you need to know about our SLA, shipping, integrations, and print quality."
       categories={['General', 'SLA & Fulfillment', 'Integrations']}
       includeSchema={true}
@@ -547,7 +547,7 @@ export interface WorkflowTimelineProps {
    - Sequential steps are rendered using semantic `<ol aria-label="Workflow pipeline sequential steps">` and `<ol aria-label="Workflow pipeline sequential steps mobile">`.
    - Screen readers announce ordinal step hierarchy (e.g. "Step 1 of 4").
 2. **Decorative Elements**: The horizontal glowing neon line uses `aria-hidden="true"`, preventing screen readers from attempting to read decorative SVG/gradient tracks.
-3. **High Contrast Step Indicators**: Step circles feature `#25E2CC` borders and high-visibility `#FFFFFF` labels with dark obsidian backdrops.
+3. **High Contrast Step Indicators**: Step circles feature `#10E774` borders and high-visibility `#FFFFFF` labels with dark obsidian backdrops.
 4. **Adaptive Flow**: Horizontal grid on desktop (`hidden lg:block`), switching to vertical connected chain on tablet/mobile (`lg:hidden`).
 
 #### Usage Example
@@ -562,7 +562,7 @@ export default function OrderPipelineSection() {
     <WorkflowTimeline
       id="workflow"
       badge="Order-to-Door Pipeline"
-      title={<>How Your Order Moves in <span className="text-[#25E2CC]">Under 24 Hours</span></>}
+      title={<>How Your Order Moves in <span className="text-[#10E774]">Under 24 Hours</span></>}
       subtitle="From the moment your customer clicks 'Buy Now' to carrier scanning."
       steps={[
         {
@@ -648,9 +648,9 @@ export interface RoleTabsProps {
    - Inactive tabs receive `tabIndex={-1}`, and the active tab receives `tabIndex={0}`.
    - The active panel container has `role="tabpanel"`, `id={`panel-${activeTab.id}`}`, `aria-labelledby={`tab-${activeTab.id}`}`, and `tabIndex={0}` for keyboard focus.
 2. **Contrast & Focus Rings**:
-   - Active tab uses `#25E2CC` background with black text (`#000000`) for maximum contrast (11.2:1).
+   - Active tab uses `#10E774` background with black text (`#000000`) for maximum contrast (11.2:1).
    - Inactive tabs feature clear border contrast (`#262C30`) and hover states.
-   - Focus styling includes `focus-visible:ring-2 focus-visible:ring-[#25E2CC] focus-visible:ring-offset-2`.
+   - Focus styling includes `focus-visible:ring-2 focus-visible:ring-[#10E774] focus-visible:ring-offset-2`.
 3. **Graceful Fallback**: Returns `null` if empty or missing tabs are passed, preventing runtime null reference errors.
 
 #### Usage Example
@@ -666,7 +666,7 @@ export default function PersonaSolutions() {
     <RoleTabs
       id="solutions-by-role"
       badge="Tailored Solutions"
-      title={<>Architected for <span className="text-[#25E2CC]">Your Business Scale</span></>}
+      title={<>Architected for <span className="text-[#10E774]">Your Business Scale</span></>}
       subtitle="Select your operational model to inspect specific guarantees, integrations, and economics."
       tabs={[
         {
@@ -784,10 +784,10 @@ The component maintains internal client-side state to deliver instantaneous reac
    - Includes explicit `aria-label="Monthly Order Volume"`.
    - Employs `aria-valuetext={`${orderVolume.toLocaleString('en-US')} orders per month`}`, ensuring screen readers verbalize meaningful units rather than bare integer values.
 4. **Keyboard Focusability & Visual Rings**:
-   - All interactive elements (channel toggle buttons, range slider thumb, and conversion CTA button) feature high-visibility focus indicators: `focus:outline-none focus-visible:ring-2 focus-visible:ring-[#25E2CC]`.
+   - All interactive elements (channel toggle buttons, range slider thumb, and conversion CTA button) feature high-visibility focus indicators: `focus:outline-none focus-visible:ring-2 focus-visible:ring-[#10E774]`.
 5. **Contrast Compliance (WCAG AAA)**:
-   - Accent `#25E2CC` against obsidian canvas (`#0A0D0E`) and elevated card containers (`#141718`) provides an **11.2:1 contrast ratio**, exceeding WCAG AAA standard (7:1).
-   - High-contrast text `#D3F9F5` (13.5:1) ensures optimal readability for secondary labels and benchmark quotes.
+   - Accent `#10E774` against obsidian canvas (`#0A0D0E`) and elevated card containers (`#141718`) provides an **11.2:1 contrast ratio**, exceeding WCAG AAA standard (7:1).
+   - High-contrast text `#D4FAE6` (13.5:1) ensures optimal readability for secondary labels and benchmark quotes.
 6. **Screen Reader Optimization for Decorative Icons**:
    - All Lucide decorative icons (`Calculator`, `Clock`, `DollarSign`, `ShieldCheck`, `TrendingUp`, `ArrowRight`) have `aria-hidden="true"` to prevent unhelpful vocalizations.
 
@@ -845,10 +845,10 @@ export interface AddressDemoProps {
    - Case switcher pills are contained in `<div role="group" aria-label="Select address test scenario">`.
    - Buttons implement dynamic `aria-pressed={isActive}`, providing clear active state announcement to screen reader users.
 3. **Keyboard Focusability & Visual Rings**:
-   - Buttons utilize visible focus indicators: `focus:outline-none focus-visible:ring-2 focus-visible:ring-[#25E2CC]`.
+   - Buttons utilize visible focus indicators: `focus:outline-none focus-visible:ring-2 focus-visible:ring-[#10E774]`.
 4. **Color Contrast & Semantic Alert Badging**:
    - Hazardous input card features high-visibility red contrast styling (`text-red-400`, `border-red-500/30`, `bg-[#101416]`) paired with `AlertTriangle`.
-   - Verified output card uses signature cyan `#25E2CC` (11.2:1 contrast ratio) and emerald accents (`text-emerald-400`).
+   - Verified output card uses signature cyan `#10E774` (11.2:1 contrast ratio) and emerald accents (`text-emerald-400`).
 5. **Decorative Icon Hiding**:
    - Icons (`Sparkles`, `CheckCircle2`, `AlertTriangle`, `ShieldCheck`) include `aria-hidden="true"`.
 
@@ -901,7 +901,7 @@ export interface PricingCalculatorProps {
 - When `netProfit < 0` (retail selling price set below total landed cost):
   - Label dynamically changes from `"Your Net Profit Per Garment:"` to `"Net Loss Per Garment:"` with `text-red-400`.
   - Negative value is formatted as `-$X.XX` with large `font-rubik text-red-400`.
-  - Net Margin badge switches from cyan `bg-[#25E2CC]/15 text-[#25E2CC]` to warning `bg-red-500/15 text-red-400`.
+  - Net Margin badge switches from cyan `bg-[#10E774]/15 text-[#10E774]` to warning `bg-red-500/15 text-red-400`.
   - Monthly projection card displays `"Estimated Net Loss"` in red, providing sellers with an unambiguous safeguard against underpriced listings.
 
 #### Accessibility & WCAG 2.1 AA Compliance
@@ -914,7 +914,7 @@ export interface PricingCalculatorProps {
 3. **Range Slider Accessibility**:
    - Linked to `<label htmlFor="retail-slider">`, explicitly labeled via `aria-label="Retail Selling Price"`, and outputs formatted currency units through `aria-valuetext={`$${retailPrice.toFixed(2)} retail price`}`.
 4. **Keyboard Focusability & Ring Styling**:
-   - Interactive buttons, slider thumb, and CTA link include `focus:outline-none focus-visible:ring-2 focus-visible:ring-[#25E2CC]`.
+   - Interactive buttons, slider thumb, and CTA link include `focus:outline-none focus-visible:ring-2 focus-visible:ring-[#10E774]`.
 5. **Decorative Icons**: All icons (`DollarSign`, `ArrowRight`, `Percent`, `Check`) use `aria-hidden="true"`.
 
 #### Usage Example
@@ -963,7 +963,7 @@ export interface ApiTerminalProps {
    - Screen reader users receive feedback via dynamic accessible label `"Copied!"` along with visual check icon for 2000ms.
    - Copy button features explicit `aria-label="Copy code sample to clipboard"`.
 3. **Code Contrast & Semantic Tags**:
-   - Code blocks render inside semantic `<pre>` and `<code>` elements with text color `#D3F9F5` (13.5:1 contrast) and emerald responses (`text-emerald-300`).
+   - Code blocks render inside semantic `<pre>` and `<code>` elements with text color `#D4FAE6` (13.5:1 contrast) and emerald responses (`text-emerald-300`).
 4. **Decorative Window Controls & Icons**:
    - Window dots and icons (`Code2`, `Copy`, `Check`, `Zap`) carry `aria-hidden="true"`.
 
@@ -1014,7 +1014,7 @@ export interface LiveCountdownCardProps {
    - The countdown timer uses semantic `<time dateTime={`PT${hours}H${minutes}M${seconds}S`} aria-label={`${hours} hours, ${minutes} minutes, and ${seconds} seconds remaining`}>`.
    - Conveys ISO 8601 machine-readable duration and announces fully expanded, human-comprehensible time strings to screen readers.
 3. **High Contrast Display**:
-   - Digits utilize font `mono` with glowing `#25E2CC` (11.2:1 contrast ratio against obsidian dark container `#0A0D0E`).
+   - Digits utilize font `mono` with glowing `#10E774` (11.2:1 contrast ratio against obsidian dark container `#0A0D0E`).
 4. **Decorative Icons**:
    - Icons (`Clock`, `CheckCircle2`, `ShieldCheck`, `Zap`) carry `aria-hidden="true"`.
 
@@ -1050,7 +1050,7 @@ export interface CockpitHudCardProps {
 
 1. **Simulated Real-Time Throughput**: Dynamic interval timer updating `throughput: number` every 2400ms with natural throughput fluctuation around ~1,420 orders/hr.
 2. **Channel Stream Ingestion Telemetry**:
-   - **TikTok Shop US**: Active status `"Syncing in 0.8s"`, 618 queued orders, 820ms sync latency, brand accent `#25E2CC`.
+   - **TikTok Shop US**: Active status `"Syncing in 0.8s"`, 618 queued orders, 820ms sync latency, brand accent `#10E774`.
    - **Amazon FBM**: Active status `"Automated Ingestion"`, Prime VTR 99.2%, 429 queued orders, 1.1s sync latency, brand accent `#F59E0B`.
    - **Shopify Plus DTC**: Active status `"Real-Time Sync"`, Direct Webhook, 284 queued orders, 340ms sync latency, brand accent `#10B981`.
    - **Etsy Global**: Active status `"Catalog Linked"`, Star Seller Sync, 89 queued orders, 940ms sync latency, brand accent `#EC4899`.
@@ -1064,7 +1064,7 @@ export interface CockpitHudCardProps {
 2. **Semantic Region Landmark**:
    - Storefront streams container is explicitly designated as `role="region"` with `aria-label="Active Storefront Connections"`.
 3. **High Contrast Color System**:
-   - Telemetry metrics and numbers use font `mono` with high-contrast text (`#25E2CC`, `#10B981`, white) exceeding 11:1 contrast on `#0A0D0E` / `#141718` surfaces.
+   - Telemetry metrics and numbers use font `mono` with high-contrast text (`#10E774`, `#10B981`, white) exceeding 11:1 contrast on `#0A0D0E` / `#141718` surfaces.
 4. **Decorative Graphics**:
    - Icons (`Activity`, `RefreshCw`, `CheckCircle2`) and status color dots carry `aria-hidden="true"`.
 
@@ -1123,8 +1123,8 @@ export interface InventoryBufferEngineProps {
 3. **Range Slider Accessibility**:
    - Linked to `<label htmlFor="total-pool-slider">`, explicitly labeled with `aria-label="Physical Blank Inventory in US Hubs"`, `aria-valuemin={500}`, `aria-valuemax={10000}`, `aria-valuenow={totalPool}`, and formatted `aria-valuetext={`${totalPool.toLocaleString()} physical blanks in warehouse`}`.
 4. **Keyboard Focus & Contrast**:
-   - All interactive controls feature distinct `focus:outline-none focus-visible:ring-2 focus-visible:ring-[#25E2CC]`.
-   - Metric numerals use high-contrast cyan (`#25E2CC`) and yellow (`#FACC15`) against dark containers.
+   - All interactive controls feature distinct `focus:outline-none focus-visible:ring-2 focus-visible:ring-[#10E774]`.
+   - Metric numerals use high-contrast cyan (`#10E774`) and yellow (`#FACC15`) against dark containers.
 5. **Decorative Icons**: All icons (`Layers`, `ShieldCheck`, `CheckCircle2`) use `aria-hidden="true"`.
 
 #### Usage Example
@@ -1189,7 +1189,7 @@ export interface NetMarginLedgerProps {
 4. **Accessible Export Action**:
    - CSV export button features explicit label transitions: `"Export P&L Ledger (CSV)"` -> `"QuickBooks CSV Exported!"` with green check icon.
 5. **Color & Decorative Elements**:
-   - Positive profits highlighted in `#25E2CC` (11.2:1 contrast); negative deductions in `text-red-400` (5.4:1 contrast); icons (`DollarSign`, `Download`, `Check`, `ShieldCheck`) carry `aria-hidden="true"`.
+   - Positive profits highlighted in `#10E774` (11.2:1 contrast); negative deductions in `text-red-400` (5.4:1 contrast); icons (`DollarSign`, `Download`, `Check`, `ShieldCheck`) carry `aria-hidden="true"`.
 
 #### Usage Example
 
@@ -1308,8 +1308,8 @@ export interface EfficiencyVisualizerProps {
    - Preset buttons container features `role="group"` with `aria-label="Select common order volume presets"`.
    - Each preset pill includes `aria-pressed={volume === preset}`.
 4. **Keyboard Focus & Contrast**:
-   - All interactive controls feature distinct `focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#25E2CC]`.
-   - Large metrics formatted in high-contrast monospace typography (`#25E2CC`, `#10B981`, white) exceeding 11:1 contrast on `#141718`.
+   - All interactive controls feature distinct `focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#10E774]`.
+   - Large metrics formatted in high-contrast monospace typography (`#10E774`, `#10B981`, white) exceeding 11:1 contrast on `#141718`.
 5. **Decorative Graphics**:
    - Icons (`TrendingUp`, `Clock`, `DollarSign`, `Users`, `Sparkles`, `ArrowRight`) carry `aria-hidden="true"`.
 
@@ -1375,7 +1375,7 @@ export interface TransformationMatrixProps {
 3. **Polite Screen Reader Live Region (`aria-live="polite"` & `aria-atomic="true"`)**:
    - Announces filtered indicator counts when switching categories (`"Showing X transformation metrics for category Y."`).
 4. **Visual Contrast**:
-   - Clear semantic differentiation between legacy problem states (`text-rose-300`, 7.2:1 contrast) and optimized automated states (`text-[#25E2CC]`, 11.2:1 contrast).
+   - Clear semantic differentiation between legacy problem states (`text-rose-300`, 7.2:1 contrast) and optimized automated states (`text-[#10E774]`, 11.2:1 contrast).
 5. **Decorative Icons**: All icons (`TrendingDown`, `TrendingUp`, `CheckCircle2`, `AlertTriangle`, `ShieldCheck`, `Zap`) carry `aria-hidden="true"`.
 
 #### Usage Example
@@ -1499,7 +1499,7 @@ export interface PlaybookDownloadsProps {
 3. **Clear State Feedback**:
    - Visual transition from `Download` icon to animated spinner, resolving to emerald `CheckCircle2` with `"Downloaded (Ready)"` confirmation.
 4. **Keyboard Accessibility**:
-   - All buttons feature `focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#25E2CC]`.
+   - All buttons feature `focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#10E774]`.
 5. **Decorative Graphics**:
    - Icons (`Download`, `FileText`, `FileSpreadsheet`, `CheckCircle2`, `BookOpen`, `Sparkles`) carry `aria-hidden="true"`.
 
@@ -1578,9 +1578,9 @@ export interface EcosystemMatrixProps {
 2. **Dynamic Screen Reader Live Region (`aria-live="polite"` & `aria-atomic="true"`)**:
    - Enclosed polite live region announces: `"Now displaying X partner alliances in category Y."` whenever users switch active tiers.
 3. **High Contrast Typography & Badges**:
-   - Monospace badges use `#25E2CC` on `#141718` (> 11:1 contrast) and emerald pills (`bg-emerald-500/10 text-emerald-400`).
+   - Monospace badges use `#10E774` on `#141718` (> 11:1 contrast) and emerald pills (`bg-emerald-500/10 text-emerald-400`).
 4. **Keyboard Accessibility**:
-   - Tab buttons and partner card documentation links include `focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#25E2CC]`.
+   - Tab buttons and partner card documentation links include `focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#10E774]`.
 5. **Decorative Icons**: All icons (`ShoppingBag`, `Store`, `Megaphone`, `Truck`, `CreditCard`, `CheckCircle2`, `ShieldCheck`, `Zap`, `Layers`, `ArrowRight`) carry `aria-hidden="true"`.
 
 #### Usage Example
@@ -1704,7 +1704,7 @@ export interface EcosystemHeroGraphicProps {
 2. **Motion Reduction Support (`motion-reduce:animate-none`)**:
    - The pulsing live node indicators include `animate-pulse motion-reduce:animate-none` to protect users with vestibular sensitivity.
 3. **High Contrast Ratios**:
-   - Uses `#25E2CC` badges on deep `#0A0D0E` surface, exceeding 11:1 AAA contrast ratio.
+   - Uses `#10E774` badges on deep `#0A0D0E` surface, exceeding 11:1 AAA contrast ratio.
 4. **Zero Client Runtime Overhead**:
    - Rendered as a lightweight Server Component with zero hydration overhead or layout shifts.
 5. **Decorative Graphics**:

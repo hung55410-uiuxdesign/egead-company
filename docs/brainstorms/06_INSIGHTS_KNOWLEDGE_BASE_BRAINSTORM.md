@@ -32,10 +32,10 @@ flowchart TD
   - Cột trái / Trên: Badge neon `"KNOWLEDGE BASE & INDUSTRY PLAYBOOKS"`, Tiêu đề H1 ấn tượng, thanh tìm kiếm từ khóa với icon kính lúp và nút "Filter Insights".
   - Bên dưới: Dải thẻ chủ đề thịnh hành (Trending Tags): `#TikTokShopSLA`, `#Sub24hFulfillment`, `#DTFPrinting`, `#MultiChannelSync`, `#ROASOptimization`, `#BarcodeWMS`.
 - **Thẻ Heading & SEO Keywords**:
-  - `H1`: Cross-Border Commerce. <br/><span className="text-[#7ceee0]">Strategies & Playbooks.</span>
+  - `H1`: Cross-Border Commerce. <br/><span className="text-[#5EFC8D]">Strategies & Playbooks.</span>
   - Từ khóa SEO: `cross-border ecommerce insights`, `tiktok shop us sla guide`, `pod fulfillment playbooks`, `ecommerce inventory sync strategies`, `landed cost optimization`.
 - **Nội dung Copywriting**:
-  - *Headline (H1)*: Cross-Border Commerce. <br/><span className="text-[#7ceee0]">Strategies & Playbooks.</span>
+  - *Headline (H1)*: Cross-Border Commerce. <br/><span className="text-[#5EFC8D]">Strategies & Playbooks.</span>
   - *Sub-headline*: Actionable operational blueprints for high-velocity merchants: master TikTok Shop US dispatch compliance, automate multi-channel warehouse fulfillment, protect seller account health, and maximize net profitability.
 
 ---

@@ -18,12 +18,12 @@ export default function SmartCXSection() {
         </div>
 
         {/* Title */}
-        <h2 className="text-3xl sm:text-5xl lg:text-[54px] font-medium tracking-tight leading-[1.15] text-[#d3f9f5] font-montserrat max-w-4xl">
-          <span className="text-[#7ceee0] font-medium">Intelligent automation</span> for global commerce.
+        <h2 className="text-2xl sm:text-3xl lg:text-[34px] font-medium text-[#D4FAE6] font-montserrat leading-[1.3] max-w-4xl">
+          <span className="text-[#5EFC8D] font-medium">Intelligent automation</span> for global commerce.
         </h2>
 
         {/* Description */}
-        <p className="mt-6 text-sm sm:text-base md:text-lg text-[#b3b3b3] font-light leading-[1.75] font-montserrat max-w-3xl mx-auto">
+        <p className="mt-4 text-base sm:text-[17px] text-[#b3b3b3] font-light leading-[1.75] font-montserrat max-w-3xl mx-auto">
           Proprietary software suite engineered for high-velocity global sellers. Connect multiple storefronts, automate order dispatching, eliminate fulfillment errors with 99.9% barcode accuracy, and track net profit margins in real time.
         </p>
 
@@ -40,7 +40,7 @@ export default function SmartCXSection() {
         <div>
           <Link
             href="/smartcommerce"
-            className="group inline-flex items-center gap-2.5 bg-[#7ceee0] hover:bg-[#68d8ca] text-black font-medium text-sm sm:text-base px-8 sm:px-9 py-3 sm:py-3.5 rounded-full transition duration-300"
+            className="group inline-flex items-center gap-2.5 bg-[#5EFC8D] hover:bg-[#4ee37e] text-black font-medium text-sm sm:text-base px-8 sm:px-9 py-3 sm:py-3.5 rounded-full transition duration-300"
           >
             <svg width="15" height="15" viewBox="0 0 19 18" fill="none" xmlns="http://www.w3.org/2000/svg" className="fill-black">
               <path d="M15.125 10.875L10.625 15.375L9.56 14.31L12.2525 11.625H3.875V2.625H5.375V10.125H12.2525L9.56 7.44L10.625 6.375L15.125 10.875Z" />

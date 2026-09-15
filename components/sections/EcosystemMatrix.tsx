@@ -236,20 +236,20 @@ export function EcosystemMatrix({
       {/* Header section */}
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-8 border-b border-white/10">
         <div>
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#25E2CC]/10 border border-[#25E2CC]/25 text-[#25E2CC] text-xs font-mono font-medium uppercase tracking-wider mb-3">
-            <Layers className="w-3.5 h-3.5" aria-hidden="true" />
+          <p className="text-base sm:text-lg font-normal text-[#D4FAE6] mb-3 font-montserrat flex items-center gap-2">
+            <Layers className="w-4 h-4 text-[#5EFC8D]" aria-hidden="true" />
             Verified Commerce Alliances
-          </div>
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-white tracking-tight">
+          </p>
+          <h2 className="text-2xl sm:text-3xl lg:text-[34px] font-medium text-[#D4FAE6] font-montserrat leading-[1.3]">
             {title}
           </h2>
-          <p className="mt-2 text-sm sm:text-base text-gray-400 max-w-2xl font-normal leading-relaxed">
+          <p className="mt-4 text-base sm:text-[17px] text-[#b3b3b3] font-light leading-[1.75] font-montserrat max-w-2xl">
             {subtitle}
           </p>
         </div>
 
-        <div className="text-xs font-mono text-gray-400">
-          Showing <span className="text-[#25E2CC] font-bold">{filteredPartners.length}</span> of {PARTNERS_DATA.length} Verified Alliances
+        <div className="text-xs font-montserrat text-gray-400">
+          Showing <span className="text-[#10E774] font-bold">{filteredPartners.length}</span> of {PARTNERS_DATA.length} Verified Alliances
         </div>
       </div>
 
@@ -272,16 +272,16 @@ export function EcosystemMatrix({
               aria-selected={isActive}
               aria-controls="ecosystem-cards"
               onClick={() => setActiveTier(tier.id)}
-              className={`inline-flex items-center gap-2 px-4 sm:px-5 py-2.5 rounded-full text-xs font-semibold uppercase tracking-wider transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#25E2CC] ${
+              className={`inline-flex items-center gap-2 px-4 sm:px-5 py-2.5 rounded-full text-xs font-semibold uppercase tracking-wider transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#10E774] ${
                 isActive
-                  ? 'bg-[#25E2CC] text-black shadow-lg shadow-[#25E2CC]/25 font-bold scale-[1.02]'
+                  ? 'bg-[#10E774] text-black shadow-lg shadow-[#10E774]/25 font-bold scale-[1.02]'
                   : 'bg-[#0A0D0E] text-gray-300 hover:text-white hover:bg-white/10 border border-white/10'
               }`}
             >
               <Icon className="w-3.5 h-3.5" aria-hidden="true" />
               <span>{tier.label}</span>
               <span
-                className={`px-2 py-0.5 rounded-full text-[10px] font-mono font-bold ${
+                className={`px-2 py-0.5 rounded-full text-[10px] font-montserrat font-bold ${
                   isActive ? 'bg-black/20 text-black' : 'bg-white/10 text-gray-400'
                 }`}
               >
@@ -307,26 +307,26 @@ export function EcosystemMatrix({
         {filteredPartners.map((partner) => (
           <div
             key={partner.id}
-            className="flex flex-col justify-between p-6 sm:p-7 rounded-2xl bg-[#0A0D0E]/80 border border-white/10 hover:border-[#25E2CC]/40 transition-all duration-300 relative group shadow-xl"
+            className="flex flex-col justify-between p-6 sm:p-7 rounded-2xl bg-[#0A0D0E]/80 border border-white/10 hover:border-[#10E774]/40 transition-all duration-300 relative group shadow-xl"
           >
             <div>
               {/* Card Header */}
               <div className="flex items-center justify-between gap-3 mb-4">
-                <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#25E2CC]/10 border border-[#25E2CC]/25 text-[11px] font-mono font-semibold text-[#25E2CC]">
+                <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#10E774]/10 border border-[#10E774]/25 text-[11px] font-montserrat font-semibold text-[#10E774]">
                   <ShieldCheck className="w-3.5 h-3.5" aria-hidden="true" />
                   {partner.certifiedBadge}
                 </span>
-                <span className="text-[11px] font-mono text-gray-500">
+                <span className="text-[11px] font-montserrat text-gray-500">
                   {partner.syncLatency}
                 </span>
               </div>
 
               {/* Partner Name & Type */}
-              <h3 className="text-xl font-bold text-white group-hover:text-[#25E2CC] transition-colors leading-snug">
+              <h3 className="text-xl font-bold text-white group-hover:text-[#10E774] transition-colors leading-snug">
                 {partner.name}
               </h3>
               
-              <div className="text-xs font-mono text-gray-400 mt-1 mb-3">
+              <div className="text-xs font-montserrat text-gray-400 mt-1 mb-3">
                 {partner.integrationType}
               </div>
 
@@ -338,7 +338,7 @@ export function EcosystemMatrix({
               <div className="mt-5 space-y-2 pt-4 border-t border-white/5">
                 {partner.capabilities.map((cap, idx) => (
                   <div key={idx} className="flex items-center gap-2 text-xs text-gray-300 font-normal">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-[#25E2CC] shrink-0" aria-hidden="true" />
+                    <CheckCircle2 className="w-3.5 h-3.5 text-[#10E774] shrink-0" aria-hidden="true" />
                     <span>{cap}</span>
                   </div>
                 ))}
@@ -349,20 +349,20 @@ export function EcosystemMatrix({
             <div className="mt-6 pt-4 border-t border-white/10 flex items-center justify-between text-xs">
               <a
                 href={partner.docHref || '#partners-cta'}
-                className="font-semibold font-mono uppercase tracking-wider text-[#25E2CC] group-hover:underline flex items-center gap-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#25E2CC] rounded"
+                className="font-semibold font-montserrat uppercase tracking-wider text-[#10E774] group-hover:underline flex items-center gap-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#10E774] rounded"
               >
                 <span>Connect with {partner.name}</span>
               </a>
-              <ArrowRight className="w-3.5 h-3.5 text-gray-500 group-hover:text-[#25E2CC] group-hover:translate-x-0.5 transition-transform motion-reduce:transform-none" aria-hidden="true" />
+              <ArrowRight className="w-3.5 h-3.5 text-gray-500 group-hover:text-[#10E774] group-hover:translate-x-0.5 transition-transform motion-reduce:transform-none" aria-hidden="true" />
             </div>
           </div>
         ))}
       </div>
 
       {/* Footer Trust Indicator */}
-      <div className="mt-8 pt-6 border-t border-white/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 text-xs font-mono text-gray-500">
+      <div className="mt-8 pt-6 border-t border-white/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 text-xs font-montserrat text-gray-500">
         <div className="flex items-center gap-2">
-          <Zap className="w-4 h-4 text-[#25E2CC]" aria-hidden="true" />
+          <Zap className="w-4 h-4 text-[#10E774]" aria-hidden="true" />
           <span>All integrations utilize secure OAuth 2.0, AES-256 in-transit encryption, and automated retry queues.</span>
         </div>
         <span>Open API 3.1 &amp; Webhook Standard Compliant</span>

@@ -55,12 +55,12 @@ export default function HeroBanner() {
         <div className="mx-auto sm:mx-0">
           <Link
             href="/speedx"
-            className="group inline-flex items-center gap-2 px-4 sm:px-5 py-1.5 rounded-full bg-[#d3f9f5]/10 hover:bg-[#d3f9f5]/20 backdrop-blur-md border border-[#d3f9f5]/30 text-white text-[11px] sm:text-xs tracking-wider uppercase font-medium transition shadow-lg"
+            className="group inline-flex items-center gap-2 px-4 sm:px-5 py-1.5 rounded-full bg-[#D4FAE6]/10 hover:bg-[#D4FAE6]/20 backdrop-blur-md border border-[#D4FAE6]/30 text-white text-[11px] sm:text-xs tracking-wider uppercase font-medium transition shadow-lg"
           >
             <img src="/assets/icon.svg" alt="" className="w-3.5 h-3.5 object-contain" />
             <span>
               US PRINT-ON-DEMAND ·{' '}
-              <span className="underline decoration-[#7ceee0] font-medium text-[#d3f9f5] group-hover:text-[#7ceee0] transition">
+              <span className="underline decoration-[#5EFC8D] font-medium text-[#D4FAE6] group-hover:text-[#5EFC8D] transition">
                 FULFILLED IN UNDER 24 HOURS
               </span>
             </span>
@@ -68,7 +68,7 @@ export default function HeroBanner() {
         </div>
 
         {/* Right: Live Local Time with White Dot */}
-        <div className="shrink-0 flex items-center gap-2 text-white text-xs sm:text-[13px] font-sans tracking-wider font-mono">
+        <div className="shrink-0 flex items-center gap-2 text-white text-xs sm:text-[13px] font-sans tracking-wider font-montserrat">
           <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
             <circle cx="5" cy="5" r="5" fill="white" />
           </svg>
@@ -78,10 +78,10 @@ export default function HeroBanner() {
 
       {/* Main Hero Typography: Full Width bottom-left */}
       <div className="relative z-10 w-full mb-12 sm:mb-16">
-        <h1 className="font-montserrat font-medium text-4xl sm:text-6xl md:text-7xl lg:text-[76px] tracking-tight uppercase leading-[1.08] text-[#d3f9f5] max-w-5xl">
-          AUTOMATE <span className="text-[#7ceee0] font-medium">OPERATIONS.</span>
+        <h1 className="font-montserrat font-medium text-4xl sm:text-6xl md:text-7xl lg:text-[76px] tracking-tight uppercase leading-[1.08] text-[#D4FAE6] max-w-5xl">
+          AUTOMATE <span className="text-[#5EFC8D] font-medium">OPERATIONS.</span>
           <br />
-          SCALE <span className="text-[#7ceee0] font-medium">GLOBAL SALES.</span>
+          SCALE <span className="text-[#5EFC8D] font-medium">GLOBAL SALES.</span>
         </h1>
 
         <p className="mt-4 sm:mt-5 text-sm sm:text-base md:text-lg text-[#b3b3b3] font-light max-w-3xl leading-[1.75] font-montserrat">

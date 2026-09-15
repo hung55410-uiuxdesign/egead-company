@@ -11,18 +11,18 @@ export default function CultureSection() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
           {/* Left Text Column */}
           <div className="lg:col-span-6 flex flex-col justify-center">
-            <span className="text-xs sm:text-sm font-normal tracking-widest uppercase text-[#d3f9f5] block mb-4 font-montserrat">
+            <p className="text-base sm:text-lg font-normal text-[#D4FAE6] mb-3 font-montserrat">
               Our Culture
-            </span>
-            <h2 className="text-2xl sm:text-4xl lg:text-[44px] font-medium tracking-tight leading-[1.2] text-[#d3f9f5] font-montserrat mb-10">
-              Empowering global commerce through <span className="text-[#7ceee0] font-medium">relentless operational innovation</span>, technology automation, and transparent collaboration.
+            </p>
+            <h2 className="text-2xl sm:text-3xl lg:text-[34px] font-medium tracking-tight leading-[1.3] text-[#D4FAE6] font-montserrat mb-10">
+              Empowering global commerce through <span className="text-[#5EFC8D] font-medium">relentless operational innovation</span>, technology automation, and transparent collaboration.
             </h2>
 
             {/* 2 Buttons matching live site: About Us & Careers */}
             <div className="flex flex-wrap items-center gap-4">
               <Link
                 href="/company"
-                className="group inline-flex items-center gap-2.5 bg-[#7ceee0] hover:bg-[#68d8ca] text-black font-medium text-sm sm:text-[15px] px-8 py-3.5 rounded-full transition shadow-lg font-montserrat"
+                className="group inline-flex items-center gap-2.5 bg-[#5EFC8D] hover:bg-[#4ee37e] text-black font-medium text-sm sm:text-[15px] px-8 py-3.5 rounded-full transition shadow-lg font-montserrat"
               >
                 <svg width="15" height="15" viewBox="0 0 19 18" fill="none" xmlns="http://www.w3.org/2000/svg" className="fill-black">
                   <path d="M15.125 10.875L10.625 15.375L9.56 14.31L12.2525 11.625H3.875V2.625H5.375V10.125H12.2525L9.56 7.44L10.625 6.375L15.125 10.875Z" />
@@ -31,7 +31,7 @@ export default function CultureSection() {
               </Link>
               <Link
                 href="/career"
-                className="group inline-flex items-center gap-2.5 bg-black/40 hover:bg-white/10 border border-white/20 hover:border-[#7ceee0] hover:text-[#7ceee0] text-[#d3f9f5] font-medium text-sm sm:text-[15px] px-8 py-3.5 rounded-full transition font-montserrat"
+                className="group inline-flex items-center gap-2.5 bg-black/40 hover:bg-white/10 border border-white/20 hover:border-[#5EFC8D] hover:text-[#5EFC8D] text-[#D4FAE6] font-medium text-sm sm:text-[15px] px-8 py-3.5 rounded-full transition font-montserrat"
               >
                 <svg width="15" height="15" viewBox="0 0 19 18" fill="none" xmlns="http://www.w3.org/2000/svg" className="fill-current">
                   <path d="M15.125 10.875L10.625 15.375L9.56 14.31L12.2525 11.625H3.875V2.625H5.375V10.125H12.2525L9.56 7.44L10.625 6.375L15.125 10.875Z" />

@@ -34,7 +34,7 @@ describe('Phase 6 Partners Ecosystem Page Verification', () => {
     // 1. Ecosystem Hero & Alliances Statement
     test('renders Section 1: Ecosystem Hero & Global Alliances Statement', () => {
       expect(html).toContain('id="partners-hero"');
-      expect(html).toContain('Global Commerce Alliances 2026');
+      expect(html).toContain('Global Commerce Alliances');
       expect(html).toContain("Integrated with the World&#x27;s");
       expect(html).toContain('Leading Commerce Ecosystems.');
       expect(html).toContain('Explore Partner Matrix');

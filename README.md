@@ -15,7 +15,7 @@ A pixel-perfect, high-performance enterprise digital commerce web platform model
 - **Fluid Full-Width Layout**: Designed for modern ultra-wide displays down to mobile devices without artificial container constraints, featuring tailored edge-to-edge spacing (`px-6 sm:px-10 lg:px-14 xl:px-16`).
 - **Brand Typography & Color Harmony**:
   - Fonts: **Rubik** (Headings) & **Montserrat** (Body text & Subtitles).
-  - Primary Accents: Signature cyan (`#7ceee0` / `#25E2CC`) set against sleek dark backgrounds (`#0A0D0E`, `#141718`).
+  - Primary Accents: Signature cyan (`#5EFC8D` / `#10E774`) set against sleek dark backgrounds (`#0A0D0E`, `#141718`).
 - **Real-Time Global APAC Clocks**: Dynamic local clocks for 7 regional delivery hubs: Singapore, Japan, Australia, Hong Kong, Vietnam, South Korea, and India.
 - **Interactive MegaMenu**: Fullscreen overlay modal navigation with category tabs (Services, Products, Work, Insights, Company).
 - **Infinite Partner Marquee**: Smooth two-tier infinite horizontal logo slider showcasing global technology partners (SAP, Adobe, commercetools, Shopify Plus, Salesforce, etc.).

@@ -101,14 +101,14 @@ export function TransformationMatrix({
       {/* Header section */}
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-8 border-b border-white/10">
         <div>
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#25E2CC]/10 border border-[#25E2CC]/25 text-[#25E2CC] text-xs font-mono font-medium uppercase tracking-wider mb-3">
-            <Zap className="w-3.5 h-3.5" aria-hidden="true" />
+          <p className="text-base sm:text-lg font-normal text-[#D4FAE6] mb-3 font-montserrat flex items-center gap-2">
+            <Zap className="w-4 h-4 text-[#5EFC8D]" aria-hidden="true" />
             Verified Empirical Data
-          </div>
-          <h3 className="text-2xl sm:text-3xl lg:text-4xl font-black text-white tracking-tight">
+          </p>
+          <h3 className="text-2xl sm:text-3xl lg:text-[34px] font-medium text-[#D4FAE6] font-montserrat leading-[1.3]">
             {title}
           </h3>
-          <p className="mt-2 text-sm sm:text-base text-gray-400 max-w-2xl font-normal leading-relaxed">
+          <p className="mt-4 text-base sm:text-[17px] text-[#b3b3b3] font-light leading-[1.75] font-montserrat max-w-2xl">
             {description}
           </p>
         </div>
@@ -130,9 +130,9 @@ export function TransformationMatrix({
               type="button"
               onClick={() => setActiveCategory(cat.key as any)}
               aria-pressed={activeCategory === cat.key}
-              className={`px-3.5 py-1.5 rounded-lg text-xs font-mono font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#25E2CC] ${
+              className={`px-3.5 py-1.5 rounded-lg text-xs font-montserrat font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#10E774] ${
                 activeCategory === cat.key
-                  ? 'bg-[#25E2CC] text-black font-bold shadow-md shadow-[#25E2CC]/20'
+                  ? 'bg-[#10E774] text-black font-bold shadow-md shadow-[#10E774]/20'
                   : 'bg-white/5 text-gray-400 hover:text-white hover:bg-white/10 border border-white/10'
               }`}
             >
@@ -155,14 +155,14 @@ export function TransformationMatrix({
           className="w-full text-left border-collapse min-w-[720px]"
         >
           <thead>
-            <tr className="border-b border-white/10 text-xs font-mono uppercase tracking-wider text-gray-400">
+            <tr className="border-b border-white/10 text-xs font-montserrat uppercase tracking-wider text-gray-400">
               <th scope="col" className="py-4 pr-6 font-semibold w-2/5">
                 Key Performance Indicator
               </th>
               <th scope="col" className="py-4 px-4 font-semibold text-rose-300 w-1/5">
                 Before E-GEAD (Legacy)
               </th>
-              <th scope="col" className="py-4 px-4 font-semibold text-[#25E2CC] w-1/5">
+              <th scope="col" className="py-4 px-4 font-semibold text-[#10E774] w-1/5">
                 With E-GEAD (Automated)
               </th>
               <th scope="col" className="py-4 pl-4 font-semibold text-right w-1/5">
@@ -181,7 +181,7 @@ export function TransformationMatrix({
                 >
                   {/* Metric Name & Operational Impact */}
                   <th scope="row" className="py-5 pr-6 font-normal">
-                    <div className="font-semibold text-white group-hover:text-[#25E2CC] transition-colors">
+                    <div className="font-semibold text-white group-hover:text-[#10E774] transition-colors">
                       {item.metricName}
                     </div>
                     <div className="text-xs text-gray-400 mt-1 font-normal leading-relaxed">
@@ -191,7 +191,7 @@ export function TransformationMatrix({
 
                   {/* Before Column */}
                   <td className="py-5 px-4 align-top">
-                    <div className="inline-flex items-center gap-1.5 font-mono text-base font-bold text-rose-300">
+                    <div className="inline-flex items-center gap-1.5 font-montserrat text-base font-bold text-rose-300">
                       <AlertTriangle className="w-4 h-4 text-rose-400 shrink-0" aria-hidden="true" />
                       <span>{item.beforeValue}</span>
                     </div>
@@ -202,11 +202,11 @@ export function TransformationMatrix({
 
                   {/* After Column */}
                   <td className="py-5 px-4 align-top">
-                    <div className="inline-flex items-center gap-1.5 font-mono text-base font-bold text-[#25E2CC]">
-                      <ShieldCheck className="w-4 h-4 text-[#25E2CC] shrink-0" aria-hidden="true" />
+                    <div className="inline-flex items-center gap-1.5 font-montserrat text-base font-bold text-[#10E774]">
+                      <ShieldCheck className="w-4 h-4 text-[#10E774] shrink-0" aria-hidden="true" />
                       <span>{item.afterValue}</span>
                     </div>
-                    <div className="text-xs text-[#25E2CC]/80 mt-1 font-sans font-medium">
+                    <div className="text-xs text-[#10E774]/80 mt-1 font-sans font-medium">
                       {item.afterContext}
                     </div>
                   </td>
@@ -214,9 +214,9 @@ export function TransformationMatrix({
                   {/* Improvement Delta Badge */}
                   <td className="py-5 pl-4 align-top text-right">
                     <span 
-                      className={`inline-flex items-center gap-1 px-3 py-1.5 rounded-full font-mono text-xs font-bold ${
+                      className={`inline-flex items-center gap-1 px-3 py-1.5 rounded-full font-montserrat text-xs font-bold ${
                         item.trendType === 'decrease-positive'
-                          ? 'bg-[#25E2CC]/15 text-[#25E2CC] border border-[#25E2CC]/30'
+                          ? 'bg-[#10E774]/15 text-[#10E774] border border-[#10E774]/30'
                           : 'bg-emerald-400/15 text-emerald-300 border border-emerald-400/30'
                       }`}
                     >
@@ -239,9 +239,9 @@ export function TransformationMatrix({
       </div>
 
       {/* Footer verification note */}
-      <div className="mt-8 pt-6 border-t border-white/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 text-xs text-gray-500 font-mono">
+      <div className="mt-8 pt-6 border-t border-white/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 text-xs text-gray-500 font-montserrat">
         <div className="flex items-center gap-2">
-          <CheckCircle2 className="w-4 h-4 text-[#25E2CC]" aria-hidden="true" />
+          <CheckCircle2 className="w-4 h-4 text-[#10E774]" aria-hidden="true" />
           <span>Verified against 2024–2026 TikTok Shop US Seller Center & Shopify Analytics</span>
         </div>
         <span>Sample Size: 100+ Cross-Border Merchant Stores</span>

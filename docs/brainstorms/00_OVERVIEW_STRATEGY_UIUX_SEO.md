@@ -57,7 +57,7 @@ flowchart TD
 
 ### Chi tiết 10 UI Layout Patterns:
 1. **Pattern 1 - Immersive Split Hero with Live Badge & Metrics Bar**:
-   - Phía trên: Tiêu đề typography siêu lớn (H1 display), gradient text neon cyan `#7ceee0`, announcement badge bo tròn nhấp nháy pulse.
+   - Phía trên: Tiêu đề typography siêu lớn (H1 display), gradient text neon cyan `#5EFC8D`, announcement badge bo tròn nhấp nháy pulse.
    - Phía dưới hoặc bên cạnh: Dải số liệu động (KPI ticker bar: SLA < 24h, 99.9% accuracy, 4.8x ROAS, 10,000+ orders/day).
 2. **Pattern 2 - Bento Grid (Apple/Linear Style)**:
    - Lưới bất đối xứng 3x2 hoặc 4x2: 1 card to kích thước 2x2 chứa ảnh mockup hoặc biểu đồ trực quan, các card nhỏ 1x1 xung quanh chứa micro-features kèm icon neon và hover glow.

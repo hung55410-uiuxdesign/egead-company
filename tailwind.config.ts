@@ -10,10 +10,10 @@ const config: Config = {
     extend: {
       colors: {
         sai: {
-          teal: "#25E2CC",
-          "teal-hover": "#1ec2af",
-          mint: "#D3F9F5",
-          "dark-teal": "#007380",
+          teal: "#10E774",
+          "teal-hover": "#0ecb66",
+          mint: "#D4FAE6",
+          "dark-teal": "#007A3D",
           black: "#0A0D0E",
           dark: "#101416",
           darker: "#060809",
@@ -27,6 +27,7 @@ const config: Config = {
         sans: ["var(--font-montserrat)", "Montserrat", "-apple-system", "BlinkMacSystemFont", "'Segoe UI'", "Roboto", "sans-serif"],
         montserrat: ["var(--font-montserrat)", "Montserrat", "-apple-system", "BlinkMacSystemFont", "'Segoe UI'", "Roboto", "sans-serif"],
         rubik: ["var(--font-montserrat)", "Montserrat", "-apple-system", "BlinkMacSystemFont", "'Segoe UI'", "Roboto", "sans-serif"],
+        mono: ["var(--font-montserrat)", "Montserrat", "-apple-system", "BlinkMacSystemFont", "'Segoe UI'", "Roboto", "sans-serif"],
       },
       keyframes: {
         marquee: {

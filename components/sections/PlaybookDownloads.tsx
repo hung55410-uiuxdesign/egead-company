@@ -76,20 +76,20 @@ export function PlaybookDownloads({
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-8 border-b border-white/10">
         <div>
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#141718] border border-white/10 text-[#d3f9f5] text-xs font-mono font-normal uppercase tracking-wider mb-3 font-montserrat">
-            <BookOpen className="w-3.5 h-3.5 text-[#7ceee0]" aria-hidden="true" />
+          <p className="text-base sm:text-lg font-normal text-[#D4FAE6] mb-3 font-montserrat flex items-center gap-2">
+            <BookOpen className="w-4 h-4 text-[#5EFC8D]" aria-hidden="true" />
             Executive Knowledge Base
-          </div>
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-medium text-[#d3f9f5] tracking-tight font-montserrat">
-            Operational Playbooks &amp; Strategy Guides
+          </p>
+          <h2 className="text-2xl sm:text-3xl lg:text-[34px] font-medium text-[#D4FAE6] font-montserrat leading-[1.3]">
+            Operational Playbooks &amp; <span className="text-[#5EFC8D] font-medium">Strategy Guides</span>
           </h2>
-          <p className="mt-2 text-sm sm:text-base text-[#b3b3b3] max-w-2xl font-light leading-[1.75] font-montserrat">
+          <p className="mt-4 text-base sm:text-[17px] text-[#b3b3b3] max-w-2xl font-light leading-[1.75] font-montserrat">
             Download the battle-tested standard operating procedures (SOPs) and financial templates our enterprise partners use to run high-margin cross-border operations.
           </p>
         </div>
 
-        <div className="text-xs font-mono text-[#b3b3b3]">
-          <span className="text-[#7ceee0] font-medium">100% Free</span> · No Credit Card Required
+        <div className="text-xs font-montserrat text-[#b3b3b3]">
+          <span className="text-[#5EFC8D] font-medium">100% Free</span> · No Credit Card Required
         </div>
       </div>
 
@@ -107,12 +107,12 @@ export function PlaybookDownloads({
           return (
             <div
               key={book.id}
-              className="flex flex-col justify-between p-6 rounded-2xl bg-[#0A0D0E]/80 border border-white/10 hover:border-[#25E2CC]/40 transition-all duration-300 relative group"
+              className="flex flex-col justify-between p-6 rounded-2xl bg-[#0A0D0E]/80 border border-white/10 hover:border-[#10E774]/40 transition-all duration-300 relative group"
             >
               <div>
                 {/* Format and Page badges */}
                 <div className="flex items-center justify-between gap-2 mb-4">
-                  <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-white/5 border border-white/10 text-[11px] font-mono text-[#25E2CC] font-semibold">
+                  <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-white/5 border border-white/10 text-[11px] font-montserrat text-[#10E774] font-semibold">
                     {book.format.includes('PDF') ? (
                       <FileText className="w-3.5 h-3.5" aria-hidden="true" />
                     ) : (
@@ -120,12 +120,12 @@ export function PlaybookDownloads({
                     )}
                     {book.format}
                   </span>
-                  <span className="text-[11px] font-mono text-gray-500">
+                  <span className="text-[11px] font-montserrat text-gray-500">
                     {book.downloadsCount}
                   </span>
                 </div>
 
-                <h3 className="text-lg font-bold text-white group-hover:text-[#25E2CC] transition-colors leading-snug">
+                <h3 className="text-lg font-bold text-white group-hover:text-[#10E774] transition-colors leading-snug">
                   {book.title}
                 </h3>
                 
@@ -135,7 +135,7 @@ export function PlaybookDownloads({
 
                 {/* Key Takeaway */}
                 <div className="mt-4 p-3 rounded-xl bg-white/[0.03] border border-white/5 text-[11px] text-gray-300">
-                  <span className="text-[#25E2CC] font-semibold block mb-0.5">Key Resource Included:</span>
+                  <span className="text-[#10E774] font-semibold block mb-0.5">Key Resource Included:</span>
                   {book.keyTakeaway}
                 </div>
               </div>
@@ -147,12 +147,12 @@ export function PlaybookDownloads({
                   onClick={() => handleDownload(book.id, book.title)}
                   disabled={isDownloading}
                   aria-label={isDownloaded ? `Downloaded ${book.title}` : `Download ${book.title} (${book.format})`}
-                  className={`w-full inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl font-semibold text-xs font-mono uppercase tracking-wider transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#25E2CC] ${
+                  className={`w-full inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl font-semibold text-xs font-montserrat uppercase tracking-wider transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#10E774] ${
                     isDownloaded
                       ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40'
                       : isDownloading
-                      ? 'bg-[#25E2CC]/20 text-[#25E2CC] border border-[#25E2CC]/40 cursor-wait'
-                      : 'bg-white/5 hover:bg-[#25E2CC] text-white hover:text-black border border-white/10 hover:border-[#25E2CC]'
+                      ? 'bg-[#10E774]/20 text-[#10E774] border border-[#10E774]/40 cursor-wait'
+                      : 'bg-white/5 hover:bg-[#10E774] text-white hover:text-black border border-white/10 hover:border-[#10E774]'
                   }`}
                 >
                   {isDownloaded ? (
@@ -162,7 +162,7 @@ export function PlaybookDownloads({
                     </>
                   ) : isDownloading ? (
                     <>
-                      <span className="w-3.5 h-3.5 border-2 border-[#25E2CC] border-t-transparent rounded-full animate-spin motion-reduce:animate-none" aria-hidden="true" />
+                      <span className="w-3.5 h-3.5 border-2 border-[#10E774] border-t-transparent rounded-full animate-spin motion-reduce:animate-none" aria-hidden="true" />
                       <span>Preparing File...</span>
                     </>
                   ) : (
@@ -179,9 +179,9 @@ export function PlaybookDownloads({
       </div>
 
       {/* Trust reassurance banner */}
-      <div className="mt-8 pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-gray-500">
+      <div className="mt-8 pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-montserrat text-gray-500">
         <div className="flex items-center gap-2">
-          <Sparkles className="w-3.5 h-3.5 text-[#25E2CC]" aria-hidden="true" />
+          <Sparkles className="w-3.5 h-3.5 text-[#10E774]" aria-hidden="true" />
           <span>Updated quarterly with the latest 2026 TikTok Shop US, USPS, and Amazon policies.</span>
         </div>
         <span>Direct instant access · Instant digital PDF &amp; sheet download</span>

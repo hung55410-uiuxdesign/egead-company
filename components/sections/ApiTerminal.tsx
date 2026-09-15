@@ -108,15 +108,14 @@ export default function ApiTerminal({ id = 'api-terminal', className = '' }: Api
     >
       <div className="relative z-10 w-full px-6 sm:px-10 lg:px-14 xl:px-16">
         {/* Header Block */}
-        <div className="text-center max-w-3xl mx-auto mb-14 sm:mb-16">
-          <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#141718] border border-white/10 text-[#d3f9f5] text-xs sm:text-sm font-normal tracking-wider uppercase mb-4 font-montserrat">
-            <Code2 className="w-3.5 h-3.5 text-[#7ceee0]" aria-hidden="true" />
+        <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-14">
+          <p className="text-base sm:text-lg font-normal text-[#D4FAE6] mb-3 font-montserrat">
             Developer-First Architecture
-          </span>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-medium tracking-tight text-[#d3f9f5] font-montserrat leading-[1.2]">
-            RESTful API &amp; <span className="text-[#7ceee0] font-medium">Event-Driven Webhook</span> Terminal
+          </p>
+          <h2 className="text-2xl sm:text-3xl lg:text-[34px] font-medium text-[#D4FAE6] font-montserrat leading-[1.3]">
+            RESTful API &amp; <span className="text-[#5EFC8D] font-medium">Event-Driven Webhook</span> Terminal
           </h2>
-          <p className="mt-4 text-base sm:text-lg text-[#b3b3b3] font-light leading-[1.75] font-montserrat max-w-2xl mx-auto">
+          <p className="mt-4 text-base sm:text-[17px] text-[#b3b3b3] font-light leading-[1.75] font-montserrat max-w-2xl mx-auto">
             Connect custom storefronts, ERPs, or TikTok Shop connector apps in minutes with enterprise-grade sub-150ms JSON endpoints.
           </p>
         </div>
@@ -130,7 +129,7 @@ export default function ApiTerminal({ id = 'api-terminal', className = '' }: Api
               <span className="w-3 h-3 rounded-full bg-red-500/80" />
               <span className="w-3 h-3 rounded-full bg-yellow-500/80" />
               <span className="w-3 h-3 rounded-full bg-emerald-500/80" />
-              <span className="ml-3 text-xs font-mono text-[#8C8C8C] hidden sm:inline">
+              <span className="ml-3 text-xs font-montserrat text-[#8C8C8C] hidden sm:inline">
                 egead-api-v1.production.egeadcompany.com
               </span>
             </div>
@@ -147,16 +146,16 @@ export default function ApiTerminal({ id = 'api-terminal', className = '' }: Api
                     aria-selected={isActive}
                     aria-controls="api-terminal-panel"
                     onClick={() => setActiveTabId(ep.id)}
-                    className={`px-3 sm:px-4 py-1.5 rounded-lg text-xs font-mono font-semibold transition-all duration-200 flex items-center gap-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#25E2CC] ${
+                    className={`px-3 sm:px-4 py-1.5 rounded-lg text-xs font-montserrat font-semibold transition-all duration-200 flex items-center gap-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#10E774] ${
                       isActive
-                        ? 'bg-[#1D2224] text-white border border-[#25E2CC]/40 shadow-[0_0_10px_rgba(37,226,204,0.15)]'
+                        ? 'bg-[#1D2224] text-white border border-[#10E774]/40 shadow-[0_0_10px_rgba(16, 231, 116, 0.15)]'
                         : 'text-[#8C8C8C] hover:text-white hover:bg-white/5'
                     }`}
                   >
                     <span
                       className={`text-[10px] font-bold ${
                         ep.method === 'POST'
-                          ? 'text-[#25E2CC]'
+                          ? 'text-[#10E774]'
                           : ep.method === 'EVENT'
                           ? 'text-yellow-400'
                           : 'text-purple-400'
@@ -175,7 +174,7 @@ export default function ApiTerminal({ id = 'api-terminal', className = '' }: Api
               type="button"
               onClick={handleCopy}
               aria-label="Copy code sample to clipboard"
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#141718] border border-[#262C30] text-xs text-[#8C8C8C] hover:text-[#25E2CC] hover:border-[#25E2CC]/40 transition-all font-mono focus:outline-none focus-visible:ring-2 focus-visible:ring-[#25E2CC]"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#141718] border border-[#262C30] text-xs text-[#8C8C8C] hover:text-[#10E774] hover:border-[#10E774]/40 transition-all font-montserrat focus:outline-none focus-visible:ring-2 focus-visible:ring-[#10E774]"
             >
               {copied ? (
                 <>
@@ -196,15 +195,15 @@ export default function ApiTerminal({ id = 'api-terminal', className = '' }: Api
             id="api-terminal-panel"
             role="tabpanel"
             aria-labelledby={`api-tab-${activeEndpoint.id}`}
-            className="p-6 sm:p-8 font-mono text-xs sm:text-sm grid grid-cols-1 lg:grid-cols-12 gap-6"
+            className="p-6 sm:p-8 font-montserrat text-xs sm:text-sm grid grid-cols-1 lg:grid-cols-12 gap-6"
           >
             {/* Request Code Column */}
             <div className="lg:col-span-7 bg-[#0A0D0E]/90 rounded-2xl p-5 border border-[#262C30] relative overflow-x-auto">
               <div className="flex items-center justify-between pb-3 mb-3 border-b border-[#262C30] text-[11px] text-[#8C8C8C]">
-                <span className="text-[#25E2CC] font-bold">{activeEndpoint.method} {activeEndpoint.path}</span>
+                <span className="text-[#10E774] font-bold">{activeEndpoint.method} {activeEndpoint.path}</span>
                 <span>Content-Type: application/json</span>
               </div>
-              <pre className="text-[#D3F9F5]/90 leading-relaxed overflow-x-auto">
+              <pre className="text-[#D4FAE6]/90 leading-relaxed overflow-x-auto">
                 <code>{activeEndpoint.code}</code>
               </pre>
             </div>
@@ -214,7 +213,7 @@ export default function ApiTerminal({ id = 'api-terminal', className = '' }: Api
               <div>
                 <div className="flex items-center justify-between pb-3 mb-3 border-b border-[#262C30] text-[11px]">
                   <span className="text-emerald-400 font-bold">HTTP/2 200 OK</span>
-                  <span className="text-[#25E2CC] font-bold">Latency: {activeEndpoint.latency}</span>
+                  <span className="text-[#10E774] font-bold">Latency: {activeEndpoint.latency}</span>
                 </div>
                 <pre className="text-emerald-300/90 leading-relaxed overflow-x-auto text-xs">
                   <code>{activeEndpoint.response}</code>
@@ -222,7 +221,7 @@ export default function ApiTerminal({ id = 'api-terminal', className = '' }: Api
               </div>
 
               <div className="pt-4 mt-4 border-t border-[#262C30] flex items-center justify-between text-[11px] text-[#8C8C8C]">
-                <span className="flex items-center gap-1 text-[#25E2CC]">
+                <span className="flex items-center gap-1 text-[#10E774]">
                   <Zap className="w-3.5 h-3.5" aria-hidden="true" />
                   99.9% Uptime Production Cluster
                 </span>

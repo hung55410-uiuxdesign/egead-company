@@ -2,196 +2,118 @@ import { describe, test, expect } from 'bun:test';
 import React from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import SpeedXPage, { metadata } from '../app/speedx/page';
-import {
-  AddressDemo,
-  PricingCalculator,
-  ApiTerminal,
-  LiveCountdownCard,
-} from '../components/sections';
 
-describe('Phase 3 SpeedX Page Verification', () => {
+describe('SpeedX Page 100% SAI Digital Fidelity Verification', () => {
   const html = renderToStaticMarkup(<SpeedXPage />);
 
   describe('Page Metadata', () => {
     test('contains comprehensive SEO title, description, and keywords', () => {
       expect(metadata).toBeDefined();
       expect(metadata.title).toContain('SpeedX');
-      expect(metadata.title).toContain('Eweb-character');
-      expect(metadata.description).toContain('23-inch large-format DTF');
+      expect(metadata.title).toContain('Revolutionize Your Workflow with SpeedX');
+      expect(metadata.description).toContain('Discover SpeedX by SAI Digital');
       expect(metadata.keywords).toBeDefined();
       const keywords = metadata.keywords as string[];
       expect(keywords).toBeArray();
-      expect(keywords.length).toBeGreaterThanOrEqual(5);
-      expect(keywords).toContain('24 hour POD fulfillment USA');
-      expect(keywords).toContain('TikTok Shop compliant POD');
-      expect(keywords).toContain('DTF print on demand US');
+      expect(keywords).toContain('SpeedX');
+      expect(keywords).toContain('CRM implementation');
+      expect(keywords).toContain('Sales Cloud SpeedX');
     });
   });
 
-  describe('All 12 Dedicated Sections Present and Rendered', () => {
+  describe('SAI Digital 4 Signature Sections 100% Present', () => {
     // 1. Hero Section
-    test('renders Section 1: Kinetic Hero with live 24H dispatch countdown card', () => {
-      expect(html).toContain('id="speedx-hero"');
-      expect(html).toContain('Eweb-character:');
-      expect(html).toContain('AI Precision. Sub-24H POD.');
-      expect(html).toContain('Propelled by Eweb-character AI');
-      expect(html).toContain('24-Hour Production SLA Clock');
-      expect(html).toContain('08:00 AM • Order Ingestion');
-      expect(html).toContain('11:30 AM • 23&quot; DTF Printed');
-      expect(html).toContain('03:45 PM • Carrier Physical Scan');
+    test('renders Section 1: Product Overview Hero with logo, CRM Implementation subtitle, and demo video', () => {
+      expect(html).toContain('product-overview speedx');
+      expect(html).toContain('speedx-logo.svg');
+      expect(html).toContain('CRM IMPLEMENTATION');
+      expect(html).toContain('Get Your Sales Team Focused on Selling in 98 Days');
+      expect(html).toContain('Finally, a CRM implementation that works for your team, not against them.');
+      expect(html).toContain('Sales Cloud SpeedX gets you up and running fast, without the usual enterprise headaches.');
+      expect(html).toContain('Schedule demo');
+      expect(html).toContain('Book a Demo Now!');
+      expect(html).toContain('cover_demo_video.png');
     });
 
-    // 2. Metrics Ribbon
-    test('renders Section 2: Production Metrics Strip with core KPIs', () => {
-      expect(html).toContain('id="speedx-metrics"');
-      expect(html).toContain('&lt; 18.4 Hours');
-      expect(html).toContain('Median Order Turnaround');
-      expect(html).toContain('23 Inches');
-      expect(html).toContain('Maximum DTF Print Width');
-      expect(html).toContain('0.2%');
-      expect(html).toContain('Average Late Dispatch Rate');
-      expect(html).toContain('-82%');
-      expect(html).toContain('Drop in Address RTO');
+    // 2. Why SpeedX Section
+    test('renders Section 2: Why SpeedX with kinetic typography and 3 metric cards', () => {
+      expect(html).toContain('why-speedx');
+      expect(html).toContain('WHY SPEEDX?');
+      expect(html).toContain('Sales teams struggle with lengthy CRM setups, complex customizations, and slow adoption');
+      expect(html).toContain('<span>A</span><span>C</span><span>H</span><span>I</span><span>E</span><span>V</span><span>E</span>');
+      expect(html).toContain('<span>C</span><span>R</span><span>M</span>');
+      expect(html).toContain('<span>E</span><span>X</span><span>C</span><span>E</span><span>L</span><span>L</span><span>E</span><span>N</span><span>C</span><span>E</span>');
+      expect(html).toContain('<span>S</span><span>P</span><span>E</span><span>E</span><span>D</span><span>X</span>');
+
+      // 3 metric cards
+      expect(html).toContain('metric-productivity.png');
+      expect(html).toContain('35% Increase');
+      expect(html).toContain('in Sale Productivity');
+
+      expect(html).toContain('metric-cycle-length.png');
+      expect(html).toContain('30% Reduction');
+      expect(html).toContain('in Sale Cycle Length');
+
+      expect(html).toContain('metric-conversion.png');
+      expect(html).toContain('25% Higher');
+      expect(html).toContain('Lead Conversion Rate');
     });
 
-    // 3. Problem vs Solution
-    test('renders Section 3: The Cross-Border POD Crisis vs E-GEAD Solution comparison', () => {
-      expect(html).toContain('id="the-pod-crisis"');
-      expect(html).toContain('The Legacy 3PL Crisis vs');
-      expect(html).toContain('The Eweb-character Standard');
-      expect(html).toContain('Production &amp; Carrier Dispatch SLA');
-      expect(html).toContain('TikTok Shop US Account Health');
-      expect(html).toContain('Address Normalization &amp; Validation');
-      expect(html).toContain('Unit Pricing &amp; Cost Transparency');
+    // 3. How SpeedX Works Section
+    test('renders Section 3: How SpeedX Works with sticky sidebar and 5 sequential steps', () => {
+      expect(html).toContain('how-speedx');
+      expect(html).toContain('HOW SPEEDX WORKS');
+      expect(html).toContain('Built to Drive Measurable Success for Your Team');
+      expect(html).toContain('Start Selling Now!');
+      expect(html).toContain('measurable-success.png');
+
+      // 5 steps
+      expect(html).toContain('Fast-Track Discovery');
+      expect(html).toContain('Collaborate on industry-specific templates to gather requirements quickly.');
+
+      expect(html).toContain('Accelerated User Adoption');
+      expect(html).toContain('Interactive knowledge-hub ensures user readiness within 30 days.');
+
+      expect(html).toContain('Pre-visualized Architecture');
+      expect(html).toContain('Includes Lead &amp; Opportunity Management, Product Catalogue, Analytics, and more.');
+
+      expect(html).toContain('Customizable Dashboards');
+      expect(html).toContain('Data-driven decision-making with easy access to reports and snapshots.');
+
+      expect(html).toContain('Tailored Customization');
+      expect(html).toContain('Pre-configured solutions and industry-specific workflows for easy customization.');
     });
 
-    // 4. Address Normalization Demo
-    test('renders Section 4: AI Address Normalization Engine Visual Demo', () => {
-      expect(html).toContain('id="ai-address-normalization"');
-      expect(html).toContain('Watch AI');
-      expect(html).toContain('Sanitize &amp; Fix');
-      expect(html).toContain('Raw Marketplace Payload');
-      expect(html).toContain('Eweb-character AI Sanitized');
-      expect(html).toContain('USPS DPV Confirmed Delivery Point');
+    // 4. What to Expect Section
+    test('renders Section 4: What to Expect With SpeedX with 3 deliverable blocks', () => {
+      expect(html).toContain('what-speedx');
+      expect(html).toContain('WHAT TO EXPECT WITH SPEEDX');
+
+      // 3 blocks
+      expect(html).toContain('project-delivery.svg');
+      expect(html).toContain('Fixed Priced,  Fixed Timeline');
+
+      expect(html).toContain('full-adoption.svg');
+      expect(html).toContain('Full User Adoption within 30 Days');
+
+      expect(html).toContain('roi-realization.svg');
+      expect(html).toContain('ROI Realization within the First Quarter');
+
+      expect(html).toContain('Book a Demo Now!');
     });
 
-    // 5. DTF Technology Deep Dive
-    test('renders Section 5: 23-Inch Industrial DTF Printing Technology Deep Dive', () => {
-      expect(html).toContain('id="dtf-technology"');
-      expect(html).toContain('23-Inch Industrial DTF:');
-      expect(html).toContain('Full-Coverage Streetwear Excellence');
-      expect(html).toContain('Dual Epson i3200 Industrial Heads');
-      expect(html).toContain('60+ Wash Cycle Durability');
-      expect(html).toContain('Expanded Gamut: CMYK + White + Fluorescent');
-    });
-
-    // 6. WMS Production Flow
-    test('renders Section 6: Barcode-Driven 6-Station WMS Production Flow', () => {
-      expect(html).toContain('id="wms-production-flow"');
-      expect(html).toContain('6-Station Barcode-Verified');
-      expect(html).toContain('Production Flow');
-      expect(html).toContain('API Intake &amp; Auto-Ganging');
-      expect(html).toContain('High-Speed DTF Roll Printing');
-      expect(html).toContain('Powder Shaker &amp; Oven Curing');
-      expect(html).toContain('Carousel Heat Pressing');
-      expect(html).toContain('Optical &amp; Barcode QC Inspection');
-      expect(html).toContain('Automated Labeling &amp; Carrier Hand-Off');
-    });
-
-    // 7. Pricing Calculator
-    test('renders Section 7: Transparent $6 All-In Pricing Breakdown & Calculator', () => {
-      expect(html).toContain('id="pricing-calculator"');
-      expect(html).toContain('Transparent');
-      expect(html).toContain('$6 All-In Base Rate');
-      expect(html).toContain('Classic Streetwear Tee (Gildan 5000)');
-      expect(html).toContain('Your Retail Selling Price');
-      expect(html).toContain('Per-Unit Profitability');
-    });
-
-    // 8. TikTok Shop SLA Shield
-    test('renders Section 8: TikTok Shop US LDR Shield & Account Health Guardian', () => {
-      expect(html).toContain('id="tiktok-sla-shield"');
-      expect(html).toContain('TikTok Shop US LDR Shield:');
-      expect(html).toContain('Never Risk an Account Strike');
-      expect(html).toContain('TikTok Shop Policy Mandate (2026)');
-      expect(html).toContain('0.2% LDR (Optimal)');
-    });
-
-    // 9. Blanks Catalog
-    test('renders Section 9: Premium Blanks Catalog & Technical Specifications', () => {
-      expect(html).toContain('id="blanks-catalog"');
-      expect(html).toContain('Premium Blanks Catalog &amp;');
-      expect(html).toContain('Classic Heavyweight Tee');
-      expect(html).toContain('Vintage Garment-Dyed Tee');
-      expect(html).toContain('Retail-Fit Unisex Tee');
-      expect(html).toContain('Heavy Blend Fleece Hoodie');
-      expect(html).toContain('Gildan 5000 / Shaka Wear');
-    });
-
-    // 10. Developer API Terminal
-    test('renders Section 10: Developer RESTful API & Webhook Terminal', () => {
-      expect(html).toContain('id="api-terminal"');
-      expect(html).toContain('RESTful API &amp;');
-      expect(html).toContain('Event-Driven Webhook');
-      expect(html).toContain('/v1/orders/dispatch');
-      expect(html).toContain('Carrier Dispatch Callback');
-      expect(html).toContain('Real-time Blanks Stock');
-    });
-
-    // 11. FAQ Accordion
-    test('renders Section 11: SpeedX & POD Production FAQ Accordion', () => {
-      expect(html).toContain('id="speedx-faq"');
-      expect(html).toContain('SpeedX Technical &amp;');
-      expect(html).toContain('Fulfillment Inquiries');
-      expect(html).toContain('What file formats do you accept for 23-inch DTF printing?');
-      expect(html).toContain('What happens if an order is delayed past the 24-hour guarantee?');
-      expect(html).toContain('application/ld+json');
-    });
-
-    // 12. Mega CTA & Contact Block
-    test('renders Section 12: High-Octane Conversion CTA & Contact Block', () => {
-      expect(html).toContain('id="speedx-cta"');
-      expect(html).toContain('Stop Losing Money on');
-      expect(html).toContain('Print Delays &amp; High RTO.');
-      expect(html).toContain('Connect Your Storefront Now');
-      expect(html).toContain('contact-block');
-      expect(html).toContain('Get Free Consultation');
-    });
-  });
-
-  describe('Interactive Section Island Accessibility and Mechanics', () => {
-    test('AddressDemo renders with live region and sample test cases', () => {
-      const demoHtml = renderToStaticMarkup(<AddressDemo />);
-      expect(demoHtml).toContain('aria-live="polite"');
-      expect(demoHtml).toContain('aria-atomic="true"');
-      expect(demoHtml).toContain('Incomplete Zip &amp; Abbreviation');
-      expect(demoHtml).toContain('Typo in Street &amp; City');
-      expect(demoHtml).toContain('Missing Suite / Unit Number');
-    });
-
-    test('PricingCalculator renders live calculation breakdown and net margin elements', () => {
-      const calcHtml = renderToStaticMarkup(<PricingCalculator />);
-      expect(calcHtml).toContain('aria-live="polite"');
-      expect(calcHtml).toContain('Gross Retail Revenue:');
-      expect(calcHtml).toContain('(-) E-GEAD All-In Base Rate:');
-      expect(calcHtml).toContain('(-) Est. Marketplace Fee (6%):');
-      expect(calcHtml).toContain('(-) Est. US Domestic Shipping:');
-      expect(calcHtml).toContain('Net Margin');
-    });
-
-    test('ApiTerminal tabs reference valid single terminal panel ID', () => {
-      const apiHtml = renderToStaticMarkup(<ApiTerminal />);
-      expect(apiHtml).toContain('aria-controls="api-terminal-panel"');
-      expect(apiHtml).toContain('id="api-terminal-panel"');
-      expect(apiHtml).toContain('role="tablist"');
-      expect(apiHtml).toContain('role="tabpanel"');
-    });
-
-    test('LiveCountdownCard outputs semantic time tag and reduced motion guard', () => {
-      const cardHtml = renderToStaticMarkup(<LiveCountdownCard />);
-      expect(cardHtml).toContain('<time');
-      expect(cardHtml).toContain('motion-reduce:animate-none');
-      expect(cardHtml).toContain('TikTok Shop US Compliance');
+    // 5. Absence of extraneous sections
+    test('verifies that non-SAI Digital extraneous sections are cleanly removed', () => {
+      expect(html).not.toContain('id="the-pod-crisis"');
+      expect(html).not.toContain('id="ai-address-normalization"');
+      expect(html).not.toContain('id="dtf-technology"');
+      expect(html).not.toContain('id="wms-production-flow"');
+      expect(html).not.toContain('id="pricing-calculator"');
+      expect(html).not.toContain('id="tiktok-sla-shield"');
+      expect(html).not.toContain('id="blanks-catalog"');
+      expect(html).not.toContain('id="api-terminal"');
+      expect(html).not.toContain('id="speedx-faq"');
+      expect(html).not.toContain('id="speedx-cta"');
     });
   });
 });

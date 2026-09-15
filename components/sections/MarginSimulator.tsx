@@ -35,19 +35,19 @@ export default function MarginSimulator({
       className={`relative w-full py-20 sm:py-24 lg:py-28 bg-[#0A0D0E] text-white overflow-hidden ${className}`}
     >
       {/* Background glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[400px] bg-[#25E2CC]/5 blur-[180px] rounded-full pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[400px] bg-[#10E774]/5 blur-[180px] rounded-full pointer-events-none" />
 
       <div className="relative z-10 w-full px-6 sm:px-10 lg:px-14 xl:px-16">
         {/* Header Block */}
         <div className="text-center max-w-3xl mx-auto mb-14 sm:mb-16">
-          <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#141718] border border-white/10 text-[#d3f9f5] text-xs sm:text-sm font-normal tracking-wider uppercase mb-4 font-montserrat">
-            <Calculator className="w-3.5 h-3.5 text-[#7ceee0]" aria-hidden="true" />
+          <p className="text-base sm:text-lg font-normal text-[#D4FAE6] mb-3 font-montserrat flex items-center justify-center gap-2">
+            <Calculator className="w-4 h-4 text-[#5EFC8D]" aria-hidden="true" />
             ROI &amp; Efficiency Simulator
-          </span>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-medium tracking-tight text-[#d3f9f5] font-montserrat leading-[1.2]">
-            Estimate Your <span className="text-[#7ceee0] font-medium">Operational Freedom</span>
+          </p>
+          <h2 className="text-2xl sm:text-3xl lg:text-[34px] font-medium text-[#D4FAE6] font-montserrat leading-[1.3]">
+            Estimate Your <span className="text-[#5EFC8D] font-medium">Operational Freedom</span>
           </h2>
-          <p className="mt-4 text-base sm:text-lg text-[#b3b3b3] font-light leading-[1.75] font-montserrat max-w-2xl mx-auto">
+          <p className="mt-4 text-base sm:text-[17px] text-[#b3b3b3] font-light leading-[1.75] font-montserrat max-w-2xl mx-auto">
             Calculate exactly how much manual spreadsheet labor, RTO penalties, and lost SLA revenue you eliminate by running on E-GEAD.
           </p>
         </div>
@@ -69,14 +69,14 @@ export default function MarginSimulator({
                       type="button"
                       aria-pressed={selectedChannel === ch.id}
                       onClick={() => setSelectedChannel(ch.id)}
-                      className={`p-3 rounded-xl text-xs sm:text-sm font-bold font-montserrat transition-all duration-200 border text-left flex flex-col justify-between focus:outline-none focus-visible:ring-2 focus-visible:ring-[#25E2CC] ${
+                      className={`p-3 rounded-xl text-xs sm:text-sm font-bold font-montserrat transition-all duration-200 border text-left flex flex-col justify-between focus:outline-none focus-visible:ring-2 focus-visible:ring-[#10E774] ${
                         selectedChannel === ch.id
-                          ? 'bg-[#25E2CC]/15 border-[#25E2CC] text-white shadow-[0_0_15px_rgba(37,226,204,0.15)]'
+                          ? 'bg-[#10E774]/15 border-[#10E774] text-white shadow-[0_0_15px_rgba(16, 231, 116, 0.15)]'
                           : 'bg-[#101416] border-[#262C30] text-[#8C8C8C] hover:text-white hover:border-[#262C30]/80'
                       }`}
                     >
                       <span>{ch.name}</span>
-                      <span className="text-[10px] text-[#25E2CC] font-mono mt-1">
+                      <span className="text-[10px] text-[#10E774] font-montserrat mt-1">
                         SLA Req: {ch.ldrThreshold}
                       </span>
                     </button>
@@ -90,7 +90,7 @@ export default function MarginSimulator({
                   <label htmlFor="volume-slider" className="text-xs uppercase tracking-widest font-medium text-[#b3b3b3] font-montserrat">
                     Monthly Order Volume
                   </label>
-                  <span className="text-2xl font-medium text-[#7ceee0] font-montserrat">
+                  <span className="text-2xl font-medium text-[#5EFC8D] font-montserrat">
                     {orderVolume.toLocaleString('en-US')}{' '}
                     <span className="text-xs text-[#b3b3b3] font-light uppercase">orders/mo</span>
                   </span>
@@ -105,11 +105,11 @@ export default function MarginSimulator({
                   value={orderVolume}
                   aria-valuetext={`${orderVolume.toLocaleString('en-US')} orders per month`}
                   onChange={(e) => setOrderVolume(Number(e.target.value))}
-                  className="w-full h-2 bg-[#1D2224] rounded-lg appearance-none cursor-pointer accent-[#25E2CC] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#25E2CC]"
+                  className="w-full h-2 bg-[#1D2224] rounded-lg appearance-none cursor-pointer accent-[#10E774] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#10E774]"
                   aria-label="Monthly Order Volume"
                 />
 
-                <div className="flex justify-between text-[11px] text-[#8C8C8C] font-mono mt-2">
+                <div className="flex justify-between text-[11px] text-[#8C8C8C] font-montserrat mt-2">
                   <span>100 orders</span>
                   <span>2,500 orders</span>
                   <span>5,000 orders</span>
@@ -118,8 +118,8 @@ export default function MarginSimulator({
               </div>
 
               {/* Callout Quote */}
-              <div className="p-4 rounded-2xl bg-[#101416] border border-[#262C30] text-xs sm:text-sm text-[#D3F9F5]/90 font-montserrat leading-relaxed">
-                <span className="text-[#25E2CC] font-bold">Verified Benchmark: </span>
+              <div className="p-4 rounded-2xl bg-[#101416] border border-[#262C30] text-xs sm:text-sm text-[#D4FAE6]/90 font-montserrat leading-relaxed">
+                <span className="text-[#10E774] font-bold">Verified Benchmark: </span>
                 Sellers handling {orderVolume.toLocaleString('en-US')} monthly orders on {currentChannel.name} save an estimated{' '}
                 <strong className="text-white">{hoursSaved} operational hours</strong> and{' '}
                 <strong className="text-white">${rtoDollarsSaved.toLocaleString('en-US')} in avoided RTO penalties</strong> every month.
@@ -137,11 +137,11 @@ export default function MarginSimulator({
                   <span className="text-xs uppercase tracking-wider text-[#b3b3b3] font-normal font-montserrat">
                     Projected Savings &amp; Health
                   </span>
-                  <h3 className="text-lg font-medium text-[#d3f9f5] font-montserrat mt-0.5">
+                  <h3 className="text-lg font-medium text-[#D4FAE6] font-montserrat mt-0.5">
                     Monthly Efficiency Metrics
                   </h3>
                 </div>
-                <span className="px-2.5 py-1 rounded-full bg-[#7ceee0]/10 text-[#7ceee0] text-[11px] font-medium font-mono">
+                <span className="px-2.5 py-1 rounded-full bg-[#5EFC8D]/10 text-[#5EFC8D] text-[11px] font-medium font-montserrat">
                   SLA Active
                 </span>
               </div>
@@ -150,11 +150,11 @@ export default function MarginSimulator({
               <div className="grid grid-cols-2 gap-4">
                 {/* Hours Saved */}
                 <div className="p-4 rounded-xl bg-[#141718] border border-white/10">
-                  <div className="flex items-center gap-2 text-[#7ceee0] mb-1">
+                  <div className="flex items-center gap-2 text-[#5EFC8D] mb-1">
                     <Clock className="w-4 h-4" aria-hidden="true" />
                     <span className="text-xs uppercase font-medium font-montserrat">Time Saved</span>
                   </div>
-                  <div className="text-2xl sm:text-3xl font-medium text-[#d3f9f5] font-montserrat">
+                  <div className="text-2xl sm:text-3xl font-medium text-[#D4FAE6] font-montserrat">
                     {hoursSaved} <span className="text-sm font-light text-[#b3b3b3]">hrs/mo</span>
                   </div>
                   <p className="text-[11px] text-[#b3b3b3] mt-1 font-montserrat font-light">
@@ -164,11 +164,11 @@ export default function MarginSimulator({
 
                 {/* RTO Dollars Saved */}
                 <div className="p-4 rounded-xl bg-[#141718] border border-white/10">
-                  <div className="flex items-center gap-2 text-[#7ceee0] mb-1">
+                  <div className="flex items-center gap-2 text-[#5EFC8D] mb-1">
                     <DollarSign className="w-4 h-4" aria-hidden="true" />
                     <span className="text-xs uppercase font-medium font-montserrat">RTO Avoided</span>
                   </div>
-                  <div className="text-2xl sm:text-3xl font-medium text-[#7ceee0] font-montserrat">
+                  <div className="text-2xl sm:text-3xl font-medium text-[#5EFC8D] font-montserrat">
                     ${rtoDollarsSaved.toLocaleString('en-US')}
                   </div>
                   <p className="text-[11px] text-[#b3b3b3] mt-1 font-montserrat font-light">
@@ -178,11 +178,11 @@ export default function MarginSimulator({
 
                 {/* Late Dispatch Rate */}
                 <div className="p-4 rounded-xl bg-[#141718] border border-white/10">
-                  <div className="flex items-center gap-2 text-[#7ceee0] mb-1">
+                  <div className="flex items-center gap-2 text-[#5EFC8D] mb-1">
                     <ShieldCheck className="w-4 h-4" aria-hidden="true" />
                     <span className="text-xs uppercase font-medium font-montserrat">Late Dispatch</span>
                   </div>
-                  <div className="text-2xl sm:text-3xl font-medium text-[#d3f9f5] font-montserrat">
+                  <div className="text-2xl sm:text-3xl font-medium text-[#D4FAE6] font-montserrat">
                     0.0%
                   </div>
                   <p className="text-[11px] text-[#b3b3b3] mt-1 font-montserrat font-light">
@@ -192,11 +192,11 @@ export default function MarginSimulator({
 
                 {/* Projected GMV Pipeline */}
                 <div className="p-4 rounded-xl bg-[#141718] border border-white/10">
-                  <div className="flex items-center gap-2 text-[#7ceee0] mb-1">
+                  <div className="flex items-center gap-2 text-[#5EFC8D] mb-1">
                     <TrendingUp className="w-4 h-4" aria-hidden="true" />
                     <span className="text-xs uppercase font-medium font-montserrat">Monthly GMV</span>
                   </div>
-                  <div className="text-2xl sm:text-3xl font-medium text-[#d3f9f5] font-montserrat">
+                  <div className="text-2xl sm:text-3xl font-medium text-[#D4FAE6] font-montserrat">
                     ${projectedGMV.toLocaleString('en-US')}
                   </div>
                   <p className="text-[11px] text-[#b3b3b3] mt-1 font-montserrat font-light">
@@ -209,7 +209,7 @@ export default function MarginSimulator({
               <div className="pt-2">
                 <Link
                   href="/contact-us"
-                  className="w-full inline-flex items-center justify-center gap-2 py-3.5 px-6 rounded-full bg-[#7ceee0] text-black font-medium text-sm font-montserrat hover:bg-[#68d8ca] transition-all duration-200 shadow-[0_0_20px_rgba(124,238,224,0.3)] hover:scale-[1.02] focus:outline-none"
+                  className="w-full inline-flex items-center justify-center gap-2 py-3.5 px-6 rounded-full bg-[#5EFC8D] text-black font-medium text-sm font-montserrat hover:bg-[#4ee37e] transition-all duration-200 shadow-[0_0_20px_rgba(94, 252, 141, 0.3)] hover:scale-[1.02] focus:outline-none"
                 >
                   <span>Lock In Your $6 All-In Base Rate</span>
                   <ArrowRight className="w-4 h-4" aria-hidden="true" />

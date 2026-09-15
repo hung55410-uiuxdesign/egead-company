@@ -36,12 +36,12 @@ export const metadata = {
 ```tsx
 <section className="w-full px-6 sm:px-10 lg:px-14 xl:px-16 mb-20 sm:mb-28">
   <div className="max-w-4xl">
-    <span className="text-xs sm:text-sm font-bold tracking-widest uppercase text-[#7ceee0] block mb-4">
+    <span className="text-xs sm:text-sm font-bold tracking-widest uppercase text-[#5EFC8D] block mb-4">
       Global Ecosystem
     </span>
     <h1 className="text-4xl sm:text-6xl md:text-7xl font-black tracking-tight leading-[1.1] mb-6">
       INTEGRATED WITH <br />
-      <span className="text-[#7ceee0]">LEADING PLATFORMS.</span>
+      <span className="text-[#5EFC8D]">LEADING PLATFORMS.</span>
     </h1>
     <p className="text-lg sm:text-xl text-gray-300 font-normal leading-relaxed max-w-3xl">
       E-GEAD kết nối trực tiếp với các sàn thương mại điện tử, nền tảng bán hàng và mạng lưới quảng cáo hàng đầu thế giới, mang đến cho nhà bán hàng một hạ tầng vận hành hợp nhất, an toàn và tự động hóa 100%.
@@ -106,4 +106,4 @@ const partnerTiers = [
 ## 3. Lợi ích & Giá trị Chuyển đổi
 1. **Trực tiếp củng cố niềm tin cho seller**: Nhìn thấy các logo thân thuộc (Amazon, TikTok Shop, Shopify, Etsy), khách hàng tiềm năng biết ngay hệ thống của E-GEAD tương thích trực tiếp với gian hàng của họ.
 2. **Kêu gọi hành động thực tế**: Các nút liên kết "Sell on TikTok Shop", "Sell on Amazon", "Connect Storefront" định hướng người dùng đăng ký tích hợp gian hàng ngay lập tức.
-3. **Giữ nguyên 100% bố cục và styling**: Thẻ card bo cong mềm mại, màu sắc hài hòa với nền đen `#0A0D0E` và màu nhấn ngọc lam `#7ceee0`.
+3. **Giữ nguyên 100% bố cục và styling**: Thẻ card bo cong mềm mại, màu sắc hài hòa với nền đen `#0A0D0E` và màu nhấn ngọc lam `#5EFC8D`.

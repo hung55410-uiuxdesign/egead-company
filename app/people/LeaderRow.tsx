@@ -178,30 +178,30 @@ export default function LeaderRow({
                 ? 'transform 650ms cubic-bezier(0.16, 1, 0.3, 1)'
                 : 'transform 300ms ease-out',
             }}
-            className="w-full max-w-5xl rounded-[24px] bg-[#000000]/80 border border-[#007380] backdrop-blur-xl p-6 sm:p-10 shadow-[0_20px_60px_rgba(0,0,0,0.8),0_0_40px_rgba(0,115,128,0.25)] relative overflow-hidden"
+            className="w-full max-w-5xl rounded-[24px] bg-[#000000]/80 border border-[#007A3D] backdrop-blur-xl p-6 sm:p-10 shadow-[0_20px_60px_rgba(0,0,0,0.8),0_0_40px_rgba(0,115,128,0.25)] relative overflow-hidden"
           >
             {/* Close Button at top-right corner of card */}
             <button
               onClick={() => onLeaderChange(null)}
-              className="absolute top-5 right-5 sm:top-6 sm:right-6 z-30 w-9 h-9 rounded-full bg-white/10 hover:bg-[#7ceee0] hover:text-black text-gray-300 flex items-center justify-center transition shadow-lg"
+              className="absolute top-5 right-5 sm:top-6 sm:right-6 z-30 w-9 h-9 rounded-full bg-white/10 hover:bg-[#5EFC8D] hover:text-black text-gray-300 flex items-center justify-center transition shadow-lg"
               aria-label="Đóng chi tiết"
             >
               <X className="w-4 h-4" />
             </button>
 
             {/* Background cyan gradient accent */}
-            <div className="absolute top-0 right-0 w-96 h-96 bg-[#7ceee0]/5 rounded-full blur-3xl pointer-events-none" />
+            <div className="absolute top-0 right-0 w-96 h-96 bg-[#5EFC8D]/5 rounded-full blur-3xl pointer-events-none" />
 
             <div className="relative z-10 grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
               {/* Left Column: Photo, Location, Quote, LinkedIn */}
               <div className="md:col-span-5 flex flex-col items-center sm:items-start">
-                <div className="relative w-full max-w-[280px] rounded-[20px] overflow-hidden bg-black/40 border border-[#007380] mb-5">
+                <div className="relative w-full max-w-[280px] rounded-[20px] overflow-hidden bg-black/40 border border-[#007A3D] mb-5">
                   <img
                     src={activeLeader.image}
                     alt={activeLeader.name}
                     className="w-full h-[280px] object-cover object-top"
                   />
-                  <div className="absolute top-3 right-3 px-3 py-1 rounded-full bg-black/80 backdrop-blur-md border border-[#007380] text-[11px] font-mono text-[#7ceee0] flex items-center gap-1.5">
+                  <div className="absolute top-3 right-3 px-3 py-1 rounded-full bg-black/80 backdrop-blur-md border border-[#007A3D] text-[11px] font-montserrat text-[#5EFC8D] flex items-center gap-1.5">
                     <MapPin className="w-3 h-3" />
                     <span>{activeLeader.location}</span>
                   </div>
@@ -209,9 +209,9 @@ export default function LeaderRow({
 
                 {/* Quote Block */}
                 {activeLeader.quote && (
-                  <div className="w-full max-w-[280px] rounded-[16px] bg-white/[0.04] border border-[#007380]/40 p-4 relative mb-4">
+                  <div className="w-full max-w-[280px] rounded-[16px] bg-white/[0.04] border border-[#007A3D]/40 p-4 relative mb-4">
                     <div className="mb-2">
-                      <QuoteIcon className="w-4 h-4 text-[#7ceee0]" />
+                      <QuoteIcon className="w-4 h-4 text-[#5EFC8D]" />
                     </div>
                     <p className="text-xs sm:text-sm text-gray-200 italic leading-relaxed">
                       "{activeLeader.quote}"
@@ -235,14 +235,14 @@ export default function LeaderRow({
 
               {/* Right Column: Name, Role, Bio, Domains */}
               <div className="md:col-span-7 flex flex-col">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#7ceee0]/10 border border-[#7ceee0]/30 text-[#7ceee0] text-xs font-semibold tracking-wider uppercase mb-3 self-start">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#5EFC8D]/10 border border-[#5EFC8D]/30 text-[#5EFC8D] text-xs font-semibold tracking-wider uppercase mb-3 self-start">
                   <span>Executive Leadership</span>
                 </div>
 
-                <h3 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#d3f9f5] tracking-tight leading-tight">
+                <h3 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#D4FAE6] tracking-tight leading-tight">
                   {activeLeader.name}
                 </h3>
-                <p className="text-base sm:text-lg text-[#7ceee0] font-medium mt-1 mb-6">
+                <p className="text-base sm:text-lg text-[#5EFC8D] font-medium mt-1 mb-6">
                   {activeLeader.role}
                 </p>
 
@@ -267,7 +267,7 @@ export default function LeaderRow({
                         key={sIdx}
                         className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-white/5 border border-white/10 text-xs text-gray-200"
                       >
-                        <CheckCircle2 className="w-3.5 h-3.5 text-[#7ceee0]" />
+                        <CheckCircle2 className="w-3.5 h-3.5 text-[#5EFC8D]" />
                         <span>{skill}</span>
                       </span>
                     ))}
@@ -275,12 +275,12 @@ export default function LeaderRow({
                 </div>
 
                 {/* Tree Map Stem Anchor */}
-                <div className="mt-auto pt-4 border-t border-[#007380]/40 flex items-center justify-between text-xs text-gray-400">
+                <div className="mt-auto pt-4 border-t border-[#007A3D]/40 flex items-center justify-between text-xs text-gray-400">
                   <span className="flex items-center gap-2">
-                    <Users className="w-4 h-4 text-[#7ceee0]" />
+                    <Users className="w-4 h-4 text-[#5EFC8D]" />
                     <span>Sơ đồ cây đội ngũ quản lý trực thuộc bên dưới</span>
                   </span>
-                  <ChevronDown className="w-4 h-4 text-[#7ceee0] animate-bounce" />
+                  <ChevronDown className="w-4 h-4 text-[#5EFC8D] animate-bounce" />
                 </div>
               </div>
             </div>
@@ -288,8 +288,8 @@ export default function LeaderRow({
 
           {/* Tree Trunk Stem directly connecting Node Cha down into Tree Map */}
           <div className="flex flex-col items-center w-full my-0">
-            <div className="w-0.5 h-12 bg-gradient-to-b from-[#7ceee0] to-[#7ceee0]/70 mx-auto" />
-            <div className="w-4 h-4 rounded-full bg-[#7ceee0] ring-4 ring-[#7ceee0]/20 shadow-[0_0_15px_#7ceee0] mx-auto -mt-2 z-20" />
+            <div className="w-0.5 h-12 bg-gradient-to-b from-[#5EFC8D] to-[#5EFC8D]/70 mx-auto" />
+            <div className="w-4 h-4 rounded-full bg-[#5EFC8D] ring-4 ring-[#5EFC8D]/20 shadow-[0_0_15px_#5EFC8D] mx-auto -mt-2 z-20" />
           </div>
 
           {/* Tree Map Beneath Centered Leader Card */}
