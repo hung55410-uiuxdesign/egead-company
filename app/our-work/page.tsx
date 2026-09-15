@@ -77,22 +77,22 @@ export default function OurWorkPage() {
         aria-label="Case Studies Hero and Aggregate Portfolio Impact"
         className="w-full px-6 sm:px-10 lg:px-14 xl:px-16 mb-20 sm:mb-28"
       >
-        <div className="max-w-6xl mx-auto">
+        <div className="w-full">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14 items-center">
             
             {/* Left Headline & Positioning */}
             <div className="lg:col-span-7">
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#25E2CC]/10 border border-[#25E2CC]/30 text-[#25E2CC] text-xs font-mono font-semibold uppercase tracking-widest mb-6">
-                <Sparkles className="w-3.5 h-3.5" aria-hidden="true" />
+              <div className="inline-flex items-center gap-2 text-sm sm:text-base font-normal text-[#d3f9f5] mb-6 font-montserrat">
+                <Sparkles className="w-4 h-4 text-[#7ceee0]" aria-hidden="true" />
                 Proven Global Case Studies &amp; ROI
               </div>
 
-              <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black tracking-tight leading-[1.08] mb-6">
+              <h1 className="text-4xl sm:text-6xl lg:text-[72px] font-medium tracking-tight leading-[1.08] text-[#d3f9f5] font-montserrat mb-6">
                 Measurable Growth. <br />
-                <span className="text-[#25E2CC]">Battle-Tested Results.</span>
+                <span className="text-[#7ceee0] font-medium">Battle-Tested Results.</span>
               </h1>
 
-              <p className="text-base sm:text-xl text-gray-300 font-normal leading-relaxed max-w-2xl mb-8">
+              <p className="text-base sm:text-lg lg:text-xl text-[#b3b3b3] font-light leading-[1.75] font-montserrat max-w-2xl mb-8">
                 Discover how E-GEAD empowers cross-border e-commerce brands and high-volume sellers to eliminate operational bottlenecks, safeguard marketplace SLA performance, and scale global revenue with zero headcount expansion.
               </p>
 
@@ -100,14 +100,14 @@ export default function OurWorkPage() {
               <div className="flex flex-wrap items-center gap-4">
                 <a
                   href="#case-studies-grid"
-                  className="inline-flex items-center gap-2 px-7 py-4 rounded-xl bg-[#25E2CC] text-black font-bold text-sm hover:bg-[#7ceee0] transition-all duration-300 shadow-lg shadow-[#25E2CC]/25 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#25E2CC]"
+                  className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-[#7ceee0] text-black font-medium text-sm sm:text-base font-montserrat hover:bg-[#68d8ca] transition duration-300"
                 >
                   <span>Explore Case Studies</span>
                   <ArrowRight className="w-4 h-4" aria-hidden="true" />
                 </a>
                 <a
                   href="#work-cta"
-                  className="inline-flex items-center gap-2 px-7 py-4 rounded-xl bg-white/5 hover:bg-white/10 text-white font-semibold text-sm border border-white/10 hover:border-white/20 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#25E2CC]"
+                  className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-[#141718] border border-white/20 text-[#d3f9f5] font-medium text-sm sm:text-base font-montserrat hover:border-[#7ceee0] hover:text-[#7ceee0] transition duration-300"
                 >
                   <span>Book Operations Audit</span>
                 </a>
@@ -135,37 +135,37 @@ export default function OurWorkPage() {
                 <div className="grid grid-cols-2 gap-4 sm:gap-6">
                   {/* Metric 1 */}
                   <div className="p-4 rounded-2xl bg-[#0A0D0E] border border-white/5">
-                    <div className="text-2xl sm:text-3xl font-mono font-black text-[#25E2CC]">
+                    <div className="text-2xl sm:text-3xl font-medium text-[#7ceee0]">
                       +$45M
                     </div>
-                    <div className="text-xs text-gray-400 mt-1 font-normal">
+                    <div className="text-xs text-[#b3b3b3] mt-1 font-light">
                       Gross Merchandise Value (GMV) Generated
                     </div>
                   </div>
 
                   {/* Metric 2 */}
                   <div className="p-4 rounded-2xl bg-[#0A0D0E] border border-white/5">
-                    <div className="text-2xl sm:text-3xl font-mono font-black text-white">
+                    <div className="text-2xl sm:text-3xl font-medium text-[#d3f9f5]">
                       100+
                     </div>
-                    <div className="text-xs text-gray-400 mt-1 font-normal">
+                    <div className="text-xs text-[#b3b3b3] mt-1 font-light">
                       Brands Accelerated in 10+ Countries
                     </div>
                   </div>
 
                   {/* Metric 3 */}
                   <div className="p-4 rounded-2xl bg-[#0A0D0E] border border-white/5">
-                    <div className="text-2xl sm:text-3xl font-mono font-black text-[#25E2CC]">
+                    <div className="text-2xl sm:text-3xl font-medium text-[#7ceee0]">
                       99.8%
                     </div>
-                    <div className="text-xs text-gray-400 mt-1 font-normal">
+                    <div className="text-xs text-[#b3b3b3] mt-1 font-light">
                       Aggregate On-Time Dispatch SLA Rate
                     </div>
                   </div>
 
                   {/* Metric 4 */}
                   <div className="p-4 rounded-2xl bg-[#0A0D0E] border border-white/5">
-                    <div className="text-2xl sm:text-3xl font-mono font-black text-white">
+                    <div className="text-2xl sm:text-3xl font-medium text-[#d3f9f5]">
                       0%
                     </div>
                     <div className="text-xs text-gray-400 mt-1 font-normal">
@@ -193,7 +193,7 @@ export default function OurWorkPage() {
         className="w-full px-6 sm:px-10 lg:px-14 xl:px-16 mb-24 sm:mb-28"
         aria-label="Quantitative Transformation Matrix Section"
       >
-        <div className="max-w-6xl mx-auto">
+        <div className="w-full">
           <TransformationMatrix />
         </div>
       </section>
@@ -203,7 +203,7 @@ export default function OurWorkPage() {
         className="w-full px-6 sm:px-10 lg:px-14 xl:px-16 mb-24 sm:mb-28"
         aria-label="Interactive Operational Efficiency Visualizer Section"
       >
-        <div className="max-w-6xl mx-auto">
+        <div className="w-full">
           <EfficiencyVisualizer />
         </div>
       </section>
@@ -215,7 +215,7 @@ export default function OurWorkPage() {
         aria-label="Verified Founder Voices and Client Testimonials"
         className="w-full px-6 sm:px-10 lg:px-14 xl:px-16 mb-24 sm:mb-28 scroll-mt-28"
       >
-        <div className="max-w-6xl mx-auto">
+        <div className="w-full">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-12">
             <div>
               <span className="text-xs font-mono uppercase tracking-widest text-[#25E2CC] block mb-2">
@@ -332,7 +332,7 @@ export default function OurWorkPage() {
         aria-label="Case Studies and Partnership FAQ"
         className="w-full px-6 sm:px-10 lg:px-14 xl:px-16 mb-24 sm:mb-28 scroll-mt-28"
       >
-        <div className="max-w-4xl mx-auto">
+        <div className="w-full">
           <FaqAccordion
             items={FAQ_ITEMS}
             title="Frequently Asked Questions"
@@ -348,7 +348,7 @@ export default function OurWorkPage() {
         aria-label="Book Operations Growth Audit"
         className="w-full px-6 sm:px-10 lg:px-14 xl:px-16 mb-20 scroll-mt-28"
       >
-        <div className="max-w-6xl mx-auto">
+        <div className="w-full">
           <div className="rounded-[36px] bg-gradient-to-br from-[#1A2224] via-[#141718] to-[#0A0D0E] border border-[#25E2CC]/40 p-8 sm:p-14 lg:p-16 shadow-2xl relative overflow-hidden">
             <div 
               aria-hidden="true" 
@@ -356,31 +356,31 @@ export default function OurWorkPage() {
             />
 
             <div className="relative z-10 max-w-3xl">
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#25E2CC]/10 border border-[#25E2CC]/30 text-[#25E2CC] text-xs font-mono font-semibold uppercase tracking-widest mb-6">
-                <Calendar className="w-3.5 h-3.5" aria-hidden="true" />
+              <div className="inline-flex items-center gap-2 text-sm sm:text-base font-normal text-[#d3f9f5] mb-6 font-montserrat">
+                <Calendar className="w-4 h-4 text-[#7ceee0]" aria-hidden="true" />
                 Free 30-Minute Confidential Strategy Session
               </div>
 
-              <h2 className="text-3xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-tight">
+              <h2 className="text-3xl sm:text-5xl lg:text-[54px] font-medium text-[#d3f9f5] font-montserrat tracking-tight leading-[1.15]">
                 Ready to Write Your Own <br />
-                <span className="text-[#25E2CC]">Growth Story?</span>
+                <span className="text-[#7ceee0] font-medium">Growth Story?</span>
               </h2>
 
-              <p className="mt-4 text-base sm:text-lg text-gray-300 font-normal leading-relaxed">
+              <p className="mt-4 text-base sm:text-lg text-[#b3b3b3] font-light leading-[1.75] font-montserrat">
                 Schedule a confidential 30-minute operations audit with our senior solutions engineers. We will analyze your current fulfillment bottlenecks, calculate your exact unit economics savings, and map out a sub-24h scaling roadmap.
               </p>
 
               <div className="mt-8 flex flex-wrap items-center gap-4">
                 <a
                   href="#contact"
-                  className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-[#25E2CC] text-black font-bold text-sm hover:bg-[#7ceee0] transition-all duration-300 shadow-xl shadow-[#25E2CC]/25 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#25E2CC]"
+                  className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-[#7ceee0] text-black font-medium text-sm sm:text-base font-montserrat hover:bg-[#68d8ca] transition duration-300"
                 >
                   <span>Claim Your Free Operations Audit</span>
                   <ArrowRight className="w-4 h-4" aria-hidden="true" />
                 </a>
                 <Link
                   href="/services/all-services"
-                  className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-white/5 hover:bg-white/10 text-white font-semibold text-sm border border-white/10 hover:border-white/20 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#25E2CC]"
+                  className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-[#141718] border border-white/20 text-[#d3f9f5] font-medium text-sm sm:text-base font-montserrat hover:border-[#7ceee0] hover:text-[#7ceee0] transition duration-300"
                 >
                   <span>Explore Technical Documentation</span>
                   <ArrowUpRight className="w-4 h-4 text-gray-400" aria-hidden="true" />

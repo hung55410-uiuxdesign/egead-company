@@ -96,17 +96,17 @@ export default function NetMarginLedger({
       id={id}
       className={`relative w-full py-20 sm:py-24 lg:py-28 bg-[#0A0D0E] text-white overflow-hidden ${className}`}
     >
-      <div className="relative z-10 w-full px-6 sm:px-10 lg:px-14 xl:px-16 max-w-6xl mx-auto">
+      <div className="relative z-10 w-full px-6 sm:px-10 lg:px-14 xl:px-16">
         {/* Header Block */}
         <div className="text-center max-w-3xl mx-auto mb-14 sm:mb-16">
-          <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#141718] border border-[#262C30] text-[#25E2CC] text-xs sm:text-sm font-semibold tracking-wider uppercase mb-4 font-montserrat">
-            <DollarSign className="w-3.5 h-3.5 text-[#25E2CC]" aria-hidden="true" />
+          <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#141718] border border-white/10 text-[#d3f9f5] text-xs sm:text-sm font-normal tracking-wider uppercase mb-4 font-montserrat">
+            <DollarSign className="w-3.5 h-3.5 text-[#7ceee0]" aria-hidden="true" />
             Zero-Spreadsheet Financial Control
           </span>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-white font-rubik leading-[1.2]">
-            Automated Net Margin &amp; <span className="text-[#25E2CC]">Financial Reconciliation</span> Ledger
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-medium tracking-tight text-[#d3f9f5] font-montserrat leading-[1.2]">
+            Automated Net Margin &amp; <span className="text-[#7ceee0] font-medium">Financial Reconciliation</span> Ledger
           </h2>
-          <p className="mt-4 text-base sm:text-lg text-[#8C8C8C] leading-relaxed font-montserrat max-w-2xl mx-auto">
+          <p className="mt-4 text-base sm:text-lg text-[#b3b3b3] font-light leading-[1.75] font-montserrat max-w-2xl mx-auto">
             Stop guessing your real profitability across 10 messy Excel sheets. Eweb-platform reconciles revenue, manufacturing, postage, platform fees, and ad spend for every SKU in real time.
           </p>
         </div>
@@ -170,15 +170,15 @@ export default function NetMarginLedger({
             {/* Header info */}
             <div className="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-[#262C30]">
               <div>
-                <span className="text-xs font-mono text-[#8C8C8C] uppercase tracking-wider block">
+                <span className="text-xs font-mono text-[#b3b3b3] uppercase tracking-wider block">
                   Order Inspection: {activeOrder.orderNumber} • {activeOrder.platform}
                 </span>
-                <h3 className="text-lg sm:text-xl font-bold text-white font-rubik mt-0.5">
+                <h3 className="text-lg sm:text-xl font-medium text-[#d3f9f5] font-montserrat mt-0.5">
                   {activeOrder.item}
                 </h3>
               </div>
               <div className="flex items-center gap-3">
-                <span className="px-3.5 py-1.5 rounded-full bg-[#25E2CC]/15 text-[#25E2CC] text-sm font-bold font-mono">
+                <span className="px-3.5 py-1.5 rounded-full bg-[#7ceee0]/15 text-[#7ceee0] text-sm font-medium font-mono">
                   {activeOrder.marginPercent}% Net Margin
                 </span>
               </div>
@@ -187,56 +187,56 @@ export default function NetMarginLedger({
             {/* Full Cost Deduction Breakdown Table */}
             <div className="overflow-x-auto">
               <table className="w-full text-left font-montserrat text-xs sm:text-sm" role="table">
-                <thead className="text-[11px] text-[#8C8C8C] uppercase border-b border-[#262C30] font-mono">
+                <thead className="text-[11px] text-[#b3b3b3] uppercase border-b border-white/10 font-mono">
                   <tr>
-                    <th scope="col" className="pb-3 pr-4 font-semibold">Ledger Component</th>
-                    <th scope="col" className="pb-3 px-4 font-semibold">Operational Category</th>
-                    <th scope="col" className="pb-3 px-4 font-semibold">Verification Channel</th>
-                    <th scope="col" className="pb-3 pl-4 text-right font-semibold">Impact (USD)</th>
+                    <th scope="col" className="pb-3 pr-4 font-medium">Ledger Component</th>
+                    <th scope="col" className="pb-3 px-4 font-medium">Operational Category</th>
+                    <th scope="col" className="pb-3 px-4 font-medium">Verification Channel</th>
+                    <th scope="col" className="pb-3 pl-4 text-right font-medium">Impact (USD)</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-[#262C30]/50 font-mono">
+                <tbody className="divide-y divide-white/10 font-mono">
                   <tr>
-                    <td className="py-3 pr-4 font-bold text-white font-montserrat">Gross Customer Payment</td>
-                    <td className="py-3 px-4 text-[#8C8C8C]">Storefront Revenue</td>
+                    <td className="py-3 pr-4 font-medium text-[#d3f9f5] font-montserrat">Gross Customer Payment</td>
+                    <td className="py-3 px-4 text-[#b3b3b3]">Storefront Revenue</td>
                     <td className="py-3 px-4 text-emerald-400">Captured via Marketplace API</td>
-                    <td className="py-3 pl-4 text-right font-bold text-white">${activeOrder.grossPayment.toFixed(2)}</td>
+                    <td className="py-3 pl-4 text-right font-medium text-[#d3f9f5]">${activeOrder.grossPayment.toFixed(2)}</td>
                   </tr>
                   <tr>
                     <td className="py-3 pr-4 text-red-400 font-montserrat">(-) E-GEAD 23&quot; DTF Print &amp; Blank</td>
-                    <td className="py-3 px-4 text-[#8C8C8C]">Manufacturing Base Rate</td>
-                    <td className="py-3 px-4 text-[#8C8C8C]">Auto-reconciled with WMS</td>
+                    <td className="py-3 px-4 text-[#b3b3b3]">Manufacturing Base Rate</td>
+                    <td className="py-3 px-4 text-[#b3b3b3]">Auto-reconciled with WMS</td>
                     <td className="py-3 pl-4 text-right text-red-400">-${activeOrder.printCost.toFixed(2)}</td>
                   </tr>
                   <tr>
                     <td className="py-3 pr-4 text-red-400 font-montserrat">(-) US Domestic Postage</td>
-                    <td className="py-3 px-4 text-[#8C8C8C]">USPS Ground Advantage</td>
-                    <td className="py-3 px-4 text-[#8C8C8C]">Commercial Base Pricing Rate</td>
+                    <td className="py-3 px-4 text-[#b3b3b3]">USPS Ground Advantage</td>
+                    <td className="py-3 px-4 text-[#b3b3b3]">Commercial Base Pricing Rate</td>
                     <td className="py-3 pl-4 text-right text-red-400">-${activeOrder.postage.toFixed(2)}</td>
                   </tr>
                   <tr>
                     <td className="py-3 pr-4 text-red-400 font-montserrat">(-) Marketplace Commission Fee</td>
-                    <td className="py-3 px-4 text-[#8C8C8C]">Channel Referral &amp; Processing</td>
-                    <td className="py-3 px-4 text-[#8C8C8C]">Auto-calculated per category</td>
+                    <td className="py-3 px-4 text-[#b3b3b3]">Channel Referral &amp; Processing</td>
+                    <td className="py-3 px-4 text-[#b3b3b3]">Auto-calculated per category</td>
                     <td className="py-3 pl-4 text-right text-red-400">-${activeOrder.channelFee.toFixed(2)}</td>
                   </tr>
                   <tr>
                     <td className="py-3 pr-4 text-red-400 font-montserrat">(-) Attributed Paid Ads CPA</td>
-                    <td className="py-3 px-4 text-[#8C8C8C]">Ad Spend Attribution (TikTok/Meta)</td>
-                    <td className="py-3 px-4 text-[#8C8C8C]">UTM &amp; Pixel Server Tracking</td>
+                    <td className="py-3 px-4 text-[#b3b3b3]">Ad Spend Attribution (TikTok/Meta)</td>
+                    <td className="py-3 px-4 text-[#b3b3b3]">UTM &amp; Pixel Server Tracking</td>
                     <td className="py-3 pl-4 text-right text-red-400">-${activeOrder.adCpa.toFixed(2)}</td>
                   </tr>
                   <tr className="bg-[#1D2224]/50">
-                    <td className="py-4 pr-4 font-extrabold text-[#25E2CC] text-base font-montserrat">
+                    <td className="py-4 pr-4 font-medium text-[#7ceee0] text-base font-montserrat">
                       True Clean Net Profit
                     </td>
-                    <td className="py-4 px-4 text-white font-semibold font-montserrat">
+                    <td className="py-4 px-4 text-[#d3f9f5] font-medium font-montserrat">
                       Take-Home Operating Income
                     </td>
-                    <td className="py-4 px-4 text-[#25E2CC]">
+                    <td className="py-4 px-4 text-[#7ceee0]">
                       Settled to Merchant Account
                     </td>
-                    <td className="py-4 pl-4 text-right font-extrabold text-2xl text-[#25E2CC] font-rubik">
+                    <td className="py-4 pl-4 text-right font-medium text-2xl text-[#7ceee0] font-montserrat">
                       +${activeOrder.netProfit.toFixed(2)}
                     </td>
                   </tr>

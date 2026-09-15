@@ -100,28 +100,28 @@ export default function ArticleDetailPage({ params }: { params: { slug: string }
       {/* Header */}
       <header className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 mb-12">
         <div className="flex items-center gap-3 mb-6">
-          <span className="px-3.5 py-1 rounded-full bg-[#25E2CC] text-black font-bold text-xs uppercase tracking-wider">
+          <span className="px-3.5 py-1 rounded-full bg-[#7ceee0] text-black font-medium text-xs tracking-wider">
             {article.tag}
           </span>
           <div className="flex items-center gap-4 text-xs text-gray-400 font-mono">
             <span className="flex items-center gap-1.5">
-              <Calendar className="w-3.5 h-3.5 text-[#25E2CC]" />
+              <Calendar className="w-3.5 h-3.5 text-[#7ceee0]" />
               {article.date}
             </span>
             <span>•</span>
             <span className="flex items-center gap-1.5">
-              <Clock className="w-3.5 h-3.5 text-[#25E2CC]" />
+              <Clock className="w-3.5 h-3.5 text-[#7ceee0]" />
               {article.readTime}
             </span>
           </div>
         </div>
 
-        <h1 className="text-3xl sm:text-5xl font-black tracking-tight leading-[1.15] mb-6">
+        <h1 className="text-3xl sm:text-5xl lg:text-[54px] font-medium tracking-tight leading-[1.15] text-[#d3f9f5] font-montserrat mb-6">
           {article.title}
         </h1>
 
         {article.subtitle && (
-          <p className="text-lg sm:text-xl text-[#25E2CC] font-medium leading-relaxed">
+          <p className="text-lg sm:text-xl text-[#7ceee0] font-normal leading-relaxed font-montserrat">
             {article.subtitle}
           </p>
         )}
@@ -139,9 +139,9 @@ export default function ArticleDetailPage({ params }: { params: { slug: string }
       </div>
 
       {/* Content Body */}
-      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 mb-28 space-y-6 text-base sm:text-lg text-gray-300 font-normal leading-relaxed">
+      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 mb-28 space-y-6 text-base sm:text-lg text-[#b3b3b3] font-light leading-[1.75] font-montserrat">
         {article.content.map((paragraph, idx) => (
-          <p key={idx} className="leading-relaxed">
+          <p key={idx} className="leading-[1.75]">
             {paragraph}
           </p>
         ))}

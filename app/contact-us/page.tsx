@@ -53,15 +53,15 @@ export default function ContactUsPage() {
     <div className="w-full bg-[#0A0D0E] text-white pt-32 sm:pt-40 pb-28">
       {/* Hero Header */}
       <section className="w-full px-6 sm:px-10 lg:px-14 xl:px-16 mb-16 sm:mb-24">
-        <div className="max-w-3xl">
-          <span className="text-xs sm:text-sm font-bold tracking-widest uppercase text-[#7ceee0] block mb-4">
+        <div className="w-full">
+          <span className="text-sm sm:text-base font-normal text-[#d3f9f5] block mb-4">
             Get in Touch
           </span>
-          <h1 className="text-4xl sm:text-6xl md:text-7xl font-black tracking-tight leading-[1.1] mb-6">
-            AUTOMATE OPERATIONS, <br />
-            <span className="text-[#7ceee0]">SCALE GLOBALLY.</span>
+          <h1 className="text-4xl sm:text-6xl lg:text-[72px] font-medium tracking-tight leading-[1.08] text-[#d3f9f5] font-montserrat mb-6">
+            Automate Operations, <br />
+            <span className="text-[#7ceee0] font-medium">Scale Globally.</span>
           </h1>
-          <p className="text-lg sm:text-xl text-gray-300 font-normal leading-relaxed">
+          <p className="text-base sm:text-lg lg:text-xl text-[#b3b3b3] font-light leading-[1.75] font-montserrat max-w-3xl">
             Let's discuss how E-GEAD can automate your multi-channel storefronts, guarantee sub-24h US POD fulfillment, and scale your brand across international marketplaces.
           </p>
         </div>
@@ -72,10 +72,10 @@ export default function ContactUsPage() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
           {/* Left Form */}
           <div className="lg:col-span-7 bg-[#141718] p-8 sm:p-12 rounded-[36px] border border-white/10 shadow-2xl">
-            <h2 className="text-2xl sm:text-3xl font-bold text-white mb-2">
+            <h2 className="text-2xl sm:text-3xl font-medium text-[#d3f9f5] mb-2 font-montserrat">
               Send us a message
             </h2>
-            <p className="text-sm text-gray-400 mb-8">
+            <p className="text-sm text-[#b3b3b3] font-light mb-8">
               Fill out the form below and one of our operations directors will respond within 24 hours.
             </p>
 
@@ -172,7 +172,7 @@ export default function ContactUsPage() {
 
                 <button
                   type="submit"
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-[#7ceee0] hover:bg-[#68d8ca] text-black font-bold text-sm px-8 py-4 rounded-full transition shadow-[0_0_20px_rgba(124,238,224,0.3)]"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-[#7ceee0] hover:bg-[#68d8ca] text-black font-medium text-sm px-8 py-3.5 rounded-full transition duration-300"
                 >
                   <span>Submit Inquiry</span>
                   <Send className="w-4 h-4" />
@@ -234,11 +234,11 @@ export default function ContactUsPage() {
       {/* Global Offices Section */}
       <section id="offices" className="w-full px-6 sm:px-10 lg:px-14 xl:px-16">
         <div className="mb-12">
-          <span className="text-xs sm:text-sm font-bold tracking-widest uppercase text-[#7ceee0] block mb-2">
+          <span className="text-sm sm:text-base font-normal text-[#d3f9f5] block mb-2 font-montserrat">
             Global Operations
           </span>
-          <h2 className="text-3xl sm:text-4xl font-bold text-white">
-            Our Headquarters & Operational Network
+          <h2 className="text-2xl sm:text-3xl lg:text-[34px] font-medium text-[#d3f9f5] font-montserrat">
+            Our Headquarters &amp; Operational Network
           </h2>
         </div>
 
@@ -248,11 +248,11 @@ export default function ContactUsPage() {
               key={idx}
               className="p-6 rounded-2xl bg-[#141718] border border-white/10 hover:border-[#7ceee0]/40 transition duration-300"
             >
-              <span className="text-xs font-mono text-[#7ceee0] uppercase block mb-1">
+              <span className="text-xs text-[#7ceee0] uppercase block mb-1 font-normal">
                 {off.type}
               </span>
-              <h3 className="text-xl font-bold text-white mb-2">{off.country}</h3>
-              <p className="text-xs text-gray-300 mb-3">{off.address}</p>
+              <h3 className="text-lg sm:text-xl font-medium text-[#d3f9f5] mb-2 font-montserrat">{off.country}</h3>
+              <p className="text-xs text-[#b3b3b3] font-light mb-3 leading-relaxed">{off.address}</p>
               <a
                 href={`mailto:${off.email}`}
                 className="text-xs text-[#7ceee0] hover:underline font-mono"

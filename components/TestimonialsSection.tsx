@@ -36,22 +36,22 @@ export default function TestimonialsSection() {
       {/* Header Block - FULL WIDTH matching live site */}
       <div className="w-full px-6 sm:px-10 lg:px-14 xl:px-16 mb-12 sm:mb-16 flex flex-col lg:flex-row lg:items-end justify-between gap-6">
         <div className="max-w-3xl">
-          <span className="text-xs sm:text-sm font-semibold tracking-widest uppercase text-[#25E2CC] block mb-3 font-montserrat">
+          <span className="text-xs sm:text-sm font-normal tracking-widest uppercase text-[#d3f9f5] block mb-3 font-montserrat">
             Testimonials
           </span>
-          <h2 className="text-3xl sm:text-5xl lg:text-[48px] font-bold tracking-tight leading-[1.15] text-[#d3f9f5] font-rubik">
-            Discover the transformative experiences of our clients.
+          <h2 className="text-3xl sm:text-5xl lg:text-[48px] font-medium tracking-tight leading-[1.15] text-[#d3f9f5] font-montserrat">
+            Discover the <span className="text-[#7ceee0] font-medium">transformative experiences</span> of our clients.
           </h2>
-          <p className="mt-4 text-sm sm:text-base text-[#8C8C8C] font-normal leading-relaxed font-montserrat max-w-2xl">
+          <p className="mt-4 text-sm sm:text-base text-[#b3b3b3] font-light leading-[1.75] font-montserrat max-w-2xl">
             From accelerated fulfillment to predictable profit margins, our automation solutions deliver measurable growth. See what global e-commerce sellers say about E-GEAD:
           </p>
         </div>
 
         <Link
           href="/testimonial"
-          className="group inline-flex items-center gap-2 self-start lg:self-end px-6 py-3 rounded-full border border-white/30 hover:border-[#25E2CC] hover:bg-white/5 text-white font-medium text-sm transition duration-300 shrink-0"
+          className="group inline-flex items-center gap-2 self-start lg:self-end px-7 py-3.5 rounded-full border border-white/20 hover:border-[#7ceee0] hover:text-[#7ceee0] hover:bg-white/5 text-[#d3f9f5] font-medium text-sm transition duration-300 shrink-0 font-montserrat"
         >
-          <svg width="15" height="15" viewBox="0 0 19 18" fill="none" xmlns="http://www.w3.org/2000/svg" className="fill-white group-hover:fill-[#25E2CC] transition">
+          <svg width="15" height="15" viewBox="0 0 19 18" fill="none" xmlns="http://www.w3.org/2000/svg" className="fill-[#d3f9f5] group-hover:fill-[#7ceee0] transition">
             <path d="M15.125 10.875L10.625 15.375L9.56 14.31L12.2525 11.625H3.875V2.625H5.375V10.125H12.2525L9.56 7.44L10.625 6.375L15.125 10.875Z" />
           </svg>
           <span>View All Testimonials</span>
@@ -66,13 +66,13 @@ export default function TestimonialsSection() {
             className="w-[85vw] sm:w-[48vw] lg:w-[31vw] xl:w-[28vw] shrink-0 p-8 sm:p-9 rounded-[36px] bg-[#141718] border border-white/10 hover:border-white/25 transition-all duration-300 flex flex-col justify-between min-h-[340px] sm:min-h-[380px] shadow-xl"
           >
             <div className="testiomonials-card__desc">
-              <p className="text-[15px] sm:text-base text-[#e4e4e4] leading-relaxed font-normal italic font-montserrat">
+              <p className="text-[15px] sm:text-base text-[#d3f9f5] leading-[1.75] font-light italic font-montserrat">
                 “{t.quote.replace(/^[“"']+|[”"']+$/g, '')}”
               </p>
             </div>
 
             <div className="mt-8 pt-4 border-t border-white/5">
-              <p className="text-sm font-semibold text-white font-montserrat">
+              <p className="text-sm font-medium text-[#7ceee0] font-montserrat">
                 {t.role}
               </p>
             </div>

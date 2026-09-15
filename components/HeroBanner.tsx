@@ -60,7 +60,7 @@ export default function HeroBanner() {
             <img src="/assets/icon.svg" alt="" className="w-3.5 h-3.5 object-contain" />
             <span>
               US PRINT-ON-DEMAND ·{' '}
-              <span className="underline decoration-[#25E2CC] font-bold text-white group-hover:text-[#25E2CC] transition">
+              <span className="underline decoration-[#7ceee0] font-medium text-[#d3f9f5] group-hover:text-[#7ceee0] transition">
                 FULFILLED IN UNDER 24 HOURS
               </span>
             </span>
@@ -78,13 +78,13 @@ export default function HeroBanner() {
 
       {/* Main Hero Typography: Full Width bottom-left */}
       <div className="relative z-10 w-full mb-12 sm:mb-16">
-        <h1 className="font-montserrat font-bold text-4xl sm:text-6xl md:text-7xl lg:text-[76px] tracking-tight uppercase leading-[1.08] text-white max-w-5xl">
-          AUTOMATE <span className="text-[#25E2CC]">OPERATIONS.</span>
+        <h1 className="font-montserrat font-medium text-4xl sm:text-6xl md:text-7xl lg:text-[76px] tracking-tight uppercase leading-[1.08] text-[#d3f9f5] max-w-5xl">
+          AUTOMATE <span className="text-[#7ceee0] font-medium">OPERATIONS.</span>
           <br />
-          SCALE <span className="text-[#25E2CC]">GLOBAL SALES.</span>
+          SCALE <span className="text-[#7ceee0] font-medium">GLOBAL SALES.</span>
         </h1>
 
-        <p className="mt-4 sm:mt-5 text-sm sm:text-base md:text-lg text-[#b3b3b3] font-normal max-w-3xl leading-relaxed font-montserrat">
+        <p className="mt-4 sm:mt-5 text-sm sm:text-base md:text-lg text-[#b3b3b3] font-light max-w-3xl leading-[1.75] font-montserrat">
           Unify order management across every channel, automate multi-marketplace workflows, and synchronize inventory in real time — cutting costs while accelerating revenue growth.
         </p>
       </div>

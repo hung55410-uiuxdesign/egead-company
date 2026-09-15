@@ -34,21 +34,21 @@ export default function MetricsRibbon({
       <div className="absolute inset-x-0 top-0 h-[1px] bg-gradient-to-r from-transparent via-[#25E2CC]/40 to-transparent" />
       <div className="absolute inset-x-0 bottom-0 h-[1px] bg-gradient-to-r from-transparent via-[#25E2CC]/20 to-transparent" />
 
-      <div className="relative z-10 w-full px-6 sm:px-10 lg:px-14 xl:px-16 max-w-7xl mx-auto">
+      <div className="relative z-10 w-full px-6 sm:px-10 lg:px-14 xl:px-16">
         {(badge || title || subtitle) && (
           <div className="text-center max-w-3xl mx-auto mb-10">
             {badge && (
-              <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#141718] border border-[#262C30] text-[#25E2CC] text-xs font-semibold uppercase tracking-wider mb-3 font-montserrat">
+              <span className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#141718] border border-white/10 text-[#d3f9f5] text-xs font-normal uppercase tracking-wider mb-3 font-montserrat">
                 {badge}
               </span>
             )}
             {title && (
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white font-rubik tracking-tight">
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-medium text-[#d3f9f5] font-montserrat tracking-tight">
                 {title}
               </h2>
             )}
             {subtitle && (
-              <p className="mt-2 text-sm sm:text-base text-[#8C8C8C] font-montserrat">
+              <p className="mt-2 text-sm sm:text-base text-[#b3b3b3] font-light leading-relaxed font-montserrat">
                 {subtitle}
               </p>
             )}
@@ -68,33 +68,33 @@ export default function MetricsRibbon({
           {metrics.map((item, idx) => (
             <div
               key={idx}
-              className="relative p-6 sm:p-7 rounded-[22px] bg-[#141718]/80 border border-[#262C30] hover:border-[#25E2CC]/40 transition-all duration-300 group"
+              className="relative p-6 sm:p-7 rounded-[22px] bg-[#141718]/80 border border-white/10 hover:border-[#7ceee0]/40 transition-all duration-300 group"
             >
               <div className="flex items-center justify-between mb-3">
                 {item.icon ? (
-                  <div className="w-10 h-10 rounded-xl bg-[#1D2224] flex items-center justify-center text-[#25E2CC] border border-[#262C30] group-hover:scale-105 transition-transform">
+                  <div className="w-10 h-10 rounded-xl bg-[#1D2224] flex items-center justify-center text-[#7ceee0] border border-white/10 group-hover:scale-105 transition-transform">
                     {item.icon}
                   </div>
                 ) : (
-                  <div className="w-2 h-2 rounded-full bg-[#25E2CC] animate-pulse" />
+                  <div className="w-2 h-2 rounded-full bg-[#7ceee0] animate-pulse" />
                 )}
                 {item.trend && (
-                  <span className="text-[11px] font-semibold text-[#25E2CC] bg-[#25E2CC]/10 px-2.5 py-0.5 rounded-full border border-[#25E2CC]/20 font-montserrat">
+                  <span className="text-[11px] font-medium text-[#7ceee0] bg-[#7ceee0]/10 px-2.5 py-0.5 rounded-full border border-[#7ceee0]/20 font-montserrat">
                     {item.trend}
                   </span>
                 )}
               </div>
 
-              <div className="text-3xl sm:text-4xl lg:text-[42px] font-extrabold text-white group-hover:text-[#25E2CC] transition-colors font-rubik tracking-tight leading-none mb-2">
+              <div className="text-3xl sm:text-4xl lg:text-[42px] font-medium text-[#7ceee0] group-hover:text-white transition-colors font-montserrat tracking-tight leading-none mb-2">
                 {item.value}
               </div>
 
-              <div className="text-xs sm:text-sm font-semibold uppercase tracking-wider text-[#D3F9F5] font-montserrat">
+              <div className="text-xs sm:text-sm font-medium uppercase tracking-wider text-[#d3f9f5] font-montserrat">
                 {item.label}
               </div>
 
               {item.description && (
-                <p className="mt-2 text-xs text-[#8C8C8C] font-montserrat leading-relaxed">
+                <p className="mt-2 text-xs text-[#b3b3b3] font-light font-montserrat leading-relaxed">
                   {item.description}
                 </p>
               )}

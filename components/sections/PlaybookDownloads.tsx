@@ -71,25 +71,25 @@ export function PlaybookDownloads({
       id={id}
       role="region"
       aria-label="Operational Playbooks & Strategy Guides"
-      className={`w-full max-w-6xl mx-auto rounded-[36px] bg-[#141718] border border-white/10 p-8 sm:p-12 lg:p-14 shadow-2xl ${className}`}
+      className={`w-full rounded-[36px] bg-[#141718] border border-white/10 p-8 sm:p-12 lg:p-14 shadow-2xl ${className}`}
     >
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-8 border-b border-white/10">
         <div>
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#25E2CC]/10 border border-[#25E2CC]/25 text-[#25E2CC] text-xs font-mono font-medium uppercase tracking-wider mb-3">
-            <BookOpen className="w-3.5 h-3.5" aria-hidden="true" />
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#141718] border border-white/10 text-[#d3f9f5] text-xs font-mono font-normal uppercase tracking-wider mb-3 font-montserrat">
+            <BookOpen className="w-3.5 h-3.5 text-[#7ceee0]" aria-hidden="true" />
             Executive Knowledge Base
           </div>
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-white tracking-tight">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-medium text-[#d3f9f5] tracking-tight font-montserrat">
             Operational Playbooks &amp; Strategy Guides
           </h2>
-          <p className="mt-2 text-sm sm:text-base text-gray-400 max-w-2xl font-normal leading-relaxed">
+          <p className="mt-2 text-sm sm:text-base text-[#b3b3b3] max-w-2xl font-light leading-[1.75] font-montserrat">
             Download the battle-tested standard operating procedures (SOPs) and financial templates our enterprise partners use to run high-margin cross-border operations.
           </p>
         </div>
 
-        <div className="text-xs font-mono text-gray-400">
-          <span className="text-[#25E2CC] font-bold">100% Free</span> · No Credit Card Required
+        <div className="text-xs font-mono text-[#b3b3b3]">
+          <span className="text-[#7ceee0] font-medium">100% Free</span> · No Credit Card Required
         </div>
       </div>
 

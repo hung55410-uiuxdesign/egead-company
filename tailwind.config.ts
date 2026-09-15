@@ -26,7 +26,7 @@ const config: Config = {
       fontFamily: {
         sans: ["var(--font-montserrat)", "Montserrat", "-apple-system", "BlinkMacSystemFont", "'Segoe UI'", "Roboto", "sans-serif"],
         montserrat: ["var(--font-montserrat)", "Montserrat", "-apple-system", "BlinkMacSystemFont", "'Segoe UI'", "Roboto", "sans-serif"],
-        rubik: ["var(--font-rubik)", "Rubik", "sans-serif"],
+        rubik: ["var(--font-montserrat)", "Montserrat", "-apple-system", "BlinkMacSystemFont", "'Segoe UI'", "Roboto", "sans-serif"],
       },
       keyframes: {
         marquee: {

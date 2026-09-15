@@ -194,22 +194,22 @@ export default function PartnersPage() {
         aria-label="Partners Ecosystem Hero"
         className="w-full px-6 sm:px-10 lg:px-14 xl:px-16 mb-20 sm:mb-28 scroll-mt-28"
       >
-        <div className="max-w-6xl mx-auto">
+        <div className="w-full">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14 items-center">
             
             {/* Left Headline & Positioning */}
             <div className="lg:col-span-7">
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#25E2CC]/10 border border-[#25E2CC]/30 text-[#25E2CC] text-xs font-mono font-semibold uppercase tracking-widest mb-6">
-                <Sparkles className="w-3.5 h-3.5" aria-hidden="true" />
-                Global Commerce Alliances 2026
+              <div className="inline-flex items-center gap-2 text-sm sm:text-base font-normal text-[#d3f9f5] mb-6 font-montserrat">
+                <Sparkles className="w-4 h-4 text-[#7ceee0]" aria-hidden="true" />
+                Global Commerce Alliances
               </div>
 
-              <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black tracking-tight leading-[1.08] mb-6">
+              <h1 className="text-4xl sm:text-6xl lg:text-[72px] font-medium tracking-tight leading-[1.08] text-[#d3f9f5] font-montserrat mb-6">
                 Integrated with the World&apos;s <br />
-                <span className="text-[#25E2CC]">Leading Commerce Ecosystems.</span>
+                <span className="text-[#7ceee0] font-medium">Leading Commerce Ecosystems.</span>
               </h1>
 
-              <p className="text-base sm:text-xl text-gray-300 font-normal leading-relaxed max-w-2xl mb-8">
+              <p className="text-base sm:text-lg lg:text-xl text-[#b3b3b3] font-light leading-[1.75] font-montserrat max-w-2xl mb-8">
                 E-GEAD bridges your business directly with the world&apos;s most powerful marketplaces, storefront technologies, advertising platforms, and national logistics networks. Seamless, secure, and fully automated operations from day one.
               </p>
 
@@ -217,14 +217,14 @@ export default function PartnersPage() {
               <div className="flex flex-wrap items-center gap-4">
                 <a
                   href="#ecosystem-matrix"
-                  className="inline-flex items-center gap-2 px-7 py-4 rounded-xl bg-[#25E2CC] text-black font-bold text-sm hover:bg-[#7ceee0] transition-all duration-300 shadow-lg shadow-[#25E2CC]/25 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#25E2CC]"
+                  className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-[#7ceee0] text-black font-medium text-sm sm:text-base font-montserrat hover:bg-[#68d8ca] transition duration-300"
                 >
                   <span>Explore Partner Matrix</span>
                   <ArrowRight className="w-4 h-4" aria-hidden="true" />
                 </a>
                 <a
                   href="#partners-cta"
-                  className="inline-flex items-center gap-2 px-7 py-4 rounded-xl bg-white/5 hover:bg-white/10 text-white font-semibold text-sm border border-white/10 hover:border-white/20 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#25E2CC]"
+                  className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-[#141718] border border-white/20 text-[#d3f9f5] font-medium text-sm sm:text-base font-montserrat hover:border-[#7ceee0] hover:text-[#7ceee0] transition duration-300"
                 >
                   <span>Become an Ecosystem Partner</span>
                 </a>
@@ -247,7 +247,7 @@ export default function PartnersPage() {
         aria-label="Real-Time API Integration Throughput"
         className="w-full px-6 sm:px-10 lg:px-14 xl:px-16 mb-24 sm:mb-28 scroll-mt-28"
       >
-        <div className="max-w-6xl mx-auto">
+        <div className="w-full">
           <MetricsRibbon
             id="throughput-ribbon"
             badge="High-Availability Telemetry"
@@ -263,7 +263,7 @@ export default function PartnersPage() {
         className="w-full px-6 sm:px-10 lg:px-14 xl:px-16 mb-24 sm:mb-28"
         aria-label="5-Tier Ecosystem Matrix Section"
       >
-        <div className="max-w-6xl mx-auto">
+        <div className="w-full">
           <EcosystemMatrix />
         </div>
       </section>
@@ -275,7 +275,7 @@ export default function PartnersPage() {
         aria-label="Deep Integration & Certified Status Showcase"
         className="w-full px-6 sm:px-10 lg:px-14 xl:px-16 mb-24 sm:mb-28 scroll-mt-28"
       >
-        <div className="max-w-6xl mx-auto">
+        <div className="w-full">
           <BentoGrid
             badge="Official Technical Certifications"
             title="Deep Programmatic Integrations & Certified Status"
@@ -290,7 +290,7 @@ export default function PartnersPage() {
         className="w-full px-6 sm:px-10 lg:px-14 xl:px-16 mb-24 sm:mb-28"
         aria-label="Technical Integration Bridge Architecture Section"
       >
-        <div className="max-w-6xl mx-auto">
+        <div className="w-full">
           <IntegrationBridgeVisualizer />
         </div>
       </section>
@@ -302,7 +302,7 @@ export default function PartnersPage() {
         aria-label="Exclusive Merchant Advantages"
         className="w-full px-6 sm:px-10 lg:px-14 xl:px-16 mb-24 sm:mb-28 scroll-mt-28"
       >
-        <div className="max-w-6xl mx-auto">
+        <div className="w-full">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-12">
             <div>
               <span className="text-xs font-mono uppercase tracking-widest text-[#25E2CC] block mb-2 font-semibold">
@@ -384,7 +384,7 @@ export default function PartnersPage() {
         aria-label="Partner Co-Innovation and Success Stories"
         className="w-full px-6 sm:px-10 lg:px-14 xl:px-16 mb-24 sm:mb-28 scroll-mt-28"
       >
-        <div className="max-w-6xl mx-auto">
+        <div className="w-full">
           <div className="rounded-[36px] bg-[#141718] border border-white/10 p-8 sm:p-12 lg:p-16 shadow-2xl relative overflow-hidden">
             <div 
               aria-hidden="true" 
@@ -467,7 +467,7 @@ export default function PartnersPage() {
         aria-label="Join the E-GEAD Ecosystem"
         className="w-full px-6 sm:px-10 lg:px-14 xl:px-16 mb-20 scroll-mt-28"
       >
-        <div className="max-w-6xl mx-auto">
+        <div className="w-full">
           <div className="rounded-[36px] bg-gradient-to-br from-[#1A2224] via-[#141718] to-[#0A0D0E] border border-[#25E2CC]/40 p-8 sm:p-14 lg:p-16 shadow-2xl relative overflow-hidden">
             <div 
               aria-hidden="true" 
@@ -475,31 +475,31 @@ export default function PartnersPage() {
             />
 
             <div className="relative z-10 max-w-3xl">
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#25E2CC]/10 border border-[#25E2CC]/30 text-[#25E2CC] text-xs font-mono font-semibold uppercase tracking-widest mb-6">
-                <Globe2 className="w-3.5 h-3.5" aria-hidden="true" />
+              <div className="inline-flex items-center gap-2 text-sm sm:text-base font-normal text-[#d3f9f5] mb-6 font-montserrat">
+                <Globe2 className="w-4 h-4 text-[#7ceee0]" aria-hidden="true" />
                 Alliance Partnership Program
               </div>
 
-              <h2 className="text-3xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-tight">
+              <h2 className="text-3xl sm:text-5xl lg:text-[54px] font-medium text-[#d3f9f5] font-montserrat tracking-tight leading-[1.15]">
                 Expand Your Reach Within the <br />
-                <span className="text-[#25E2CC]">E-GEAD Global Network.</span>
+                <span className="text-[#7ceee0] font-medium">E-GEAD Global Network.</span>
               </h2>
 
-              <p className="mt-4 text-base sm:text-lg text-gray-300 font-normal leading-relaxed">
+              <p className="mt-4 text-base sm:text-lg text-[#b3b3b3] font-light leading-[1.75] font-montserrat">
                 Are you a software vendor, logistics provider, blank apparel manufacturer, or marketplace platform? Partner with E-GEAD to deliver unprecedented operational velocity to thousands of high-growth global e-commerce merchants.
               </p>
 
               <div className="mt-8 flex flex-wrap items-center gap-4">
                 <a
                   href="#contact"
-                  className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-[#25E2CC] text-black font-bold text-sm hover:bg-[#7ceee0] transition-all duration-300 shadow-xl shadow-[#25E2CC]/25 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#25E2CC]"
+                  className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-[#7ceee0] text-black font-medium text-sm sm:text-base font-montserrat hover:bg-[#68d8ca] transition duration-300"
                 >
                   <span>Apply for Technology Partnership</span>
                   <ArrowRight className="w-4 h-4" aria-hidden="true" />
                 </a>
                 <Link
                   href="/services/all-services"
-                  className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-white/5 hover:bg-white/10 text-white font-semibold text-sm border border-white/10 hover:border-white/20 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#25E2CC]"
+                  className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-[#141718] border border-white/20 text-[#d3f9f5] font-medium text-sm sm:text-base font-montserrat hover:border-[#7ceee0] hover:text-[#7ceee0] transition duration-300"
                 >
                   <span>Access Developer Sandbox</span>
                   <ArrowUpRight className="w-4 h-4 text-gray-400" aria-hidden="true" />

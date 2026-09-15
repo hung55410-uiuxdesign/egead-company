@@ -18,12 +18,12 @@ export default function SmartCXSection() {
         </div>
 
         {/* Title */}
-        <h2 className="text-3xl sm:text-5xl lg:text-[54px] font-bold tracking-tight leading-[1.15] text-white font-rubik max-w-4xl">
-          <span className="text-[#25E2CC]">Intelligent automation</span> for global commerce.
+        <h2 className="text-3xl sm:text-5xl lg:text-[54px] font-medium tracking-tight leading-[1.15] text-[#d3f9f5] font-montserrat max-w-4xl">
+          <span className="text-[#7ceee0] font-medium">Intelligent automation</span> for global commerce.
         </h2>
 
         {/* Description */}
-        <p className="mt-6 text-sm sm:text-base md:text-lg text-[#8C8C8C] font-normal leading-relaxed font-montserrat max-w-3xl mx-auto">
+        <p className="mt-6 text-sm sm:text-base md:text-lg text-[#b3b3b3] font-light leading-[1.75] font-montserrat max-w-3xl mx-auto">
           Proprietary software suite engineered for high-velocity global sellers. Connect multiple storefronts, automate order dispatching, eliminate fulfillment errors with 99.9% barcode accuracy, and track net profit margins in real time.
         </p>
 
@@ -40,9 +40,9 @@ export default function SmartCXSection() {
         <div>
           <Link
             href="/smartcommerce"
-            className="group inline-flex items-center gap-2.5 bg-[#25E2CC] hover:bg-[#1ec2af] text-[#003D5B] font-semibold text-sm sm:text-[15px] px-8 sm:px-9 py-3 sm:py-3.5 rounded-full transition shadow-[0_0_25px_rgba(37,226,204,0.35)] hover:shadow-[0_0_35px_rgba(37,226,204,0.55)]"
+            className="group inline-flex items-center gap-2.5 bg-[#7ceee0] hover:bg-[#68d8ca] text-black font-medium text-sm sm:text-base px-8 sm:px-9 py-3 sm:py-3.5 rounded-full transition duration-300"
           >
-            <svg width="15" height="15" viewBox="0 0 19 18" fill="none" xmlns="http://www.w3.org/2000/svg" className="fill-[#003D5B]">
+            <svg width="15" height="15" viewBox="0 0 19 18" fill="none" xmlns="http://www.w3.org/2000/svg" className="fill-black">
               <path d="M15.125 10.875L10.625 15.375L9.56 14.31L12.2525 11.625H3.875V2.625H5.375V10.125H12.2525L9.56 7.44L10.625 6.375L15.125 10.875Z" />
             </svg>
             <span>Discover Eweb Suite</span>

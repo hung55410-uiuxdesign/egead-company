@@ -397,7 +397,7 @@ export default function AllServicesPage() {
       {/* SECTION 1: Immersive Hero & Live Capability Ticker */}
       <section
         id="services-hero"
-        className="relative w-full px-6 sm:px-10 lg:px-14 xl:px-16 py-16 sm:py-24 max-w-7xl mx-auto overflow-hidden"
+        className="relative w-full px-6 sm:px-10 lg:px-14 xl:px-16 py-16 sm:py-24 overflow-hidden"
       >
         {/* Subtle background glow */}
         <div className="absolute top-1/3 left-1/3 w-[550px] h-[350px] bg-[#25E2CC]/10 blur-[160px] rounded-full pointer-events-none" />
@@ -405,24 +405,24 @@ export default function AllServicesPage() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14 items-center relative z-10">
           {/* Left Column */}
           <div className="lg:col-span-7">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#141718] border border-[#262C30] text-[#25E2CC] text-xs font-semibold tracking-wider uppercase mb-6 font-montserrat shadow-[0_0_15px_rgba(37,226,204,0.15)]">
-              <span className="w-2 h-2 rounded-full bg-[#25E2CC] animate-pulse" />
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#141718] border border-[#262C30] text-[#7ceee0] text-xs font-normal tracking-wide mb-6 font-montserrat">
+              <span className="w-2 h-2 rounded-full bg-[#7ceee0] animate-pulse" />
               Live System: 10,000+ Daily Dispatches Across US Hubs
             </div>
 
-            <h1 className="text-4xl sm:text-6xl lg:text-[68px] font-extrabold tracking-tight text-white font-rubik leading-[1.08] mb-6">
-              AUTOMATE OPERATIONS. <br />
-              SCALE <span className="text-[#25E2CC]">GLOBAL COMMERCE.</span>
+            <h1 className="text-4xl sm:text-6xl lg:text-[72px] font-medium tracking-tight text-[#d3f9f5] font-montserrat leading-[1.08] mb-6">
+              Automate Operations. <br />
+              Scale <span className="text-[#7ceee0] font-medium">Global Commerce.</span>
             </h1>
 
-            <p className="text-base sm:text-lg lg:text-xl text-[#8C8C8C] leading-relaxed font-montserrat max-w-2xl mb-8">
+            <p className="text-base sm:text-lg lg:text-xl text-[#b3b3b3] leading-[1.75] font-light font-montserrat max-w-2xl mb-8">
               E-GEAD delivers an enterprise-grade technology and logistics ecosystem: automating multi-channel order pipelines, manufacturing US print-on-demand goods in under 24 hours, and scaling revenue through high-impact performance advertising.
             </p>
 
             <div className="flex flex-wrap items-center gap-4">
               <a
                 href="#solutions-by-role"
-                className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-[#25E2CC] text-black font-bold text-sm font-montserrat hover:bg-[#1ec2af] transition-all duration-200 shadow-[0_0_25px_rgba(37,226,204,0.35)] hover:scale-105 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#25E2CC]"
+                className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-[#7ceee0] text-black font-medium text-sm sm:text-base font-montserrat hover:bg-[#68d8ca] transition duration-300"
               >
                 <span>Explore Solutions Matrix</span>
                 <ArrowRight className="w-4 h-4" aria-hidden="true" />
@@ -430,7 +430,7 @@ export default function AllServicesPage() {
 
               <Link
                 href="/contact-us"
-                className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-[#141718] text-white border border-[#262C30] font-semibold text-sm font-montserrat hover:border-[#25E2CC]/40 hover:text-[#25E2CC] transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#25E2CC]"
+                className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-[#141718] text-[#d3f9f5] border border-white/20 font-medium text-sm sm:text-base font-montserrat hover:border-[#7ceee0] hover:text-[#7ceee0] transition duration-300"
               >
                 <span>Request Operations Audit</span>
                 <ArrowUpRight className="w-4 h-4" aria-hidden="true" />
@@ -443,12 +443,12 @@ export default function AllServicesPage() {
             <div className="w-full rounded-[32px] bg-[#141718]/90 border border-[#262C30] p-6 sm:p-8 backdrop-blur-xl shadow-[0_0_40px_rgba(0,0,0,0.6)] relative overflow-hidden">
               <div className="flex items-center justify-between pb-4 border-b border-[#262C30] mb-6">
                 <div className="flex items-center gap-2.5">
-                  <div className="w-3 h-3 rounded-full bg-[#25E2CC] animate-ping" />
-                  <span className="text-xs uppercase tracking-widest font-bold text-white font-montserrat">
+                  <div className="w-2.5 h-2.5 rounded-full bg-[#7ceee0] animate-ping" />
+                  <span className="text-xs font-normal text-[#d3f9f5] font-montserrat">
                     Live Dispatch HUD
                   </span>
                 </div>
-                <span className="text-[10px] font-mono font-bold bg-[#25E2CC]/10 text-[#25E2CC] px-2.5 py-1 rounded-full border border-[#25E2CC]/20">
+                <span className="text-[10px] font-mono font-medium bg-[#7ceee0]/10 text-[#7ceee0] px-2.5 py-1 rounded-full border border-[#7ceee0]/20">
                   Latency: 120ms
                 </span>
               </div>
@@ -457,42 +457,42 @@ export default function AllServicesPage() {
               <div className="space-y-4">
                 <div className="p-4 rounded-2xl bg-[#0A0D0E]/80 border border-[#262C30] flex items-center justify-between">
                   <div>
-                    <span className="text-[11px] text-[#8C8C8C] uppercase font-montserrat">
+                    <span className="text-[11px] text-[#b3b3b3] font-light font-montserrat">
                       Today's US Dispatch Queue
                     </span>
-                    <div className="text-2xl font-bold text-[#25E2CC] font-rubik mt-0.5">
+                    <div className="text-2xl font-medium text-[#7ceee0] font-montserrat mt-0.5">
                       12,480 Units
                     </div>
                   </div>
-                  <span className="text-xs font-mono font-semibold text-[#D3F9F5] bg-[#25E2CC]/10 px-2 py-1 rounded">
+                  <span className="text-xs font-mono font-medium text-[#D3F9F5] bg-[#7ceee0]/10 px-2 py-1 rounded">
                     100% On Time
                   </span>
                 </div>
 
                 <div className="p-4 rounded-2xl bg-[#0A0D0E]/80 border border-[#262C30] flex items-center justify-between">
                   <div>
-                    <span className="text-[11px] text-[#8C8C8C] uppercase font-montserrat">
+                    <span className="text-[11px] text-[#b3b3b3] font-light font-montserrat">
                       TikTok Shop LDR Status
                     </span>
-                    <div className="text-2xl font-bold text-white font-rubik mt-0.5">
-                      0.18% <span className="text-xs text-[#8C8C8C] font-normal">(Ceiling: 4.0%)</span>
+                    <div className="text-2xl font-medium text-[#d3f9f5] font-montserrat mt-0.5">
+                      0.18% <span className="text-xs text-[#8C8C8C] font-light">(Ceiling: 4.0%)</span>
                     </div>
                   </div>
-                  <span className="text-xs font-mono font-semibold text-emerald-400 bg-emerald-500/10 px-2 py-1 rounded">
+                  <span className="text-xs font-mono font-medium text-emerald-400 bg-emerald-500/10 px-2 py-1 rounded">
                     Safe Shield
                   </span>
                 </div>
 
                 <div className="p-4 rounded-2xl bg-[#0A0D0E]/80 border border-[#262C30] flex items-center justify-between">
                   <div>
-                    <span className="text-[11px] text-[#8C8C8C] uppercase font-montserrat">
+                    <span className="text-[11px] text-[#b3b3b3] font-light font-montserrat">
                       Active Production Facilities
                     </span>
-                    <div className="text-2xl font-bold text-white font-rubik mt-0.5">
+                    <div className="text-2xl font-medium text-[#d3f9f5] font-montserrat mt-0.5">
                       US East &amp; West Hubs
                     </div>
                   </div>
-                  <span className="text-xs font-mono font-semibold text-[#25E2CC] bg-[#25E2CC]/10 px-2 py-1 rounded">
+                  <span className="text-xs font-mono font-medium text-[#7ceee0] bg-[#7ceee0]/10 px-2 py-1 rounded">
                     Operational
                   </span>
                 </div>
@@ -587,16 +587,16 @@ export default function AllServicesPage() {
         id="sla-compliance"
         className="relative w-full py-20 sm:py-24 bg-[#0A0D0E] border-t border-[#262C30] text-white overflow-hidden"
       >
-        <div className="relative z-10 w-full px-6 sm:px-10 lg:px-14 xl:px-16 max-w-7xl mx-auto">
+        <div className="relative z-10 w-full px-6 sm:px-10 lg:px-14 xl:px-16">
           <div className="text-center max-w-3xl mx-auto mb-14 sm:mb-16">
-            <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#141718] border border-[#262C30] text-[#25E2CC] text-xs sm:text-sm font-semibold tracking-wider uppercase mb-4 font-montserrat">
-              <ShieldCheck className="w-3.5 h-3.5 text-[#25E2CC]" aria-hidden="true" />
+            <span className="inline-flex items-center gap-2 text-sm sm:text-base font-normal text-[#d3f9f5] mb-4 font-montserrat">
+              <ShieldCheck className="w-4 h-4 text-[#7ceee0]" aria-hidden="true" />
               Account Safety &amp; SLAs
             </span>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-white font-rubik leading-[1.2]">
+            <h2 className="text-2xl sm:text-3xl lg:text-[34px] font-medium tracking-tight text-[#d3f9f5] font-montserrat leading-[1.2]">
               Enterprise SLA Protection &amp; Compliance Badges
             </h2>
-            <p className="mt-4 text-base sm:text-lg text-[#8C8C8C] leading-relaxed font-montserrat max-w-2xl mx-auto">
+            <p className="mt-4 text-base sm:text-lg text-[#b3b3b3] leading-[1.75] font-light font-montserrat max-w-2xl mx-auto">
               Eliminate account suspension risks. Our automated operations maintain perfect compliance with the world's strictest marketplace algorithms.
             </p>
           </div>
@@ -606,15 +606,15 @@ export default function AllServicesPage() {
             {complianceBadges.map((badge, idx) => (
               <div
                 key={idx}
-                className="p-7 rounded-[26px] bg-[#141718]/90 border border-[#262C30] hover:border-[#25E2CC]/40 transition-all duration-300 group"
+                className="p-7 rounded-[26px] bg-[#141718]/90 border border-[#262C30] hover:border-[#7ceee0]/40 transition-all duration-300 group"
               >
-                <div className="w-12 h-12 rounded-2xl bg-[#1D2224] border border-[#262C30] flex items-center justify-center text-[#25E2CC] mb-5 group-hover:scale-110 transition-transform">
+                <div className="w-12 h-12 rounded-2xl bg-[#1D2224] border border-[#262C30] flex items-center justify-center text-[#7ceee0] mb-5 group-hover:scale-105 transition-transform">
                   {badge.icon}
                 </div>
-                <h3 className="text-lg font-bold text-white font-rubik mb-2 group-hover:text-[#25E2CC] transition-colors">
+                <h3 className="text-lg sm:text-xl font-medium text-[#d3f9f5] font-montserrat mb-2 group-hover:text-[#7ceee0] transition-colors">
                   {badge.title}
                 </h3>
-                <p className="text-xs sm:text-sm text-[#8C8C8C] font-montserrat leading-relaxed">
+                <p className="text-xs sm:text-sm text-[#b3b3b3] font-light font-montserrat leading-relaxed">
                   {badge.description}
                 </p>
               </div>
@@ -628,58 +628,58 @@ export default function AllServicesPage() {
         id="client-spotlight"
         className="relative w-full py-20 sm:py-24 bg-[#0A0D0E] text-white overflow-hidden"
       >
-        <div className="relative z-10 w-full px-6 sm:px-10 lg:px-14 xl:px-16 max-w-6xl mx-auto">
+        <div className="relative z-10 w-full px-6 sm:px-10 lg:px-14 xl:px-16">
           <div className="rounded-[32px] bg-gradient-to-br from-[#141718] to-[#101416] border border-[#262C30] p-8 sm:p-12 lg:p-16 backdrop-blur-md relative overflow-hidden">
             <div className="absolute top-0 right-0 w-96 h-96 bg-[#25E2CC]/5 blur-[120px] rounded-full pointer-events-none" />
 
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
               {/* Left Column: Client Profile Card */}
               <div className="lg:col-span-5 space-y-4">
-                <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#25E2CC]/10 text-[#25E2CC] text-xs font-semibold uppercase tracking-wider font-montserrat">
+                <span className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#141718] border border-white/10 text-[#d3f9f5] text-xs font-normal uppercase tracking-wider font-montserrat">
                   Case Study Spotlight
                 </span>
-                <h2 className="text-2xl sm:text-3xl font-extrabold text-white font-rubik leading-snug">
+                <h2 className="text-2xl sm:text-3xl font-medium text-[#d3f9f5] font-montserrat leading-snug">
                   UrbanVibe Apparel
                 </h2>
-                <p className="text-sm text-[#8C8C8C] font-montserrat">
+                <p className="text-sm text-[#b3b3b3] font-light font-montserrat leading-relaxed">
                   Top-Tier US Streetwear Brand scaling on TikTok Shop US &amp; Shopify DTC.
                 </p>
 
-                <div className="p-4 rounded-2xl bg-[#0A0D0E]/80 border border-[#262C30] space-y-3 pt-4">
+                <div className="p-4 rounded-2xl bg-[#0A0D0E]/80 border border-white/10 space-y-3 pt-4">
                   <div className="flex justify-between items-center text-xs font-montserrat">
-                    <span className="text-[#8C8C8C]">Before Migration:</span>
-                    <span className="text-red-400 font-bold">4.2% LDR (Order Limit Strike)</span>
+                    <span className="text-[#b3b3b3]">Before Migration:</span>
+                    <span className="text-red-400 font-medium">4.2% LDR (Order Limit Strike)</span>
                   </div>
                   <div className="flex justify-between items-center text-xs font-montserrat">
-                    <span className="text-[#8C8C8C]">After E-GEAD:</span>
-                    <span className="text-[#25E2CC] font-bold">0.2% LDR (Sub-24H Dispatch)</span>
+                    <span className="text-[#b3b3b3]">After E-GEAD:</span>
+                    <span className="text-[#7ceee0] font-medium">0.2% LDR (Sub-24H Dispatch)</span>
                   </div>
-                  <div className="flex justify-between items-center text-xs font-montserrat pt-2 border-t border-[#262C30]">
-                    <span className="text-[#8C8C8C]">Q4 GMV Growth:</span>
-                    <span className="text-emerald-400 font-bold text-sm">+180% ($420,000 GMV)</span>
+                  <div className="flex justify-between items-center text-xs font-montserrat pt-2 border-t border-white/10">
+                    <span className="text-[#b3b3b3]">Q4 GMV Growth:</span>
+                    <span className="text-emerald-400 font-medium text-sm">+180% ($420,000 GMV)</span>
                   </div>
                 </div>
               </div>
 
               {/* Right Column: Narrative & Quote */}
               <div className="lg:col-span-7 flex flex-col justify-center">
-                <blockquote className="text-lg sm:text-xl text-white font-montserrat font-medium italic leading-relaxed mb-6">
+                <blockquote className="text-lg sm:text-xl text-[#d3f9f5] font-montserrat font-light italic leading-[1.75] mb-6">
                   &ldquo;E-GEAD eliminated our sleepless nights. We scaled our TikTok Shop ad spend knowing our fulfillment would never drop the ball. With sub-24H dispatch and 23-inch DTF quality, our customer ratings surged to 4.9 stars.&rdquo;
                 </blockquote>
                 <div className="flex items-center gap-3">
-                  <div className="w-11 h-11 rounded-full bg-[#25E2CC]/20 border border-[#25E2CC] flex items-center justify-center text-[#25E2CC] font-bold font-rubik text-sm">
+                  <div className="w-11 h-11 rounded-full bg-[#7ceee0]/20 border border-[#7ceee0] flex items-center justify-center text-[#7ceee0] font-medium font-montserrat text-sm">
                     MV
                   </div>
                   <div>
-                    <div className="text-white font-bold text-sm font-rubik">Marcus Vance</div>
-                    <div className="text-xs text-[#8C8C8C] font-montserrat">Founder &amp; CEO, UrbanVibe Apparel</div>
+                    <div className="text-[#d3f9f5] font-medium text-sm font-montserrat">Marcus Vance</div>
+                    <div className="text-xs text-[#b3b3b3] font-light font-montserrat">Founder &amp; CEO, UrbanVibe Apparel</div>
                   </div>
                 </div>
 
-                <div className="mt-8 pt-6 border-t border-[#262C30]">
+                <div className="mt-8 pt-6 border-t border-white/10">
                   <Link
                     href="/our-work"
-                    className="inline-flex items-center gap-2 text-sm font-bold text-[#25E2CC] hover:text-[#1ec2af] transition-colors group"
+                    className="inline-flex items-center gap-2 text-sm font-medium text-[#7ceee0] hover:text-[#68d8ca] transition-colors group font-montserrat"
                   >
                     <span>Read Full Client Transformation Case Study</span>
                     <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />
@@ -697,7 +697,7 @@ export default function AllServicesPage() {
         badge="Frequently Answered Inquiries"
         title={
           <>
-            Got Questions? <span className="text-[#25E2CC]">We Have Answers.</span>
+            Got Questions? <span className="text-[#7ceee0] font-medium">We Have Answers.</span>
           </>
         }
         subtitle="Review key details regarding our SLAs, custom integrations, pricing model, and account protections."
@@ -710,28 +710,28 @@ export default function AllServicesPage() {
         id="services-cta"
         className="relative w-full py-20 sm:py-28 bg-[#0A0D0E] text-white overflow-hidden"
       >
-        <div className="relative z-10 w-full px-6 sm:px-10 lg:px-14 xl:px-16 max-w-5xl mx-auto">
-          <div className="rounded-[36px] bg-gradient-to-br from-[#141718] via-[#101416] to-[#0A0D0E] border-2 border-[#25E2CC]/40 p-8 sm:p-12 lg:p-16 text-center shadow-[0_0_60px_rgba(37,226,204,0.15)] relative overflow-hidden">
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-[#25E2CC]/10 blur-[140px] rounded-full pointer-events-none" />
+        <div className="relative z-10 w-full px-6 sm:px-10 lg:px-14 xl:px-16">
+          <div className="rounded-[36px] bg-gradient-to-br from-[#141718] via-[#101416] to-[#0A0D0E] border border-white/10 p-8 sm:p-12 lg:p-16 text-center shadow-[0_0_60px_rgba(124,238,224,0.15)] relative overflow-hidden">
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-[#7ceee0]/10 blur-[140px] rounded-full pointer-events-none" />
 
-            <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#141718] border border-[#262C30] text-[#25E2CC] text-xs font-semibold tracking-wider uppercase mb-6 font-montserrat">
-              <Sparkles className="w-3.5 h-3.5 text-[#25E2CC]" aria-hidden="true" />
+            <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#141718] border border-white/10 text-[#d3f9f5] text-xs font-normal tracking-wider uppercase mb-6 font-montserrat">
+              <Sparkles className="w-3.5 h-3.5 text-[#7ceee0]" aria-hidden="true" />
               Scale Without Limits
             </span>
 
-            <h2 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-white font-rubik leading-[1.1] mb-6 tracking-tight">
+            <h2 className="text-3xl sm:text-5xl lg:text-6xl font-medium text-[#d3f9f5] font-montserrat leading-[1.1] mb-6 tracking-tight">
               Ready to Automate Operations &amp; <br />
-              <span className="text-[#25E2CC]">Dominate Global Commerce?</span>
+              <span className="text-[#7ceee0] font-medium">Dominate Global Commerce?</span>
             </h2>
 
-            <p className="text-base sm:text-lg text-[#8C8C8C] font-montserrat max-w-2xl mx-auto leading-relaxed mb-10">
+            <p className="text-base sm:text-lg text-[#b3b3b3] font-light font-montserrat max-w-2xl mx-auto leading-[1.75] mb-10">
               Connect with our solutions architects today. Receive a complimentary operations audit and review your custom unit economics in under 24 hours.
             </p>
 
             <div className="flex flex-wrap items-center justify-center gap-4">
               <Link
                 href="/contact-us"
-                className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-[#25E2CC] text-black font-bold text-sm sm:text-base font-montserrat hover:bg-[#1ec2af] transition-all duration-200 shadow-[0_0_30px_rgba(37,226,204,0.4)] hover:scale-105 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#25E2CC]"
+                className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-[#7ceee0] text-black font-medium text-sm sm:text-base font-montserrat hover:bg-[#68d8ca] transition-all duration-200 shadow-[0_0_30px_rgba(124,238,224,0.4)] hover:scale-105 focus:outline-none"
               >
                 <span>Schedule Operations Consultation</span>
                 <ArrowRight className="w-4 h-4" aria-hidden="true" />

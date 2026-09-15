@@ -161,7 +161,7 @@ export function CaseStudiesPortfolio({ className = '' }: CaseStudiesPortfolioPro
         aria-label="Filter case studies by industry capability"
         className="w-full px-6 sm:px-10 lg:px-14 xl:px-16 mb-16 sm:mb-20 scroll-mt-28"
       >
-        <div className="max-w-6xl mx-auto">
+        <div className="w-full">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-white/10 mb-6">
             <span className="text-xs font-mono font-semibold uppercase tracking-widest text-[#25E2CC] flex items-center gap-2">
               <Layers className="w-3.5 h-3.5" aria-hidden="true" />
@@ -223,7 +223,7 @@ export function CaseStudiesPortfolio({ className = '' }: CaseStudiesPortfolioPro
         aria-label="Flagship Case Study Deep Dive: UrbanVibe Apparel"
         className="w-full px-6 sm:px-10 lg:px-14 xl:px-16 mb-24 sm:mb-28 scroll-mt-28"
       >
-        <div className="max-w-6xl mx-auto rounded-[36px] bg-[#141718] border border-[#25E2CC]/40 p-8 sm:p-12 lg:p-16 shadow-2xl relative overflow-hidden">
+        <div className="w-full rounded-[36px] bg-[#141718] border border-[#25E2CC]/40 p-8 sm:p-12 lg:p-16 shadow-2xl relative overflow-hidden">
           {/* Ambient Glow */}
           <div 
             aria-hidden="true" 
@@ -368,7 +368,7 @@ export function CaseStudiesPortfolio({ className = '' }: CaseStudiesPortfolioPro
         aria-label="Comprehensive Case Studies Portfolio Grid"
         className="w-full px-6 sm:px-10 lg:px-14 xl:px-16 mb-24 sm:mb-28 scroll-mt-28"
       >
-        <div className="max-w-6xl mx-auto">
+        <div className="w-full">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10">
             <div>
               <span className="text-xs font-mono uppercase tracking-widest text-[#25E2CC] block mb-2">

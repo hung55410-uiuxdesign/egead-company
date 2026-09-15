@@ -1,19 +1,12 @@
 import type { Metadata } from 'next';
-import { Rubik, Montserrat } from 'next/font/google';
+import { Montserrat } from 'next/font/google';
 import './globals.css';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
-const rubik = Rubik({
-  subsets: ['latin'],
-  weight: ['300', '400', '500', '600', '700', '800', '900'],
-  variable: '--font-rubik',
-  display: 'swap',
-});
-
 const montserrat = Montserrat({
   subsets: ['latin'],
-  weight: ['400', '500', '600', '700', '800'],
+  weight: ['300', '400', '500', '600', '700', '800', '900'],
   variable: '--font-montserrat',
   display: 'swap',
 });
@@ -41,7 +34,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${rubik.variable} ${montserrat.variable} dark`}
+      className={`${montserrat.variable} dark`}
       suppressHydrationWarning
       data-scroll-behavior="smooth"
     >

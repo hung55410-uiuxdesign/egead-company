@@ -295,28 +295,28 @@ export default function SmartCommercePage() {
         id="platform-hero"
         className="relative w-full py-16 sm:py-20 lg:py-24 overflow-hidden border-b border-[#262C30]"
       >
-        <div className="relative z-10 w-full px-6 sm:px-10 lg:px-14 xl:px-16 max-w-7xl mx-auto">
+        <div className="relative z-10 w-full px-6 sm:px-10 lg:px-14 xl:px-16">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14 items-center">
             {/* Left Content Column */}
             <div className="lg:col-span-6 space-y-6">
-              <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#141718] border border-[#262C30] text-[#25E2CC] text-xs sm:text-sm font-semibold tracking-wider uppercase font-montserrat">
-                <Activity className="w-3.5 h-3.5 text-[#25E2CC]" aria-hidden="true" />
-                CENTRALIZED COMMERCE OS
+              <span className="inline-flex items-center gap-2 text-sm sm:text-base font-normal text-[#d3f9f5] font-montserrat">
+                <Activity className="w-4 h-4 text-[#7ceee0]" aria-hidden="true" />
+                Centralized Commerce OS
               </span>
 
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight text-white font-rubik leading-[1.1]">
+              <h1 className="text-4xl sm:text-5xl lg:text-[68px] font-medium tracking-tight text-[#d3f9f5] font-montserrat leading-[1.08]">
                 Eweb-platform: Unified Operations.{' '}
-                <span className="text-[#25E2CC]">Master Multi-Channel Margins.</span>
+                <span className="text-[#7ceee0] font-medium">Master Multi-Channel Margins.</span>
               </h1>
 
-              <p className="text-base sm:text-lg text-[#8C8C8C] leading-relaxed font-montserrat max-w-xl">
+              <p className="text-base sm:text-lg lg:text-xl text-[#b3b3b3] font-light leading-[1.75] font-montserrat max-w-xl">
                 Connect every storefront, warehouse fulfillment node, and financial settlement stream into a single high-velocity operations cockpit. Eliminate manual spreadsheets, prevent stockout cancellations, and monitor net profit margins in real time.
               </p>
 
               <div className="flex flex-wrap items-center gap-4 pt-2">
                 <Link
                   href="#financial-ledger"
-                  className="inline-flex items-center gap-2 px-7 py-4 rounded-2xl bg-[#25E2CC] text-black font-bold text-sm font-montserrat hover:bg-[#1ec2af] transition-all duration-200 shadow-[0_0_25px_rgba(37,226,204,0.35)] hover:scale-[1.02] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#25E2CC]"
+                  className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-[#7ceee0] text-black font-medium text-sm sm:text-base font-montserrat hover:bg-[#68d8ca] transition duration-300"
                 >
                   <span>Explore Cockpit Demo</span>
                   <ArrowRight className="w-4 h-4" aria-hidden="true" />
@@ -324,7 +324,7 @@ export default function SmartCommercePage() {
 
                 <Link
                   href="#platform-integrations"
-                  className="inline-flex items-center gap-2 px-7 py-4 rounded-2xl bg-[#141718] border border-[#262C30] text-white font-semibold text-sm font-montserrat hover:border-[#25E2CC]/50 hover:bg-[#1D2224] transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#25E2CC]"
+                  className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-[#141718] border border-white/20 text-[#d3f9f5] font-medium text-sm sm:text-base font-montserrat hover:border-[#7ceee0] hover:text-[#7ceee0] transition duration-300"
                 >
                   <span>View Integration Hub</span>
                   <ArrowUpRight className="w-4 h-4 text-[#8C8C8C]" aria-hidden="true" />
@@ -404,16 +404,16 @@ export default function SmartCommercePage() {
         id="wms-automation-module"
         className="relative w-full py-20 sm:py-24 lg:py-28 bg-[#0A0D0E] text-white border-t border-[#262C30]"
       >
-        <div className="relative z-10 w-full px-6 sm:px-10 lg:px-14 xl:px-16 max-w-6xl mx-auto">
+        <div className="relative z-10 w-full px-6 sm:px-10 lg:px-14 xl:px-16">
           <div className="text-center max-w-3xl mx-auto mb-14 sm:mb-16">
-            <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#141718] border border-[#262C30] text-[#25E2CC] text-xs sm:text-sm font-semibold tracking-wider uppercase mb-4 font-montserrat">
-              <Barcode className="w-3.5 h-3.5 text-[#25E2CC]" aria-hidden="true" />
+            <span className="inline-flex items-center gap-2 text-sm sm:text-base font-normal text-[#d3f9f5] mb-4 font-montserrat">
+              <Barcode className="w-4 h-4 text-[#7ceee0]" aria-hidden="true" />
               WMS Fulfillment Protocol
             </span>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-white font-rubik leading-[1.2]">
-              Barcode-Verified WMS &amp; <span className="text-[#25E2CC]">Warehouse Automation</span>
+            <h2 className="text-2xl sm:text-3xl lg:text-[34px] font-medium tracking-tight text-[#d3f9f5] font-montserrat leading-[1.2]">
+              Barcode-Verified WMS &amp; <span className="text-[#7ceee0] font-medium">Warehouse Automation</span>
             </h2>
-            <p className="mt-4 text-base sm:text-lg text-[#8C8C8C] leading-relaxed font-montserrat max-w-2xl mx-auto">
+            <p className="mt-4 text-base sm:text-lg text-[#b3b3b3] leading-[1.75] font-light font-montserrat max-w-2xl mx-auto">
               Whether fulfilling from your own warehouse or leveraging E-GEAD US facilities, our digitized barcode checkpoints guarantee 99.9% inventory precision.
             </p>
           </div>
@@ -422,23 +422,23 @@ export default function SmartCommercePage() {
             {wmsFeatures.map((feat, idx) => (
               <div
                 key={idx}
-                className="rounded-[28px] bg-[#141718]/90 border border-[#262C30] p-7 sm:p-8 flex flex-col justify-between hover:border-[#25E2CC]/40 transition-all duration-300 group shadow-lg"
+                className="rounded-[28px] bg-[#141718]/90 border border-[#262C30] p-7 sm:p-8 flex flex-col justify-between hover:border-[#7ceee0]/40 transition-all duration-300 group shadow-lg"
               >
                 <div>
                   <div className="flex items-center justify-between mb-6">
-                    <div className="w-12 h-12 rounded-2xl bg-[#1D2224] border border-[#262C30] flex items-center justify-center group-hover:scale-110 transition-transform">
+                    <div className="w-12 h-12 rounded-2xl bg-[#1D2224] border border-[#262C30] flex items-center justify-center text-[#7ceee0] group-hover:scale-105 transition-transform">
                       {feat.icon}
                     </div>
-                    <span className="text-[10px] font-mono font-bold bg-[#25E2CC]/10 text-[#25E2CC] px-2.5 py-1 rounded border border-[#25E2CC]/20">
+                    <span className="text-[10px] font-mono font-medium bg-[#7ceee0]/10 text-[#7ceee0] px-2.5 py-1 rounded border border-[#7ceee0]/20">
                       {feat.tag}
                     </span>
                   </div>
 
-                  <h3 className="text-xl font-bold text-white font-rubik mb-3 group-hover:text-[#25E2CC] transition-colors">
+                  <h3 className="text-lg sm:text-xl font-medium text-[#d3f9f5] font-montserrat mb-3 group-hover:text-[#7ceee0] transition-colors">
                     {feat.title}
                   </h3>
 
-                  <p className="text-xs sm:text-sm text-[#8C8C8C] font-montserrat leading-relaxed">
+                  <p className="text-xs sm:text-sm text-[#b3b3b3] font-light font-montserrat leading-relaxed">
                     {feat.description}
                   </p>
                 </div>
@@ -464,16 +464,16 @@ export default function SmartCommercePage() {
         id="cloud-security"
         className="relative w-full py-20 sm:py-24 lg:py-28 bg-[#0A0D0E] text-white border-t border-[#262C30]"
       >
-        <div className="relative z-10 w-full px-6 sm:px-10 lg:px-14 xl:px-16 max-w-6xl mx-auto">
+        <div className="relative z-10 w-full px-6 sm:px-10 lg:px-14 xl:px-16">
           <div className="text-center max-w-3xl mx-auto mb-14 sm:mb-16">
-            <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#141718] border border-[#262C30] text-[#25E2CC] text-xs sm:text-sm font-semibold tracking-wider uppercase mb-4 font-montserrat">
-              <Lock className="w-3.5 h-3.5 text-[#25E2CC]" aria-hidden="true" />
+            <span className="inline-flex items-center gap-2 text-sm sm:text-base font-normal text-[#d3f9f5] mb-4 font-montserrat">
+              <Lock className="w-4 h-4 text-[#7ceee0]" aria-hidden="true" />
               Zero-Trust Architecture
             </span>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-white font-rubik leading-[1.2]">
-              Enterprise Cloud Resilience &amp; <span className="text-[#25E2CC]">Security Standards</span>
+            <h2 className="text-2xl sm:text-3xl lg:text-[34px] font-medium tracking-tight text-[#d3f9f5] font-montserrat leading-[1.2]">
+              Enterprise Cloud Resilience &amp; <span className="text-[#7ceee0] font-medium">Security Standards</span>
             </h2>
-            <p className="mt-4 text-base sm:text-lg text-[#8C8C8C] leading-relaxed font-montserrat max-w-2xl mx-auto">
+            <p className="mt-4 text-base sm:text-lg text-[#b3b3b3] leading-[1.75] font-light font-montserrat max-w-2xl mx-auto">
               Built on battle-tested AWS and Cloudflare Edge infrastructure. Engineered to withstand hyper-scale traffic bursts while guarding sensitive merchant financial records.
             </p>
           </div>
@@ -482,15 +482,15 @@ export default function SmartCommercePage() {
             {securityStandards.map((sec, idx) => (
               <div
                 key={idx}
-                className="p-6 sm:p-7 rounded-[26px] bg-[#141718]/90 border border-[#262C30] hover:border-[#25E2CC]/40 transition-all duration-300 group"
+                className="p-6 sm:p-7 rounded-[26px] bg-[#141718]/90 border border-[#262C30] hover:border-[#7ceee0]/40 transition-all duration-300 group"
               >
-                <div className="w-12 h-12 rounded-2xl bg-[#1D2224] border border-[#262C30] flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
+                <div className="w-12 h-12 rounded-2xl bg-[#1D2224] border border-[#262C30] flex items-center justify-center text-[#7ceee0] mb-5 group-hover:scale-105 transition-transform">
                   {sec.icon}
                 </div>
-                <h3 className="text-base sm:text-lg font-bold text-white font-rubik mb-2 group-hover:text-[#25E2CC] transition-colors">
+                <h3 className="text-base sm:text-lg font-medium text-[#d3f9f5] font-montserrat mb-2 group-hover:text-[#7ceee0] transition-colors">
                   {sec.title}
                 </h3>
-                <p className="text-xs sm:text-sm text-[#8C8C8C] font-montserrat leading-relaxed">
+                <p className="text-xs sm:text-sm text-[#b3b3b3] font-light font-montserrat leading-relaxed">
                   {sec.description}
                 </p>
               </div>
@@ -504,16 +504,16 @@ export default function SmartCommercePage() {
         id="platform-integrations"
         className="relative w-full py-20 sm:py-24 lg:py-28 bg-[#0A0D0E] text-white border-t border-[#262C30]"
       >
-        <div className="relative z-10 w-full px-6 sm:px-10 lg:px-14 xl:px-16 max-w-6xl mx-auto">
+        <div className="relative z-10 w-full px-6 sm:px-10 lg:px-14 xl:px-16">
           <div className="text-center max-w-3xl mx-auto mb-14 sm:mb-16">
-            <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#141718] border border-[#262C30] text-[#25E2CC] text-xs sm:text-sm font-semibold tracking-wider uppercase mb-4 font-montserrat">
-              <Globe2 className="w-3.5 h-3.5 text-[#25E2CC]" aria-hidden="true" />
+            <span className="inline-flex items-center gap-2 text-sm sm:text-base font-normal text-[#d3f9f5] mb-4 font-montserrat">
+              <Globe2 className="w-4 h-4 text-[#7ceee0]" aria-hidden="true" />
               Native Connector Hub
             </span>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-white font-rubik leading-[1.2]">
-              Seamless Native Platform <span className="text-[#25E2CC]">Integrations Ecosystem</span>
+            <h2 className="text-2xl sm:text-3xl lg:text-[34px] font-medium tracking-tight text-[#d3f9f5] font-montserrat leading-[1.2]">
+              Seamless Native Platform <span className="text-[#7ceee0] font-medium">Integrations Ecosystem</span>
             </h2>
-            <p className="mt-4 text-base sm:text-lg text-[#8C8C8C] leading-relaxed font-montserrat max-w-2xl mx-auto">
+            <p className="mt-4 text-base sm:text-lg text-[#b3b3b3] leading-[1.75] font-light font-montserrat max-w-2xl mx-auto">
               Direct, pre-built API connectors to the world&apos;s leading e-commerce marketplaces and commerce platforms. Connect your stores in under 15 minutes.
             </p>
           </div>
@@ -523,26 +523,26 @@ export default function SmartCommercePage() {
               <div
                 key={idx}
                 title={`${item.name} - ${item.status}`}
-                className="p-6 rounded-2xl bg-[#141718]/90 border border-[#262C30] hover:border-[#25E2CC]/40 transition-all duration-300 flex flex-col justify-between group"
+                className="p-6 rounded-2xl bg-[#141718]/90 border border-[#262C30] hover:border-[#7ceee0]/40 transition-all duration-300 flex flex-col justify-between group"
               >
                 <div>
                   <div className="flex items-center justify-between pb-3 mb-3 border-b border-[#262C30]">
-                    <span className="text-[10px] font-mono uppercase tracking-wider text-[#8C8C8C]">
+                    <span className="text-[10px] font-mono uppercase tracking-wider text-[#b3b3b3]">
                       {item.category}
                     </span>
-                    <span className="text-[10px] font-mono font-bold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">
+                    <span className="text-[10px] font-mono font-medium text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">
                       {item.latency}
                     </span>
                   </div>
 
-                  <h3 className="text-lg font-bold text-white font-rubik mb-1 group-hover:text-[#25E2CC] transition-colors">
+                  <h3 className="text-base sm:text-lg font-medium text-[#d3f9f5] font-montserrat mb-1 group-hover:text-[#7ceee0] transition-colors">
                     {item.name}
                   </h3>
-                  <span className="text-xs font-mono text-[#25E2CC] block mb-2 font-medium">
+                  <span className="text-xs font-mono text-[#7ceee0] block mb-2 font-normal">
                     {item.status}
                   </span>
 
-                  <p className="text-xs text-[#8C8C8C] font-montserrat leading-relaxed">
+                  <p className="text-xs text-[#b3b3b3] font-light font-montserrat leading-relaxed">
                     {item.desc}
                   </p>
                 </div>
@@ -562,30 +562,30 @@ export default function SmartCommercePage() {
         id="platform-cta"
         className="relative w-full py-20 sm:py-24 lg:py-28 bg-[#0A0D0E] text-white border-t border-[#262C30]"
       >
-        <div className="relative z-10 w-full px-6 sm:px-10 lg:px-14 xl:px-16 max-w-6xl mx-auto mb-16">
+        <div className="relative z-10 w-full px-6 sm:px-10 lg:px-14 xl:px-16 mb-16">
           <div className="relative rounded-[36px] bg-gradient-to-b from-[#141718] to-[#0A0D0E] border border-[#25E2CC]/40 p-8 sm:p-12 lg:p-16 overflow-hidden shadow-[0_0_80px_rgba(37,226,204,0.15)] text-center">
             {/* Background Glow */}
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-96 bg-[#25E2CC]/10 rounded-full blur-[100px] pointer-events-none" />
 
             <div className="relative z-10 max-w-3xl mx-auto space-y-6">
-              <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#1D2224] border border-[#25E2CC]/30 text-[#25E2CC] text-xs font-bold font-montserrat uppercase tracking-wider">
-                <Zap className="w-3.5 h-3.5 text-[#25E2CC]" aria-hidden="true" />
+              <span className="inline-flex items-center gap-2 text-sm sm:text-base font-normal text-[#d3f9f5] font-montserrat mb-4">
+                <Zap className="w-4 h-4 text-[#7ceee0]" aria-hidden="true" />
                 14-Day Risk-Free Sandbox
               </span>
 
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-white font-rubik leading-[1.1]">
+              <h2 className="text-3xl sm:text-4xl lg:text-[44px] font-medium tracking-tight text-[#d3f9f5] font-montserrat leading-[1.15]">
                 Take Full Control of Your E-Commerce{' '}
-                <span className="text-[#25E2CC]">Operations Velocity Today.</span>
+                <span className="text-[#7ceee0] font-medium">Operations Velocity Today.</span>
               </h2>
 
-              <p className="text-base sm:text-lg text-[#8C8C8C] leading-relaxed font-montserrat max-w-2xl mx-auto">
+              <p className="text-base sm:text-lg text-[#b3b3b3] leading-[1.75] font-light font-montserrat max-w-2xl mx-auto">
                 Start your 14-day free operations trial. Seamlessly migrate your store catalog and order history in less than 30 minutes with our dedicated onboarding engineering team.
               </p>
 
               <div className="flex flex-wrap items-center justify-center gap-4 pt-4">
                 <Link
                   href="/contact-us"
-                  className="inline-flex items-center gap-2 py-4 px-8 rounded-2xl bg-[#25E2CC] text-black font-bold text-sm font-montserrat hover:bg-[#1ec2af] transition-all duration-200 shadow-[0_0_25px_rgba(37,226,204,0.4)] hover:scale-[1.02] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#25E2CC]"
+                  className="inline-flex items-center gap-2 py-3.5 px-8 rounded-full bg-[#7ceee0] text-black font-medium text-sm sm:text-base font-montserrat hover:bg-[#68d8ca] transition duration-300"
                 >
                   <span>Start 14-Day Free Trial</span>
                   <ArrowRight className="w-4 h-4" aria-hidden="true" />
@@ -593,7 +593,7 @@ export default function SmartCommercePage() {
 
                 <Link
                   href="/contact-us"
-                  className="inline-flex items-center gap-2 py-4 px-8 rounded-2xl bg-[#141718] border border-[#262C30] text-white font-semibold text-sm font-montserrat hover:border-[#25E2CC]/50 hover:bg-[#1D2224] transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#25E2CC]"
+                  className="inline-flex items-center gap-2 py-3.5 px-8 rounded-full bg-[#141718] border border-white/20 text-[#d3f9f5] font-medium text-sm sm:text-base font-montserrat hover:border-[#7ceee0] hover:text-[#7ceee0] transition duration-300"
                 >
                   <span>Book Guided Architecture Tour</span>
                   <ExternalLink className="w-4 h-4 text-[#8C8C8C]" aria-hidden="true" />

@@ -78,20 +78,20 @@ export default function FaqAccordion({
       {/* Subtle background glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-[#25E2CC]/5 blur-[160px] rounded-full pointer-events-none" />
 
-      <div className="relative z-10 w-full px-6 sm:px-10 lg:px-14 xl:px-16 max-w-5xl mx-auto">
+      <div className="relative z-10 w-full px-6 sm:px-10 lg:px-14 xl:px-16">
         {/* Header Block */}
         <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
           {badge && (
-            <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#141718] border border-[#262C30] text-[#25E2CC] text-xs sm:text-sm font-semibold tracking-wider uppercase mb-4 font-montserrat">
-              <HelpCircle className="w-3.5 h-3.5 text-[#25E2CC]" aria-hidden="true" />
+            <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#141718] border border-white/10 text-[#d3f9f5] text-xs sm:text-sm font-normal tracking-wider uppercase mb-4 font-montserrat">
+              <HelpCircle className="w-3.5 h-3.5 text-[#7ceee0]" aria-hidden="true" />
               {badge}
             </span>
           )}
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-white font-rubik leading-[1.2]">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-medium tracking-tight text-[#d3f9f5] font-montserrat leading-[1.2]">
             {title}
           </h2>
           {subtitle && (
-            <p className="mt-4 text-base sm:text-lg text-[#8C8C8C] leading-relaxed font-montserrat max-w-2xl mx-auto">
+            <p className="mt-4 text-base sm:text-lg text-[#b3b3b3] font-light leading-[1.75] font-montserrat max-w-2xl mx-auto">
               {subtitle}
             </p>
           )}
@@ -108,10 +108,10 @@ export default function FaqAccordion({
                   setActiveCategory(cat);
                   setOpenIndex(0);
                 }}
-                className={`px-4 py-2 rounded-full text-xs sm:text-sm font-semibold font-montserrat transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#25E2CC] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0A0D0E] ${
+                className={`px-4 py-2 rounded-full text-xs sm:text-sm font-medium font-montserrat transition-all duration-200 focus:outline-none ${
                   activeCategory === cat
-                    ? 'bg-[#25E2CC] text-black shadow-[0_0_20px_rgba(37,226,204,0.3)]'
-                    : 'bg-[#141718] text-[#8C8C8C] border border-[#262C30] hover:text-white hover:border-[#25E2CC]/40'
+                    ? 'bg-[#7ceee0] text-black shadow-[0_0_20px_rgba(124,238,224,0.3)]'
+                    : 'bg-[#141718] text-[#b3b3b3] border border-white/10 hover:text-[#d3f9f5] hover:border-[#7ceee0]/40'
                 }`}
               >
                 {cat}
@@ -132,8 +132,8 @@ export default function FaqAccordion({
                 key={idx}
                 className={`rounded-[24px] border transition-all duration-300 overflow-hidden bg-[#141718]/90 backdrop-blur-sm ${
                   isOpen
-                    ? 'border-[#25E2CC]/40 shadow-[0_0_25px_rgba(37,226,204,0.08)]'
-                    : 'border-[#262C30] hover:border-[#262C30]/80'
+                    ? 'border-[#7ceee0]/40 shadow-[0_0_25px_rgba(124,238,224,0.08)]'
+                    : 'border-white/10 hover:border-white/20'
                 }`}
               >
                 <h3>
@@ -143,16 +143,16 @@ export default function FaqAccordion({
                     onClick={() => toggleAccordion(idx)}
                     aria-expanded={isOpen}
                     aria-controls={panelId}
-                    className="w-full text-left px-6 sm:px-8 py-6 flex items-center justify-between gap-4 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#25E2CC] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0A0D0E]"
+                    className="w-full text-left px-6 sm:px-8 py-6 flex items-center justify-between gap-4 focus:outline-none"
                   >
-                    <span className="font-bold text-white text-base sm:text-lg font-rubik leading-snug group-hover:text-[#25E2CC] transition-colors">
+                    <span className="font-medium text-[#d3f9f5] text-base sm:text-lg font-montserrat leading-snug group-hover:text-[#7ceee0] transition-colors">
                       {item.question}
                     </span>
                     <div
                       className={`w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0 transition-transform duration-300 ${
                         isOpen
-                          ? 'bg-[#25E2CC] text-black rotate-180 shadow-[0_0_15px_rgba(37,226,204,0.4)]'
-                          : 'bg-[#1D2224] text-[#8C8C8C] border border-[#262C30]'
+                          ? 'bg-[#7ceee0] text-black rotate-180 shadow-[0_0_15px_rgba(124,238,224,0.4)]'
+                          : 'bg-[#1D2224] text-[#b3b3b3] border border-white/10'
                       }`}
                     >
                       <ChevronDown className="w-4 h-4 stroke-[2.5]" aria-hidden="true" />
@@ -165,9 +165,9 @@ export default function FaqAccordion({
                     id={panelId}
                     role="region"
                     aria-labelledby={btnId}
-                    className="px-6 sm:px-8 pb-6 pt-1 border-t border-[#262C30]/50 animate-fade-in-up"
+                    className="px-6 sm:px-8 pb-6 pt-1 border-t border-white/10 animate-fade-in-up"
                   >
-                    <p className="text-sm sm:text-base text-[#8C8C8C] font-montserrat leading-relaxed whitespace-pre-line">
+                    <p className="text-sm sm:text-base text-[#b3b3b3] font-light font-montserrat leading-[1.75] whitespace-pre-line">
                       {item.answer}
                     </p>
                   </div>

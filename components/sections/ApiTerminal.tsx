@@ -106,17 +106,17 @@ export default function ApiTerminal({ id = 'api-terminal', className = '' }: Api
       id={id}
       className={`relative w-full py-20 sm:py-24 lg:py-28 bg-[#0A0D0E] text-white overflow-hidden ${className}`}
     >
-      <div className="relative z-10 w-full px-6 sm:px-10 lg:px-14 xl:px-16 max-w-6xl mx-auto">
+      <div className="relative z-10 w-full px-6 sm:px-10 lg:px-14 xl:px-16">
         {/* Header Block */}
         <div className="text-center max-w-3xl mx-auto mb-14 sm:mb-16">
-          <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#141718] border border-[#262C30] text-[#25E2CC] text-xs sm:text-sm font-semibold tracking-wider uppercase mb-4 font-montserrat">
-            <Code2 className="w-3.5 h-3.5 text-[#25E2CC]" aria-hidden="true" />
+          <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#141718] border border-white/10 text-[#d3f9f5] text-xs sm:text-sm font-normal tracking-wider uppercase mb-4 font-montserrat">
+            <Code2 className="w-3.5 h-3.5 text-[#7ceee0]" aria-hidden="true" />
             Developer-First Architecture
           </span>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-white font-rubik leading-[1.2]">
-            RESTful API &amp; <span className="text-[#25E2CC]">Event-Driven Webhook</span> Terminal
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-medium tracking-tight text-[#d3f9f5] font-montserrat leading-[1.2]">
+            RESTful API &amp; <span className="text-[#7ceee0] font-medium">Event-Driven Webhook</span> Terminal
           </h2>
-          <p className="mt-4 text-base sm:text-lg text-[#8C8C8C] leading-relaxed font-montserrat max-w-2xl mx-auto">
+          <p className="mt-4 text-base sm:text-lg text-[#b3b3b3] font-light leading-[1.75] font-montserrat max-w-2xl mx-auto">
             Connect custom storefronts, ERPs, or TikTok Shop connector apps in minutes with enterprise-grade sub-150ms JSON endpoints.
           </p>
         </div>

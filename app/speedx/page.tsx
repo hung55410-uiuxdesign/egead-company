@@ -285,7 +285,7 @@ export default function SpeedXPage() {
       {/* SECTION 1: Kinetic Hero with Live 24H Dispatch Countdown */}
       <section
         id="speedx-hero"
-        className="relative w-full px-6 sm:px-10 lg:px-14 xl:px-16 py-16 sm:py-24 max-w-7xl mx-auto overflow-hidden"
+        className="relative w-full px-6 sm:px-10 lg:px-14 xl:px-16 py-16 sm:py-24 overflow-hidden"
       >
         {/* Neon Glow Backdrop */}
         <div className="absolute top-1/4 left-1/4 w-[600px] h-[350px] bg-[#25E2CC]/10 blur-[170px] rounded-full pointer-events-none" />
@@ -293,24 +293,24 @@ export default function SpeedXPage() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14 items-center relative z-10">
           {/* Left Column */}
           <div className="lg:col-span-7">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#141718] border border-[#262C30] text-[#25E2CC] text-xs font-semibold tracking-wider uppercase mb-6 font-montserrat shadow-[0_0_15px_rgba(37,226,204,0.15)]">
-              <span className="w-2 h-2 rounded-full bg-[#25E2CC] animate-pulse" />
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#141718] border border-[#262C30] text-[#7ceee0] text-xs font-normal tracking-wide mb-6 font-montserrat">
+              <span className="w-2 h-2 rounded-full bg-[#7ceee0] animate-pulse" />
               Propelled by Eweb-character AI
             </div>
 
-            <h1 className="text-4xl sm:text-6xl lg:text-[68px] font-extrabold tracking-tight text-white font-rubik leading-[1.08] mb-6">
+            <h1 className="text-4xl sm:text-6xl lg:text-[72px] font-medium tracking-tight text-[#d3f9f5] font-montserrat leading-[1.08] mb-6">
               Eweb-character: <br />
-              <span className="text-[#25E2CC]">AI Precision. Sub-24H POD.</span>
+              <span className="text-[#7ceee0] font-medium">AI Precision. Sub-24H POD.</span>
             </h1>
 
-            <p className="text-base sm:text-lg lg:text-xl text-[#8C8C8C] leading-relaxed font-montserrat max-w-2xl mb-8">
+            <p className="text-base sm:text-lg lg:text-xl text-[#b3b3b3] leading-[1.75] font-light font-montserrat max-w-2xl mb-8">
               Eliminate return-to-origin (RTO) with proprietary AI address correction, print oversized 23-inch DTF graphics on industrial machinery, and dispatch orders to US domestic carriers in under 24 hours from just $6 all-in.
             </p>
 
             <div className="flex flex-wrap items-center gap-4">
               <Link
                 href="/contact-us"
-                className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-[#25E2CC] text-black font-bold text-sm sm:text-base font-montserrat hover:bg-[#1ec2af] transition-all duration-200 shadow-[0_0_25px_rgba(37,226,204,0.35)] hover:scale-105 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#25E2CC]"
+                className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-[#7ceee0] text-black font-medium text-sm sm:text-base font-montserrat hover:bg-[#68d8ca] transition duration-300"
               >
                 <span>Start Fulfilling in 24H</span>
                 <ArrowRight className="w-4 h-4" aria-hidden="true" />
@@ -318,7 +318,7 @@ export default function SpeedXPage() {
 
               <a
                 href="#ai-address-normalization"
-                className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-[#141718] text-white border border-[#262C30] font-semibold text-sm sm:text-base font-montserrat hover:border-[#25E2CC]/40 hover:text-[#25E2CC] transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#25E2CC]"
+                className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-[#141718] text-[#d3f9f5] border border-white/20 font-medium text-sm sm:text-base font-montserrat hover:border-[#7ceee0] hover:text-[#7ceee0] transition duration-300"
               >
                 <span>View Live Address Demo</span>
                 <ArrowUpRight className="w-4 h-4" aria-hidden="true" />
@@ -397,20 +397,20 @@ export default function SpeedXPage() {
         id="tiktok-sla-shield"
         className="relative w-full py-20 sm:py-24 bg-[#0A0D0E] border-t border-[#262C30] text-white overflow-hidden"
       >
-        <div className="relative z-10 w-full px-6 sm:px-10 lg:px-14 xl:px-16 max-w-6xl mx-auto">
+        <div className="relative z-10 w-full px-6 sm:px-10 lg:px-14 xl:px-16">
           <div className="rounded-[32px] bg-gradient-to-br from-[#141718] via-[#121617] to-[#0A0D0E] border-2 border-[#25E2CC]/40 p-8 sm:p-12 lg:p-16 backdrop-blur-md relative overflow-hidden shadow-[0_0_45px_rgba(37,226,204,0.15)]">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
               {/* Left Column */}
               <div className="lg:col-span-7 space-y-4">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#25E2CC]/10 text-[#25E2CC] text-xs font-semibold uppercase tracking-wider font-montserrat">
-                  <ShieldCheck className="w-3.5 h-3.5" aria-hidden="true" />
+                <div className="inline-flex items-center gap-2 text-sm sm:text-base font-normal text-[#d3f9f5] font-montserrat">
+                  <ShieldCheck className="w-4 h-4 text-[#7ceee0]" aria-hidden="true" />
                   Marketplace Account Guardian
                 </div>
-                <h2 className="text-3xl sm:text-4xl font-extrabold text-white font-rubik leading-tight">
+                <h2 className="text-2xl sm:text-3xl lg:text-[34px] font-medium text-[#d3f9f5] font-montserrat leading-tight">
                   TikTok Shop US LDR Shield: <br />
-                  <span className="text-[#25E2CC]">Never Risk an Account Strike</span>
+                  <span className="text-[#7ceee0] font-medium">Never Risk an Account Strike</span>
                 </h2>
-                <p className="text-sm sm:text-base text-[#8C8C8C] font-montserrat leading-relaxed">
+                <p className="text-sm sm:text-base text-[#b3b3b3] font-light font-montserrat leading-[1.75]">
                   TikTok Shop Seller Center enforces a strict 4.0% Late Dispatch Rate threshold with required physical origin scan within 2 business days. Breach it, and your shop faces Order Volume Limits (OVL) or permanent suspension.
                 </p>
                 <div className="space-y-2 pt-2 text-xs sm:text-sm font-montserrat text-[#D3F9F5]">
@@ -453,16 +453,16 @@ export default function SpeedXPage() {
         id="blanks-catalog"
         className="relative w-full py-20 sm:py-24 bg-[#0A0D0E] text-white overflow-hidden"
       >
-        <div className="relative z-10 w-full px-6 sm:px-10 lg:px-14 xl:px-16 max-w-7xl mx-auto">
+        <div className="relative z-10 w-full px-6 sm:px-10 lg:px-14 xl:px-16">
           <div className="text-center max-w-3xl mx-auto mb-14 sm:mb-16">
-            <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#141718] border border-[#262C30] text-[#25E2CC] text-xs sm:text-sm font-semibold tracking-wider uppercase mb-4 font-montserrat">
-              <Layers className="w-3.5 h-3.5 text-[#25E2CC]" aria-hidden="true" />
+            <span className="inline-flex items-center gap-2 text-sm sm:text-base font-normal text-[#d3f9f5] mb-4 font-montserrat">
+              <Layers className="w-4 h-4 text-[#7ceee0]" aria-hidden="true" />
               Pre-Stocked Inventory
             </span>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-white font-rubik leading-[1.2]">
-              Premium Blanks Catalog &amp; <span className="text-[#25E2CC]">Warehouse Stock</span>
+            <h2 className="text-2xl sm:text-3xl lg:text-[34px] font-medium tracking-tight text-[#d3f9f5] font-montserrat leading-[1.2]">
+              Premium Blanks Catalog &amp; <span className="text-[#7ceee0] font-medium">Warehouse Stock</span>
             </h2>
-            <p className="mt-4 text-base sm:text-lg text-[#8C8C8C] leading-relaxed font-montserrat max-w-2xl mx-auto">
+            <p className="mt-4 text-base sm:text-lg text-[#b3b3b3] leading-[1.75] font-light font-montserrat max-w-2xl mx-auto">
               Never worry about stockouts when running viral sales campaigns. Over 250,000 blank garments are maintained across our East and West Coast US hubs.
             </p>
           </div>
@@ -471,17 +471,17 @@ export default function SpeedXPage() {
             {blanksCatalog.map((item, idx) => (
               <div
                 key={idx}
-                className="p-7 rounded-[26px] bg-[#141718]/90 border border-[#262C30] hover:border-[#25E2CC]/40 transition-all duration-300 flex flex-col justify-between group"
+                className="p-7 rounded-[26px] bg-[#141718]/90 border border-[#262C30] hover:border-[#7ceee0]/40 transition-all duration-300 flex flex-col justify-between group"
               >
                 <div>
                   <div className="flex items-center justify-between mb-4">
-                    <span className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-[#25E2CC]/10 text-[#25E2CC] font-montserrat">
+                    <span className="text-[10px] font-normal uppercase tracking-wider px-2.5 py-1 rounded-full bg-[#7ceee0]/10 text-[#7ceee0] font-montserrat">
                       {item.tag}
                     </span>
                     <span className="w-2 h-2 rounded-full bg-emerald-400" />
                   </div>
 
-                  <h3 className="text-lg font-bold text-white font-rubik mb-1 group-hover:text-[#25E2CC] transition-colors">
+                  <h3 className="text-lg font-medium text-[#d3f9f5] font-montserrat mb-1 group-hover:text-[#7ceee0] transition-colors">
                     {item.name}
                   </h3>
                   <div className="text-xs text-[#8C8C8C] font-mono mb-4">
@@ -539,28 +539,28 @@ export default function SpeedXPage() {
         id="speedx-cta"
         className="relative w-full py-20 sm:py-28 bg-[#0A0D0E] text-white overflow-hidden"
       >
-        <div className="relative z-10 w-full px-6 sm:px-10 lg:px-14 xl:px-16 max-w-5xl mx-auto">
+        <div className="relative z-10 w-full px-6 sm:px-10 lg:px-14 xl:px-16">
           <div className="rounded-[36px] bg-gradient-to-br from-[#141718] via-[#101416] to-[#0A0D0E] border-2 border-[#25E2CC]/40 p-8 sm:p-12 lg:p-16 text-center shadow-[0_0_60px_rgba(37,226,204,0.15)] relative overflow-hidden">
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-[#25E2CC]/10 blur-[140px] rounded-full pointer-events-none" />
 
-            <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#141718] border border-[#262C30] text-[#25E2CC] text-xs font-semibold tracking-wider uppercase mb-6 font-montserrat">
-              <Sparkles className="w-3.5 h-3.5 text-[#25E2CC]" aria-hidden="true" />
+            <span className="inline-flex items-center gap-2 text-sm sm:text-base font-normal text-[#d3f9f5] mb-6 font-montserrat">
+              <Sparkles className="w-4 h-4 text-[#7ceee0]" aria-hidden="true" />
               Connect in 5 Minutes
             </span>
 
-            <h2 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-white font-rubik leading-[1.1] mb-6 tracking-tight">
+            <h2 className="text-3xl sm:text-5xl lg:text-[54px] font-medium text-[#d3f9f5] font-montserrat leading-[1.12] mb-6 tracking-tight">
               Stop Losing Money on <br />
-              <span className="text-[#25E2CC]">Print Delays &amp; High RTO.</span>
+              <span className="text-[#7ceee0] font-medium">Print Delays &amp; High RTO.</span>
             </h2>
 
-            <p className="text-base sm:text-lg text-[#8C8C8C] font-montserrat max-w-2xl mx-auto leading-relaxed mb-10">
+            <p className="text-base sm:text-lg text-[#b3b3b3] font-light font-montserrat max-w-2xl mx-auto leading-[1.75] mb-10">
               Claim 10 free sample prints and enjoy 14 days of complimentary access to Eweb-character AI address normalization.
             </p>
 
             <div className="flex flex-wrap items-center justify-center gap-4">
               <Link
                 href="/contact-us"
-                className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-[#25E2CC] text-black font-bold text-sm sm:text-base font-montserrat hover:bg-[#1ec2af] transition-all duration-200 shadow-[0_0_30px_rgba(37,226,204,0.4)] hover:scale-105 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#25E2CC]"
+                className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-[#7ceee0] text-black font-medium text-sm sm:text-base font-montserrat hover:bg-[#68d8ca] transition duration-300"
               >
                 <span>Connect Your Storefront Now</span>
                 <ArrowRight className="w-4 h-4" aria-hidden="true" />
@@ -568,7 +568,7 @@ export default function SpeedXPage() {
 
               <Link
                 href="/smartcommerce"
-                className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-[#141718] text-white border border-[#262C30] font-bold text-sm sm:text-base font-montserrat hover:border-[#25E2CC]/40 hover:text-[#25E2CC] transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#25E2CC]"
+                className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-[#141718] text-[#d3f9f5] border border-white/20 font-medium text-sm sm:text-base font-montserrat hover:border-[#7ceee0] hover:text-[#7ceee0] transition duration-300"
               >
                 <span>Explore SmartCommerce Sync</span>
                 <ExternalLink className="w-4 h-4" aria-hidden="true" />

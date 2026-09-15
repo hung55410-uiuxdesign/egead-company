@@ -29,17 +29,17 @@ export default function InventoryBufferEngine({
       id={id}
       className={`relative w-full py-20 sm:py-24 lg:py-28 bg-[#0A0D0E] text-white overflow-hidden ${className}`}
     >
-      <div className="relative z-10 w-full px-6 sm:px-10 lg:px-14 xl:px-16 max-w-6xl mx-auto">
+      <div className="relative z-10 w-full px-6 sm:px-10 lg:px-14 xl:px-16">
         {/* Header Block */}
         <div className="text-center max-w-3xl mx-auto mb-14 sm:mb-16">
-          <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#141718] border border-[#262C30] text-[#25E2CC] text-xs sm:text-sm font-semibold tracking-wider uppercase mb-4 font-montserrat">
-            <Layers className="w-3.5 h-3.5 text-[#25E2CC]" aria-hidden="true" />
+          <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#141718] border border-white/10 text-[#d3f9f5] text-xs sm:text-sm font-normal tracking-wider uppercase mb-4 font-montserrat">
+            <Layers className="w-3.5 h-3.5 text-[#7ceee0]" aria-hidden="true" />
             Dynamic Multi-Channel Architecture
           </span>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-white font-rubik leading-[1.2]">
-            Multi-Channel Real-Time Inventory &amp; <span className="text-[#25E2CC]">Safety Buffer Engine</span>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-medium tracking-tight text-[#d3f9f5] font-montserrat leading-[1.2]">
+            Multi-Channel Real-Time Inventory &amp; <span className="text-[#7ceee0] font-medium">Safety Buffer Engine</span>
           </h2>
-          <p className="mt-4 text-base sm:text-lg text-[#8C8C8C] leading-relaxed font-montserrat max-w-2xl mx-auto">
+          <p className="mt-4 text-base sm:text-lg text-[#b3b3b3] font-light leading-[1.75] font-montserrat max-w-2xl mx-auto">
             When viral TikTok sales surge 10x overnight, our automated safety buffer protects your Amazon and Etsy accounts from stockout cancellations and algorithm de-ranking.
           </p>
         </div>
@@ -51,10 +51,10 @@ export default function InventoryBufferEngine({
             <div className="lg:col-span-6 space-y-6">
               <div>
                 <div className="flex justify-between items-center mb-2">
-                  <label htmlFor="total-pool-slider" className="text-sm font-bold text-white font-rubik">
+                  <label htmlFor="total-pool-slider" className="text-sm font-medium text-[#d3f9f5] font-montserrat">
                     Physical Blank Inventory in US Hubs
                   </label>
-                  <span className="font-mono text-base font-bold text-[#25E2CC]">
+                  <span className="font-mono text-base font-medium text-[#7ceee0]">
                     {totalPool.toLocaleString()} units
                   </span>
                 </div>
@@ -71,9 +71,9 @@ export default function InventoryBufferEngine({
                   aria-valuemax={10000}
                   aria-valuenow={totalPool}
                   aria-valuetext={`${totalPool.toLocaleString()} physical blanks in warehouse`}
-                  className="w-full h-2 bg-[#1D2224] rounded-lg appearance-none cursor-pointer accent-[#25E2CC] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#25E2CC]"
+                  className="w-full h-2 bg-[#1D2224] rounded-lg appearance-none cursor-pointer accent-[#7ceee0] focus:outline-none"
                 />
-                <div className="flex justify-between text-[11px] text-[#8C8C8C] font-mono mt-1">
+                <div className="flex justify-between text-[11px] text-[#b3b3b3] font-mono mt-1">
                   <span>500 (Boutique)</span>
                   <span>5,000 (Growth)</span>
                   <span>10,000 (Enterprise)</span>
@@ -82,7 +82,7 @@ export default function InventoryBufferEngine({
 
               {/* Safety Buffer Percent Selector */}
               <div>
-                <span className="text-sm font-bold text-white font-rubik block mb-2">
+                <span className="text-sm font-medium text-[#d3f9f5] font-montserrat block mb-2">
                   Safety Buffer Protection Threshold
                 </span>
                 <div
@@ -134,7 +134,7 @@ export default function InventoryBufferEngine({
                   <span className="text-xs uppercase tracking-wider text-[#8C8C8C] font-semibold font-montserrat">
                     Live Channel Allocation Matrix
                   </span>
-                  <h3 className="text-lg font-bold text-white font-rubik mt-0.5">
+                  <h3 className="text-lg font-medium text-[#d3f9f5] font-montserrat mt-0.5">
                     Synchronized Virtual Queues
                   </h3>
                 </div>

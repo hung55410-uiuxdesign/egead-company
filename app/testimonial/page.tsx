@@ -51,15 +51,15 @@ export default function TestimonialPage() {
   return (
     <div className="w-full bg-[#0A0D0E] text-white pt-32 sm:pt-40">
       <section className="w-full px-6 sm:px-10 lg:px-14 xl:px-16 mb-20 sm:mb-28">
-        <div className="max-w-4xl">
-          <span className="text-xs sm:text-sm font-bold tracking-widest uppercase text-[#7ceee0] block mb-4">
-            Client Success & Reviews
+        <div className="w-full">
+          <span className="text-sm sm:text-base font-normal text-[#d3f9f5] block mb-4">
+            Client Success &amp; Reviews
           </span>
-          <h1 className="text-4xl sm:text-6xl md:text-7xl font-black tracking-tight leading-[1.1] mb-6">
-            WHAT OUR <br />
-            <span className="text-[#7ceee0]">PARTNERS SAY.</span>
+          <h1 className="text-4xl sm:text-6xl lg:text-[72px] font-medium tracking-tight leading-[1.08] text-[#d3f9f5] font-montserrat mb-6">
+            What Our <br />
+            <span className="text-[#7ceee0] font-medium">Partners Say.</span>
           </h1>
-          <p className="text-lg sm:text-xl text-gray-300 font-normal leading-relaxed max-w-3xl">
+          <p className="text-base sm:text-lg lg:text-xl text-[#b3b3b3] font-light leading-[1.75] font-montserrat max-w-3xl">
             From high-growth DTC apparel brands to high-volume marketplace sellers, discover how E-GEAD automates fulfillment, protects SLAs, and drives global e-commerce scale.
           </p>
         </div>
@@ -74,8 +74,8 @@ export default function TestimonialPage() {
             >
               <div>
                 <Quote className="w-8 h-8 text-[#7ceee0] opacity-60 mb-6" />
-                <p className="text-base text-gray-200 leading-relaxed italic mb-8">
-                  "{t.quote}"
+                <p className="text-base text-[#b3b3b3] font-light leading-relaxed mb-8">
+                  &ldquo;{t.quote}&rdquo;
                 </p>
               </div>
 
@@ -84,8 +84,8 @@ export default function TestimonialPage() {
                   <img src={t.avatar} alt={t.role} className="w-full h-full object-cover" />
                 </div>
                 <div>
-                  <h4 className="text-sm font-bold text-white">{t.role}</h4>
-                  <p className="text-xs text-[#7ceee0] mt-0.5">{t.company}</p>
+                  <h4 className="text-base font-medium text-[#d3f9f5] font-montserrat">{t.role}</h4>
+                  <p className="text-xs text-[#7ceee0] font-light mt-0.5">{t.company}</p>
                 </div>
               </div>
             </div>
