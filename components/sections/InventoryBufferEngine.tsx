@@ -95,9 +95,7 @@ export default function InventoryBufferEngine({
                       type="button"
                       onClick={() => setBufferPercent(pct)}
                       aria-pressed={bufferPercent === pct}
-                      className={`py-2.5 px-3 rounded-xl text-xs font-semibold font-montserrat transition-all duration-200 border text-center focus:outline-none focus-visible:ring-2 focus-visible:ring-[#10E774] ${
-                        bufferPercent === pct
-                          ? 'bg-[#10E774]/15 border-[#10E774] text-[#10E774] shadow-[0_0_12px_rgba(16, 231, 116, 0.2)]'
+                      className={`py-2.5 px-3 rounded-xl text-xs font-semibold font-montserrat transition-all duration-200 border text-center focus:outline-none focus-visible:ring-2 focus-visible:ring-[#10E774] ${ bufferPercent === pct ?'bg-[#10E774]/15 border-[#10E774] text-[#10E774] shadow-[0_0_12px_rgba(16, 231, 116, 0.2)]'
                           : 'bg-[#0A0D0E] border-[#262C30] text-[#8C8C8C] hover:text-white hover:border-[#8C8C8C]/50'
                       }`}
                     >
@@ -130,7 +128,7 @@ export default function InventoryBufferEngine({
             >
               <div className="flex items-center justify-between pb-4 border-b border-[#262C30]">
                 <div>
-                  <span className="text-xs uppercase tracking-wider text-[#8C8C8C] font-semibold font-montserrat">
+                  <span className="text-xs text-[#8C8C8C] font-semibold font-montserrat">
                     Live Channel Allocation Matrix
                   </span>
                   <h3 className="text-lg font-medium text-[#D4FAE6] font-montserrat mt-0.5">
@@ -146,7 +144,7 @@ export default function InventoryBufferEngine({
               {/* Pool Breakdown Card */}
               <div className="grid grid-cols-2 gap-3 font-montserrat">
                 <div className="p-3.5 rounded-xl bg-[#141718] border border-[#262C30]">
-                  <span className="text-[11px] text-[#8C8C8C] uppercase block mb-1">
+                  <span className="text-[11px] text-[#8C8C8C] block mb-1">
                     Safety Reserve (Unlisted)
                   </span>
                   <span className="text-2xl font-extrabold text-yellow-400 font-montserrat">
@@ -156,7 +154,7 @@ export default function InventoryBufferEngine({
                 </div>
 
                 <div className="p-3.5 rounded-xl bg-[#141718] border border-[#262C30]">
-                  <span className="text-[11px] text-[#8C8C8C] uppercase block mb-1">
+                  <span className="text-[11px] text-[#8C8C8C] block mb-1">
                     Active Available Stock
                   </span>
                   <span className="text-2xl font-extrabold text-[#10E774] font-montserrat">

@@ -204,7 +204,7 @@ export default function PartnersPage() {
                 Global Commerce Alliances
               </div>
 
-              <h1 className="text-4xl sm:text-6xl lg:text-[72px] font-medium tracking-tight leading-[1.08] text-[#D4FAE6] font-montserrat mb-6">
+              <h1 className="text-4xl sm:text-6xl lg:text-[72px] font-medium leading-[1.08] text-[#D4FAE6] font-montserrat mb-6">
                 Integrated with the World&apos;s <br />
                 <span className="text-[#5EFC8D] font-medium">Leading Commerce Ecosystems.</span>
               </h1>
@@ -419,7 +419,7 @@ export default function PartnersPage() {
               {/* Right Carrier Stat Box (4 cols) */}
               <div className="lg:col-span-4 flex flex-col space-y-4">
                 <div className="p-6 rounded-2xl bg-[#0A0D0E] border border-white/10">
-                  <span className="text-[11px] font-montserrat text-gray-400 uppercase block">USPS Scan Compliance</span>
+                  <span className="text-[11px] font-montserrat text-gray-400 block">USPS Scan Compliance</span>
                   <span className="text-3xl sm:text-4xl font-montserrat font-black text-[#10E774] mt-1 block">
                     99.8%
                   </span>
@@ -429,7 +429,7 @@ export default function PartnersPage() {
                 </div>
 
                 <div className="p-6 rounded-2xl bg-[#0A0D0E] border border-white/10">
-                  <span className="text-[11px] font-montserrat text-gray-400 uppercase block">Transit Time Average</span>
+                  <span className="text-[11px] font-montserrat text-gray-400 block">Transit Time Average</span>
                   <span className="text-3xl sm:text-4xl font-montserrat font-black text-white mt-1 block">
                     2.8 Days
                   </span>
@@ -480,7 +480,7 @@ export default function PartnersPage() {
                 Alliance Partnership Program
               </div>
 
-              <h2 className="text-3xl sm:text-5xl lg:text-[54px] font-medium text-[#D4FAE6] font-montserrat tracking-tight leading-[1.15]">
+              <h2 className="text-3xl sm:text-5xl lg:text-[54px] font-medium text-[#D4FAE6] font-montserrat leading-[1.15]">
                 Expand Your Reach Within the <br />
                 <span className="text-[#5EFC8D] font-medium">E-GEAD Global Network.</span>
               </h2>

@@ -57,7 +57,7 @@ export default function PricingCalculator({ id = 'pricing-calculator', className
             {/* Left Column: Product Picker & Retail Slider */}
             <div className="lg:col-span-6 space-y-6">
               <div>
-                <label className="block text-xs uppercase tracking-widest font-semibold text-[#8C8C8C] mb-3 font-montserrat">
+                <label className="block text-xs font-semibold text-[#8C8C8C] mb-3 font-montserrat">
                   Select Garment Blank
                 </label>
                 <div className="space-y-2.5" role="group" aria-label="Select Garment Blank">
@@ -67,9 +67,7 @@ export default function PricingCalculator({ id = 'pricing-calculator', className
                       type="button"
                       aria-pressed={selectedTierId === tier.id}
                       onClick={() => handleTierChange(tier)}
-                      className={`w-full p-4 rounded-2xl text-left border transition-all duration-200 flex items-center justify-between focus:outline-none focus-visible:ring-2 focus-visible:ring-[#10E774] ${
-                        selectedTierId === tier.id
-                          ? 'bg-[#10E774]/15 border-[#10E774] text-white shadow-[0_0_20px_rgba(16, 231, 116, 0.15)]'
+                      className={`w-full p-4 rounded-2xl text-left border transition-all duration-200 flex items-center justify-between focus:outline-none focus-visible:ring-2 focus-visible:ring-[#10E774] ${ selectedTierId === tier.id ?'bg-[#10E774]/15 border-[#10E774] text-white shadow-[0_0_20px_rgba(16, 231, 116, 0.15)]'
                           : 'bg-[#101416] border-[#262C30] text-[#8C8C8C] hover:text-white hover:border-[#262C30]/80'
                       }`}
                     >
@@ -85,7 +83,7 @@ export default function PricingCalculator({ id = 'pricing-calculator', className
                         <span className="text-lg sm:text-xl font-medium text-[#5EFC8D] font-montserrat">
                           ${tier.baseCost.toFixed(2)}
                         </span>
-                        <span className="text-[10px] text-[#b3b3b3] uppercase block font-montserrat">All-In</span>
+                        <span className="text-[10px] text-[#b3b3b3] block font-montserrat">All-In</span>
                       </div>
                     </button>
                   ))}
@@ -95,7 +93,7 @@ export default function PricingCalculator({ id = 'pricing-calculator', className
               {/* Retail Slider */}
               <div className="pt-2">
                 <div className="flex items-center justify-between mb-3">
-                  <label htmlFor="retail-slider" className="text-xs uppercase tracking-widest font-medium text-[#b3b3b3] font-montserrat">
+                  <label htmlFor="retail-slider" className="text-xs font-medium text-[#b3b3b3] font-montserrat">
                     Your Retail Selling Price
                   </label>
                   <span className="text-2xl sm:text-3xl font-medium text-[#D4FAE6] font-montserrat">
@@ -125,7 +123,7 @@ export default function PricingCalculator({ id = 'pricing-calculator', className
 
               {/* What $6 includes checklist */}
               <div className="p-4 rounded-2xl bg-[#0A0D0E]/80 border border-[#262C30] space-y-2 text-xs font-montserrat">
-                <span className="text-xs font-bold text-[#10E774] uppercase tracking-wider block mb-1">
+                <span className="text-xs font-bold text-[#10E774] block mb-1">
                   What&apos;s Included in E-GEAD Base Rate:
                 </span>
                 <div className="flex items-center gap-2 text-white">
@@ -155,7 +153,7 @@ export default function PricingCalculator({ id = 'pricing-calculator', className
             >
               <div className="flex items-center justify-between pb-4 border-b border-[#262C30]">
                 <div>
-                  <span className="text-xs uppercase tracking-wider text-[#8C8C8C] font-semibold font-montserrat">
+                  <span className="text-xs text-[#8C8C8C] font-semibold font-montserrat">
                     Live P&amp;L Analysis
                   </span>
                   <h3 className="text-lg font-medium text-[#D4FAE6] font-montserrat mt-0.5">
@@ -163,9 +161,7 @@ export default function PricingCalculator({ id = 'pricing-calculator', className
                   </h3>
                 </div>
                 <span
-                  className={`px-3 py-1 rounded-full text-xs font-medium font-montserrat ${
-                    marginPercent >= 0
-                      ? 'bg-[#5EFC8D]/15 text-[#5EFC8D]'
+                  className={`px-3 py-1 rounded-full text-xs font-medium font-montserrat ${ marginPercent >= 0 ?'bg-[#5EFC8D]/15 text-[#5EFC8D]'
                       : 'bg-red-500/15 text-red-400'
                   }`}
                 >
@@ -196,8 +192,7 @@ export default function PricingCalculator({ id = 'pricing-calculator', className
                     {netProfit >= 0 ? 'Your Net Profit Per Garment:' : 'Net Loss Per Garment:'}
                   </span>
                   <span
-                    className={`text-3xl font-medium font-montserrat ${
-                      netProfit >= 0 ? 'text-[#5EFC8D]' : 'text-red-400'
+                    className={`text-3xl font-medium font-montserrat ${ netProfit >= 0 ?'text-[#5EFC8D]' : 'text-red-400'
                     }`}
                   >
                     {netProfit < 0 ? `-$${Math.abs(netProfit).toFixed(2)}` : `$${netProfit.toFixed(2)}`}
@@ -208,12 +203,11 @@ export default function PricingCalculator({ id = 'pricing-calculator', className
               {/* Monthly projection card */}
               <div className="p-4 rounded-2xl bg-[#141718] border border-white/10 flex items-center justify-between">
                 <div>
-                  <span className="text-[11px] text-[#b3b3b3] uppercase font-montserrat block">
+                  <span className="text-[11px] text-[#b3b3b3] font-montserrat block">
                     At 1,000 Orders/Month
                   </span>
                   <span
-                    className={`text-2xl font-medium font-montserrat ${
-                      netProfit >= 0 ? 'text-[#D4FAE6]' : 'text-red-400'
+                    className={`text-2xl font-medium font-montserrat ${ netProfit >= 0 ?'text-[#D4FAE6]' : 'text-red-400'
                     }`}
                   >
                     {netProfit >= 0

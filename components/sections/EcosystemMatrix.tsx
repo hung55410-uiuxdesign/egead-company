@@ -272,17 +272,14 @@ export function EcosystemMatrix({
               aria-selected={isActive}
               aria-controls="ecosystem-cards"
               onClick={() => setActiveTier(tier.id)}
-              className={`inline-flex items-center gap-2 px-4 sm:px-5 py-2.5 rounded-full text-xs font-semibold uppercase tracking-wider transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#10E774] ${
-                isActive
-                  ? 'bg-[#10E774] text-black shadow-lg shadow-[#10E774]/25 font-bold scale-[1.02]'
+              className={`inline-flex items-center gap-2 px-4 sm:px-5 py-2.5 rounded-full text-xs font-semibold transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#10E774] ${ isActive ?'bg-[#10E774] text-black shadow-lg shadow-[#10E774]/25 font-bold scale-[1.02]'
                   : 'bg-[#0A0D0E] text-gray-300 hover:text-white hover:bg-white/10 border border-white/10'
               }`}
             >
               <Icon className="w-3.5 h-3.5" aria-hidden="true" />
               <span>{tier.label}</span>
               <span
-                className={`px-2 py-0.5 rounded-full text-[10px] font-montserrat font-bold ${
-                  isActive ? 'bg-black/20 text-black' : 'bg-white/10 text-gray-400'
+                className={`px-2 py-0.5 rounded-full text-[10px] font-montserrat font-bold ${ isActive ?'bg-black/20 text-black' : 'bg-white/10 text-gray-400'
                 }`}
               >
                 {tier.count}
@@ -349,7 +346,7 @@ export function EcosystemMatrix({
             <div className="mt-6 pt-4 border-t border-white/10 flex items-center justify-between text-xs">
               <a
                 href={partner.docHref || '#partners-cta'}
-                className="font-semibold font-montserrat uppercase tracking-wider text-[#10E774] group-hover:underline flex items-center gap-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#10E774] rounded"
+                className="font-semibold font-montserrat text-[#10E774] group-hover:underline flex items-center gap-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#10E774] rounded"
               >
                 <span>Connect with {partner.name}</span>
               </a>

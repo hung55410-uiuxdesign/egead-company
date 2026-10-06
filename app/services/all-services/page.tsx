@@ -447,7 +447,7 @@ export default function AllServicesPage() {
             </p>
 
             <div className="heading-text mb-6">
-              <h1 className="text-4xl sm:text-6xl lg:text-[72px] font-medium tracking-tight uppercase text-[#D4FAE6] font-montserrat leading-[1.08] mb-6">
+              <h1 className="text-4xl sm:text-6xl lg:text-[72px] font-medium text-[#D4FAE6] font-montserrat leading-[1.08] mb-6">
                 <span className="block">Automate Operations.</span>
                 <span className="flex flex-wrap items-center gap-3 sm:gap-4">
                   Scale <span className="text-[#5EFC8D] font-medium">Global Commerce.</span>
@@ -477,7 +477,7 @@ export default function AllServicesPage() {
               </Link>
             </div>
 
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#141718] border border-[#262C30] text-[#5EFC8D] text-xs font-normal tracking-wide font-montserrat">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#141718] border border-[#262C30] text-[#5EFC8D] text-xs font-normal font-montserrat">
               <span className="w-2 h-2 rounded-full bg-[#5EFC8D] animate-pulse" />
               Live System: 10,000+ Daily Dispatches Across US Hubs
             </div>
@@ -658,7 +658,7 @@ export default function AllServicesPage() {
           />
           <div className="absolute inset-0 bg-gradient-to-t from-[#0A0D0E]/80 via-transparent to-black/20 pointer-events-none" />
           <div className="absolute bottom-6 left-6 sm:bottom-10 sm:left-10 flex items-center gap-3">
-            <span className="px-5 py-2.5 rounded-full bg-black/70 backdrop-blur-md border border-white/20 font-montserrat text-xs sm:text-sm text-[#D4FAE6] uppercase tracking-wider">
+            <span className="px-5 py-2.5 rounded-full bg-black/70 backdrop-blur-md border border-white/20 font-montserrat text-xs sm:text-sm text-[#D4FAE6]">
               BUON MA THUOT HQ &amp; US FULFILLMENT NETWORK
             </span>
           </div>
@@ -706,7 +706,7 @@ export default function AllServicesPage() {
                     <p className="text-2xl font-medium text-white/50 font-montserrat">
                       {service.number}
                     </p>
-                    <span className="text-xs uppercase tracking-wider px-3 py-1 rounded-full bg-[#1A2022] text-[#5EFC8D] border border-[#5EFC8D]/20 font-montserrat">
+                    <span className="text-xs px-3 py-1 rounded-full bg-[#1A2022] text-[#5EFC8D] border border-[#5EFC8D]/20 font-montserrat">
                       {service.subtitle}
                     </span>
                   </div>

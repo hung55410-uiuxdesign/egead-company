@@ -87,7 +87,7 @@ export default function OurWorkPage() {
                 Proven Global Case Studies &amp; ROI
               </div>
 
-              <h1 className="text-4xl sm:text-6xl lg:text-[72px] font-medium tracking-tight leading-[1.08] text-[#D4FAE6] font-montserrat mb-6">
+              <h1 className="text-4xl sm:text-6xl lg:text-[72px] font-medium leading-[1.08] text-[#D4FAE6] font-montserrat mb-6">
                 Measurable Growth. <br />
                 <span className="text-[#5EFC8D] font-medium">Battle-Tested Results.</span>
               </h1>
@@ -123,7 +123,7 @@ export default function OurWorkPage() {
                 />
 
                 <div className="flex items-center justify-between pb-4 mb-6 border-b border-white/10">
-                  <span className="text-xs font-montserrat font-semibold uppercase tracking-wider text-gray-400">
+                  <span className="text-xs font-montserrat font-semibold text-gray-400">
                     Cumulative Portfolio Impact
                   </span>
                   <span className="flex items-center gap-1.5 text-xs font-montserrat text-[#10E774]">
@@ -361,7 +361,7 @@ export default function OurWorkPage() {
                 Free 30-Minute Confidential Strategy Session
               </div>
 
-              <h2 className="text-3xl sm:text-5xl lg:text-[54px] font-medium text-[#D4FAE6] font-montserrat tracking-tight leading-[1.15]">
+              <h2 className="text-3xl sm:text-5xl lg:text-[54px] font-medium text-[#D4FAE6] font-montserrat leading-[1.15]">
                 Ready to Write Your Own <br />
                 <span className="text-[#5EFC8D] font-medium">Growth Story?</span>
               </h2>

@@ -59,7 +59,7 @@ export default function MarginSimulator({
             <div className="lg:col-span-6 space-y-8">
               {/* Channel Selector */}
               <div>
-                <label className="block text-xs uppercase tracking-widest font-semibold text-[#8C8C8C] mb-3 font-montserrat">
+                <label className="block text-xs font-semibold text-[#8C8C8C] mb-3 font-montserrat">
                   Primary Sales Channel
                 </label>
                 <div className="grid grid-cols-2 gap-2.5" role="group" aria-label="Select sales channel">
@@ -69,9 +69,7 @@ export default function MarginSimulator({
                       type="button"
                       aria-pressed={selectedChannel === ch.id}
                       onClick={() => setSelectedChannel(ch.id)}
-                      className={`p-3 rounded-xl text-xs sm:text-sm font-bold font-montserrat transition-all duration-200 border text-left flex flex-col justify-between focus:outline-none focus-visible:ring-2 focus-visible:ring-[#10E774] ${
-                        selectedChannel === ch.id
-                          ? 'bg-[#10E774]/15 border-[#10E774] text-white shadow-[0_0_15px_rgba(16, 231, 116, 0.15)]'
+                      className={`p-3 rounded-xl text-xs sm:text-sm font-bold font-montserrat transition-all duration-200 border text-left flex flex-col justify-between focus:outline-none focus-visible:ring-2 focus-visible:ring-[#10E774] ${ selectedChannel === ch.id ?'bg-[#10E774]/15 border-[#10E774] text-white shadow-[0_0_15px_rgba(16, 231, 116, 0.15)]'
                           : 'bg-[#101416] border-[#262C30] text-[#8C8C8C] hover:text-white hover:border-[#262C30]/80'
                       }`}
                     >
@@ -87,12 +85,12 @@ export default function MarginSimulator({
               {/* Order Volume Slider */}
               <div>
                 <div className="flex items-center justify-between mb-3">
-                  <label htmlFor="volume-slider" className="text-xs uppercase tracking-widest font-medium text-[#b3b3b3] font-montserrat">
+                  <label htmlFor="volume-slider" className="text-xs font-medium text-[#b3b3b3] font-montserrat">
                     Monthly Order Volume
                   </label>
                   <span className="text-2xl font-medium text-[#5EFC8D] font-montserrat">
                     {orderVolume.toLocaleString('en-US')}{' '}
-                    <span className="text-xs text-[#b3b3b3] font-light uppercase">orders/mo</span>
+                    <span className="text-xs text-[#b3b3b3] font-light">orders/mo</span>
                   </span>
                 </div>
 
@@ -134,7 +132,7 @@ export default function MarginSimulator({
             >
               <div className="flex items-center justify-between pb-4 border-b border-[#262C30]">
                 <div>
-                  <span className="text-xs uppercase tracking-wider text-[#b3b3b3] font-normal font-montserrat">
+                  <span className="text-xs text-[#b3b3b3] font-normal font-montserrat">
                     Projected Savings &amp; Health
                   </span>
                   <h3 className="text-lg font-medium text-[#D4FAE6] font-montserrat mt-0.5">
@@ -152,7 +150,7 @@ export default function MarginSimulator({
                 <div className="p-4 rounded-xl bg-[#141718] border border-white/10">
                   <div className="flex items-center gap-2 text-[#5EFC8D] mb-1">
                     <Clock className="w-4 h-4" aria-hidden="true" />
-                    <span className="text-xs uppercase font-medium font-montserrat">Time Saved</span>
+                    <span className="text-xs font-medium font-montserrat">Time Saved</span>
                   </div>
                   <div className="text-2xl sm:text-3xl font-medium text-[#D4FAE6] font-montserrat">
                     {hoursSaved} <span className="text-sm font-light text-[#b3b3b3]">hrs/mo</span>
@@ -166,7 +164,7 @@ export default function MarginSimulator({
                 <div className="p-4 rounded-xl bg-[#141718] border border-white/10">
                   <div className="flex items-center gap-2 text-[#5EFC8D] mb-1">
                     <DollarSign className="w-4 h-4" aria-hidden="true" />
-                    <span className="text-xs uppercase font-medium font-montserrat">RTO Avoided</span>
+                    <span className="text-xs font-medium font-montserrat">RTO Avoided</span>
                   </div>
                   <div className="text-2xl sm:text-3xl font-medium text-[#5EFC8D] font-montserrat">
                     ${rtoDollarsSaved.toLocaleString('en-US')}
@@ -180,7 +178,7 @@ export default function MarginSimulator({
                 <div className="p-4 rounded-xl bg-[#141718] border border-white/10">
                   <div className="flex items-center gap-2 text-[#5EFC8D] mb-1">
                     <ShieldCheck className="w-4 h-4" aria-hidden="true" />
-                    <span className="text-xs uppercase font-medium font-montserrat">Late Dispatch</span>
+                    <span className="text-xs font-medium font-montserrat">Late Dispatch</span>
                   </div>
                   <div className="text-2xl sm:text-3xl font-medium text-[#D4FAE6] font-montserrat">
                     0.0%
@@ -194,7 +192,7 @@ export default function MarginSimulator({
                 <div className="p-4 rounded-xl bg-[#141718] border border-white/10">
                   <div className="flex items-center gap-2 text-[#5EFC8D] mb-1">
                     <TrendingUp className="w-4 h-4" aria-hidden="true" />
-                    <span className="text-xs uppercase font-medium font-montserrat">Monthly GMV</span>
+                    <span className="text-xs font-medium font-montserrat">Monthly GMV</span>
                   </div>
                   <div className="text-2xl sm:text-3xl font-medium text-[#D4FAE6] font-montserrat">
                     ${projectedGMV.toLocaleString('en-US')}

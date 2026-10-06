@@ -57,9 +57,7 @@ export default function MetricsRibbon({
 
         {/* Metrics Grid */}
         <div
-          className={`grid gap-6 ${
-            metrics.length === 2
-              ? 'grid-cols-1 sm:grid-cols-2'
+          className={`grid gap-6 ${ metrics.length === 2 ?'grid-cols-1 sm:grid-cols-2'
               : metrics.length === 3
               ? 'grid-cols-1 md:grid-cols-3'
               : 'grid-cols-2 lg:grid-cols-4'
@@ -85,11 +83,11 @@ export default function MetricsRibbon({
                 )}
               </div>
 
-              <div className="text-3xl sm:text-4xl lg:text-[42px] font-medium text-[#5EFC8D] group-hover:text-white transition-colors font-montserrat tracking-tight leading-none mb-2">
+              <div className="text-3xl sm:text-4xl lg:text-[42px] font-medium text-[#5EFC8D] group-hover:text-white transition-colors font-montserrat leading-none mb-2">
                 {item.value}
               </div>
 
-              <div className="text-xs sm:text-sm font-medium uppercase tracking-wider text-[#D4FAE6] font-montserrat">
+              <div className="text-xs sm:text-sm font-medium text-[#D4FAE6] font-montserrat">
                 {item.label}
               </div>
 

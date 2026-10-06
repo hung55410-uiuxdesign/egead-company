@@ -75,7 +75,7 @@ export default function Footer() {
           </Link>
 
           <div className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6">
-            <span className="text-xs font-bold tracking-wider uppercase text-black font-montserrat">
+            <span className="text-xs font-bold text-black font-montserrat">
               JOIN OUR NETWORK
             </span>
             <div className="flex items-center gap-4 sm:gap-5">
@@ -124,7 +124,7 @@ export default function Footer() {
           {/* Navigation Columns */}
           <div className="lg:col-span-8 grid grid-cols-2 sm:grid-cols-3 gap-8">
             <div>
-              <span className="text-xs font-bold uppercase tracking-wider text-black block mb-4">
+              <span className="text-xs font-bold text-black block mb-4">
                 What we do
               </span>
               <ul className="space-y-3 text-sm font-medium">
@@ -147,7 +147,7 @@ export default function Footer() {
             </div>
 
             <div>
-              <span className="text-xs font-bold uppercase tracking-wider text-black block mb-4">
+              <span className="text-xs font-bold text-black block mb-4">
                 About
               </span>
               <ul className="space-y-3 text-sm font-medium">
@@ -180,7 +180,7 @@ export default function Footer() {
             </div>
 
             <div>
-              <span className="text-xs font-bold uppercase tracking-wider text-black block mb-4">
+              <span className="text-xs font-bold text-black block mb-4">
                 Info
               </span>
               <ul className="space-y-3 text-sm font-medium">
@@ -205,7 +205,7 @@ export default function Footer() {
 
           {/* Newsletter Column matching live site */}
           <div className="lg:col-span-4">
-            <span className="text-xs font-bold uppercase tracking-wider text-black block mb-5">
+            <span className="text-xs font-bold text-black block mb-5">
               Newsletter
             </span>
 

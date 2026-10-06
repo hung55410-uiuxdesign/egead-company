@@ -14,7 +14,7 @@ export default function CultureSection() {
             <p className="text-base sm:text-lg font-normal text-[#D4FAE6] mb-3 font-montserrat">
               Our Culture
             </p>
-            <h2 className="text-2xl sm:text-3xl lg:text-[34px] font-medium tracking-tight leading-[1.3] text-[#D4FAE6] font-montserrat mb-10">
+            <h2 className="text-2xl sm:text-3xl lg:text-[34px] font-medium leading-[1.3] text-[#D4FAE6] font-montserrat mb-10">
               Empowering global commerce through <span className="text-[#5EFC8D] font-medium">relentless operational innovation</span>, technology automation, and transparent collaboration.
             </h2>
 

@@ -86,7 +86,7 @@ export function EfficiencyVisualizer({
             <div className="flex items-center justify-between gap-4 mb-4">
               <label 
                 htmlFor={sliderId} 
-                className="text-sm font-semibold uppercase tracking-wider text-gray-300 flex items-center gap-2"
+                className="text-sm font-semibold text-gray-300 flex items-center gap-2"
               >
                 <TrendingUp className="w-4 h-4 text-[#10E774]" aria-hidden="true" />
                 Monthly Order Volume
@@ -132,9 +132,7 @@ export function EfficiencyVisualizer({
                   type="button"
                   onClick={() => setVolume(preset)}
                   aria-pressed={volume === preset}
-                  className={`px-3.5 py-1.5 rounded-lg text-xs font-montserrat font-semibold transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#10E774] ${
-                    volume === preset
-                      ? 'bg-[#10E774] text-black shadow-lg shadow-[#10E774]/25 font-bold'
+                  className={`px-3.5 py-1.5 rounded-lg text-xs font-montserrat font-semibold transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#10E774] ${ volume === preset ?'bg-[#10E774] text-black shadow-lg shadow-[#10E774]/25 font-bold'
                       : 'bg-white/5 text-gray-300 hover:bg-white/10 border border-white/10'
                   }`}
                 >
@@ -146,7 +144,7 @@ export function EfficiencyVisualizer({
 
           {/* Visual Cost Comparison Progress Bars */}
           <div className="bg-[#0A0D0E]/80 backdrop-blur-md rounded-2xl border border-white/10 p-6 sm:p-8 space-y-5">
-            <h4 className="text-xs font-montserrat uppercase tracking-widest text-gray-400">
+            <h4 className="text-xs font-montserrat text-gray-400">
               Monthly Operational Cost Comparison
             </h4>
 
@@ -202,12 +200,12 @@ export function EfficiencyVisualizer({
               className="absolute top-0 right-0 w-32 h-32 bg-[#10E774]/20 rounded-full blur-2xl pointer-events-none" 
             />
             
-            <div className="flex items-center gap-2 text-xs font-montserrat font-bold uppercase tracking-wider text-[#10E774] mb-2">
+            <div className="flex items-center gap-2 text-xs font-montserrat font-bold text-[#10E774] mb-2">
               <DollarSign className="w-4 h-4" aria-hidden="true" />
               Net Monthly Cash Saved
             </div>
             
-            <div className="text-4xl sm:text-5xl font-montserrat font-black text-white tracking-tight">
+            <div className="text-4xl sm:text-5xl font-montserrat font-black text-white">
               ${netMonthlySavings.toLocaleString()}
               <span className="text-lg font-sans font-medium text-gray-400">/mo</span>
             </div>

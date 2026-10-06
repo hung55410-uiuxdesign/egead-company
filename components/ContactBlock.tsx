@@ -8,7 +8,7 @@ export default function ContactBlock() {
     <section className="contact-block relative w-full py-24 sm:py-32 lg:py-36 bg-[#0A0D0E] text-white overflow-hidden text-center">
       {/* FULL WIDTH CENTERED BLOCK matching live site */}
       <div className="w-full px-6 sm:px-10 lg:px-14 xl:px-16 flex flex-col items-center justify-center">
-        <h2 className="text-3xl sm:text-5xl lg:text-[68px] font-medium tracking-normal leading-[1.18] text-[#D4FAE6] font-montserrat max-w-5xl">
+        <h2 className="text-3xl sm:text-5xl lg:text-[68px] font-medium leading-[1.18] text-[#D4FAE6] font-montserrat max-w-5xl">
           Let&apos;s <span className="text-[#5EFC8D] font-medium">automate</span> your <br className="hidden sm:inline" />
           e-commerce operations.
         </h2>

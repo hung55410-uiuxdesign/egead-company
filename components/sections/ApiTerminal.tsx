@@ -146,15 +146,12 @@ export default function ApiTerminal({ id = 'api-terminal', className = '' }: Api
                     aria-selected={isActive}
                     aria-controls="api-terminal-panel"
                     onClick={() => setActiveTabId(ep.id)}
-                    className={`px-3 sm:px-4 py-1.5 rounded-lg text-xs font-montserrat font-semibold transition-all duration-200 flex items-center gap-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#10E774] ${
-                      isActive
-                        ? 'bg-[#1D2224] text-white border border-[#10E774]/40 shadow-[0_0_10px_rgba(16, 231, 116, 0.15)]'
+                    className={`px-3 sm:px-4 py-1.5 rounded-lg text-xs font-montserrat font-semibold transition-all duration-200 flex items-center gap-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#10E774] ${ isActive ?'bg-[#1D2224] text-white border border-[#10E774]/40 shadow-[0_0_10px_rgba(16, 231, 116, 0.15)]'
                         : 'text-[#8C8C8C] hover:text-white hover:bg-white/5'
                     }`}
                   >
                     <span
-                      className={`text-[10px] font-bold ${
-                        ep.method === 'POST'
+                      className={`text-[10px] font-bold ${ ep.method ==='POST'
                           ? 'text-[#10E774]'
                           : ep.method === 'EVENT'
                           ? 'text-yellow-400'

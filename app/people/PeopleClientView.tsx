@@ -148,9 +148,7 @@ export default function PeopleClientView() {
                     setActiveFilter(dept);
                     setIsExpanded(true);
                   }}
-                  className={`px-3 py-1.5 rounded-full text-xs font-semibold transition ${
-                    activeFilter === dept
-                      ? 'bg-[#003d5b] text-white shadow-sm'
+                  className={`px-3 py-1.5 rounded-full text-xs font-semibold transition ${ activeFilter === dept ?'bg-[#003d5b] text-white shadow-sm'
                       : 'bg-gray-100 text-gray-600 hover:bg-gray-200 hover:text-gray-900'
                   }`}
                 >
@@ -251,7 +249,7 @@ export default function PeopleClientView() {
             commerce outcomes.
           </p>
         </div>
-        <span className="text-sm text-gray-400 mb-8 block font-normal tracking-wide text-center">
+        <span className="text-sm text-gray-400 mb-8 block font-normal text-center">
           E-GEAD Digital Commerce Ecosystem, Powered by Cross-Border Innovation
         </span>
         <Link className="ant-btn-primary" href="/contact-us">
@@ -321,7 +319,7 @@ export default function PeopleClientView() {
 
             {/* Biography */}
             <div className="mb-6">
-              <h4 className="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-2">
+              <h4 className="text-xs font-semibold text-gray-400 mb-2">
                 Thông Tin &amp; Chuyên Môn
               </h4>
               <p className="text-sm sm:text-base text-gray-300 leading-relaxed font-normal">
@@ -331,7 +329,7 @@ export default function PeopleClientView() {
 
             {/* Core Skills & Expertise */}
             <div className="mb-8">
-              <h4 className="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-3">
+              <h4 className="text-xs font-semibold text-gray-400 mb-3">
                 Lĩnh Vực Trọng Tâm
               </h4>
               <div className="flex flex-wrap gap-2">

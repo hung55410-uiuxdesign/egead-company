@@ -188,17 +188,13 @@ export function CaseStudiesPortfolio({ className = '' }: CaseStudiesPortfolioPro
                   aria-selected={isActive}
                   aria-controls="case-studies-grid"
                   onClick={() => setFilter(tab.id)}
-                  className={`inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-semibold uppercase tracking-wider transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#10E774] ${
-                    isActive
-                      ? 'bg-[#10E774] text-black shadow-lg shadow-[#10E774]/25 font-bold scale-[1.02]'
+                  className={`inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-semibold transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#10E774] ${ isActive ?'bg-[#10E774] text-black shadow-lg shadow-[#10E774]/25 font-bold scale-[1.02]'
                       : 'bg-[#141718] text-gray-300 hover:text-white hover:bg-white/10 border border-white/10'
                   }`}
                 >
                   <span>{tab.label}</span>
                   <span
-                    className={`px-2 py-0.5 rounded-full text-[10px] font-montserrat font-bold ${
-                      isActive
-                        ? 'bg-black/20 text-black'
+                    className={`px-2 py-0.5 rounded-full text-[10px] font-montserrat font-bold ${ isActive ?'bg-black/20 text-black'
                         : 'bg-white/10 text-gray-400'
                     }`}
                   >
@@ -260,11 +256,11 @@ export function CaseStudiesPortfolio({ className = '' }: CaseStudiesPortfolioPro
                 {/* Proof Metrics Overlay Bottom */}
                 <div className="absolute bottom-4 left-4 right-4 grid grid-cols-2 gap-2">
                   <div className="p-3 rounded-xl bg-black/80 backdrop-blur-md border border-white/10">
-                    <span className="text-[10px] font-montserrat text-gray-400 uppercase block">Dispatch SLA</span>
+                    <span className="text-[10px] font-montserrat text-gray-400 block">Dispatch SLA</span>
                     <span className="text-base sm:text-lg font-montserrat font-bold text-[#10E774]">&lt; 24 Hours</span>
                   </div>
                   <div className="p-3 rounded-xl bg-black/80 backdrop-blur-md border border-white/10">
-                    <span className="text-[10px] font-montserrat text-gray-400 uppercase block">Late Dispatch</span>
+                    <span className="text-[10px] font-montserrat text-gray-400 block">Late Dispatch</span>
                     <span className="text-base sm:text-lg font-montserrat font-bold text-[#10E774]">0.18% (Safe)</span>
                   </div>
                 </div>
@@ -415,7 +411,7 @@ export function CaseStudiesPortfolio({ className = '' }: CaseStudiesPortfolioPro
                 {/* Card Body */}
                 <div className="p-6 sm:p-8 flex-1 flex flex-col justify-between">
                   <div>
-                    <span className="text-xs font-montserrat text-[#10E774] uppercase tracking-wider block mb-2 font-medium">
+                    <span className="text-xs font-montserrat text-[#10E774] block mb-2 font-medium">
                       {item.category}
                     </span>
                     <h3 className="text-xl sm:text-2xl font-bold text-white group-hover:text-[#10E774] transition-colors leading-snug">
@@ -450,7 +446,7 @@ export function CaseStudiesPortfolio({ className = '' }: CaseStudiesPortfolioPro
                   <div className="mt-8 pt-5 border-t border-white/10 flex items-center justify-between">
                     <a
                       href={item.linkHref || '#work-cta'}
-                      className="text-xs font-semibold uppercase tracking-wider text-[#10E774] group-hover:underline flex items-center gap-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#10E774] rounded"
+                      className="text-xs font-semibold text-[#10E774] group-hover:underline flex items-center gap-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#10E774] rounded"
                     >
                       <span>Examine Case Methodology</span>
                       <span className="sr-only">for {item.client}</span>

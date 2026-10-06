@@ -54,8 +54,7 @@ export default function MegaMenu({ isOpen, onClose }: MegaMenuProps) {
           <div className="flex flex-wrap gap-3 sm:gap-6 border-b border-gray-100 pb-4 mb-8 text-sm sm:text-base font-semibold">
             <button
               onClick={() => setActiveTab('services')}
-              className={`pb-2 border-b-2 transition ${
-                activeTab === 'services'
+              className={`pb-2 border-b-2 transition ${ activeTab ==='services'
                   ? 'border-[#10E774] text-black'
                   : 'border-transparent text-gray-500 hover:text-black'
               }`}
@@ -64,8 +63,7 @@ export default function MegaMenu({ isOpen, onClose }: MegaMenuProps) {
             </button>
             <button
               onClick={() => setActiveTab('products')}
-              className={`pb-2 border-b-2 transition ${
-                activeTab === 'products'
+              className={`pb-2 border-b-2 transition ${ activeTab ==='products'
                   ? 'border-[#10E774] text-black'
                   : 'border-transparent text-gray-500 hover:text-black'
               }`}
@@ -81,8 +79,7 @@ export default function MegaMenu({ isOpen, onClose }: MegaMenuProps) {
             </Link>
             <button
               onClick={() => setActiveTab('insights')}
-              className={`pb-2 border-b-2 transition ${
-                activeTab === 'insights'
+              className={`pb-2 border-b-2 transition ${ activeTab ==='insights'
                   ? 'border-[#10E774] text-black'
                   : 'border-transparent text-gray-500 hover:text-black'
               }`}
@@ -91,8 +88,7 @@ export default function MegaMenu({ isOpen, onClose }: MegaMenuProps) {
             </button>
             <button
               onClick={() => setActiveTab('company')}
-              className={`pb-2 border-b-2 transition ${
-                activeTab === 'company'
+              className={`pb-2 border-b-2 transition ${ activeTab ==='company'
                   ? 'border-[#10E774] text-black'
                   : 'border-transparent text-gray-500 hover:text-black'
               }`}
@@ -109,7 +105,7 @@ export default function MegaMenu({ isOpen, onClose }: MegaMenuProps) {
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
                   {/* Column 1: Core Capabilities */}
                   <div>
-                    <h3 className="text-xs font-bold uppercase tracking-wider text-gray-400 mb-4">
+                    <h3 className="text-xs font-bold text-gray-400 mb-4">
                       Core Capabilities
                     </h3>
                     <ul className="space-y-3.5">
@@ -159,7 +155,7 @@ export default function MegaMenu({ isOpen, onClose }: MegaMenuProps) {
                       <Link
                         href="/services/all-services"
                         onClick={onClose}
-                        className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wide text-[#007A3D] hover:underline"
+                        className="inline-flex items-center gap-1.5 text-xs font-bold text-[#007A3D] hover:underline"
                       >
                         <span>View All Capabilities</span>
                         <ArrowUpRight className="w-3.5 h-3.5" />
@@ -169,7 +165,7 @@ export default function MegaMenu({ isOpen, onClose }: MegaMenuProps) {
 
                   {/* Column 2: Target Categories */}
                   <div>
-                    <h3 className="text-xs font-bold uppercase tracking-wider text-gray-400 mb-4">
+                    <h3 className="text-xs font-bold text-gray-400 mb-4">
                       Sellers & Categories
                     </h3>
                     <ul className="space-y-3.5">
@@ -190,7 +186,7 @@ export default function MegaMenu({ isOpen, onClose }: MegaMenuProps) {
 
                   {/* Column 3: Platform Integrations */}
                   <div>
-                    <h3 className="text-xs font-bold uppercase tracking-wider text-gray-400 mb-4">
+                    <h3 className="text-xs font-bold text-gray-400 mb-4">
                       Platform Integrations
                     </h3>
                     <ul className="space-y-3.5">
@@ -214,7 +210,7 @@ export default function MegaMenu({ isOpen, onClose }: MegaMenuProps) {
               {activeTab === 'products' && (
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                   <div className="p-5 rounded-2xl bg-gray-50 border border-gray-100 hover:border-[#10E774] transition">
-                    <span className="text-xs font-bold uppercase tracking-wider text-[#007A3D]">Operations Dashboard</span>
+                    <span className="text-xs font-bold text-[#007A3D]">Operations Dashboard</span>
                     <h4 className="text-lg font-bold text-gray-900 mt-1">Eweb-platform</h4>
                     <p className="text-sm text-gray-600 mt-2">
                       Connect storefronts, WMS inventory, and financial reconciliation in real time without manual spreadsheets.
@@ -229,7 +225,7 @@ export default function MegaMenu({ isOpen, onClose }: MegaMenuProps) {
                   </div>
 
                   <div className="p-5 rounded-2xl bg-gray-50 border border-gray-100 hover:border-[#10E774] transition">
-                    <span className="text-xs font-bold uppercase tracking-wider text-[#007A3D]">AI & POD Engine</span>
+                    <span className="text-xs font-bold text-[#007A3D]">AI & POD Engine</span>
                     <h4 className="text-lg font-bold text-gray-900 mt-1">Eweb-character</h4>
                     <p className="text-sm text-gray-600 mt-2">
                       Smart AI order normalization, address validation, fraud risk filtering, and sub-24h US POD fulfillment.
@@ -244,7 +240,7 @@ export default function MegaMenu({ isOpen, onClose }: MegaMenuProps) {
                   </div>
 
                   <div className="p-5 rounded-2xl bg-gray-50 border border-gray-100 hover:border-[#10E774] transition">
-                    <span className="text-xs font-bold uppercase tracking-wider text-[#007A3D]">High-Converting Storefront</span>
+                    <span className="text-xs font-bold text-[#007A3D]">High-Converting Storefront</span>
                     <h4 className="text-lg font-bold text-gray-900 mt-1">Eweb-builder</h4>
                     <p className="text-sm text-gray-600 mt-2">
                       Ultra-fast, SEO-optimized storefront development pre-connected to E-GEAD fulfillment APIs for US and EU markets.
@@ -259,7 +255,7 @@ export default function MegaMenu({ isOpen, onClose }: MegaMenuProps) {
                   </div>
 
                   <div className="p-5 rounded-2xl bg-gray-50 border border-gray-100 hover:border-[#10E774] transition">
-                    <span className="text-xs font-bold uppercase tracking-wider text-[#007A3D]">Instant Estimator</span>
+                    <span className="text-xs font-bold text-[#007A3D]">Instant Estimator</span>
                     <h4 className="text-lg font-bold text-gray-900 mt-1">Rate Calculator</h4>
                     <p className="text-sm text-gray-600 mt-2">
                       Calculate print costs, dimensional weights, and multi-state shipping rates in seconds with full margin visibility.

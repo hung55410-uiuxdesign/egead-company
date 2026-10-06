@@ -43,8 +43,7 @@ export default function LeaderTreeMap({ leader, onSelectMember }: LeaderTreeMapP
                 {/* Horizontal branch bar linking from Root (Node Cha) */}
                 {!isOnly && (
                   <div
-                    className={`absolute top-0 h-0.5 bg-[#5EFC8D] ${isFirst
-                        ? 'w-1/2 right-0'
+                    className={`absolute top-0 h-0.5 bg-[#5EFC8D] ${isFirst ?'w-1/2 right-0'
                         : isLast
                           ? 'w-1/2 left-0'
                           : 'w-full left-0'
@@ -70,7 +69,7 @@ export default function LeaderTreeMap({ leader, onSelectMember }: LeaderTreeMapP
                       title={`Nhấp để xem chi tiết ${childNode.name}`}
                     >
                       {/* Level 2 Tag Badge */}
-                      <span className="absolute top-3 left-3 z-10 px-2.5 py-0.5 rounded-full bg-[#5EFC8D] text-black text-[10px] font-bold uppercase tracking-wider shadow-sm">
+                      <span className="absolute top-3 left-3 z-10 px-2.5 py-0.5 rounded-full bg-[#5EFC8D] text-black text-[10px] font-bold shadow-sm">
                         {childNode.levelTag.split(':')[0]}
                       </span>
 
@@ -90,7 +89,7 @@ export default function LeaderTreeMap({ leader, onSelectMember }: LeaderTreeMapP
 
                       {/* Normal State: Name & Role */}
                       <div className="tree-node-card__info">
-                        <span className="block px-5 text-[10px] font-bold text-[#5EFC8D] uppercase tracking-wider mb-0.5 truncate">
+                        <span className="block px-5 text-[10px] font-bold text-[#5EFC8D] mb-0.5 truncate">
                           {childNode.squadName}
                         </span>
                         <p className="tree-node-card__name truncate">{childNode.name}</p>
@@ -107,7 +106,7 @@ export default function LeaderTreeMap({ leader, onSelectMember }: LeaderTreeMapP
                             {childNode.quote || 'Leading excellence in technology and digital operations.'}
                           </p>
                           <div className="text-[11px] text-[#D4FAE6] border-t border-white/20 pt-1.5 mb-2 line-clamp-2">
-                            <span className="text-[#5EFC8D] font-bold block text-[9px] uppercase tracking-wider">
+                            <span className="text-[#5EFC8D] font-bold block text-[9px]">
                               Nhiệm vụ quản lý:
                             </span>
                             {childNode.responsibility}
@@ -158,7 +157,7 @@ export default function LeaderTreeMap({ leader, onSelectMember }: LeaderTreeMapP
                           <div className="w-[50%] max-w-[340px] h-0.5 bg-[#5EFC8D] mx-auto mb-0" />
                         )}
 
-                        <div className={`grid ${childNode.children.length === 1 ? 'grid-cols-1 max-w-[340px]' : 'grid-cols-2 gap-8 max-w-[700px]'
+                        <div className={`grid ${childNode.children.length === 1 ?'grid-cols-1 max-w-[340px]' : 'grid-cols-2 gap-8 max-w-[700px]'
                           } mx-auto justify-items-center`}>
                           {childNode.children.map((subChild) => (
                             <div

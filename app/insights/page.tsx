@@ -55,7 +55,7 @@ export default function InsightsPage() {
           <p className="text-base sm:text-lg font-normal text-[#D4FAE6] mb-4 font-montserrat">
             Knowledge &amp; Industry Insights
           </p>
-          <h1 className="text-4xl sm:text-6xl lg:text-[72px] font-medium tracking-tight leading-[1.08] text-[#D4FAE6] font-montserrat mb-6">
+          <h1 className="text-4xl sm:text-6xl lg:text-[72px] font-medium leading-[1.08] text-[#D4FAE6] font-montserrat mb-6">
             Cross-Border Commerce, <br />
             <span className="text-[#5EFC8D] font-medium">Strategies &amp; Playbooks.</span>
           </h1>
@@ -110,7 +110,7 @@ export default function InsightsPage() {
                 </div>
 
                 <div className="mt-8 pt-6 border-t border-white/10 flex items-center justify-between">
-                  <span className="text-xs font-medium uppercase tracking-wider text-[#5EFC8D]">
+                  <span className="text-xs font-medium text-[#5EFC8D]">
                     Read full article
                   </span>
                   <div className="w-9 h-9 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-[#5EFC8D] group-hover:text-black transition duration-300">

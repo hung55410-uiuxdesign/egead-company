@@ -53,8 +53,7 @@ export default function ComparisonTable({
 
     return (
       <span
-        className={`font-semibold text-sm sm:text-base ${
-          isEgead ? 'text-[#10E774]' : 'text-[#8C8C8C]'
+        className={`font-semibold text-sm sm:text-base ${ isEgead ?'text-[#10E774]' : 'text-[#8C8C8C]'
         }`}
       >
         {val}
@@ -97,7 +96,7 @@ export default function ComparisonTable({
                 role="columnheader"
                 className="col-span-5 p-6 sm:p-7 flex flex-col justify-center"
               >
-                <span className="text-xs uppercase tracking-widest text-[#b3b3b3] font-normal font-montserrat">
+                <span className="text-xs text-[#b3b3b3] font-normal font-montserrat">
                   Feature / Metric
                 </span>
               </div>
@@ -110,7 +109,7 @@ export default function ComparisonTable({
                   <h3 className="text-lg sm:text-xl font-medium text-[#5EFC8D] font-montserrat">
                     {egeadTitle}
                   </h3>
-                  <span className="text-[10px] font-medium uppercase tracking-wider px-2 py-0.5 rounded bg-[#5EFC8D] text-black">
+                  <span className="text-[10px] font-medium px-2 py-0.5 rounded bg-[#5EFC8D] text-black">
                     Recommended
                   </span>
                 </div>
@@ -139,8 +138,7 @@ export default function ComparisonTable({
               <div
                 key={idx}
                 role="row"
-                className={`grid grid-cols-12 transition-colors hover:bg-white/[0.02] ${
-                  row.highlight ? 'bg-[#10E774]/[0.03]' : ''
+                className={`grid grid-cols-12 transition-colors hover:bg-white/[0.02] ${ row.highlight ?'bg-[#10E774]/[0.03]' : ''
                 }`}
               >
                 {/* Feature Name */}
@@ -152,7 +150,7 @@ export default function ComparisonTable({
                     {row.feature}
                   </div>
                   {row.category && (
-                    <span className="text-[11px] text-[#8C8C8C] uppercase tracking-wider mt-0.5">
+                    <span className="text-[11px] text-[#8C8C8C] mt-0.5">
                       {row.category}
                     </span>
                   )}

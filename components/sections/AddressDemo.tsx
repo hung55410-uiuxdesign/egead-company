@@ -110,9 +110,7 @@ export default function AddressDemo({ id = 'ai-address-normalization', className
                 type="button"
                 aria-pressed={isActive}
                 onClick={() => setSelectedCaseId(sc.id)}
-                className={`px-5 py-2.5 rounded-full text-xs sm:text-sm font-bold font-montserrat transition-all duration-200 border focus:outline-none focus-visible:ring-2 focus-visible:ring-[#10E774] ${
-                  isActive
-                    ? 'bg-[#10E774] text-black border-[#10E774] shadow-[0_0_20px_rgba(16, 231, 116, 0.3)]'
+                className={`px-5 py-2.5 rounded-full text-xs sm:text-sm font-bold font-montserrat transition-all duration-200 border focus:outline-none focus-visible:ring-2 focus-visible:ring-[#10E774] ${ isActive ?'bg-[#10E774] text-black border-[#10E774] shadow-[0_0_20px_rgba(16, 231, 116, 0.3)]'
                     : 'bg-[#141718] text-[#8C8C8C] border-[#262C30] hover:text-white hover:border-[#10E774]/40'
                 }`}
               >
@@ -130,7 +128,7 @@ export default function AddressDemo({ id = 'ai-address-normalization', className
               <div className="flex items-center justify-between pb-4 border-b border-[#262C30] mb-6">
                 <div className="flex items-center gap-2">
                   <span className="w-2.5 h-2.5 rounded-full bg-red-400" />
-                  <span className="text-xs uppercase font-bold tracking-wider text-red-400 font-montserrat">
+                  <span className="text-xs font-bold text-red-400 font-montserrat">
                     Raw Marketplace Payload
                   </span>
                 </div>
@@ -141,14 +139,14 @@ export default function AddressDemo({ id = 'ai-address-normalization', className
 
               <div className="space-y-4 font-montserrat text-sm">
                 <div>
-                  <span className="text-[11px] uppercase text-[#8C8C8C] block font-montserrat">Customer Name</span>
+                  <span className="text-[11px] text-[#8C8C8C] block font-montserrat">Customer Name</span>
                   <div className="text-red-300/90 font-medium bg-[#101416] p-2.5 rounded-xl border border-[#262C30]">
                     {activeCase.raw.name}
                   </div>
                 </div>
 
                 <div>
-                  <span className="text-[11px] uppercase text-[#8C8C8C] block font-montserrat">Street Line</span>
+                  <span className="text-[11px] text-[#8C8C8C] block font-montserrat">Street Line</span>
                   <div className="text-red-300/90 font-medium bg-[#101416] p-2.5 rounded-xl border border-[#262C30]">
                     {activeCase.raw.street}
                   </div>
@@ -156,19 +154,19 @@ export default function AddressDemo({ id = 'ai-address-normalization', className
 
                 <div className="grid grid-cols-3 gap-2">
                   <div>
-                    <span className="text-[11px] uppercase text-[#8C8C8C] block font-montserrat">City</span>
+                    <span className="text-[11px] text-[#8C8C8C] block font-montserrat">City</span>
                     <div className="text-red-300/90 font-medium bg-[#101416] p-2.5 rounded-xl border border-[#262C30]">
                       {activeCase.raw.city}
                     </div>
                   </div>
                   <div>
-                    <span className="text-[11px] uppercase text-[#8C8C8C] block font-montserrat">State</span>
+                    <span className="text-[11px] text-[#8C8C8C] block font-montserrat">State</span>
                     <div className="text-red-300/90 font-medium bg-[#101416] p-2.5 rounded-xl border border-[#262C30]">
                       {activeCase.raw.state}
                     </div>
                   </div>
                   <div>
-                    <span className="text-[11px] uppercase text-[#8C8C8C] block font-montserrat">ZIP</span>
+                    <span className="text-[11px] text-[#8C8C8C] block font-montserrat">ZIP</span>
                     <div className="text-red-300/90 font-medium bg-[#101416] p-2.5 rounded-xl border border-red-500/40 text-red-400">
                       {activeCase.raw.zip}
                     </div>
@@ -193,7 +191,7 @@ export default function AddressDemo({ id = 'ai-address-normalization', className
               <div className="flex items-center justify-between pb-4 border-b border-[#262C30] mb-6">
                 <div className="flex items-center gap-2">
                   <span className="w-2.5 h-2.5 rounded-full bg-[#10E774] animate-pulse" />
-                  <span className="text-xs uppercase font-bold tracking-wider text-[#10E774] font-montserrat">
+                  <span className="text-xs font-bold text-[#10E774] font-montserrat">
                     Eweb-character AI Sanitized
                   </span>
                 </div>
@@ -204,7 +202,7 @@ export default function AddressDemo({ id = 'ai-address-normalization', className
 
               <div className="space-y-4 font-montserrat text-sm">
                 <div>
-                  <span className="text-[11px] uppercase text-[#8C8C8C] block font-montserrat">Normalized Name</span>
+                  <span className="text-[11px] text-[#8C8C8C] block font-montserrat">Normalized Name</span>
                   <div className="text-white font-medium bg-[#0A0D0E] p-2.5 rounded-xl border border-[#262C30] flex items-center justify-between">
                     <span>{activeCase.sanitized.name}</span>
                     <CheckCircle2 className="w-4 h-4 text-[#10E774]" aria-hidden="true" />
@@ -212,7 +210,7 @@ export default function AddressDemo({ id = 'ai-address-normalization', className
                 </div>
 
                 <div>
-                  <span className="text-[11px] uppercase text-[#8C8C8C] block font-montserrat">Standardized Street</span>
+                  <span className="text-[11px] text-[#8C8C8C] block font-montserrat">Standardized Street</span>
                   <div className="text-white font-medium bg-[#0A0D0E] p-2.5 rounded-xl border border-[#262C30] flex items-center justify-between">
                     <span>{activeCase.sanitized.street}</span>
                     <CheckCircle2 className="w-4 h-4 text-[#10E774]" aria-hidden="true" />
@@ -221,19 +219,19 @@ export default function AddressDemo({ id = 'ai-address-normalization', className
 
                 <div className="grid grid-cols-3 gap-2">
                   <div>
-                    <span className="text-[11px] uppercase text-[#8C8C8C] block font-montserrat">City</span>
+                    <span className="text-[11px] text-[#8C8C8C] block font-montserrat">City</span>
                     <div className="text-white font-medium bg-[#0A0D0E] p-2.5 rounded-xl border border-[#262C30]">
                       {activeCase.sanitized.city}
                     </div>
                   </div>
                   <div>
-                    <span className="text-[11px] uppercase text-[#8C8C8C] block font-montserrat">State</span>
+                    <span className="text-[11px] text-[#8C8C8C] block font-montserrat">State</span>
                     <div className="text-white font-medium bg-[#0A0D0E] p-2.5 rounded-xl border border-[#262C30]">
                       {activeCase.sanitized.state}
                     </div>
                   </div>
                   <div>
-                    <span className="text-[11px] uppercase text-[#8C8C8C] block font-montserrat">ZIP+4</span>
+                    <span className="text-[11px] text-[#8C8C8C] block font-montserrat">ZIP+4</span>
                     <div className="text-[#10E774] font-bold bg-[#0A0D0E] p-2.5 rounded-xl border border-[#10E774]/40">
                       {activeCase.sanitized.zipPlus4}
                     </div>

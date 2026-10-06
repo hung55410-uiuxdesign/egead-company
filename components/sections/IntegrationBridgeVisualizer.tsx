@@ -213,9 +213,7 @@ export function IntegrationBridgeVisualizer({
               aria-selected={isSelected}
               aria-controls="stage-telemetry-panel"
               onClick={() => setSelectedStageId(stage.id)}
-              className={`text-left p-5 rounded-2xl border transition-all duration-300 relative focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#10E774] ${
-                isSelected
-                  ? 'bg-gradient-to-br from-[#10E774]/20 via-[#1A2224] to-[#0A0D0E] border-[#10E774] shadow-xl shadow-[#10E774]/15 scale-[1.02]'
+              className={`text-left p-5 rounded-2xl border transition-all duration-300 relative focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#10E774] ${ isSelected ?'bg-gradient-to-br from-[#10E774]/20 via-[#1A2224] to-[#0A0D0E] border-[#10E774] shadow-xl shadow-[#10E774]/15 scale-[1.02]'
                   : 'bg-[#0A0D0E]/80 border-white/10 hover:border-white/20 text-gray-300 hover:text-white'
               }`}
             >
@@ -256,11 +254,11 @@ export function IntegrationBridgeVisualizer({
           {/* Left Column: Stage Details & Specs (7 cols) */}
           <div className="lg:col-span-7 space-y-6">
             <div>
-              <div className="flex items-center gap-2 text-xs font-montserrat text-[#10E774] mb-2 uppercase font-semibold">
+              <div className="flex items-center gap-2 text-xs font-montserrat text-[#10E774] mb-2 font-semibold">
                 <Activity className="w-3.5 h-3.5" aria-hidden="true" />
                 <span>Stage {currentStage.stepNumber} · {currentStage.protocol}</span>
               </div>
-              <h3 className="text-2xl font-black text-white tracking-tight">
+              <h3 className="text-2xl font-black text-white">
                 {currentStage.title}
               </h3>
               <p className="mt-3 text-sm text-gray-300 font-normal leading-relaxed">
@@ -271,21 +269,21 @@ export function IntegrationBridgeVisualizer({
             {/* Telemetry specs grid */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4 border-t border-white/10">
               <div className="p-4 rounded-xl bg-white/[0.03] border border-white/5">
-                <div className="text-[11px] font-montserrat text-gray-400 uppercase">Throughput Scale</div>
+                <div className="text-[11px] font-montserrat text-gray-400">Throughput Scale</div>
                 <div className="text-sm font-montserrat font-bold text-white mt-1">
                   {currentStage.telemetry.eventVolume}
                 </div>
               </div>
 
               <div className="p-4 rounded-xl bg-white/[0.03] border border-white/5">
-                <div className="text-[11px] font-montserrat text-gray-400 uppercase">Security Protocol</div>
+                <div className="text-[11px] font-montserrat text-gray-400">Security Protocol</div>
                 <div className="text-sm font-montserrat font-bold text-[#10E774] mt-1">
                   {currentStage.telemetry.encryption}
                 </div>
               </div>
 
               <div className="p-4 rounded-xl bg-white/[0.03] border border-white/5">
-                <div className="text-[11px] font-montserrat text-gray-400 uppercase">Reliability Model</div>
+                <div className="text-[11px] font-montserrat text-gray-400">Reliability Model</div>
                 <div className="text-sm font-montserrat font-bold text-white mt-1">
                   {currentStage.telemetry.idempotency}
                 </div>

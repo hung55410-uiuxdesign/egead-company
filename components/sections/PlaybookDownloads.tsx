@@ -147,9 +147,7 @@ export function PlaybookDownloads({
                   onClick={() => handleDownload(book.id, book.title)}
                   disabled={isDownloading}
                   aria-label={isDownloaded ? `Downloaded ${book.title}` : `Download ${book.title} (${book.format})`}
-                  className={`w-full inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl font-semibold text-xs font-montserrat uppercase tracking-wider transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#10E774] ${
-                    isDownloaded
-                      ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40'
+                  className={`w-full inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl font-semibold text-xs font-montserrat transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#10E774] ${ isDownloaded ?'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40'
                       : isDownloading
                       ? 'bg-[#10E774]/20 text-[#10E774] border border-[#10E774]/40 cursor-wait'
                       : 'bg-white/5 hover:bg-[#10E774] text-white hover:text-black border border-white/10 hover:border-[#10E774]'

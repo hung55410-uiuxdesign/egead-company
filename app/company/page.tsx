@@ -50,9 +50,9 @@ export default function CompanyPage() {
           <p className="text-base sm:text-lg font-normal text-[#D4FAE6] mb-4 font-montserrat">
             Our Values
           </p>
-          <h1 className="text-4xl sm:text-6xl lg:text-[72px] font-medium tracking-normal uppercase leading-[1.15] font-montserrat text-[#D4FAE6]">
-            <span className="block">TRANSFORM TODAY,</span>
-            <span className="text-[#5EFC8D] block font-medium">LEAD TOMORROW.</span>
+          <h1 className="text-4xl sm:text-6xl lg:text-[72px] font-medium leading-[1.15] font-montserrat text-[#D4FAE6]">
+            <span className="block">Transform today,</span>
+            <span className="text-[#5EFC8D] block font-medium">lead tomorrow.</span>
           </h1>
         </div>
       </section>
@@ -67,8 +67,8 @@ export default function CompanyPage() {
           />
           <div className="absolute inset-0 bg-gradient-to-t from-[#0A0D0E]/80 via-transparent to-transparent pointer-events-none" />
           <div className="absolute bottom-6 left-6 sm:bottom-10 sm:left-10 flex items-center gap-3">
-            <span className="px-4 py-2 rounded-full bg-black/60 backdrop-blur-md border border-white/20 font-montserrat text-xs text-white uppercase tracking-wider">
-              BUON MA THUOT HQ &amp; US FULFILLMENT NETWORK
+            <span className="px-4 py-2 rounded-full bg-black/60 backdrop-blur-md border border-white/20 font-montserrat text-xs text-white">
+              Buon Ma Thuot HQ &amp; US Fulfillment Network
             </span>
           </div>
         </div>
@@ -82,7 +82,7 @@ export default function CompanyPage() {
             <p className="text-base sm:text-lg font-normal text-[#D4FAE6] font-montserrat">
               End-to-end enterprise commerce solutions
             </p>
-            <h2 className="text-2xl sm:text-3xl lg:text-[40px] font-medium tracking-normal text-[#D4FAE6] font-montserrat leading-[1.25]">
+            <h2 className="text-2xl sm:text-3xl lg:text-[40px] font-medium text-[#D4FAE6] font-montserrat leading-[1.25]">
               We consult Customer Experience transformation across all business functions.
             </h2>
           </div>

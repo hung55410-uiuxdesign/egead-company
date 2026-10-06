@@ -177,8 +177,6 @@ b, strong {
   -webkit-text-fill-color: transparent;
   font-size: 13px;
   font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
 }
 
 .speedx-title {
@@ -271,8 +269,6 @@ b, strong {
   background: #1c1e24;
   border: 1px solid rgba(255, 255, 255, 0.08);
   font-size: 13px;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
   font-weight: 600;
 }
 

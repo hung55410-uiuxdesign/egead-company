@@ -49,7 +49,7 @@ export default function CareerPage() {
           <p className="text-base sm:text-lg font-normal text-[#D4FAE6] mb-4 font-montserrat">
             Join Our Team
           </p>
-          <h1 className="text-4xl sm:text-6xl lg:text-[72px] font-medium tracking-tight leading-[1.08] text-[#D4FAE6] font-montserrat mb-6">
+          <h1 className="text-4xl sm:text-6xl lg:text-[72px] font-medium leading-[1.08] text-[#D4FAE6] font-montserrat mb-6">
             Build the Future of <br />
             <span className="text-[#5EFC8D] font-medium">Global Commerce.</span>
           </h1>
@@ -71,7 +71,7 @@ export default function CareerPage() {
               className="p-6 sm:p-8 rounded-2xl bg-[#141718] border border-white/10 hover:border-[#5EFC8D]/40 transition duration-300 flex flex-col sm:flex-row sm:items-center justify-between gap-6"
             >
               <div>
-                <span className="text-xs text-[#5EFC8D] tracking-wider block mb-1 font-normal">
+                <span className="text-xs text-[#5EFC8D] block mb-1 font-normal">
                   {j.department} · {j.type}
                 </span>
                 <h3 className="text-xl sm:text-2xl font-medium text-[#D4FAE6] mb-2">{j.title}</h3>

@@ -30,7 +30,7 @@ export default function PartnerSlider() {
     <section className="logo-slider relative w-full py-16 sm:py-20 bg-[#0A0D0E] overflow-hidden">
       {/* Subtitle matching live site */}
       <div className="w-full px-6 sm:px-10 lg:px-14 xl:px-16 mb-8 sm:mb-10">
-        <p className="text-xs sm:text-sm font-semibold tracking-widest uppercase text-[#10E774] font-montserrat">
+        <p className="text-xs sm:text-sm font-semibold text-[#10E774] font-montserrat">
           Partners
         </p>
       </div>

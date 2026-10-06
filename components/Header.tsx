@@ -86,9 +86,7 @@ export default function Header() {
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-40 w-full transition-all duration-300 font-montserrat ${
-          scrolled
-            ? 'bg-[#0A0D0E]/90 backdrop-blur-md border-b border-white/10 py-3.5 shadow-xl'
+        className={`fixed top-0 left-0 right-0 z-40 w-full transition-all duration-300 font-montserrat ${ scrolled ?'bg-[#0A0D0E]/90 backdrop-blur-md border-b border-white/10 py-3.5 shadow-xl'
             : 'bg-transparent py-5 sm:py-6'
         }`}
       >
@@ -113,13 +111,12 @@ export default function Header() {
               >
                 <Link
                   href={item.href}
-                  className="flex items-center gap-1 text-[13.5px] xl:text-[14px] font-medium text-white/90 hover:text-white transition tracking-normal"
+                  className="flex items-center gap-1 text-[13.5px] xl:text-[14px] font-medium text-white/90 hover:text-white transition"
                 >
                   <span>{item.label}</span>
                   {item.children && (
                     <ChevronDown
-                      className={`w-3.5 h-3.5 text-white/70 transition-transform duration-200 ${
-                        activeDropdown === item.label ? 'rotate-180 text-white' : ''
+                      className={`w-3.5 h-3.5 text-white/70 transition-transform duration-200 ${ activeDropdown === item.label ?'rotate-180 text-white' : ''
                       }`}
                     />
                   )}
@@ -164,7 +161,7 @@ export default function Header() {
               <button
                 type="button"
                 onClick={() => setLangDropdownOpen(!langDropdownOpen)}
-                className="flex items-center gap-1.5 text-[13px] font-medium text-white/90 hover:text-white transition tracking-wide py-1 px-2 rounded-lg hover:bg-white/5"
+                className="flex items-center gap-1.5 text-[13px] font-medium text-white/90 hover:text-white transition py-1 px-2 rounded-lg hover:bg-white/5"
               >
                 <Globe className="w-4 h-4 text-[#F2F2F2]" />
                 <span className="text-[#F2F2F2] font-semibold">{selectedLang}</span>
@@ -181,9 +178,7 @@ export default function Header() {
                         setSelectedLang(lang);
                         setLangDropdownOpen(false);
                       }}
-                      className={`w-full text-left px-3 py-2 rounded-xl text-xs font-semibold transition ${
-                        selectedLang === lang
-                          ? 'bg-[#10E774]/20 text-[#10E774]'
+                      className={`w-full text-left px-3 py-2 rounded-xl text-xs font-semibold transition ${ selectedLang === lang ?'bg-[#10E774]/20 text-[#10E774]'
                           : 'text-gray-300 hover:bg-white/10 hover:text-white'
                       }`}
                     >

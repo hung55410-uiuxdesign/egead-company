@@ -304,7 +304,7 @@ export default function SmartCommercePage() {
                 Centralized Commerce OS
               </span>
 
-              <h1 className="text-4xl sm:text-5xl lg:text-[68px] font-medium tracking-tight text-[#D4FAE6] font-montserrat leading-[1.08]">
+              <h1 className="text-4xl sm:text-5xl lg:text-[68px] font-medium text-[#D4FAE6] font-montserrat leading-[1.08]">
                 Eweb-platform: Unified Operations.{' '}
                 <span className="text-[#5EFC8D] font-medium">Master Multi-Channel Margins.</span>
               </h1>
@@ -527,7 +527,7 @@ export default function SmartCommercePage() {
               >
                 <div>
                   <div className="flex items-center justify-between pb-3 mb-3 border-b border-[#262C30]">
-                    <span className="text-[10px] font-montserrat uppercase tracking-wider text-[#b3b3b3]">
+                    <span className="text-[10px] font-montserrat text-[#b3b3b3]">
                       {item.category}
                     </span>
                     <span className="text-[10px] font-montserrat font-medium text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">
@@ -549,7 +549,7 @@ export default function SmartCommercePage() {
 
                 <div className="mt-4 pt-3 border-t border-[#262C30] flex items-center justify-between text-[11px] font-montserrat text-[#8C8C8C]">
                   <span>2-Way Live Sync</span>
-                  <span className="text-emerald-400">● Active</span>
+                  <span className="text-emerald-400">Active</span>
                 </div>
               </div>
             ))}
@@ -573,7 +573,7 @@ export default function SmartCommercePage() {
                 14-Day Risk-Free Sandbox
               </p>
 
-              <h2 className="text-3xl sm:text-4xl lg:text-[44px] font-medium tracking-tight text-[#D4FAE6] font-montserrat leading-[1.15]">
+              <h2 className="text-3xl sm:text-4xl lg:text-[44px] font-medium text-[#D4FAE6] font-montserrat leading-[1.15]">
                 Take Full Control of Your E-Commerce{' '}
                 <span className="text-[#5EFC8D] font-medium">Operations Velocity Today.</span>
               </h2>

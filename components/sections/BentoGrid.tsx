@@ -79,9 +79,7 @@ export default function BentoGrid({
             return (
               <div
                 key={item.id}
-                className={`group relative flex flex-col justify-between p-7 sm:p-8 rounded-[28px] bg-[#141718]/90 border transition-all duration-300 backdrop-blur-sm overflow-hidden ${
-                  item.highlight
-                    ? 'border-[#5EFC8D]/40 shadow-[0_0_30px_rgba(94, 252, 141, 0.12)]'
+                className={`group relative flex flex-col justify-between p-7 sm:p-8 rounded-[28px] bg-[#141718]/90 border transition-all duration-300 backdrop-blur-sm overflow-hidden ${ item.highlight ?'border-[#5EFC8D]/40 shadow-[0_0_30px_rgba(94, 252, 141, 0.12)]'
                     : 'border-white/10 hover:border-[#5EFC8D]/50 hover:shadow-[0_0_25px_rgba(94, 252, 141, 0.08)]'
                 } ${spanClass} ${rowClass}`}
               >
@@ -96,7 +94,7 @@ export default function BentoGrid({
                     </div>
                   )}
                   {item.tag && (
-                    <span className="text-[11px] font-medium uppercase tracking-wider px-3 py-1 rounded-full bg-[#1A2022] text-[#5EFC8D] border border-[#5EFC8D]/20 font-montserrat">
+                    <span className="text-[11px] font-medium px-3 py-1 rounded-full bg-[#1A2022] text-[#5EFC8D] border border-[#5EFC8D]/20 font-montserrat">
                       {item.tag}
                     </span>
                   )}
@@ -113,16 +111,16 @@ export default function BentoGrid({
                 <div className="relative z-10 mt-auto">
                   {item.stats && (
                     <div className="mb-4 pb-4 border-b border-white/10">
-                      <div className="text-3xl sm:text-4xl font-medium text-[#5EFC8D] font-montserrat tracking-tight">
+                      <div className="text-3xl sm:text-4xl font-medium text-[#5EFC8D] font-montserrat">
                         {item.stats.value}
                       </div>
-                      <div className="text-xs text-[#b3b3b3] uppercase tracking-wider font-montserrat mt-1">
+                      <div className="text-xs text-[#b3b3b3] font-montserrat mt-1">
                         {item.stats.label}
                       </div>
                     </div>
                   )}
 
-                  <h3 className="text-xl sm:text-2xl font-medium text-[#D4FAE6] font-montserrat tracking-tight mb-2 group-hover:text-[#5EFC8D] transition-colors">
+                  <h3 className="text-xl sm:text-2xl font-medium text-[#D4FAE6] font-montserrat mb-2 group-hover:text-[#5EFC8D] transition-colors">
                     {item.title}
                   </h3>
                   <p className="text-sm sm:text-base text-[#b3b3b3] font-light leading-[1.75] font-montserrat">

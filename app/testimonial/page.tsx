@@ -55,7 +55,7 @@ export default function TestimonialPage() {
           <p className="text-base sm:text-lg font-normal text-[#D4FAE6] mb-4 font-montserrat">
             Client Success &amp; Reviews
           </p>
-          <h1 className="text-4xl sm:text-6xl lg:text-[72px] font-medium tracking-tight leading-[1.08] text-[#D4FAE6] font-montserrat mb-6">
+          <h1 className="text-4xl sm:text-6xl lg:text-[72px] font-medium leading-[1.08] text-[#D4FAE6] font-montserrat mb-6">
             What Our <br />
             <span className="text-[#5EFC8D] font-medium">Partners Say.</span>
           </h1>

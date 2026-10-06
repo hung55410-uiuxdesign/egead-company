@@ -107,9 +107,7 @@ export default function FaqAccordion({
                   setActiveCategory(cat);
                   setOpenIndex(0);
                 }}
-                className={`px-4 py-2 rounded-full text-xs sm:text-sm font-medium font-montserrat transition-all duration-200 focus:outline-none ${
-                  activeCategory === cat
-                    ? 'bg-[#5EFC8D] text-black shadow-[0_0_20px_rgba(94, 252, 141, 0.3)]'
+                className={`px-4 py-2 rounded-full text-xs sm:text-sm font-medium font-montserrat transition-all duration-200 focus:outline-none ${ activeCategory === cat ?'bg-[#5EFC8D] text-black shadow-[0_0_20px_rgba(94, 252, 141, 0.3)]'
                     : 'bg-[#141718] text-[#b3b3b3] border border-white/10 hover:text-[#D4FAE6] hover:border-[#5EFC8D]/40'
                 }`}
               >
@@ -129,9 +127,7 @@ export default function FaqAccordion({
             return (
               <div
                 key={idx}
-                className={`rounded-[24px] border transition-all duration-300 overflow-hidden bg-[#141718]/90 backdrop-blur-sm ${
-                  isOpen
-                    ? 'border-[#5EFC8D]/40 shadow-[0_0_25px_rgba(94, 252, 141, 0.08)]'
+                className={`rounded-[24px] border transition-all duration-300 overflow-hidden bg-[#141718]/90 backdrop-blur-sm ${ isOpen ?'border-[#5EFC8D]/40 shadow-[0_0_25px_rgba(94, 252, 141, 0.08)]'
                     : 'border-white/10 hover:border-white/20'
                 }`}
               >
@@ -148,9 +144,7 @@ export default function FaqAccordion({
                       {item.question}
                     </span>
                     <div
-                      className={`w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0 transition-transform duration-300 ${
-                        isOpen
-                          ? 'bg-[#5EFC8D] text-black rotate-180 shadow-[0_0_15px_rgba(94, 252, 141, 0.4)]'
+                      className={`w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0 transition-transform duration-300 ${ isOpen ?'bg-[#5EFC8D] text-black rotate-180 shadow-[0_0_15px_rgba(94, 252, 141, 0.4)]'
                           : 'bg-[#1D2224] text-[#b3b3b3] border border-white/10'
                       }`}
                     >

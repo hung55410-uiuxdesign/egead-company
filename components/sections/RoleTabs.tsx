@@ -83,18 +83,14 @@ export default function RoleTabs({
                 tabIndex={isActive ? 0 : -1}
                 type="button"
                 onClick={() => setActiveTabId(tab.id)}
-                className={`relative px-6 py-3 rounded-full text-xs sm:text-sm font-medium font-montserrat transition-all duration-300 flex items-center gap-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#5EFC8D] ${
-                  isActive
-                    ? 'bg-[#5EFC8D] text-black shadow-[0_0_25px_rgba(94, 252, 141, 0.35)] scale-105'
+                className={`relative px-6 py-3 rounded-full text-xs sm:text-sm font-medium font-montserrat transition-all duration-300 flex items-center gap-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#5EFC8D] ${ isActive ?'bg-[#5EFC8D] text-black shadow-[0_0_25px_rgba(94, 252, 141, 0.35)] scale-105'
                     : 'bg-[#141718] text-[#b3b3b3] border border-white/10 hover:text-[#D4FAE6] hover:border-[#5EFC8D]/40'
                 }`}
               >
                 <span>{tab.label}</span>
                 {tab.badge && (
                   <span
-                    className={`text-[10px] uppercase tracking-wider px-1.5 py-0.5 rounded font-medium ${
-                      isActive
-                        ? 'bg-black/20 text-black font-medium'
+                    className={`text-[10px] px-1.5 py-0.5 rounded font-medium ${ isActive ?'bg-black/20 text-black font-medium'
                         : 'bg-[#5EFC8D]/10 text-[#5EFC8D]'
                     }`}
                   >
@@ -117,7 +113,7 @@ export default function RoleTabs({
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
             {/* Left Content Column */}
             <div className="lg:col-span-7 flex flex-col">
-              <span className="text-xs font-medium uppercase tracking-widest text-[#5EFC8D] mb-2 font-montserrat">
+              <span className="text-xs font-medium text-[#5EFC8D] mb-2 font-montserrat">
                 Target Architecture
               </span>
               <h3 className="text-2xl sm:text-3xl lg:text-4xl font-medium text-[#D4FAE6] font-montserrat leading-tight mb-4">
@@ -146,10 +142,10 @@ export default function RoleTabs({
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 py-4 mb-8 border-y border-white/10">
                   {activeTab.metrics.map((m, idx) => (
                     <div key={idx}>
-                      <div className="text-2xl sm:text-3xl font-medium text-[#5EFC8D] font-montserrat tracking-tight">
+                      <div className="text-2xl sm:text-3xl font-medium text-[#5EFC8D] font-montserrat">
                         {m.value}
                       </div>
-                      <div className="text-xs text-[#b3b3b3] uppercase tracking-wider font-montserrat mt-0.5">
+                      <div className="text-xs text-[#b3b3b3] font-montserrat mt-0.5">
                         {m.label}
                       </div>
                     </div>

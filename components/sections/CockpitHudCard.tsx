@@ -73,13 +73,11 @@ export default function CockpitHudCard({ className = '' }: CockpitHudCardProps) 
       {/* Title Bar */}
       <div className="flex items-center justify-between pb-4 border-b border-[#262C30] mb-6">
         <div className="flex items-center gap-2">
-          <Activity className="w-4 h-4 text-[#10E774] animate-pulse motion-reduce:animate-none" aria-hidden="true" />
-          <span className="text-xs uppercase tracking-widest font-bold text-white font-montserrat">
+          <span className="text-xs font-bold text-white font-montserrat">
             Live Operations Cockpit HUD
           </span>
         </div>
         <div className="flex items-center gap-2">
-          <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping motion-reduce:animate-none" />
           <span className="text-[10px] font-montserrat font-bold bg-[#10E774]/10 text-[#10E774] px-2.5 py-1 rounded-full border border-[#10E774]/20">
             Multi-Channel Mesh: Optimal
           </span>
@@ -89,7 +87,7 @@ export default function CockpitHudCard({ className = '' }: CockpitHudCardProps) 
       {/* Aggregate KPI Strip */}
       <div className="grid grid-cols-2 gap-3 mb-6 font-montserrat">
         <div className="p-3.5 rounded-2xl bg-[#0A0D0E]/90 border border-[#262C30]">
-          <span className="text-[11px] uppercase tracking-wider text-[#8C8C8C] block mb-1">
+          <span className="text-[11px] text-[#8C8C8C] block mb-1">
             Global Throughput Rate
           </span>
           <div className="flex items-baseline gap-2">
@@ -101,7 +99,7 @@ export default function CockpitHudCard({ className = '' }: CockpitHudCardProps) 
         </div>
 
         <div className="p-3.5 rounded-2xl bg-[#0A0D0E]/90 border border-[#262C30]">
-          <span className="text-[11px] uppercase tracking-wider text-[#8C8C8C] block mb-1">
+          <span className="text-[11px] text-[#8C8C8C] block mb-1">
             Median Sync Latency
           </span>
           <div className="flex items-baseline gap-2">
@@ -152,7 +150,6 @@ export default function CockpitHudCard({ className = '' }: CockpitHudCardProps) 
       {/* Safety Buffer Guarantee Footer */}
       <div className="mt-6 pt-4 border-t border-[#262C30] flex items-center justify-between text-xs text-[#8C8C8C] font-montserrat">
         <span className="flex items-center gap-1.5 text-white">
-          <CheckCircle2 className="w-3.5 h-3.5 text-[#10E774]" aria-hidden="true" />
           Safety Stock Buffer Protected
         </span>
         <span className="font-montserrat text-[11px] text-emerald-400 font-semibold">

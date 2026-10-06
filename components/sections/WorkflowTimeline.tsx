@@ -60,9 +60,7 @@ export default function WorkflowTimeline({
 
           <ol
             aria-label="Workflow pipeline sequential steps"
-            className={`grid gap-6 relative z-10 list-none p-0 m-0 ${
-              steps.length === 3
-                ? 'grid-cols-3'
+            className={`grid gap-6 relative z-10 list-none p-0 m-0 ${ steps.length === 3 ?'grid-cols-3'
                 : steps.length === 4
                 ? 'grid-cols-4'
                 : steps.length === 5
@@ -82,7 +80,7 @@ export default function WorkflowTimeline({
                     </span>
                   )}
                   {item.badge && (
-                    <span className="absolute -bottom-2.5 px-2 py-0.5 rounded-full bg-[#5EFC8D] text-black text-[9px] font-medium uppercase tracking-wider font-montserrat">
+                    <span className="absolute -bottom-2.5 px-2 py-0.5 rounded-full bg-[#5EFC8D] text-black text-[9px] font-medium font-montserrat">
                       {item.badge}
                     </span>
                   )}
@@ -90,7 +88,7 @@ export default function WorkflowTimeline({
 
                 {/* Card Info */}
                 <div className="w-full p-6 rounded-[24px] bg-[#141718]/90 border border-white/10 group-hover:border-[#5EFC8D]/40 transition-all duration-300 flex flex-col flex-grow">
-                  <span className="text-xs font-medium text-[#5EFC8D] uppercase tracking-widest font-montserrat mb-1">
+                  <span className="text-xs font-medium text-[#5EFC8D] font-montserrat mb-1">
                     Step {item.step}
                   </span>
                   <h3 className="text-lg font-medium text-[#D4FAE6] font-montserrat mb-2">
@@ -125,7 +123,7 @@ export default function WorkflowTimeline({
               {/* Card */}
               <div className="p-6 rounded-[22px] bg-[#141718] border border-white/10 hover:border-[#5EFC8D]/40 transition-colors">
                 <div className="flex items-center justify-between mb-2">
-                  <span className="text-xs font-medium text-[#5EFC8D] uppercase tracking-wider font-montserrat">
+                  <span className="text-xs font-medium text-[#5EFC8D] font-montserrat">
                     Step {item.step}
                   </span>
                   {item.badge && (

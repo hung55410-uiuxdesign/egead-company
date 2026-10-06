@@ -130,9 +130,7 @@ export function TransformationMatrix({
               type="button"
               onClick={() => setActiveCategory(cat.key as any)}
               aria-pressed={activeCategory === cat.key}
-              className={`px-3.5 py-1.5 rounded-lg text-xs font-montserrat font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#10E774] ${
-                activeCategory === cat.key
-                  ? 'bg-[#10E774] text-black font-bold shadow-md shadow-[#10E774]/20'
+              className={`px-3.5 py-1.5 rounded-lg text-xs font-montserrat font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#10E774] ${ activeCategory === cat.key ?'bg-[#10E774] text-black font-bold shadow-md shadow-[#10E774]/20'
                   : 'bg-white/5 text-gray-400 hover:text-white hover:bg-white/10 border border-white/10'
               }`}
             >
@@ -155,7 +153,7 @@ export function TransformationMatrix({
           className="w-full text-left border-collapse min-w-[720px]"
         >
           <thead>
-            <tr className="border-b border-white/10 text-xs font-montserrat uppercase tracking-wider text-gray-400">
+            <tr className="border-b border-white/10 text-xs font-montserrat text-gray-400">
               <th scope="col" className="py-4 pr-6 font-semibold w-2/5">
                 Key Performance Indicator
               </th>
@@ -214,8 +212,7 @@ export function TransformationMatrix({
                   {/* Improvement Delta Badge */}
                   <td className="py-5 pl-4 align-top text-right">
                     <span 
-                      className={`inline-flex items-center gap-1 px-3 py-1.5 rounded-full font-montserrat text-xs font-bold ${
-                        item.trendType === 'decrease-positive'
+                      className={`inline-flex items-center gap-1 px-3 py-1.5 rounded-full font-montserrat text-xs font-bold ${ item.trendType ==='decrease-positive'
                           ? 'bg-[#10E774]/15 text-[#10E774] border border-[#10E774]/30'
                           : 'bg-emerald-400/15 text-emerald-300 border border-emerald-400/30'
                       }`}

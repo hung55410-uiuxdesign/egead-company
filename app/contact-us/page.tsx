@@ -57,7 +57,7 @@ export default function ContactUsPage() {
           <p className="text-base sm:text-lg font-normal text-[#D4FAE6] mb-4 font-montserrat">
             Get in Touch
           </p>
-          <h1 className="text-4xl sm:text-6xl lg:text-[72px] font-medium tracking-tight leading-[1.08] text-[#D4FAE6] font-montserrat mb-6">
+          <h1 className="text-4xl sm:text-6xl lg:text-[72px] font-medium leading-[1.08] text-[#D4FAE6] font-montserrat mb-6">
             Automate Operations, <br />
             <span className="text-[#5EFC8D] font-medium">Scale Globally.</span>
           </h1>
@@ -88,7 +88,7 @@ export default function ContactUsPage() {
                 </p>
                 <button
                   onClick={() => setSubmitted(false)}
-                  className="mt-6 px-6 py-2.5 rounded-full bg-[#5EFC8D] text-black text-xs font-bold uppercase tracking-wider"
+                  className="mt-6 px-6 py-2.5 rounded-full bg-[#5EFC8D] text-black text-xs font-bold"
                 >
                   Send another inquiry
                 </button>
@@ -97,7 +97,7 @@ export default function ContactUsPage() {
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                   <div>
-                    <label className="block text-xs font-semibold uppercase tracking-wider text-gray-300 mb-2">
+                    <label className="block text-xs font-semibold text-gray-300 mb-2">
                       Full Name *
                     </label>
                     <input
@@ -110,7 +110,7 @@ export default function ContactUsPage() {
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-semibold uppercase tracking-wider text-gray-300 mb-2">
+                    <label className="block text-xs font-semibold text-gray-300 mb-2">
                       Business Email *
                     </label>
                     <input
@@ -126,7 +126,7 @@ export default function ContactUsPage() {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                   <div>
-                    <label className="block text-xs font-semibold uppercase tracking-wider text-gray-300 mb-2">
+                    <label className="block text-xs font-semibold text-gray-300 mb-2">
                       Company / Organization *
                     </label>
                     <input
@@ -139,7 +139,7 @@ export default function ContactUsPage() {
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-semibold uppercase tracking-wider text-gray-300 mb-2">
+                    <label className="block text-xs font-semibold text-gray-300 mb-2">
                       Area of Interest
                     </label>
                     <select
@@ -157,7 +157,7 @@ export default function ContactUsPage() {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold uppercase tracking-wider text-gray-300 mb-2">
+                  <label className="block text-xs font-semibold text-gray-300 mb-2">
                     Project Overview or Message *
                   </label>
                   <textarea
@@ -248,7 +248,7 @@ export default function ContactUsPage() {
               key={idx}
               className="p-6 rounded-2xl bg-[#141718] border border-white/10 hover:border-[#5EFC8D]/40 transition duration-300"
             >
-              <span className="text-xs text-[#5EFC8D] uppercase block mb-1 font-normal">
+              <span className="text-xs text-[#5EFC8D] block mb-1 font-normal">
                 {off.type}
               </span>
               <h3 className="text-lg sm:text-xl font-medium text-[#D4FAE6] mb-2 font-montserrat">{off.country}</h3>

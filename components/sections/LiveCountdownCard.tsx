@@ -29,7 +29,7 @@ export default function LiveCountdownCard({ className = '' }: LiveCountdownCardP
       <div className="flex items-center justify-between pb-4 border-b border-[#262C30] mb-6">
         <div className="flex items-center gap-2">
           <Clock className="w-4 h-4 text-[#10E774] animate-spin motion-reduce:animate-none" style={{ animationDuration: '6s' }} aria-hidden="true" />
-          <span className="text-xs uppercase tracking-widest font-bold text-white font-montserrat">
+          <span className="text-xs font-bold text-white font-montserrat">
             24-Hour Production SLA Clock
           </span>
         </div>
@@ -40,18 +40,18 @@ export default function LiveCountdownCard({ className = '' }: LiveCountdownCardP
 
       {/* Countdown Visual Digits */}
       <div className="text-center py-4 bg-[#0A0D0E]/90 rounded-2xl border border-[#262C30] mb-6">
-        <span className="text-[11px] uppercase tracking-wider text-[#8C8C8C] font-montserrat block mb-1">
+        <span className="text-[11px] text-[#8C8C8C] font-montserrat block mb-1">
           Guaranteed Carrier Origin Scan Window
         </span>
         <time
           dateTime={`PT${hours}H${minutes}M${seconds}S`}
           aria-label={`${hours} hours, ${minutes} minutes, and ${seconds} seconds remaining`}
-          className="text-4xl sm:text-5xl font-extrabold text-[#10E774] font-montserrat tracking-wider drop-shadow-[0_0_20px_rgba(16, 231, 116, 0.3)] block"
+          className="text-4xl sm:text-5xl font-extrabold text-[#10E774] font-montserrat drop-shadow-[0_0_20px_rgba(16, 231, 116, 0.3)] block"
         >
           {hours}:{minutes}:{seconds}
         </time>
         <span className="text-[10px] text-emerald-400 font-montserrat mt-1 inline-block">
-          ● Target: Same-Day Domestic Hand-Off
+          Target: Same-Day Domestic Hand-Off
         </span>
       </div>
 

@@ -126,9 +126,7 @@ export default function NetMarginLedger({
                     aria-selected={isActive}
                     aria-controls="financial-ledger-details"
                     onClick={() => setSelectedOrderId(order.id)}
-                    className={`px-3.5 py-1.5 rounded-xl text-xs font-montserrat font-semibold transition-all duration-200 flex items-center gap-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#10E774] ${
-                      isActive
-                        ? 'bg-[#1D2224] text-white border border-[#10E774]/40 shadow-[0_0_10px_rgba(16, 231, 116, 0.15)]'
+                    className={`px-3.5 py-1.5 rounded-xl text-xs font-montserrat font-semibold transition-all duration-200 flex items-center gap-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#10E774] ${ isActive ?'bg-[#1D2224] text-white border border-[#10E774]/40 shadow-[0_0_10px_rgba(16, 231, 116, 0.15)]'
                         : 'text-[#8C8C8C] hover:text-white hover:bg-white/5'
                     }`}
                   >
@@ -170,7 +168,7 @@ export default function NetMarginLedger({
             {/* Header info */}
             <div className="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-[#262C30]">
               <div>
-                <span className="text-xs font-montserrat text-[#b3b3b3] uppercase tracking-wider block">
+                <span className="text-xs font-montserrat text-[#b3b3b3] block">
                   Order Inspection: {activeOrder.orderNumber} • {activeOrder.platform}
                 </span>
                 <h3 className="text-lg sm:text-xl font-medium text-[#D4FAE6] font-montserrat mt-0.5">
@@ -187,7 +185,7 @@ export default function NetMarginLedger({
             {/* Full Cost Deduction Breakdown Table */}
             <div className="overflow-x-auto">
               <table className="w-full text-left font-montserrat text-xs sm:text-sm" role="table">
-                <thead className="text-[11px] text-[#b3b3b3] uppercase border-b border-white/10 font-montserrat">
+                <thead className="text-[11px] text-[#b3b3b3] border-b border-white/10 font-montserrat">
                   <tr>
                     <th scope="col" className="pb-3 pr-4 font-medium">Ledger Component</th>
                     <th scope="col" className="pb-3 px-4 font-medium">Operational Category</th>

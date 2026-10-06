@@ -68,10 +68,10 @@ export default function InsightsSection() {
                 {/* Left col: Badges, Title, Date */}
                 <div className="lg:col-span-7 flex flex-col justify-between">
                   <div className="flex items-center gap-3 mb-4">
-                    <span className="px-2.5 py-0.5 rounded-full border border-white/20 text-[11px] font-medium tracking-wider text-[#D4FAE6] uppercase font-montserrat">
+                    <span className="px-2.5 py-0.5 rounded-full border border-white/20 text-[11px] font-medium text-[#D4FAE6] font-montserrat">
                       {item.tag}
                     </span>
-                    <span className="text-[11px] text-[#b3b3b3] font-medium tracking-wider uppercase font-montserrat">
+                    <span className="text-[11px] text-[#b3b3b3] font-medium font-montserrat">
                       {item.readTime}
                     </span>
                   </div>

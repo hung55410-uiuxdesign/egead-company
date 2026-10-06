@@ -90,7 +90,7 @@ export default function ArticleDetailPage({ params }: { params: { slug: string }
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 mb-8">
         <Link
           href="/insights"
-          className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-gray-400 hover:text-[#10E774] transition"
+          className="inline-flex items-center gap-2 text-xs font-semibold text-gray-400 hover:text-[#10E774] transition"
         >
           <ArrowLeft className="w-4 h-4" />
           <span>Back to Insights</span>
@@ -100,7 +100,7 @@ export default function ArticleDetailPage({ params }: { params: { slug: string }
       {/* Header */}
       <header className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 mb-12">
         <div className="flex items-center gap-3 mb-6">
-          <span className="px-3.5 py-1 rounded-full bg-[#5EFC8D] text-black font-medium text-xs tracking-wider">
+          <span className="px-3.5 py-1 rounded-full bg-[#5EFC8D] text-black font-medium text-xs">
             {article.tag}
           </span>
           <div className="flex items-center gap-4 text-xs text-gray-400 font-montserrat">
@@ -116,7 +116,7 @@ export default function ArticleDetailPage({ params }: { params: { slug: string }
           </div>
         </div>
 
-        <h1 className="text-3xl sm:text-5xl lg:text-[54px] font-medium tracking-tight leading-[1.15] text-[#D4FAE6] font-montserrat mb-6">
+        <h1 className="text-3xl sm:text-5xl lg:text-[54px] font-medium leading-[1.15] text-[#D4FAE6] font-montserrat mb-6">
           {article.title}
         </h1>
 

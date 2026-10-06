@@ -27,7 +27,7 @@ export function EcosystemHeroGraphic({ className = '' }: EcosystemHeroGraphicPro
 
       {/* Top Telemetry Header */}
       <div className="flex items-center justify-between pb-4 mb-6 border-b border-white/10 text-xs font-montserrat">
-        <span className="text-gray-400 uppercase tracking-wider flex items-center gap-1.5 font-semibold">
+        <span className="text-gray-400 flex items-center gap-1.5 font-semibold">
           <Activity className="w-3.5 h-3.5 text-[#10E774]" aria-hidden="true" />
           Global Commerce Mesh
         </span>
