@@ -1,7 +1,7 @@
 import { describe, test, expect } from 'bun:test';
 import React from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
-import AllServicesPage, { metadata } from '../app/services/all-services/page';
+import AllServicesPage, { metadata } from '../app/(public)/services/all-services/page';
 
 describe('Phase 2 All Services Page Verification', () => {
   const html = renderToStaticMarkup(<AllServicesPage />);

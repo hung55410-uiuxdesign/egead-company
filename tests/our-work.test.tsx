@@ -1,7 +1,7 @@
 import { describe, test, expect } from 'bun:test';
 import React from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
-import OurWorkPage, { metadata } from '../app/our-work/page';
+import OurWorkPage, { metadata } from '../app/(public)/our-work/page';
 import {
   CaseStudiesPortfolio,
   TransformationMatrix,

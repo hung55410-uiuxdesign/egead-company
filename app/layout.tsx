@@ -1,8 +1,6 @@
 import type { Metadata } from 'next';
 import { Montserrat } from 'next/font/google';
 import './globals.css';
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
 
 const montserrat = Montserrat({
   subsets: ['latin'],
@@ -39,9 +37,7 @@ export default function RootLayout({
       data-scroll-behavior="smooth"
     >
       <body className="bg-[#0A0D0E] text-white min-h-screen flex flex-col font-sans selection:bg-[#10E774] selection:text-black">
-        <Header />
-        <main className="flex-grow">{children}</main>
-        <Footer />
+        {children}
       </body>
     </html>
   );

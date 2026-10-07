@@ -1,7 +1,7 @@
 import { describe, test, expect } from 'bun:test';
 import React from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
-import PartnersPage, { metadata } from '../app/partners/page';
+import PartnersPage, { metadata } from '../app/(public)/partners/page';
 import {
   EcosystemMatrix,
   IntegrationBridgeVisualizer,

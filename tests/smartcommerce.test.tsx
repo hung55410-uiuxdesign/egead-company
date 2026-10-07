@@ -1,7 +1,7 @@
 import { describe, test, expect } from 'bun:test';
 import React from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
-import SmartCommercePage, { metadata } from '../app/smartcommerce/page';
+import SmartCommercePage, { metadata } from '../app/(public)/smartcommerce/page';
 import {
   CockpitHudCard,
   InventoryBufferEngine,
