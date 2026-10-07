@@ -7,14 +7,10 @@ import {
   Eye,
   Plus,
   ArrowRight,
-  TrendingUp,
-  FolderTree,
-  ExternalLink,
+  ArrowUpRight,
 } from 'lucide-react';
 import { getAllPosts, getBlogStats, getCategories } from '@/lib/blogs';
-import { Card } from '@astryxdesign/core/Card';
-import { Badge } from '@astryxdesign/core/Badge';
-import { Button } from '@astryxdesign/core/Button';
+import { Card, Button, Badge } from '@astryxdesign/core';
 
 export const dynamic = 'force-dynamic';
 
@@ -25,139 +21,146 @@ export default async function AdminDashboardPage() {
   const categories = await getCategories();
 
   return (
-    <div className="space-y-8 font-montserrat max-w-7xl mx-auto">
-      {/* Welcome Banner - Astryx Card */}
-      <Card variant="default" padding={6} className="overflow-hidden bg-white border border-slate-200/90 shadow-xs rounded-xl">
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
-          <div>
-            <div className="mb-3">
-              <Badge variant="neutral" label="Hệ thống quản trị Blog CMS · Astryx Design" />
+    <div className="space-y-6 font-open-sans max-w-7xl mx-auto pb-8">
+      {/* =========================================================================
+          HERO WELCOME BANNER (Astryx Card)
+          ========================================================================= */}
+      <Card variant="default" className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-white via-white to-emerald-50/30 p-6 sm:p-8">
+        <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
+          <div className="space-y-2">
+            <div>
+              <Badge label="Hệ thống quản trị nội dung E-GEAD CMS" variant="success" />
             </div>
-            <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
-              Xin chào, Quản trị viên
-            </h2>
-            <p className="text-slate-600 text-sm mt-1 max-w-2xl font-normal">
-              Quản lý các bài viết, chuyên mục kiến thức E-commerce, chiến lược mở rộng thị trường và tin tức công ty.
+            <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900">
+              Xin chào, Quản trị viên 👋
+            </h1>
+            <p className="text-slate-600 text-sm max-w-2xl leading-relaxed">
+              Quản lý và xuất bản các bài viết chuyên sâu, báo cáo thương mại điện tử xuyên biên giới và tài liệu doanh nghiệp.
             </p>
           </div>
 
-          <div className="flex flex-wrap items-center gap-3">
+          <div className="flex flex-wrap items-center gap-3 shrink-0">
             <Button
               label="Tạo bài viết mới"
               variant="primary"
-              size="md"
-              icon={<Plus className="w-4 h-4 stroke-[2.5]" />}
               href="/admin/blogs/new"
             />
             <Button
-              label="Xem tất cả bài"
+              label={`Quản lý tất cả (${stats.totalPosts})`}
               variant="secondary"
-              size="md"
-              icon={<FileText className="w-4 h-4 text-slate-500" />}
               href="/admin/blogs"
             />
           </div>
         </div>
       </Card>
 
-      {/* Stats Grid - Astryx Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
-        <Card variant="default" padding={4} className="bg-white border border-slate-200/90 rounded-xl hover:border-slate-400 transition-colors shadow-xs group">
+      {/* =========================================================================
+          KEY STATS CARDS (Astryx Cards - 4 Visual Metrics)
+          ========================================================================= */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
+        {/* Metric 1: Total Posts */}
+        <Card variant="default" className="rounded-2xl p-5 hover:border-slate-300 transition-colors">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold uppercase tracking-wider text-slate-500">
+            <span className="text-xs font-bold text-slate-500">
               Tổng số bài viết
             </span>
-            <div className="w-9 h-9 rounded-lg bg-blue-50 border border-blue-200 flex items-center justify-center text-blue-600">
-              <FileText className="w-4 h-4" />
+            <div className="w-10 h-10 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center text-blue-600">
+              <FileText className="w-5 h-5" />
             </div>
           </div>
-          <div className="mt-4 flex items-baseline gap-2">
-            <span className="text-3xl font-extrabold text-slate-900">{stats.totalPosts}</span>
-            <span className="text-xs text-slate-500">bài viết</span>
+          <div className="mt-3 flex items-baseline gap-2">
+            <span className="text-3xl font-extrabold text-slate-900">
+              {stats.totalPosts}
+            </span>
+            <span className="text-xs font-medium text-slate-400">bài viết</span>
           </div>
-          <div className="mt-3 flex items-center gap-1.5 text-xs text-slate-500">
-            <TrendingUp className="w-3.5 h-3.5 text-emerald-600" />
-            <span>Tất cả nội dung trong hệ thống</span>
+          <div className="mt-3">
+            <Badge label="Toàn bộ hệ thống" variant="info" />
           </div>
         </Card>
 
-        <Card variant="default" padding={4} className="bg-white border border-slate-200/90 rounded-xl hover:border-slate-400 transition-colors shadow-xs group">
+        {/* Metric 2: Published */}
+        <Card variant="default" className="rounded-2xl p-5 hover:border-slate-300 transition-colors">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold uppercase tracking-wider text-slate-500">
+            <span className="text-xs font-bold text-slate-500">
               Đã xuất bản
             </span>
-            <div className="w-9 h-9 rounded-lg bg-emerald-50 border border-emerald-200 flex items-center justify-center text-emerald-600">
-              <CheckCircle2 className="w-4 h-4" />
+            <div className="w-10 h-10 rounded-xl bg-emerald-50 border border-emerald-100 flex items-center justify-center text-emerald-600">
+              <CheckCircle2 className="w-5 h-5" />
             </div>
           </div>
-          <div className="mt-4 flex items-baseline gap-2">
+          <div className="mt-3 flex items-baseline gap-2">
             <span className="text-3xl font-extrabold text-emerald-600">
               {stats.publishedPosts}
             </span>
-            <span className="text-xs text-slate-500">công khai</span>
+            <span className="text-xs font-medium text-slate-400">công khai</span>
           </div>
-          <div className="mt-3 text-xs text-slate-500">
-            Hiển thị trên trang Insights
+          <div className="mt-3">
+            <Badge label="Phát hành Insights" variant="success" />
           </div>
         </Card>
 
-        <Card variant="default" padding={4} className="bg-white border border-slate-200/90 rounded-xl hover:border-slate-400 transition-colors shadow-xs group">
+        {/* Metric 3: Drafts */}
+        <Card variant="default" className="rounded-2xl p-5 hover:border-slate-300 transition-colors">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold uppercase tracking-wider text-slate-500">
+            <span className="text-xs font-bold text-slate-500">
               Bản nháp
             </span>
-            <div className="w-9 h-9 rounded-lg bg-amber-50 border border-amber-200 flex items-center justify-center text-amber-600">
-              <Clock className="w-4 h-4" />
+            <div className="w-10 h-10 rounded-xl bg-amber-50 border border-amber-100 flex items-center justify-center text-amber-600">
+              <Clock className="w-5 h-5" />
             </div>
           </div>
-          <div className="mt-4 flex items-baseline gap-2">
+          <div className="mt-3 flex items-baseline gap-2">
             <span className="text-3xl font-extrabold text-amber-600">
               {stats.draftPosts}
             </span>
-            <span className="text-xs text-slate-500">đang soạn</span>
+            <span className="text-xs font-medium text-slate-400">đang soạn</span>
           </div>
-          <div className="mt-3 text-xs text-slate-500">
-            Chưa xuất bản ra công chúng
+          <div className="mt-3">
+            <Badge label="Chưa công khai" variant="warning" />
           </div>
         </Card>
 
-        <Card variant="default" padding={4} className="bg-white border border-slate-200/90 rounded-xl hover:border-slate-400 transition-colors shadow-xs group">
+        {/* Metric 4: Total Views */}
+        <Card variant="default" className="rounded-2xl p-5 hover:border-slate-300 transition-colors">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold uppercase tracking-wider text-slate-500">
+            <span className="text-xs font-bold text-slate-500">
               Tổng lượt xem
             </span>
-            <div className="w-9 h-9 rounded-lg bg-purple-50 border border-purple-200 flex items-center justify-center text-purple-600">
-              <Eye className="w-4 h-4" />
+            <div className="w-10 h-10 rounded-xl bg-purple-50 border border-purple-100 flex items-center justify-center text-purple-600">
+              <Eye className="w-5 h-5" />
             </div>
           </div>
-          <div className="mt-4 flex items-baseline gap-2">
+          <div className="mt-3 flex items-baseline gap-2">
             <span className="text-3xl font-extrabold text-slate-900">
               {stats.totalViews.toLocaleString()}
             </span>
-            <span className="text-xs text-slate-500">lượt</span>
+            <span className="text-xs font-medium text-slate-400">lượt đọc</span>
           </div>
-          <div className="mt-3 text-xs text-slate-500">
-            Lượt đọc ước tính
+          <div className="mt-3">
+            <Badge label="Độc giả B2B" variant="purple" />
           </div>
         </Card>
       </div>
 
-      {/* Main Content: Recent Posts & Quick Categories */}
+      {/* =========================================================================
+          MAIN CONTENT AREA (Recent Posts Astryx Card + Side Widgets)
+          ========================================================================= */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Recent Posts Table */}
-        <Card variant="default" padding={0} className="lg:col-span-2 overflow-hidden bg-white border border-slate-200/90 rounded-xl shadow-xs">
-          <div className="p-5 border-b border-slate-200 flex items-center justify-between">
+        {/* Left Column (2 Cols): Recent Articles Table */}
+        <Card variant="default" className="lg:col-span-2 rounded-2xl overflow-hidden p-0">
+          <div className="px-6 py-4 border-b border-slate-200/80 flex items-center justify-between bg-slate-50/50">
             <div>
-              <h3 className="text-base font-bold text-slate-900">Bài viết gần đây</h3>
+              <h2 className="text-base font-bold text-slate-900">Bài viết gần đây</h2>
               <p className="text-xs text-slate-500 mt-0.5">
-                Các bài viết mới nhất đã tạo trong hệ thống
+                Các bài viết mới nhất đã tạo hoặc chỉnh sửa trong hệ thống
               </p>
             </div>
             <Link
               href="/admin/blogs"
-              className="text-xs font-bold text-slate-700 hover:text-slate-900 inline-flex items-center gap-1 transition-colors"
+              className="inline-flex items-center gap-1 text-xs font-semibold text-slate-700 hover:text-emerald-700 transition-colors"
             >
-              <span>Xem tất cả</span>
+              <span>Xem tất cả bài</span>
               <ArrowRight className="w-3.5 h-3.5" />
             </Link>
           </div>
@@ -166,35 +169,41 @@ export default async function AdminDashboardPage() {
             {recentPosts.map((post) => (
               <div
                 key={post.id}
-                className="p-4 sm:p-5 hover:bg-slate-50/80 transition-colors flex flex-col sm:flex-row sm:items-center justify-between gap-4"
+                className="p-5 hover:bg-slate-50/70 transition-colors flex flex-col sm:flex-row sm:items-center justify-between gap-4 group"
               >
+                {/* Post details */}
                 <div className="min-w-0 flex-1">
-                  <div className="flex items-center gap-2 mb-1.5 flex-wrap">
-                    <Badge variant="purple" label={post.tag || 'General'} />
+                  <div className="flex items-center gap-2 mb-2 flex-wrap">
                     <Badge
-                      variant={post.status === 'published' ? 'success' : 'warning'}
+                      label={post.tag || post.category || 'General'}
+                      variant="purple"
+                    />
+                    <Badge
                       label={post.status === 'published' ? 'Đã xuất bản' : 'Bản nháp'}
+                      variant={post.status === 'published' ? 'success' : 'warning'}
                     />
                     <span className="text-[11px] text-slate-400">
                       {post.date}
                     </span>
                   </div>
-                  <h4 className="text-sm font-bold text-slate-900 truncate hover:text-slate-700 transition-colors">
+
+                  <h3 className="text-sm font-bold text-slate-900 group-hover:text-emerald-700 transition-colors line-clamp-1">
                     <Link href={`/admin/blogs/${post.id}`}>{post.title}</Link>
-                  </h4>
-                  <p className="text-xs text-slate-500 line-clamp-1 mt-0.5">
-                    {post.excerpt}
+                  </h3>
+                  <p className="text-xs text-slate-500 line-clamp-1 mt-1">
+                    {post.excerpt || 'Chưa có mô tả tóm tắt...'}
                   </p>
                 </div>
 
-                <div className="flex items-center gap-2 shrink-0">
+                {/* Actions */}
+                <div className="flex items-center gap-2 shrink-0 self-end sm:self-auto">
                   <Link
                     href={`/articles/${post.slug}`}
                     target="_blank"
-                    className="p-2 text-slate-400 hover:text-slate-700 rounded-lg hover:bg-slate-100 transition-colors"
-                    title="Xem trên web"
+                    className="p-1.5 text-slate-400 hover:text-slate-800 rounded-lg hover:bg-slate-100 border border-transparent hover:border-slate-200 transition-colors"
+                    title="Xem trên trang website live"
                   >
-                    <ExternalLink className="w-4 h-4" />
+                    <ArrowUpRight className="w-4 h-4" />
                   </Link>
                   <Button
                     label="Chỉnh sửa"
@@ -208,18 +217,17 @@ export default async function AdminDashboardPage() {
           </div>
         </Card>
 
-        {/* Right Sidebar: Categories & Quick Links */}
+        {/* Right Column (1 Col): Categories & Publishing Tips */}
         <div className="space-y-6">
           {/* Categories Card */}
-          <Card variant="default" padding={5} className="bg-white border border-slate-200/90 rounded-xl shadow-xs">
-            <div className="flex items-center justify-between mb-4">
-              <h3 className="text-sm font-bold text-slate-900 flex items-center gap-2">
-                <FolderTree className="w-4 h-4 text-slate-700" />
-                <span>Chuyên mục ({categories.length})</span>
-              </h3>
+          <Card variant="default" className="rounded-2xl p-5">
+            <div className="flex items-center justify-between mb-4 border-b border-slate-100 pb-3">
+              <h2 className="text-sm font-bold text-slate-900">
+                Chuyên mục ({categories.length})
+              </h2>
               <Link
                 href="/admin/categories"
-                className="text-xs font-semibold text-slate-500 hover:text-slate-800 transition-colors"
+                className="text-xs font-semibold text-slate-500 hover:text-emerald-700 transition-colors"
               >
                 Quản lý
               </Link>
@@ -229,28 +237,28 @@ export default async function AdminDashboardPage() {
               {categories.map((cat) => (
                 <div
                   key={cat.id}
-                  className="flex items-center justify-between p-2.5 rounded-lg bg-slate-50 border border-slate-100 hover:border-slate-200 transition-colors"
+                  className="flex items-center justify-between p-3 rounded-xl bg-slate-50/80 hover:bg-slate-100/70 border border-slate-200/60 transition-colors"
                 >
-                  <span className="text-xs font-semibold text-slate-700">
+                  <span className="text-xs font-semibold text-slate-800">
                     {cat.name}
                   </span>
-                  <Badge variant="neutral" label={`${cat.count} bài`} />
+                  <Badge label={`${cat.count} bài`} variant="neutral" />
                 </div>
               ))}
             </div>
           </Card>
 
-          {/* Quick Info Box */}
-          <Card variant="default" padding={5} className="bg-slate-50 border border-slate-200/90 rounded-xl shadow-xs">
-            <h4 className="text-sm font-bold text-slate-900 mb-2">
-              Mẹo xuất bản bài viết
-            </h4>
+          {/* Publishing Tips Card */}
+          <Card variant="green" className="rounded-2xl p-5 relative overflow-hidden">
+            <h3 className="text-sm font-bold text-emerald-900 mb-2">
+              Mẹo tối ưu bài viết
+            </h3>
             <p className="text-xs text-slate-600 leading-relaxed mb-4">
               Các bài viết có thời gian đọc từ 4 - 6 phút kèm ảnh minh hoạ có tỷ lệ giữ chân khách hàng B2B cao gấp 2.4 lần.
             </p>
             <Link
               href="/admin/blogs/new"
-              className="inline-flex items-center gap-1.5 text-xs font-bold text-slate-900 hover:text-slate-700 transition-colors"
+              className="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-800 hover:text-emerald-900 transition-colors"
             >
               <span>Viết bài mới ngay</span>
               <ArrowRight className="w-3.5 h-3.5" />

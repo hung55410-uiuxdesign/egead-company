@@ -13,7 +13,7 @@ interface ArticleData {
   date: string;
   readTime: string;
   heroImage: string;
-  content: string[];
+  content: string | string[];
 }
 
 const articlesMap: Record<string, ArticleData> = {
@@ -259,12 +259,21 @@ export default async function ArticleDetailPage({
       </MotionDiv>
 
       {/* Content Body */}
-      <MotionSection className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 mb-28 space-y-6 text-base sm:text-lg text-[#b3b3b3] font-light leading-[1.75] font-montserrat">
-        {article.content.map((paragraph, idx) => (
-          <p key={idx} className="leading-[1.75]">
-            {paragraph}
-          </p>
-        ))}
+      <MotionSection className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 mb-28 text-base sm:text-lg text-[#b3b3b3] font-light leading-[1.75] font-montserrat">
+        {Array.isArray(article.content) ? (
+          <div className="space-y-6">
+            {article.content.map((paragraph, idx) => (
+              <p key={idx} className="leading-[1.75]">
+                {paragraph}
+              </p>
+            ))}
+          </div>
+        ) : (
+          <div
+            className="prose prose-invert max-w-none text-[#b3b3b3] font-light leading-[1.75] space-y-4"
+            dangerouslySetInnerHTML={{ __html: article.content }}
+          />
+        )}
       </MotionSection>
 
       <MotionDiv threshold={0.15}>

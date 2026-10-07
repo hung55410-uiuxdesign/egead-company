@@ -5,18 +5,14 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import {
   ArrowLeft,
-  Save,
-  Send,
-  Image as ImageIcon,
-  Sparkles,
-  Plus,
-  Trash2,
   AlertCircle,
   CheckCircle,
+  UploadCloud,
+  Loader2,
 } from 'lucide-react';
 import { BlogPost, BlogCategory, PostStatus } from '@/types/blog';
-import { Card } from '@astryxdesign/core/Card';
-import { Button } from '@astryxdesign/core/Button';
+import TipTapEditor from './TipTapEditor';
+import { Card, Button, Badge } from '@astryxdesign/core';
 
 interface BlogEditorClientProps {
   initialPost?: BlogPost | null;
@@ -30,6 +26,13 @@ export default function BlogEditorClient({
   const router = useRouter();
   const isEditing = Boolean(initialPost?.id);
 
+  // Initialize HTML content from string or legacy array
+  const initialContentHtml = initialPost?.content
+    ? Array.isArray(initialPost.content)
+      ? initialPost.content.map((p) => (p.startsWith('<') ? p : `<p>${p}</p>`)).join('')
+      : initialPost.content
+    : '';
+
   const [title, setTitle] = useState(initialPost?.title || '');
   const [slug, setSlug] = useState(initialPost?.slug || '');
   const [subtitle, setSubtitle] = useState(initialPost?.subtitle || '');
@@ -40,11 +43,7 @@ export default function BlogEditorClient({
     initialPost?.heroImage || '/assets/case_brother.jpg'
   );
   const [excerpt, setExcerpt] = useState(initialPost?.excerpt || '');
-  const [contentParagraphs, setContentParagraphs] = useState<string[]>(
-    initialPost?.content && initialPost.content.length > 0
-      ? initialPost.content
-      : ['']
-  );
+  const [contentHtml, setContentHtml] = useState<string>(initialContentHtml);
   const [authorName, setAuthorName] = useState(
     initialPost?.author?.name || 'E-GEAD Research Team'
   );
@@ -56,10 +55,39 @@ export default function BlogEditorClient({
   );
 
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isUploadingHero, setIsUploadingHero] = useState(false);
+  const [uploadHeroError, setUploadHeroError] = useState<string | null>(null);
   const [feedbackMessage, setFeedbackMessage] = useState<{
     type: 'success' | 'error';
     text: string;
   } | null>(null);
+
+  const handleHeroFileUpload = async (file: File) => {
+    try {
+      setIsUploadingHero(true);
+      setUploadHeroError(null);
+
+      const formData = new FormData();
+      formData.append('file', file);
+      formData.append('folder', 'egead_cms/covers');
+
+      const res = await fetch('/api/admin/upload', {
+        method: 'POST',
+        body: formData,
+      });
+
+      const data = await res.json();
+      if (data.success && data.url) {
+        setHeroImage(data.url);
+      } else {
+        setUploadHeroError(data.error || 'Tải ảnh bìa thất bại');
+      }
+    } catch {
+      setUploadHeroError('Lỗi kết nối khi tải ảnh lên Cloudinary');
+    } finally {
+      setIsUploadingHero(false);
+    }
+  };
 
   const generateSlugFromTitle = () => {
     if (!title) return;
@@ -72,25 +100,6 @@ export default function BlogEditorClient({
       .trim()
       .replace(/\s+/g, '-');
     setSlug(generated);
-  };
-
-  const handleParagraphChange = (index: number, value: string) => {
-    const updated = [...contentParagraphs];
-    updated[index] = value;
-    setContentParagraphs(updated);
-  };
-
-  const addParagraph = () => {
-    setContentParagraphs([...contentParagraphs, '']);
-  };
-
-  const removeParagraph = (index: number) => {
-    if (contentParagraphs.length === 1) {
-      setContentParagraphs(['']);
-      return;
-    }
-    const updated = contentParagraphs.filter((_, i) => i !== index);
-    setContentParagraphs(updated);
   };
 
   const handleSubmit = async (targetStatus?: PostStatus) => {
@@ -108,12 +117,11 @@ export default function BlogEditorClient({
       slug.trim() ||
       title
         .toLowerCase()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .replace(/[đĐ]/g, 'd')
         .replace(/[^a-z0-9]+/g, '-')
         .replace(/(^-|-$)/g, '');
-
-    const validParagraphs = contentParagraphs
-      .map((p) => p.trim())
-      .filter((p) => p.length > 0);
 
     const payload = {
       ...(initialPost?.id ? { id: initialPost.id } : {}),
@@ -125,7 +133,7 @@ export default function BlogEditorClient({
       readTime: readTime.trim(),
       heroImage: heroImage.trim(),
       excerpt: excerpt.trim(),
-      content: validParagraphs.length > 0 ? validParagraphs : [excerpt.trim() || title.trim()],
+      content: contentHtml.trim() || `<p>${excerpt.trim() || title.trim()}</p>`,
       author: {
         name: authorName.trim(),
         role: authorRole.trim(),
@@ -178,43 +186,41 @@ export default function BlogEditorClient({
   };
 
   return (
-    <div className="space-y-6 font-montserrat max-w-5xl mx-auto pb-16">
+    <div className="space-y-6 font-open-sans max-w-5xl mx-auto pb-16">
       {/* Top navigation & action header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div className="flex items-center gap-3">
           <Link
             href="/admin/blogs"
-            className="p-2 rounded-lg bg-white hover:bg-slate-50 text-slate-700 border border-slate-300 shadow-xs transition-colors"
+            className="p-2 rounded-lg bg-white hover:bg-slate-50 text-slate-700 border border-slate-300 transition-colors"
           >
             <ArrowLeft className="w-4 h-4" />
           </Link>
           <div>
-            <h2 className="text-xl sm:text-2xl font-extrabold text-slate-900 tracking-tight">
+            <h2 className="text-xl sm:text-2xl font-extrabold text-slate-900">
               {isEditing ? 'Chỉnh sửa bài viết' : 'Soạn thảo bài viết mới'}
             </h2>
             <p className="text-slate-500 text-xs mt-0.5">
               {isEditing
                 ? `ID: ${initialPost?.id} — Cập nhật lần cuối: ${initialPost?.date}`
-                : 'Điền thông tin và nội dung bài viết để xuất bản lên website'}
+                : 'Điền thông tin và soạn thảo nội dung với Rich Editor để xuất bản lên website'}
             </p>
           </div>
         </div>
 
-        <div className="flex items-center gap-2 self-end sm:self-auto">
+        <div className="flex items-center gap-2.5 self-end sm:self-auto">
           <Button
             label="Lưu nháp"
             variant="secondary"
-            size="md"
-            icon={<Save className="w-3.5 h-3.5" />}
             isDisabled={isSubmitting}
+            isLoading={isSubmitting}
             onClick={() => handleSubmit('draft')}
           />
           <Button
             label={status === 'published' ? 'Lưu & Xuất bản' : 'Xuất bản ngay'}
             variant="primary"
-            size="md"
-            icon={<Send className="w-3.5 h-3.5" />}
             isDisabled={isSubmitting}
+            isLoading={isSubmitting}
             onClick={() => handleSubmit('published')}
           />
         </div>
@@ -223,7 +229,7 @@ export default function BlogEditorClient({
       {/* Feedback banner */}
       {feedbackMessage && (
         <div
-          className={`p-4 rounded-xl flex items-center gap-3 border text-sm shadow-xs ${
+          className={`p-4 rounded-xl flex items-center gap-3 border text-sm ${
             feedbackMessage.type === 'success'
               ? 'bg-emerald-50 border-emerald-200 text-emerald-800'
               : 'bg-red-50 border-red-200 text-red-800'
@@ -243,9 +249,9 @@ export default function BlogEditorClient({
         {/* Left Column: Main Editor Fields (2 cols) */}
         <div className="lg:col-span-2 space-y-6">
           {/* Basic Info */}
-          <Card variant="default" padding={5} className="space-y-5 bg-white border border-slate-200/90 shadow-xs rounded-xl">
+          <Card variant="default" className="rounded-2xl p-6 space-y-5">
             <div>
-              <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">
+              <label className="block text-xs font-bold text-slate-700 mb-2">
                 Tiêu đề bài viết <span className="text-red-500">*</span>
               </label>
               <input
@@ -253,27 +259,25 @@ export default function BlogEditorClient({
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
                 placeholder="VD: The 2026 Global E-Commerce Playbook..."
-                className="w-full px-4 py-3 bg-white border border-slate-300 rounded-lg text-slate-900 font-semibold text-base placeholder-slate-400 focus:outline-none focus:border-slate-800 focus:ring-1 focus:ring-slate-800 transition-colors"
+                className="w-full px-4 py-3 bg-white border border-slate-200 rounded-xl text-slate-900 font-bold text-base placeholder-slate-400 focus:outline-none focus:border-slate-800 focus:ring-2 focus:ring-slate-800/10 transition-all"
               />
             </div>
 
             {/* Slug input with auto button */}
             <div>
               <div className="flex items-center justify-between mb-2">
-                <label className="text-xs font-bold uppercase tracking-wider text-slate-700">
+                <label className="text-xs font-bold text-slate-700">
                   Đường dẫn tĩnh (Slug)
                 </label>
-                <button
-                  type="button"
+                <Button
+                  label="Tự động tạo từ tiêu đề"
+                  variant="secondary"
+                  size="sm"
                   onClick={generateSlugFromTitle}
-                  className="inline-flex items-center gap-1 text-[11px] text-slate-700 hover:text-slate-900 font-semibold bg-slate-100 hover:bg-slate-200 px-2 py-1 rounded transition-colors"
-                >
-                  <Sparkles className="w-3 h-3 text-slate-600" />
-                  <span>Tự động tạo từ tiêu đề</span>
-                </button>
+                />
               </div>
-              <div className="flex items-center bg-white border border-slate-300 rounded-lg overflow-hidden focus-within:border-slate-800 focus-within:ring-1 focus-within:ring-slate-800 transition-colors">
-                <span className="px-3 text-xs text-slate-500 font-mono select-none bg-slate-50 border-r border-slate-200 py-2.5">
+              <div className="flex items-center bg-white border border-slate-200 rounded-xl overflow-hidden focus-within:border-slate-800 focus-within:ring-2 focus-within:ring-slate-800/10 transition-all">
+                <span className="px-3.5 text-xs text-slate-500 font-mono select-none bg-slate-50 border-r border-slate-200 py-2.5 font-medium">
                   /articles/
                 </span>
                 <input
@@ -281,14 +285,14 @@ export default function BlogEditorClient({
                   value={slug}
                   onChange={(e) => setSlug(e.target.value)}
                   placeholder="expanding-cross-border-ecommerce-playbook"
-                  className="w-full py-2.5 px-3 bg-transparent text-xs font-mono text-slate-900 placeholder-slate-400 focus:outline-none"
+                  className="w-full py-2.5 px-3.5 bg-transparent text-xs font-mono text-slate-900 placeholder-slate-400 focus:outline-none"
                 />
               </div>
             </div>
 
             {/* Subtitle */}
             <div>
-              <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">
+              <label className="block text-xs font-bold text-slate-700 mb-2">
                 Phụ đề / Thông điệp nổi bật
               </label>
               <input
@@ -296,13 +300,13 @@ export default function BlogEditorClient({
                 value={subtitle}
                 onChange={(e) => setSubtitle(e.target.value)}
                 placeholder="VD: Strategic execution for cross-border retailers targeting Western markets"
-                className="w-full px-4 py-2.5 bg-white border border-slate-300 rounded-lg text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:border-slate-800 focus:ring-1 focus:ring-slate-800 transition-colors"
+                className="w-full px-4 py-2.5 bg-white border border-slate-200 rounded-xl text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:border-slate-800 focus:ring-2 focus:ring-slate-800/10 transition-all"
               />
             </div>
 
             {/* Excerpt */}
             <div>
-              <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">
+              <label className="block text-xs font-bold text-slate-700 mb-2">
                 Tóm tắt ngắn (Excerpt)
               </label>
               <textarea
@@ -310,78 +314,36 @@ export default function BlogEditorClient({
                 value={excerpt}
                 onChange={(e) => setExcerpt(e.target.value)}
                 placeholder="Tóm tắt ngắn gọn nội dung bài viết hiển thị ở danh sách bài và SEO meta..."
-                className="w-full px-4 py-2.5 bg-white border border-slate-300 rounded-lg text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:border-slate-800 focus:ring-1 focus:ring-slate-800 transition-colors resize-y leading-relaxed"
+                className="w-full px-4 py-2.5 bg-white border border-slate-200 rounded-xl text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:border-slate-800 focus:ring-2 focus:ring-slate-800/10 transition-all resize-y leading-relaxed"
               />
             </div>
           </Card>
 
-          {/* Content Paragraphs Editor */}
-          <Card variant="default" padding={5} className="space-y-4 bg-white border border-slate-200/90 shadow-xs rounded-xl">
-            <div className="flex items-center justify-between border-b border-slate-100 pb-3">
-              <div>
-                <h3 className="text-xs font-bold text-slate-800 uppercase tracking-wider">
-                  Nội dung chi tiết bài viết
-                </h3>
-                <p className="text-xs text-slate-500 mt-0.5">
-                  Từng đoạn văn bản hoặc phân đoạn nội dung
-                </p>
-              </div>
-              <Button
-                label="Thêm đoạn văn"
-                variant="secondary"
-                size="sm"
-                icon={<Plus className="w-3.5 h-3.5" />}
-                onClick={addParagraph}
-              />
+          {/* TipTap Rich Text WYSIWYG Editor */}
+          <div className="space-y-2">
+            <div className="flex items-center justify-between">
+              <label className="block text-xs font-bold text-slate-700">
+                Nội dung chi tiết bài viết (Trình soạn thảo Editor) <span className="text-red-500">*</span>
+              </label>
+              <Badge label="TipTap Rich Text Active" variant="success" />
             </div>
 
-            <div className="space-y-3">
-              {contentParagraphs.map((paragraph, index) => (
-                <div
-                  key={index}
-                  className="p-3.5 rounded-lg bg-slate-50/80 border border-slate-200 relative group space-y-2 focus-within:border-slate-400 focus-within:bg-white transition-colors"
-                >
-                  <div className="flex items-center justify-between text-[11px] text-slate-500">
-                    <span className="font-bold text-slate-700">
-                      Đoạn {index + 1}
-                    </span>
-                    <button
-                      type="button"
-                      onClick={() => removeParagraph(index)}
-                      className="p-1 text-slate-400 hover:text-red-600 transition-colors rounded hover:bg-red-50"
-                      title="Xoá đoạn này"
-                    >
-                      <Trash2 className="w-3.5 h-3.5" />
-                    </button>
-                  </div>
-                  <textarea
-                    rows={4}
-                    value={paragraph}
-                    onChange={(e) => handleParagraphChange(index, e.target.value)}
-                    placeholder={`Nội dung đoạn văn số ${index + 1}...`}
-                    className="w-full bg-transparent text-sm text-slate-900 placeholder-slate-400 focus:outline-none resize-y leading-relaxed"
-                  />
-                </div>
-              ))}
-            </div>
-
-            <button
-              type="button"
-              onClick={addParagraph}
-              className="w-full py-2.5 border border-dashed border-slate-300 hover:border-slate-500 hover:bg-slate-50 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 transition-colors flex items-center justify-center gap-1.5"
-            >
-              <Plus className="w-3.5 h-3.5" />
-              <span>Thêm đoạn văn tiếp theo</span>
-            </button>
-          </Card>
+            <TipTapEditor
+              content={contentHtml}
+              onChange={(newHtml) => setContentHtml(newHtml)}
+              onReadTimeCalculated={(time) => setReadTime(time)}
+              postTitle={title}
+              placeholder="Soạn thảo bài viết của bạn tại đây... Hỗ trợ in đậm, nghiêng, tiêu đề H1-H4, bảng dữ liệu, danh sách checklist, trích dẫn, liên kết, chèn hình ảnh và nhúng video YouTube."
+            />
+          </div>
         </div>
 
         {/* Right Column: Settings, Metadata, Cover Image */}
         <div className="space-y-6">
           {/* Publishing Settings */}
-          <Card variant="default" padding={5} className="space-y-4 bg-white border border-slate-200/90 shadow-xs rounded-xl">
-            <h3 className="text-xs font-bold uppercase tracking-wider text-slate-800 border-b border-slate-100 pb-3">
-              Trạng thái &amp; Xuất bản
+          <Card variant="default" className="rounded-2xl p-6 space-y-4">
+            <h3 className="text-xs font-bold text-slate-800 border-b border-slate-100 pb-3 flex items-center justify-between">
+              <span>Trạng thái &amp; Xuất bản</span>
             </h3>
 
             <div>
@@ -391,7 +353,7 @@ export default function BlogEditorClient({
               <select
                 value={status}
                 onChange={(e) => setStatus(e.target.value as PostStatus)}
-                className="w-full px-3.5 py-2.5 bg-white border border-slate-300 rounded-lg text-sm text-slate-900 font-medium focus:outline-none focus:border-slate-800 focus:ring-1 focus:ring-slate-800"
+                className="w-full px-3.5 py-2.5 bg-white border border-slate-200 rounded-xl text-sm text-slate-900 font-medium focus:outline-none focus:border-slate-800 focus:ring-2 focus:ring-slate-800/10 transition-all cursor-pointer"
               >
                 <option value="published">Xuất bản công khai (Published)</option>
                 <option value="draft">Lưu bản nháp (Draft)</option>
@@ -400,125 +362,213 @@ export default function BlogEditorClient({
 
             <div>
               <label className="block text-xs font-semibold text-slate-700 mb-1.5">
-                Chuyên mục / Thẻ chính (Tag)
-              </label>
-              <input
-                type="text"
-                value={tag}
-                onChange={(e) => setTag(e.target.value)}
-                placeholder="VD: Market Expansion, Operations & SLA"
-                className="w-full px-3.5 py-2.5 bg-white border border-slate-300 rounded-lg text-sm text-slate-900 focus:outline-none focus:border-slate-800 focus:ring-1 focus:ring-slate-800"
-              />
-            </div>
-
-            <div>
-              <label className="block text-xs font-semibold text-slate-700 mb-1.5">
-                Thời gian đọc ước tính
+                Ước tính thời gian đọc
               </label>
               <input
                 type="text"
                 value={readTime}
                 onChange={(e) => setReadTime(e.target.value)}
-                placeholder="VD: 5 mins read"
-                className="w-full px-3.5 py-2.5 bg-white border border-slate-300 rounded-lg text-sm text-slate-900 focus:outline-none focus:border-slate-800 focus:ring-1 focus:ring-slate-800"
+                placeholder="5 mins read"
+                className="w-full px-3.5 py-2.5 bg-white border border-slate-200 rounded-xl text-sm text-slate-900 focus:outline-none focus:border-slate-800 focus:ring-2 focus:ring-slate-800/10 transition-all"
               />
+              <p className="text-[11px] text-slate-500 mt-1">
+                Tự động tính theo tốc độ đọc của người xem khi gõ nội dung.
+              </p>
             </div>
           </Card>
 
-          {/* Cover Image */}
-          <Card variant="default" padding={5} className="space-y-4 bg-white border border-slate-200/90 shadow-xs rounded-xl">
-            <h3 className="text-xs font-bold uppercase tracking-wider text-slate-800 border-b border-slate-100 pb-3 flex items-center justify-between">
-              <span>Ảnh bài viết (Hero Image)</span>
-              <ImageIcon className="w-3.5 h-3.5 text-slate-600" />
+          {/* Categorization */}
+          <Card variant="default" className="rounded-2xl p-6 space-y-4">
+            <h3 className="text-xs font-bold text-slate-800 border-b border-slate-100 pb-3">
+              Phân loại &amp; Thẻ
             </h3>
 
             <div>
               <label className="block text-xs font-semibold text-slate-700 mb-1.5">
-                Đường dẫn ảnh (URL hoặc asset)
+                Chuyên mục chính
+              </label>
+              <select
+                value={category}
+                onChange={(e) => setCategory(e.target.value)}
+                className="w-full px-3.5 py-2.5 bg-white border border-slate-200 rounded-xl text-sm text-slate-900 font-medium focus:outline-none focus:border-slate-800 focus:ring-2 focus:ring-slate-800/10 transition-all cursor-pointer"
+              >
+                {categories.length > 0 ? (
+                  categories.map((c) => (
+                    <option key={c.id} value={c.name}>
+                      {c.name}
+                    </option>
+                  ))
+                ) : (
+                  <>
+                    <option value="E-Commerce Strategy">E-Commerce Strategy</option>
+                    <option value="Operations">Operations</option>
+                    <option value="Technology">Technology</option>
+                    <option value="Market Expansion">Market Expansion</option>
+                  </>
+                )}
+              </select>
+            </div>
+
+            <div>
+              <label className="block text-xs font-semibold text-slate-700 mb-1.5">
+                Thẻ hiển thị (Tag badge)
+              </label>
+              <input
+                type="text"
+                value={tag}
+                onChange={(e) => setTag(e.target.value)}
+                placeholder="VD: Market Expansion, Technology & WMS..."
+                className="w-full px-3.5 py-2.5 bg-white border border-slate-200 rounded-xl text-sm text-slate-900 focus:outline-none focus:border-slate-800 focus:ring-2 focus:ring-slate-800/10 transition-all"
+              />
+            </div>
+          </Card>
+
+          {/* Hero Cover Image with Cloudinary Upload */}
+          <Card variant="default" className="rounded-2xl p-6 space-y-4">
+            <div className="flex items-center justify-between border-b border-slate-100 pb-3">
+              <h3 className="text-xs font-bold text-slate-800">
+                Hình ảnh tiêu đề (Hero Cover)
+              </h3>
+              <Badge label="Cloudinary CDN" variant="info" />
+            </div>
+
+            {/* Cloudinary Drag-Drop / Upload Box */}
+            <div>
+              <label className="block text-xs font-semibold text-slate-700 mb-1.5">
+                Tải ảnh bìa lên Cloudinary
+              </label>
+              <label className="relative flex flex-col items-center justify-center p-5 border-2 border-dashed border-slate-200 hover:border-emerald-500 hover:bg-emerald-50/30 rounded-2xl cursor-pointer transition-all bg-slate-50/50 group">
+                <input
+                  type="file"
+                  accept="image/jpeg,image/png,image/webp,image/gif,image/svg+xml,image/avif"
+                  disabled={isUploadingHero}
+                  onChange={(e) => {
+                    const file = e.target.files?.[0];
+                    if (file) handleHeroFileUpload(file);
+                  }}
+                  className="sr-only"
+                />
+                {isUploadingHero ? (
+                  <div className="flex flex-col items-center gap-2 text-emerald-700 py-1">
+                    <Loader2 className="w-6 h-6 animate-spin text-emerald-600" />
+                    <span className="text-xs font-semibold">Đang tải ảnh lên Cloudinary...</span>
+                  </div>
+                ) : (
+                  <div className="flex flex-col items-center gap-2 text-center">
+                    <div className="p-2.5 rounded-xl bg-emerald-100/70 text-emerald-700 group-hover:scale-105 group-hover:bg-emerald-100 transition-all">
+                      <UploadCloud className="w-5 h-5" />
+                    </div>
+                    <span className="text-xs font-semibold text-slate-800">
+                      Bấm để chọn ảnh từ máy tính
+                    </span>
+                    <span className="text-[11px] text-slate-400">
+                      JPG, PNG, WebP tối đa 10MB • CDN tối ưu hóa tự động
+                    </span>
+                  </div>
+                )}
+              </label>
+
+              {uploadHeroError && (
+                <p className="text-xs text-red-600 font-semibold bg-red-50 p-2.5 rounded-xl border border-red-200 mt-2 flex items-center gap-1.5">
+                  <AlertCircle className="w-4 h-4 shrink-0 text-red-600" />
+                  <span>{uploadHeroError}</span>
+                </p>
+              )}
+            </div>
+
+            <div>
+              <label className="block text-xs font-semibold text-slate-700 mb-1.5">
+                Đường dẫn hình ảnh (URL)
               </label>
               <input
                 type="text"
                 value={heroImage}
                 onChange={(e) => setHeroImage(e.target.value)}
-                placeholder="/assets/case_brother.jpg"
-                className="w-full px-3.5 py-2.5 bg-white border border-slate-300 rounded-lg text-xs font-mono text-slate-900 focus:outline-none focus:border-slate-800 focus:ring-1 focus:ring-slate-800"
+                placeholder="/assets/case_brother.jpg hoặc https://res.cloudinary.com/..."
+                className="w-full px-3.5 py-2.5 bg-white border border-slate-200 rounded-xl text-xs font-mono text-slate-900 focus:outline-none focus:border-slate-800 focus:ring-2 focus:ring-slate-800/10 transition-all"
               />
             </div>
 
-            {/* Quick asset selector */}
-            <div>
-              <span className="block text-[11px] font-semibold text-slate-500 mb-1.5">
-                Ảnh mẫu có sẵn trong hệ thống:
+            {/* Quick preset selector */}
+            <div className="space-y-2">
+              <span className="text-[11px] text-slate-500 font-semibold block">
+                Hoặc chọn ảnh mẫu có sẵn:
               </span>
-              <div className="grid grid-cols-2 gap-2 text-xs">
+              <div className="grid grid-cols-2 gap-2">
                 {[
-                  { name: 'Brother', path: '/assets/case_brother.jpg' },
-                  { name: 'Suntory', path: '/assets/case_suntory.jpg' },
-                  { name: 'Weir', path: '/assets/case_weir.jpg' },
-                  { name: 'Manulife', path: '/assets/case_manulife.jpg' },
+                  { name: 'Brother Case', path: '/assets/case_brother.jpg' },
+                  { name: 'Suntory Case', path: '/assets/case_suntory.jpg' },
+                  { name: 'Weir Case', path: '/assets/case_weir.jpg' },
+                  { name: 'Manulife Case', path: '/assets/case_manulife.jpg' },
                 ].map((item) => (
                   <button
                     key={item.path}
                     type="button"
                     onClick={() => setHeroImage(item.path)}
-                    className={`px-2.5 py-2 text-center rounded-lg border transition-all font-medium text-xs ${
+                    className={`p-2.5 rounded-xl border text-left transition-all text-xs font-medium cursor-pointer ${
                       heroImage === item.path
-                        ? 'border-slate-900 bg-slate-900 text-white font-semibold shadow-xs'
-                        : 'border-slate-200 hover:border-slate-300 text-slate-700 bg-slate-50 hover:bg-slate-100'
+                        ? 'border-emerald-600 bg-emerald-50 text-emerald-900'
+                        : 'border-slate-200 hover:border-slate-300 text-slate-700 hover:bg-slate-50'
                     }`}
                   >
-                    {item.name}
+                    <span className="truncate block">{item.name}</span>
                   </button>
                 ))}
               </div>
             </div>
 
-            {/* Preview image */}
+            {/* Image Preview thumbnail */}
             {heroImage && (
-              <div className="rounded-lg overflow-hidden border border-slate-200 bg-slate-100 aspect-video relative">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={heroImage}
-                  alt="Hero Preview"
-                  className="w-full h-full object-cover"
-                  onError={(e) => {
-                    (e.target as HTMLImageElement).src =
-                      'https://placehold.co/600x400/f8fafc/0f172a?text=E-GEAD+Cover';
-                  }}
-                />
+              <div className="space-y-1.5 mt-2">
+                <div className="flex items-center justify-between text-[11px]">
+                  <span className="text-slate-500 font-medium">Xem trước ảnh bìa:</span>
+                  {heroImage.includes('cloudinary.com') && (
+                    <span className="text-emerald-700 font-semibold">
+                      Lưu trữ trên Cloudinary CDN
+                    </span>
+                  )}
+                </div>
+                <div className="rounded-xl overflow-hidden border border-slate-200/80 bg-slate-100 aspect-video relative">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={heroImage}
+                    alt="Hero Preview"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
               </div>
             )}
           </Card>
 
           {/* Author Details */}
-          <Card variant="default" padding={5} className="space-y-4 bg-white border border-slate-200/90 shadow-xs rounded-xl">
-            <h3 className="text-xs font-bold uppercase tracking-wider text-slate-800 border-b border-slate-100 pb-3">
-              Thông tin tác giả
+          <Card variant="default" className="rounded-2xl p-6 space-y-4">
+            <h3 className="text-xs font-bold text-slate-800 border-b border-slate-100 pb-3">
+              Tác giả bài viết
             </h3>
 
             <div>
               <label className="block text-xs font-semibold text-slate-700 mb-1.5">
-                Tên tác giả / Đơn vị
+                Tên tác giả
               </label>
               <input
                 type="text"
                 value={authorName}
                 onChange={(e) => setAuthorName(e.target.value)}
                 placeholder="E-GEAD Research Team"
-                className="w-full px-3.5 py-2.5 bg-white border border-slate-300 rounded-lg text-sm text-slate-900 focus:outline-none focus:border-slate-800 focus:ring-1 focus:ring-slate-800"
+                className="w-full px-3.5 py-2.5 bg-white border border-slate-200 rounded-xl text-sm text-slate-900 focus:outline-none focus:border-slate-800 focus:ring-2 focus:ring-slate-800/10 transition-all"
               />
             </div>
 
             <div>
               <label className="block text-xs font-semibold text-slate-700 mb-1.5">
-                Chức vụ / Chuyên môn
+                Chức danh / Vai trò
               </label>
               <input
                 type="text"
                 value={authorRole}
                 onChange={(e) => setAuthorRole(e.target.value)}
                 placeholder="Global Commerce Strategist"
-                className="w-full px-3.5 py-2.5 bg-white border border-slate-300 rounded-lg text-sm text-slate-900 focus:outline-none focus:border-slate-800 focus:ring-1 focus:ring-slate-800"
+                className="w-full px-3.5 py-2.5 bg-white border border-slate-200 rounded-xl text-sm text-slate-900 focus:outline-none focus:border-slate-800 focus:ring-2 focus:ring-slate-800/10 transition-all"
               />
             </div>
           </Card>

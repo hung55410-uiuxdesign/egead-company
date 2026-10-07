@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import React from 'react';
 import Link from 'next/link';
@@ -6,9 +6,11 @@ import { motion } from 'framer-motion';
 
 export default function HeroBanner() {
   const scrollToServices = () => {
-    const el = document.getElementById('block__items__with__button') || document.getElementById('homepage__service');
+    const el =
+      document.getElementById("block__items__with__button") ||
+      document.getElementById("homepage__service");
     if (el) {
-      el.scrollIntoView({ behavior: 'smooth' });
+      el.scrollIntoView({ behavior: "smooth" });
     }
   };
 

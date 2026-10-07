@@ -1,12 +1,14 @@
-# SAI Digital (Concentrix Company) - Enterprise Digital Commerce Website
+# E-GEAD (Concentrix Company) - Enterprise Digital Commerce Website & Blog CMS
 
 [![Next.js](https://img.shields.io/badge/Next.js-16.3.5-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
 [![React](https://img.shields.io/badge/React-19.3.0-blue?style=for-the-badge&logo=react)](https://react.dev/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.6-blue?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org/)
+[![Prisma](https://img.shields.io/badge/Prisma-6.19-2D3748?style=for-the-badge&logo=prisma)](https://www.prisma.io/)
+[![Better Auth](https://img.shields.io/badge/Better_Auth-1.7-black?style=for-the-badge)](https://better-auth.com/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.4-38B2AC?style=for-the-badge&logo=tailwind-css)](https://tailwindcss.com/)
 [![Bun](https://img.shields.io/badge/Bun-1.3-FBF0DF?style=for-the-badge&logo=bun)](https://bun.sh/)
 
-A pixel-perfect, high-performance enterprise digital commerce web platform modeled after **[SAI Digital](https://www.sai-digital.com/)** (A Concentrix Company), engineered with **Next.js 16**, **React 19**, and **Turbopack**.
+A pixel-perfect, high-performance enterprise digital commerce web platform and **Blog CMS Portal** modeled after **[SAI Digital](https://www.sai-digital.com/)** (A Concentrix Company), engineered with **Next.js 16**, **React 19**, **Prisma ORM**, **Better Auth**, and **Turbopack**.
 
 ---
 
@@ -17,8 +19,10 @@ A pixel-perfect, high-performance enterprise digital commerce web platform model
   - Fonts: **Rubik** (Headings) & **Montserrat** (Body text & Subtitles).
   - Primary Accents: Signature cyan (`#5EFC8D` / `#10E774`) set against sleek dark backgrounds (`#0A0D0E`, `#141718`).
 - **Real-Time Global APAC Clocks**: Dynamic local clocks for 7 regional delivery hubs: Singapore, Japan, Australia, Hong Kong, Vietnam, South Korea, and India.
-- **Interactive MegaMenu**: Fullscreen overlay modal navigation with category tabs (Services, Products, Work, Insights, Company).
-- **Infinite Partner Marquee**: Smooth two-tier infinite horizontal logo slider showcasing global technology partners (SAP, Adobe, commercetools, Shopify Plus, Salesforce, etc.).
+- **Enterprise Blog CMS & Admin Portal (`/admin`)**:
+  - **Prisma ORM + PostgreSQL**: Lưu trữ dữ liệu bài viết, chuyên mục, tài khoản quản trị.
+  - **Better Auth Authentication**: Hệ thống đăng nhập bảo mật với phiên làm việc 7 ngày, bảo vệ các trang `/admin/*`.
+  - **TipTap Rich Text Editor**: Trình soạn thảo văn bản trực quan (WYSIWYG) hỗ trợ H1-H3, Bold, Italic, Bullet/Number Lists, Blockquote, Link, Image, xem trước Live Preview và chỉnh sửa mã HTML.
 - **Complete Enterprise Pages**:
   - `Home (/)`: Hero banner, 4 Core Service Pillars, Case Studies slider, SmartCX showcase, Testimonials, Insights list, Culture, and Contact CTA.
   - `Our Work (/our-work)`: Filterable case studies portfolio across Consumer Goods, Manufacturing, Finance, and Electronics.
@@ -27,94 +31,133 @@ A pixel-perfect, high-performance enterprise digital commerce web platform model
   - `Services (/services/all-services)`: Detailed breakdown of Strategy & Design, Enterprise Technology, Data & Analytics, and CX Operations.
   - `SmartCommerce (/smartcommerce)` & `SpeedX (/speedx)`: Proprietary AI modules and acceleration engines.
   - `Testimonials (/testimonial)`: Enterprise customer reviews and testimonials.
-  - `Insights (/insights)` & `Article Details (/articles/[slug])`: Thought leadership articles with metadata.
-  - `Contact Us (/contact-us)`: Interactive inquiry form, direct channels, and regional office directory.
-  - `Privacy & Terms (/privacy-policy, /sai-privacy)`: Enterprise data compliance, GDPR, CCPA, and SOC 2 Type II audit disclosures.
+  - `Insights (/insights)` & `Article Details (/articles/[slug])`: Thought leadership articles with rich HTML support.
+  - `Admin Portal (/admin)`: Bảng điều khiển quản trị, danh sách bài viết, tạo mới và chỉnh sửa bài viết.
 
 ---
 
-## 🛠️ Technology Stack
+## 🚀 Hướng Dẫn Thiết Lập Khi Clone Về Máy Mới (Setup on New Machine)
 
-- **Framework**: Next.js 16.3.5 (App Router, Turbopack, React Server Components)
-- **Library**: React 19.3.0 & React DOM 19.3.0
-- **Language**: TypeScript 5.6
-- **Styling**: Tailwind CSS 3.4, PostCSS, Autoprefixer
-- **Icons**: Lucide React
-- **Linter**: ESLint 9 (Flat Config via `eslint.config.mjs`)
-- **Package Manager**: Bun 1.3+
+Khi bạn chuyển sang máy tính mới hoặc clone project từ GitHub về, hãy thực hiện theo các bước sau:
 
----
+### 1. Yêu cầu môi trường (Prerequisites)
+- **Node.js**: Phiên bản 20+ hoặc [Bun](https://bun.sh/) 1.3+
+- **PostgreSQL**: Cài đặt PostgreSQL trên máy (hoặc dùng Docker, Supabase, Neon.tech).
 
-## 🚀 Getting Started
-
-### Prerequisites
-
-Make sure you have [Bun](https://bun.sh/) installed:
-
+### 2. Cài đặt các thư viện (Install Dependencies)
 ```bash
-# Verify bun installation
-bun --version
-```
-
-### Installation
-
-Clone the repository and install dependencies:
-
-```bash
+# Clone repository
 git clone git@github.com:hung55410-uiuxdesign/egead-company.git
 cd egead-company
-bun install
+
+# Cài đặt thư viện bằng npm hoặc bun
+npm install
+# hoặc: bun install
 ```
 
-### Running Locally
-
-Start the development server with Turbopack on port `3000`:
-
+### 3. Cấu hình biến môi trường (.env)
+Tạo file `.env` từ file mẫu `.env.example`:
 ```bash
-bun run dev
+cp .env.example .env
+```
+Mở file `.env` và cập nhật biến `DATABASE_URL` theo PostgreSQL của máy bạn:
+```env
+# PostgreSQL trên máy local (Ví dụ với user macOS hoặc postgres)
+DATABASE_URL="postgresql://<username>@localhost:5432/postgres"
+
+# Hoặc nếu dùng mật khẩu:
+# DATABASE_URL="postgresql://postgres:password@localhost:5432/postgres"
+
+# Better Auth Secret (tối thiểu 32 ký tự)
+BETTER_AUTH_SECRET="egead-super-secret-auth-key-production-ready-2026-secure"
+BETTER_AUTH_URL="http://localhost:3000"
+NEXT_PUBLIC_BETTER_AUTH_URL="http://localhost:3000"
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to view the application.
+### 4. Khởi tạo Database & Dữ liệu mẫu (Database Migration & Seed)
+Chạy các lệnh sau để Prisma tạo bảng và cấp tài khoản Admin:
+```bash
+# 1. Sinh Prisma Client
+npm run prisma:generate
+
+# 2. Tạo cấu trúc bảng vào PostgreSQL (user, session, account, post, category)
+npm run prisma:push
+
+# 3. Nạp dữ liệu mẫu ban đầu (Bài viết & Tài khoản admin)
+npm run prisma:seed
+```
+
+> **Ghi chú tiện lợi**: Trang đăng nhập `/admin/login` đã tích hợp sẵn tính năng tự động nhận diện và tạo cấu trúc bảng (Auto-DDL) kèm nút *"Khởi tạo tài khoản Admin & Cấu trúc bảng (Seed)"*.
+
+### 5. Thông tin tài khoản Quản trị mặc định (Admin Credentials)
+- **Đường dẫn**: `http://localhost:3000/admin/login`
+- **Email**: `admin@egead.com`
+- **Mật khẩu**: `Admin@123456`
+- **Vai trò**: `admin`
+
+### 6. Khởi chạy ứng dụng (Run Locally)
+```bash
+# Chạy môi trường phát triển (Dev server)
+npm run dev
+# hoặc: bun run dev
+```
+Truy cập [http://localhost:3000](http://localhost:3000) trên trình duyệt.
+
+### 7. Chạy Unit Tests
+```bash
+npm test
+# hoặc: bun test
+```
 
 ---
 
-## 📦 Scripts
+## 📦 Danh Sách Lệnh (Available Scripts)
 
-| Command | Description |
+| Lệnh | Mô tả |
 |---|---|
-| `bun run dev` | Starts development server on port `3000` with Turbopack hot reload |
-| `bun run build` | Compiles an optimized static/SSR production bundle in sub-second time |
-| `bun run start` | Runs the production build server locally |
-| `bun run lint` | Lints the codebase with ESLint 9 flat configuration |
+| `npm run dev` | Khởi động server phát triển với Turbopack tại port `3000` |
+| `npm run build` | Tự động sinh Prisma Client và biên dịch bản Production tối ưu |
+| `npm run start` | Khởi chạy bản Production build trên máy cục bộ |
+| `npm run lint` | Kiểm tra cú pháp và coding standards với ESLint 9 |
+| `npm test` | Chạy toàn bộ các bài Unit Tests cho services và components |
+| `npm run prisma:generate` | Tạo TypeScript client từ `schema.prisma` |
+| `npm run prisma:push` | Đẩy trực tiếp schema vào cơ sở dữ liệu PostgreSQL |
+| `npm run prisma:seed` | Nạp tài khoản Admin và danh sách bài viết mẫu vào DB |
 
 ---
 
-## 📁 Project Structure
+## 📁 Cấu Trúc Thư Mục (Project Structure)
 
 ```text
 ├── app/
-│   ├── articles/[slug]/    # Dynamic insight article pages
-│   ├── career/             # Careers and job openings
-│   ├── company/            # Company overview and culture
-│   ├── contact-us/         # Contact forms & global office directory
-│   ├── insights/           # Insights and thought leadership list
-│   ├── our-work/           # Work portfolio and case studies
-│   ├── partners/           # Partner ecosystem
-│   ├── privacy-policy/     # Privacy policy
-│   ├── sai-privacy/        # Terms & conditions
-│   ├── services/           # Services and capabilities
-│   ├── smartcommerce/      # SmartCommerce product suite
-│   ├── speedx/             # SpeedX commerce accelerator
-│   ├── testimonial/        # Client reviews and testimonials
-│   ├── global-error.tsx    # Next.js 16 Root Error Boundary
-│   ├── layout.tsx          # Root Layout with fonts and theme configuration
-│   └── page.tsx            # Homepage
-├── components/             # Reusable UI sections and components
-├── public/assets/          # Vector icons, logos, brand assets, and images
-├── eslint.config.mjs       # ESLint 9 Flat Config
-├── next.config.mjs         # Next.js configuration
-├── package.json            # Dependencies and scripts
-└── tailwind.config.ts      # Custom Tailwind styling and color tokens
+│   ├── (admin)/admin/          # Hệ thống quản trị Admin Portal (Astryx UI)
+│   │   ├── blogs/              # Quản lý danh sách, tạo mới (/new) và sửa bài viết (/[id])
+│   │   ├── categories/         # Quản lý chuyên mục bài viết
+│   │   ├── login/              # Trang đăng nhập xác thực Better Auth
+│   │   └── settings/           # Cấu hình hệ thống
+│   ├── (public)/               # Các trang công khai cho khách hàng
+│   │   ├── articles/[slug]/    # Trang chi tiết bài viết (Rich HTML & fallback)
+│   │   ├── insights/           # Danh mục tin tức & bài viết
+│   │   ├── our-work/           # Portfolio & Case studies
+│   │   ├── services/           # Dịch vụ chiến lược & công nghệ
+│   │   └── page.tsx            # Trang chủ E-GEAD
+│   ├── api/
+│   │   ├── admin/blogs/        # REST API quản trị bài viết (CRUD)
+│   │   ├── admin/bootstrap/    # Endpoint khởi tạo & chẩn đoán database
+│   │   └── auth/[...all]/      # Route handler Better Auth
+├── components/
+│   ├── admin/                  # Components quản trị (TipTapEditor, Navbar, Sidebar)
+│   └── ...                     # Components trang chủ & giao diện public
+├── lib/
+│   ├── prisma.ts               # Singleton Prisma Client kết nối PostgreSQL
+│   ├── auth.ts                 # Better Auth server configuration
+│   ├── auth-client.ts          # Better Auth client hooks (useSession, signIn, signOut)
+│   └── services/               # Blog Service & Auth Service
+├── prisma/
+│   └── schema.prisma           # Prisma Schema (User, Session, Post, Category)
+├── scripts/
+│   └── seed.mjs                # Script nạp dữ liệu ban đầu
+└── tests/                      # Unit tests cho services và components
 ```
 
 ---

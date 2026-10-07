@@ -17,7 +17,7 @@ export interface BlogPost {
   readTime: string;
   heroImage: string;
   excerpt: string;
-  content: string[];
+  content: string | string[];
   author?: Author;
   status: PostStatus;
   views?: number;

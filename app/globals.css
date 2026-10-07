@@ -1139,3 +1139,111 @@ b, strong {
   color: #7ceee0;
 }
 
+/* ==========================================================================
+   TIPTAP RENDERED CONTENT STYLES (.tiptap-content)
+   ========================================================================== */
+.tiptap-content h1 {
+  font-size: 2rem;
+  font-weight: 800;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  line-height: 1.3;
+}
+
+.tiptap-content h2 {
+  font-size: 1.625rem;
+  font-weight: 700;
+  margin-top: 1.75rem;
+  margin-bottom: 0.75rem;
+  line-height: 1.35;
+}
+
+.tiptap-content h3 {
+  font-size: 1.325rem;
+  font-weight: 600;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+  line-height: 1.4;
+}
+
+.tiptap-content h4 {
+  font-size: 1.15rem;
+  font-weight: 600;
+  margin-top: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
+.tiptap-content p {
+  margin-bottom: 1.25rem;
+  line-height: 1.8;
+}
+
+.tiptap-content strong,
+.tiptap-content b {
+  font-weight: 700;
+}
+
+.tiptap-content ul:not([data-type='taskList']) {
+  list-style-type: disc;
+  padding-left: 1.75rem;
+  margin-bottom: 1.25rem;
+}
+
+.tiptap-content ol {
+  list-style-type: decimal;
+  padding-left: 1.75rem;
+  margin-bottom: 1.25rem;
+}
+
+.tiptap-content li {
+  margin-bottom: 0.5rem;
+  line-height: 1.7;
+}
+
+.tiptap-content blockquote {
+  border-left: 4px solid #10b981;
+  padding: 0.85rem 1.25rem;
+  margin: 1.5rem 0;
+  font-style: italic;
+  background: rgba(16, 185, 129, 0.05);
+  border-radius: 0 0.5rem 0.5rem 0;
+}
+
+.tiptap-content code {
+  background-color: rgba(241, 245, 249, 0.1);
+  padding: 0.2rem 0.4rem;
+  border-radius: 0.25rem;
+  font-family: monospace;
+  font-size: 0.875em;
+}
+
+.tiptap-content pre {
+  background-color: #0f172a;
+  color: #e2e8f0;
+  padding: 1rem 1.25rem;
+  border-radius: 0.75rem;
+  overflow-x: auto;
+  margin: 1.5rem 0;
+}
+
+.tiptap-content table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 1.5rem 0;
+  overflow: hidden;
+  border: 1px solid #cbd5e1;
+  border-radius: 0.5rem;
+}
+
+.tiptap-content th,
+.tiptap-content td {
+  border: 1px solid #cbd5e1;
+  padding: 0.65rem 0.85rem;
+  font-size: 0.875rem;
+}
+
+.tiptap-content th {
+  background-color: rgba(248, 250, 252, 0.1);
+  font-weight: 700;
+}
+
