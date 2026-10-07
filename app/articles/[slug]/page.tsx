@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { ArrowLeft, Calendar, Clock, Share2, ArrowUpRight } from 'lucide-react';
 import ContactBlock from '@/components/ContactBlock';
+import { getPostBySlug } from '@/lib/blogs';
 
 interface ArticleData {
   title: string;
@@ -77,8 +78,14 @@ const articlesMap: Record<string, ArticleData> = {
   },
 };
 
-export default function ArticleDetailPage({ params }: { params: { slug: string } }) {
-  const article = articlesMap[params.slug];
+export default async function ArticleDetailPage({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params;
+  const post = await getPostBySlug(slug);
+  const article = post || articlesMap[slug];
 
   if (!article) {
     notFound();

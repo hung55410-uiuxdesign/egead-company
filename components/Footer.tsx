@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 interface TimezoneLocation {
   name: string;
@@ -18,10 +19,15 @@ const locations: TimezoneLocation[] = [
 ];
 
 export default function Footer() {
+  const pathname = usePathname();
   const [times, setTimes] = useState<Record<string, string>>({});
   const [newsletterEmail, setNewsletterEmail] = useState('');
   const [langOpen, setLangOpen] = useState(false);
   const [lang, setLang] = useState('EN');
+
+  if (pathname?.startsWith('/admin')) {
+    return null;
+  }
 
   useEffect(() => {
     const updateTimes = () => {

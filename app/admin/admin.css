@@ -1,0 +1,83 @@
+/* ==========================================================================
+   Astryx UI Admin Light Mode Tokens & Normalization
+   ========================================================================== */
+
+/* Enforce Light Mode tokens for all Astryx components and containers inside Admin */
+:root:has([data-astryx-admin]),
+html[data-theme="light"],
+[data-astryx-admin] {
+  color-scheme: light !important;
+  --color-background-card: #ffffff !important;
+  --color-background-surface: #ffffff !important;
+  --color-background-body: #f8fafc !important;
+  --color-background-muted: #f1f5f9 !important;
+  --color-text-primary: #0f172a !important;
+  --color-text-secondary: #475569 !important;
+  --color-text-disabled: #94a3b8 !important;
+  --color-border: #e2e8f0 !important;
+  --color-border-emphasized: #cbd5e1 !important;
+  --color-shadow: rgba(15, 23, 42, 0.06) !important;
+}
+
+/* Force Astryx Card to be pure white in Admin with crisp border and subtle shadow */
+[data-astryx-admin] [class*="x1de1mus"],
+[data-astryx-admin] .x1de1mus {
+  background-color: #ffffff !important;
+  border-color: #e2e8f0 !important;
+  color: #0f172a !important;
+}
+
+/* Ensure Astryx Card text is dark by default */
+[data-astryx-admin] [class*="x1de1mus"] h1,
+[data-astryx-admin] [class*="x1de1mus"] h2,
+[data-astryx-admin] [class*="x1de1mus"] h3,
+[data-astryx-admin] [class*="x1de1mus"] h4,
+[data-astryx-admin] [class*="x1de1mus"] p,
+[data-astryx-admin] [class*="x1de1mus"] span,
+[data-astryx-admin] [class*="x1de1mus"] label {
+  color: inherit;
+}
+
+/* Form labels in Admin */
+[data-astryx-admin] label {
+  color: #334155;
+}
+
+/* Form fields in Admin */
+.admin-input {
+  width: 100%;
+  background-color: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  color: #0f172a;
+  font-size: 0.875rem;
+  padding: 0.625rem 0.875rem;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.admin-input:focus {
+  outline: none;
+  border-color: #0f172a;
+  box-shadow: 0 0 0 1px #0f172a;
+  background-color: #ffffff;
+}
+
+.admin-input::placeholder {
+  color: #94a3b8;
+}
+
+/* Standardize table styling inside admin */
+[data-astryx-admin] table th {
+  color: #475569 !important;
+  background-color: #f8fafc !important;
+  border-bottom: 1px solid #e2e8f0 !important;
+}
+
+[data-astryx-admin] table td {
+  border-bottom: 1px solid #f1f5f9 !important;
+  color: #0f172a !important;
+}
+
+[data-astryx-admin] table tr:hover td {
+  background-color: #f8fafc !important;
+}

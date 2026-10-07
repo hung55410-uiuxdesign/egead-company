@@ -2,6 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import { Calendar, Clock, ArrowUpRight } from 'lucide-react';
 import ContactBlock from '@/components/ContactBlock';
+import { getAllPosts } from '@/lib/blogs';
 
 export const metadata = {
   title: 'Insights & Knowledge Base | E-GEAD Company',
@@ -47,7 +48,24 @@ const allInsights = [
   },
 ];
 
-export default function InsightsPage() {
+export const dynamic = 'force-dynamic';
+
+export default async function InsightsPage() {
+  const dynamicPosts = await getAllPosts();
+  const publishedPosts = dynamicPosts.filter((p) => p.status === 'published');
+  const items =
+    publishedPosts.length > 0
+      ? publishedPosts.map((p) => ({
+          slug: p.slug,
+          title: p.title,
+          tag: p.tag,
+          date: p.date,
+          readTime: p.readTime,
+          image: p.heroImage,
+          desc: p.excerpt,
+        }))
+      : allInsights;
+
   return (
     <div className="w-full bg-[#0A0D0E] text-white pt-32 sm:pt-40">
       <section className="w-full px-6 sm:px-10 lg:px-14 xl:px-16 mb-20 sm:mb-28">
@@ -67,7 +85,7 @@ export default function InsightsPage() {
 
       <section className="w-full px-6 sm:px-10 lg:px-14 xl:px-16 mb-28">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10">
-          {allInsights.map((item) => (
+          {items.map((item) => (
             <Link
               key={item.slug}
               href={`/articles/${item.slug}`}
