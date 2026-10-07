@@ -72,11 +72,11 @@ export default function Footer() {
       <div className="w-full px-6 sm:px-10 lg:px-14 xl:px-16">
         {/* Top: Logo & Social Media */}
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-8 pb-12 border-b border-gray-100">
-          <Link href="/" className="inline-block">
+          <Link href="/" className="inline-block transition-opacity hover:opacity-90">
             <img
-              src="https://egeadcompany.com/images/egead/logo-wordmark.png"
+              src="/assets/logo/black.png"
               alt="E-GEAD Company"
-              className="h-8 sm:h-9 w-auto"
+              className="h-20 sm:h-24 lg:h-[96px] w-auto object-contain"
             />
           </Link>
 

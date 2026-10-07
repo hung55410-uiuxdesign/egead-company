@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useId } from 'react';
-import { TrendingUp, Clock, DollarSign, Users, Sparkles, ArrowRight } from 'lucide-react';
+import { TrendingUp, Clock, DollarSign, Users, ArrowRight } from 'lucide-react';
 
 export interface EfficiencyVisualizerProps {
   id?: string;
@@ -59,12 +59,13 @@ export function EfficiencyVisualizer({
       {/* Header & Description */}
       <div className="relative z-10 flex flex-col md:flex-row md:items-end justify-between gap-6 pb-8 border-b border-white/10">
         <div className="max-w-2xl">
-          <p className="text-base sm:text-lg font-normal text-[#D4FAE6] mb-3 font-montserrat flex items-center gap-2">
-            <Sparkles className="w-4 h-4 text-[#5EFC8D]" aria-hidden="true" />
+          <p className="text-base sm:text-lg font-normal text-[#D4FAE6] mb-3 font-montserrat">
             Interactive Scale Simulator
           </p>
-          <h3 className="text-2xl sm:text-3xl lg:text-[34px] font-medium text-[#D4FAE6] font-montserrat leading-[1.3]">
-            Calculate Headcount &amp; Cost Savings
+          <h3 className="text-2xl sm:text-3xl lg:text-[34px] font-semibold font-montserrat leading-[1.3] tracking-tight">
+            <span className="bg-gradient-to-r from-[#6CE8C3] via-[#A8F7E2] to-white bg-clip-text text-transparent">
+              Calculate Headcount &amp; Cost Savings
+            </span>
           </h3>
           <p className="mt-4 text-base sm:text-[17px] text-[#b3b3b3] font-light leading-[1.75] font-montserrat">
             Drag the slider to your current or target monthly order volume. See how E-GEAD eliminates the traditional headcount scaling trap through pure automation.

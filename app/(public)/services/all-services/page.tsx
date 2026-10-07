@@ -10,7 +10,6 @@ import {
   Activity,
   Cpu,
   Layers,
-  Sparkles,
   Lock,
   ExternalLink,
   Flame,
@@ -22,6 +21,11 @@ import {
 } from '@/components/sections';
 import type { ComparisonRow, FaqItem, WorkflowStep } from '@/components/sections';
 import ContactBlock from '@/components/ContactBlock';
+import MotionSection, {
+  MotionHero,
+  MotionDiv,
+  MotionCard,
+} from '@/components/MotionSection';
 
 export const metadata: Metadata = {
   title: 'All Services & Capabilities | E-GEAD: End-to-End E-Commerce & POD Solutions',
@@ -439,10 +443,11 @@ export default function AllServicesPage() {
         {/* Subtle background glow */}
         <div className="absolute top-1/4 left-1/3 w-[550px] h-[350px] bg-[#10E774]/10 blur-[160px] rounded-full pointer-events-none" />
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center relative z-10 mb-8 sm:mb-12">
+        <MotionHero className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center relative z-10 mb-8 sm:mb-12">
           {/* Left Column: Heading Text */}
           <div className="lg:col-span-7">
-            <p className="text-base sm:text-lg font-normal text-[#D4FAE6] mb-4 font-montserrat">
+            <p className="text-base sm:text-lg font-normal text-[#D4FAE6] mb-4 font-montserrat flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-[#10E774] animate-pulse" />
               Our Services
             </p>
 
@@ -450,7 +455,7 @@ export default function AllServicesPage() {
               <h1 className="text-4xl sm:text-6xl lg:text-[72px] font-medium text-[#D4FAE6] font-montserrat leading-[1.08] mb-6">
                 <span className="block">Automate Operations.</span>
                 <span className="flex flex-wrap items-center gap-3 sm:gap-4">
-                  Scale <span className="text-[#5EFC8D] font-medium">Global Commerce.</span>
+                  Scale <span className="bg-gradient-to-r from-[#5EFC8D] via-[#10E774] to-[#7ceee0] bg-clip-text text-transparent font-medium">Global Commerce.</span>
                 </span>
               </h1>
             </div>
@@ -462,7 +467,7 @@ export default function AllServicesPage() {
             <div className="flex flex-wrap items-center gap-4 mb-6">
               <a
                 href="#core-services-grid"
-                className="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-full bg-[#5EFC8D] text-black font-medium text-sm sm:text-base font-montserrat hover:bg-[#4ee37e] transition duration-300 shadow-[0_0_20px_rgba(94,252,141,0.3)]"
+                className="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-full bg-[#5EFC8D] text-black font-medium text-sm sm:text-base font-montserrat hover:bg-[#4ee37e] transition duration-300 shadow-[0_0_20px_rgba(94,252,141,0.3)] hover:shadow-[0_0_30px_rgba(94,252,141,0.45)]"
               >
                 <span>Explore Solutions Matrix</span>
                 <ArrowRight className="w-4 h-4" aria-hidden="true" />
@@ -555,7 +560,7 @@ export default function AllServicesPage() {
               </div>
             </div>
           </div>
-        </div>
+        </MotionHero>
 
         {/* Anchor Block: Horizontal In-Page Navigation matching SAI Digital .anchor-block */}
         <div className="w-full pt-6 pb-2 border-t border-white/10 relative z-10">
@@ -649,7 +654,7 @@ export default function AllServicesPage() {
       </section>
 
       {/* SECTION 1.5: Hero Visual Banner matching SAI Digital .image-text #main-4 */}
-      <section className="w-full px-6 sm:px-10 lg:px-14 xl:px-16 mb-16 sm:mb-24">
+      <MotionSection className="w-full px-6 sm:px-10 lg:px-14 xl:px-16 mb-16 sm:mb-24">
         <div className="relative w-full rounded-[28px] sm:rounded-[40px] overflow-hidden border border-white/10 shadow-2xl h-[340px] sm:h-[480px] lg:h-[600px]">
           <img
             src="/assets/banner18.png"
@@ -663,10 +668,10 @@ export default function AllServicesPage() {
             </span>
           </div>
         </div>
-      </section>
+      </MotionSection>
 
       {/* SECTION 4: The 6 Service Pillars matching SAI Digital .service-block and .service-card architecture */}
-      <section
+      <MotionSection
         id="core-services-grid"
         className="w-full px-6 sm:px-10 lg:px-14 xl:px-16 mb-20 sm:mb-28"
       >
@@ -769,10 +774,10 @@ export default function AllServicesPage() {
             </div>
           ))}
         </div>
-      </section>
+      </MotionSection>
 
       {/* SECTION 4.5: Mid-Page Visual Divider matching SAI Digital .image-text #main-6 */}
-      <section className="w-full px-6 sm:px-10 lg:px-14 xl:px-16 my-16 sm:my-24">
+      <MotionSection className="w-full px-6 sm:px-10 lg:px-14 xl:px-16 my-16 sm:my-24">
         <div className="relative w-full rounded-[28px] sm:rounded-[40px] overflow-hidden border border-white/10 shadow-2xl h-[280px] sm:h-[420px] lg:h-[500px]">
           <img
             src="/assets/banner111.png"
@@ -781,31 +786,30 @@ export default function AllServicesPage() {
           />
           <div className="absolute inset-0 bg-gradient-to-t from-[#0A0D0E]/60 via-transparent to-transparent pointer-events-none" />
         </div>
-      </section>
+      </MotionSection>
 
       {/* SECTION 4.6: Custom Statement Quote Block matching SAI Digital .custom-block */}
-      <section className="w-full px-6 sm:px-10 lg:px-14 xl:px-16 mb-20 sm:mb-28">
+      <MotionSection className="w-full px-6 sm:px-10 lg:px-14 xl:px-16 mb-20 sm:mb-28">
         <div className="p-8 sm:p-14 lg:p-16 rounded-[32px] bg-[#12131c] border border-white/10 relative overflow-hidden">
           <div className="absolute -top-24 -right-24 w-80 h-80 bg-[#5EFC8D]/5 blur-[100px] rounded-full pointer-events-none" />
           <div className="flex flex-col gap-6 max-w-4xl relative z-10">
             <p className="text-base sm:text-lg lg:text-xl font-light text-[#b3b3b3] leading-[1.8] font-montserrat">
               Our strategy and engineering teams build with physical manufacturing feasibility in mind because they work directly alongside our fulfillment centers. Your storefront dispatches in sub-24 hours from day one because barcode WMS validates every station. Your ad campaigns scale profitably over time because performance marketing connects directly to factory-floor landed unit economics.
             </p>
-            <h3 className="text-xl sm:text-2xl lg:text-3xl font-semibold text-[#5EFC8D] font-montserrat leading-snug">
+            <h3 className="text-xl sm:text-2xl lg:text-3xl font-semibold bg-gradient-to-r from-[#5EFC8D] via-[#10E774] to-[#7ceee0] bg-clip-text text-transparent font-montserrat leading-snug">
               One ecosystem. Zero late dispatches. Your global success.
             </h3>
           </div>
         </div>
-      </section>
+      </MotionSection>
 
       {/* SECTION 2: Proven Results Grid matching SAI Digital .grid-info #proven-results with 148px icons */}
-      <section
+      <MotionSection
         id="operations-metrics"
         className="w-full px-6 sm:px-10 lg:px-14 xl:px-16 py-16 sm:py-24 bg-[#0A0D0E] border-t border-b border-white/5"
       >
         <div className="max-w-3xl mb-12 sm:mb-16">
-          <p className="text-base sm:text-lg font-normal text-[#D4FAE6] mb-3 font-montserrat flex items-center gap-2">
-            <Sparkles className="w-4 h-4 text-[#5EFC8D]" aria-hidden="true" />
+          <p className="text-base sm:text-lg font-normal text-[#D4FAE6] mb-3 font-montserrat">
             Enterprise Performance
           </p>
           <h2 className="text-2xl sm:text-3xl lg:text-[36px] font-medium text-[#D4FAE6] font-montserrat leading-[1.3] mb-3">
@@ -819,8 +823,9 @@ export default function AllServicesPage() {
         {/* 6 Grid Cards with SAI Digital 148px Glossy 3D Icons & Gradient Borders */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
           {provenResults.map((metric, idx) => (
-            <div
+            <MotionCard
               key={idx}
+              index={idx}
               className="group bg-gradient-to-b from-[#5EFC8D]/35 via-[#10E774]/10 to-[#5EFC8D]/20 p-[1px] rounded-[20px] transition-all duration-300 hover:from-[#5EFC8D]/65 hover:to-[#5EFC8D]/40 hover:shadow-[0_0_30px_rgba(94,252,141,0.15)]"
             >
               <div className="bg-[#040404] p-8 rounded-[20px] h-full flex flex-col items-center text-center justify-between min-h-[340px]">
@@ -849,13 +854,13 @@ export default function AllServicesPage() {
                   {metric.badge}
                 </span>
               </div>
-            </div>
+            </MotionCard>
           ))}
         </div>
-      </section>
+      </MotionSection>
 
       {/* SECTION: Enterprise Clients & Ecosystem Partners Slider matching SAI Digital #clients-partnerships */}
-      <section
+      <MotionSection
         id="clients-partnerships"
         className="w-full py-14 sm:py-20 mb-16 overflow-hidden border-b border-white/5 bg-[#0D1011]"
       >
@@ -885,7 +890,7 @@ export default function AllServicesPage() {
             ))}
           </div>
         </div>
-      </section>
+      </MotionSection>
 
       {/* SECTION 5: End-to-End Automated Workflow Pipeline */}
       <WorkflowTimeline
@@ -918,7 +923,7 @@ export default function AllServicesPage() {
       />
 
       {/* SECTION 8: Enterprise SLA Protection & Compliance Badges */}
-      <section
+      <MotionSection
         id="sla-compliance"
         className="relative w-full py-20 sm:py-24 bg-[#0A0D0E] border-t border-[#262C30] text-white overflow-hidden"
       >
@@ -939,8 +944,9 @@ export default function AllServicesPage() {
           {/* 4 Compliance Cards matching /company card aesthetic */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {complianceBadges.map((badge, idx) => (
-              <div
+              <MotionCard
                 key={idx}
+                index={idx}
                 className="group p-8 rounded-[32px] bg-[#141718] border border-white/10 hover:border-[#10E774]/50 transition-all duration-300 flex flex-col justify-between"
               >
                 <div>
@@ -954,14 +960,14 @@ export default function AllServicesPage() {
                     {badge.description}
                   </p>
                 </div>
-              </div>
+              </MotionCard>
             ))}
           </div>
         </div>
-      </section>
+      </MotionSection>
 
       {/* SECTION: Flagship Service Portals (Matching /company Section 9 3D dual-state icon cards) */}
-      <section className="w-full px-6 sm:px-10 lg:px-14 xl:px-16 mb-24 sm:mb-32">
+      <MotionSection className="w-full px-6 sm:px-10 lg:px-14 xl:px-16 mb-24 sm:mb-32">
         <div className="w-full mb-10 sm:mb-14">
           <p className="text-base sm:text-lg font-normal text-[#D4FAE6] mb-3 font-montserrat">
             Flagship Platforms
@@ -973,7 +979,10 @@ export default function AllServicesPage() {
 
         <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
           {/* Card 1: SpeedX US POD Engine */}
-          <div className="group p-8 sm:p-12 rounded-[32px] bg-[#141718] border border-white/10 hover:border-[#10E774]/50 transition-all duration-300 flex flex-col justify-between min-h-[380px]">
+          <MotionCard
+            index={0}
+            className="group p-8 sm:p-12 rounded-[32px] bg-[#141718] border border-white/10 hover:border-[#10E774]/50 transition-all duration-300 flex flex-col justify-between min-h-[380px]"
+          >
             <div>
               <p className="text-base sm:text-lg font-normal text-[#D4FAE6] mb-4 font-montserrat">
                 SpeedX POD Fulfillment
@@ -1016,10 +1025,13 @@ export default function AllServicesPage() {
                 <span>SpeedX Fulfillment</span>
               </Link>
             </div>
-          </div>
+          </MotionCard>
 
           {/* Card 2: SmartCommerce Platform */}
-          <div className="group p-8 sm:p-12 rounded-[32px] bg-[#141718] border border-white/10 hover:border-[#10E774]/50 transition-all duration-300 flex flex-col justify-between min-h-[380px]">
+          <MotionCard
+            index={1}
+            className="group p-8 sm:p-12 rounded-[32px] bg-[#141718] border border-white/10 hover:border-[#10E774]/50 transition-all duration-300 flex flex-col justify-between min-h-[380px]"
+          >
             <div>
               <p className="text-base sm:text-lg font-normal text-[#D4FAE6] mb-4 font-montserrat">
                 SmartCommerce Platform
@@ -1062,26 +1074,30 @@ export default function AllServicesPage() {
                 <span>SmartCommerce</span>
               </Link>
             </div>
-          </div>
+          </MotionCard>
         </div>
-      </section>
+      </MotionSection>
 
       {/* SECTION 10: Categorized FAQ Accordion */}
-      <FaqAccordion
-        id="services-faq"
-        badge="Frequently Answered Inquiries"
-        title={
-          <>
-            Got Questions? <span className="text-[#5EFC8D] font-medium">We Have Answers.</span>
-          </>
-        }
-        subtitle="Review key details regarding our SLAs, custom integrations, pricing model, and account protections."
-        items={faqs}
-        categories={['Operations & SLA', 'Integrations & API', 'Pricing & Economics', 'Growth & Ads']}
-      />
+      <MotionDiv className="scroll-mt-28">
+        <FaqAccordion
+          id="services-faq"
+          badge="Frequently Answered Inquiries"
+          title={
+            <>
+              Got Questions? <span className="text-[#5EFC8D] font-medium">We Have Answers.</span>
+            </>
+          }
+          subtitle="Review key details regarding our SLAs, custom integrations, pricing model, and account protections."
+          items={faqs}
+          categories={['Operations & SLA', 'Integrations & API', 'Pricing & Economics', 'Growth & Ads']}
+        />
+      </MotionDiv>
 
       {/* Global Contact & Inquiry Block */}
-      <ContactBlock />
+      <MotionDiv>
+        <ContactBlock />
+      </MotionDiv>
     </div>
   );
 }

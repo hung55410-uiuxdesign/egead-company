@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { TrendingDown, TrendingUp, CheckCircle2, AlertTriangle, ShieldCheck, Zap } from 'lucide-react';
+import { TrendingDown, TrendingUp, CheckCircle2, AlertTriangle, ShieldCheck } from 'lucide-react';
 
 export interface TransformationMetric {
   id: string;
@@ -101,12 +101,13 @@ export function TransformationMatrix({
       {/* Header section */}
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-8 border-b border-white/10">
         <div>
-          <p className="text-base sm:text-lg font-normal text-[#D4FAE6] mb-3 font-montserrat flex items-center gap-2">
-            <Zap className="w-4 h-4 text-[#5EFC8D]" aria-hidden="true" />
+          <p className="text-base sm:text-lg font-normal text-[#D4FAE6] mb-3 font-montserrat">
             Verified Empirical Data
           </p>
-          <h3 className="text-2xl sm:text-3xl lg:text-[34px] font-medium text-[#D4FAE6] font-montserrat leading-[1.3]">
-            {title}
+          <h3 className="text-2xl sm:text-3xl lg:text-[34px] font-semibold font-montserrat leading-[1.3] tracking-tight">
+            <span className="bg-gradient-to-r from-[#6CE8C3] via-[#A8F7E2] to-white bg-clip-text text-transparent">
+              {title}
+            </span>
           </h3>
           <p className="mt-4 text-base sm:text-[17px] text-[#b3b3b3] font-light leading-[1.75] font-montserrat max-w-2xl">
             {description}

@@ -2,6 +2,7 @@
 
 import React, { useState, useMemo } from 'react';
 import Link from 'next/link';
+import { motion } from 'framer-motion';
 import {
   X,
   MapPin,
@@ -63,26 +64,43 @@ export default function PeopleClientView() {
   ];
 
   return (
-    <div className="sai-people-page w-full pt-20 sm:pt-28">
+    <div className="sai-people-page w-full pt-20 sm:pt-28 overflow-hidden">
       {/* ==================================================================== */}
       {/* 1. HERO SECTION (100% SAI DIGITAL FIDELITY)                          */}
       {/* ==================================================================== */}
-      <section>
+      <motion.section
+        initial={{ opacity: 0, y: 24, filter: 'blur(4px)' }}
+        animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+        transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
+      >
         <p className="hero-label">Our People</p>
-      </section>
+      </motion.section>
 
-      <div className="sai-heading-text">
+      <motion.div
+        initial={{ opacity: 0, y: 24, filter: 'blur(4px)' }}
+        animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+        transition={{ duration: 0.85, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+        className="sai-heading-text"
+      >
         <div className="hidden" itemScope itemType="https://schema.org/Organization" />
         <h1>
           <span>Meet the People</span>
-          <span>Behind (Y)our Success.</span>
+          <span className="bg-gradient-to-r from-[#5EFC8D] via-[#10E774] to-[#7ceee0] bg-clip-text text-transparent">
+            Behind (Y)our Success.
+          </span>
         </h1>
-      </div>
+      </motion.div>
 
       {/* ==================================================================== */}
       {/* 2. LEADERSHIP TEAM SECTION (HORIZONTAL TRACK + SLIDE-TO-CENTER TREE) */}
       {/* ==================================================================== */}
-      <div className="people-block">
+      <motion.div
+        initial={{ opacity: 0, y: 35, filter: 'blur(4px)' }}
+        whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+        viewport={{ once: true, amount: 0.08, margin: '0px 0px -50px 0px' }}
+        transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
+        className="people-block"
+      >
         <p className="people-block__title px-5 sm:px-0">Leadership Team</p>
 
         {/* Leadership Row: Default horizontal track of all 8 leaders / Centered Tree */}
@@ -103,12 +121,18 @@ export default function PeopleClientView() {
             Your browser does not support the video tag.
           </video>
         </div>
-      </div>
+      </motion.div>
 
       {/* ==================================================================== */}
       {/* 3. OUR TEAM OF EXPERTS SECTION (WHITE CONTAINER, .people-card--more)  */}
       {/* ==================================================================== */}
-      <div className="people-block people-block--white">
+      <motion.div
+        initial={{ opacity: 0, y: 35, filter: 'blur(4px)' }}
+        whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+        viewport={{ once: true, amount: 0.05, margin: '0px 0px -50px 0px' }}
+        transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
+        className="people-block people-block--white"
+      >
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 mb-10 pb-6 border-b border-gray-200">
           <div>
             <p className="people-block__title mb-1">Our Team of Experts</p>
@@ -237,12 +261,18 @@ export default function PeopleClientView() {
             </button>
           </div>
         )}
-      </div>
+      </motion.div>
 
       {/* ==================================================================== */}
       {/* 4. CONTACT BLOCK (100% SAI DIGITAL FIDELITY)                         */}
       {/* ==================================================================== */}
-      <div className="contact-block">
+      <motion.div
+        initial={{ opacity: 0, y: 35, filter: 'blur(4px)' }}
+        whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+        viewport={{ once: true, amount: 0.1, margin: '0px 0px -50px 0px' }}
+        transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
+        className="contact-block"
+      >
         <div className="contact-block__title">
           <p>
             Let's <strong>boost</strong> your&nbsp;<br />
@@ -255,7 +285,7 @@ export default function PeopleClientView() {
         <Link className="ant-btn-primary" href="/contact-us">
           Let's talk
         </Link>
-      </div>
+      </motion.div>
 
       {/* ==================================================================== */}
       {/* 5. EXPERT MEMBER DETAILS MODAL (FOR DETAILED READING)                 */}

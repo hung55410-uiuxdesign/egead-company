@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { motion, AnimatePresence } from 'framer-motion';
 import { X, ChevronRight, ArrowUpRight } from 'lucide-react';
 
 interface MegaMenuProps {
@@ -13,13 +14,25 @@ interface MegaMenuProps {
 export default function MegaMenu({ isOpen, onClose }: MegaMenuProps) {
   const [activeTab, setActiveTab] = useState<'services' | 'products' | 'work' | 'insights' | 'company'>('services');
 
-  if (!isOpen) return null;
-
   return (
-    <div className="fixed inset-0 z-50 overflow-y-auto bg-black/80 backdrop-blur-md transition-all duration-300">
-      <div className="w-full px-6 sm:px-10 lg:px-14 xl:px-16 pt-6">
-        {/* Modal Window */}
-        <div className="relative rounded-[32px] sm:rounded-[40px] bg-white text-black p-6 sm:p-10 lg:p-14 shadow-2xl border border-gray-100 min-h-[500px] animate-fade-in-up">
+    <AnimatePresence>
+      {isOpen && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.25 }}
+          className="fixed inset-0 z-50 overflow-y-auto bg-black/80 backdrop-blur-md"
+        >
+          <div className="w-full px-6 sm:px-10 lg:px-14 xl:px-16 pt-6 pb-12">
+            {/* Modal Window */}
+            <motion.div
+              initial={{ opacity: 0, y: -24, scale: 0.96 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -18, scale: 0.96 }}
+              transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] as const }}
+              className="relative rounded-[32px] sm:rounded-[40px] bg-white text-black p-6 sm:p-10 lg:p-14 shadow-2xl border border-gray-100 min-h-[500px]"
+            >
           {/* Top Bar inside Menu */}
           <div className="flex items-center justify-between border-b border-gray-100 pb-6 mb-8">
             <Link href="/" onClick={onClose} className="flex items-center">
@@ -404,8 +417,10 @@ export default function MegaMenu({ isOpen, onClose }: MegaMenuProps) {
               <div className="absolute -bottom-10 -right-10 w-40 h-40 bg-[#10E774]/10 rounded-full blur-2xl pointer-events-none" />
             </div>
           </div>
-        </div>
+        </motion.div>
       </div>
-    </div>
+    </motion.div>
+  )}
+</AnimatePresence>
   );
 }

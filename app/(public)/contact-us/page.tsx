@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import { motion } from 'framer-motion';
 import { Mail, MapPin, Phone, Send, CheckCircle, ArrowUpRight } from 'lucide-react';
 
 const offices = [
@@ -50,25 +51,38 @@ export default function ContactUsPage() {
   };
 
   return (
-    <div className="w-full bg-[#0A0D0E] text-white pt-32 sm:pt-40 pb-28">
+    <div className="w-full bg-[#0A0D0E] text-white pt-32 sm:pt-40 pb-28 overflow-hidden">
       {/* Hero Header */}
-      <section className="w-full px-6 sm:px-10 lg:px-14 xl:px-16 mb-16 sm:mb-24">
+      <motion.section
+        initial={{ opacity: 0, y: 24, filter: 'blur(4px)' }}
+        animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+        transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
+        className="w-full px-6 sm:px-10 lg:px-14 xl:px-16 mb-16 sm:mb-24"
+      >
         <div className="w-full">
           <p className="text-base sm:text-lg font-normal text-[#D4FAE6] mb-4 font-montserrat">
             Get in Touch
           </p>
           <h1 className="text-4xl sm:text-6xl lg:text-[72px] font-medium leading-[1.08] text-[#D4FAE6] font-montserrat mb-6">
             Automate Operations, <br />
-            <span className="text-[#5EFC8D] font-medium">Scale Globally.</span>
+            <span className="bg-gradient-to-r from-[#5EFC8D] via-[#10E774] to-[#7ceee0] bg-clip-text text-transparent font-medium">
+              Scale Globally.
+            </span>
           </h1>
           <p className="text-base sm:text-lg lg:text-xl text-[#b3b3b3] font-light leading-[1.75] font-montserrat max-w-3xl">
             Let's discuss how E-GEAD can automate your multi-channel storefronts, guarantee sub-24h US POD fulfillment, and scale your brand across international marketplaces.
           </p>
         </div>
-      </section>
+      </motion.section>
 
       {/* Main Grid: Form & Info */}
-      <section className="w-full px-6 sm:px-10 lg:px-14 xl:px-16 mb-28">
+      <motion.section
+        initial={{ opacity: 0, y: 35, filter: 'blur(4px)' }}
+        whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+        viewport={{ once: true, amount: 0.1, margin: '0px 0px -50px 0px' }}
+        transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
+        className="w-full px-6 sm:px-10 lg:px-14 xl:px-16 mb-28"
+      >
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
           {/* Left Form */}
           <div className="lg:col-span-7 bg-[#141718] p-8 sm:p-12 rounded-[36px] border border-white/10 shadow-2xl">
@@ -229,10 +243,17 @@ export default function ContactUsPage() {
             </div>
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* Global Offices Section */}
-      <section id="offices" className="w-full px-6 sm:px-10 lg:px-14 xl:px-16">
+      <motion.section
+        id="offices"
+        initial={{ opacity: 0, y: 35, filter: 'blur(4px)' }}
+        whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+        viewport={{ once: true, amount: 0.1, margin: '0px 0px -50px 0px' }}
+        transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
+        className="w-full px-6 sm:px-10 lg:px-14 xl:px-16"
+      >
         <div className="mb-12">
           <span className="text-sm sm:text-base font-normal text-[#D4FAE6] block mb-2 font-montserrat">
             Global Operations
@@ -244,25 +265,30 @@ export default function ContactUsPage() {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {offices.map((off, idx) => (
-            <div
+            <motion.div
               key={idx}
-              className="p-6 rounded-2xl bg-[#141718] border border-white/10 hover:border-[#5EFC8D]/40 transition duration-300"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: idx * 0.08, ease: [0.22, 1, 0.36, 1] }}
+              whileHover={{ y: -4, transition: { duration: 0.2 } }}
+              className="p-6 rounded-2xl bg-[#141718] border border-white/10 hover:border-[#5EFC8D]/50 transition-colors duration-300 shadow-xl hover:shadow-[0_16px_36px_rgba(94,252,141,0.1)]"
             >
-              <span className="text-xs text-[#5EFC8D] block mb-1 font-normal">
+              <span className="text-xs text-[#5EFC8D] block mb-1 font-normal font-montserrat">
                 {off.type}
               </span>
               <h3 className="text-lg sm:text-xl font-medium text-[#D4FAE6] mb-2 font-montserrat">{off.country}</h3>
-              <p className="text-xs text-[#b3b3b3] font-light mb-3 leading-relaxed">{off.address}</p>
+              <p className="text-xs text-[#b3b3b3] font-light mb-3 leading-relaxed font-montserrat">{off.address}</p>
               <a
                 href={`mailto:${off.email}`}
                 className="text-xs text-[#5EFC8D] hover:underline font-montserrat"
               >
                 {off.email}
               </a>
-            </div>
+            </motion.div>
           ))}
         </div>
-      </section>
+      </motion.section>
     </div>
   );
 }

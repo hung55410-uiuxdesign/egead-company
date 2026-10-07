@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Download, FileText, FileSpreadsheet, CheckCircle2, BookOpen, Sparkles } from 'lucide-react';
+import { Download, FileText, FileSpreadsheet, CheckCircle2 } from 'lucide-react';
 
 export interface PlaybookResource {
   id: string;
@@ -76,12 +76,13 @@ export function PlaybookDownloads({
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-8 border-b border-white/10">
         <div>
-          <p className="text-base sm:text-lg font-normal text-[#D4FAE6] mb-3 font-montserrat flex items-center gap-2">
-            <BookOpen className="w-4 h-4 text-[#5EFC8D]" aria-hidden="true" />
+          <p className="text-base sm:text-lg font-normal text-[#D4FAE6] mb-3 font-montserrat">
             Executive Knowledge Base
           </p>
-          <h2 className="text-2xl sm:text-3xl lg:text-[34px] font-medium text-[#D4FAE6] font-montserrat leading-[1.3]">
-            Operational Playbooks &amp; <span className="text-[#5EFC8D] font-medium">Strategy Guides</span>
+          <h2 className="text-2xl sm:text-3xl lg:text-[34px] font-semibold font-montserrat leading-[1.3] tracking-tight">
+            <span className="bg-gradient-to-r from-[#6CE8C3] via-[#A8F7E2] to-white bg-clip-text text-transparent">
+              Operational Playbooks &amp; Strategy Guides
+            </span>
           </h2>
           <p className="mt-4 text-base sm:text-[17px] text-[#b3b3b3] max-w-2xl font-light leading-[1.75] font-montserrat">
             Download the battle-tested standard operating procedures (SOPs) and financial templates our enterprise partners use to run high-margin cross-border operations.
@@ -178,8 +179,7 @@ export function PlaybookDownloads({
 
       {/* Trust reassurance banner */}
       <div className="mt-8 pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-montserrat text-gray-500">
-        <div className="flex items-center gap-2">
-          <Sparkles className="w-3.5 h-3.5 text-[#10E774]" aria-hidden="true" />
+        <div>
           <span>Updated quarterly with the latest 2026 TikTok Shop US, USPS, and Amazon policies.</span>
         </div>
         <span>Direct instant access · Instant digital PDF &amp; sheet download</span>

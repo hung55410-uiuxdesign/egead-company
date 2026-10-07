@@ -5,7 +5,6 @@ import {
   ArrowRight,
   ArrowUpRight,
   ShieldCheck,
-  Sparkles,
   CheckCircle2,
   Truck,
   Headphones,
@@ -22,6 +21,11 @@ import {
 } from '@/components/sections';
 import type { BentoItem, MetricItem, FaqItem } from '@/components/sections';
 import ContactBlock from '@/components/ContactBlock';
+import MotionSection, {
+  MotionHero,
+  MotionDiv,
+  MotionCard,
+} from '@/components/MotionSection';
 
 export const metadata: Metadata = {
   title: 'Strategic Partners & Global Commerce Ecosystem | E-GEAD',
@@ -194,19 +198,19 @@ export default function PartnersPage() {
         aria-label="Partners Ecosystem Hero"
         className="w-full px-6 sm:px-10 lg:px-14 xl:px-16 mb-20 sm:mb-28 scroll-mt-28"
       >
-        <div className="w-full">
+        <MotionHero className="w-full">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14 items-center">
             
             {/* Left Headline & Positioning */}
             <div className="lg:col-span-7">
-              <div className="inline-flex items-center gap-2 text-sm sm:text-base font-normal text-[#D4FAE6] mb-6 font-montserrat">
-                <Sparkles className="w-4 h-4 text-[#5EFC8D]" aria-hidden="true" />
+              <p className="text-sm sm:text-base font-normal text-[#D4FAE6] mb-6 font-montserrat flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-[#10E774] animate-pulse" />
                 Global Commerce Alliances
-              </div>
+              </p>
 
               <h1 className="text-4xl sm:text-6xl lg:text-[72px] font-medium leading-[1.08] text-[#D4FAE6] font-montserrat mb-6">
                 Integrated with the World&apos;s <br />
-                <span className="text-[#5EFC8D] font-medium">Leading Commerce Ecosystems.</span>
+                <span className="bg-gradient-to-r from-[#5EFC8D] via-[#10E774] to-[#7ceee0] bg-clip-text text-transparent font-medium">Leading Commerce Ecosystems.</span>
               </h1>
 
               <p className="text-base sm:text-lg lg:text-xl text-[#b3b3b3] font-light leading-[1.75] font-montserrat max-w-2xl mb-8">
@@ -217,7 +221,7 @@ export default function PartnersPage() {
               <div className="flex flex-wrap items-center gap-4">
                 <a
                   href="#ecosystem-matrix"
-                  className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-[#5EFC8D] text-black font-medium text-sm sm:text-base font-montserrat hover:bg-[#4ee37e] transition duration-300"
+                  className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-[#5EFC8D] text-black font-medium text-sm sm:text-base font-montserrat hover:bg-[#4ee37e] transition duration-300 shadow-[0_0_20px_rgba(94,252,141,0.25)] hover:shadow-[0_0_30px_rgba(94,252,141,0.4)]"
                 >
                   <span>Explore Partner Matrix</span>
                   <ArrowRight className="w-4 h-4" aria-hidden="true" />
@@ -237,11 +241,11 @@ export default function PartnersPage() {
             </div>
 
           </div>
-        </div>
+        </MotionHero>
       </section>
 
       {/* SECTION 2: Real-Time API Integration Throughput Ticker */}
-      <section
+      <MotionSection
         id="api-throughput"
         role="region"
         aria-label="Real-Time API Integration Throughput"
@@ -256,20 +260,20 @@ export default function PartnersPage() {
             metrics={THROUGHPUT_METRICS}
           />
         </div>
-      </section>
+      </MotionSection>
 
       {/* SECTION 3: 5-Tier Categorized Ecosystem Matrix */}
-      <section
+      <MotionSection
         className="w-full px-6 sm:px-10 lg:px-14 xl:px-16 mb-24 sm:mb-28"
         aria-label="5-Tier Ecosystem Matrix Section"
       >
         <div className="w-full">
           <EcosystemMatrix />
         </div>
-      </section>
+      </MotionSection>
 
       {/* SECTION 4: Deep Integration & Certified Status Showcase */}
-      <section
+      <MotionSection
         id="certified-showcase"
         role="region"
         aria-label="Deep Integration & Certified Status Showcase"
@@ -283,20 +287,20 @@ export default function PartnersPage() {
             items={CERTIFIED_BENTO_ITEMS}
           />
         </div>
-      </section>
+      </MotionSection>
 
       {/* SECTION 5: The E-GEAD Technical Integration Bridge Architecture */}
-      <section
+      <MotionSection
         className="w-full px-6 sm:px-10 lg:px-14 xl:px-16 mb-24 sm:mb-28"
         aria-label="Technical Integration Bridge Architecture Section"
       >
         <div className="w-full">
           <IntegrationBridgeVisualizer />
         </div>
-      </section>
+      </MotionSection>
 
       {/* SECTION 6: Exclusive Merchant Advantages from Our Alliances */}
-      <section
+      <MotionSection
         id="merchant-advantages"
         role="region"
         aria-label="Exclusive Merchant Advantages"
@@ -320,7 +324,10 @@ export default function PartnersPage() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             
             {/* Benefit 1 */}
-            <div className="p-8 rounded-3xl bg-[#141718] border border-white/10 hover:border-[#10E774]/40 transition-all duration-300 shadow-xl flex flex-col justify-between group">
+            <MotionCard
+              index={0}
+              className="p-8 rounded-3xl bg-[#141718] border border-white/10 hover:border-[#10E774]/50 hover:shadow-[0_12px_32px_rgba(16,231,116,0.12)] transition-all duration-300 shadow-xl flex flex-col justify-between group"
+            >
               <div>
                 <div className="w-12 h-12 rounded-2xl bg-[#10E774]/10 border border-[#10E774]/25 flex items-center justify-center text-[#10E774] mb-6 group-hover:scale-105 transition-transform motion-reduce:transform-none">
                   <Truck className="w-6 h-6" aria-hidden="true" />
@@ -335,10 +342,13 @@ export default function PartnersPage() {
               <div className="mt-8 pt-4 border-t border-white/10 text-xs font-montserrat text-gray-500">
                 Direct Origin Manifest Rates
               </div>
-            </div>
+            </MotionCard>
 
             {/* Benefit 2 */}
-            <div className="p-8 rounded-3xl bg-[#141718] border border-white/10 hover:border-[#10E774]/40 transition-all duration-300 shadow-xl flex flex-col justify-between group">
+            <MotionCard
+              index={1}
+              className="p-8 rounded-3xl bg-[#141718] border border-white/10 hover:border-[#10E774]/50 hover:shadow-[0_12px_32px_rgba(16,231,116,0.12)] transition-all duration-300 shadow-xl flex flex-col justify-between group"
+            >
               <div>
                 <div className="w-12 h-12 rounded-2xl bg-[#10E774]/10 border border-[#10E774]/25 flex items-center justify-center text-[#10E774] mb-6 group-hover:scale-105 transition-transform motion-reduce:transform-none">
                   <Headphones className="w-6 h-6" aria-hidden="true" />
@@ -353,10 +363,13 @@ export default function PartnersPage() {
               <div className="mt-8 pt-4 border-t border-white/10 text-xs font-montserrat text-gray-500">
                 Dedicated Partner Support Desks
               </div>
-            </div>
+            </MotionCard>
 
             {/* Benefit 3 */}
-            <div className="p-8 rounded-3xl bg-[#141718] border border-white/10 hover:border-[#10E774]/40 transition-all duration-300 shadow-xl flex flex-col justify-between group">
+            <MotionCard
+              index={2}
+              className="p-8 rounded-3xl bg-[#141718] border border-white/10 hover:border-[#10E774]/50 hover:shadow-[0_12px_32px_rgba(16,231,116,0.12)] transition-all duration-300 shadow-xl flex flex-col justify-between group"
+            >
               <div>
                 <div className="w-12 h-12 rounded-2xl bg-[#10E774]/10 border border-[#10E774]/25 flex items-center justify-center text-[#10E774] mb-6 group-hover:scale-105 transition-transform motion-reduce:transform-none">
                   <Zap className="w-6 h-6" aria-hidden="true" />
@@ -371,14 +384,14 @@ export default function PartnersPage() {
               <div className="mt-8 pt-4 border-t border-white/10 text-xs font-montserrat text-gray-500">
                 Quarterly Alpha Testing Cohorts
               </div>
-            </div>
+            </MotionCard>
 
           </div>
         </div>
-      </section>
+      </MotionSection>
 
       {/* SECTION 7: Partner Co-Innovation & Success Stories */}
-      <section
+      <MotionSection
         id="partner-stories"
         role="region"
         aria-label="Partner Co-Innovation and Success Stories"
@@ -442,10 +455,10 @@ export default function PartnersPage() {
             </div>
           </div>
         </div>
-      </section>
+      </MotionSection>
 
       {/* SECTION 8: Integration & Ecosystem FAQ Accordion */}
-      <section
+      <MotionSection
         id="partners-faq"
         role="region"
         aria-label="Partnership and Integration FAQ"
@@ -458,10 +471,10 @@ export default function PartnersPage() {
             subtitle="Common questions regarding API security, onboarding speeds, multi-tenant store setups, and technical specifications."
           />
         </div>
-      </section>
+      </MotionSection>
 
       {/* SECTION 9: High-Velocity Alliance CTA: Join the Ecosystem */}
-      <section
+      <MotionSection
         id="partners-cta"
         role="region"
         aria-label="Join the E-GEAD Ecosystem"
@@ -482,7 +495,7 @@ export default function PartnersPage() {
 
               <h2 className="text-3xl sm:text-5xl lg:text-[54px] font-medium text-[#D4FAE6] font-montserrat leading-[1.15]">
                 Expand Your Reach Within the <br />
-                <span className="text-[#5EFC8D] font-medium">E-GEAD Global Network.</span>
+                <span className="bg-gradient-to-r from-[#5EFC8D] via-[#10E774] to-[#7ceee0] bg-clip-text text-transparent font-medium">E-GEAD Global Network.</span>
               </h2>
 
               <p className="mt-4 text-base sm:text-lg text-[#b3b3b3] font-light leading-[1.75] font-montserrat">
@@ -492,7 +505,7 @@ export default function PartnersPage() {
               <div className="mt-8 flex flex-wrap items-center gap-4">
                 <a
                   href="#contact"
-                  className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-[#5EFC8D] text-black font-medium text-sm sm:text-base font-montserrat hover:bg-[#4ee37e] transition duration-300"
+                  className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-[#5EFC8D] text-black font-medium text-sm sm:text-base font-montserrat hover:bg-[#4ee37e] transition duration-300 shadow-[0_0_20px_rgba(94,252,141,0.25)] hover:shadow-[0_0_30px_rgba(94,252,141,0.4)]"
                 >
                   <span>Apply for Technology Partnership</span>
                   <ArrowRight className="w-4 h-4" aria-hidden="true" />
@@ -523,12 +536,12 @@ export default function PartnersPage() {
             </div>
           </div>
         </div>
-      </section>
+      </MotionSection>
 
       {/* Global Conversion Contact Block */}
-      <div id="contact" className="scroll-mt-28">
+      <MotionDiv id="contact" className="scroll-mt-28">
         <ContactBlock />
-      </div>
+      </MotionDiv>
 
     </div>
   );

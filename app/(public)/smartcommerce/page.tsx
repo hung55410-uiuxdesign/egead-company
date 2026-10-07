@@ -28,6 +28,11 @@ import {
 } from '@/components/sections';
 import type { BentoItem, MetricItem, ComparisonRow } from '@/components/sections';
 import ContactBlock from '@/components/ContactBlock';
+import MotionSection, {
+  MotionHero,
+  MotionDiv,
+  MotionCard,
+} from '@/components/MotionSection';
 
 export const metadata: Metadata = {
   title: 'Eweb-platform | Unified Operations Cockpit & Margin Control | E-GEAD',
@@ -295,18 +300,18 @@ export default function SmartCommercePage() {
         id="platform-hero"
         className="relative w-full py-16 sm:py-20 lg:py-24 overflow-hidden border-b border-[#262C30]"
       >
-        <div className="relative z-10 w-full px-6 sm:px-10 lg:px-14 xl:px-16">
+        <MotionHero className="relative z-10 w-full px-6 sm:px-10 lg:px-14 xl:px-16">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14 items-center">
             {/* Left Content Column */}
             <div className="lg:col-span-6 space-y-6">
               <span className="inline-flex items-center gap-2 text-sm sm:text-base font-normal text-[#D4FAE6] font-montserrat">
-                <Activity className="w-4 h-4 text-[#5EFC8D]" aria-hidden="true" />
+                <span className="w-2 h-2 rounded-full bg-[#10E774] animate-pulse" />
                 Centralized Commerce OS
               </span>
 
               <h1 className="text-4xl sm:text-5xl lg:text-[68px] font-medium text-[#D4FAE6] font-montserrat leading-[1.08]">
                 Eweb-platform: Unified Operations.{' '}
-                <span className="text-[#5EFC8D] font-medium">Master Multi-Channel Margins.</span>
+                <span className="bg-gradient-to-r from-[#5EFC8D] via-[#10E774] to-[#7ceee0] bg-clip-text text-transparent font-medium">Master Multi-Channel Margins.</span>
               </h1>
 
               <p className="text-base sm:text-lg lg:text-xl text-[#b3b3b3] font-light leading-[1.75] font-montserrat max-w-xl">
@@ -316,7 +321,7 @@ export default function SmartCommercePage() {
               <div className="flex flex-wrap items-center gap-4 pt-2">
                 <Link
                   href="#financial-ledger"
-                  className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-[#5EFC8D] text-black font-medium text-sm sm:text-base font-montserrat hover:bg-[#4ee37e] transition duration-300"
+                  className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-[#5EFC8D] text-black font-medium text-sm sm:text-base font-montserrat hover:bg-[#4ee37e] transition duration-300 shadow-[0_0_20px_rgba(94,252,141,0.25)] hover:shadow-[0_0_30px_rgba(94,252,141,0.4)]"
                 >
                   <span>Explore Cockpit Demo</span>
                   <ArrowRight className="w-4 h-4" aria-hidden="true" />
@@ -352,7 +357,7 @@ export default function SmartCommercePage() {
               <CockpitHudCard />
             </div>
           </div>
-        </div>
+        </MotionHero>
       </section>
 
       {/* SECTION 2: Core Platform Performance Metrics Bar */}
@@ -400,7 +405,7 @@ export default function SmartCommercePage() {
       <InventoryBufferEngine id="inventory-buffer-engine" />
 
       {/* SECTION 6: Barcode-Verified WMS & Warehouse Automation Module */}
-      <section
+      <MotionSection
         id="wms-automation-module"
         className="relative w-full py-20 sm:py-24 lg:py-28 bg-[#0A0D0E] text-white border-t border-[#262C30]"
       >
@@ -420,9 +425,10 @@ export default function SmartCommercePage() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
             {wmsFeatures.map((feat, idx) => (
-              <div
+              <MotionCard
                 key={idx}
-                className="rounded-[28px] bg-[#141718]/90 border border-[#262C30] p-7 sm:p-8 flex flex-col justify-between hover:border-[#5EFC8D]/40 transition-all duration-300 group shadow-lg"
+                index={idx}
+                className="rounded-[28px] bg-[#141718]/90 border border-[#262C30] p-7 sm:p-8 flex flex-col justify-between hover:border-[#5EFC8D]/50 hover:shadow-[0_10px_30px_rgba(94,252,141,0.1)] transition-all duration-300 group shadow-lg"
               >
                 <div>
                   <div className="flex items-center justify-between mb-6">
@@ -447,11 +453,11 @@ export default function SmartCommercePage() {
                   <CheckCircle2 className="w-4 h-4 flex-shrink-0" aria-hidden="true" />
                   <span>Verified 99.9% Accuracy</span>
                 </div>
-              </div>
+              </MotionCard>
             ))}
           </div>
         </div>
-      </section>
+      </MotionSection>
 
       {/* SECTION 7: Automated Net Margin & Financial Reconciliation Ledger */}
       <NetMarginLedger id="financial-ledger" />
@@ -460,7 +466,7 @@ export default function SmartCommercePage() {
       <BusinessRulesBuilder id="rules-engine" />
 
       {/* SECTION 9: Enterprise Cloud Resilience & Security Standards */}
-      <section
+      <MotionSection
         id="cloud-security"
         className="relative w-full py-20 sm:py-24 lg:py-28 bg-[#0A0D0E] text-white border-t border-[#262C30]"
       >
@@ -480,9 +486,10 @@ export default function SmartCommercePage() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {securityStandards.map((sec, idx) => (
-              <div
+              <MotionCard
                 key={idx}
-                className="p-6 sm:p-7 rounded-[26px] bg-[#141718]/90 border border-[#262C30] hover:border-[#5EFC8D]/40 transition-all duration-300 group"
+                index={idx}
+                className="p-6 sm:p-7 rounded-[26px] bg-[#141718]/90 border border-[#262C30] hover:border-[#5EFC8D]/50 hover:shadow-[0_10px_30px_rgba(94,252,141,0.1)] transition-all duration-300 group"
               >
                 <div className="w-12 h-12 rounded-2xl bg-[#1D2224] border border-[#262C30] flex items-center justify-center text-[#5EFC8D] mb-5 group-hover:scale-105 transition-transform">
                   {sec.icon}
@@ -493,14 +500,14 @@ export default function SmartCommercePage() {
                 <p className="text-xs sm:text-sm text-[#b3b3b3] font-light font-montserrat leading-relaxed">
                   {sec.description}
                 </p>
-              </div>
+              </MotionCard>
             ))}
           </div>
         </div>
-      </section>
+      </MotionSection>
 
       {/* SECTION 10: Seamless Native Platform Integrations Ecosystem */}
-      <section
+      <MotionSection
         id="platform-integrations"
         className="relative w-full py-20 sm:py-24 lg:py-28 bg-[#0A0D0E] text-white border-t border-[#262C30]"
       >
@@ -520,10 +527,11 @@ export default function SmartCommercePage() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {integrations.map((item, idx) => (
-              <div
+              <MotionCard
                 key={idx}
+                index={idx}
                 title={`${item.name} - ${item.status}`}
-                className="p-6 rounded-2xl bg-[#141718]/90 border border-[#262C30] hover:border-[#5EFC8D]/40 transition-all duration-300 flex flex-col justify-between group"
+                className="p-6 rounded-2xl bg-[#141718]/90 border border-[#262C30] hover:border-[#5EFC8D]/50 hover:shadow-[0_10px_30px_rgba(94,252,141,0.1)] transition-all duration-300 flex flex-col justify-between group"
               >
                 <div>
                   <div className="flex items-center justify-between pb-3 mb-3 border-b border-[#262C30]">
@@ -551,19 +559,19 @@ export default function SmartCommercePage() {
                   <span>2-Way Live Sync</span>
                   <span className="text-emerald-400">Active</span>
                 </div>
-              </div>
+              </MotionCard>
             ))}
           </div>
         </div>
-      </section>
+      </MotionSection>
 
       {/* SECTION 11: High-Velocity Conversion CTA: Launch Your Cockpit */}
-      <section
+      <MotionSection
         id="platform-cta"
         className="relative w-full py-20 sm:py-24 lg:py-28 bg-[#0A0D0E] text-white border-t border-[#262C30]"
       >
         <div className="relative z-10 w-full px-6 sm:px-10 lg:px-14 xl:px-16 mb-16">
-          <div className="relative rounded-[36px] bg-gradient-to-b from-[#141718] to-[#0A0D0E] border border-[#10E774]/40 p-8 sm:p-12 lg:p-16 overflow-hidden shadow-[0_0_80px_rgba(16, 231, 116, 0.15)] text-center">
+          <div className="relative rounded-[36px] bg-gradient-to-b from-[#141718] to-[#0A0D0E] border border-[#10E774]/40 p-8 sm:p-12 lg:p-16 overflow-hidden shadow-[0_0_80px_rgba(16,231,116,0.15)] text-center">
             {/* Background Glow */}
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-96 bg-[#10E774]/10 rounded-full blur-[100px] pointer-events-none" />
 
@@ -575,7 +583,7 @@ export default function SmartCommercePage() {
 
               <h2 className="text-3xl sm:text-4xl lg:text-[44px] font-medium text-[#D4FAE6] font-montserrat leading-[1.15]">
                 Take Full Control of Your E-Commerce{' '}
-                <span className="text-[#5EFC8D] font-medium">Operations Velocity Today.</span>
+                <span className="bg-gradient-to-r from-[#5EFC8D] via-[#10E774] to-[#7ceee0] bg-clip-text text-transparent font-medium">Operations Velocity Today.</span>
               </h2>
 
               <p className="text-base sm:text-lg text-[#b3b3b3] leading-[1.75] font-light font-montserrat max-w-2xl mx-auto">
@@ -585,7 +593,7 @@ export default function SmartCommercePage() {
               <div className="flex flex-wrap items-center justify-center gap-4 pt-4">
                 <Link
                   href="/contact-us"
-                  className="inline-flex items-center gap-2 py-3.5 px-8 rounded-full bg-[#5EFC8D] text-black font-medium text-sm sm:text-base font-montserrat hover:bg-[#4ee37e] transition duration-300"
+                  className="inline-flex items-center gap-2 py-3.5 px-8 rounded-full bg-[#5EFC8D] text-black font-medium text-sm sm:text-base font-montserrat hover:bg-[#4ee37e] transition duration-300 shadow-[0_0_20px_rgba(94,252,141,0.25)] hover:shadow-[0_0_30px_rgba(94,252,141,0.4)]"
                 >
                   <span>Start 14-Day Free Trial</span>
                   <ArrowRight className="w-4 h-4" aria-hidden="true" />
@@ -621,7 +629,7 @@ export default function SmartCommercePage() {
 
         {/* Embedded ContactBlock */}
         <ContactBlock />
-      </section>
+      </MotionSection>
     </div>
   );
 }

@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import ContactBlock from '@/components/ContactBlock';
+import MotionSection, { MotionHero, MotionDiv, MotionCard } from '@/components/MotionSection';
 
 export const metadata = {
   title: 'About Us | E-GEAD: More Than An Operations Partner',
@@ -43,22 +44,24 @@ const partnerLogos = [
 
 export default function CompanyPage() {
   return (
-    <div className="w-full bg-[#0A0D0E] text-white pt-28 sm:pt-36">
+    <div className="w-full bg-[#0A0D0E] text-white pt-28 sm:pt-36 overflow-hidden">
       {/* SECTION 1: Top Heading Title matching Sai Digital */}
-      <section className="w-full px-6 sm:px-10 lg:px-14 xl:px-16 pt-6 pb-12 sm:pb-16">
+      <MotionHero className="w-full px-6 sm:px-10 lg:px-14 xl:px-16 pt-6 pb-12 sm:pb-16">
         <div className="w-full">
           <p className="text-base sm:text-lg font-normal text-[#D4FAE6] mb-4 font-montserrat">
             Our Values
           </p>
           <h1 className="text-4xl sm:text-6xl lg:text-[72px] font-medium leading-[1.15] font-montserrat text-[#D4FAE6]">
             <span className="block">Transform today,</span>
-            <span className="text-[#5EFC8D] block font-medium">lead tomorrow.</span>
+            <span className="bg-gradient-to-r from-[#5EFC8D] via-[#10E774] to-[#7ceee0] bg-clip-text text-transparent block font-medium">
+              lead tomorrow.
+            </span>
           </h1>
         </div>
-      </section>
+      </MotionHero>
 
       {/* SECTION 2: Big Visual Banner Image matching Rectangle 539 */}
-      <section className="w-full px-6 sm:px-10 lg:px-14 xl:px-16 mb-20 sm:mb-28">
+      <MotionDiv className="w-full px-6 sm:px-10 lg:px-14 xl:px-16 mb-20 sm:mb-28">
         <div className="relative w-full rounded-[28px] sm:rounded-[36px] overflow-hidden border border-white/10 shadow-2xl h-[360px] sm:h-[500px] lg:h-[620px]">
           <img
             src="/assets/Rectangle_539.jpg"
@@ -72,10 +75,10 @@ export default function CompanyPage() {
             </span>
           </div>
         </div>
-      </section>
+      </MotionDiv>
 
       {/* SECTION 3: Intro & Transformation Overview (image-text has-content) */}
-      <section className="w-full px-6 sm:px-10 lg:px-14 xl:px-16 mb-24 sm:mb-32">
+      <MotionSection className="w-full px-6 sm:px-10 lg:px-14 xl:px-16 mb-24 sm:mb-32">
         <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start">
           {/* Left Column: Subtitle & Big Heading */}
           <div className="lg:col-span-6 space-y-4">
@@ -100,10 +103,10 @@ export default function CompanyPage() {
             </p>
           </div>
         </div>
-      </section>
+      </MotionSection>
 
       {/* SECTION 4: Our 4D Method (video-text) */}
-      <section id="our-4d-method" className="w-full px-6 sm:px-10 lg:px-14 xl:px-16 mb-24 sm:mb-32">
+      <MotionSection id="our-4d-method" className="w-full px-6 sm:px-10 lg:px-14 xl:px-16 mb-24 sm:mb-32">
         <div className="w-full mb-8 sm:mb-12">
           <p className="text-base sm:text-lg font-normal text-[#D4FAE6] mb-3 font-montserrat">
             Our 4D Method
@@ -123,10 +126,10 @@ export default function CompanyPage() {
             className="w-full h-auto object-cover rounded-[28px] sm:rounded-[36px]"
           />
         </div>
-      </section>
+      </MotionSection>
 
       {/* SECTION 5: Value System (3 Items Cards matching Sai Digital) */}
-      <section className="w-full px-6 sm:px-10 lg:px-14 xl:px-16 mb-24 sm:mb-32">
+      <MotionSection className="w-full px-6 sm:px-10 lg:px-14 xl:px-16 mb-24 sm:mb-32">
         <div className="w-full mb-12 sm:mb-16">
           <p className="text-base sm:text-lg font-normal text-[#D4FAE6] mb-3 font-montserrat">
             Value System
@@ -138,7 +141,7 @@ export default function CompanyPage() {
 
         <div className="w-full grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
           {/* Card 01 */}
-          <div className="group p-8 sm:p-10 rounded-[32px] bg-[#141718] border border-white/10 hover:border-[#10E774]/50 transition-all duration-300 flex flex-col justify-between min-h-[360px]">
+          <MotionCard index={0} className="group p-8 sm:p-10 rounded-[32px] bg-[#141718] border border-white/10 hover:border-[#10E774]/50 transition-all duration-300 flex flex-col justify-between min-h-[360px] shadow-xl hover:shadow-[0_20px_40px_rgba(16,231,116,0.12)]">
             <div>
               <p className="text-2xl sm:text-3xl font-medium text-white/50 font-montserrat mb-6 group-hover:text-[#5EFC8D] transition-colors">
                 01
@@ -157,10 +160,10 @@ export default function CompanyPage() {
                 Our rigorous Project Excellence Assurance methodology (PEA) and sub-24h US fulfillment ensure order delivery within committed timelines, maintaining flawless marketplace SLA metrics.
               </p>
             </div>
-          </div>
+          </MotionCard>
 
           {/* Card 02 */}
-          <div className="group p-8 sm:p-10 rounded-[32px] bg-[#141718] border border-white/10 hover:border-[#10E774]/50 transition-all duration-300 flex flex-col justify-between min-h-[360px]">
+          <MotionCard index={1} className="group p-8 sm:p-10 rounded-[32px] bg-[#141718] border border-white/10 hover:border-[#10E774]/50 transition-all duration-300 flex flex-col justify-between min-h-[360px] shadow-xl hover:shadow-[0_20px_40px_rgba(16,231,116,0.12)]">
             <div>
               <p className="text-2xl sm:text-3xl font-medium text-white/50 font-montserrat mb-6 group-hover:text-[#5EFC8D] transition-colors">
                 02
@@ -179,10 +182,10 @@ export default function CompanyPage() {
                 Our relentless focus leveraging AI address normalization, multi-channel catalog orchestration, and barcode WMS builds the fastest, most reliable path to market.
               </p>
             </div>
-          </div>
+          </MotionCard>
 
           {/* Card 03 */}
-          <div className="group p-8 sm:p-10 rounded-[32px] bg-[#141718] border border-white/10 hover:border-[#10E774]/50 transition-all duration-300 flex flex-col justify-between min-h-[360px]">
+          <MotionCard index={2} className="group p-8 sm:p-10 rounded-[32px] bg-[#141718] border border-white/10 hover:border-[#10E774]/50 transition-all duration-300 flex flex-col justify-between min-h-[360px] shadow-xl hover:shadow-[0_20px_40px_rgba(16,231,116,0.12)]">
             <div>
               <p className="text-2xl sm:text-3xl font-medium text-white/50 font-montserrat mb-6 group-hover:text-[#5EFC8D] transition-colors">
                 03
@@ -201,12 +204,12 @@ export default function CompanyPage() {
                 Our focus is on building an exemplary engineering culture in Buon Ma Thuot that emphasizes diversity, software talent development, and transparent equal opportunity empowerment.
               </p>
             </div>
-          </div>
+          </MotionCard>
         </div>
-      </section>
+      </MotionSection>
 
       {/* SECTION 6: Clients Logo Slider */}
-      <section className="w-full py-12 sm:py-16 mb-16 overflow-hidden border-t border-b border-white/5 bg-[#0D1011]">
+      <MotionSection className="w-full py-12 sm:py-16 mb-16 overflow-hidden border-t border-b border-white/5 bg-[#0D1011]">
         <div className="w-full px-6 sm:px-10 lg:px-14 xl:px-16 mb-8">
           <p className="text-base sm:text-lg font-normal text-[#D4FAE6] mb-2 font-montserrat">
             Clients
@@ -233,10 +236,10 @@ export default function CompanyPage() {
             ))}
           </div>
         </div>
-      </section>
+      </MotionSection>
 
       {/* SECTION 7: Tech Partners Logo Slider */}
-      <section className="w-full py-12 sm:py-16 mb-24 sm:mb-32 overflow-hidden border-b border-white/5 bg-[#0A0D0E]">
+      <MotionSection className="w-full py-12 sm:py-16 mb-24 sm:mb-32 overflow-hidden border-b border-white/5 bg-[#0A0D0E]">
         <div className="w-full px-6 sm:px-10 lg:px-14 xl:px-16 mb-8">
           <p className="text-base sm:text-lg font-normal text-[#D4FAE6] mb-2 font-montserrat">
             Services
@@ -266,10 +269,10 @@ export default function CompanyPage() {
             ))}
           </div>
         </div>
-      </section>
+      </MotionSection>
 
       {/* SECTION 8: Full-Width Image Divider (company.png) */}
-      <section className="w-full px-6 sm:px-10 lg:px-14 xl:px-16 mb-24 sm:mb-32">
+      <MotionSection className="w-full px-6 sm:px-10 lg:px-14 xl:px-16 mb-24 sm:mb-32">
         <div className="relative w-full rounded-[28px] sm:rounded-[36px] overflow-hidden border border-white/10 shadow-2xl h-[320px] sm:h-[460px] lg:h-[580px]">
           <img
             src="/assets/company.png"
@@ -278,13 +281,13 @@ export default function CompanyPage() {
           />
           <div className="absolute inset-0 bg-black/25 pointer-events-none" />
         </div>
-      </section>
+      </MotionSection>
 
       {/* SECTION 9: Two Columns Portal Cards (Our People & Careers) */}
-      <section className="w-full px-6 sm:px-10 lg:px-14 xl:px-16 mb-28 sm:mb-36">
+      <MotionSection className="w-full px-6 sm:px-10 lg:px-14 xl:px-16 mb-28 sm:mb-36">
         <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
           {/* Card 1: Our People */}
-          <div className="group p-8 sm:p-12 rounded-[32px] bg-[#141718] border border-white/10 hover:border-[#10E774]/50 transition-all duration-300 flex flex-col justify-between min-h-[380px]">
+          <MotionCard index={0} className="group p-8 sm:p-12 rounded-[32px] bg-[#141718] border border-white/10 hover:border-[#10E774]/50 transition-all duration-300 flex flex-col justify-between min-h-[380px] shadow-2xl hover:shadow-[0_20px_40px_rgba(16,231,116,0.12)]">
             <div>
               <p className="text-base sm:text-lg font-normal text-[#D4FAE6] mb-4 font-montserrat">
                 Our People
@@ -324,10 +327,10 @@ export default function CompanyPage() {
                 <span>Our people</span>
               </Link>
             </div>
-          </div>
+          </MotionCard>
 
           {/* Card 2: Job Opportunities */}
-          <div className="group p-8 sm:p-12 rounded-[32px] bg-[#141718] border border-white/10 hover:border-[#10E774]/50 transition-all duration-300 flex flex-col justify-between min-h-[380px]">
+          <MotionCard index={1} className="group p-8 sm:p-12 rounded-[32px] bg-[#141718] border border-white/10 hover:border-[#10E774]/50 transition-all duration-300 flex flex-col justify-between min-h-[380px] shadow-2xl hover:shadow-[0_20px_40px_rgba(16,231,116,0.12)]">
             <div>
               <p className="text-base sm:text-lg font-normal text-[#D4FAE6] mb-4 font-montserrat">
                 Job Opportunities
@@ -367,12 +370,14 @@ export default function CompanyPage() {
                 <span>Careers</span>
               </Link>
             </div>
-          </div>
+          </MotionCard>
         </div>
-      </section>
+      </MotionSection>
 
       {/* SECTION 10: Contact Block */}
-      <ContactBlock />
+      <MotionDiv threshold={0.15}>
+        <ContactBlock />
+      </MotionDiv>
     </div>
   );
 }

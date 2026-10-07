@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
 import SpeedXVideoPlayer from '@/components/SpeedXVideoPlayer';
+import { MotionDiv, MotionHero, MotionCard } from '@/components/MotionSection';
 
 export const metadata: Metadata = {
   title: 'Revolutionize Your Workflow with SpeedX: Fast, Efficient Solutions | E-GEAD',
@@ -34,7 +35,7 @@ export default function SpeedXPage() {
           SECTION 1: PRODUCT OVERVIEW HERO (.product-overview.speedx)
          ========================================================================= */}
       <div className="product-overview speedx relative z-10 w-full px-6 sm:px-12 lg:px-16 xl:px-20">
-        <div className="product-overview__header flex flex-col lg:flex-row items-center justify-between gap-10 pt-4 pb-8 lg:py-12">
+        <MotionHero className="product-overview__header flex flex-col lg:flex-row items-center justify-between gap-10 pt-4 pb-8 lg:py-12">
           {/* Left Column (.left / .speedx-area) */}
           <div className="left w-full lg:w-[48%] flex-shrink-0">
             <div className="speedx-area">
@@ -52,7 +53,8 @@ export default function SpeedXPage() {
               </div>
 
               {/* Subtitle Pill Badge */}
-              <div className="speedx-subtitle mb-6">
+              <div className="speedx-subtitle mb-6 inline-flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-[#10E774] animate-pulse" />
                 <span>CRM IMPLEMENTATION</span>
               </div>
 
@@ -75,7 +77,7 @@ export default function SpeedXPage() {
                   <span>Schedule demo</span>
                 </Link>
 
-                <Link href="/contact-us" className="ant-btn ant-btn--link ant-btn-primary">
+                <Link href="/contact-us" className="ant-btn ant-btn--link ant-btn-primary shadow-[0_0_20px_rgba(94,252,141,0.25)] hover:shadow-[0_0_30px_rgba(94,252,141,0.4)] transition-all">
                   <SaiArrow className="w-[18px] h-[17px] text-black" />
                   <span>Book a Demo Now!</span>
                 </Link>
@@ -87,26 +89,26 @@ export default function SpeedXPage() {
           <div className="speedx-right iframe w-full lg:w-[50%] flex items-center justify-center">
             <SpeedXVideoPlayer />
           </div>
-        </div>
+        </MotionHero>
 
         {/* Full-width Masthead Dashboard Banner directly below the hero content */}
-        <div className="w-full mt-6 lg:mt-10">
+        <MotionDiv className="w-full mt-6 lg:mt-10">
           <Image
             src="/assets/speedx/speedx-masthead.png"
             alt="SpeedX CRM Dashboard"
             width={1320}
             height={402}
             unoptimized
-            className="desktop-banner w-full h-auto rounded-[20px] border border-white/10"
+            className="desktop-banner w-full h-auto rounded-[20px] border border-white/10 shadow-2xl"
             priority
           />
-        </div>
+        </MotionDiv>
       </div>
 
       {/* =========================================================================
           SECTION 2: WHY SPEEDX? (.why-speedx)
          ========================================================================= */}
-      <div className="why-speedx relative z-10 w-full px-6 sm:px-12 lg:px-16 xl:px-20 py-20 lg:py-28">
+      <MotionDiv className="why-speedx relative z-10 w-full px-6 sm:px-12 lg:px-16 xl:px-20 py-20 lg:py-28">
         {/* Top Info */}
         <div className="top-info flex flex-col items-center text-center mb-16 lg:mb-20">
           <div className="why-speedx-subtitle mb-6">
@@ -138,7 +140,7 @@ export default function SpeedXPage() {
         {/* Bottom Info: 3 Metric Cards */}
         <div className="bottom-info flex flex-col md:flex-row items-center justify-between gap-8 lg:gap-[65px]">
           {/* Card 1 */}
-          <div className="wsb-block1 wsb-block w-full md:w-1/3">
+          <MotionCard index={0} className="wsb-block1 wsb-block w-full md:w-1/3 hover:scale-[1.03] transition-transform duration-300">
             <div className="wsb-block-img">
               <Image
                 src="/assets/speedx/metric-productivity.png"
@@ -155,10 +157,10 @@ export default function SpeedXPage() {
                 <span className="wsb-block-text2">in Sale Productivity</span>
               </div>
             </div>
-          </div>
+          </MotionCard>
 
           {/* Card 2 */}
-          <div className="wsb-block2 wsb-block w-full md:w-1/3">
+          <MotionCard index={1} className="wsb-block2 wsb-block w-full md:w-1/3 hover:scale-[1.03] transition-transform duration-300">
             <div className="wsb-block-img">
               <Image
                 src="/assets/speedx/metric-cycle-length.png"
@@ -175,10 +177,10 @@ export default function SpeedXPage() {
                 <span className="wsb-block-text2">in Sale Cycle Length</span>
               </div>
             </div>
-          </div>
+          </MotionCard>
 
           {/* Card 3 */}
-          <div className="wsb-block3 wsb-block w-full md:w-1/3">
+          <MotionCard index={2} className="wsb-block3 wsb-block w-full md:w-1/3 hover:scale-[1.03] transition-transform duration-300">
             <div className="wsb-block-img">
               <Image
                 src="/assets/speedx/metric-conversion.png"
@@ -195,14 +197,14 @@ export default function SpeedXPage() {
                 <span className="wsb-block-text2">Lead Conversion Rate</span>
               </div>
             </div>
-          </div>
+          </MotionCard>
         </div>
-      </div>
+      </MotionDiv>
 
       {/* =========================================================================
           SECTION 3: HOW SPEEDX WORKS (.how-speedx)
          ========================================================================= */}
-      <div className="how-speedx relative z-10 w-full px-6 sm:px-12 lg:px-16 xl:px-20">
+      <MotionDiv className="how-speedx relative z-10 w-full px-6 sm:px-12 lg:px-16 xl:px-20">
         <div className="how-speedx-inner flex flex-col lg:flex-row justify-between items-start gap-12 lg:gap-16 pt-20 lg:pt-28 border-t border-[#262C30]">
           {/* Left Info (Sticky) */}
           <div className="left-info w-full lg:w-[48%] lg:sticky lg:top-28">
@@ -215,7 +217,7 @@ export default function SpeedXPage() {
             </div>
 
             <div className="mb-12">
-              <Link href="/contact-us" className="ant-btn ant-btn--link ant-btn-primary">
+              <Link href="/contact-us" className="ant-btn ant-btn--link ant-btn-primary shadow-[0_0_20px_rgba(94,252,141,0.25)] hover:shadow-[0_0_30px_rgba(94,252,141,0.4)] transition-all">
                 <SaiArrow className="w-[18px] h-[17px] text-black" />
                 <span>Start Selling Now!</span>
               </Link>
@@ -237,8 +239,8 @@ export default function SpeedXPage() {
           {/* Right Info (5 Blocks) */}
           <div className="right-info w-full lg:w-[48%] flex flex-col gap-16 lg:gap-24 pt-4 lg:pt-0">
             {/* Step 1 */}
-            <div className="info-1 info-block">
-              <div className="hsr-heading text-xl sm:text-2xl font-semibold text-white mb-3">
+            <div className="info-1 info-block group p-6 rounded-2xl border border-transparent hover:border-white/10 hover:bg-white/[0.02] transition-all">
+              <div className="hsr-heading text-xl sm:text-2xl font-semibold text-white mb-3 group-hover:text-[#10E774] transition-colors">
                 <span>Fast-Track Discovery</span>
               </div>
               <div className="hsr-content text-base sm:text-lg font-light text-[#b3b3b3] leading-relaxed">
@@ -247,8 +249,8 @@ export default function SpeedXPage() {
             </div>
 
             {/* Step 2 */}
-            <div className="info-2 info-block">
-              <div className="hsr-heading text-xl sm:text-2xl font-semibold text-white mb-3">
+            <div className="info-2 info-block group p-6 rounded-2xl border border-transparent hover:border-white/10 hover:bg-white/[0.02] transition-all">
+              <div className="hsr-heading text-xl sm:text-2xl font-semibold text-white mb-3 group-hover:text-[#10E774] transition-colors">
                 <span>Accelerated User Adoption</span>
               </div>
               <div className="hsr-content text-base sm:text-lg font-light text-[#b3b3b3] leading-relaxed">
@@ -257,8 +259,8 @@ export default function SpeedXPage() {
             </div>
 
             {/* Step 3 */}
-            <div className="info-3 info-block">
-              <div className="hsr-heading text-xl sm:text-2xl font-semibold text-white mb-3">
+            <div className="info-3 info-block group p-6 rounded-2xl border border-transparent hover:border-white/10 hover:bg-white/[0.02] transition-all">
+              <div className="hsr-heading text-xl sm:text-2xl font-semibold text-white mb-3 group-hover:text-[#10E774] transition-colors">
                 <span>Pre-visualized Architecture​</span>
               </div>
               <div className="hsr-content text-base sm:text-lg font-light text-[#b3b3b3] leading-relaxed">
@@ -267,8 +269,8 @@ export default function SpeedXPage() {
             </div>
 
             {/* Step 4 */}
-            <div className="info-4 info-block">
-              <div className="hsr-heading text-xl sm:text-2xl font-semibold text-white mb-3">
+            <div className="info-4 info-block group p-6 rounded-2xl border border-transparent hover:border-white/10 hover:bg-white/[0.02] transition-all">
+              <div className="hsr-heading text-xl sm:text-2xl font-semibold text-white mb-3 group-hover:text-[#10E774] transition-colors">
                 <span>Customizable Dashboards</span>
               </div>
               <div className="hsr-content text-base sm:text-lg font-light text-[#b3b3b3] leading-relaxed">
@@ -277,8 +279,8 @@ export default function SpeedXPage() {
             </div>
 
             {/* Step 5 */}
-            <div className="info-5 info-block">
-              <div className="hsr-heading text-xl sm:text-2xl font-semibold text-white mb-3">
+            <div className="info-5 info-block group p-6 rounded-2xl border border-transparent hover:border-white/10 hover:bg-white/[0.02] transition-all">
+              <div className="hsr-heading text-xl sm:text-2xl font-semibold text-white mb-3 group-hover:text-[#10E774] transition-colors">
                 <span>Tailored Customization</span>
               </div>
               <div className="hsr-content text-base sm:text-lg font-light text-[#b3b3b3] leading-relaxed">
@@ -287,12 +289,12 @@ export default function SpeedXPage() {
             </div>
           </div>
         </div>
-      </div>
+      </MotionDiv>
 
       {/* =========================================================================
           SECTION 4: WHAT TO EXPECT WITH SPEEDX (.what-speedx)
          ========================================================================= */}
-      <div className="what-speedx relative z-10 w-full px-6 sm:px-12 lg:px-16 xl:px-20 text-center py-20 lg:py-28 border-t border-[#262C30]">
+      <MotionDiv className="what-speedx relative z-10 w-full px-6 sm:px-12 lg:px-16 xl:px-20 text-center py-20 lg:py-28 border-t border-[#262C30]">
         <div className="why-speedx-subtitle-wrapper mb-16 sm:mb-20">
           <div className="why-speedx-subtitle">
             <span>WHAT TO EXPECT WITH SPEEDX</span>
@@ -302,7 +304,7 @@ export default function SpeedXPage() {
         {/* 3 Value Cards */}
         <div className="bottom-info flex flex-col md:flex-row items-center justify-between gap-10 sm:gap-12 mb-16 sm:mb-20">
           {/* Block 1 */}
-          <div className="wsb-block1 wsb-block w-full md:w-1/3">
+          <MotionCard index={0} className="wsb-block1 wsb-block w-full md:w-1/3 hover:scale-[1.04] transition-transform duration-300">
             <div className="wsb-block-img mb-6">
               <Image
                 src="/assets/speedx/project-delivery.svg"
@@ -321,10 +323,10 @@ export default function SpeedXPage() {
                 </span>
               </div>
             </div>
-          </div>
+          </MotionCard>
 
           {/* Block 2 */}
-          <div className="wsb-block2 wsb-block w-full md:w-1/3">
+          <MotionCard index={1} className="wsb-block2 wsb-block w-full md:w-1/3 hover:scale-[1.04] transition-transform duration-300">
             <div className="wsb-block-img mb-6">
               <Image
                 src="/assets/speedx/full-adoption.svg"
@@ -343,10 +345,10 @@ export default function SpeedXPage() {
                 </span>
               </div>
             </div>
-          </div>
+          </MotionCard>
 
           {/* Block 3 */}
-          <div className="wsb-block3 wsb-block w-full md:w-1/3">
+          <MotionCard index={2} className="wsb-block3 wsb-block w-full md:w-1/3 hover:scale-[1.04] transition-transform duration-300">
             <div className="wsb-block-img mb-6">
               <Image
                 src="/assets/speedx/roi-realization.svg"
@@ -365,17 +367,17 @@ export default function SpeedXPage() {
                 </span>
               </div>
             </div>
-          </div>
+          </MotionCard>
         </div>
 
         {/* CTA Button */}
         <div>
-          <Link href="/contact-us" className="ant-btn ant-btn--link ant-btn-primary">
+          <Link href="/contact-us" className="ant-btn ant-btn--link ant-btn-primary shadow-[0_0_20px_rgba(94,252,141,0.25)] hover:shadow-[0_0_30px_rgba(94,252,141,0.4)] transition-all">
             <SaiArrow className="w-[18px] h-[17px] text-black" />
             <span>Book a Demo Now!</span>
           </Link>
         </div>
-      </div>
+      </MotionDiv>
     </div>
   );
 }

@@ -5,8 +5,6 @@ import Image from 'next/image';
 import {
   ArrowUpRight,
   ShieldCheck,
-  Sparkles,
-  Layers,
   Globe2,
 } from 'lucide-react';
 
@@ -163,8 +161,7 @@ export function CaseStudiesPortfolio({ className = '' }: CaseStudiesPortfolioPro
       >
         <div className="w-full">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-white/10 mb-6">
-            <span className="text-sm font-normal text-[#D4FAE6] font-montserrat flex items-center gap-2">
-              <Layers className="w-4 h-4 text-[#5EFC8D]" aria-hidden="true" />
+            <span className="text-sm font-normal text-[#D4FAE6] font-montserrat">
               Filter By Capability &amp; Operational Domain
             </span>
             <span className="text-xs font-montserrat text-[#b3b3b3]">
@@ -279,12 +276,13 @@ export function CaseStudiesPortfolio({ className = '' }: CaseStudiesPortfolioPro
             {/* Right Column: Narrative 3-Phase Transformation (7 cols) */}
             <div className="lg:col-span-7 flex flex-col justify-between space-y-6">
               <div>
-                <p className="text-base sm:text-lg font-normal text-[#D4FAE6] mb-3 font-montserrat flex items-center gap-2">
-                  <Sparkles className="w-4 h-4 text-[#5EFC8D]" aria-hidden="true" />
+                <p className="text-base sm:text-lg font-normal text-[#D4FAE6] mb-3 font-montserrat">
                   Flagship Case Study Deep Dive
                 </p>
-                <h2 className="text-2xl sm:text-3xl lg:text-[34px] font-medium text-[#D4FAE6] font-montserrat leading-[1.3]">
-                  How UrbanVibe Conquered TikTok Shop US: Zero LDR Strikes &amp; +180% Q4 Growth
+                <h2 className="text-2xl sm:text-3xl lg:text-[34px] font-semibold font-montserrat leading-[1.3] tracking-tight">
+                  <span className="bg-gradient-to-r from-[#6CE8C3] via-[#A8F7E2] to-white bg-clip-text text-transparent">
+                    How UrbanVibe Conquered TikTok Shop US: Zero LDR Strikes &amp; +180% Q4 Growth
+                  </span>
                 </h2>
                 <p className="mt-4 text-base sm:text-[17px] text-[#b3b3b3] font-light leading-[1.75] font-montserrat">
                   When viral short-form video campaigns drove a 12x surge in daily apparel orders, UrbanVibe faced the threat of automated TikTok account suspension. Here is how E-GEAD turned an operational bottleneck into a high-margin growth engine.
@@ -370,8 +368,10 @@ export function CaseStudiesPortfolio({ className = '' }: CaseStudiesPortfolioPro
               <p className="text-base sm:text-lg font-normal text-[#D4FAE6] mb-3 font-montserrat">
                 Portfolio Showcase
               </p>
-              <h2 className="text-2xl sm:text-3xl lg:text-[34px] font-medium text-[#D4FAE6] font-montserrat leading-[1.3]">
-                Empirical Case Studies Portfolio
+              <h2 className="text-2xl sm:text-3xl lg:text-[34px] font-semibold font-montserrat leading-[1.3] tracking-tight">
+                <span className="bg-gradient-to-r from-[#6CE8C3] via-[#A8F7E2] to-white bg-clip-text text-transparent">
+                  Empirical Case Studies Portfolio
+                </span>
               </h2>
             </div>
             <p className="text-base sm:text-[17px] text-[#b3b3b3] font-light leading-[1.75] font-montserrat max-w-md">
