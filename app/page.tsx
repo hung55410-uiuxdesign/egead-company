@@ -16,7 +16,6 @@ export default function HomePage() {
       <ServicesSection />
       <CaseStudiesSection />
       <SmartCXSection />
-      <PartnerSlider />
       <TestimonialsSection />
       <InsightsSection />
       <CultureSection />

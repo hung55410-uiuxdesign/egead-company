@@ -1,103 +1,103 @@
 'use client';
 
-import React, { useRef } from 'react';
-import Link from 'next/link';
+import React from 'react';
 
-const caseStudies = [
-  {
-    client: 'UrbanVibe',
-    title: 'Under-24H POD fulfillment for TikTok Shop US',
-    desc: 'Maintained 0% Late Dispatch Rate (LDR) and 100% account compliance during high-volume Q4 campaigns.',
-    bg: 'https://egeadcompany.com/images/egead/why/us-pod.png',
-    href: '/our-work',
-  },
-  {
-    client: 'HomeCraft',
-    title: 'Automated multi-channel order & inventory sync',
-    desc: 'Eliminated stockouts and manual spreadsheet errors across Amazon, Etsy, and Shopify stores.',
-    bg: 'https://egeadcompany.com/images/egead/why/sync.png',
-    href: '/our-work',
-  },
-  {
-    client: 'Lumina',
-    title: 'Scaling international retail with 4.8x ROAS digital ads',
-    desc: 'High-intent paid acquisition strategy delivering 92K monthly traffic and $8.4 average CPA.',
-    bg: 'https://egeadcompany.com/images/egead/why/ads.png',
-    href: '/our-work',
-  },
-  {
-    client: 'PrintWave',
-    title: 'Processing 10,000+ daily orders via Open RESTful API',
-    desc: 'Direct WMS connectivity, real-time webhooks, and sub-150ms automated print routing.',
-    bg: 'https://egeadcompany.com/images/egead/why/api.png',
-    href: '/our-work',
-  },
+const row1Clients = [
+  { name: 'adidas', src: '/clients/01.png' },
+  { name: 'Caraway', src: '/clients/02.png' },
+  { name: 'Life Fitness', src: '/clients/03.png' },
+  { name: 'Niagara', src: '/clients/04.png' },
+  { name: 'Ooni', src: '/clients/05.png' },
+  { name: 'rag & bone', src: '/clients/06.png' },
+  { name: 'RTIC', src: '/clients/07.png' },
+  { name: 'Simple Modern', src: '/clients/08.png' },
+  { name: 'BÉIS', src: '/clients/09.png' },
+  { name: 'Tatcha', src: '/clients/10.png' },
+];
+
+const row2Clients = [
+  { name: 'THULE', src: '/clients/11.png' },
+  { name: 'IGLOO', src: '/clients/12.png' },
+  { name: 'Extreme Networks', src: '/clients/13.png' },
+  { name: 'Jabra GN', src: '/clients/14.png' },
+  { name: 'SimpliSafe', src: '/clients/15.png' },
+  { name: 'AWAY', src: '/clients/16.png' },
+  { name: 'Fjällräven', src: '/clients/17.png' },
+  { name: 'FIGS', src: '/clients/18.png' },
+  { name: 'Suitsupply', src: '/clients/19.png' },
+  { name: 'TREK', src: '/clients/20.png' },
 ];
 
 export default function CaseStudiesSection() {
-  const scrollRef = useRef<HTMLDivElement>(null);
+  const row1Doubled = [...row1Clients, ...row1Clients];
+  const row2Doubled = [...row2Clients, ...row2Clients];
 
   return (
-    <section id="homepage__casestudy" className="homepage__casestudy relative w-full py-20 sm:py-24 lg:py-28 bg-[#0A0D0E] text-white overflow-hidden">
-      {/* Centered Header Block matching live site */}
-      <div className="w-full px-6 sm:px-10 lg:px-14 xl:px-16 text-center max-w-4xl mx-auto mb-12 sm:mb-16">
-        <p className="text-base sm:text-lg font-normal text-[#D4FAE6] mb-3 font-montserrat">
-          Client Stories
-        </p>
-        <h2 className="text-2xl sm:text-3xl lg:text-[34px] font-medium text-[#D4FAE6] font-montserrat leading-[1.3]">
-          <span className="text-[#5EFC8D] font-medium">Proven results</span> for global sellers.
-        </h2>
-        <p className="mt-4 text-base sm:text-[17px] text-[#b3b3b3] font-light leading-[1.75] font-montserrat max-w-2xl mx-auto">
-          When automation technology, US-standard POD fulfillment, and high-performance digital marketing work together, sustained growth becomes achievable.
-        </p>
+    <section
+      id="homepage__customers"
+      className="relative w-full py-24 sm:py-32 lg:py-36 xl:py-40 bg-[#0A0D0E] text-white border-t border-white/10 overflow-hidden"
+    >
+      <div className="relative z-10 w-full px-6 sm:px-10 lg:px-14 xl:px-16 mb-16 sm:mb-20">
+        {/* Header Block */}
+        <div className="max-w-4xl">
+          <h2 className="text-4xl sm:text-5xl lg:text-[54px] xl:text-[60px] font-normal text-white font-montserrat leading-[1.18] tracking-tight mb-7">
+            Trusted by the world&apos;s
+            <br className="hidden sm:inline" /> leading brands
+          </h2>
+          <p className="text-base sm:text-lg lg:text-[19px] text-[#b3b3b3] font-light leading-[1.8] font-montserrat max-w-3xl">
+            More than 13,000 companies trust Egead to manage their global e-commerce logistics and digital infrastructure across 24 time zones. From Fortune 500s to emerging direct-to-consumer brands, companies rely on our fulfillment, sales automation, and growth marketing to drive supply chain efficiencies.
+          </p>
+        </div>
       </div>
 
-      {/* FULL WIDTH HORIZONTAL SLIDER - spans edge-to-edge */}
-      <div
-        ref={scrollRef}
-        className="w-full overflow-x-auto scrollbar-none flex gap-6 sm:gap-7 px-6 sm:px-10 lg:px-14 xl:px-16 pb-6 cursor-grab active:cursor-grabbing"
-        style={{ scrollSnapType: 'x mandatory' }}
-      >
-        {caseStudies.map((item, idx) => (
-          <Link
-            key={idx}
-            href={item.href}
-            style={{ scrollSnapAlign: 'start' }}
-            className="group relative block w-[85vw] sm:w-[48vw] lg:w-[31vw] xl:w-[28vw] shrink-0 rounded-[40px] overflow-hidden bg-[#141718] border border-white/10 hover:border-[#5EFC8D]/40 transition-all duration-500 shadow-2xl h-[460px] sm:h-[520px] lg:h-[550px]"
+      {/* 2 Marquee Rows */}
+      <div className="relative w-full overflow-hidden space-y-8 sm:space-y-12">
+        {/* Row 1 Marquee (Flows Left) */}
+        <div className="relative w-full overflow-hidden">
+          {/* Subtle Left & Right Edge Gradients */}
+          <div className="pointer-events-none absolute inset-y-0 left-0 w-24 sm:w-44 bg-gradient-to-r from-[#0A0D0E] via-[#0A0D0E]/80 to-transparent z-10" />
+          <div className="pointer-events-none absolute inset-y-0 right-0 w-24 sm:w-44 bg-gradient-to-l from-[#0A0D0E] via-[#0A0D0E]/80 to-transparent z-10" />
+
+          <div className="flex w-max animate-marquee pause-hover items-center gap-4 sm:gap-6 lg:gap-10">
+            {row1Doubled.map((client, idx) => (
+              <div
+                key={`r1-${idx}`}
+                className="flex items-center justify-center min-w-[160px] sm:min-w-[200px] lg:min-w-[220px] h-16 sm:h-20 lg:h-24 opacity-80 hover:opacity-100 transition-all duration-300 group"
+              >
+                <img
+                  src={client.src}
+                  alt={client.name}
+                  className="h-full w-auto object-contain group-hover:scale-110 transition-transform duration-300"
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Row 2 Marquee (Flows Right / Reverse) */}
+        <div className="relative w-full overflow-hidden">
+          {/* Subtle Left & Right Edge Gradients */}
+          <div className="pointer-events-none absolute inset-y-0 left-0 w-24 sm:w-44 bg-gradient-to-r from-[#0A0D0E] via-[#0A0D0E]/80 to-transparent z-10" />
+          <div className="pointer-events-none absolute inset-y-0 right-0 w-24 sm:w-44 bg-gradient-to-l from-[#0A0D0E] via-[#0A0D0E]/80 to-transparent z-10" />
+
+          <div
+            className="flex w-max pause-hover items-center gap-10 sm:gap-14 lg:gap-20"
+            style={{ animation: 'marquee 36s linear infinite reverse' }}
           >
-            {/* Background Image with Zoom Effect */}
-            <div
-              className="absolute inset-0 bg-cover bg-center transition-transform duration-700 ease-out group-hover:scale-105"
-              style={{ backgroundImage: `url(${item.bg})` }}
-            />
-
-            {/* Dark Gradient Overlay */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-transparent" />
-
-            {/* Card Content at bottom - exact live site design */}
-            <div className="relative z-10 h-full flex flex-col justify-end p-7 sm:p-9 xl:p-10">
-              <h3 className="text-xl sm:text-2xl font-medium text-[#D4FAE6] group-hover:text-[#5EFC8D] transition-colors leading-snug font-montserrat">
-                {item.title}
-              </h3>
-              <p className="mt-2 text-sm text-[#b3b3b3] font-light font-montserrat leading-[1.75]">
-                {item.desc}
-              </p>
-            </div>
-          </Link>
-        ))}
-      </div>
-
-      {/* Centered Button at bottom */}
-      <div className="w-full flex justify-center mt-10 sm:mt-12">
-        <Link
-          href="/our-work"
-          className="group inline-flex items-center gap-2.5 px-7 py-3 rounded-full border border-white/20 hover:border-[#5EFC8D] hover:text-[#5EFC8D] text-[#D4FAE6] font-medium text-sm transition duration-300 shadow-lg"
-        >
-          <svg width="15" height="15" viewBox="0 0 19 18" fill="none" xmlns="http://www.w3.org/2000/svg" className="fill-current transition">
-            <path d="M15.125 10.875L10.625 15.375L9.56 14.31L12.2525 11.625H3.875V2.625H5.375V10.125H12.2525L9.56 7.44L10.625 6.375L15.125 10.875Z" />
-          </svg>
-          <span>All Case Studies</span>
-        </Link>
+            {row2Doubled.map((client, idx) => (
+              <div
+                key={`r2-${idx}`}
+                className="flex items-center justify-center min-w-[160px] sm:min-w-[200px] lg:min-w-[220px] h-16 sm:h-20 lg:h-24 opacity-80 hover:opacity-100 transition-all duration-300 group"
+              >
+                <img
+                  src={client.src}
+                  alt={client.name}
+                  className="h-full w-auto object-contain group-hover:scale-110 transition-transform duration-300"
+                />
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
     </section>
   );

@@ -38,7 +38,7 @@ export default function ServicesSection() {
   return (
     <section
       id="block__items__with__button"
-      className="block__items__with__button relative w-full py-20 sm:py-24 lg:py-28 bg-[#0A0D0E] text-white overflow-hidden"
+      className="block__items__with__button relative w-full py-28 sm:py-36 lg:py-44 xl:py-48 bg-[#0A0D0E] text-white overflow-hidden"
       style={{
         backgroundImage: 'url(/assets/bg_services.jpg)',
         backgroundSize: 'cover',
@@ -51,7 +51,7 @@ export default function ServicesSection() {
       {/* FULL WIDTH CONTAINER matching live site */}
       <div className="relative z-10 w-full px-6 sm:px-10 lg:px-14 xl:px-16">
         {/* Header Block */}
-        <div className="w-full flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12 sm:mb-16">
+        <div className="w-full flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16 sm:mb-20">
           <div>
             <p className="text-base sm:text-lg font-normal text-[#D4FAE6] mb-3 font-montserrat">
               Our Capabilities
@@ -78,7 +78,7 @@ export default function ServicesSection() {
             <Link
               key={svc.num}
               href={svc.href}
-              className="group relative flex flex-col justify-between p-7 sm:p-8 xl:p-9 rounded-[32px] bg-[#141718]/85 hover:bg-[#181D1F] border border-white/10 hover:border-[#5EFC8D]/40 transition-all duration-300 min-h-[380px] sm:min-h-[420px] backdrop-blur-md shadow-2xl hover:-translate-y-1.5"
+              className="group relative flex flex-col justify-between p-8 sm:p-9 xl:p-10 rounded-[32px] bg-[#141718]/85 hover:bg-[#181D1F] border border-white/10 hover:border-[#5EFC8D]/40 transition-all duration-300 min-h-[460px] sm:min-h-[500px] xl:min-h-[530px] backdrop-blur-md shadow-2xl hover:-translate-y-1.5"
             >
               {/* Top row: Number and Action button */}
               <div className="flex items-center justify-between">
@@ -93,20 +93,20 @@ export default function ServicesSection() {
               </div>
 
               {/* Center icon */}
-              <div className="my-6 flex items-center">
+              <div className="my-8 sm:my-12 flex items-center">
                 <img
                   src={svc.icon}
                   alt={svc.title}
-                  className="w-12 h-12 object-contain filter invert opacity-95 group-hover:opacity-100 transition-opacity"
+                  className="w-14 h-14 object-contain opacity-95 group-hover:opacity-100 transition-opacity"
                 />
               </div>
 
               {/* Bottom: Title & Description */}
               <div>
-                <h3 className="text-xl sm:text-2xl font-medium text-[#D4FAE6] group-hover:text-[#5EFC8D] transition-colors mb-2 leading-snug font-montserrat">
+                <h3 className="text-xl sm:text-2xl font-medium text-[#D4FAE6] group-hover:text-[#5EFC8D] transition-colors mb-3 leading-snug font-montserrat">
                   {svc.title}
                 </h3>
-                <p className="text-sm text-[#b3b3b3] font-light leading-[1.75] font-montserrat">
+                <p className="text-sm sm:text-[15px] text-[#b3b3b3] font-light leading-[1.75] font-montserrat">
                   {svc.desc}
                 </p>
               </div>

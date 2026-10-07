@@ -47,36 +47,8 @@ export default function HeroBanner() {
         <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-black/30 z-[1]" />
       </div>
 
-      {/* Sub-header Bar: Center Announcement Pill & Right Local Time */}
-      <div className="relative z-10 w-full flex items-center justify-between pt-2 sm:pt-4">
-        <div className="hidden sm:block w-32 shrink-0"></div>
-
-        {/* Center: US POD Announcement Pill */}
-        <div className="mx-auto sm:mx-0">
-          <Link
-            href="/speedx"
-            className="group inline-flex items-center gap-2 px-4 sm:px-5 py-1.5 rounded-full bg-[#D4FAE6]/10 hover:bg-[#D4FAE6]/20 backdrop-blur-md border border-[#D4FAE6]/30 text-white text-[11px] sm:text-xs font-medium transition shadow-lg"
-          >
-            <span>
-              US Print-On-Demand ·{' '}
-              <span className="underline decoration-[#5EFC8D] font-medium text-[#D4FAE6] group-hover:text-[#5EFC8D] transition">
-                Fulfilled in under 24 hours
-              </span>
-            </span>
-          </Link>
-        </div>
-
-        {/* Right: Live Local Time with White Dot */}
-        <div className="shrink-0 flex items-center gap-2 text-white text-xs sm:text-[13px] font-sans font-montserrat">
-          <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="5" cy="5" r="5" fill="white" />
-          </svg>
-          <span>{localTime || '09:25:26 AM'}</span>
-        </div>
-      </div>
-
       {/* Main Hero Typography: Full Width bottom-left */}
-      <div className="relative z-10 w-full mb-12 sm:mb-16">
+      <div className="relative z-10 w-full mb-12 sm:mb-20 h-full flex flex-col justify-center">
         <h1 className="font-montserrat font-medium text-4xl sm:text-6xl md:text-7xl lg:text-[76px] leading-[1.08] text-[#D4FAE6] max-w-5xl">
           Automate <span className="text-[#5EFC8D] font-medium">Operations.</span>
           <br />
