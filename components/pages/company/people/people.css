@@ -209,16 +209,16 @@
 .people-card--lead {
   padding-bottom: 105px;
   border-radius: 20px;
-  background: rgba(0, 0, 0, 0.2);
-  border: 1px solid #007A3D;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   max-width: 300px;
   flex: 0 0 300px;
   cursor: pointer;
 }
 
 .people-card--lead:hover {
-  border-color: #5EFC8D;
-  box-shadow: 0 0 30px rgba(94, 252, 141,  0.2);
+  border-color: rgba(16, 231, 116, 0.4);
+  box-shadow: 0 0 25px rgba(16, 231, 116, 0.12);
 }
 
 .people-card--lead .people-card__role {
@@ -617,9 +617,9 @@
   position: relative;
   overflow: hidden;
   border-radius: 20px;
-  background: rgba(0, 0, 0, 0.55);
-  border: 1px solid #007A3D;
-  backdrop-filter: blur(15px);
+  background: rgba(20, 24, 28, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(20px);
   padding: 0 0 105px 0;
   cursor: pointer;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
@@ -647,8 +647,8 @@
 
 .tree-node-card:hover {
   transform: translateY(-4px);
-  border-color: #5EFC8D;
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.7), 0 0 30px rgba(94, 252, 141,  0.25);
+  border-color: rgba(16, 231, 116, 0.4);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.7), 0 0 25px rgba(16, 231, 116, 0.12);
 }
 
 .tree-node-card .tree-node-card__thumb {

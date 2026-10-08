@@ -1,9 +1,6 @@
 import type { Metadata } from 'next';
 import {
   PeopleClientView,
-  leadershipTeam,
-  allExperts,
-  leaderHierarchies,
   type TeamMember,
   type LeaderTeamHierarchy,
 } from '@/components/pages/company/people';
@@ -24,12 +21,16 @@ export const metadata: Metadata = {
 };
 
 export default async function PeoplePage() {
-  let people: TeamMember[] = leadershipTeam.concat(allExperts);
-  let hierarchies: Record<string, LeaderTeamHierarchy> = leaderHierarchies;
+  let people: TeamMember[] = [];
+  let hierarchies: Record<string, LeaderTeamHierarchy> = {};
 
   try {
-    const dbPeople = await getTeamMembers({ status: 'published', limit: 200 });
-    if (dbPeople && dbPeople.items && dbPeople.items.length > 0) {
+    const [dbPeople, dbHierarchies] = await Promise.all([
+      getTeamMembers({ status: 'published', limit: 200 }),
+      getAllHierarchies(),
+    ]);
+
+    if (dbPeople && dbPeople.items) {
       people = dbPeople.items.map((m) => ({
         id: m.id,
         name: m.name,
@@ -45,14 +46,13 @@ export default async function PeoplePage() {
         order: m.order,
         status: m.status,
       }));
+    }
 
-      const dbHierarchies = await getAllHierarchies();
-      if (dbHierarchies && Object.keys(dbHierarchies).length > 0) {
-        hierarchies = dbHierarchies;
-      }
+    if (dbHierarchies) {
+      hierarchies = dbHierarchies;
     }
   } catch (error) {
-    console.error('Error fetching dynamic people data, using fallback:', error);
+    console.error('Error fetching people and hierarchies data from database:', error);
   }
 
   return (

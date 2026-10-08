@@ -165,38 +165,40 @@ export default function LeaderRow({
                 ? "transform 650ms cubic-bezier(0.16, 1, 0.3, 1)"
                 : "transform 300ms ease-out",
             }}
-            className="w-full max-w-5xl rounded-[24px] bg-[#000000]/80 border border-[#007A3D] backdrop-blur-xl p-6 sm:p-10 shadow-[0_20px_60px_rgba(0,0,0,0.8),0_0_40px_rgba(0,115,128,0.25)] relative overflow-hidden"
+            className="w-full max-w-5xl rounded-[28px] bg-gradient-to-b from-[#14191c]/90 via-[#0d1012]/95 to-[#080b0c]/98 border border-white/10 backdrop-blur-2xl p-6 sm:p-10 shadow-[0_25px_60px_rgba(0,0,0,0.7),0_0_30px_rgba(16,231,116,0.06)] relative overflow-hidden"
           >
+            {/* Ambient subtle top edge sheen */}
+            <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-emerald-400/20 to-transparent pointer-events-none" />
+            <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-br from-emerald-500/[0.04] to-transparent rounded-full blur-3xl pointer-events-none" />
+
             <button
               onClick={() => onLeaderChange(null)}
-              className="absolute top-5 right-5 sm:top-6 sm:right-6 z-30 w-9 h-9 rounded-full bg-white/10 hover:bg-[#5EFC8D] hover:text-black text-gray-300 flex items-center justify-center transition shadow-lg"
+              className="absolute top-5 right-5 sm:top-6 sm:right-6 z-30 w-9 h-9 rounded-full bg-white/5 hover:bg-white/15 text-gray-400 hover:text-white flex items-center justify-center transition"
               aria-label="Đóng chi tiết"
             >
               <X className="w-4 h-4" />
             </button>
 
-            <div className="absolute top-0 right-0 w-96 h-96 bg-[#5EFC8D]/5 rounded-full blur-3xl pointer-events-none" />
-
             <div className="relative z-10 grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
               <div className="md:col-span-5 flex flex-col items-center sm:items-start">
-                <div className="relative w-full max-w-[280px] rounded-[20px] overflow-hidden bg-black/40 border border-[#007A3D] mb-5">
+                <div className="relative w-full max-w-[280px] rounded-[20px] overflow-hidden bg-white/[0.02] shadow-2xl mb-5">
                   <img
                     src={activeLeader.image}
                     alt={activeLeader.name}
                     className="w-full h-[280px] object-cover object-top"
                   />
-                  <div className="absolute top-3 right-3 px-3 py-1 rounded-full bg-black/80 backdrop-blur-md border border-[#007A3D] text-[11px] font-montserrat text-[#5EFC8D] flex items-center gap-1.5">
-                    <MapPin className="w-3 h-3" />
+                  <div className="absolute top-3 right-3 px-3 py-1 rounded-full bg-black/60 backdrop-blur-md text-[11px] font-montserrat text-gray-200 flex items-center gap-1.5">
+                    <MapPin className="w-3 h-3 text-emerald-400/80" />
                     <span>{activeLeader.location}</span>
                   </div>
                 </div>
 
                 {activeLeader.quote && (
-                  <div className="w-full max-w-[280px] rounded-[16px] bg-white/[0.04] border border-[#007A3D]/40 p-4 relative mb-4">
+                  <div className="w-full max-w-[280px] rounded-[16px] bg-white/[0.025] p-4 relative mb-4">
                     <div className="mb-2">
-                      <QuoteIcon className="w-4 h-4 text-[#5EFC8D]" />
+                      <QuoteIcon className="w-4 h-4 text-emerald-400/70" />
                     </div>
-                    <p className="text-xs sm:text-sm text-gray-200 italic leading-relaxed">
+                    <p className="text-xs sm:text-sm text-gray-300 italic leading-relaxed">
                       "{activeLeader.quote}"
                     </p>
                   </div>
@@ -207,7 +209,7 @@ export default function LeaderRow({
                     href={activeLeader.linkedin}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center gap-2.5 w-full max-w-[280px] py-2.5 rounded-full bg-[#0077B5] hover:bg-[#005c8a] text-white text-xs font-medium transition shadow-md"
+                    className="inline-flex items-center justify-center gap-2.5 w-full max-w-[280px] py-2.5 rounded-full bg-[#0077B5]/90 hover:bg-[#0077B5] text-white text-xs font-medium transition shadow-md"
                   >
                     <LinkedInIcon />
                     <span>Kết nối trên LinkedIn</span>
@@ -216,57 +218,49 @@ export default function LeaderRow({
               </div>
 
               <div className="md:col-span-7 flex flex-col">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#5EFC8D]/10 border border-[#5EFC8D]/30 text-[#5EFC8D] text-xs font-semibold mb-3 self-start">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-300 text-xs font-medium mb-3 self-start">
                   <span>Executive Leadership</span>
                 </div>
 
-                <h3 className="text-3xl sm:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-white via-[#D4FAE6] to-[#5EFC8D] bg-clip-text text-transparent leading-tight">
+                <h3 className="text-3xl sm:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-white via-white/90 to-gray-400 bg-clip-text text-transparent leading-tight">
                   {activeLeader.name}
                 </h3>
-                <p className="text-base sm:text-lg text-[#5EFC8D] font-medium mt-1 mb-6">
+                <p className="text-base sm:text-lg text-emerald-400/90 font-medium mt-1 mb-6">
                   {activeLeader.role}
                 </p>
 
                 <div className="mb-6">
-                  <h4 className="text-xs font-semibold uppercase tracking-wider bg-gradient-to-r from-[#5EFC8D] to-[#7CEEE0] bg-clip-text text-transparent mb-2">
-                    Tầm Nhìn Chiến Lược &amp; Vai Trò Lãnh Đạo
+                  <h4 className="text-xs font-semibold text-emerald-400/80 mb-2">
+                    Tầm nhìn chiến lược &amp; vai trò lãnh đạo
                   </h4>
-                  <p className="text-sm sm:text-base text-gray-300 leading-relaxed">
+                  <p className="text-sm sm:text-base text-gray-300 leading-relaxed font-normal">
                     {activeLeader.bio}
                   </p>
                 </div>
 
                 <div className="mb-8">
-                  <h4 className="text-xs font-semibold uppercase tracking-wider bg-gradient-to-r from-[#5EFC8D] to-[#7CEEE0] bg-clip-text text-transparent mb-3">
-                    Lĩnh Vực Chuyên Môn Trọng Tâm
+                  <h4 className="text-xs font-semibold text-emerald-400/80 mb-3">
+                    Lĩnh vực chuyên môn trọng tâm
                   </h4>
                   <div className="flex flex-wrap gap-2">
                     {activeLeader.skills.map((skill, sIdx) => (
                       <span
                         key={sIdx}
-                        className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-white/5 border border-white/10 text-xs text-gray-200"
+                        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/[0.035] hover:bg-white/[0.06] text-xs text-gray-300 transition"
                       >
-                        <CheckCircle2 className="w-3.5 h-3.5 text-[#5EFC8D]" />
+                        <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400/80" />
                         <span>{skill}</span>
                       </span>
                     ))}
                   </div>
-                </div>
-
-                <div className="mt-auto pt-4 border-t border-[#007A3D]/40 flex items-center justify-between text-xs text-gray-400">
-                  <span className="flex items-center gap-2">
-                    <Users className="w-4 h-4 text-[#5EFC8D]" />
-                    <span>Sơ đồ cây đội ngũ quản lý trực thuộc bên dưới</span>
-                  </span>
-                  <ChevronDown className="w-4 h-4 text-[#5EFC8D] animate-bounce" />
                 </div>
               </div>
             </div>
           </div>
 
           <div className="flex flex-col items-center w-full my-0">
-            <div className="w-0.5 h-12 bg-gradient-to-b from-[#5EFC8D] to-[#5EFC8D]/70 mx-auto" />
-            <div className="w-4 h-4 rounded-full bg-[#5EFC8D] ring-4 ring-[#5EFC8D]/20 shadow-[0_0_15px_#5EFC8D] mx-auto -mt-2 z-20" />
+            <div className="w-px h-10 bg-gradient-to-b from-white/20 via-emerald-500/40 to-emerald-400 mx-auto" />
+            <div className="w-2.5 h-2.5 rounded-full bg-emerald-400 ring-4 ring-emerald-400/20 shadow-[0_0_10px_rgba(16,231,116,0.3)] mx-auto -mt-1.5 z-20" />
           </div>
 
           <div className="w-full">
