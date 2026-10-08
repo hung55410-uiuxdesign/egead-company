@@ -1,7 +1,7 @@
 import { describe, test, expect } from 'bun:test';
 import React from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
-import SmartPricePage, { metadata } from '../app/(public)/smartprice/page';
+import SmartPricePage, { metadata } from '../app/(public)/(products)/smartprice/page';
 
 describe('SmartPrice Page (Framer Motion & Fidelity Verification)', () => {
   const html = renderToStaticMarkup(<SmartPricePage />);

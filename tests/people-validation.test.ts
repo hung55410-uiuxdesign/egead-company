@@ -6,8 +6,8 @@ import {
   childNodesSchema,
   DEPARTMENTS,
 } from '../lib/validations/people';
-import { leadershipTeam, allExperts } from '../app/(public)/people/peopleData';
-import { leaderHierarchies } from '../app/(public)/people/leaderTeamData';
+import { leadershipTeam, allExperts } from '../components/pages/company/people/peopleData';
+import { leaderHierarchies } from '../components/pages/company/people/leaderTeamData';
 import {
   getTeamMembers,
   getTeamMember,

@@ -12,7 +12,7 @@ import {
 } from 'lucide-react';
 import { Button, Card, Badge, Field, Selector } from '@astryxdesign/core';
 import { AdminTeamMember } from '@/lib/services/people.service';
-import type { ChildNode, SubChildNode } from '@/app/(public)/people/leaderTeamData';
+import type { ChildNode, SubChildNode } from '@/components/pages/company/people/leaderTeamData';
 
 interface SquadCardEditorProps {
   squadIndex: number;

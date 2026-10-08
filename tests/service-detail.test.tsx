@@ -3,7 +3,7 @@ import React from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import ServiceDetailPage, {
   generateMetadata,
-} from '../app/(public)/services/all-services/[...slug]/page';
+} from '../app/(public)/(services)/services/all-services/[...slug]/page';
 
 describe('Service Detail Page (100% Authentic SAI Digital Match)', () => {
   describe('Page Metadata for Automotive', () => {

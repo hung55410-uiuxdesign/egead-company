@@ -1,7 +1,7 @@
 import React from 'react';
 import { describe, it, expect } from 'bun:test';
 import { renderToStaticMarkup } from 'react-dom/server';
-import CaseStudyDetailPage, { generateMetadata } from '@/app/(public)/case-studies/[slug]/page';
+import CaseStudyDetailPage, { generateMetadata } from '@/app/(public)/(work)/case-studies/[slug]/page';
 import { getCaseStudyBySlug, CASE_STUDIES_DETAILS } from '@/lib/case-studies-data';
 
 describe('Case Study Detail Page - SAI Digital UI Fidelity', () => {

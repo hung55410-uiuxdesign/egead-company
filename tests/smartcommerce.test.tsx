@@ -3,7 +3,7 @@ import React from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import SmartCommercePage, {
   metadata,
-} from "../app/(public)/smartcommerce/page";
+} from "../app/(public)/(products)/smartcommerce/page";
 
 describe("SmartCommerce Page (Authentic SAI Digital Match)", () => {
   const html = renderToStaticMarkup(<SmartCommercePage />);

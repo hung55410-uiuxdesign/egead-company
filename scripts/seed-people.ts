@@ -1,6 +1,6 @@
 import { prisma } from '../lib/prisma';
-import { leadershipTeam, allExperts, TeamMember } from '../app/(public)/people/peopleData';
-import { leaderHierarchies } from '../app/(public)/people/leaderTeamData';
+import { leadershipTeam, allExperts, TeamMember } from '../components/pages/company/people/peopleData';
+import { leaderHierarchies } from '../components/pages/company/people/leaderTeamData';
 
 async function seedPeople() {
   console.log('🌱 Bắt đầu seed dữ liệu Nhân sự & Sơ đồ Tổ chức vào PostgreSQL...');

@@ -1,7 +1,7 @@
 import { describe, test, expect } from 'bun:test';
 import React from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
-import LoyaltyPage, { metadata } from '../app/(public)/loyalty/page';
+import LoyaltyPage, { metadata } from '../app/(public)/(products)/loyalty/page';
 
 describe('SmartLoyalty Page (Framer Motion & Fidelity Verification)', () => {
   const html = renderToStaticMarkup(<LoyaltyPage />);

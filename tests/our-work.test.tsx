@@ -1,8 +1,8 @@
 import { describe, test, expect } from 'bun:test';
 import React from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
-import OurWorkPage, { metadata } from '../app/(public)/our-work/page';
-import { CASE_STUDIES, SERVICE_OPTIONS, INDUSTRY_OPTIONS } from '../components/OurWorkClient';
+import OurWorkPage, { metadata } from '../app/(public)/(work)/our-work/page';
+import { CASE_STUDIES, SERVICE_OPTIONS, INDUSTRY_OPTIONS } from '../components/pages/work/our-work';
 
 describe('Our Work Page 100% SAI Digital Fidelity Verification', () => {
   const html = renderToStaticMarkup(<OurWorkPage />);

@@ -8,23 +8,33 @@ import {
   FaqAccordion,
   WorkflowTimeline,
   RoleTabs,
-  MarginSimulator,
+} from '../components/sections';
+import {
   AddressDemo,
   PricingCalculator,
   ApiTerminal,
   LiveCountdownCard,
+} from '../components/pages/products/speedx';
+import {
   CockpitHudCard,
   InventoryBufferEngine,
   NetMarginLedger,
   BusinessRulesBuilder,
+} from '../components/pages/products/smartcommerce';
+import {
   EfficiencyVisualizer,
   TransformationMatrix,
   CaseStudiesPortfolio,
   PlaybookDownloads,
+} from '../components/pages/work/our-work';
+import {
+  MarginSimulator,
+} from '../components/pages/services/services/all-services';
+import {
   EcosystemMatrix,
   IntegrationBridgeVisualizer,
   EcosystemHeroGraphic,
-} from '../components/sections';
+} from '../components/pages/services/partners';
 import type {
   BentoItem,
   BentoGridProps,
@@ -38,23 +48,33 @@ import type {
   WorkflowTimelineProps,
   RoleTabItem,
   RoleTabsProps,
-  MarginSimulatorProps,
+} from '../components/sections';
+import type {
   AddressDemoProps,
   PricingCalculatorProps,
   ApiTerminalProps,
   LiveCountdownCardProps,
+} from '../components/pages/products/speedx';
+import type {
   CockpitHudCardProps,
   InventoryBufferEngineProps,
   NetMarginLedgerProps,
   BusinessRulesBuilderProps,
+} from '../components/pages/products/smartcommerce';
+import type {
   EfficiencyVisualizerProps,
   TransformationMatrixProps,
   CaseStudiesPortfolioProps,
   PlaybookDownloadsProps,
+} from '../components/pages/work/our-work';
+import type {
+  MarginSimulatorProps,
+} from '../components/pages/services/services/all-services';
+import type {
   EcosystemMatrixProps,
   IntegrationBridgeVisualizerProps,
   EcosystemHeroGraphicProps,
-} from '../components/sections';
+} from '../components/pages/services/partners';
 
 describe('Phase 1, 2, 3, 4, 5 & 6 Components Verification', () => {
 

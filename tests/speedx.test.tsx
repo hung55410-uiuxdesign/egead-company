@@ -1,7 +1,7 @@
 import { describe, test, expect } from 'bun:test';
 import React from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
-import SpeedXPage, { metadata } from '../app/(public)/speedx/page';
+import SpeedXPage, { metadata } from '../app/(public)/(products)/speedx/page';
 
 describe('SpeedX Page 100% SAI Digital Fidelity Verification', () => {
   const html = renderToStaticMarkup(<SpeedXPage />);

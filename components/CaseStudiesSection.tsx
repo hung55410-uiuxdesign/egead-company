@@ -87,7 +87,7 @@ export const smartpricePartnerLogos: LogoItem[] = [
 ];
 
 export interface CaseStudiesSectionProps {
-  variant?: 'default' | 'company' | 'smartprice';
+  variant?: 'default' | 'company' | 'smartprice' | 'services';
   id?: string;
   subtitle?: string;
   title?: string;
@@ -101,6 +101,67 @@ export default function CaseStudiesSection({
   title,
   logos,
 }: CaseStudiesSectionProps) {
+  // If used on Services Page / Single Partners Slider
+  if (variant === 'services') {
+    const list = logos && logos.length > 0 ? logos : companyServiceLogos;
+    const doubled = [...list, ...list, ...list, ...list];
+
+    return (
+      <section
+        id={id || 'clients-partnerships'}
+        className="relative w-full py-14 sm:py-20 bg-[#0D1011] text-white border-b border-white/5 overflow-hidden scroll-mt-28"
+      >
+        <div className="w-full px-6 sm:px-10 lg:px-14 xl:px-16 mb-8">
+          <motion.p
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-base sm:text-lg font-normal text-[#D4FAE6] mb-2 font-montserrat"
+          >
+            {subtitle || 'Enterprise Partners'}
+          </motion.p>
+          <motion.h3
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1 }}
+            className="text-xl sm:text-2xl lg:text-[34px] font-semibold font-montserrat leading-snug"
+          >
+            <span className="bg-gradient-to-r from-[#6CE8C3] via-[#A8F7E2] to-white bg-clip-text text-transparent">
+              {title || 'Seamlessly connected with leading marketplace and cloud platforms.'}
+            </span>
+          </motion.h3>
+        </div>
+
+        {/* Marquee Track */}
+        <div className="relative w-full overflow-hidden">
+          <div className="pointer-events-none absolute inset-y-0 left-0 w-24 sm:w-44 bg-gradient-to-r from-[#0D1011] via-[#0D1011]/80 to-transparent z-10" />
+          <div className="pointer-events-none absolute inset-y-0 right-0 w-24 sm:w-44 bg-gradient-to-l from-[#0D1011] via-[#0D1011]/80 to-transparent z-10" />
+
+          <div
+            className="flex w-max pause-hover items-center gap-12 sm:gap-16 lg:gap-20 py-4"
+            style={{ animation: 'marquee 50s linear infinite' }}
+          >
+            {doubled.map((partner, idx) => (
+              <motion.div
+                key={`service-partner-${idx}`}
+                whileHover={{ scale: 1.15 }}
+                transition={{ type: 'spring', stiffness: 400, damping: 15 }}
+                className="flex items-center justify-center min-w-[130px] sm:min-w-[160px] h-16 opacity-70 hover:opacity-100 transition-opacity duration-300 group cursor-pointer"
+              >
+                <img
+                  src={partner.src}
+                  alt={partner.name}
+                  className="max-w-full max-h-12 object-contain invert drop-shadow-sm group-hover:drop-shadow-[0_0_12px_rgba(108,232,195,0.6)] transition-all duration-300 pointer-events-none"
+                />
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+    );
+  }
+
   // If used on SmartPrice Page
   if (variant === 'smartprice') {
     const list = logos && logos.length > 0 ? logos : smartpricePartnerLogos;
@@ -157,7 +218,10 @@ export default function CaseStudiesSection({
     const servicesDoubled = [...companyServiceLogos, ...companyServiceLogos];
 
     return (
-      <section className="relative w-full bg-[#0A0D0E] text-white overflow-hidden py-12 sm:py-16">
+      <section
+        id={id}
+        className="relative w-full bg-[#0A0D0E] text-white overflow-hidden py-12 sm:py-16 scroll-mt-28"
+      >
         {/* =========================================================
             ROW 1: CLIENTS
         ========================================================= */}

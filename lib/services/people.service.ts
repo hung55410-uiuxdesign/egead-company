@@ -8,7 +8,7 @@ import {
   teamMemberInputSchema,
   teamMemberUpdateSchema,
 } from '@/lib/validations/people';
-import type { LeaderTeamHierarchy } from '@/app/(public)/people/leaderTeamData';
+import type { LeaderTeamHierarchy } from '@/components/pages/company/people/leaderTeamData';
 
 export interface PeopleFilter {
   search?: string;

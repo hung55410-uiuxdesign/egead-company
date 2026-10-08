@@ -1,12 +1,12 @@
 import { describe, test, expect } from 'bun:test';
 import React from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
-import PartnersPage, { metadata } from '../app/(public)/partners/page';
+import PartnersPage, { metadata } from '../app/(public)/(services)/partners/page';
 import {
   EcosystemMatrix,
   IntegrationBridgeVisualizer,
   EcosystemHeroGraphic,
-} from '../components/sections';
+} from '../components/pages/services/partners';
 
 describe('Phase 6 Partners Ecosystem Page Verification', () => {
   const html = renderToStaticMarkup(<PartnersPage />);
