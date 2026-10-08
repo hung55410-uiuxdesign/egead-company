@@ -23,3 +23,16 @@ export function generateSlug(text: string): string {
     .replace(/\s+/g, '-')
     .replace(/-+/g, '-');
 }
+
+/**
+ * Get public URL for a category slug
+ */
+export function getCategoryHref(slug: string): string {
+  const normalized = (slug || '').toLowerCase().trim();
+  if (normalized === 'webinars') return '/webinars';
+  if (normalized === 'announcements') return '/announcements';
+  if (normalized === 'white-papers' || normalized === 'whitepapers') return '/white-papers';
+  if (normalized === 'blog' || normalized === 'blogs') return '/blog';
+  return `/insights?category=${encodeURIComponent(normalized)}`;
+}
+

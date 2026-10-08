@@ -12,6 +12,8 @@ interface JobPageProps {
   params: Promise<{ slug: string }>;
 }
 
+export const dynamic = 'force-dynamic';
+
 export async function generateStaticParams() {
   const jobs = await getPublicJobOpenings();
   return jobs.map((j) => ({ slug: j.slug }));
@@ -197,7 +199,7 @@ export default async function JobDetailPage(props: JobPageProps) {
 
             {/* Right Column: Application Form */}
             <div className="lg:col-span-5 bg-gray-50/70 p-6 sm:p-8 rounded-3xl border border-gray-100 lg:sticky lg:top-28">
-              <JobApplicationForm positionTitle={job.position} />
+              <JobApplicationForm jobId={job.id} positionTitle={job.position} />
             </div>
           </div>
         </div>

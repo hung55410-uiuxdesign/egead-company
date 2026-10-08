@@ -29,6 +29,46 @@ import {
   MapPin,
 } from 'lucide-react';
 import MegaMenu from './MegaMenu';
+import { CategoryItem, getCategoryHref } from '@/types/category';
+
+const DEFAULT_INSIGHTS_CATEGORIES: CategoryItem[] = [
+  {
+    id: 'webinars',
+    name: 'Webinars',
+    slug: 'webinars',
+    icon: '/assets/icon_webinar.svg',
+    count: 0,
+    createdAt: '',
+    updatedAt: '',
+  },
+  {
+    id: 'announcements',
+    name: 'Announcements',
+    slug: 'announcements',
+    icon: '/assets/icon_announcement.svg',
+    count: 0,
+    createdAt: '',
+    updatedAt: '',
+  },
+  {
+    id: 'white-papers',
+    name: 'White Papers',
+    slug: 'white-papers',
+    icon: '/assets/icon_whitepaper.svg',
+    count: 0,
+    createdAt: '',
+    updatedAt: '',
+  },
+  {
+    id: 'blogs',
+    name: 'Blogs',
+    slug: 'blogs',
+    icon: '/assets/icon_blog.svg',
+    count: 0,
+    createdAt: '',
+    updatedAt: '',
+  },
+];
 
 interface NavItem {
   id: string;
@@ -45,8 +85,32 @@ const NAV_ITEMS: NavItem[] = [
   { id: 'company', label: 'Company', href: '/company', hasDropdown: true },
 ];
 
-export default function Header() {
+interface HeaderProps {
+  initialCategories?: CategoryItem[];
+}
+
+export default function Header({ initialCategories = [] }: HeaderProps) {
   const pathname = usePathname();
+  const [categories, setCategories] = useState<CategoryItem[]>(() => {
+    if (initialCategories && initialCategories.length > 0) return initialCategories;
+    return DEFAULT_INSIGHTS_CATEGORIES;
+  });
+
+  useEffect(() => {
+    if (initialCategories && initialCategories.length > 0) {
+      setCategories(initialCategories);
+      return;
+    }
+    fetch('/api/categories')
+      .then((res) => res.json())
+      .then((resData) => {
+        if (resData.success && Array.isArray(resData.data) && resData.data.length > 0) {
+          setCategories(resData.data);
+        }
+      })
+      .catch(() => {});
+  }, [initialCategories]);
+
   const [isMegaMenuOpen, setIsMegaMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
@@ -611,69 +675,31 @@ export default function Header() {
                         <h3 className="text-base sm:text-[17px] font-bold text-gray-900 mb-8 font-montserrat">
                           Insights
                         </h3>
-                        <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 lg:gap-12 mb-8">
-                          <Link
-                            href="/webinars"
-                            onClick={() => setActiveDropdown(null)}
-                            className="group flex items-center gap-3.5 py-1 text-[15px] font-semibold text-gray-800 hover:text-[#007A3D] transition duration-200"
-                          >
-                            <span className="w-5 h-5 flex items-center justify-center shrink-0">
-                              <img
-                                src="/assets/icon_webinar.svg"
-                                alt="Webinars"
-                                className="w-5 h-5 object-contain transition-transform group-hover:scale-110"
-                              />
-                            </span>
-                            <span className="group-hover:translate-x-0.5 transition-transform">Webinars</span>
-                          </Link>
-
-                          <Link
-                            href="/announcements"
-                            onClick={() => setActiveDropdown(null)}
-                            className="group flex items-center gap-3.5 py-1 text-[15px] font-semibold text-gray-800 hover:text-[#007A3D] transition duration-200"
-                          >
-                            <span className="w-5 h-5 flex items-center justify-center shrink-0">
-                              <img
-                                src="/assets/icon_announcement.svg"
-                                alt="Announcements"
-                                className="w-5 h-5 object-contain transition-transform group-hover:scale-110"
-                              />
-                            </span>
-                            <span className="group-hover:translate-x-0.5 transition-transform">Announcements</span>
-                          </Link>
-
-                          <Link
-                            href="/white-papers"
-                            onClick={() => setActiveDropdown(null)}
-                            className="group flex items-center gap-3.5 py-1 text-[15px] font-semibold text-gray-800 hover:text-[#007A3D] transition duration-200"
-                          >
-                            <span className="w-5 h-5 flex items-center justify-center shrink-0">
-                              <img
-                                src="/assets/icon_whitepaper.svg"
-                                alt="White Papers"
-                                className="w-5 h-5 object-contain transition-transform group-hover:scale-110"
-                              />
-                            </span>
-                            <span className="group-hover:translate-x-0.5 transition-transform">White Papers</span>
-                          </Link>
-
-                          <Link
-                            href="/blog"
-                            onClick={() => setActiveDropdown(null)}
-                            className="group flex items-center justify-between py-1 text-[15px] font-semibold text-gray-800 hover:text-[#007A3D] transition duration-200"
-                          >
-                            <div className="flex items-center gap-3.5">
-                              <span className="w-5 h-5 flex items-center justify-center shrink-0">
-                                <img
-                                  src="/assets/icon_blog.svg"
-                                  alt="Blog"
-                                  className="w-5 h-5 object-contain transition-transform group-hover:scale-110"
-                                />
-                              </span>
-                              <span className="group-hover:translate-x-0.5 transition-transform">Blog</span>
-                            </div>
-                            <ChevronRight className="w-4 h-4 text-gray-400 group-hover:text-[#007A3D] group-hover:translate-x-1 transition-all" />
-                          </Link>
+                        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6 lg:gap-8 mb-8">
+                          {categories.map((cat) => {
+                            const href = getCategoryHref(cat.slug);
+                            return (
+                              <Link
+                                key={cat.id || cat.slug}
+                                href={href}
+                                onClick={() => setActiveDropdown(null)}
+                                className="group flex items-center gap-3.5 py-1 text-[15px] font-semibold text-gray-800 hover:text-[#007A3D] transition duration-200"
+                              >
+                                {cat.icon ? (
+                                  <span className="w-5 h-5 flex items-center justify-center shrink-0">
+                                    <img
+                                      src={cat.icon}
+                                      alt={cat.name}
+                                      className="w-5 h-5 object-contain transition-transform group-hover:scale-110"
+                                    />
+                                  </span>
+                                ) : null}
+                                <span className="group-hover:translate-x-0.5 transition-transform truncate">
+                                  {cat.name}
+                                </span>
+                              </Link>
+                            );
+                          })}
                         </div>
 
                         <div className="pt-2">
@@ -804,7 +830,11 @@ export default function Header() {
       </header>
 
       {/* MegaMenu Drawer Component (Mobile only) */}
-      <MegaMenu isOpen={isMegaMenuOpen} onClose={() => setIsMegaMenuOpen(false)} />
+      <MegaMenu
+        isOpen={isMegaMenuOpen}
+        onClose={() => setIsMegaMenuOpen(false)}
+        categories={categories}
+      />
     </>
   );
 }

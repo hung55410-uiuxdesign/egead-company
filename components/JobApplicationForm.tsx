@@ -5,9 +5,10 @@ import { ArrowUpRight, Upload, CheckCircle2, AlertCircle, Loader2 } from 'lucide
 
 interface JobApplicationFormProps {
   positionTitle: string;
+  jobId?: string;
 }
 
-export default function JobApplicationForm({ positionTitle }: JobApplicationFormProps) {
+export default function JobApplicationForm({ positionTitle, jobId }: JobApplicationFormProps) {
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -29,8 +30,8 @@ export default function JobApplicationForm({ positionTitle }: JobApplicationForm
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       const file = e.target.files[0];
-      if (file.size > 10 * 1024 * 1024) {
-        setErrorMsg('File size must be under 10MB.');
+      if (file.size > 15 * 1024 * 1024) {
+        setErrorMsg('File size must be under 15MB.');
         return;
       }
       setSelectedFile(file);
@@ -45,15 +46,44 @@ export default function JobApplicationForm({ positionTitle }: JobApplicationForm
       return;
     }
 
+    if (!selectedFile) {
+      setErrorMsg('Please upload your CV / Resume (PDF, DOC, DOCX).');
+      return;
+    }
+
     setIsSubmitting(true);
     setErrorMsg('');
 
-    // Simulate reliable submission
     try {
-      await new Promise((resolve) => setTimeout(resolve, 800));
+      const body = new FormData();
+      body.append('firstName', formData.firstName.trim());
+      body.append('lastName', formData.lastName.trim());
+      body.append('fullName', `${formData.firstName.trim()} ${formData.lastName.trim()}`);
+      body.append('email', formData.email.trim());
+      body.append('phone', formData.phone.trim());
+      if (jobId) {
+        body.append('jobId', jobId);
+      }
+      body.append('jobTitle', positionTitle);
+      if (formData.message.trim()) {
+        body.append('coverLetter', formData.message.trim());
+      }
+      body.append('file', selectedFile);
+
+      const res = await fetch('/api/careers/apply', {
+        method: 'POST',
+        body,
+      });
+
+      const result = await res.json();
+
+      if (!res.ok || !result.success) {
+        throw new Error(result.error || 'Failed to submit application. Please try again.');
+      }
+
       setIsSubmitted(true);
-    } catch {
-      setErrorMsg('An error occurred during submission. Please try again.');
+    } catch (err) {
+      setErrorMsg(err instanceof Error ? err.message : 'An error occurred during submission. Please try again.');
     } finally {
       setIsSubmitting(false);
     }

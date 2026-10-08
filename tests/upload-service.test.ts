@@ -1,7 +1,9 @@
 import { describe, test, expect } from 'bun:test';
 import {
   validateImageFile,
+  validateDocumentFile,
   uploadImageBuffer,
+  uploadDocumentBuffer,
   uploadBase64OrUrl,
   deleteCloudinaryImage,
 } from '../lib/services/upload.service';
@@ -56,12 +58,53 @@ describe('Upload Service Unit Tests', () => {
     });
   });
 
+  describe('validateDocumentFile', () => {
+    test('accepts PDF and Word documents by extension and mime type', () => {
+      const testCases = [
+        { name: 'resume.pdf', type: 'application/pdf', size: 2 * 1024 * 1024 },
+        { name: 'profile.doc', type: 'application/msword', size: 1 * 1024 * 1024 },
+        { name: 'cv.docx', type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', size: 3 * 1024 * 1024 },
+        { name: 'document.pdf', type: 'application/octet-stream', size: 500 * 1024 },
+      ];
+
+      for (const tc of testCases) {
+        const result = validateDocumentFile(tc);
+        expect(result.valid).toBe(true);
+        expect(result.error).toBeUndefined();
+      }
+    });
+
+    test('rejects unsupported extensions or media files', () => {
+      const invalid = [
+        { name: 'photo.jpg', type: 'image/jpeg', size: 1024 },
+        { name: 'script.exe', type: 'application/x-msdownload', size: 1024 },
+        { name: 'archive.zip', type: 'application/zip', size: 1024 },
+      ];
+
+      for (const tc of invalid) {
+        const result = validateDocumentFile(tc);
+        expect(result.valid).toBe(false);
+        expect(result.error).toBeDefined();
+        expect(result.error).toContain('không được hỗ trợ');
+      }
+    });
+
+    test('rejects document files larger than 15MB', () => {
+      const oversized = { name: 'huge-cv.pdf', type: 'application/pdf', size: 16 * 1024 * 1024 };
+      const result = validateDocumentFile(oversized);
+      expect(result.valid).toBe(false);
+      expect(result.error).toContain('vượt quá giới hạn tối đa');
+    });
+  });
+
   describe('Service API contract', () => {
     test('exports expected upload and management functions', () => {
       expect(typeof uploadImageBuffer).toBe('function');
+      expect(typeof uploadDocumentBuffer).toBe('function');
       expect(typeof uploadBase64OrUrl).toBe('function');
       expect(typeof deleteCloudinaryImage).toBe('function');
       expect(typeof validateImageFile).toBe('function');
+      expect(typeof validateDocumentFile).toBe('function');
     });
   });
 });

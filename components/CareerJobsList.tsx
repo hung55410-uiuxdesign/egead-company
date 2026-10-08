@@ -3,6 +3,7 @@
 import React, { useState, useMemo } from 'react';
 import Link from 'next/link';
 import { Search, MapPin, Briefcase, ArrowUpRight, Filter } from 'lucide-react';
+import { Pagination } from '@astryxdesign/core';
 import { JobOpening } from '@/lib/careers';
 
 interface CareerJobsListProps {
@@ -13,6 +14,8 @@ export default function CareerJobsList({ jobs }: CareerJobsListProps) {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedDept, setSelectedDept] = useState('All');
   const [selectedLoc, setSelectedLoc] = useState('All');
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageSize, setPageSize] = useState(6);
 
   const departments = useMemo(() => {
     const set = new Set<string>();
@@ -38,6 +41,14 @@ export default function CareerJobsList({ jobs }: CareerJobsListProps) {
     });
   }, [jobs, searchQuery, selectedDept, selectedLoc]);
 
+  const totalItems = filteredJobs.length;
+  const totalPages = Math.max(1, Math.ceil(totalItems / pageSize));
+  const safeCurrentPage = Math.min(Math.max(1, currentPage), totalPages);
+  const startIndex = (safeCurrentPage - 1) * pageSize;
+  const paginatedJobs = useMemo(() => {
+    return filteredJobs.slice(startIndex, startIndex + pageSize);
+  }, [filteredJobs, startIndex, pageSize]);
+
   return (
     <div id="job" className="w-full bg-white text-black rounded-[32px] sm:rounded-[48px] shadow-2xl p-8 sm:p-14 lg:p-18 border border-gray-100">
       {/* Header */}
@@ -57,7 +68,10 @@ export default function CareerJobsList({ jobs }: CareerJobsListProps) {
           <input
             type="text"
             value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
+            onChange={(e) => {
+              setSearchQuery(e.target.value);
+              setCurrentPage(1);
+            }}
             placeholder="Search open positions by role, skill, or keyword..."
             className="w-full pl-12 pr-4 py-4 rounded-2xl border border-gray-200 focus:border-[#10E774] focus:ring-2 focus:ring-[#10E774]/20 outline-none text-sm sm:text-base text-gray-900 bg-gray-50/60 transition"
           />
@@ -74,7 +88,10 @@ export default function CareerJobsList({ jobs }: CareerJobsListProps) {
               <button
                 key={dept}
                 type="button"
-                onClick={() => setSelectedDept(dept)}
+                onClick={() => {
+                  setSelectedDept(dept);
+                  setCurrentPage(1);
+                }}
                 className={`px-4 py-1.5 rounded-full text-xs font-semibold transition cursor-pointer ${
                   selectedDept === dept
                     ? 'bg-[#003D5B] text-white shadow-sm'
@@ -96,7 +113,7 @@ export default function CareerJobsList({ jobs }: CareerJobsListProps) {
       {/* Jobs List */}
       <div className="border-t border-gray-200">
         {filteredJobs.length > 0 ? (
-          filteredJobs.map((job) => (
+          paginatedJobs.map((job) => (
             <Link
               key={job.slug}
               href={`/careers/${job.slug}`}
@@ -144,6 +161,7 @@ export default function CareerJobsList({ jobs }: CareerJobsListProps) {
                 setSearchQuery('');
                 setSelectedDept('All');
                 setSelectedLoc('All');
+                setCurrentPage(1);
               }}
               className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-gray-100 hover:bg-gray-200 text-xs font-semibold uppercase tracking-wider text-black transition"
             >
@@ -152,6 +170,29 @@ export default function CareerJobsList({ jobs }: CareerJobsListProps) {
           </div>
         )}
       </div>
+
+      {/* Pagination Footer */}
+      {totalItems > pageSize && (
+        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <span className="text-xs text-gray-500 font-montserrat">
+            Showing {startIndex + 1}–{Math.min(startIndex + pageSize, totalItems)} of {totalItems} positions
+          </span>
+          <Pagination
+            page={safeCurrentPage}
+            onChange={(p) => {
+              setCurrentPage(p);
+              const el = document.getElementById('job');
+              if (el) {
+                el.scrollIntoView({ behavior: 'smooth' });
+              }
+            }}
+            totalItems={totalItems}
+            pageSize={pageSize}
+            size="sm"
+            variant="pages"
+          />
+        </div>
+      )}
     </div>
   );
 }

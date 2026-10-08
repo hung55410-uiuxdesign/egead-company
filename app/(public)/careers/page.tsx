@@ -7,6 +7,8 @@ import { getPublicJobOpenings } from '@/lib/careers';
 import CareerJobsList from '@/components/CareerJobsList';
 import CareerMomentsBento from '@/components/CareerMomentsBento';
 
+export const dynamic = 'force-dynamic';
+
 export const metadata = {
   title: 'Explore Exciting Career Opportunities at E-GEAD Today!',
   description:

@@ -1,6 +1,8 @@
 import { describe, test, expect } from 'bun:test';
 import {
   getAllPosts,
+  getPaginatedPosts,
+  getInsightsHubData,
   getPostBySlug,
   getPostById,
   savePost,
@@ -169,6 +171,46 @@ describe('Blog Service Unit Tests', () => {
 
       const deleted = await bulkDeletePosts([]);
       expect(deleted).toBe(0);
+    });
+  });
+
+  describe('getPaginatedPosts', () => {
+    test('returns paginated result with total, page, limit, and totalPages', async () => {
+      const result = await getPaginatedPosts({ page: 1, limit: 3 });
+      expect(result).toBeDefined();
+      expect(Array.isArray(result.posts)).toBe(true);
+      expect(typeof result.total).toBe('number');
+      expect(result.page).toBe(1);
+      expect(result.limit).toBe(3);
+      expect(typeof result.totalPages).toBe('number');
+      expect(result.posts.length).toBeLessThanOrEqual(3);
+    });
+
+    test('supports filtering by status in paginated results', async () => {
+      const result = await getPaginatedPosts({ status: 'published', limit: 5 });
+      for (const p of result.posts) {
+        expect(p.status).toBe('published');
+      }
+    });
+  });
+
+  describe('getInsightsHubData', () => {
+    test('aggregates featured posts, categories, and category sections', async () => {
+      const hubData = await getInsightsHubData();
+      expect(hubData).toBeDefined();
+      expect(Array.isArray(hubData.featured)).toBe(true);
+      expect(hubData.featured.length).toBeLessThanOrEqual(2);
+      expect(Array.isArray(hubData.categories)).toBe(true);
+      expect(Array.isArray(hubData.sections)).toBe(true);
+      expect(typeof hubData.totalPosts).toBe('number');
+
+      for (const section of hubData.sections) {
+        expect(section.category).toBeDefined();
+        expect(typeof section.category.name).toBe('string');
+        expect(typeof section.category.slug).toBe('string');
+        expect(typeof section.link).toBe('string');
+        expect(Array.isArray(section.posts)).toBe(true);
+      }
     });
   });
 });

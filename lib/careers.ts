@@ -9,6 +9,7 @@ export * from '@/lib/services/career.service';
 export type { CareerPost, JobApplication, CareerStats } from '@/types/career';
 
 export interface JobOpening {
+  id: string;
   slug: string;
   position: string;
   department: string;
@@ -17,6 +18,11 @@ export interface JobOpening {
   locationCity?: string;
   jobType: string;
   excerpt: string;
+  experience?: string;
+  salary?: string;
+  quantity?: string | number;
+  deadline?: string;
+  createdAt?: string;
   responsibilities?: string[];
   qualifications?: string[];
   preferredSkills?: string[];
@@ -47,6 +53,7 @@ export function toJobOpening(post: CareerPost): JobOpening {
   };
 
   return {
+    id: post.id,
     slug: post.slug,
     position: post.title,
     department: post.department,
@@ -55,6 +62,11 @@ export function toJobOpening(post: CareerPost): JobOpening {
     locationCity: post.location,
     jobType: post.type,
     excerpt: post.excerpt || '',
+    experience: post.experience,
+    salary: post.salary,
+    quantity: post.quantity,
+    deadline: post.deadline,
+    createdAt: post.createdAt,
     responsibilities: parseList(post.description),
     qualifications: parseList(post.requirements),
     benefits: parseList(post.benefits),

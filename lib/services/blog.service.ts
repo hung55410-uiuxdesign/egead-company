@@ -1,7 +1,10 @@
 import fs from 'fs/promises';
 import path from 'path';
+import { Prisma } from '@prisma/client';
 import { prisma } from '@/lib/prisma';
 import { BlogPost, BlogStats, BlogCategory, PostStatus } from '@/types/blog';
+import { CategoryItem, getCategoryHref } from '@/types/category';
+import { getCategoriesWithCount } from './category.service';
 import initialBlogs from '@/data/blogs.json';
 
 const BLOGS_FILE_PATH = path.join(process.cwd(), 'data', 'blogs.json');
@@ -14,7 +17,6 @@ function normalizeContent(rawContent: string | string[]): string[] {
     return rawContent;
   }
   if (typeof rawContent === 'string') {
-    // If it's HTML, we can either return it or keep as single block
     return [rawContent];
   }
   return [''];
@@ -35,53 +37,104 @@ async function getFallbackPosts(): Promise<BlogPost[]> {
   }
 }
 
-/**
- * Get all blog posts from Prisma with optional filters.
- */
-export async function getAllPosts(filter?: {
+export interface PostFilter {
   status?: string;
   tag?: string;
   category?: string;
   search?: string;
-}): Promise<BlogPost[]> {
-  try {
-    const where: {
-      status?: string;
-      tag?: string;
-      categoryName?: { equals: string; mode: 'insensitive' };
-      OR?: Array<
-        | { title: { contains: string; mode: 'insensitive' } }
-        | { excerpt: { contains: string; mode: 'insensitive' } }
-        | { slug: { contains: string; mode: 'insensitive' } }
-      >;
-    } = {};
+  featured?: boolean;
+  limit?: number;
+  skip?: number;
+  sort?: 'newest' | 'oldest' | 'popular';
+}
 
-    if (filter?.status && filter.status !== 'all') {
-      where.status = filter.status;
+export interface PaginatedPostsResult {
+  posts: BlogPost[];
+  total: number;
+  page: number;
+  limit: number;
+  totalPages: number;
+}
+
+function buildPostWhereInput(filter?: PostFilter): Prisma.PostWhereInput {
+  const where: Prisma.PostWhereInput = {};
+
+  if (filter?.status && filter.status !== 'all') {
+    where.status = filter.status;
+  }
+
+  if (filter?.featured !== undefined) {
+    where.featured = filter.featured;
+  }
+
+  if (filter?.tag && filter.tag !== 'all') {
+    where.tag = { equals: filter.tag, mode: 'insensitive' };
+  }
+
+  if (filter?.category && filter.category !== 'all') {
+    const catVal = filter.category.trim();
+    const catSlug = catVal.toLowerCase().replace(/\s+/g, '-');
+    const aliasSlug =
+      catSlug === 'blog' ? 'blogs' : catSlug === 'blogs' ? 'blog' : undefined;
+
+    const categoryConditions: Prisma.PostWhereInput[] = [
+      { categoryName: { equals: catVal, mode: 'insensitive' } },
+      { category: { is: { slug: { equals: catSlug, mode: 'insensitive' } } } },
+      { category: { is: { name: { equals: catVal, mode: 'insensitive' } } } },
+    ];
+
+    if (aliasSlug) {
+      categoryConditions.push(
+        { category: { is: { slug: { equals: aliasSlug, mode: 'insensitive' } } } },
+        { categoryName: { equals: aliasSlug, mode: 'insensitive' } }
+      );
     }
-    if (filter?.tag && filter.tag !== 'all') {
-      where.tag = filter.tag;
+
+    where.OR = categoryConditions;
+  }
+
+  if (filter?.search) {
+    const searchConditions: Prisma.PostWhereInput[] = [
+      { title: { contains: filter.search, mode: 'insensitive' } },
+      { excerpt: { contains: filter.search, mode: 'insensitive' } },
+      { slug: { contains: filter.search, mode: 'insensitive' } },
+    ];
+    if (where.OR) {
+      where.AND = [{ OR: where.OR }, { OR: searchConditions }];
+      delete where.OR;
+    } else {
+      where.OR = searchConditions;
     }
-    if (filter?.category && filter.category !== 'all') {
-      where.categoryName = { equals: filter.category, mode: 'insensitive' };
-    }
-    if (filter?.search) {
-      where.OR = [
-        { title: { contains: filter.search, mode: 'insensitive' } },
-        { excerpt: { contains: filter.search, mode: 'insensitive' } },
-        { slug: { contains: filter.search, mode: 'insensitive' } },
-      ];
+  }
+
+  return where;
+}
+
+/**
+ * Get all blog posts from Prisma with optional filters.
+ */
+export async function getAllPosts(filter?: PostFilter): Promise<BlogPost[]> {
+  try {
+    const where = buildPostWhereInput(filter);
+
+    let orderBy: Prisma.PostOrderByWithRelationInput = { createdAt: 'desc' };
+    if (filter?.sort === 'oldest') {
+      orderBy = { createdAt: 'asc' };
+    } else if (filter?.sort === 'popular') {
+      orderBy = { views: 'desc' };
     }
 
     const posts = await prisma.post.findMany({
       where,
-      orderBy: { createdAt: 'desc' },
+      orderBy,
+      take: filter?.limit,
+      skip: filter?.skip,
       include: {
         category: true,
       },
     });
 
-    if (posts.length === 0 && !filter?.status && !filter?.search && !filter?.tag) {
+    if (posts.length === 0 && !filter?.status && !filter?.search && !filter?.tag && !filter?.category) {
       // If table is empty, auto-seed from JSON
       return await seedDatabaseFromJSON();
     }
@@ -93,6 +146,7 @@ export async function getAllPosts(filter?: {
       subtitle: p.subtitle || undefined,
       tag: p.tag,
       category: p.categoryName || p.category?.name || 'General',
+      categoryId: p.categoryId || p.category?.id || undefined,
       date: p.date,
       readTime: p.readTime,
       heroImage: p.heroImage,
@@ -115,16 +169,29 @@ export async function getAllPosts(filter?: {
     if (filter?.status && filter.status !== 'all') {
       posts = posts.filter((p) => p.status === filter.status);
     }
+    if (filter?.featured !== undefined) {
+      posts = posts.filter((p) => p.featured === filter.featured);
+    }
     if (filter?.tag && filter.tag !== 'all') {
       posts = posts.filter((p) => p.tag === filter.tag || p.category === filter.tag);
     }
     if (filter?.category && filter.category !== 'all') {
       const c = filter.category.toLowerCase().replace(/-/g, ' ');
-      posts = posts.filter(
-        (p) =>
-          p.category.toLowerCase() === c ||
-          p.category.toLowerCase().replace(/\s+/g, '-') === filter.category?.toLowerCase()
-      );
+      const cSlug = filter.category.toLowerCase().replace(/\s+/g, '-');
+      posts = posts.filter((p) => {
+        const pCat = (p.category || '').toLowerCase();
+        const pCatSlug = pCat.replace(/\s+/g, '-');
+        const isBlog =
+          (cSlug === 'blog' || cSlug === 'blogs') &&
+          (pCatSlug === 'blog' || pCatSlug === 'blogs');
+        if (pCat === c || pCat === filter.category?.toLowerCase() || pCatSlug === cSlug || isBlog) {
+          return true;
+        }
+        if (!p.category || p.category.toLowerCase() === 'general') {
+          return p.tag.toLowerCase().replace(/\s+/g, '-') === cSlug;
+        }
+        return false;
+      });
     }
     if (filter?.search) {
       const q = filter.search.toLowerCase();
@@ -135,8 +202,236 @@ export async function getAllPosts(filter?: {
           p.slug.toLowerCase().includes(q)
       );
     }
+    if (filter?.sort === 'oldest') {
+      posts.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+    } else if (filter?.sort === 'popular') {
+      posts.sort((a, b) => (b.views || 0) - (a.views || 0));
+    }
+    if (filter?.skip) {
+      posts = posts.slice(filter.skip);
+    }
+    if (filter?.limit) {
+      posts = posts.slice(0, filter.limit);
+    }
     return posts;
   }
+}
+
+/**
+ * Get paginated blog posts with total count and metadata.
+ */
+export async function getPaginatedPosts(
+  filter?: PostFilter & { page?: number }
+): Promise<PaginatedPostsResult> {
+  const page = Math.max(1, filter?.page || 1);
+  const limit = Math.max(1, filter?.limit || 9);
+  const skip = (page - 1) * limit;
+
+  try {
+    const where = buildPostWhereInput(filter);
+
+    let orderBy: Prisma.PostOrderByWithRelationInput = { createdAt: 'desc' };
+    if (filter?.sort === 'oldest') {
+      orderBy = { createdAt: 'asc' };
+    } else if (filter?.sort === 'popular') {
+      orderBy = { views: 'desc' };
+    }
+
+    const [posts, total] = await Promise.all([
+      prisma.post.findMany({
+        where,
+        orderBy,
+        take: limit,
+        skip,
+        include: {
+          category: true,
+        },
+      }),
+      prisma.post.count({ where }),
+    ]);
+
+    const mappedPosts: BlogPost[] = posts.map((p) => ({
+      id: p.id,
+      slug: p.slug,
+      title: p.title,
+      subtitle: p.subtitle || undefined,
+      tag: p.tag,
+      category: p.categoryName || p.category?.name || 'General',
+      categoryId: p.categoryId || p.category?.id || undefined,
+      date: p.date,
+      readTime: p.readTime,
+      heroImage: p.heroImage,
+      excerpt: p.excerpt,
+      content: p.content,
+      author: {
+        name: p.authorName,
+        role: p.authorRole || undefined,
+        avatar: p.authorAvatar || undefined,
+      },
+      status: (p.status as PostStatus) || 'draft',
+      views: p.views,
+      featured: p.featured,
+      createdAt: p.createdAt.toISOString(),
+      updatedAt: p.updatedAt.toISOString(),
+    }));
+
+    return {
+      posts: mappedPosts,
+      total,
+      page,
+      limit,
+      totalPages: Math.ceil(total / limit) || 1,
+    };
+  } catch (error) {
+    console.warn('[blog.service] Prisma paginated query failed, using fallback:', error);
+    const allFiltered = await getAllPosts({
+      status: filter?.status,
+      tag: filter?.tag,
+      category: filter?.category,
+      search: filter?.search,
+      featured: filter?.featured,
+      sort: filter?.sort,
+    });
+
+    const total = allFiltered.length;
+    const paginated = allFiltered.slice(skip, skip + limit);
+
+    return {
+      posts: paginated,
+      total,
+      page,
+      limit,
+      totalPages: Math.ceil(total / limit) || 1,
+    };
+  }
+}
+
+export interface InsightsHubData {
+  featured: BlogPost[];
+  sections: Array<{
+    category: CategoryItem;
+    posts: BlogPost[];
+    link: string;
+  }>;
+  categories: CategoryItem[];
+  totalPosts: number;
+}
+
+/**
+ * Get aggregated data for the public Insights Hub page
+ */
+export async function getInsightsHubData(): Promise<InsightsHubData> {
+  const [allPosts, categories] = await Promise.all([
+    getAllPosts({ status: 'published' }),
+    getCategoriesWithCount(),
+  ]);
+
+  // Featured Insights (2 items)
+  const featuredPosts = allPosts.filter((p) => p.featured).slice(0, 2);
+  const featured = featuredPosts.length >= 2 ? featuredPosts : allPosts.slice(0, 2);
+
+  // Fallback default categories if database has no categories yet
+  const effectiveCategories: CategoryItem[] =
+    categories.length > 0
+      ? categories
+      : [
+          {
+            id: 'cat-blog',
+            name: 'Blog',
+            slug: 'blog',
+            description: 'Thought leadership, industry perspectives, and technical architecture guides.',
+            icon: '/assets/icon_blog.svg',
+            count: 0,
+            createdAt: new Date().toISOString(),
+            updatedAt: new Date().toISOString(),
+          },
+          {
+            id: 'cat-announcements',
+            name: 'Announcements',
+            slug: 'announcements',
+            description: 'Stay updated on product launches, strategic milestones, and company announcements.',
+            icon: '/assets/icon_announcement.svg',
+            count: 0,
+            createdAt: new Date().toISOString(),
+            updatedAt: new Date().toISOString(),
+          },
+          {
+            id: 'cat-webinars',
+            name: 'Webinars',
+            slug: 'webinars',
+            description: "Join or watch our webinars to equip you for tomorrow's leadership.",
+            icon: '/assets/icon_webinar.svg',
+            count: 0,
+            createdAt: new Date().toISOString(),
+            updatedAt: new Date().toISOString(),
+          },
+          {
+            id: 'cat-white-papers',
+            name: 'White Papers',
+            slug: 'white-papers',
+            description: 'In-depth research papers, enterprise blueprints, and strategic benchmarks.',
+            icon: '/assets/icon_whitepaper.svg',
+            count: 0,
+            createdAt: new Date().toISOString(),
+            updatedAt: new Date().toISOString(),
+          },
+        ];
+
+  // Group posts by each category from database
+  const sections: InsightsHubData['sections'] = effectiveCategories.map((cat) => {
+    const catNameLower = cat.name.toLowerCase().trim();
+    const catSlugLower = cat.slug.toLowerCase().trim();
+
+    const posts = allPosts.filter((p) => {
+      // 1. Direct categoryId check if available
+      if (p.categoryId && cat.id) {
+        if (p.categoryId === cat.id) return true;
+        return false;
+      }
+
+      // 2. Strict category name or slug matching
+      const pCatLower = (p.category || '').toLowerCase().trim();
+      const pCatSlug = pCatLower.replace(/\s+/g, '-');
+      const isBlogMatch =
+        (catSlugLower === 'blog' || catSlugLower === 'blogs') &&
+        (pCatSlug === 'blog' || pCatSlug === 'blogs');
+      const isWhitePaperMatch =
+        catSlugLower.includes('white') && pCatSlug.includes('white');
+
+      if (
+        pCatLower === catNameLower ||
+        pCatSlug === catSlugLower ||
+        isBlogMatch ||
+        isWhitePaperMatch
+      ) {
+        return true;
+      }
+
+      // 3. Fallback to tag only if post has no explicit category
+      if (!p.category || p.category.toLowerCase() === 'general') {
+        const pTagLower = (p.tag || '').toLowerCase().trim();
+        return (
+          pTagLower === catNameLower ||
+          pTagLower.replace(/\s+/g, '-') === catSlugLower
+        );
+      }
+
+      return false;
+    });
+
+    return {
+      category: cat,
+      posts: posts.slice(0, 3),
+      link: getCategoryHref(cat.slug),
+    };
+  });
+
+  return {
+    featured,
+    sections,
+    categories: effectiveCategories,
+    totalPosts: allPosts.length,
+  };
 }
 
 /**
@@ -257,6 +552,25 @@ export async function savePost(
     });
 
   try {
+    let resolvedCategoryId = postData.categoryId || null;
+    if (!resolvedCategoryId && postData.category) {
+      try {
+        const cat = await prisma.category.findFirst({
+          where: {
+            OR: [
+              { name: { equals: postData.category, mode: 'insensitive' } },
+              { slug: { equals: postData.category.toLowerCase().replace(/\s+/g, '-'), mode: 'insensitive' } },
+            ],
+          },
+        });
+        if (cat) {
+          resolvedCategoryId = cat.id;
+        }
+      } catch {
+        // Ignore
+      }
+    }
+
     if (postData.id) {
       const updated = await prisma.post.update({
         where: { id: postData.id },
@@ -266,6 +580,7 @@ export async function savePost(
           slug,
           tag: postData.tag || 'General',
           categoryName: postData.category || 'General',
+          categoryId: resolvedCategoryId,
           date,
           readTime: postData.readTime || '5 mins read',
           heroImage: postData.heroImage || '/assets/case_brother.jpg',
@@ -287,6 +602,7 @@ export async function savePost(
         subtitle: updated.subtitle || undefined,
         tag: updated.tag,
         category: updated.categoryName,
+        categoryId: updated.categoryId || resolvedCategoryId || undefined,
         date: updated.date,
         readTime: updated.readTime,
         heroImage: updated.heroImage,
@@ -311,6 +627,7 @@ export async function savePost(
           slug,
           tag: postData.tag || 'General',
           categoryName: postData.category || 'General',
+          categoryId: resolvedCategoryId,
           date,
           readTime: postData.readTime || '5 mins read',
           heroImage: postData.heroImage || '/assets/case_brother.jpg',
@@ -332,6 +649,7 @@ export async function savePost(
         subtitle: created.subtitle || undefined,
         tag: created.tag,
         category: created.categoryName,
+        categoryId: created.categoryId || resolvedCategoryId || undefined,
         date: created.date,
         readTime: created.readTime,
         heroImage: created.heroImage,

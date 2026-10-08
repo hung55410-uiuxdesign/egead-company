@@ -1,6 +1,10 @@
 import { describe, test, expect } from 'bun:test';
 import { categorySchema } from '../lib/validations/category';
-import { generateSlug, getCategoriesWithCount } from '../lib/services/category.service';
+import {
+  generateSlug,
+  getCategoryHref,
+  getCategoriesWithCount,
+} from '../lib/services/category.service';
 
 describe('Category Service & Validation Tests', () => {
   describe('Zod Validation Schema (categorySchema)', () => {
@@ -72,4 +76,19 @@ describe('Category Service & Validation Tests', () => {
       }
     });
   });
+
+  describe('getCategoryHref Navigation Utility', () => {
+    test('routes known rewrite slugs correctly', () => {
+      expect(getCategoryHref('webinars')).toBe('/webinars');
+      expect(getCategoryHref('announcements')).toBe('/announcements');
+      expect(getCategoryHref('white-papers')).toBe('/white-papers');
+      expect(getCategoryHref('blog')).toBe('/blog');
+      expect(getCategoryHref('blogs')).toBe('/blog');
+    });
+
+    test('routes dynamic category slugs to insights query', () => {
+      expect(getCategoryHref('technology')).toBe('/insights?category=technology');
+    });
+  });
 });
+

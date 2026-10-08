@@ -13,6 +13,7 @@ export interface BlogPost {
   subtitle?: string;
   tag: string;
   category: string;
+  categoryId?: string;
   date: string;
   readTime: string;
   heroImage: string;

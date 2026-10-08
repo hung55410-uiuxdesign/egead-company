@@ -37,6 +37,7 @@ export default function CareerApplicationsClient({
     initialSelectedJobId || 'all'
   );
   const [selectedApp, setSelectedApp] = useState<JobApplication | null>(null);
+  const [viewingCvApp, setViewingCvApp] = useState<JobApplication | null>(null);
   const [editingNotes, setEditingNotes] = useState('');
   const [isSavingNotes, setIsSavingNotes] = useState(false);
   const [isDeleting, setIsDeleting] = useState<string | null>(null);
@@ -481,13 +482,21 @@ export default function CareerApplicationsClient({
                       className="py-4 px-4 whitespace-nowrap"
                       onClick={(e) => e.stopPropagation()}
                     >
-                      <Button
-                        label="Xem CV"
-                        variant="secondary"
-                        size="sm"
-                        href={app.cvUrl}
-                        target="_blank"
-                      />
+                      <div className="flex items-center gap-1.5">
+                        <Button
+                          label="Xem CV"
+                          variant="secondary"
+                          size="sm"
+                          onClick={() => setViewingCvApp(app)}
+                        />
+                        <Button
+                          label="Tải về"
+                          variant="ghost"
+                          size="sm"
+                          href={`/api/admin/careers/applications/${app.id}/cv?download=true`}
+                          target="_blank"
+                        />
+                      </div>
                     </td>
 
                     {/* Salary & Experience */}
@@ -565,9 +574,16 @@ export default function CareerApplicationsClient({
                             ...(app.cvUrl
                               ? [
                                   {
-                                    label: 'Mở CV / Portfolio',
+                                    label: 'Xem tệp CV trong modal',
+                                    onClick: () => setViewingCvApp(app),
+                                  },
+                                  {
+                                    label: 'Tải xuống tệp CV',
                                     onClick: () =>
-                                      window.open(app.cvUrl, '_blank'),
+                                      window.open(
+                                        `/api/admin/careers/applications/${app.id}/cv?download=true`,
+                                        '_blank'
+                                      ),
                                   },
                                 ]
                               : []),
@@ -664,9 +680,15 @@ export default function CareerApplicationsClient({
             {/* Links Section: CV & Portfolio using Astryx Button */}
             <div className="flex flex-wrap items-center gap-3">
               <Button
-                label="Mở xem tệp CV đính kèm"
+                label="Xem trực tiếp tệp CV"
                 variant="primary"
-                href={selectedApp.cvUrl}
+                onClick={() => setViewingCvApp(selectedApp)}
+              />
+
+              <Button
+                label="Tải xuống CV"
+                variant="secondary"
+                href={`/api/admin/careers/applications/${selectedApp.id}/cv?download=true`}
                 target="_blank"
               />
 
@@ -744,6 +766,91 @@ export default function CareerApplicationsClient({
                   onClick={handleSaveNotes}
                 />
               </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* =========================================================================
+          CV VIEWER MODAL
+          ========================================================================= */}
+      {viewingCvApp && (
+        <div
+          className="fixed inset-0 z-[60] flex items-center justify-center p-3 sm:p-6 bg-slate-900/70 backdrop-blur-sm animate-in fade-in"
+          onClick={() => setViewingCvApp(null)}
+        >
+          <div
+            className="bg-white rounded-3xl max-w-5xl w-full h-[90vh] flex flex-col shadow-2xl border border-slate-200 overflow-hidden animate-in zoom-in-95"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Modal Header */}
+            <div className="p-4 sm:px-6 py-4 border-b border-slate-200 flex items-center justify-between gap-4 bg-slate-50/90 shrink-0">
+              <div className="min-w-0">
+                <h2 className="text-base font-bold text-slate-900 truncate">
+                  Tệp CV: {viewingCvApp.fullName}
+                </h2>
+                <p className="text-xs text-slate-500 font-medium truncate mt-0.5">
+                  Vị trí ứng tuyển: <strong className="text-emerald-700">{viewingCvApp.jobTitle}</strong> • Email: {viewingCvApp.email} • SĐT: {viewingCvApp.phone}
+                </p>
+              </div>
+
+              <div className="flex items-center gap-2 shrink-0">
+                <Button
+                  label="Tải xuống CV"
+                  variant="primary"
+                  size="sm"
+                  href={`/api/admin/careers/applications/${viewingCvApp.id}/cv?download=true`}
+                  target="_blank"
+                />
+                <Button
+                  label="Mở tab mới"
+                  variant="secondary"
+                  size="sm"
+                  href={`/api/admin/careers/applications/${viewingCvApp.id}/cv`}
+                  target="_blank"
+                />
+                <Button
+                  label="Đóng"
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => setViewingCvApp(null)}
+                />
+              </div>
+            </div>
+
+            {/* Modal Body: Embedded Preview */}
+            <div className="flex-1 w-full h-full p-3 sm:p-4 bg-slate-100/70 overflow-hidden flex flex-col">
+              {viewingCvApp.cvUrl.startsWith('http') &&
+              !viewingCvApp.cvUrl.includes('cloudinary.com') &&
+              !viewingCvApp.cvUrl.startsWith('/uploads/') ? (
+                <div className="flex-1 flex flex-col items-center justify-center p-8 text-center bg-white rounded-2xl border border-slate-200">
+                  <h3 className="text-base font-bold text-slate-900 mb-2">
+                    Liên kết CV bên ngoài
+                  </h3>
+                  <p className="text-xs text-slate-600 max-w-md mb-6 leading-relaxed">
+                    Ứng viên cung cấp đường link lưu trữ bên ngoài (Google Drive, LinkedIn hoặc website cá nhân).
+                  </p>
+                  <div className="flex items-center gap-3">
+                    <Button
+                      label="Mở liên kết CV ứng viên"
+                      variant="primary"
+                      href={viewingCvApp.cvUrl}
+                      target="_blank"
+                    />
+                    <Button
+                      label="Đóng"
+                      variant="secondary"
+                      onClick={() => setViewingCvApp(null)}
+                    />
+                  </div>
+                </div>
+              ) : (
+                <iframe
+                  src={`/api/admin/careers/applications/${viewingCvApp.id}/cv`}
+                  className="w-full h-full rounded-2xl border border-slate-200 bg-white shadow-inner"
+                  title={`CV của ${viewingCvApp.fullName}`}
+                />
+              )}
             </div>
           </div>
         </div>

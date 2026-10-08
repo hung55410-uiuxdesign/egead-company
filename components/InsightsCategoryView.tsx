@@ -91,8 +91,15 @@ export default function InsightsCategoryView({
 
         {/* Category Title with Icon */}
         <div className="flex items-center gap-3.5 mb-8">
-          <h1 className="text-3xl sm:text-5xl lg:text-[48px] font-semibold text-white tracking-wider font-montserrat leading-none">
-            {categoryTitle.toUpperCase()}
+          {categoryIcon && (
+            <img
+              src={categoryIcon}
+              alt=""
+              className="w-8 h-8 sm:w-10 sm:h-10 object-contain"
+            />
+          )}
+          <h1 className="text-3xl sm:text-5xl lg:text-[48px] font-semibold text-white font-montserrat leading-tight">
+            {categoryTitle}
           </h1>
         </div>
 
@@ -123,7 +130,9 @@ export default function InsightsCategoryView({
             <select
               aria-label="Sort"
               value={selectedSort}
-              onChange={(e) => setSelectedSort(e.target.value as any)}
+              onChange={(e) =>
+                setSelectedSort(e.target.value as 'newest' | 'oldest' | 'title')
+              }
               className="w-full appearance-none bg-black border border-[#333333] hover:border-[#666666] text-white text-xs font-normal px-4 py-2.5 rounded-lg outline-none cursor-pointer transition font-montserrat"
             >
               <option value="newest">Sort</option>

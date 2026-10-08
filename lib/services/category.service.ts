@@ -2,10 +2,10 @@ import fs from 'fs/promises';
 import path from 'path';
 import { prisma } from '@/lib/prisma';
 import { CategoryInput, categorySchema } from '@/lib/validations/category';
-import { CategoryItem, generateSlug } from '@/types/category';
+import { CategoryItem, generateSlug, getCategoryHref } from '@/types/category';
 
 export type { CategoryItem };
-export { generateSlug };
+export { generateSlug, getCategoryHref };
 
 /**
  * Seed initial categories into PostgreSQL database from existing posts if empty
