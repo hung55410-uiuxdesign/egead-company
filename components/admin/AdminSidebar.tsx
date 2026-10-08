@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
 import {
   LayoutDashboard,
@@ -13,6 +14,10 @@ import {
   Layers,
   X,
   Sparkles,
+  Briefcase,
+  UserPlus,
+  Users,
+  FileInput,
 } from 'lucide-react';
 import { useSession, authClient } from '@/lib/auth-client';
 import { Badge, Button } from '@astryxdesign/core';
@@ -22,7 +27,7 @@ interface AdminSidebarProps {
   onClose: () => void;
 }
 
-const NAV_ITEMS = [
+const CONTENT_NAV_ITEMS = [
   {
     label: 'Bảng điều khiển',
     href: '/admin',
@@ -47,8 +52,38 @@ const NAV_ITEMS = [
     icon: FolderTree,
     exact: false,
   },
+];
+
+const CAREER_NAV_ITEMS = [
   {
-    label: 'Cài đặt blog',
+    label: 'Quản lý tuyển dụng',
+    href: '/admin/careers',
+    icon: Briefcase,
+    exact: true,
+  },
+  {
+    label: 'Đăng tin tuyển dụng',
+    href: '/admin/careers/new',
+    icon: UserPlus,
+    exact: false,
+  },
+  {
+    label: 'Hồ sơ ứng tuyển',
+    href: '/admin/careers/applications',
+    icon: Users,
+    exact: false,
+  },
+  {
+    label: 'Form ứng tuyển & Test',
+    href: '/admin/careers/form-preview',
+    icon: FileInput,
+    exact: false,
+  },
+];
+
+const SYSTEM_NAV_ITEMS = [
+  {
+    label: 'Cài đặt CMS',
     href: '/admin/settings',
     icon: Settings,
     exact: false,
@@ -85,21 +120,30 @@ export default function AdminSidebar({ isOpen, onClose }: AdminSidebarProps) {
         }`}
       >
         {/* Header / Logo */}
-        <div className="h-16 px-5 flex items-center justify-between border-b border-slate-200/80 bg-white shrink-0">
-          <Link href="/admin" className="flex items-center gap-3 group">
-            <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-700 flex items-center justify-center text-white font-black text-lg group-hover:scale-105 transition-transform">
-              E
+        <div className="h-16 px-4 flex items-center justify-between border-b border-slate-200/80 bg-white shrink-0">
+          <Link href="/admin" className="flex items-center gap-2.5 group min-w-0">
+            <div className="relative flex items-center shrink-0">
+              {/* Light mode logo */}
+              <Image
+                src="/assets/logo/black.png"
+                alt="E-GEAD"
+                width={112}
+                height={28}
+                className="h-7 w-auto object-contain dark:hidden group-hover:opacity-85 transition-opacity"
+                priority
+              />
+              {/* Dark mode logo */}
+              <Image
+                src="/assets/logo/white.png"
+                alt="E-GEAD"
+                width={112}
+                height={28}
+                className="h-7 w-auto object-contain hidden dark:block group-hover:opacity-85 transition-opacity"
+                priority
+              />
             </div>
-            <div>
-              <div className="flex items-center gap-1.5">
-                <span className="font-extrabold text-slate-900 text-sm font-open-sans group-hover:text-emerald-700 transition-colors">
-                  E-GEAD
-                </span>
-                <Badge label="CMS" variant="success" />
-              </div>
-              <span className="text-[10px] text-slate-400 block font-medium">
-                Admin Management Portal
-              </span>
+            <div className="shrink-0 flex items-center">
+              <Badge label="CMS" variant="success" />
             </div>
           </Link>
           <button
@@ -114,16 +158,96 @@ export default function AdminSidebar({ isOpen, onClose }: AdminSidebarProps) {
 
         {/* Navigation list */}
         <div className="flex-1 overflow-y-auto px-3.5 py-5 space-y-6">
+          {/* Content Management Group */}
           <div>
-            <div className="px-3 mb-2 text-[11px] font-bold text-slate-500">
+            <div className="px-3 mb-2 text-xs font-bold text-slate-500">
               Quản lý nội dung
             </div>
             <nav className="space-y-1">
-              {NAV_ITEMS.map((item) => {
+              {CONTENT_NAV_ITEMS.map((item) => {
                 const Icon = item.icon;
                 const isActive = item.exact
                   ? pathname === item.href
                   : pathname?.startsWith(item.href);
+
+                return (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    onClick={onClose}
+                    className={`flex items-center justify-between px-3 py-2.5 rounded-xl text-xs font-semibold transition-all duration-150 ${
+                      isActive
+                        ? 'bg-emerald-50/90 text-emerald-900 border border-emerald-200/90 font-bold'
+                        : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100/70 border border-transparent'
+                    }`}
+                  >
+                    <div className="flex items-center gap-2.5">
+                      <Icon
+                        className={`w-4 h-4 transition-colors ${
+                          isActive ? 'text-emerald-600' : 'text-slate-400'
+                        }`}
+                      />
+                      <span>{item.label}</span>
+                    </div>
+                    {isActive && (
+                      <span className="w-1.5 h-4 bg-emerald-600 rounded-full" />
+                    )}
+                  </Link>
+                );
+              })}
+            </nav>
+          </div>
+
+          {/* Careers & Recruitment Group */}
+          <div>
+            <div className="px-3 mb-2 text-xs font-bold text-slate-500 flex items-center justify-between">
+              <span>Tuyển dụng &amp; Ứng tuyển</span>
+              <span className="w-2 h-2 rounded-full bg-emerald-500" />
+            </div>
+            <nav className="space-y-1">
+              {CAREER_NAV_ITEMS.map((item) => {
+                const Icon = item.icon;
+                const isActive = item.exact
+                  ? pathname === item.href
+                  : pathname?.startsWith(item.href);
+
+                return (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    onClick={onClose}
+                    className={`flex items-center justify-between px-3 py-2.5 rounded-xl text-xs font-semibold transition-all duration-150 ${
+                      isActive
+                        ? 'bg-emerald-50/90 text-emerald-900 border border-emerald-200/90 font-bold'
+                        : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100/70 border border-transparent'
+                    }`}
+                  >
+                    <div className="flex items-center gap-2.5">
+                      <Icon
+                        className={`w-4 h-4 transition-colors ${
+                          isActive ? 'text-emerald-600' : 'text-slate-400'
+                        }`}
+                      />
+                      <span>{item.label}</span>
+                    </div>
+                    {isActive && (
+                      <span className="w-1.5 h-4 bg-emerald-600 rounded-full" />
+                    )}
+                  </Link>
+                );
+              })}
+            </nav>
+          </div>
+
+          {/* System Settings Group */}
+          <div>
+            <div className="px-3 mb-2 text-xs font-bold text-slate-500">
+              Hệ thống
+            </div>
+            <nav className="space-y-1">
+              {SYSTEM_NAV_ITEMS.map((item) => {
+                const Icon = item.icon;
+                const isActive = pathname === item.href;
 
                 return (
                   <Link

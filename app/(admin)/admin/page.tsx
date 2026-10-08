@@ -8,17 +8,24 @@ import {
   Plus,
   ArrowRight,
   ArrowUpRight,
+  Briefcase,
+  Users,
+  FileInput,
 } from 'lucide-react';
 import { getAllPosts, getBlogStats, getCategories } from '@/lib/blogs';
+import { getCareerStats } from '@/lib/careers';
 import { Card, Button, Badge } from '@astryxdesign/core';
 
 export const dynamic = 'force-dynamic';
 
 export default async function AdminDashboardPage() {
-  const stats = await getBlogStats();
-  const allPosts = await getAllPosts();
+  const [stats, allPosts, categories, careerStats] = await Promise.all([
+    getBlogStats(),
+    getAllPosts(),
+    getCategories(),
+    getCareerStats(),
+  ]);
   const recentPosts = allPosts.slice(0, 5);
-  const categories = await getCategories();
 
   return (
     <div className="space-y-6 font-open-sans max-w-7xl mx-auto pb-8">
@@ -142,6 +149,48 @@ export default async function AdminDashboardPage() {
           </div>
         </Card>
       </div>
+
+      {/* =========================================================================
+          CAREER & RECRUITMENT QUICK HUB (Astryx Card)
+          ========================================================================= */}
+      <Card variant="default" className="rounded-2xl p-5 sm:p-6 bg-gradient-to-r from-emerald-950 via-slate-900 to-slate-900 text-white border-slate-800">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-5">
+          <div className="space-y-1.5">
+            <div className="flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+              <span className="text-xs font-bold text-emerald-400">
+                Tuyển dụng &amp; Thu hút nhân tài
+              </span>
+            </div>
+            <h2 className="text-lg sm:text-xl font-extrabold text-white">
+              Cổng tuyển dụng E-GEAD Careers
+            </h2>
+            <p className="text-xs text-slate-300 max-w-xl">
+              Đang có <strong className="text-emerald-300 font-bold">{careerStats.activeJobs} vị trí mở</strong> và{' '}
+              <strong className="text-emerald-300 font-bold">{careerStats.totalApplications} hồ sơ ứng tuyển</strong> đã nộp về hệ thống
+              {careerStats.pendingApplications > 0 && ` (${careerStats.pendingApplications} hồ sơ mới chờ duyệt)`}.
+            </p>
+          </div>
+
+          <div className="flex flex-wrap items-center gap-2.5">
+            <Button
+              label="Quản lý tuyển dụng"
+              variant="secondary"
+              href="/admin/careers"
+            />
+            <Button
+              label={`Hồ sơ ứng tuyển (${careerStats.totalApplications})`}
+              variant="secondary"
+              href="/admin/careers/applications"
+            />
+            <Button
+              label="Biểu mẫu ứng tuyển"
+              variant="secondary"
+              href="/admin/careers/form-preview"
+            />
+          </div>
+        </div>
+      </Card>
 
       {/* =========================================================================
           MAIN CONTENT AREA (Recent Posts Astryx Card + Side Widgets)

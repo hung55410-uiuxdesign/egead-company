@@ -19,6 +19,11 @@ export default function AdminNavbar({ onOpenSidebar }: AdminNavbarProps) {
     if (pathname === '/admin/blogs/new') return 'Tạo bài viết blog mới';
     if (pathname?.startsWith('/admin/blogs/')) return 'Chỉnh sửa bài viết';
     if (pathname === '/admin/categories') return 'Chuyên mục & Phân loại';
+    if (pathname === '/admin/careers') return 'Quản lý tuyển dụng';
+    if (pathname === '/admin/careers/new') return 'Đăng tin tuyển dụng mới';
+    if (pathname === '/admin/careers/applications') return 'Hồ sơ ứng tuyển đã nhận';
+    if (pathname === '/admin/careers/form-preview') return 'Biểu mẫu ứng tuyển trực tuyến';
+    if (pathname?.startsWith('/admin/careers/')) return 'Chỉnh sửa tin tuyển dụng';
     if (pathname === '/admin/settings') return 'Cấu hình hệ thống';
     return 'Admin Portal';
   };
