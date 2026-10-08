@@ -168,7 +168,7 @@ export default function Footer() {
                   </Link>
                 </li>
                 <li>
-                  <Link href="/career" className="hover:text-black hover:underline transition">
+                  <Link href="/careers" className="hover:text-black hover:underline transition">
                     Careers
                   </Link>
                 </li>

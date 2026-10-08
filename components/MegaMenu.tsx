@@ -116,106 +116,191 @@ export default function MegaMenu({ isOpen, onClose }: MegaMenuProps) {
             <div className="lg:col-span-8">
               {activeTab === 'services' && (
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
-                  {/* Column 1: Core Capabilities */}
+                  {/* Column 1: Our Services */}
                   <div>
-                    <h3 className="text-xs font-bold text-gray-400 mb-4">
-                      Core Capabilities
+                    <h3 className="text-xs font-bold text-gray-400 mb-4 uppercase tracking-wider">
+                      Our Services
                     </h3>
-                    <ul className="space-y-3.5">
+                    <ul className="space-y-3.5 mb-6">
                       <li>
                         <Link
-                          href="/speedx"
+                          href="/services/all-services/strategy-design"
                           onClick={onClose}
-                          className="group flex items-center justify-between text-sm font-medium text-gray-800 hover:text-[#007A3D] transition"
+                          className="group flex items-center justify-between text-sm font-semibold text-gray-800 hover:text-[#007A3D] transition"
                         >
-                          <span>US POD Fulfillment</span>
+                          <div className="flex items-center gap-2.5">
+                            <img src="/assets/icon_strategy_design.svg" alt="Strategy & Design" className="w-4 h-4 object-contain" />
+                            <span>Strategy & Design</span>
+                          </div>
                           <ChevronRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
                         </Link>
                       </li>
                       <li>
                         <Link
-                          href="/smartcommerce"
+                          href="/services/all-services/data-analytics"
                           onClick={onClose}
-                          className="group flex items-center justify-between text-sm font-medium text-gray-800 hover:text-[#007A3D] transition"
+                          className="group flex items-center justify-between text-sm font-semibold text-gray-800 hover:text-[#007A3D] transition"
                         >
-                          <span>Sales Automation</span>
+                          <div className="flex items-center gap-2.5">
+                            <img src="/assets/icon_data_analytics.svg" alt="Data & Analytics" className="w-4 h-4 object-contain" />
+                            <span>Data & Analytics</span>
+                          </div>
                           <ChevronRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
                         </Link>
                       </li>
                       <li>
                         <Link
-                          href="/services/all-services"
+                          href="/services/all-services/enterprise-technology"
                           onClick={onClose}
-                          className="group flex items-center justify-between text-sm font-medium text-gray-800 hover:text-[#007A3D] transition"
+                          className="group flex items-center justify-between text-sm font-semibold text-gray-800 hover:text-[#007A3D] transition"
                         >
-                          <span>Digital Growth Marketing</span>
+                          <div className="flex items-center gap-2.5">
+                            <img src="/assets/icon_enterprise_tech.svg" alt="Enterprise Technology" className="w-4 h-4 object-contain" />
+                            <span>Enterprise Technology</span>
+                          </div>
                           <ChevronRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
                         </Link>
                       </li>
                       <li>
                         <Link
-                          href="/services/all-services"
+                          href="/services/all-services/commerce-cx--operations"
                           onClick={onClose}
-                          className="group flex items-center justify-between text-sm font-medium text-gray-800 hover:text-[#007A3D] transition"
+                          className="group flex items-center justify-between text-sm font-semibold text-gray-800 hover:text-[#007A3D] transition"
                         >
-                          <span>Developers Hub & WMS</span>
+                          <div className="flex items-center gap-2.5">
+                            <img src="/assets/icon_commerce_cx.svg" alt="Commerce & CX Operations" className="w-4 h-4 object-contain" />
+                            <span>Commerce & CX Operations</span>
+                          </div>
                           <ChevronRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
                         </Link>
                       </li>
                     </ul>
 
-                    <div className="mt-6 pt-4 border-t border-gray-100">
+                    <div className="pt-2">
                       <Link
                         href="/services/all-services"
                         onClick={onClose}
-                        className="inline-flex items-center gap-1.5 text-xs font-bold text-[#007A3D] hover:underline"
+                        className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-gray-300 hover:border-black text-xs font-semibold text-gray-800 transition"
                       >
-                        <span>View All Capabilities</span>
-                        <ArrowUpRight className="w-3.5 h-3.5" />
+                        <svg
+                          width="12"
+                          height="12"
+                          viewBox="0 0 19 18"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="fill-current text-gray-700"
+                        >
+                          <path
+                            d="M15.125 10.875L10.625 15.375L9.56 14.31L12.2525 11.625H3.875V2.625H5.375V10.125H12.2525L9.56 7.44L10.625 6.375L15.125 10.875Z"
+                            fill="currentColor"
+                          />
+                        </svg>
+                        <span>All Our Services</span>
                       </Link>
                     </div>
                   </div>
 
-                  {/* Column 2: Target Categories */}
+                  {/* Column 2: Industries */}
                   <div>
-                    <h3 className="text-xs font-bold text-gray-400 mb-4">
-                      Sellers & Categories
+                    <h3 className="text-xs font-bold text-gray-400 mb-4 uppercase tracking-wider">
+                      Industries
                     </h3>
-                    <ul className="space-y-3.5">
-                      {['TikTok Shop US Brands', 'Amazon FBM & POD', 'Etsy Apparel Creators', 'Shopify DTC Retailers', 'Custom Graphic Apparel', 'Global Cross-Border Brands'].map((ind) => (
-                        <li key={ind}>
+                    <ul className="space-y-3.5 mb-6">
+                      {[
+                        { name: 'Automotive', icon: '/assets/icon_automotive.svg', href: '/services/all-services/automotive' },
+                        { name: 'Banking & Insurance', icon: '/assets/icon_banking.svg', href: '/services/all-services/banking-insurance' },
+                        { name: 'Chemicals', icon: '/assets/icon_chemicals.svg', href: '/services/all-services/chemicals' },
+                        { name: 'Consumer Goods', icon: '/assets/icon_consumergoods.svg', href: '/services/all-services/consumer-goods' },
+                        { name: 'Fashion & Lifestyle', icon: '/assets/icon_fashion.svg', href: '/services/all-services/fashion' },
+                        { name: 'Health & Science', icon: '/assets/icon_science.svg', href: '/services/all-services/health-science' },
+                      ].map((ind) => (
+                        <li key={ind.name}>
                           <Link
-                            href="/services/all-services"
+                            href={ind.href}
                             onClick={onClose}
-                            className="group flex items-center justify-between text-sm font-medium text-gray-800 hover:text-[#007A3D] transition"
+                            className="group flex items-center justify-between text-sm font-semibold text-gray-800 hover:text-[#007A3D] transition"
                           >
-                            <span>{ind}</span>
+                            <div className="flex items-center gap-2.5">
+                              <img src={ind.icon} alt={ind.name} className="w-4 h-4 object-contain" />
+                              <span>{ind.name}</span>
+                            </div>
                             <ChevronRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
                           </Link>
                         </li>
                       ))}
                     </ul>
+
+                    <div className="pt-2">
+                      <Link
+                        href="/services/all-services#industries"
+                        onClick={onClose}
+                        className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-gray-300 hover:border-black text-xs font-semibold text-gray-800 transition"
+                      >
+                        <svg
+                          width="12"
+                          height="12"
+                          viewBox="0 0 19 18"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="fill-current text-gray-700"
+                        >
+                          <path
+                            d="M15.125 10.875L10.625 15.375L9.56 14.31L12.2525 11.625H3.875V2.625H5.375V10.125H12.2525L9.56 7.44L10.625 6.375L15.125 10.875Z"
+                            fill="currentColor"
+                          />
+                        </svg>
+                        <span>All Industries</span>
+                      </Link>
+                    </div>
                   </div>
 
-                  {/* Column 3: Platform Integrations */}
+                  {/* Column 3: Partners */}
                   <div>
-                    <h3 className="text-xs font-bold text-gray-400 mb-4">
-                      Platform Integrations
+                    <h3 className="text-xs font-bold text-gray-400 mb-4 uppercase tracking-wider">
+                      Partners
                     </h3>
-                    <ul className="space-y-3.5">
-                      {['TikTok Shop US', 'Amazon Marketplace', 'Etsy & eBay', 'Shopify & WooCommerce', 'Meta & Google Ads', 'USPS / Major US Carriers'].map((p) => (
-                        <li key={p}>
+                    <ul className="space-y-3.5 mb-6">
+                      {[
+                        { name: 'SAP', href: '/partners/sap' },
+                        { name: 'Shopify Plus', href: '/partners/shopify-plus' },
+                        { name: 'Sitecore', href: '/partners/site-core' },
+                        { name: 'Stripe', href: '/partners/stripe' },
+                      ].map((p) => (
+                        <li key={p.name}>
                           <Link
-                            href="/partners"
+                            href={p.href}
                             onClick={onClose}
-                            className="group flex items-center justify-between text-sm font-medium text-gray-800 hover:text-[#007A3D] transition"
+                            className="group flex items-center justify-between text-sm font-semibold text-gray-800 hover:text-[#007A3D] transition"
                           >
-                            <span>{p}</span>
+                            <span>{p.name}</span>
                             <ChevronRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
                           </Link>
                         </li>
                       ))}
                     </ul>
+
+                    <div className="pt-2">
+                      <Link
+                        href="/partners"
+                        onClick={onClose}
+                        className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-gray-300 hover:border-black text-xs font-semibold text-gray-800 transition"
+                      >
+                        <svg
+                          width="12"
+                          height="12"
+                          viewBox="0 0 19 18"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="fill-current text-gray-700"
+                        >
+                          <path
+                            d="M15.125 10.875L10.625 15.375L9.56 14.31L12.2525 11.625H3.875V2.625H5.375V10.125H12.2525L9.56 7.44L10.625 6.375L15.125 10.875Z"
+                            fill="currentColor"
+                          />
+                        </svg>
+                        <span>All Partners</span>
+                      </Link>
+                    </div>
                   </div>
                 </div>
               )}
@@ -238,8 +323,23 @@ export default function MegaMenu({ isOpen, onClose }: MegaMenuProps) {
                   </div>
 
                   <div className="p-5 rounded-2xl bg-gray-50 border border-gray-100 hover:border-[#10E774] transition">
+                    <span className="text-xs font-bold text-[#007A3D]">AI/ML Pricing Intelligence</span>
+                    <h4 className="text-lg font-bold text-gray-900 mt-1">SmartPrice</h4>
+                    <p className="text-sm text-gray-600 mt-2">
+                      Recommend optimal trading prices for pre-owned products using AI/ML real-time market intelligence.
+                    </p>
+                    <Link
+                      href="/smartprice"
+                      onClick={onClose}
+                      className="inline-flex items-center gap-1 text-sm font-semibold text-[#007A3D] mt-3 hover:underline"
+                    >
+                      Learn more <ChevronRight className="w-4 h-4" />
+                    </Link>
+                  </div>
+
+                  <div className="p-5 rounded-2xl bg-gray-50 border border-gray-100 hover:border-[#10E774] transition">
                     <span className="text-xs font-bold text-[#007A3D]">AI & POD Engine</span>
-                    <h4 className="text-lg font-bold text-gray-900 mt-1">Eweb-character</h4>
+                    <h4 className="text-lg font-bold text-gray-900 mt-1">SpeedX</h4>
                     <p className="text-sm text-gray-600 mt-2">
                       Smart AI order normalization, address validation, fraud risk filtering, and sub-24h US POD fulfillment.
                     </p>
@@ -268,6 +368,21 @@ export default function MegaMenu({ isOpen, onClose }: MegaMenuProps) {
                   </div>
 
                   <div className="p-5 rounded-2xl bg-gray-50 border border-gray-100 hover:border-[#10E774] transition">
+                    <span className="text-xs font-bold text-[#007A3D]">Omnichannel Retention</span>
+                    <h4 className="text-lg font-bold text-gray-900 mt-1">SmartLoyalty</h4>
+                    <p className="text-sm text-gray-600 mt-2">
+                      Cultivate deeper customer relationships, drive retention, and build sustainable communities across O2O touchpoints.
+                    </p>
+                    <Link
+                      href="/loyalty"
+                      onClick={onClose}
+                      className="inline-flex items-center gap-1 text-sm font-semibold text-[#007A3D] mt-3 hover:underline"
+                    >
+                      Learn more <ChevronRight className="w-4 h-4" />
+                    </Link>
+                  </div>
+
+                  <div className="p-5 rounded-2xl bg-gray-50 border border-gray-100 hover:border-[#10E774] transition">
                     <span className="text-xs font-bold text-[#007A3D]">Instant Estimator</span>
                     <h4 className="text-lg font-bold text-gray-900 mt-1">Rate Calculator</h4>
                     <p className="text-sm text-gray-600 mt-2">
@@ -285,103 +400,137 @@ export default function MegaMenu({ isOpen, onClose }: MegaMenuProps) {
               )}
 
               {activeTab === 'insights' && (
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                  <Link
-                    href="/articles/global-market-expansion-cross-border-ecommerce"
-                    onClick={onClose}
-                    className="p-5 rounded-2xl bg-gray-50 hover:bg-gray-100 transition border border-gray-100 block group"
-                  >
-                    <span className="inline-block px-2.5 py-1 text-xs font-semibold rounded-full bg-[#D4FAE6] text-[#007A3D] mb-2">
-                      Strategy
-                    </span>
-                    <h4 className="text-base font-bold text-gray-900 group-hover:text-[#007A3D] transition">
-                      Global Market Expansion: Scaling Cross-Border E-Commerce in US & EU
-                    </h4>
-                    <p className="text-xs text-gray-500 mt-2">6 mins read · August 2026</p>
-                  </Link>
+                <div>
+                  <h3 className="text-xs font-bold text-gray-400 mb-5 uppercase tracking-wider">
+                    Insights
+                  </h3>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <Link
+                      href="/webinars"
+                      onClick={onClose}
+                      className="group flex items-center justify-between p-4 rounded-2xl bg-gray-50 hover:bg-gray-100 transition border border-gray-100"
+                    >
+                      <div className="flex items-center gap-3">
+                        <img src="/assets/icon_webinar.svg" alt="Webinars" className="w-5 h-5 object-contain" />
+                        <span className="text-sm font-semibold text-gray-900 group-hover:text-[#007A3D] transition">Webinars</span>
+                      </div>
+                      <ChevronRight className="w-4 h-4 text-gray-400 group-hover:text-[#007A3D] group-hover:translate-x-1 transition-all" />
+                    </Link>
 
-                  <Link
-                    href="/articles/tiktok-shop-us-compliance-sub-24h-pod-fulfillment"
-                    onClick={onClose}
-                    className="p-5 rounded-2xl bg-gray-50 hover:bg-gray-100 transition border border-gray-100 block group"
-                  >
-                    <span className="inline-block px-2.5 py-1 text-xs font-semibold rounded-full bg-blue-100 text-blue-700 mb-2">
-                      Compliance & SLA
-                    </span>
-                    <h4 className="text-base font-bold text-gray-900 group-hover:text-[#007A3D] transition">
-                      Protecting TikTok Shop US Accounts: Fast Dispatch SLA & 24H POD
-                    </h4>
-                    <p className="text-xs text-gray-500 mt-2">5 mins read · August 2026</p>
-                  </Link>
+                    <Link
+                      href="/announcements"
+                      onClick={onClose}
+                      className="group flex items-center justify-between p-4 rounded-2xl bg-gray-50 hover:bg-gray-100 transition border border-gray-100"
+                    >
+                      <div className="flex items-center gap-3">
+                        <img src="/assets/icon_announcement.svg" alt="Announcements" className="w-5 h-5 object-contain" />
+                        <span className="text-sm font-semibold text-gray-900 group-hover:text-[#007A3D] transition">Announcements</span>
+                      </div>
+                      <ChevronRight className="w-4 h-4 text-gray-400 group-hover:text-[#007A3D] group-hover:translate-x-1 transition-all" />
+                    </Link>
 
-                  <div className="col-span-full pt-2">
+                    <Link
+                      href="/white-papers"
+                      onClick={onClose}
+                      className="group flex items-center justify-between p-4 rounded-2xl bg-gray-50 hover:bg-gray-100 transition border border-gray-100"
+                    >
+                      <div className="flex items-center gap-3">
+                        <img src="/assets/icon_whitepaper.svg" alt="White Papers" className="w-5 h-5 object-contain" />
+                        <span className="text-sm font-semibold text-gray-900 group-hover:text-[#007A3D] transition">White Papers</span>
+                      </div>
+                      <ChevronRight className="w-4 h-4 text-gray-400 group-hover:text-[#007A3D] group-hover:translate-x-1 transition-all" />
+                    </Link>
+
+                    <Link
+                      href="/blog"
+                      onClick={onClose}
+                      className="group flex items-center justify-between p-4 rounded-2xl bg-gray-50 hover:bg-gray-100 transition border border-gray-100"
+                    >
+                      <div className="flex items-center gap-3">
+                        <img src="/assets/icon_blog.svg" alt="Blog" className="w-5 h-5 object-contain" />
+                        <span className="text-sm font-semibold text-gray-900 group-hover:text-[#007A3D] transition">Blog</span>
+                      </div>
+                      <ChevronRight className="w-4 h-4 text-gray-400 group-hover:text-[#007A3D] group-hover:translate-x-1 transition-all" />
+                    </Link>
+                  </div>
+
+                  <div className="mt-8 pt-4 border-t border-gray-100">
                     <Link
                       href="/insights"
                       onClick={onClose}
-                      className="inline-flex items-center gap-1 text-sm font-semibold text-[#007A3D] hover:underline"
+                      className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-gray-300 hover:border-black text-sm font-semibold text-gray-800 transition"
                     >
-                      Explore all insights, playbooks & guides <ChevronRight className="w-4 h-4" />
+                      <svg
+                        width="14"
+                        height="14"
+                        viewBox="0 0 19 18"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="fill-current text-gray-700"
+                      >
+                        <path
+                          d="M15.125 10.875L10.625 15.375L9.56 14.31L12.2525 11.625H3.875V2.625H5.375V10.125H12.2525L9.56 7.44L10.625 6.375L15.125 10.875Z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                      <span>All Insights</span>
                     </Link>
                   </div>
                 </div>
               )}
 
               {activeTab === 'company' && (
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-                  <div className="space-y-4">
+                <div>
+                  <h3 className="text-xs font-bold text-gray-400 mb-5 uppercase tracking-wider">
+                    Company
+                  </h3>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <Link
                       href="/company"
                       onClick={onClose}
-                      className="block p-4 rounded-xl hover:bg-gray-50 transition border border-transparent hover:border-gray-200"
+                      className="group flex items-center justify-between p-4 rounded-2xl bg-gray-50 hover:bg-gray-100 transition border border-gray-100"
                     >
-                      <h4 className="font-bold text-gray-900">About E-GEAD</h4>
-                      <p className="text-xs text-gray-600 mt-1">Our mission, technology ecosystem, and global operations.</p>
+                      <div className="flex items-center gap-3">
+                        <img src="/assets/icon_about_us.svg" alt="About us" className="w-5 h-5 object-contain" />
+                        <span className="text-sm font-semibold text-gray-900 group-hover:text-[#007A3D] transition">About us</span>
+                      </div>
+                      <ChevronRight className="w-4 h-4 text-gray-400 group-hover:text-[#007A3D] group-hover:translate-x-1 transition-all" />
                     </Link>
-                    <Link
-                      href="/people"
-                      onClick={onClose}
-                      className="block p-4 rounded-xl hover:bg-gray-50 transition border border-transparent hover:border-gray-200"
-                    >
-                      <h4 className="font-bold text-gray-900">Our People</h4>
-                      <p className="text-xs text-gray-600 mt-1">Meet the leaders, architects, and experts driving our success.</p>
-                    </Link>
-                  </div>
 
-                  <div className="space-y-4">
-                    <Link
-                      href="/career"
-                      onClick={onClose}
-                      className="block p-4 rounded-xl hover:bg-gray-50 transition border border-transparent hover:border-gray-200"
-                    >
-                      <h4 className="font-bold text-gray-900">Careers</h4>
-                      <p className="text-xs text-gray-600 mt-1">Join our engineering and operations team in Buon Ma Thuot.</p>
-                    </Link>
-                    <Link
-                      href="/testimonial"
-                      onClick={onClose}
-                      className="block p-4 rounded-xl hover:bg-gray-50 transition border border-transparent hover:border-gray-200"
-                    >
-                      <h4 className="font-bold text-gray-900">Testimonials</h4>
-                      <p className="text-xs text-gray-600 mt-1">Feedback from international sellers and brand founders.</p>
-                    </Link>
-                  </div>
-
-                  <div className="space-y-4">
-                    <Link
-                      href="/our-work"
-                      onClick={onClose}
-                      className="block p-4 rounded-xl hover:bg-gray-50 transition border border-transparent hover:border-gray-200"
-                    >
-                      <h4 className="font-bold text-gray-900">Case Studies</h4>
-                      <p className="text-xs text-gray-600 mt-1">Real results from TikTok Shop, Amazon, and DTC brand partners.</p>
-                    </Link>
                     <Link
                       href="/contact-us"
                       onClick={onClose}
-                      className="block p-4 rounded-xl hover:bg-gray-50 transition border border-transparent hover:border-gray-200"
+                      className="group flex items-center justify-between p-4 rounded-2xl bg-gray-50 hover:bg-gray-100 transition border border-gray-100"
                     >
-                      <h4 className="font-bold text-gray-900">Headquarters</h4>
-                      <p className="text-xs text-gray-600 mt-1">217/9 Ngo Quyen Street, Buon Ma Thuot City, Vietnam.</p>
+                      <div className="flex items-center gap-3">
+                        <img src="/assets/icon_offices.svg" alt="Our Offices" className="w-5 h-5 object-contain" />
+                        <span className="text-sm font-semibold text-gray-900 group-hover:text-[#007A3D] transition">Our Offices</span>
+                      </div>
+                      <ChevronRight className="w-4 h-4 text-gray-400 group-hover:text-[#007A3D] group-hover:translate-x-1 transition-all" />
+                    </Link>
+
+                    <Link
+                      href="/careers"
+                      onClick={onClose}
+                      className="group flex items-center justify-between p-4 rounded-2xl bg-gray-50 hover:bg-gray-100 transition border border-gray-100"
+                    >
+                      <div className="flex items-center gap-3">
+                        <img src="/assets/icon_career.svg" alt="Careers" className="w-5 h-5 object-contain" />
+                        <span className="text-sm font-semibold text-gray-900 group-hover:text-[#007A3D] transition">Careers</span>
+                      </div>
+                      <ChevronRight className="w-4 h-4 text-gray-400 group-hover:text-[#007A3D] group-hover:translate-x-1 transition-all" />
+                    </Link>
+
+                    <Link
+                      href="/people"
+                      onClick={onClose}
+                      className="group flex items-center justify-between p-4 rounded-2xl bg-gray-50 hover:bg-gray-100 transition border border-gray-100"
+                    >
+                      <div className="flex items-center gap-3">
+                        <img src="/assets/icon_people.svg" alt="Our People" className="w-5 h-5 object-contain" />
+                        <span className="text-sm font-semibold text-gray-900 group-hover:text-[#007A3D] transition">Our People</span>
+                      </div>
+                      <ChevronRight className="w-4 h-4 text-gray-400 group-hover:text-[#007A3D] group-hover:translate-x-1 transition-all" />
                     </Link>
                   </div>
                 </div>

@@ -41,12 +41,14 @@ async function getFallbackPosts(): Promise<BlogPost[]> {
 export async function getAllPosts(filter?: {
   status?: string;
   tag?: string;
+  category?: string;
   search?: string;
 }): Promise<BlogPost[]> {
   try {
     const where: {
       status?: string;
       tag?: string;
+      categoryName?: { equals: string; mode: 'insensitive' };
       OR?: Array<
         | { title: { contains: string; mode: 'insensitive' } }
         | { excerpt: { contains: string; mode: 'insensitive' } }
@@ -59,6 +61,9 @@ export async function getAllPosts(filter?: {
     }
     if (filter?.tag && filter.tag !== 'all') {
       where.tag = filter.tag;
+    }
+    if (filter?.category && filter.category !== 'all') {
+      where.categoryName = { equals: filter.category, mode: 'insensitive' };
     }
     if (filter?.search) {
       where.OR = [
@@ -113,6 +118,14 @@ export async function getAllPosts(filter?: {
     if (filter?.tag && filter.tag !== 'all') {
       posts = posts.filter((p) => p.tag === filter.tag || p.category === filter.tag);
     }
+    if (filter?.category && filter.category !== 'all') {
+      const c = filter.category.toLowerCase().replace(/-/g, ' ');
+      posts = posts.filter(
+        (p) =>
+          p.category.toLowerCase() === c ||
+          p.category.toLowerCase().replace(/\s+/g, '-') === filter.category?.toLowerCase()
+      );
+    }
     if (filter?.search) {
       const q = filter.search.toLowerCase();
       posts = posts.filter(
@@ -166,7 +179,10 @@ export async function getPostBySlug(slug: string): Promise<BlogPost | null> {
   }
 
   const fallbackPosts = await getFallbackPosts();
-  return fallbackPosts.find((p) => p.slug === slug) || null;
+  return (
+    fallbackPosts.find((p) => p.slug === slug || p.slug.toLowerCase() === slug.toLowerCase()) ||
+    null
+  );
 }
 
 /**

@@ -1,0 +1,1002 @@
+/* ==========================================================================
+   SAI DIGITAL 100% FIDELITY STYLES FOR SMARTPRICE PAGE
+   Source: https://www.sai-digital.com/catalyzer/smartprice
+   ========================================================================== */
+
+.catalyzer-smartprice {
+  background-color: #000000;
+  color: #ffffff;
+  font-family: var(--font-montserrat), Montserrat, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* --------------------------------------------------------------------------
+   ANT DESIGN GRID SYSTEM (EXACT SAI DIGITAL REPLICA)
+   -------------------------------------------------------------------------- */
+.catalyzer-smartprice .ant-row {
+  display: flex;
+  flex-flow: row wrap;
+  min-width: 0;
+}
+
+.catalyzer-smartprice .ant-row-middle {
+  align-items: center;
+}
+
+.catalyzer-smartprice .ant-col {
+  position: relative;
+  max-width: 100%;
+  min-height: 1px;
+}
+
+.catalyzer-smartprice .ant-col-xs-24 {
+  flex: 0 0 100%;
+  max-width: 100%;
+}
+
+@media (min-width: 768px) {
+  .catalyzer-smartprice .ant-col-md-12 {
+    flex: 0 0 50%;
+    max-width: 50%;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   ANT DESIGN BUTTONS (EXACT SAI DIGITAL FIDELITY)
+   -------------------------------------------------------------------------- */
+.catalyzer-smartprice .ant-btn {
+  outline: none;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 550;
+  white-space: nowrap;
+  text-align: center;
+  background-image: none;
+  background-color: transparent;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  user-select: none;
+  touch-action: manipulation;
+  text-decoration: none;
+  line-height: 1.5;
+}
+
+.catalyzer-smartprice .ant-btn-primary {
+  font-size: 16px;
+  letter-spacing: 0.16px;
+  padding: 15px 36px;
+  border-radius: 40px;
+  background: #10E774;
+  color: #003D5B !important;
+  font-weight: 700;
+  box-shadow: 0 0 25px rgba(16, 231, 116, 0.4);
+  gap: 10px;
+}
+
+.catalyzer-smartprice .ant-btn-primary:hover {
+  background: #0ecb66;
+  color: #003D5B !important;
+  box-shadow: 0 0 35px rgba(16, 231, 116, 0.65);
+  transform: translateY(-2px);
+}
+
+.catalyzer-smartprice .ant-btn-primary svg path {
+  fill: #003D5B;
+}
+
+.catalyzer-smartprice .ant-btn-default--white {
+  font-size: 14px;
+  padding: 12px 28px;
+  border-radius: 40px;
+  border: 1px solid #ffffff;
+  color: #ffffff !important;
+  background: transparent;
+  gap: 8px;
+}
+
+.catalyzer-smartprice .ant-btn-default--white:hover {
+  background: #ffffff;
+  color: #000000 !important;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(255, 255, 255, 0.2);
+}
+
+.catalyzer-smartprice .ant-btn-default--white:hover svg path {
+  fill: #000000;
+}
+
+/* ==========================================================================
+   1. HERO SECTION (service-detail partner)
+   ========================================================================== */
+.catalyzer-smartprice .service-detail.partner {
+  position: relative;
+  background: #000000;
+}
+
+/* ==========================================================================
+   1. HERO SECTION (EXACT REPLICA MATCHING USER SCREENSHOT)
+   ========================================================================== */
+.catalyzer-smartprice .service-detail.partner {
+  position: relative;
+  background: #000000;
+}
+
+.catalyzer-smartprice .service-detail__header {
+  position: relative;
+  min-height: 760px;
+  background-color: #000000;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  padding: 130px 24px 60px;
+}
+
+@media (min-width: 768px) {
+  .catalyzer-smartprice .service-detail__header {
+    padding: 150px 36px 70px;
+    min-height: 820px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .catalyzer-smartprice .service-detail__header {
+    padding: 155px 48px 80px;
+    min-height: 880px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .catalyzer-smartprice .service-detail__header {
+    padding: 165px 64px 90px;
+    min-height: 940px;
+  }
+}
+
+.smartprice-hero__container {
+  width: 100%;
+  max-width: 1560px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 10;
+}
+
+.smartprice-hero__row {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+}
+
+@media (min-width: 992px) {
+  .smartprice-hero__row {
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 30px;
+  }
+}
+
+/* Left Column */
+.smartprice-hero__left {
+  width: 100%;
+  text-align: left;
+  position: relative;
+  z-index: 3;
+}
+
+@media (min-width: 992px) {
+  .smartprice-hero__left {
+    flex: 0 0 45%;
+    max-width: 580px;
+    padding-top: 25px;
+  }
+}
+
+.smartprice-hero__title {
+  font-family: inherit;
+  font-size: 36px;
+  font-weight: 800;
+  line-height: 1.08;
+  letter-spacing: 0.04em;
+  color: #FFFFFF;
+  margin: 0 0 20px 0;
+  text-transform: uppercase;
+}
+
+@media (min-width: 768px) {
+  .smartprice-hero__title {
+    font-size: 46px;
+    letter-spacing: 0.04em;
+    margin-bottom: 22px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .smartprice-hero__title {
+    font-size: 54px;
+    letter-spacing: 0.04em;
+    margin-bottom: 26px;
+  }
+}
+
+@media (min-width: 1536px) {
+  .smartprice-hero__title {
+    font-size: 60px;
+    letter-spacing: 0.05em;
+    margin-bottom: 28px;
+  }
+}
+
+.smartprice-hero__heading {
+  font-family: inherit;
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 1.3;
+  margin: 0 0 18px 0;
+  color: #FFFFFF;
+}
+
+@media (min-width: 768px) {
+  .smartprice-hero__heading {
+    font-size: 28px;
+    line-height: 1.28;
+    margin-bottom: 20px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .smartprice-hero__heading {
+    font-size: 32px;
+    margin-bottom: 22px;
+  }
+}
+
+@media (min-width: 1536px) {
+  .smartprice-hero__heading {
+    font-size: 35px;
+  }
+}
+
+.smartprice-hero__desc {
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.65;
+  color: #CBD5E1;
+  margin: 0 0 30px 0;
+  max-width: 520px;
+}
+
+@media (min-width: 768px) {
+  .smartprice-hero__desc {
+    font-size: 16px;
+    line-height: 1.7;
+    margin-bottom: 34px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .smartprice-hero__desc {
+    font-size: 17px;
+    max-width: 540px;
+    margin-bottom: 38px;
+  }
+}
+
+.smartprice-hero__cta {
+  display: flex;
+  align-items: center;
+}
+
+.smartprice-hero__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #10E774;
+  color: #003D5B !important;
+  font-weight: 700;
+  font-size: 15.5px;
+  letter-spacing: 0.01em;
+  padding: 12px 28px;
+  border-radius: 9999px;
+  text-decoration: none;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 0 24px rgba(16, 231, 116, 0.38);
+}
+
+.smartprice-hero__btn:hover {
+  background: #0ecb66;
+  color: #003D5B !important;
+  transform: translateY(-2px);
+  box-shadow: 0 0 36px rgba(16, 231, 116, 0.65);
+}
+
+.smartprice-hero__btn-icon {
+  margin-right: 9px;
+  width: 17px;
+  height: 17px;
+  flex-shrink: 0;
+  color: #003D5B;
+  fill: #003D5B;
+}
+
+/* Right Column */
+.smartprice-hero__right {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@media (min-width: 992px) {
+  .smartprice-hero__right {
+    flex: 0 0 58%;
+    justify-content: flex-end;
+  }
+}
+
+.smartprice-hero__mockup {
+  width: 100%;
+  max-width: 560px;
+  height: auto;
+  object-fit: contain;
+  display: block;
+  filter: drop-shadow(0 25px 50px rgba(0, 0, 0, 0.65));
+  transition: transform 0.4s ease;
+}
+
+@media (min-width: 992px) {
+  .smartprice-hero__mockup {
+    max-width: 760px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .smartprice-hero__mockup {
+    max-width: 860px;
+  }
+}
+
+@media (min-width: 1536px) {
+  .smartprice-hero__mockup {
+    max-width: 940px;
+  }
+}
+
+/* Video & Ambient Light matching page.tsx tone */
+.smartprice-hero__video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
+  opacity: 0.85;
+  pointer-events: none;
+}
+
+.smartprice-hero__ambient-glow {
+  position: absolute;
+  bottom: -20%;
+  left: -10%;
+  width: 68vw;
+  height: 68vw;
+  max-width: 1000px;
+  max-height: 1000px;
+  background: radial-gradient(
+    circle at 35% 75%,
+    rgba(16, 231, 116, 0.42) 0%,
+    rgba(108, 232, 195, 0.32) 25%,
+    rgba(0, 61, 91, 0.68) 50%,
+    rgba(0, 140, 255, 0.22) 65%,
+    transparent 78%
+  );
+  filter: blur(85px);
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* ==========================================================================
+   2. OVERVIEW / DISCOVER SECTION (product-overview__intro)
+   ========================================================================== */
+.catalyzer-smartprice .product-overview__intro {
+  text-align: center;
+  padding: 80px 24px 100px;
+  background: #000000;
+}
+
+@media (min-width: 768px) {
+  .catalyzer-smartprice .product-overview__intro {
+    padding: 110px 48px 140px;
+  }
+}
+
+.catalyzer-smartprice .product-overview__intro-title {
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 24px;
+  color: #FFFFFF;
+  margin-bottom: 20px;
+  letter-spacing: 0.03em;
+}
+
+@media (min-width: 768px) {
+  .catalyzer-smartprice .product-overview__intro-title {
+    font-size: 16px;
+    margin-bottom: 24px;
+  }
+}
+
+.catalyzer-smartprice .product-overview__intro-subtitle {
+  font-size: 28px;
+  font-weight: 650;
+  line-height: 1.35;
+  margin: 0 auto 50px;
+  max-width: 960px;
+  background: linear-gradient(90deg, #6CE8C3 0%, #A8F7E2 40%, #FFFFFF 90%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
+
+@media (min-width: 768px) {
+  .catalyzer-smartprice .product-overview__intro-subtitle {
+    font-size: 34px;
+    line-height: 1.32;
+    margin-bottom: 60px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .catalyzer-smartprice .product-overview__intro-subtitle {
+    font-size: 38px;
+  }
+}
+
+.catalyzer-smartprice .product-overview__intro-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-width: 1040px;
+  margin: 0 auto;
+}
+
+@media (min-width: 992px) {
+  .catalyzer-smartprice .product-overview__intro-content {
+    flex-direction: row;
+    align-items: center;
+  }
+}
+
+.catalyzer-smartprice .product-overview__intro .video-block {
+  width: 100%;
+  max-width: 580px;
+  border-radius: 24px;
+  position: relative;
+  overflow: hidden;
+  cursor: default;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: #111317;
+}
+
+@media (min-width: 992px) {
+  .catalyzer-smartprice .product-overview__intro .video-block {
+    flex: 0 0 580px;
+  }
+}
+
+.catalyzer-smartprice .product-overview__intro .video-block img {
+  width: 100%;
+  height: auto;
+  border-radius: 24px;
+  display: block;
+}
+
+.catalyzer-smartprice .product-overview__intro .video-block__icon {
+  width: 85px;
+  height: 85px;
+  border-radius: 100%;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.catalyzer-smartprice .product-overview__intro .video-block__icon .anticon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.catalyzer-smartprice .product-overview__intro .video-text {
+  width: 100%;
+  max-width: 440px;
+  margin-top: -30px;
+  text-align: left;
+  z-index: 5;
+  position: relative;
+}
+
+@media (min-width: 992px) {
+  .catalyzer-smartprice .product-overview__intro .video-text {
+    flex: 0 0 440px;
+    margin-left: -90px;
+    margin-top: 0;
+  }
+}
+
+.catalyzer-smartprice .product-overview__intro .video-text__inner {
+  padding: 44px 38px;
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(18, 22, 28, 0.65);
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7);
+}
+
+.catalyzer-smartprice .product-overview__intro .video-text p {
+  font-size: 26px;
+  font-weight: 600;
+  line-height: 1.3;
+  margin-bottom: 24px;
+  color: #FFFFFF;
+}
+
+@media (min-width: 768px) {
+  .catalyzer-smartprice .product-overview__intro .video-text p {
+    font-size: 28px;
+  }
+}
+
+.catalyzer-smartprice .product-overview__intro .video-text .ant-btn-default--white {
+  font-size: 14.5px;
+  padding: 10px 24px;
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  color: #ffffff !important;
+  background: transparent;
+  gap: 8px;
+  transition: all 0.25s ease;
+}
+
+.catalyzer-smartprice .product-overview__intro .video-text .ant-btn-default--white:hover {
+  background: #10E774;
+  border-color: #10E774;
+  color: #003D5B !important;
+  box-shadow: 0 0 20px rgba(16, 231, 116, 0.45);
+  transform: translateY(-2px);
+}
+
+.catalyzer-smartprice .product-overview__intro .video-text .ant-btn-default--white:hover svg path {
+  fill: #003D5B;
+}
+
+/* ==========================================================================
+   3. STRATEGY SECTION (text-image-twocolumn product-strategy)
+   ========================================================================== */
+.catalyzer-smartprice .text-image-twocolumn {
+  padding: 60px 20px;
+  background: #000000;
+}
+
+@media (min-width: 768px) {
+  .catalyzer-smartprice .text-image-twocolumn {
+    padding: 80px 60px;
+  }
+}
+
+.catalyzer-smartprice .text-image-twocolumn__subtitle {
+  font-size: 16px;
+  font-weight: 450;
+  line-height: 24px;
+  margin-bottom: 24px;
+  text-align: center;
+  color: #d3f9f5;
+  letter-spacing: 0.5px;
+}
+
+.catalyzer-smartprice .text-image-twocolumn__title {
+  font-size: 28px;
+  font-weight: 400;
+  line-height: 38px;
+  margin-bottom: 60px;
+  text-align: center;
+  color: #d3f9f5;
+}
+
+@media (min-width: 768px) {
+  .catalyzer-smartprice .text-image-twocolumn__title {
+    margin-bottom: 80px;
+  }
+}
+
+.catalyzer-smartprice .text-image-twocolumn__title h2 {
+  font-weight: 550;
+  font-size: 28px;
+  line-height: 38px;
+  margin-bottom: 0;
+  color: #d3f9f5;
+}
+
+@media (min-width: 768px) {
+  .catalyzer-smartprice .text-image-twocolumn__title h2 {
+    font-size: 34px;
+    line-height: 44px;
+  }
+}
+
+.catalyzer-smartprice .text-image-twocolumn__item {
+  width: 100%;
+  margin-bottom: 40px;
+  background: #12131C;
+  border-radius: 32px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+@media (min-width: 768px) {
+  .catalyzer-smartprice .text-image-twocolumn__item {
+    border-radius: 40px;
+    margin-bottom: 50px;
+  }
+}
+
+.catalyzer-smartprice .text-image-twocolumn__item h2 {
+  font-size: 24px;
+  font-weight: 550;
+  line-height: 34px;
+  letter-spacing: 0.24px;
+  margin-bottom: 24px;
+  color: #d3f9f5;
+}
+
+@media (min-width: 768px) {
+  .catalyzer-smartprice .text-image-twocolumn__item h2 {
+    font-size: 28px;
+    line-height: 38px;
+    margin-bottom: 32px;
+  }
+}
+
+.catalyzer-smartprice .text-image-twocolumn__item p {
+  font-size: 16px;
+  font-weight: 350;
+  line-height: 26px;
+  color: #b3b3b3;
+  margin-bottom: 30px;
+}
+
+@media (min-width: 768px) {
+  .catalyzer-smartprice .text-image-twocolumn__item p {
+    font-size: 18px;
+    line-height: 28px;
+    margin-bottom: 40px;
+  }
+}
+
+.catalyzer-smartprice .text-image-twocolumn__item ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.catalyzer-smartprice .text-image-twocolumn__item li {
+  position: relative;
+  list-style: none;
+  padding-left: 40px;
+  margin-bottom: 14px;
+  font-size: 16px;
+  font-weight: 350;
+  line-height: 26px;
+  color: #b3b3b3;
+}
+
+.catalyzer-smartprice .text-image-twocolumn__item li:before {
+  position: absolute;
+  left: 0;
+  top: 5px;
+  content: "";
+  background: url(/images/listIcon.svg) no-repeat center;
+  background-size: contain;
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+}
+
+.catalyzer-smartprice .text-image-twocolumn img {
+  width: 100%;
+  height: auto;
+  border-radius: 20px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.catalyzer-smartprice .text-image-twocolumn img:hover {
+  transform: translateY(-4px) scale(1.01);
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.8), 0 0 20px rgba(94, 252, 141, 0.15);
+}
+
+/* ==========================================================================
+   4. HOW IT WORKS (text-image-twocolumn product-work)
+   ========================================================================== */
+.catalyzer-smartprice .product-work {
+  text-align: center;
+  padding: 60px 20px 80px;
+  background: #000000;
+}
+
+@media (min-width: 768px) {
+  .catalyzer-smartprice .product-work {
+    padding: 80px 60px 100px;
+  }
+}
+
+.catalyzer-smartprice .product-work .text-image-twocolumn__title h2 {
+  margin-bottom: 20px;
+}
+
+.catalyzer-smartprice .product-work .text-image-twocolumn__title p {
+  font-size: 18px;
+  font-weight: 350;
+  line-height: 28px;
+  color: #b3b3b3;
+  margin-bottom: 50px;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.catalyzer-smartprice .text-image-twocolumn.one {
+  text-align: center;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.catalyzer-smartprice .text-image-twocolumn.one video {
+  width: 100%;
+  height: auto;
+  border-radius: 20px;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7);
+  display: block;
+}
+
+/* ==========================================================================
+   5. LOGO SLIDER (API-first Cloud Native SaaS solution)
+   ========================================================================== */
+.catalyzer-smartprice .logo-slider {
+  padding: 60px 20px;
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  background: #000000;
+}
+
+@media (min-width: 768px) {
+  .catalyzer-smartprice .logo-slider {
+    padding: 80px 60px;
+  }
+}
+
+.catalyzer-smartprice .logo-slider__subtitle {
+  font-size: 16px;
+  font-weight: 450;
+  line-height: 32px;
+  margin-bottom: 20px;
+  color: #d3f9f5;
+  letter-spacing: 0.5px;
+}
+
+.catalyzer-smartprice .logo-slider__title {
+  font-size: 24px;
+  font-weight: 550;
+  line-height: 34px;
+  margin-bottom: 45px;
+  max-width: 750px;
+  color: #d3f9f5;
+}
+
+@media (min-width: 768px) {
+  .catalyzer-smartprice .logo-slider__title {
+    font-size: 28px;
+    line-height: 38px;
+    margin-bottom: 55px;
+  }
+}
+
+.catalyzer-smartprice .logo-slider__list {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+@media (min-width: 768px) {
+  .catalyzer-smartprice .logo-slider__list {
+    justify-content: space-between;
+    gap: 30px;
+  }
+}
+
+.catalyzer-smartprice .logo-slider__item {
+  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 10px;
+  border-radius: 16px;
+  background: hsla(0, 0%, 41%, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  transition: all 0.3s ease;
+  min-width: 130px;
+}
+
+.catalyzer-smartprice .logo-slider__item:hover {
+  background: hsla(0, 0%, 41%, 0.12);
+  border-color: rgba(94, 252, 141, 0.4);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5), 0 0 20px rgba(94, 252, 141, 0.15);
+}
+
+.catalyzer-smartprice .logo-slider__item img {
+  max-height: 100%;
+  width: auto;
+  max-width: 130px;
+  object-fit: contain;
+}
+
+/* ==========================================================================
+   6. VIDEO BADGE CONTAINER (SAP Store Availability)
+   ========================================================================== */
+.catalyzer-smartprice .videoBadgeContainer {
+  position: relative;
+  padding: 50px 20px;
+  overflow: hidden;
+  min-height: 362px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (min-width: 768px) {
+  .catalyzer-smartprice .videoBadgeContainer {
+    padding: 70px 60px;
+  }
+}
+
+.catalyzer-smartprice .videoBadgeContainer video {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
+}
+
+.catalyzer-smartprice .videoBadgeContainer__overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.72);
+  backdrop-filter: blur(2px);
+  z-index: 2;
+}
+
+.catalyzer-smartprice .videoBadgeContainer .videoBadge {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+  z-index: 3;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.catalyzer-smartprice .videoBadgeContainer .videoBadge .title {
+  color: #f2f2f2;
+  font-size: 20px;
+  font-weight: 450;
+  line-height: 30px;
+  margin-bottom: 0;
+}
+
+@media (min-width: 768px) {
+  .catalyzer-smartprice .videoBadgeContainer .videoBadge .title {
+    font-size: 24px;
+    line-height: 34px;
+  }
+}
+
+.catalyzer-smartprice .videoBadgeContainer .videoBadge .availableList {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.catalyzer-smartprice .videoBadgeContainer .videoBadge .availableList img {
+  width: 212px;
+  height: auto;
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.catalyzer-smartprice .videoBadgeContainer .videoBadge .availableList a:hover img {
+  transform: scale(1.05);
+  filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.35));
+}
+
+/* ==========================================================================
+   7. CONTACT BLOCK (Boost profits now with SmartPrice)
+   ========================================================================== */
+.catalyzer-smartprice .contact-block {
+  height: 330px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: #000000;
+  padding: 0 20px;
+  margin-bottom: 40px;
+  margin-top: 40px;
+}
+
+@media (min-width: 768px) {
+  .catalyzer-smartprice .contact-block {
+    height: 485px;
+    padding: 0 60px;
+  }
+}
+
+.catalyzer-smartprice .contact-block__title {
+  font-size: 34px;
+  font-weight: 500;
+  color: #D4FAE6;
+  text-align: center;
+  margin-bottom: 30px;
+  line-height: 1.2;
+}
+
+@media (min-width: 768px) {
+  .catalyzer-smartprice .contact-block__title {
+    font-size: 68px;
+    line-height: 80px;
+  }
+}
+
+.catalyzer-smartprice .contact-block__title p {
+  margin-bottom: 0;
+}
+
+.catalyzer-smartprice .contact-block b,
+.catalyzer-smartprice .contact-block strong {
+  background: linear-gradient(90deg, #5EFC8D 0%, #10E774 50%, #7CEEE0 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+  font-weight: 700;
+}
+
+.catalyzer-smartprice .sai-hidden {
+  display: none !important;
+}

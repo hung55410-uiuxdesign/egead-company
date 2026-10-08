@@ -114,22 +114,13 @@ async function main() {
   // 1. Kiểm tra hoặc tạo User Admin
   const existingUser = await prisma.user.findUnique({
     where: { email: DEFAULT_ADMIN.email },
+    include: { accounts: true },
   });
 
-  if (!existingUser) {
-    console.log(`👤 Tạo tài khoản quản trị: ${DEFAULT_ADMIN.email}...`);
-    await prisma.user.create({
-      data: {
-        id: DEFAULT_ADMIN.id,
-        name: DEFAULT_ADMIN.name,
-        email: DEFAULT_ADMIN.email,
-        emailVerified: true,
-        role: 'admin',
-      },
-    });
-    console.log('✅ Đã tạo tài khoản Admin trong bảng user.');
+  if (!existingUser || existingUser.accounts.length === 0) {
+    console.log(`ℹ️ Tài khoản quản trị sẽ được tự động kích hoạt kèm mật khẩu qua Better Auth khi truy cập /admin/login.`);
   } else {
-    console.log(`ℹ️ Tài khoản ${DEFAULT_ADMIN.email} đã tồn tại.`);
+    console.log(`ℹ️ Tài khoản ${DEFAULT_ADMIN.email} đã sẵn sàng.`);
   }
 
   // 2. Seed danh sách bài viết từ data/blogs.json

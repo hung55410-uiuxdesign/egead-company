@@ -2,45 +2,13 @@ import React from 'react';
 import Link from 'next/link';
 import ContactBlock from '@/components/ContactBlock';
 import MotionSection, { MotionHero, MotionDiv, MotionCard } from '@/components/MotionSection';
+import CaseStudiesSection from '@/components/CaseStudiesSection';
 
 export const metadata = {
   title: 'About Us | E-GEAD: More Than An Operations Partner',
   description:
     'Discover E-GEAD’s mission, values, and operational ecosystem. Headquartered in Buon Ma Thuot, Vietnam with sub-24h US POD fulfillment, WMS automation, and multi-channel scale across 10+ countries.',
 };
-
-const clientLogos = [
-  { name: 'Toyota', src: '/assets/logo_toyota.svg' },
-  { name: 'Brother', src: '/assets/logo_brother.svg' },
-  { name: 'Beauty Garage', src: '/assets/logo_beautygarage.svg' },
-  { name: 'Weir', src: '/assets/logo_weir.svg' },
-  { name: 'Saitex', src: '/assets/logo_saitex.svg' },
-  { name: 'Dinner Ladies', src: '/assets/logo_dinnerladies.svg' },
-  { name: 'Edwin', src: '/assets/logo_edwin.svg' },
-  { name: 'Beisia', src: '/assets/logo_beisia.svg' },
-  { name: 'HRS', src: '/assets/logo_hrs.svg' },
-  { name: 'Kashiwagi', src: '/assets/logo_kashiwagi.svg' },
-  { name: 'Suntory', src: '/assets/logo_suntory.svg' },
-  { name: 'Manulife', src: '/assets/logo_manulife.svg' },
-  { name: 'Jim Thompson', src: '/assets/logo_jimthompson.svg' },
-  { name: 'TCI', src: '/assets/logo_tci.svg' },
-];
-
-const partnerLogos = [
-  { name: 'SAP Silver', src: '/assets/logo_sapsilver.svg' },
-  { name: 'Partner 1', src: '/assets/Logo_Brands-1.png' },
-  { name: 'Partner 3', src: '/assets/Logo_Brands-3.png' },
-  { name: 'Partner 4', src: '/assets/Logo_Brands-4.png' },
-  { name: 'Partner 5', src: '/assets/Logo_Brands-5.png' },
-  { name: 'Partner 6', src: '/assets/Logo_Brands-6.png' },
-  { name: 'Partner 7', src: '/assets/Logo_Brands-7.png' },
-  { name: 'Partner 8', src: '/assets/Logo_Brands-8.png' },
-  { name: 'Partner 9', src: '/assets/Logo_Brands-9.png' },
-  { name: 'Partner 10', src: '/assets/Logo_Brands-10.png' },
-  { name: 'Partner 11', src: '/assets/Logo_Brands-11.png' },
-  { name: 'Partner 12', src: '/assets/Logo_Brands-12.png' },
-  { name: 'Partner 13', src: '/assets/Logo_Brands-13.png' },
-];
 
 export default function CompanyPage() {
   return (
@@ -208,68 +176,10 @@ export default function CompanyPage() {
         </div>
       </MotionSection>
 
-      {/* SECTION 6: Clients Logo Slider */}
-      <MotionSection className="w-full py-12 sm:py-16 mb-16 overflow-hidden border-t border-b border-white/5 bg-[#0D1011]">
-        <div className="w-full px-6 sm:px-10 lg:px-14 xl:px-16 mb-8">
-          <p className="text-base sm:text-lg font-normal text-[#D4FAE6] mb-2 font-montserrat">
-            Clients
-          </p>
-          <h3 className="text-xl sm:text-2xl lg:text-[34px] font-medium text-[#D4FAE6] font-montserrat leading-snug">
-            We work with established global enterprises and ambitious brands.
-          </h3>
-        </div>
-
-        {/* Infinite marquee track */}
-        <div className="relative w-full overflow-hidden">
-          <div className="flex w-max animate-marquee items-center gap-12 sm:gap-16 lg:gap-20 py-4">
-            {clientLogos.concat(clientLogos, clientLogos).map((client, idx) => (
-              <div
-                key={`client-${idx}`}
-                className="flex items-center justify-center min-w-[130px] sm:min-w-[160px] h-16 grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300"
-              >
-                <img
-                  src={client.src}
-                  alt={client.name}
-                  className="max-w-full max-h-12 object-contain filter invert"
-                />
-              </div>
-            ))}
-          </div>
-        </div>
-      </MotionSection>
-
-      {/* SECTION 7: Tech Partners Logo Slider */}
-      <MotionSection className="w-full py-12 sm:py-16 mb-24 sm:mb-32 overflow-hidden border-b border-white/5 bg-[#0A0D0E]">
-        <div className="w-full px-6 sm:px-10 lg:px-14 xl:px-16 mb-8">
-          <p className="text-base sm:text-lg font-normal text-[#D4FAE6] mb-2 font-montserrat">
-            Services
-          </p>
-          <h3 className="text-xl sm:text-2xl lg:text-[34px] font-medium text-[#D4FAE6] font-montserrat leading-snug">
-            We are partnering with leading tech providers.
-          </h3>
-        </div>
-
-        {/* Infinite marquee track reverse */}
-        <div className="relative w-full overflow-hidden">
-          <div
-            className="flex w-max items-center gap-12 sm:gap-16 lg:gap-20 py-4"
-            style={{ animation: 'marquee 35s linear infinite reverse' }}
-          >
-            {partnerLogos.concat(partnerLogos, partnerLogos).map((partner, idx) => (
-              <div
-                key={`partner-${idx}`}
-                className="flex items-center justify-center min-w-[130px] sm:min-w-[160px] h-16 grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300"
-              >
-                <img
-                  src={partner.src}
-                  alt={partner.name}
-                  className="max-w-full max-h-12 object-contain filter invert"
-                />
-              </div>
-            ))}
-          </div>
-        </div>
-      </MotionSection>
+      {/* SECTION 6 & 7: Clients & Services Marquee Section using CaseStudiesSection */}
+      <div className="w-full mb-16 sm:mb-24">
+        <CaseStudiesSection variant="company" />
+      </div>
 
       {/* SECTION 8: Full-Width Image Divider (company.png) */}
       <MotionSection className="w-full px-6 sm:px-10 lg:px-14 xl:px-16 mb-24 sm:mb-32">
@@ -354,7 +264,7 @@ export default function CompanyPage() {
 
             <div>
               <Link
-                href="/career"
+                href="/careers"
                 className="group/btn inline-flex items-center gap-2.5 px-6 py-3.5 rounded-full bg-white text-black font-medium text-sm hover:bg-[#10E774] transition-all duration-300"
               >
                 <svg

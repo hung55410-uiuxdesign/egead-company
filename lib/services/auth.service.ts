@@ -108,15 +108,18 @@ export async function ensureDatabaseTablesExist(): Promise<void> {
  */
 export async function isAdminInitialized(): Promise<boolean> {
   try {
-    const adminCount = await prisma.user.count({
+    const adminUser = await prisma.user.findFirst({
       where: {
         OR: [
           { role: 'admin' },
           { email: DEFAULT_ADMIN_CONFIG.email },
         ],
       },
+      include: {
+        accounts: true,
+      },
     });
-    return adminCount > 0;
+    return Boolean(adminUser && adminUser.accounts.some((a) => a.providerId === 'credential'));
   } catch (error) {
     console.warn('[auth.service] Database connection check failed, assuming uninitialized:', error);
     return false;
@@ -143,6 +146,14 @@ export async function createDefaultAdminIfNotExist(): Promise<{
         message: 'Tài khoản quản trị viên đã tồn tại trong Database.',
         email: DEFAULT_ADMIN_CONFIG.email,
       };
+    }
+
+    // Clean up any dangling user record without an account record
+    const danglingUser = await prisma.user.findUnique({
+      where: { email: DEFAULT_ADMIN_CONFIG.email },
+    });
+    if (danglingUser) {
+      await prisma.user.delete({ where: { id: danglingUser.id } });
     }
 
     // 3. Create user using Better Auth server API

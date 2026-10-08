@@ -73,7 +73,16 @@ export default function PeopleClientView() {
         animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
         transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
       >
-        <p className="hero-label">Our People</p>
+        <p
+          className="hero-label bg-clip-text text-transparent inline-block"
+          style={{
+            background: 'linear-gradient(90deg, #10E774 0%, #00F5A0 40%, #00D8F6 100%)',
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent',
+          }}
+        >
+          Our People
+        </p>
       </motion.section>
 
       <motion.div
@@ -84,8 +93,24 @@ export default function PeopleClientView() {
       >
         <div className="hidden" itemScope itemType="https://schema.org/Organization" />
         <h1>
-          <span>Meet the People</span>
-          <span className="bg-gradient-to-r from-[#5EFC8D] via-[#10E774] to-[#7ceee0] bg-clip-text text-transparent">
+          <span
+            className="bg-clip-text text-transparent block"
+            style={{
+              background: 'linear-gradient(90deg, #FFFFFF 0%, #E0FAF0 40%, #7CEEE0 80%, #38BDF8 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+            }}
+          >
+            Meet the People
+          </span>
+          <span
+            className="bg-clip-text text-transparent block"
+            style={{
+              background: 'linear-gradient(90deg, #5EFC8D 0%, #10E774 30%, #00F5A0 55%, #00D8F6 85%, #38BDF8 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+            }}
+          >
             Behind (Y)our Success.
           </span>
         </h1>
@@ -101,7 +126,16 @@ export default function PeopleClientView() {
         transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
         className="people-block"
       >
-        <p className="people-block__title px-5 sm:px-0">Leadership Team</p>
+        <p
+          className="people-block__title px-5 sm:px-0 bg-clip-text text-transparent inline-block"
+          style={{
+            background: 'linear-gradient(90deg, #FFFFFF 0%, #D4FAE6 40%, #5EFC8D 80%, #00E5FF 100%)',
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent',
+          }}
+        >
+          Leadership Team
+        </p>
 
         {/* Leadership Row: Default horizontal track of all 8 leaders / Centered Tree */}
         <LeaderRow
@@ -135,7 +169,16 @@ export default function PeopleClientView() {
       >
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 mb-10 pb-6 border-b border-gray-200">
           <div>
-            <p className="people-block__title mb-1">Our Team of Experts</p>
+            <p
+              className="people-block__title mb-1 bg-clip-text text-transparent inline-block"
+              style={{
+                background: 'linear-gradient(90deg, #002B40 0%, #005F6E 35%, #007A3D 70%, #059669 100%)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+              }}
+            >
+              Our Team of Experts
+            </p>
             <p className="text-sm text-gray-500 font-medium">
               Đội ngũ chuyên gia kỹ thuật, kiến trúc sư giải pháp và vận hành thương mại điện tử toàn cầu
             </p>
@@ -274,8 +317,26 @@ export default function PeopleClientView() {
         className="contact-block"
       >
         <div className="contact-block__title">
-          <p>
-            Let's <strong>boost</strong> your&nbsp;<br />
+          <p
+            className="bg-clip-text text-transparent inline-block"
+            style={{
+              background: 'linear-gradient(180deg, #FFFFFF 0%, #D4FAE6 50%, #A8F7E2 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+            }}
+          >
+            Let&apos;s{' '}
+            <strong
+              className="bg-clip-text text-transparent font-bold"
+              style={{
+                background: 'linear-gradient(90deg, #5EFC8D 0%, #00F5A0 40%, #00D8F6 100%)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+              }}
+            >
+              boost
+            </strong>{' '}
+            your&nbsp;<br />
             commerce outcomes.
           </p>
         </div>
@@ -322,7 +383,7 @@ export default function PeopleClientView() {
                 <span className="inline-block px-3 py-1 rounded-full bg-[#5EFC8D]/10 border border-[#5EFC8D]/30 text-[#5EFC8D] text-xs font-semibold mb-2">
                   {selectedMember.department}
                 </span>
-                <h3 className="text-2xl sm:text-3xl font-bold text-[#D4FAE6]">
+                <h3 className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-white via-[#D4FAE6] to-[#5EFC8D] bg-clip-text text-transparent">
                   {selectedMember.name}
                 </h3>
                 <p className="text-sm sm:text-base text-[#5EFC8D] font-medium">
@@ -349,7 +410,7 @@ export default function PeopleClientView() {
 
             {/* Biography */}
             <div className="mb-6">
-              <h4 className="text-xs font-semibold text-gray-400 mb-2">
+              <h4 className="text-xs font-semibold uppercase tracking-wider bg-gradient-to-r from-[#5EFC8D] to-[#7CEEE0] bg-clip-text text-transparent mb-2">
                 Thông Tin &amp; Chuyên Môn
               </h4>
               <p className="text-sm sm:text-base text-gray-300 leading-relaxed font-normal">
@@ -359,7 +420,7 @@ export default function PeopleClientView() {
 
             {/* Core Skills & Expertise */}
             <div className="mb-8">
-              <h4 className="text-xs font-semibold text-gray-400 mb-3">
+              <h4 className="text-xs font-semibold uppercase tracking-wider bg-gradient-to-r from-[#5EFC8D] to-[#7CEEE0] bg-clip-text text-transparent mb-3">
                 Lĩnh Vực Trọng Tâm
               </h4>
               <div className="flex flex-wrap gap-2">

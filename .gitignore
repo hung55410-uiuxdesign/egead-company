@@ -21,6 +21,7 @@ dist/
 .env*.local
 .env.production
 .env.development.local
+.env.example
 
 # Logs
 *.log
@@ -33,3 +34,5 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
+# Temporary / Scratch
+scratch/

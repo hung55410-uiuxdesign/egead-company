@@ -10,6 +10,20 @@ const nextConfig = {
       },
     ],
   },
+  async rewrites() {
+    return [
+      { source: '/blog', destination: '/insights?category=blog' },
+      { source: '/webinars', destination: '/insights?category=webinars' },
+      { source: '/announcements', destination: '/insights?category=announcements' },
+      { source: '/white-papers', destination: '/insights?category=white-papers' },
+      { source: '/articles', destination: '/insights' },
+      { source: '/career', destination: '/careers' },
+      { source: '/career/:path*', destination: '/careers/:path*' },
+      { source: '/services/all-services/:path*', destination: '/services/all-services' },
+      { source: '/partners/:path*', destination: '/partners' },
+      { source: '/catalyzer/smartprice', destination: '/smartprice' },
+    ];
+  },
 };
 
 export default nextConfig;

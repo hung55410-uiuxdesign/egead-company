@@ -74,7 +74,7 @@ export default function CultureSection() {
                 transition={{ type: 'spring', stiffness: 400, damping: 17 }}
               >
                 <Link
-                  href="/career"
+                  href="/careers"
                   className="group inline-flex items-center gap-2.5 bg-black/40 hover:bg-white/10 border border-white/20 hover:border-[#5EFC8D] hover:text-[#5EFC8D] text-[#D4FAE6] font-medium text-sm sm:text-[15px] px-8 py-3.5 rounded-full transition-all duration-300 font-montserrat shadow-sm"
                 >
                   <svg

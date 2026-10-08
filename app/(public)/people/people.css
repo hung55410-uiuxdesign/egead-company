@@ -15,9 +15,14 @@
 /* SECTION P (HERO SECTION LABEL) */
 .sai-people-page section p.hero-label {
   font-size: 20px;
-  font-weight: 450;
+  font-weight: 600;
   line-height: 28px;
-  color: #D4FAE6;
+  background: linear-gradient(90deg, #10E774 0%, #00F5A0 40%, #00D8F6 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+  color: transparent !important;
+  display: inline-block;
   padding: 0 20px;
   margin-bottom: 0;
   padding-top: 35px !important;
@@ -56,9 +61,16 @@
   font-weight: 500;
   line-height: 86px;
   font-size: 72px;
-  color: #D4FAE6;
   display: block;
   padding-left: 0;
+}
+
+.sai-heading-text h1 span:first-child {
+  background: linear-gradient(90deg, #FFFFFF 0%, #E0FAF0 40%, #7CEEE0 80%, #38BDF8 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+  color: transparent !important;
 }
 
 @media screen and (max-width: 767px) {
@@ -73,7 +85,11 @@
 }
 
 .sai-heading-text h1 span:nth-child(2) {
-  color: #5EFC8D;
+  background: linear-gradient(90deg, #5EFC8D 0%, #10E774 30%, #00F5A0 55%, #00D8F6 85%, #38BDF8 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+  color: transparent !important;
 }
 
 /* PEOPLE BLOCK (LEADERSHIP TEAM) */
@@ -91,11 +107,16 @@
 }
 
 .people-block__title {
-  font-size: 24px;
-  font-weight: 550;
-  line-height: 32px;
+  font-size: 28px;
+  font-weight: 600;
+  line-height: 36px;
   margin-bottom: 40px;
-  color: #f2f2f2;
+  background: linear-gradient(90deg, #FFFFFF 0%, #D4FAE6 50%, #5EFC8D 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+  display: inline-block;
   position: relative;
   z-index: 2;
 }
@@ -334,8 +355,15 @@
 }
 
 .people-block--white .people-block__title {
-  color: #003d5b;
-  font-weight: 550;
+  background: linear-gradient(90deg, #002B40 0%, #005F6E 50%, #007A3D 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+  font-size: 32px;
+  font-weight: 700;
+  display: inline-block;
+  margin-bottom: 6px;
 }
 
 .people-card--more {
@@ -533,12 +561,22 @@
 
 .contact-block__title p {
   margin-bottom: 0;
+  background: linear-gradient(180deg, #FFFFFF 0%, #D4FAE6 60%, #A8F7E2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+  display: inline-block;
 }
 
 .contact-block b,
 .contact-block strong {
-  color: #5EFC8D;
-  font-weight: 500;
+  background: linear-gradient(90deg, #5EFC8D 0%, #10E774 50%, #7CEEE0 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+  font-weight: 700;
 }
 
 .contact-block .ant-btn-primary {

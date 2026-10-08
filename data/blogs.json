@@ -1,113 +1,366 @@
 [
   {
-    "id": "post-1",
-    "slug": "expanding-cross-border-ecommerce-playbook",
-    "title": "The 2026 Global E-Commerce Playbook: Expanding Across US, UK, and Australian Marketplaces",
-    "subtitle": "Strategic execution for cross-border retailers targeting high-purchasing Western markets",
-    "tag": "Market Expansion",
-    "category": "E-Commerce Strategy",
-    "date": "January 15, 2026",
-    "readTime": "6 mins read",
+    "id": "post-1791430620192",
+    "slug": "unit-test-automated-blog-article",
+    "title": "Unit Test Automated Blog Article",
+    "subtitle": "Testing automated creation with Prisma & TipTap",
+    "tag": "Technology",
+    "category": "Innovation",
+    "date": "October 08, 2026",
+    "readTime": "5 mins read",
     "heroImage": "/assets/case_brother.jpg",
-    "excerpt": "A comprehensive operational blueprint for cross-border merchants: multi-channel catalog orchestration, automated US fulfillment routing, and currency risk mitigation.",
-    "content": [
-      "The global cross-border e-commerce landscape is undergoing a decisive structural shift. Consumer demand in the United States, the United Kingdom, Germany, and Australia is increasingly gravitating toward personalized apparel, niche home decor, and customized consumer lifestyle goods. For international merchants, the addressable market has never been larger.",
-      "However, the primary hurdle for cross-border merchants is rarely product design or consumer appetite—it is logistics execution and delivery reliability. Western online shoppers expect fast, predictable 2-to-4 day transit windows with end-to-end carrier tracking visibility. Traditional postal shipping methods taking 12-25 days invariably lead to customer disputes, chargebacks, and damaging 1-star reviews.",
-      "E-GEAD resolves this fundamental bottleneck by deploying localized manufacturing and warehouse operations directly in the United States. When a customer completes checkout on your storefront, our automated order routing engine validates print files and dispatches production to our US facilities in under 24 hours. Finished goods are handed off directly to USPS, UPS, and FedEx, reaching customer doorsteps in 2 to 3 days.",
-      "Furthermore, expanding across multi-channel environments requires resilient automated catalog orchestration. Managing product variations, currency fluctuations, and sales tax compliance across multiple platforms becomes unmanageable through manual spreadsheets. By leveraging E-GEAD’s Eweb-platform, sellers maintain a single source of truth across Amazon, TikTok Shop, Etsy, and Shopify, ensuring catalog consistency and inventory integrity.",
-      "Coupled with high-intent digital growth marketing delivering proven 4.8x ROAS benchmarks, merchants can scale operational volume from dozens of daily shipments to thousands without linear headcount increases."
-    ],
+    "excerpt": "This is a test excerpt for service validation.",
+    "content": "<p>Paragraph 1 from rich editor</p>",
     "author": {
-      "name": "E-GEAD Research Team",
-      "role": "Global Commerce Strategist"
+      "name": "E-GEAD Team",
+      "role": "Editor"
     },
-    "status": "published",
-    "views": 1420,
-    "featured": true,
-    "createdAt": "2026-01-15T08:00:00.000Z",
-    "updatedAt": "2026-01-15T08:00:00.000Z"
-  },
-  {
-    "id": "post-2",
-    "slug": "tiktok-shop-us-sla-compliance-guide",
-    "title": "Conquering TikTok Shop US: How Sub-24h Fulfillment Eliminates Late Dispatch Penalties",
-    "subtitle": "The ultimate operational blueprint to maintain Top Seller status and protect account health",
-    "tag": "Operations & SLA",
-    "category": "Operations",
-    "date": "February 02, 2026",
-    "readTime": "5 mins read",
-    "heroImage": "/assets/case_suntory.jpg",
-    "excerpt": "TikTok Shop US enforces strict 48-hour order-to-tracking SLA windows. Learn how automated WMS routing and on-demand US manufacturing ensure zero late-dispatch strikes.",
-    "content": [
-      "TikTok Shop US represents the fastest-growing social commerce channel in the world, generating unprecedented viral sales volumes. However, TikTok Shop enforces the most stringent seller performance benchmarks in the e-commerce industry, with particular emphasis on Late Dispatch Rate (LDR).",
-      "Under current TikTok Shop guidelines, merchants must generate carrier-accepted tracking scans within a strict 48-hour operational window. Traditional print-on-demand fulfillment centers that require 3 to 5 business days for batch processing expose sellers to severe algorithmic penalties, daily order throttling, and eventual store suspension.",
-      "At E-GEAD, sub-24 hour fulfillment is an engineered operational standard. Utilizing high-throughput 23-inch large-format printing lines and direct barcode queuing, orders received before operational cutoff are produced, quality-inspected, and packaged on the exact same business day.",
-      "Our warehouse management system (WMS) is integrated directly with TikTok Shop US partner APIs. The moment an order passes our final quality gate and barcode scan, carrier tracking numbers are generated and synchronized back to your seller center in real time, guaranteeing a 100% on-time dispatch rate.",
-      "Maintaining flawless SLA metrics does more than protect your account—it grants your products preferential visibility within TikTok Shop’s discovery algorithm, ensuring higher conversion rates during viral creator flash sales."
-    ],
-    "author": {
-      "name": "Alex Nguyen",
-      "role": "Head of Fulfillment Operations"
-    },
-    "status": "published",
-    "views": 2180,
-    "featured": true,
-    "createdAt": "2026-02-02T10:30:00.000Z",
-    "updatedAt": "2026-02-02T10:30:00.000Z"
-  },
-  {
-    "id": "post-3",
-    "slug": "wms-barcode-automation-inventory-accuracy",
-    "title": "Achieving 99.9% Fulfillment Accuracy: Why Barcode WMS is Essential for High-Volume Sellers",
-    "subtitle": "Eliminating packing errors, overselling, and inventory discrepancies with digitized warehouse control",
-    "tag": "Technology & WMS",
-    "category": "Technology",
-    "date": "February 20, 2026",
-    "readTime": "5 mins read",
-    "heroImage": "/assets/case_weir.jpg",
-    "excerpt": "Manual packing errors destroy margins through return shipping costs and platform strikes. Discover how barcode scanning workflows safeguard your seller metrics.",
-    "content": [
-      "As cross-border sellers scale past 500 daily orders, manual fulfillment processes inevitably collapse under their own complexity. Mismatched SKUs, incorrect garment sizes, and inverted shipping labels lead to devastating customer churn, costly return shipping expenses, and platform policy strikes.",
-      "E-GEAD’s proprietary WMS architecture eliminates manual human guesswork by enforcing end-to-end barcode verification across every touchpoint in the fulfillment lifecycle.",
-      "From the moment blank inventory is received at our facility, each raw item is assigned a digital barcode locator. During the picking process, mobile handheld scanners verify that the selected blank matches the exact SKU, color, and size specified in the customer order payload.",
-      "At the print station, automated barcode scanners verify the visual design file against the physical substrate. Finally, during packaging, the shipping label is generated only after the scanner confirms that all items within the package match the packing slip.",
-      "This multi-stage digital verification delivers a verified 99.9% fulfillment accuracy rate, freeing brand founders to focus entirely on creative design and customer acquisition rather than resolving return tickets."
-    ],
-    "author": {
-      "name": "Devin Tran",
-      "role": "VP of Engineering"
-    },
-    "status": "published",
-    "views": 940,
+    "status": "draft",
+    "views": 0,
     "featured": false,
-    "createdAt": "2026-02-20T09:15:00.000Z",
-    "updatedAt": "2026-02-20T09:15:00.000Z"
+    "createdAt": "2026-10-08T03:37:00.192Z",
+    "updatedAt": "2026-10-08T03:37:00.192Z"
   },
   {
-    "id": "post-4",
-    "slug": "transparent-pod-pricing-landed-cost-optimization",
-    "title": "Mastering E-Commerce Unit Economics: Flat-Rate $6 All-In POD and Net Margin Protection",
-    "subtitle": "Predictable profit margins and zero hidden fees for high-growth cross-border brands",
-    "tag": "Financial Strategy",
-    "category": "Finance",
-    "date": "March 01, 2026",
+    "id": "blog-1",
+    "slug": "Concentrix-Acquires-SAI-Digital",
+    "title": "Concentrix Acquires SAI Digital to Supercharge its Digital Commerce and Customer Experience Tech Solutions",
+    "subtitle": "A transformative milestone uniting global enterprise CX and end-to-end commerce engineering",
+    "tag": "Company Milestone",
+    "category": "Blog",
+    "date": "September 09, 2025",
     "readTime": "5 mins read",
-    "heroImage": "/assets/case_manulife.jpg",
-    "excerpt": "How transparent manufacturing pricing and automated landed cost calculations allow cross-border sellers to predict profit margins before scaling advertising campaigns.",
+    "heroImage": "https://www.sai-digital.com/site/sai-website/master/_/attachment/inline/706c3d9f-5e9d-4041-9ffd-c2b94f5de5bf:25f510df8da9f46b1c9be3709f53dd789b5eb471/SAI%20x%20CNX_Announcement_Blog%20(1).png",
+    "excerpt": "Concentrix expands its global technology footprint by bringing SAI Digital’s elite commerce architects, AI practitioners, and composable solutions into its worldwide network.",
     "content": [
-      "Scaling paid acquisition requires razor-thin predictability in cost of goods sold (COGS). When manufacturing partners charge opaque fulfillment fees, variable handling surcharges, or surprise digitizing penalties, seller margins quickly erode.",
-      "E-GEAD breaks this dynamic with our transparent flat-rate pricing model starting at $6 all-inclusive for core garments. By removing hidden handling fees, sellers can accurately calculate their Target Cost-Per-Acquisition (tCPA) and bid aggressively on ad auctions without fear of margin compression.",
-      "Our automated ledger integrates with TikTok Ads Manager and Meta Business Suite to reconcile manufacturing expenses against ad spend in real time, delivering a live net profit margin dashboard.",
-      "By maintaining financial transparency and manufacturing speed, cross-border brands can scale confidently, knowing that increased top-line revenue directly translates into bottom-line profit."
+      "We are thrilled to announce that Concentrix, a global technology and services leader, has formally acquired SAI Digital to accelerate the future of intelligent commerce.",
+      "This strategic acquisition unites SAI Digital’s deep technical expertise in SAP, Sitecore, and headless composable architectures with Concentrix’s unparalleled global delivery footprint and generative AI customer experience solutions.",
+      "Together, we deliver comprehensive, high-velocity digital transformation programs that span brand strategy, software engineering, omnichannel fulfillment, and 24/7 client success."
     ],
     "author": {
-      "name": "Sarah Vo",
-      "role": "Chief Financial Officer"
+      "name": "Leadership Alliance",
+      "role": "Executive Board"
     },
     "status": "published",
-    "views": 1670,
+    "views": 4520,
     "featured": false,
-    "createdAt": "2026-03-01T11:00:00.000Z",
-    "updatedAt": "2026-03-01T11:00:00.000Z"
+    "createdAt": "2025-09-09T04:47:41.870Z",
+    "updatedAt": "2025-09-09T04:47:41.870Z"
+  },
+  {
+    "id": "blog-2",
+    "slug": "use-MACH-architecture-in-eCommerce",
+    "title": "How to use MACH architecture in eCommerce",
+    "subtitle": "A pragmatic guide to transitioning from legacy monoliths to composable microservices",
+    "tag": "Architecture",
+    "category": "Blog",
+    "date": "July 28, 2025",
+    "readTime": "5 mins read",
+    "heroImage": "https://www.sai-digital.com/site/sai-website/master/_/attachment/inline/4675551b-7d8a-4556-9bbd-39e89fb8a9b9:20b3beb8b9c71a72d3d118a04219b13207e5309a/pics1%20(2).jpg",
+    "excerpt": "Demystifying Microservices, API-first, Cloud-native, and Headless architectures. Learn how to incrementally migrate without disrupting ongoing revenue.",
+    "content": [
+      "The acronym MACH has become a defining buzzword in modern digital commerce, but implementing it successfully requires disciplined engineering.",
+      "Rather than attempting a high-risk 'big bang' re-platforming, leading brands employ the strangler-fig pattern, incrementally replacing monolithic frontends with headless Next.js applications while abstracting transactional backends via GraphQL API gateways.",
+      "This guide explores caching strategies, multi-region CDN edge routing, and asynchronous state reconciliation to ensure your composable tech stack delivers peak performance under heavy traffic spikes."
+    ],
+    "author": {
+      "name": "Technical Steering Group",
+      "role": "Principal Cloud Architect"
+    },
+    "status": "published",
+    "views": 1980,
+    "featured": false,
+    "createdAt": "2025-07-28T07:36:41.630Z",
+    "updatedAt": "2025-07-28T07:36:41.630Z"
+  },
+  {
+    "id": "blog-3",
+    "slug": "how-to-use-MACH-architecture-in-eCommerce",
+    "title": "Scaling E-Commerce with Shopify Plus: Your Path to Global Success",
+    "subtitle": "Unlocking enterprise-grade checkout, multi-currency localization, and B2B wholesale capabilities",
+    "tag": "E-Commerce",
+    "category": "Blog",
+    "date": "April 16, 2025",
+    "readTime": "5 mins read",
+    "heroImage": "https://www.sai-digital.com/site/sai-website/master/_/attachment/inline/e05e68a1-1f14-4078-9c1c-5b840bde7ad4:ac919893439d05eb00f1a304a2b62b8c3985faa4/showing-cart-trolley-shopping-online-sign-graphic.jpg",
+    "excerpt": "How enterprise brands leverage Shopify Plus alongside custom ERP middlewares to expand into US, European, and Asian markets with localized checkout experiences.",
+    "content": [
+      "As direct-to-consumer (DTC) brands surpass eight figures in annual gross merchandise volume (GMV), maintaining agility without operational bloat becomes critical.",
+      "Shopify Plus combined with customized headless storefronts delivers the ideal balance: high-converting native checkouts, automated tax and duties calculation via Shopify Markets, and custom headless apps that interface directly with automated WMS systems.",
+      "We break down best practices for managing localized product catalogs, multi-warehouse inventory allocations, and wholesale pricing tiers within a unified Shopify Plus ecosystem."
+    ],
+    "author": {
+      "name": "Commerce Consulting Team",
+      "role": "Shopify Practice Lead"
+    },
+    "status": "published",
+    "views": 2210,
+    "featured": false,
+    "createdAt": "2025-04-16T08:00:00.000Z",
+    "updatedAt": "2025-04-16T08:00:00.000Z"
+  },
+  {
+    "id": "ann-1",
+    "slug": "make-your-digital-commerce-more-intelligent-with-smartcommerce",
+    "title": "Make Your Digital Commerce more Intelligent with Smartcommerce",
+    "subtitle": "AI-driven order validation, predictive replenishment, and automated customer journeys",
+    "tag": "AI & Innovation",
+    "category": "Announcements",
+    "date": "August 02, 2024",
+    "readTime": "5 mins read",
+    "heroImage": "https://www.sai-digital.com/site/sai-website/master/_/attachment/inline/ae16b2c8-33cc-4869-91e2-6830f84f54b0:f32a61f6c1ed3a56a62c4ee8e6b3e66186a19c1b/SmartCommerce_Blog_Cover%20(1).png",
+    "excerpt": "Introducing Smartcommerce: our proprietary AI-enabled operations suite that normalizes multi-channel order feeds and optimizes global logistics routing.",
+    "content": [
+      "E-commerce merchants today face increasing margin pressure from rising ad costs and stringent platform compliance mandates.",
+      "Smartcommerce introduces autonomous machine learning algorithms that validate shipping addresses in real time, flag fraudulent transactions before payment capture, and dynamically route orders to the nearest fulfillment hub.",
+      "By replacing manual customer service workflows with intelligent automation, merchants cut overhead by up to 40% while improving on-time delivery metrics."
+    ],
+    "author": {
+      "name": "Smartcommerce R&D",
+      "role": "Product Director"
+    },
+    "status": "published",
+    "views": 3100,
+    "featured": false,
+    "createdAt": "2024-08-02T06:24:54.493Z",
+    "updatedAt": "2024-08-02T06:24:54.493Z"
+  },
+  {
+    "id": "ann-2",
+    "slug": "sai-digital-unveils-new-branding-and-website",
+    "title": "SAI Digital unveils new branding and website.",
+    "subtitle": "A modern visual identity reflecting our evolution as an AI-powered global digital commerce leader",
+    "tag": "Branding",
+    "category": "Announcements",
+    "date": "November 30, 2023",
+    "readTime": "5 mins read",
+    "heroImage": "https://www.sai-digital.com/site/sai-website/master/_/attachment/inline/2912c677-52b1-4bd8-9172-89a36f755d52:2125e5a501ba7cb4e40d1cb10b3ecd3ecc62b087/Announcement3.jpg",
+    "excerpt": "Explore the philosophy behind our refreshed visual identity, streamlined architecture navigation, and client showcase portal.",
+    "content": [
+      "Our new branding represents more than a visual refresh—it marks our expanded capabilities across global markets.",
+      "With bold typography, high-contrast dark aesthetics, and responsive micro-animations, the new brand identity mirrors the precision, velocity, and craftsmanship we bring to enterprise client engagements.",
+      "We invite you to explore our new digital presence and discover our comprehensive suite of digital strategy, engineering, and fulfillment solutions."
+    ],
+    "author": {
+      "name": "Brand & Creative Office",
+      "role": "Creative Director"
+    },
+    "status": "published",
+    "views": 1890,
+    "featured": false,
+    "createdAt": "2023-11-30T08:19:24.738Z",
+    "updatedAt": "2023-11-30T08:19:24.738Z"
+  },
+  {
+    "id": "ann-3",
+    "slug": "catalyzer-launches-in-the-sap-store",
+    "title": "Catalyzer launches in the SAP Store.",
+    "subtitle": "Accelerating verified enterprise deployments across the global SAP customer ecosystem",
+    "tag": "Partnerships",
+    "category": "Announcements",
+    "date": "November 30, 2023",
+    "readTime": "5 mins read",
+    "heroImage": "https://www.sai-digital.com/site/sai-website/master/_/attachment/inline/6bffe28a-5ce4-4a35-a719-00207add9233:93d72be0c9e03269e1ecece23260cc17bf4e2634/Saitex.png",
+    "excerpt": "Catalyzer is now officially certified and available in the SAP Store, enabling enterprise clients to deploy headless SAP Commerce Cloud storefronts with one-click confidence.",
+    "content": [
+      "Achieving official listing on the SAP Store requires passing rigorous architectural, security, and performance audits.",
+      "With Catalyzer now available on the SAP Store, enterprise organizations can seamlessly integrate our composable frontend engine with SAP Commerce Cloud, reducing time-to-market by up to 60%.",
+      "Clients benefit from standardized API integrations, comprehensive developer documentation, and enterprise SLA support."
+    ],
+    "author": {
+      "name": "SAP Alliance Team",
+      "role": "Global Partner Manager"
+    },
+    "status": "published",
+    "views": 1740,
+    "featured": false,
+    "createdAt": "2023-11-30T08:15:00.000Z",
+    "updatedAt": "2023-11-30T08:15:00.000Z"
+  },
+  {
+    "id": "wp-1",
+    "slug": "why-b2b-businesses-need-to-set-up-a-digitally-functional-commerce-business",
+    "title": "Why B2B businesses need to set up a digitally functional commerce business.",
+    "subtitle": "The quantitative case for modern digital commerce channels in traditional wholesale and industrial manufacturing",
+    "tag": "B2B Research",
+    "category": "White Papers",
+    "date": "November 27, 2023",
+    "readTime": "5 mins read",
+    "heroImage": "https://www.sai-digital.com/site/sai-website/master/_/attachment/inline/35acfbc1-44eb-40f3-a6e8-1869cba56390:056b6d1118f684b0288569ac33508c6b4d813459/Whitepaper02.jpg",
+    "excerpt": "Comprehensive industry benchmark report analyzing how digital self-service procurement increases customer order frequency by 34% and reduces operational friction.",
+    "content": [
+      "Over 70% of B2B procurement decision-makers now prefer digital self-service channels over traditional representative-assisted ordering.",
+      "This white paper analyzes data from over 120 global enterprise B2B merchants, detailing the return on investment (ROI) associated with cloud commerce implementations.",
+      "Discover practical methodologies for integrating legacy ERP pricing rules, managing credit limits, and establishing unified omni-channel customer catalogs."
+    ],
+    "author": {
+      "name": "Global Enterprise Research Institute",
+      "role": "Research Fellows"
+    },
+    "status": "published",
+    "views": 3410,
+    "featured": false,
+    "createdAt": "2023-11-27T02:33:54.632Z",
+    "updatedAt": "2023-11-27T02:33:54.632Z"
+  },
+  {
+    "id": "web-1",
+    "slug": "how-to-effectively-resource-and-scale-digital-marketing",
+    "title": "How to Effectively Resource and Scale Digital Marketing.",
+    "subtitle": "Balancing internal capabilities with specialized offshore and on-demand media pods",
+    "tag": "Marketing",
+    "category": "Webinars",
+    "date": "November 24, 2023",
+    "readTime": "5 mins read",
+    "heroImage": "https://www.sai-digital.com/site/sai-website/master/_/attachment/inline/a2537167-99f5-4b67-a815-391965aea564:53a8d0cb27b517e72f17dab50b7b558f77b68307/Webinar3.jpg",
+    "excerpt": "Watch our exclusive webinar on building agile growth marketing teams that scale high-intent paid campaigns across TikTok Shop, Google Ads, and Meta.",
+    "content": [
+      "It’s 2021 and digital transformation is ushering in a new era of products, services and experiences. But what is digital transformation? What does it mean to your organization? What are some digital transformation trends that you need to embrace to thrive in this new era?",
+      "Tune in to our fireside chat with Steve M W Benhar, Chief Operating Officer of Jim Thompson Group, Daniel Hagos, Managing Director, Greater China & SEA of Emarsys and Damien Ferragamo, Solution Sales Director of SAI Digital, where they will be talking about how brands can effectively leverage best practices in a new age to ensure they are constantly leveling up their digital marketing prowess.",
+      "<h4>In this webinar:</h4>",
+      "• Structure and resource high-performing digital marketing teams​<br/>• Scale-up for multichannel engagement across various regions and brands​<br/>• Manage and use data effectively​",
+      "They will be speaking about how brands can effectively leverage best practice to ensure they are always levelling up their digital marketing.",
+      "Watch On Demand Now!"
+    ],
+    "author": {
+      "name": "Growth Strategy Practice",
+      "role": "Head of Performance"
+    },
+    "status": "published",
+    "views": 2650,
+    "featured": false,
+    "createdAt": "2023-11-24T12:53:32.334Z",
+    "updatedAt": "2023-11-24T12:53:32.334Z"
+  },
+  {
+    "id": "web-2",
+    "slug": "perfecting-peak-sales-season-strategy-webinar",
+    "title": "Perfecting Peak Sales Season Strategy Webinar.",
+    "subtitle": "Black Friday, Cyber Monday, and holiday fulfillment stress-testing masterclass",
+    "tag": "Holiday Strategy",
+    "category": "Webinars",
+    "date": "November 24, 2023",
+    "readTime": "5 mins read",
+    "heroImage": "https://www.sai-digital.com/site/sai-website/master/_/attachment/inline/bba446d5-6c4b-4f7c-8f13-17fe0969fa7e:ef269344830e24665a1401b4191e56520396facb/Webinar2.jpg",
+    "excerpt": "Expert strategies to ensure your technical storefronts, server capacity, and warehouse logistics handle 10x order volume spikes without downtime or late dispatch strikes.",
+    "content": [
+      "Peak season can generate over 40% of an e-commerce brand's annual net profit, but operational failures during this window can lead to permanent account penalties.",
+      "In this session, logistics engineers and server architects outline a step-by-step audit checklist for holiday readiness, including automated load testing, carrier pickup contingency agreements, and buffer inventory planning.",
+      "Watch the recording to discover how top brands achieve sub-24h fulfillment even during massive viral sales spikes."
+    ],
+    "author": {
+      "name": "E-Commerce Operations Panel",
+      "role": "Webinar Hosts"
+    },
+    "status": "published",
+    "views": 2980,
+    "featured": false,
+    "createdAt": "2023-11-24T12:49:02.243Z",
+    "updatedAt": "2023-11-24T12:49:02.243Z"
+  },
+  {
+    "id": "featured-1",
+    "slug": "maximize-sales-and-back-office-productivity-by-leveraging-the-wealth-of-sai-digitals-sap-b2b-quick-starter-package",
+    "title": "Maximize sales and back-office productivity by leveraging the wealth of SAI Digital’s SAP B2B Quick Starter Package.",
+    "subtitle": "Turnkey enterprise B2B commerce architecture deployed in weeks, not months",
+    "tag": "B2B Commerce",
+    "category": "Blog",
+    "date": "November 20, 2023",
+    "readTime": "5 mins read",
+    "heroImage": "https://www.sai-digital.com/site/sai-website/master/_/attachment/inline/c6b02742-a378-4481-9617-23a83ae93d19:2538e173af209e6cedbd87f177b70700f2d66a05/Blog1A.jpg",
+    "excerpt": "Discover how SAI Digital’s pre-configured SAP B2B commerce starter accelerator drives frictionless ordering, ERP real-time syncing, and sales team productivity.",
+    "content": [
+      "In the modern enterprise landscape, business-to-business (B2B) buyers demand the same frictionless, digital-first shopping experiences they enjoy as consumers. Yet many B2B organizations remain encumbered by legacy phone, fax, and manual order entry processes that slow fulfillment and inflate operational costs.",
+      "The SAI Digital SAP B2B Quick Starter Package resolves this challenge by providing a pre-engineered, cloud-native commerce foundation that integrates directly with SAP S/4HANA and ECC environments.",
+      "Key capabilities include self-service customer portals, customer-specific pricing matrices, credit limit validation, approval workflows, and real-time inventory visibility across global distribution centers.",
+      "By eliminating months of bespoke development, enterprises can launch high-converting B2B portals in record time, empowering sales teams to focus on strategic account growth rather than routine order processing."
+    ],
+    "author": {
+      "name": "SAI Digital Enterprise Team",
+      "role": "SAP Solutions Practice"
+    },
+    "status": "published",
+    "views": 3120,
+    "featured": true,
+    "createdAt": "2023-11-20T10:48:28.785Z",
+    "updatedAt": "2023-11-20T10:48:28.785Z"
+  },
+  {
+    "id": "web-3",
+    "slug": "cx-keeping-it-real",
+    "title": "CX: Keeping it REAL!",
+    "subtitle": "Authentic customer experiences in an age of automated AI interactions",
+    "tag": "Customer Experience",
+    "category": "Webinars",
+    "date": "November 08, 2023",
+    "readTime": "5 mins read",
+    "heroImage": "https://www.sai-digital.com/site/sai-website/master/_/attachment/inline/04554fae-73c0-47f4-917e-d6ee245e4e7b:cb5a29e53e509c52c8b8d90529265e5c0070d744/Webinar1.jpg",
+    "excerpt": "Explore how to blend AI automated support with empathetic human touchpoints to build enduring customer loyalty and reduce return rates.",
+    "content": [
+      "While automated AI chatbots offer unprecedented cost savings, over-automation can alienate high-value customers when critical delivery issues arise.",
+      "Our CX panel discusses the optimal threshold between automated self-service resolutions (order tracking, address edits) and seamless escalation to specialized human agents.",
+      "Learn how authentic customer communication builds higher lifetime value (LTV) and protects brand reputation."
+    ],
+    "author": {
+      "name": "CX & Brand Strategy Group",
+      "role": "Principal Researchers"
+    },
+    "status": "published",
+    "views": 2140,
+    "featured": false,
+    "createdAt": "2023-11-08T07:29:42.818Z",
+    "updatedAt": "2023-11-08T07:29:42.818Z"
+  },
+  {
+    "id": "featured-2",
+    "slug": "discover-the-smart-way-to-do-ecommerce-meet-catalyzer",
+    "title": "Discover the Smart Way to Do eCommerce: Meet Catalyzer! ​",
+    "subtitle": "Accelerating headless commerce deployments with automated API connectivity",
+    "tag": "Composable Commerce",
+    "category": "White Papers",
+    "date": "November 08, 2023",
+    "readTime": "5 mins read",
+    "heroImage": "https://www.sai-digital.com/site/sai-website/master/_/attachment/inline/404e5929-c7bb-4c32-bfd6-3dddc45e9c7f:984bb6431cd36db600747dd57b988999bcc25673/Whitepaper01.jpg",
+    "excerpt": "Catalyzer is our modular commerce accelerator that unifies CMS, PIM, and OMS into a high-performance headless architecture for enterprise brands.",
+    "content": [
+      "Modern e-commerce requires unprecedented agility. Monolithic architectures often trap brands in rigid update cycles and fragile customizations that hinder rapid expansion into new markets.",
+      "Catalyzer was engineered from the ground up to solve this composability dilemma. Built on modern MACH principles (Microservices, API-first, Cloud-native, Headless), Catalyzer provides pre-built connector bridges between leading platforms.",
+      "Brands leveraging Catalyzer achieve sub-second page loads, higher conversion rates, and the freedom to experiment with AI-driven personalization and omnichannel touchpoints without disrupting core transactional pipelines."
+    ],
+    "author": {
+      "name": "Product Architecture Group",
+      "role": "Catalyzer Core Team"
+    },
+    "status": "published",
+    "views": 2840,
+    "featured": true,
+    "createdAt": "2023-11-08T07:23:14.786Z",
+    "updatedAt": "2023-11-08T07:23:14.786Z"
+  },
+  {
+    "id": "wp-2",
+    "slug": "the-state-of-the-used-car-market-in-2022",
+    "title": "The state of the used car market in 2022.",
+    "subtitle": "Automotive retail digital transformation and online vehicle purchasing benchmarks",
+    "tag": "Automotive",
+    "category": "White Papers",
+    "date": "November 08, 2023",
+    "readTime": "5 mins read",
+    "heroImage": "https://www.sai-digital.com/site/sai-website/master/_/attachment/inline/b317ff8b-dc55-40f3-b855-9b82bd1c8ed0:e2cbcce987da3314a68c5710c6d29ff19144d51f/Whitepaper03.jpg",
+    "excerpt": "An in-depth analysis of how automotive retail brands transitioned to end-to-end digital sales, trade-in valuation algorithms, and omnichannel financing.",
+    "content": [
+      "The automotive retail sector experienced unprecedented structural shifts following supply chain disruptions and surging consumer appetite for online vehicle purchasing.",
+      "This report examines how leading automotive dealerships deployed digital showrooms, 360-degree interactive vehicle inspection tools, and instant digital credit approvals.",
+      "Review the architectural blueprints required to handle complex inventory synchronization across distributed regional dealership networks."
+    ],
+    "author": {
+      "name": "Automotive Sector Practice",
+      "role": "Industry Analyst"
+    },
+    "status": "published",
+    "views": 1980,
+    "featured": false,
+    "createdAt": "2023-11-08T07:15:00.000Z",
+    "updatedAt": "2023-11-08T07:15:00.000Z"
   }
 ]

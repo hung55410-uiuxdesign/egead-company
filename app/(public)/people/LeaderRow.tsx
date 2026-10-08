@@ -239,7 +239,7 @@ export default function LeaderRow({
                   <span>Executive Leadership</span>
                 </div>
 
-                <h3 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#D4FAE6] leading-tight">
+                <h3 className="text-3xl sm:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-white via-[#D4FAE6] to-[#5EFC8D] bg-clip-text text-transparent leading-tight">
                   {activeLeader.name}
                 </h3>
                 <p className="text-base sm:text-lg text-[#5EFC8D] font-medium mt-1 mb-6">
@@ -248,7 +248,7 @@ export default function LeaderRow({
 
                 {/* Bio */}
                 <div className="mb-6">
-                  <h4 className="text-xs font-semibold text-gray-400 mb-2">
+                  <h4 className="text-xs font-semibold uppercase tracking-wider bg-gradient-to-r from-[#5EFC8D] to-[#7CEEE0] bg-clip-text text-transparent mb-2">
                     Tầm Nhìn Chiến Lược &amp; Vai Trò Lãnh Đạo
                   </h4>
                   <p className="text-sm sm:text-base text-gray-300 leading-relaxed">
@@ -258,7 +258,7 @@ export default function LeaderRow({
 
                 {/* Competencies */}
                 <div className="mb-8">
-                  <h4 className="text-xs font-semibold text-gray-400 mb-3">
+                  <h4 className="text-xs font-semibold uppercase tracking-wider bg-gradient-to-r from-[#5EFC8D] to-[#7CEEE0] bg-clip-text text-transparent mb-3">
                     Lĩnh Vực Chuyên Môn Trọng Tâm
                   </h4>
                   <div className="flex flex-wrap gap-2">

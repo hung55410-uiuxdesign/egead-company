@@ -6,6 +6,7 @@ import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence, type Variants } from 'framer-motion';
 import {
   ChevronDown,
+  ChevronRight,
   Globe,
   Menu,
   Rocket,
@@ -280,7 +281,7 @@ export default function Header() {
                                 <span className="group-hover:translate-x-1 transition-transform">SpeedX</span>
                               </Link>
                               <Link
-                                href="/smartcommerce"
+                                href="/smartprice"
                                 onClick={() => setActiveDropdown(null)}
                                 className="group flex items-center gap-3 py-1.5 text-[15px] font-semibold text-gray-800 hover:text-[#007A3D] transition"
                               >
@@ -304,7 +305,7 @@ export default function Header() {
                             {/* Column 3 */}
                             <div className="space-y-4">
                               <Link
-                                href="/services/all-services"
+                                href="/loyalty"
                                 onClick={() => setActiveDropdown(null)}
                                 className="group flex items-center gap-3 py-1.5 text-[15px] font-semibold text-gray-800 hover:text-[#007A3D] transition"
                               >
@@ -331,77 +332,274 @@ export default function Header() {
                     {/* Services Submenu */}
                     {activeDropdown === 'services' && (
                       <div>
-                        <h3 className="text-xs sm:text-sm font-semibold text-gray-500 mb-6 tracking-wide uppercase">
-                          Our Services
-                        </h3>
-                        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
-                          <div className="md:col-span-8 lg:col-span-9 grid grid-cols-1 sm:grid-cols-3 gap-6 lg:gap-8">
-                            <div className="space-y-4">
+                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 lg:gap-14 items-start">
+                          {/* Column 1: Our Services */}
+                          <div>
+                            <h3 className="text-base sm:text-[17px] font-bold text-gray-900 mb-6 font-montserrat">
+                              Our Services
+                            </h3>
+                            <div className="space-y-4 mb-8">
                               <Link
-                                href="/speedx"
+                                href="/services/all-services/strategy-design"
                                 onClick={() => setActiveDropdown(null)}
-                                className="group flex items-center gap-3 py-1.5 text-[15px] font-semibold text-gray-800 hover:text-[#007A3D] transition"
+                                className="group flex items-center gap-3.5 py-1 text-[15px] font-semibold text-gray-800 hover:text-[#007A3D] transition duration-200"
                               >
-                                <Zap className="w-5 h-5 text-gray-400 group-hover:text-[#10E774] group-hover:scale-115 transition-all" />
-                                <span className="group-hover:translate-x-1 transition-transform">US POD Fulfillment</span>
+                                <span className="w-5 h-5 flex items-center justify-center shrink-0">
+                                  <img
+                                    src="/assets/icon_strategy_design.svg"
+                                    alt="Strategy & Design"
+                                    className="w-5 h-5 object-contain transition-transform group-hover:scale-110"
+                                  />
+                                </span>
+                                <span className="group-hover:translate-x-0.5 transition-transform">Strategy & Design</span>
                               </Link>
+
                               <Link
-                                href="/smartcommerce"
+                                href="/services/all-services/data-analytics"
                                 onClick={() => setActiveDropdown(null)}
-                                className="group flex items-center gap-3 py-1.5 text-[15px] font-semibold text-gray-800 hover:text-[#007A3D] transition"
+                                className="group flex items-center gap-3.5 py-1 text-[15px] font-semibold text-gray-800 hover:text-[#007A3D] transition duration-200"
                               >
-                                <Layers className="w-5 h-5 text-gray-400 group-hover:text-[#10E774] group-hover:scale-115 transition-all" />
-                                <span className="group-hover:translate-x-1 transition-transform">Sales Automation</span>
+                                <span className="w-5 h-5 flex items-center justify-center shrink-0">
+                                  <img
+                                    src="/assets/icon_data_analytics.svg"
+                                    alt="Data & Analytics"
+                                    className="w-5 h-5 object-contain transition-transform group-hover:scale-110"
+                                  />
+                                </span>
+                                <span className="group-hover:translate-x-0.5 transition-transform">Data & Analytics</span>
+                              </Link>
+
+                              <Link
+                                href="/services/all-services/enterprise-technology"
+                                onClick={() => setActiveDropdown(null)}
+                                className="group flex items-center gap-3.5 py-1 text-[15px] font-semibold text-gray-800 hover:text-[#007A3D] transition duration-200"
+                              >
+                                <span className="w-5 h-5 flex items-center justify-center shrink-0">
+                                  <img
+                                    src="/assets/icon_enterprise_tech.svg"
+                                    alt="Enterprise Technology"
+                                    className="w-5 h-5 object-contain transition-transform group-hover:scale-110"
+                                  />
+                                </span>
+                                <span className="group-hover:translate-x-0.5 transition-transform">Enterprise Technology</span>
+                              </Link>
+
+                              <Link
+                                href="/services/all-services/commerce-cx--operations"
+                                onClick={() => setActiveDropdown(null)}
+                                className="group flex items-center gap-3.5 py-1 text-[15px] font-semibold text-gray-800 hover:text-[#007A3D] transition duration-200"
+                              >
+                                <span className="w-5 h-5 flex items-center justify-center shrink-0">
+                                  <img
+                                    src="/assets/icon_commerce_cx.svg"
+                                    alt="Commerce & CX Operations"
+                                    className="w-5 h-5 object-contain transition-transform group-hover:scale-110"
+                                  />
+                                </span>
+                                <span className="group-hover:translate-x-0.5 transition-transform">Commerce & CX Operations</span>
                               </Link>
                             </div>
 
-                            <div className="space-y-4">
-                              <Link
-                                href="/services/all-services"
-                                onClick={() => setActiveDropdown(null)}
-                                className="group flex items-center gap-3 py-1.5 text-[15px] font-semibold text-gray-800 hover:text-[#007A3D] transition"
+                            <Link
+                              href="/services/all-services"
+                              onClick={() => setActiveDropdown(null)}
+                              className="inline-flex items-center gap-2 px-5 py-2 rounded-full border border-gray-300 hover:border-black text-[13.5px] font-semibold text-gray-800 hover:text-black transition duration-200 hover:bg-gray-50/80 shadow-sm"
+                            >
+                              <svg
+                                width="15"
+                                height="15"
+                                viewBox="0 0 19 18"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                                className="fill-current text-gray-700"
                               >
-                                <TrendingUp className="w-5 h-5 text-gray-400 group-hover:text-[#10E774] group-hover:scale-115 transition-all" />
-                                <span className="group-hover:translate-x-1 transition-transform">Digital Growth Marketing</span>
-                              </Link>
-                              <Link
-                                href="/services/all-services"
-                                onClick={() => setActiveDropdown(null)}
-                                className="group flex items-center gap-3 py-1.5 text-[15px] font-semibold text-gray-800 hover:text-[#007A3D] transition"
-                              >
-                                <Terminal className="w-5 h-5 text-gray-400 group-hover:text-[#10E774] group-hover:scale-115 transition-all" />
-                                <span className="group-hover:translate-x-1 transition-transform">Developers Hub & WMS</span>
-                              </Link>
-                            </div>
-
-                            <div className="space-y-4">
-                              <Link
-                                href="/speedx"
-                                onClick={() => setActiveDropdown(null)}
-                                className="group flex items-center gap-3 py-1.5 text-[15px] font-semibold text-gray-800 hover:text-[#007A3D] transition"
-                              >
-                                <ShieldCheck className="w-5 h-5 text-gray-400 group-hover:text-[#10E774] group-hover:scale-115 transition-all" />
-                                <span className="group-hover:translate-x-1 transition-transform">TikTok Shop Compliance</span>
-                              </Link>
-                              <Link
-                                href="/services/all-services"
-                                onClick={() => setActiveDropdown(null)}
-                                className="group flex items-center gap-3 py-1.5 text-[15px] font-semibold text-[#007A3D] hover:underline transition"
-                              >
-                                <ArrowUpRight className="w-5 h-5 text-[#007A3D] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-                                <span className="group-hover:translate-x-1 transition-transform">View All Capabilities</span>
-                              </Link>
-                            </div>
+                                <path
+                                  d="M15.125 10.875L10.625 15.375L9.56 14.31L12.2525 11.625H3.875V2.625H5.375V10.125H12.2525L9.56 7.44L10.625 6.375L15.125 10.875Z"
+                                  fill="currentColor"
+                                />
+                              </svg>
+                              <span>All Our Services</span>
+                            </Link>
                           </div>
 
-                          <div className="md:col-span-4 lg:col-span-3 flex justify-end">
-                            <div className="w-full max-w-[300px] h-36 sm:h-44 rounded-2xl overflow-hidden shadow-md border border-gray-100 relative group bg-black">
-                              <img
-                                src="/assets/banner18.png"
-                                alt="E-GEAD Services"
-                                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-108"
-                              />
+                          {/* Column 2: Industries */}
+                          <div>
+                            <h3 className="text-base sm:text-[17px] font-bold text-gray-900 mb-6 font-montserrat">
+                              Industries
+                            </h3>
+                            <div className="space-y-4 mb-8">
+                              <Link
+                                href="/services/all-services/automotive"
+                                onClick={() => setActiveDropdown(null)}
+                                className="group flex items-center gap-3.5 py-1 text-[15px] font-semibold text-gray-800 hover:text-[#007A3D] transition duration-200"
+                              >
+                                <span className="w-5 h-5 flex items-center justify-center shrink-0">
+                                  <img
+                                    src="/assets/icon_automotive.svg"
+                                    alt="Automotive"
+                                    className="w-5 h-5 object-contain transition-transform group-hover:scale-110"
+                                  />
+                                </span>
+                                <span className="group-hover:translate-x-0.5 transition-transform">Automotive</span>
+                              </Link>
+
+                              <Link
+                                href="/services/all-services/banking-insurance"
+                                onClick={() => setActiveDropdown(null)}
+                                className="group flex items-center gap-3.5 py-1 text-[15px] font-semibold text-gray-800 hover:text-[#007A3D] transition duration-200"
+                              >
+                                <span className="w-5 h-5 flex items-center justify-center shrink-0">
+                                  <img
+                                    src="/assets/icon_banking.svg"
+                                    alt="Banking & Insurance"
+                                    className="w-5 h-5 object-contain transition-transform group-hover:scale-110"
+                                  />
+                                </span>
+                                <span className="group-hover:translate-x-0.5 transition-transform">Banking & Insurance</span>
+                              </Link>
+
+                              <Link
+                                href="/services/all-services/chemicals"
+                                onClick={() => setActiveDropdown(null)}
+                                className="group flex items-center gap-3.5 py-1 text-[15px] font-semibold text-gray-800 hover:text-[#007A3D] transition duration-200"
+                              >
+                                <span className="w-5 h-5 flex items-center justify-center shrink-0">
+                                  <img
+                                    src="/assets/icon_chemicals.svg"
+                                    alt="Chemicals"
+                                    className="w-5 h-5 object-contain transition-transform group-hover:scale-110"
+                                  />
+                                </span>
+                                <span className="group-hover:translate-x-0.5 transition-transform">Chemicals</span>
+                              </Link>
+
+                              <Link
+                                href="/services/all-services/consumer-goods"
+                                onClick={() => setActiveDropdown(null)}
+                                className="group flex items-center gap-3.5 py-1 text-[15px] font-semibold text-gray-800 hover:text-[#007A3D] transition duration-200"
+                              >
+                                <span className="w-5 h-5 flex items-center justify-center shrink-0">
+                                  <img
+                                    src="/assets/icon_consumergoods.svg"
+                                    alt="Consumer Goods"
+                                    className="w-5 h-5 object-contain transition-transform group-hover:scale-110"
+                                  />
+                                </span>
+                                <span className="group-hover:translate-x-0.5 transition-transform">Consumer Goods</span>
+                              </Link>
+
+                              <Link
+                                href="/services/all-services/fashion"
+                                onClick={() => setActiveDropdown(null)}
+                                className="group flex items-center gap-3.5 py-1 text-[15px] font-semibold text-gray-800 hover:text-[#007A3D] transition duration-200"
+                              >
+                                <span className="w-5 h-5 flex items-center justify-center shrink-0">
+                                  <img
+                                    src="/assets/icon_fashion.svg"
+                                    alt="Fashion & Lifestyle"
+                                    className="w-5 h-5 object-contain transition-transform group-hover:scale-110"
+                                  />
+                                </span>
+                                <span className="group-hover:translate-x-0.5 transition-transform">Fashion & Lifestyle</span>
+                              </Link>
+
+                              <Link
+                                href="/services/all-services/health-science"
+                                onClick={() => setActiveDropdown(null)}
+                                className="group flex items-center gap-3.5 py-1 text-[15px] font-semibold text-gray-800 hover:text-[#007A3D] transition duration-200"
+                              >
+                                <span className="w-5 h-5 flex items-center justify-center shrink-0">
+                                  <img
+                                    src="/assets/icon_science.svg"
+                                    alt="Health & Science"
+                                    className="w-5 h-5 object-contain transition-transform group-hover:scale-110"
+                                  />
+                                </span>
+                                <span className="group-hover:translate-x-0.5 transition-transform">Health & Science</span>
+                              </Link>
                             </div>
+
+                            <Link
+                              href="/services/all-services#industries"
+                              onClick={() => setActiveDropdown(null)}
+                              className="inline-flex items-center gap-2 px-5 py-2 rounded-full border border-gray-300 hover:border-black text-[13.5px] font-semibold text-gray-800 hover:text-black transition duration-200 hover:bg-gray-50/80 shadow-sm"
+                            >
+                              <svg
+                                width="15"
+                                height="15"
+                                viewBox="0 0 19 18"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                                className="fill-current text-gray-700"
+                              >
+                                <path
+                                  d="M15.125 10.875L10.625 15.375L9.56 14.31L12.2525 11.625H3.875V2.625H5.375V10.125H12.2525L9.56 7.44L10.625 6.375L15.125 10.875Z"
+                                  fill="currentColor"
+                                />
+                              </svg>
+                              <span>All Industries</span>
+                            </Link>
+                          </div>
+
+                          {/* Column 3: Partners */}
+                          <div>
+                            <h3 className="text-base sm:text-[17px] font-bold text-gray-900 mb-6 font-montserrat">
+                              Partners
+                            </h3>
+                            <div className="space-y-4 mb-8">
+                              <Link
+                                href="/partners/sap"
+                                onClick={() => setActiveDropdown(null)}
+                                className="group flex items-center py-1 text-[15px] font-semibold text-gray-800 hover:text-[#007A3D] transition duration-200"
+                              >
+                                <span className="group-hover:translate-x-0.5 transition-transform">SAP</span>
+                              </Link>
+
+                              <Link
+                                href="/partners/shopify-plus"
+                                onClick={() => setActiveDropdown(null)}
+                                className="group flex items-center py-1 text-[15px] font-semibold text-gray-800 hover:text-[#007A3D] transition duration-200"
+                              >
+                                <span className="group-hover:translate-x-0.5 transition-transform">Shopify Plus</span>
+                              </Link>
+
+                              <Link
+                                href="/partners/site-core"
+                                onClick={() => setActiveDropdown(null)}
+                                className="group flex items-center py-1 text-[15px] font-semibold text-gray-800 hover:text-[#007A3D] transition duration-200"
+                              >
+                                <span className="group-hover:translate-x-0.5 transition-transform">Sitecore</span>
+                              </Link>
+
+                              <Link
+                                href="/partners/stripe"
+                                onClick={() => setActiveDropdown(null)}
+                                className="group flex items-center py-1 text-[15px] font-semibold text-gray-800 hover:text-[#007A3D] transition duration-200"
+                              >
+                                <span className="group-hover:translate-x-0.5 transition-transform">Stripe</span>
+                              </Link>
+                            </div>
+
+                            <Link
+                              href="/partners"
+                              onClick={() => setActiveDropdown(null)}
+                              className="inline-flex items-center gap-2 px-5 py-2 rounded-full border border-gray-300 hover:border-black text-[13.5px] font-semibold text-gray-800 hover:text-black transition duration-200 hover:bg-gray-50/80 shadow-sm"
+                            >
+                              <svg
+                                width="15"
+                                height="15"
+                                viewBox="0 0 19 18"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                                className="fill-current text-gray-700"
+                              >
+                                <path
+                                  d="M15.125 10.875L10.625 15.375L9.56 14.31L12.2525 11.625H3.875V2.625H5.375V10.125H12.2525L9.56 7.44L10.625 6.375L15.125 10.875Z"
+                                  fill="currentColor"
+                                />
+                              </svg>
+                              <span>All Partners</span>
+                            </Link>
                           </div>
                         </div>
                       </div>
@@ -410,78 +608,95 @@ export default function Header() {
                     {/* Insights Submenu */}
                     {activeDropdown === 'insights' && (
                       <div>
-                        <h3 className="text-xs sm:text-sm font-semibold text-gray-500 mb-6 tracking-wide uppercase">
-                          Insights & Strategy
+                        <h3 className="text-base sm:text-[17px] font-bold text-gray-900 mb-8 font-montserrat">
+                          Insights
                         </h3>
-                        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
-                          <div className="md:col-span-8 lg:col-span-9 grid grid-cols-1 sm:grid-cols-3 gap-6 lg:gap-8">
-                            <div className="space-y-4">
-                              <Link
-                                href="/articles/global-market-expansion-cross-border-ecommerce"
-                                onClick={() => setActiveDropdown(null)}
-                                className="group flex items-center gap-3 py-1.5 text-[15px] font-semibold text-gray-800 hover:text-[#007A3D] transition"
-                              >
-                                <Globe className="w-5 h-5 text-gray-400 group-hover:text-[#10E774] group-hover:scale-115 transition-all" />
-                                <span className="group-hover:translate-x-1 transition-transform">Global Market Expansion</span>
-                              </Link>
-                              <Link
-                                href="/articles/tiktok-shop-us-compliance-sub-24h-pod-fulfillment"
-                                onClick={() => setActiveDropdown(null)}
-                                className="group flex items-center gap-3 py-1.5 text-[15px] font-semibold text-gray-800 hover:text-[#007A3D] transition"
-                              >
-                                <ShieldCheck className="w-5 h-5 text-gray-400 group-hover:text-[#10E774] group-hover:scale-115 transition-all" />
-                                <span className="group-hover:translate-x-1 transition-transform">TikTok Shop US SLA</span>
-                              </Link>
-                            </div>
-
-                            <div className="space-y-4">
-                              <Link
-                                href="/articles/wms-barcode-real-time-multi-channel-sync"
-                                onClick={() => setActiveDropdown(null)}
-                                className="group flex items-center gap-3 py-1.5 text-[15px] font-semibold text-gray-800 hover:text-[#007A3D] transition"
-                              >
-                                <Boxes className="w-5 h-5 text-gray-400 group-hover:text-[#10E774] group-hover:scale-115 transition-all" />
-                                <span className="group-hover:translate-x-1 transition-transform">WMS Barcode & Sync</span>
-                              </Link>
-                              <Link
-                                href="/insights"
-                                onClick={() => setActiveDropdown(null)}
-                                className="group flex items-center gap-3 py-1.5 text-[15px] font-semibold text-gray-800 hover:text-[#007A3D] transition"
-                              >
-                                <BookOpen className="w-5 h-5 text-gray-400 group-hover:text-[#10E774] group-hover:scale-115 transition-all" />
-                                <span className="group-hover:translate-x-1 transition-transform">Seller Playbooks</span>
-                              </Link>
-                            </div>
-
-                            <div className="space-y-4">
-                              <Link
-                                href="/our-work"
-                                onClick={() => setActiveDropdown(null)}
-                                className="group flex items-center gap-3 py-1.5 text-[15px] font-semibold text-gray-800 hover:text-[#007A3D] transition"
-                              >
-                                <Sparkles className="w-5 h-5 text-gray-400 group-hover:text-[#10E774] group-hover:scale-115 transition-all" />
-                                <span className="group-hover:translate-x-1 transition-transform">Brand Case Studies</span>
-                              </Link>
-                              <Link
-                                href="/insights"
-                                onClick={() => setActiveDropdown(null)}
-                                className="group flex items-center gap-3 py-1.5 text-[15px] font-semibold text-[#007A3D] hover:underline transition"
-                              >
-                                <ArrowUpRight className="w-5 h-5 text-[#007A3D] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-                                <span className="group-hover:translate-x-1 transition-transform">Explore All Articles</span>
-                              </Link>
-                            </div>
-                          </div>
-
-                          <div className="md:col-span-4 lg:col-span-3 flex justify-end">
-                            <div className="w-full max-w-[300px] h-36 sm:h-44 rounded-2xl overflow-hidden shadow-md border border-gray-100 relative group bg-black">
+                        <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 lg:gap-12 mb-8">
+                          <Link
+                            href="/webinars"
+                            onClick={() => setActiveDropdown(null)}
+                            className="group flex items-center gap-3.5 py-1 text-[15px] font-semibold text-gray-800 hover:text-[#007A3D] transition duration-200"
+                          >
+                            <span className="w-5 h-5 flex items-center justify-center shrink-0">
                               <img
-                                src="/assets/smartcx-2.png"
-                                alt="E-GEAD Insights"
-                                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-108"
+                                src="/assets/icon_webinar.svg"
+                                alt="Webinars"
+                                className="w-5 h-5 object-contain transition-transform group-hover:scale-110"
                               />
+                            </span>
+                            <span className="group-hover:translate-x-0.5 transition-transform">Webinars</span>
+                          </Link>
+
+                          <Link
+                            href="/announcements"
+                            onClick={() => setActiveDropdown(null)}
+                            className="group flex items-center gap-3.5 py-1 text-[15px] font-semibold text-gray-800 hover:text-[#007A3D] transition duration-200"
+                          >
+                            <span className="w-5 h-5 flex items-center justify-center shrink-0">
+                              <img
+                                src="/assets/icon_announcement.svg"
+                                alt="Announcements"
+                                className="w-5 h-5 object-contain transition-transform group-hover:scale-110"
+                              />
+                            </span>
+                            <span className="group-hover:translate-x-0.5 transition-transform">Announcements</span>
+                          </Link>
+
+                          <Link
+                            href="/white-papers"
+                            onClick={() => setActiveDropdown(null)}
+                            className="group flex items-center gap-3.5 py-1 text-[15px] font-semibold text-gray-800 hover:text-[#007A3D] transition duration-200"
+                          >
+                            <span className="w-5 h-5 flex items-center justify-center shrink-0">
+                              <img
+                                src="/assets/icon_whitepaper.svg"
+                                alt="White Papers"
+                                className="w-5 h-5 object-contain transition-transform group-hover:scale-110"
+                              />
+                            </span>
+                            <span className="group-hover:translate-x-0.5 transition-transform">White Papers</span>
+                          </Link>
+
+                          <Link
+                            href="/blog"
+                            onClick={() => setActiveDropdown(null)}
+                            className="group flex items-center justify-between py-1 text-[15px] font-semibold text-gray-800 hover:text-[#007A3D] transition duration-200"
+                          >
+                            <div className="flex items-center gap-3.5">
+                              <span className="w-5 h-5 flex items-center justify-center shrink-0">
+                                <img
+                                  src="/assets/icon_blog.svg"
+                                  alt="Blog"
+                                  className="w-5 h-5 object-contain transition-transform group-hover:scale-110"
+                                />
+                              </span>
+                              <span className="group-hover:translate-x-0.5 transition-transform">Blog</span>
                             </div>
-                          </div>
+                            <ChevronRight className="w-4 h-4 text-gray-400 group-hover:text-[#007A3D] group-hover:translate-x-1 transition-all" />
+                          </Link>
+                        </div>
+
+                        <div className="pt-2">
+                          <Link
+                            href="/insights"
+                            onClick={() => setActiveDropdown(null)}
+                            className="inline-flex items-center gap-2 px-5 py-2 rounded-full border border-gray-300 hover:border-black text-[13.5px] font-semibold text-gray-800 hover:text-black transition duration-200 hover:bg-gray-50/80 shadow-sm"
+                          >
+                            <svg
+                              width="15"
+                              height="15"
+                              viewBox="0 0 19 18"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                              className="fill-current text-gray-700"
+                            >
+                              <path
+                                d="M15.125 10.875L10.625 15.375L9.56 14.31L12.2525 11.625H3.875V2.625H5.375V10.125H12.2525L9.56 7.44L10.625 6.375L15.125 10.875Z"
+                                fill="currentColor"
+                              />
+                            </svg>
+                            <span>All Insights</span>
+                          </Link>
                         </div>
                       </div>
                     )}
@@ -489,74 +704,90 @@ export default function Header() {
                     {/* Company Submenu */}
                     {activeDropdown === 'company' && (
                       <div>
-                        <h3 className="text-xs sm:text-sm font-semibold text-gray-500 mb-6 tracking-wide uppercase">
+                        <h3 className="text-base sm:text-[17px] font-bold text-gray-900 mb-8 font-montserrat">
                           Company
                         </h3>
                         <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
                           <div className="md:col-span-8 lg:col-span-9 grid grid-cols-1 sm:grid-cols-3 gap-6 lg:gap-8">
+                            {/* Column 1: About us & Our Offices */}
                             <div className="space-y-4">
                               <Link
                                 href="/company"
                                 onClick={() => setActiveDropdown(null)}
-                                className="group flex items-center gap-3 py-1.5 text-[15px] font-semibold text-gray-800 hover:text-[#007A3D] transition"
+                                className="group flex items-center gap-3.5 py-1 text-[15px] font-semibold text-gray-800 hover:text-[#007A3D] transition duration-200"
                               >
-                                <Building2 className="w-5 h-5 text-gray-400 group-hover:text-[#10E774] group-hover:scale-115 transition-all" />
-                                <span className="group-hover:translate-x-1 transition-transform">About E-GEAD</span>
+                                <span className="w-5 h-5 flex items-center justify-center shrink-0">
+                                  <img
+                                    src="/assets/icon_about_us.svg"
+                                    alt="About us"
+                                    className="w-5 h-5 object-contain transition-transform group-hover:scale-110"
+                                  />
+                                </span>
+                                <span className="group-hover:translate-x-0.5 transition-transform">About us</span>
                               </Link>
+
+                              <Link
+                                href="/contact-us"
+                                onClick={() => setActiveDropdown(null)}
+                                className="group flex items-center gap-3.5 py-1 text-[15px] font-semibold text-gray-800 hover:text-[#007A3D] transition duration-200 border-b border-gray-100 pb-3"
+                              >
+                                <span className="w-5 h-5 flex items-center justify-center shrink-0">
+                                  <img
+                                    src="/assets/icon_offices.svg"
+                                    alt="Our Offices"
+                                    className="w-5 h-5 object-contain transition-transform group-hover:scale-110"
+                                  />
+                                </span>
+                                <span className="group-hover:translate-x-0.5 transition-transform">Our Offices</span>
+                              </Link>
+                            </div>
+
+                            {/* Column 2: Careers */}
+                            <div className="space-y-4">
+                              <Link
+                                href="/careers"
+                                onClick={() => setActiveDropdown(null)}
+                                className="group flex items-center justify-between py-1 text-[15px] font-semibold text-gray-800 hover:text-[#007A3D] transition duration-200"
+                              >
+                                <div className="flex items-center gap-3.5">
+                                  <span className="w-5 h-5 flex items-center justify-center shrink-0">
+                                    <img
+                                      src="/assets/icon_career.svg"
+                                      alt="Careers"
+                                      className="w-5 h-5 object-contain transition-transform group-hover:scale-110"
+                                    />
+                                  </span>
+                                  <span className="group-hover:translate-x-0.5 transition-transform">Careers</span>
+                                </div>
+                                <ChevronRight className="w-4 h-4 text-gray-400 group-hover:text-[#007A3D] group-hover:translate-x-1 transition-all" />
+                              </Link>
+                            </div>
+
+                            {/* Column 3: Our People */}
+                            <div className="space-y-4">
                               <Link
                                 href="/people"
                                 onClick={() => setActiveDropdown(null)}
-                                className="group flex items-center gap-3 py-1.5 text-[15px] font-semibold text-gray-800 hover:text-[#007A3D] transition"
+                                className="group flex items-center gap-3.5 py-1 text-[15px] font-semibold text-gray-800 hover:text-[#007A3D] transition duration-200"
                               >
-                                <Users className="w-5 h-5 text-gray-400 group-hover:text-[#10E774] group-hover:scale-115 transition-all" />
-                                <span className="group-hover:translate-x-1 transition-transform">Our People</span>
-                              </Link>
-                            </div>
-
-                            <div className="space-y-4">
-                              <Link
-                                href="/career"
-                                onClick={() => setActiveDropdown(null)}
-                                className="group flex items-center gap-3 py-1.5 text-[15px] font-semibold text-gray-800 hover:text-[#007A3D] transition"
-                              >
-                                <Briefcase className="w-5 h-5 text-gray-400 group-hover:text-[#10E774] group-hover:scale-115 transition-all" />
-                                <span className="group-hover:translate-x-1 transition-transform">Careers</span>
-                              </Link>
-                              <Link
-                                href="/testimonial"
-                                onClick={() => setActiveDropdown(null)}
-                                className="group flex items-center gap-3 py-1.5 text-[15px] font-semibold text-gray-800 hover:text-[#007A3D] transition"
-                              >
-                                <Award className="w-5 h-5 text-gray-400 group-hover:text-[#10E774] group-hover:scale-115 transition-all" />
-                                <span className="group-hover:translate-x-1 transition-transform">Testimonials</span>
-                              </Link>
-                            </div>
-
-                            <div className="space-y-4">
-                              <Link
-                                href="/contact-us"
-                                onClick={() => setActiveDropdown(null)}
-                                className="group flex items-center gap-3 py-1.5 text-[15px] font-semibold text-gray-800 hover:text-[#007A3D] transition"
-                              >
-                                <Mail className="w-5 h-5 text-gray-400 group-hover:text-[#10E774] group-hover:scale-115 transition-all" />
-                                <span className="group-hover:translate-x-1 transition-transform">Contact Us</span>
-                              </Link>
-                              <Link
-                                href="/contact-us"
-                                onClick={() => setActiveDropdown(null)}
-                                className="group flex items-center gap-3 py-1.5 text-[15px] font-semibold text-gray-800 hover:text-[#007A3D] transition"
-                              >
-                                <MapPin className="w-5 h-5 text-gray-400 group-hover:text-[#10E774] group-hover:scale-115 transition-all" />
-                                <span className="group-hover:translate-x-1 transition-transform">Buon Ma Thuot HQ</span>
+                                <span className="w-5 h-5 flex items-center justify-center shrink-0">
+                                  <img
+                                    src="/assets/icon_people.svg"
+                                    alt="Our People"
+                                    className="w-5 h-5 object-contain transition-transform group-hover:scale-110"
+                                  />
+                                </span>
+                                <span className="group-hover:translate-x-0.5 transition-transform">Our People</span>
                               </Link>
                             </div>
                           </div>
 
+                          {/* Column 4: Featured Image Card */}
                           <div className="md:col-span-4 lg:col-span-3 flex justify-end">
                             <div className="w-full max-w-[300px] h-36 sm:h-44 rounded-2xl overflow-hidden shadow-md border border-gray-100 relative group bg-black">
                               <img
-                                src="/assets/Rectangle_539.jpg"
-                                alt="E-GEAD Headquarters"
+                                src="/assets/menu_company.jpg"
+                                alt="E-GEAD Company"
                                 className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-108"
                               />
                             </div>
