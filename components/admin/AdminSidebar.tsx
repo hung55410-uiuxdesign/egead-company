@@ -18,6 +18,7 @@ import {
   UserPlus,
   Users,
   FileInput,
+  GitFork,
 } from 'lucide-react';
 import { useSession, authClient } from '@/lib/auth-client';
 import { Badge, Button } from '@astryxdesign/core';
@@ -50,6 +51,27 @@ const CONTENT_NAV_ITEMS = [
     label: 'Chuyên mục & Thẻ',
     href: '/admin/categories',
     icon: FolderTree,
+    exact: false,
+  },
+];
+
+const PEOPLE_NAV_ITEMS = [
+  {
+    label: 'Danh sách nhân sự',
+    href: '/admin/people',
+    icon: Users,
+    exact: true,
+  },
+  {
+    label: 'Thêm nhân sự mới',
+    href: '/admin/people/new',
+    icon: UserPlus,
+    exact: false,
+  },
+  {
+    label: 'Sơ đồ tổ chức & Squads',
+    href: '/admin/people/hierarchy',
+    icon: GitFork,
     exact: false,
   },
 ];
@@ -165,6 +187,47 @@ export default function AdminSidebar({ isOpen, onClose }: AdminSidebarProps) {
             </div>
             <nav className="space-y-1">
               {CONTENT_NAV_ITEMS.map((item) => {
+                const Icon = item.icon;
+                const isActive = item.exact
+                  ? pathname === item.href
+                  : pathname?.startsWith(item.href);
+
+                return (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    onClick={onClose}
+                    className={`flex items-center justify-between px-3 py-2.5 rounded-xl text-xs font-semibold transition-all duration-150 ${
+                      isActive
+                        ? 'bg-emerald-50/90 text-emerald-900 border border-emerald-200/90 font-bold'
+                        : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100/70 border border-transparent'
+                    }`}
+                  >
+                    <div className="flex items-center gap-2.5">
+                      <Icon
+                        className={`w-4 h-4 transition-colors ${
+                          isActive ? 'text-emerald-600' : 'text-slate-400'
+                        }`}
+                      />
+                      <span>{item.label}</span>
+                    </div>
+                    {isActive && (
+                      <span className="w-1.5 h-4 bg-emerald-600 rounded-full" />
+                    )}
+                  </Link>
+                );
+              })}
+            </nav>
+          </div>
+
+          {/* People & Organization Group */}
+          <div>
+            <div className="px-3 mb-2 text-xs font-bold text-slate-500 flex items-center justify-between">
+              <span>Nhân sự &amp; Tổ chức</span>
+              <span className="w-2 h-2 rounded-full bg-emerald-500" />
+            </div>
+            <nav className="space-y-1">
+              {PEOPLE_NAV_ITEMS.map((item) => {
                 const Icon = item.icon;
                 const isActive = item.exact
                   ? pathname === item.href

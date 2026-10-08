@@ -16,21 +16,51 @@ import {
   allExperts,
   DepartmentFilter,
 } from './peopleData';
+import type { LeaderTeamHierarchy } from './leaderTeamData';
 import './people.css';
 
 export { leadershipTeam, allExperts };
 export type { TeamMember, DepartmentFilter };
 
-export default function PeopleClientView() {
+interface PeopleClientViewProps {
+  initialPeople?: TeamMember[];
+  initialHierarchies?: Record<string, LeaderTeamHierarchy>;
+}
+
+export default function PeopleClientView({
+  initialPeople,
+  initialHierarchies,
+}: PeopleClientViewProps = {}) {
   const [activeFilter, setActiveFilter] = useState<DepartmentFilter>('All');
   const [searchQuery, setSearchQuery] = useState('');
   const [isExpanded, setIsExpanded] = useState(false);
   const [selectedMember, setSelectedMember] = useState<TeamMember | null>(null);
   const [activeLeaderId, setActiveLeaderId] = useState<string | null>(null);
 
+  // Dynamic lists from DB props with fallback to static data
+  const leadersList = useMemo(() => {
+    if (initialPeople && initialPeople.length > 0) {
+      const leaders = initialPeople.filter(
+        (p) => p.department === 'Executive Leadership' || p.id.startsWith('lead-')
+      );
+      return leaders.length > 0 ? leaders : leadershipTeam;
+    }
+    return leadershipTeam;
+  }, [initialPeople]);
+
+  const expertsList = useMemo(() => {
+    if (initialPeople && initialPeople.length > 0) {
+      const experts = initialPeople.filter(
+        (p) => p.department !== 'Executive Leadership' && !p.id.startsWith('lead-')
+      );
+      return experts.length > 0 ? experts : allExperts;
+    }
+    return allExperts;
+  }, [initialPeople]);
+
   // Filtered experts based on search and department
   const filteredExperts = useMemo(() => {
-    return allExperts.filter((member) => {
+    return expertsList.filter((member) => {
       const matchesDept =
         activeFilter === 'All' ||
         activeFilter === 'Executive Leadership' ||
@@ -45,7 +75,7 @@ export default function PeopleClientView() {
 
       return matchesDept && matchesSearch;
     });
-  }, [activeFilter, searchQuery]);
+  }, [expertsList, activeFilter, searchQuery]);
 
   // Display 8 experts initially or all when expanded or filtering
   const visibleExperts = useMemo(() => {
@@ -139,8 +169,9 @@ export default function PeopleClientView() {
 
         {/* Leadership Row: Default horizontal track of all 8 leaders / Centered Tree */}
         <LeaderRow
-          leaders={leadershipTeam}
+          leaders={leadersList}
           activeLeaderId={activeLeaderId}
+          hierarchies={initialHierarchies}
           onLeaderChange={setActiveLeaderId}
           onSelectExpert={(expert) => setSelectedMember(expert)}
         />

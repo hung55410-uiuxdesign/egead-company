@@ -3,16 +3,21 @@
 import React from 'react';
 import { Users } from 'lucide-react';
 import { TeamMember } from './peopleData';
-import { leaderHierarchies } from './leaderTeamData';
+import { leaderHierarchies, LeaderTeamHierarchy } from './leaderTeamData';
 import { QuoteIcon, LinkedInIcon } from './LeaderRow';
 
 interface LeaderTreeMapProps {
   leader: TeamMember;
+  hierarchies?: Record<string, LeaderTeamHierarchy>;
   onSelectMember?: (member: TeamMember) => void;
 }
 
-export default function LeaderTreeMap({ leader, onSelectMember }: LeaderTreeMapProps) {
-  const hierarchy = leaderHierarchies[leader.id];
+export default function LeaderTreeMap({
+  leader,
+  hierarchies,
+  onSelectMember,
+}: LeaderTreeMapProps) {
+  const hierarchy = hierarchies ? hierarchies[leader.id] : leaderHierarchies[leader.id];
 
   if (!hierarchy || !hierarchy.childNodes || hierarchy.childNodes.length === 0) {
     return null;

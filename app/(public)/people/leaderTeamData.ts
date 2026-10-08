@@ -11,6 +11,7 @@ export interface SubChildNode {
   skills: string[];
   responsibility: string;
   linkedin?: string;
+  children?: SubChildNode[];
 }
 
 export interface ChildNode {

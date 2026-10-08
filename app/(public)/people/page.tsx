@@ -1,6 +1,11 @@
 import React from 'react';
 import type { Metadata } from 'next';
 import PeopleClientView from './PeopleClientView';
+import { leadershipTeam, allExperts, TeamMember } from './peopleData';
+import { leaderHierarchies, LeaderTeamHierarchy } from './leaderTeamData';
+import { getTeamMembers, getAllHierarchies } from '@/lib/people';
+
+export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
   title: 'Our People | Meet the Team Behind (Y)our Success',
@@ -14,6 +19,39 @@ export const metadata: Metadata = {
   },
 };
 
-export default function PeoplePage() {
-  return <PeopleClientView />;
+export default async function PeoplePage() {
+  let people: TeamMember[] = leadershipTeam.concat(allExperts);
+  let hierarchies: Record<string, LeaderTeamHierarchy> = leaderHierarchies;
+
+  try {
+    const dbPeople = await getTeamMembers({ status: 'published', limit: 100 });
+    if (dbPeople && dbPeople.items && dbPeople.items.length > 0) {
+      people = dbPeople.items.map((m) => ({
+        id: m.id,
+        name: m.name,
+        role: m.role,
+        department: m.department as any,
+        location: m.location,
+        quote: m.quote ?? undefined,
+        image: m.image,
+        linkedin: m.linkedin ?? undefined,
+        bio: m.bio,
+        skills: m.skills,
+      }));
+
+      const dbHierarchies = await getAllHierarchies();
+      if (dbHierarchies && Object.keys(dbHierarchies).length > 0) {
+        hierarchies = dbHierarchies;
+      }
+    }
+  } catch (error) {
+    console.error('Error fetching dynamic people data, using fallback:', error);
+  }
+
+  return (
+    <PeopleClientView
+      initialPeople={people}
+      initialHierarchies={hierarchies}
+    />
+  );
 }

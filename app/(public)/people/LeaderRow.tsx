@@ -9,6 +9,7 @@ import {
   Users,
 } from 'lucide-react';
 import { TeamMember } from './peopleData';
+import { LeaderTeamHierarchy } from './leaderTeamData';
 import LeaderTreeMap from './LeaderTreeMap';
 
 // Exact Quote SVG from SAI Digital
@@ -52,6 +53,7 @@ export function LinkedInIcon({ className = 'w-4 h-4' }: { className?: string }) 
 interface LeaderRowProps {
   leaders: TeamMember[];
   activeLeaderId: string | null;
+  hierarchies?: Record<string, LeaderTeamHierarchy>;
   onLeaderChange: (leaderId: string | null) => void;
   onSelectExpert?: (expert: TeamMember) => void;
 }
@@ -59,6 +61,7 @@ interface LeaderRowProps {
 export default function LeaderRow({
   leaders,
   activeLeaderId,
+  hierarchies,
   onLeaderChange,
   onSelectExpert,
 }: LeaderRowProps) {
@@ -296,6 +299,7 @@ export default function LeaderRow({
           <div className="w-full">
             <LeaderTreeMap
               leader={activeLeader}
+              hierarchies={hierarchies}
               onSelectMember={onSelectExpert}
             />
           </div>

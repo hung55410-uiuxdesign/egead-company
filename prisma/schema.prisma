@@ -124,3 +124,46 @@ model Post {
   @@index([categoryId])
   @@map("post")
 }
+
+// -------------------------------------------------------------
+// E-GEAD People & Organization Models
+// -------------------------------------------------------------
+
+model TeamMember {
+  id          String   @id @default(cuid())
+  name        String
+  role        String
+  department  String   // 'Executive Leadership' | 'Technology & AI' | 'Commerce & Solutions' | 'Fulfillment & Operations' | 'Delivery & Growth'
+  location    String   // 'Singapore / Global', 'Tokyo, Japan', 'Buon Ma Thuot, Vietnam', etc.
+  quote       String?
+  image       String   // URL ảnh Cloudinary / local asset
+  linkedin    String?
+  bio         String   @db.Text
+  skills      String[] // Postgres native text array
+  isLeader    Boolean  @default(false)
+  order       Int      @default(0)
+  status      String   @default("published") // 'published' | 'draft' | 'archived'
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  hierarchy   LeaderHierarchy?
+
+  @@index([department])
+  @@index([isLeader])
+  @@index([status])
+  @@map("team_member")
+}
+
+model LeaderHierarchy {
+  id              String     @id @default(cuid())
+  leaderId        String     @unique
+  leader          TeamMember @relation(fields: [leaderId], references: [id], onDelete: Cascade)
+  departmentScope String
+  overview        String     @db.Text
+  childNodes      Json       // Lưu trữ mảng ChildNode[] (Squad Leads, squads, và sub-members)
+  createdAt       DateTime   @default(now())
+  updatedAt       DateTime   @updatedAt
+
+  @@map("leader_hierarchy")
+}
+
