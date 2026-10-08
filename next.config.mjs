@@ -19,7 +19,6 @@ const nextConfig = {
       { source: '/articles', destination: '/insights' },
       { source: '/career', destination: '/careers' },
       { source: '/career/:path*', destination: '/careers/:path*' },
-      { source: '/services/all-services/:path*', destination: '/services/all-services' },
       { source: '/partners/:path*', destination: '/partners' },
       { source: '/catalyzer/smartprice', destination: '/smartprice' },
     ];

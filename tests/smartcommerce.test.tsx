@@ -29,13 +29,16 @@ describe("SmartCommerce Page (Authentic SAI Digital Match)", () => {
   });
 
   describe("Compatible With Section", () => {
-    test("renders all 5 partner platform logos", () => {
+    test("renders partner platform logos from public/assets/partners", () => {
       expect(html).toContain("Compatible with");
-      expect(html).toContain("/images/smartcommerce/logo_SAP.png");
-      expect(html).toContain("/images/smartcommerce/logo_Sitecore.png");
-      expect(html).toContain("/images/smartcommerce/logo_shopify.svg");
-      expect(html).toContain("/images/smartcommerce/logo_BigCommerce.png");
-      expect(html).toContain("/images/smartcommerce/logo__WooCommerce.png");
+      expect(html).toContain("/assets/partners/09.svg");
+      expect(html).toContain("/assets/partners/02.svg");
+      expect(html).toContain("/assets/partners/03.svg");
+      expect(html).toContain("/assets/partners/20.svg");
+      expect(html).toContain("/assets/partners/17.svg");
+      expect(html).toContain("/assets/partners/24.svg");
+      expect(html).toContain("/assets/partners/26.svg");
+      expect(html).toContain("/assets/partners/01.svg");
     });
   });
 

@@ -2,7 +2,10 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import { motion, type Variants } from 'framer-motion';
 import './smartcommerce.css';
+
+const MotionLink = motion.create(Link);
 
 // SAI signature diagonal arrow icon
 const SaiArrow = ({ className = 'w-[19px] h-[18px]' }: { className?: string }) => (
@@ -24,7 +27,7 @@ const SparkleStar = () => (
   >
     <path
       d="M28.7182 16.5C21.368 19.9784 18.5686 22.7955 15.112 30.1922C11.6555 22.7955 8.85609 19.9784 1.50586 16.5C8.85609 13.0216 11.6555 10.2045 15.112 2.80786C18.5686 10.2045 21.368 13.0216 28.7182 16.5Z"
-      fill="#141616"
+      fill="#003D5B"
     />
   </svg>
 );
@@ -56,6 +59,18 @@ const CATEGORIES: CategoryTab[] = [
   { id: 'prp', label: 'Pricing & Promotions' },
   { id: 'sed', label: 'Search & Discovery' },
   { id: 'ana', label: 'Analytics & Decisions' },
+];
+
+// Compatible partner logos from public/assets/partners
+const COMPATIBLE_PARTNERS = [
+  { name: 'Amazon', src: '/assets/partners/09.svg' },
+  { name: 'Bolt', src: '/assets/partners/02.svg' },
+  { name: 'Webflow', src: '/assets/partners/03.svg' },
+  { name: 'Gorgias', src: '/assets/partners/20.svg' },
+  { name: 'Omnisend', src: '/assets/partners/17.svg' },
+  { name: 'Brevo', src: '/assets/partners/24.svg' },
+  { name: 'Attentive', src: '/assets/partners/26.svg' },
+  { name: 'Typeform', src: '/assets/partners/01.svg' },
 ];
 
 interface ModuleItem {
@@ -414,6 +429,56 @@ const MODULES_DATA: ModuleItem[] = [
   },
 ];
 
+// Reusable motion animation variants for smooth scroll reveals
+const fadeInUp: Variants = {
+  hidden: { opacity: 0, y: 28 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.65,
+      ease: [0.22, 1, 0.36, 1],
+    },
+  },
+};
+
+const staggerContainer: Variants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.08,
+      delayChildren: 0.05,
+    },
+  },
+};
+
+const staggerItem: Variants = {
+  hidden: { opacity: 0, y: 20, scale: 0.94 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: {
+      duration: 0.5,
+      ease: [0.22, 1, 0.36, 1],
+    },
+  },
+};
+
+const sparkleIconVariants: Variants = {
+  hidden: { opacity: 0, scale: 0.6, rotate: -20 },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    rotate: 0,
+    transition: {
+      duration: 0.6,
+      ease: [0.22, 1, 0.36, 1],
+    },
+  },
+};
+
 export default function SmartCommerceClient() {
   const [activeCategory, setActiveCategory] = useState<CategoryKey>('all');
 
@@ -427,13 +492,23 @@ export default function SmartCommerceClient() {
       {/* 1. Hero Section (.smartcommerce-area) */}
       <section className="smartcommerce-area">
         <div className="smart-inner">
-          <div className="smart-logo">
+          <motion.div
+            className="smart-logo"
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          >
             <img
               src="/images/smartcommerce/Logo_SmartCommerce.png"
               alt="SmartCommerce Logo"
             />
-          </div>
-          <div className="smart-title">
+          </motion.div>
+          <motion.div
+            className="smart-title"
+            initial={{ opacity: 0, y: 25 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
+          >
             <div className="smart-title-row1">
               <span className="smart-title-spec">
                 <SparkleStar />
@@ -442,15 +517,44 @@ export default function SmartCommerceClient() {
               for
             </div>
             <div className="smart-title-row2">Enterprise Commerce.</div>
-          </div>
-          <p className="smart-desc">
+          </motion.div>
+          <motion.p
+            className="smart-desc"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+          >
             Shift from transactional to intelligent commerce, faster.
-          </p>
-          <Link href="/contact-us" className="smart-button">
+          </motion.p>
+          <MotionLink
+            href="/contact-us"
+            className="smart-button"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.45, ease: [0.22, 1, 0.36, 1] }}
+            whileHover={{ scale: 1.04 }}
+            whileTap={{ scale: 0.97 }}
+          >
             <SaiArrow />
             Schedule demo
-          </Link>
+          </MotionLink>
         </div>
+        {/* Glowing Ambient Aura & Video Background */}
+        <motion.div
+          className="smart-hero__ambient-glow loyalty-hero__ambient-glow"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1.2, delay: 0.2 }}
+        />
+        <video
+          src="/assets/loyalty/loyalty-bg03.mp4"
+          className="smart-hero__video loyalty-hero__video"
+          autoPlay
+          muted
+          loop
+          playsInline
+        />
+
         <div className="smart-bkg">
           <img
             src="/images/smartcommerce/BG_01.jpg"
@@ -461,62 +565,96 @@ export default function SmartCommerceClient() {
 
       {/* 2. Compatible With Section (.logo-slider) */}
       <section className="logo-slider">
-        <p className="logo-slider__subtitle">Compatible with</p>
-        <div className="logo-slider__list">
-          <div className="logo-slider__item">
-            <img src="/images/smartcommerce/logo_SAP.png" alt="SAP" />
-          </div>
-          <div className="logo-slider__item">
-            <img src="/images/smartcommerce/logo_Sitecore.png" alt="Sitecore" />
-          </div>
-          <div className="logo-slider__item">
-            <img src="/images/smartcommerce/logo_shopify.svg" alt="Shopify" />
-          </div>
-          <div className="logo-slider__item">
-            <img src="/images/smartcommerce/logo_BigCommerce.png" alt="BigCommerce" />
-          </div>
-          <div className="logo-slider__item">
-            <img src="/images/smartcommerce/logo__WooCommerce.png" alt="WooCommerce" />
-          </div>
-        </div>
+        <motion.p
+          className="logo-slider__subtitle"
+          initial={{ opacity: 0, y: 15 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.4 }}
+          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+        >
+          Compatible with
+        </motion.p>
+        <motion.div
+          className="logo-slider__list"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+          variants={staggerContainer}
+        >
+          {COMPATIBLE_PARTNERS.map((partner) => (
+            <motion.div
+              key={partner.name}
+              className="logo-slider__item"
+              variants={staggerItem}
+              whileHover={{ scale: 1.1, transition: { duration: 0.2 } }}
+            >
+              <img src={partner.src} alt={partner.name} />
+            </motion.div>
+          ))}
+        </motion.div>
       </section>
 
       {/* 3. Block 1: 30+ AI Modules & Strategic Objectives (.smart-block1) */}
-      <section className="smart-block1">
-        <div className="smart-block1-icon">
+      <motion.section
+        className="smart-block1"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.2, margin: '0px 0px -40px 0px' }}
+        variants={{
+          hidden: { opacity: 0 },
+          visible: {
+            opacity: 1,
+            transition: {
+              staggerChildren: 0.12,
+              delayChildren: 0.05,
+            },
+          },
+        }}
+      >
+        <motion.div className="smart-block1-icon" variants={sparkleIconVariants}>
           <img src="/images/smartcommerce/icon_sparkle3.png" alt="Sparkle" />
-        </div>
-        <div className="smart-block1-title">
+        </motion.div>
+        <motion.div className="smart-block1-title" variants={fadeInUp}>
           <span className="smart-block1-title-gradient">30+ AI modules</span>
           <span>strategically designed to</span>
-        </div>
-        <div className="smart-block1-list">
-          <div>
+        </motion.div>
+        <motion.div className="smart-block1-list" variants={staggerContainer}>
+          <motion.div
+            variants={staggerItem}
+            whileHover={{ scale: 1.04, transition: { duration: 0.2 } }}
+          >
             accelerate growth
             <img src="/images/smartcommerce/icon_Growth.svg" alt="Growth" />
-          </div>
-          <div>
+          </motion.div>
+          <motion.div
+            variants={staggerItem}
+            whileHover={{ scale: 1.04, transition: { duration: 0.2 } }}
+          >
             boost efficiency
             <img src="/images/smartcommerce/icon_Efficiency.svg" alt="Efficiency" />
-          </div>
-          <div>
+          </motion.div>
+          <motion.div
+            variants={staggerItem}
+            whileHover={{ scale: 1.04, transition: { duration: 0.2 } }}
+          >
             &amp; transform
             <img src="/images/smartcommerce/icon_Transform.svg" alt="Transform" />
-          </div>
-        </div>
-        <div className="smart-block1-desc">
+          </motion.div>
+        </motion.div>
+        <motion.div className="smart-block1-desc" variants={fadeInUp}>
           every facet of your enterprise digital commerce ecosystem.
-        </div>
-      </section>
+        </motion.div>
+      </motion.section>
 
-      {/* 4. Background Overlay Graphic */}
-      <div className="smart-background">
-        <img src="/images/smartcommerce/BG_02.jpg" alt="Background pattern" />
-      </div>
-
-      {/* 5. Main AI Module Grid & Filter Toolbar (.smart-main) */}
-      <section className="smart-main-container">
-        <div className="smart-main-toolbar">
+      {/* 4. Main AI Module Grid & Filter Toolbar (.smart-main) */}
+      <section className="smart-main-container w-full px-4 sm:px-8 md:px-10 lg:px-14 xl:px-16 2xl:px-20 pb-16 sm:pb-24">
+        <motion.div
+          className="smart-main-toolbar"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.4 }}
+          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+        >
           <ul className="smart-main-toolbar-inner">
             {CATEGORIES.map((cat) => (
               <li
@@ -528,11 +666,18 @@ export default function SmartCommerceClient() {
               </li>
             ))}
           </ul>
-        </div>
+        </motion.div>
 
         <div className="smart-main-list">
           {filteredModules.map((module) => (
-            <div key={module.id} className="sml-element active">
+            <motion.div
+              key={module.id}
+              className="sml-element active"
+              initial={{ opacity: 0, y: 35 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.1, margin: '0px 0px -40px 0px' }}
+              transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+            >
               <div className="sml-element-inner">
                 <div className="sml-top">
                   <div className="sml-title">{module.title}</div>
@@ -542,9 +687,8 @@ export default function SmartCommerceClient() {
                   />
                 </div>
                 <div
-                  className={`sml-media media-type-${
-                    module.useVideo && module.video ? 'video' : 'image'
-                  }`}
+                  className={`sml-media media-type-${module.useVideo && module.video ? 'video' : 'image'
+                    }`}
                 >
                   <div className="sml-img">
                     <img
@@ -573,75 +717,141 @@ export default function SmartCommerceClient() {
                   )}
                 </div>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </section>
 
       {/* 6. Block 2: AI Applications across Industries (.smart-block2) */}
-      <section className="smart-block2">
-        <div className="smart-block2-icon">
+      <motion.section
+        className="smart-block2"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.2, margin: '0px 0px -40px 0px' }}
+        variants={{
+          hidden: { opacity: 0 },
+          visible: {
+            opacity: 1,
+            transition: {
+              staggerChildren: 0.1,
+              delayChildren: 0.05,
+            },
+          },
+        }}
+      >
+        <motion.div className="smart-block2-icon" variants={sparkleIconVariants}>
           <img src="/images/smartcommerce/icon_sparkle3.png" alt="Sparkle" />
-        </div>
-        <div className="smart-block2-title">
+        </motion.div>
+        <motion.div className="smart-block2-title" variants={fadeInUp}>
           <p>AI applications</p>
           <p>across major industries</p>
-        </div>
-        <div className="smart-block2-list">
-          <div>
+        </motion.div>
+        <motion.div className="smart-block2-list" variants={staggerContainer}>
+          <motion.div
+            variants={staggerItem}
+            whileHover={{ scale: 1.05, transition: { duration: 0.2 } }}
+          >
             <img src="/images/smartcommerce/icon_Retail.svg" alt="Retail" />
             Retail
-          </div>
-          <div>
+          </motion.div>
+          <motion.div
+            variants={staggerItem}
+            whileHover={{ scale: 1.05, transition: { duration: 0.2 } }}
+          >
             <img src="/images/smartcommerce/icon_Fashion.svg" alt="Fashion & Apparel" />
             Fashion &amp; Apparel
-          </div>
-          <div>
+          </motion.div>
+          <motion.div
+            variants={staggerItem}
+            whileHover={{ scale: 1.05, transition: { duration: 0.2 } }}
+          >
             <img src="/images/smartcommerce/icon_Consumer.svg" alt="Consumer Electronics" />
             Consumer Electronics
-          </div>
-          <div>
+          </motion.div>
+          <motion.div
+            variants={staggerItem}
+            whileHover={{ scale: 1.05, transition: { duration: 0.2 } }}
+          >
             <img src="/images/smartcommerce/icon_FnB.svg" alt="Food and Beverage" />
             Food and Beverage
-          </div>
-          <div>
+          </motion.div>
+          <motion.div
+            variants={staggerItem}
+            whileHover={{ scale: 1.05, transition: { duration: 0.2 } }}
+          >
             <img src="/images/smartcommerce/icon_TravelnHospitality.svg" alt="Travel and Hospitality" />
             Travel and Hospitality
-          </div>
-          <div>
+          </motion.div>
+          <motion.div
+            variants={staggerItem}
+            whileHover={{ scale: 1.05, transition: { duration: 0.2 } }}
+          >
             <img src="/images/smartcommerce/icon_Health.svg" alt="Health and Wellness" />
             Health and Wellness
-          </div>
-          <div>
+          </motion.div>
+          <motion.div
+            variants={staggerItem}
+            whileHover={{ scale: 1.05, transition: { duration: 0.2 } }}
+          >
             <img src="/images/smartcommerce/icon_Automotive.svg" alt="Automotive" />
             Automotive
-          </div>
-          <div>
+          </motion.div>
+          <motion.div
+            variants={staggerItem}
+            whileHover={{ scale: 1.05, transition: { duration: 0.2 } }}
+          >
             <img src="/images/smartcommerce/icon_Beauty.svg" alt="Beauty and Healthcare" />
             Beauty and Healthcare
-          </div>
-          <div>
+          </motion.div>
+          <motion.div
+            variants={staggerItem}
+            whileHover={{ scale: 1.05, transition: { duration: 0.2 } }}
+          >
             <img src="/images/smartcommerce/icon_HomenGarden.svg" alt="Home & Garden" />
             Home &amp; Garden
-          </div>
-          <div>
+          </motion.div>
+          <motion.div
+            variants={staggerItem}
+            whileHover={{ scale: 1.05, transition: { duration: 0.2 } }}
+          >
             <img src="/images/smartcommerce/icon_Manufacturing.svg" alt="Manufacturing" />
             Manufacturing
-          </div>
-        </div>
-      </section>
+          </motion.div>
+        </motion.div>
+      </motion.section>
 
       {/* 7. Contact CTA Block (.contact-block) */}
-      <section className="contact-block">
-        <h2 className="contact-block__title">
+      <motion.section
+        className="contact-block"
+        initial={{ opacity: 0, y: 35 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.3 }}
+        transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
+      >
+        <motion.h2
+          className="contact-block__title"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+        >
           Don't Let Competition
           <br />
           Outpace You.
-        </h2>
-        <Link href="/contact-us" className="ant-btn">
+        </motion.h2>
+        <MotionLink
+          href="/contact-us"
+          className="ant-btn"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.97 }}
+        >
           Let's Talk
-        </Link>
-      </section>
+        </MotionLink>
+      </motion.section>
     </main>
   );
 }

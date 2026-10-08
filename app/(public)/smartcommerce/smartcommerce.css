@@ -1,7 +1,7 @@
-/* SmartCommerce Authentic Styles - matching sai-digital.com */
+/* SmartCommerce Authentic Styles - matching E-GEAD design system */
 
 .smartcommerce-page {
-  background-color: #000000;
+  background-color: #0A0D0E;
   color: #f2f2f2;
   min-height: 100vh;
   position: relative;
@@ -13,32 +13,66 @@
    ========================================================================== */
 .smartcommerce-area {
   display: flex;
+  flex-direction: column;
   text-align: center;
   position: relative;
-  margin-bottom: 90px;
-  padding: 80px 0 10px;
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100svh;
   justify-content: center;
+  align-items: center;
+  padding: 80px 0 40px;
+  margin-bottom: 20px;
   overflow: hidden;
+  background: #0A0D0E;
+  box-sizing: border-box;
 }
 
 .smart-inner {
-  padding: 60px 20px 20px;
-  z-index: 2;
+  padding: 20px;
+  z-index: 3;
   width: 100%;
   max-width: 1200px;
-  margin: 0 auto;
+  margin: auto auto;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.smart-announcement {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border-radius: 40px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.04);
+  padding: 6px 18px;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  color: #ffffff;
+  margin-bottom: 26px;
+  backdrop-filter: blur(8px);
+}
+
+.smart-announcement-icon {
+  display: inline-flex;
+  width: 14px;
+  height: 14px;
 }
 
 .smart-logo {
-  margin-bottom: 36px;
+  margin-bottom: 28px;
 }
 
 .smart-logo img {
-  max-width: 226px;
+  max-width: 250px;
+  width: 100%;
   height: auto;
+  display: block;
+  filter: hue-rotate(220deg) brightness(1.1);
 }
 
 .smart-title {
@@ -51,13 +85,13 @@
 .smart-title-row1 {
   font-size: 58px;
   font-weight: 600;
-  line-height: 72px;
+  line-height: 74px;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 12px;
-  color: #ece7ff;
+  gap: 14px;
+  color: #ffffff;
 }
 
 .smart-title-spec {
@@ -65,28 +99,32 @@
   font-weight: 600;
   line-height: 72px;
   border-radius: 40px;
-  background: radial-gradient(31.44% 165.76% at 101.51% -89.73%, #fba3a5 0%, rgba(129,66,255,0) 100%),
-              radial-gradient(144.23% 174.36% at -24.67% 216.47%, rgba(80,73,102,0.88) 0%, #ffffff 55.79%, hsla(0,0%,100%,0) 100%),
-              #e9e3ff;
-  color: #000000;
-  padding: 0 24px;
+  background: radial-gradient(50% 120% at 90% 0%, rgba(16, 231, 116, 0.35) 0%, rgba(108, 232, 195, 0) 100%),
+              linear-gradient(135deg, #D4FAE6 0%, #FFFFFF 45%, #A8F7E2 100%);
+  color: #003D5B;
+  padding: 0 26px;
   display: inline-flex;
   align-items: center;
   gap: 10px;
   height: 72px;
+  box-shadow: 0 0 35px rgba(16, 231, 116, 0.28);
 }
 
 .smart-title-spec-icon {
-  width: 26px;
-  height: 26px;
+  width: 24px;
+  height: 24px;
   display: inline-block;
+}
+
+.smart-title-spec-icon path {
+  fill: #003D5B;
 }
 
 .smart-title-row2 {
   font-size: 58px;
   font-weight: 600;
-  line-height: 86px;
-  color: #ece7ff;
+  line-height: 82px;
+  color: #ffffff;
   margin-top: 4px;
 }
 
@@ -94,9 +132,9 @@
   font-size: 18px;
   font-weight: 400;
   line-height: 28px;
-  padding: 24px 0 32px;
+  padding: 22px 0 30px;
   color: #b3b3b3;
-  max-width: 650px;
+  max-width: 620px;
   margin: 0 auto;
 }
 
@@ -104,48 +142,98 @@
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  background: #6432ff;
-  color: #ffffff;
-  padding: 15px 32px;
+  background: #10E774;
+  color: #003D5B;
+  padding: 14px 34px;
   border-radius: 64px;
   font-size: 16px;
-  font-weight: 500;
+  font-weight: 700;
   text-decoration: none;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 20px rgba(100, 50, 255, 0.4);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 0 25px rgba(16, 231, 116, 0.4);
 }
 
 .smart-button:hover {
-  background: #784bf8;
+  background: #0ecb66;
+  color: #003D5B;
   transform: translateY(-2px);
-  box-shadow: 0 6px 25px rgba(100, 50, 255, 0.55);
+  box-shadow: 0 0 35px rgba(16, 231, 116, 0.65);
+}
+
+.smart-button svg path {
+  fill: #003D5B;
+}
+
+/* Background video & aura */
+.smartcommerce-area .smart-hero__video,
+.smartcommerce-area .loyalty-hero__video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.35;
+  z-index: 1;
+  pointer-events: none;
+  filter: hue-rotate(225deg);
+}
+
+.smartcommerce-area .smart-hero__ambient-glow,
+.smartcommerce-area .loyalty-hero__ambient-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 75vw;
+  height: 75vh;
+  max-width: 1000px;
+  max-height: 800px;
+  border-radius: 9999px;
+  background: radial-gradient(
+    circle at center,
+    rgba(16, 231, 116, 0.24) 0%,
+    rgba(108, 232, 195, 0.15) 38%,
+    rgba(0, 61, 91, 0.08) 65%,
+    transparent 80%
+  );
+  filter: blur(95px);
+  pointer-events: none;
+  z-index: 1;
 }
 
 .smart-bkg {
   position: absolute;
-  z-index: 1;
-  bottom: -35px;
-  left: 50%;
-  transform: translateX(-50%);
-  pointer-events: none;
+  z-index: 2;
+  bottom: 0;
+  left: 0;
+  right: 0;
   width: 100%;
-  max-width: 1440px;
+  pointer-events: none;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  mix-blend-mode: screen;
 }
 
 .smart-bkg img {
   width: 100%;
+  min-width: 1440px;
   height: auto;
   display: block;
+  object-fit: cover;
+  object-position: bottom center;
+  filter: hue-rotate(225deg) brightness(1.15);
 }
 
 /* ==========================================================================
    Compatible With Logos Section (.logo-slider)
    ========================================================================== */
 .logo-slider {
-  padding: 40px 20px;
+  padding: 50px 20px;
   text-align: center;
   width: 100%;
-  max-width: 1200px;
+  max-width: 1240px;
   margin: 0 auto;
   position: relative;
   z-index: 3;
@@ -153,10 +241,11 @@
 
 .logo-slider__subtitle {
   font-size: 16px;
-  font-weight: 450;
-  line-height: 32px;
-  margin-bottom: 30px;
-  color: #d3f9f5;
+  font-weight: 500;
+  line-height: 28px;
+  margin-bottom: 36px;
+  color: #D4FAE6;
+  opacity: 0.95;
 }
 
 .logo-slider__list {
@@ -164,26 +253,33 @@
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  gap: 60px;
+  gap: 36px 56px;
 }
 
 .logo-slider__item {
-  height: 48px;
+  height: 60px;
+  min-width: 130px;
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 6px 12px;
 }
 
 .logo-slider__item img {
-  max-height: 34px;
+  height: 40px;
+  max-height: 44px;
   width: auto;
+  max-width: 160px;
+  object-fit: contain;
   opacity: 0.85;
-  transition: opacity 0.3s ease, transform 0.3s ease;
+  filter: brightness(0) invert(1);
+  transition: opacity 0.3s ease, transform 0.3s ease, filter 0.3s ease;
 }
 
 .logo-slider__item:hover img {
   opacity: 1;
-  transform: scale(1.05);
+  transform: scale(1.08);
+  filter: brightness(0) invert(1) drop-shadow(0 0 12px rgba(16, 231, 116, 0.5));
 }
 
 /* ==========================================================================
@@ -208,12 +304,13 @@
 .smart-block1-icon img {
   width: 25px;
   height: 25px;
+  filter: hue-rotate(220deg) brightness(1.2) drop-shadow(0 0 10px rgba(16, 231, 116, 0.5));
 }
 
 .smart-block1-title {
   padding: 8px 0;
   font-size: 28px;
-  font-weight: 400;
+  font-weight: 500;
   line-height: 44px;
   color: #f2f2f2;
   display: flex;
@@ -224,12 +321,12 @@
 }
 
 .smart-block1-title-gradient {
-  background: linear-gradient(90deg, #fedec0, #f7c8c7 11.41%, #f0a5b6 70%, #b05bd2);
+  background: linear-gradient(90deg, #6CE8C3 0%, #A8F7E2 40%, #10E774 80%, #FFFFFF 100%);
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   position: relative;
-  font-weight: 500;
+  font-weight: 600;
 }
 
 .smart-block1-list {
@@ -242,17 +339,25 @@
 
 .smart-block1-list div {
   border-radius: 60px;
-  border: 0.8px solid #2c2c2c;
-  background: linear-gradient(0deg, #c7b8fd -31.88%, #fff 116.4%, #9578ff 301.53%, #000 549.2%);
+  border: 1px solid rgba(16, 231, 116, 0.3);
+  background: radial-gradient(60% 120% at 90% 0%, rgba(16, 231, 116, 0.3) 0%, rgba(108, 232, 195, 0) 100%),
+              linear-gradient(135deg, #D4FAE6 0%, #FFFFFF 50%, #A8F7E2 100%);
   height: 52px;
-  padding: 0 8px 0 20px;
+  padding: 0 10px 0 22px;
   font-size: 24px;
-  font-weight: 500;
+  font-weight: 600;
   line-height: 52px;
-  color: #000000;
+  color: #003D5B;
   display: inline-flex;
   align-items: center;
   gap: 10px;
+  box-shadow: 0 4px 20px rgba(16, 231, 116, 0.18);
+  transition: all 0.25s ease;
+}
+
+.smart-block1-list div:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(16, 231, 116, 0.35);
 }
 
 .smart-block1-list div img {
@@ -273,16 +378,7 @@
    Background Section (.smart-background)
    ========================================================================== */
 .smart-background {
-  position: relative;
-  width: 100%;
-  pointer-events: none;
-  z-index: 1;
-}
-
-.smart-background img {
-  width: 100%;
-  height: auto;
-  display: block;
+  display: none;
 }
 
 /* ==========================================================================
@@ -291,9 +387,10 @@
 .smart-main-container {
   position: relative;
   z-index: 3;
-  padding: 0 24px 60px;
-  max-width: 1360px;
+  width: 100%;
+  max-width: 100%;
   margin: 0 auto;
+  box-sizing: border-box;
 }
 
 .smart-main-toolbar {
@@ -310,23 +407,24 @@
   flex-wrap: wrap;
   gap: 6px;
   border-radius: 40px;
-  background: rgba(18, 19, 28, 0.85);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(20, 23, 24, 0.9);
+  backdrop-filter: blur(14px);
+  border: 1px solid #262C30;
   list-style: none;
   margin: 0;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
 }
 
 .smart-main-toolbar .filter-text {
   display: flex;
-  padding: 8px 16px;
+  padding: 8px 18px;
   justify-content: center;
   align-items: center;
   cursor: pointer;
   font-size: 13px;
-  font-weight: 400;
+  font-weight: 500;
   line-height: 18px;
-  color: #d1d5db;
+  color: #a3a8ab;
   border-radius: 64px;
   transition: all 0.25s ease;
   user-select: none;
@@ -335,23 +433,32 @@
 
 .smart-main-toolbar .filter-text:hover {
   color: #ffffff;
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.06);
 }
 
 .smart-main-toolbar .filter-text.active {
-  background: #6432ff;
-  color: #ffffff;
-  font-weight: 500;
+  background: #10E774;
+  color: #003D5B;
+  font-weight: 700;
+  box-shadow: 0 0 18px rgba(16, 231, 116, 0.38);
 }
 
-/* 3-column masonry layout */
+/* Responsive masonry layout */
 .smart-main-list {
+  width: 100%;
   column-count: 3;
-  column-gap: 20px;
+  column-gap: 24px;
+}
+
+@media (min-width: 1750px) {
+  .smart-main-list {
+    column-count: 4;
+    column-gap: 24px;
+  }
 }
 
 .sml-element {
-  margin: 0 0 20px;
+  margin: 0 0 24px;
   break-inside: avoid;
   page-break-inside: avoid;
   display: block;
@@ -362,16 +469,17 @@
   flex-direction: column;
   align-self: stretch;
   border-radius: 16px;
-  border: 0.8px solid #2c2c2c;
-  border-bottom: transparent !important;
-  background: radial-gradient(103.13% 83.84% at 50% 109.59%, #c7b8fd 0%, #000000 61%);
+  border: 1px solid #262C30;
+  background: linear-gradient(180deg, #141718 0%, #0E1112 100%);
   overflow: hidden;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+  transition: all 0.3s ease;
 }
 
 .sml-element:hover .sml-element-inner {
-  border-color: rgba(199, 184, 253, 0.35);
-  box-shadow: 0 10px 35px rgba(100, 50, 255, 0.18);
+  border-color: rgba(16, 231, 116, 0.5);
+  box-shadow: 0 12px 35px rgba(16, 231, 116, 0.15), 0 0 20px rgba(16, 231, 116, 0.08);
+  transform: translateY(-3px);
 }
 
 .sml-top {
@@ -477,21 +585,31 @@
   width: 25px;
   height: 25px;
   margin: 0 auto;
+  filter: hue-rotate(220deg) brightness(1.2) drop-shadow(0 0 10px rgba(16, 231, 116, 0.5));
 }
 
 .smart-block2-title {
   display: flex;
   flex-direction: column;
   font-size: 44px;
-  font-weight: 400;
+  font-weight: 500;
   line-height: 54px;
   margin: 40px 0;
-  color: #ece7ff;
+  color: #ffffff;
+}
+
+.smart-block2-title span {
+  background: linear-gradient(90deg, #6CE8C3 0%, #A8F7E2 40%, #10E774 80%, #FFFFFF 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 600;
 }
 
 .smart-block2-title p {
   line-height: 54px;
   margin-bottom: 0;
+  color: #ffffff;
 }
 
 .smart-block2-list {
@@ -505,22 +623,25 @@
 
 .smart-block2-list div {
   border-radius: 60px;
-  border: 0.8px solid #2c2c2c;
-  background: linear-gradient(0deg, #c7b8fd -31.88%, #fff 116.4%, #9578ff 301.53%, #000 549.2%);
+  border: 1px solid rgba(16, 231, 116, 0.3);
+  background: radial-gradient(60% 120% at 90% 0%, rgba(16, 231, 116, 0.3) 0%, rgba(108, 232, 195, 0) 100%),
+              linear-gradient(135deg, #D4FAE6 0%, #FFFFFF 50%, #A8F7E2 100%);
   height: 60px;
-  padding: 6px 20px 6px 10px;
+  padding: 6px 20px 6px 14px;
   font-size: 16px;
-  font-weight: 500;
+  font-weight: 600;
   line-height: 48px;
-  color: #000000;
+  color: #003D5B;
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  transition: transform 0.25s ease;
+  box-shadow: 0 4px 20px rgba(16, 231, 116, 0.18);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
 .smart-block2-list div:hover {
   transform: scale(1.05);
+  box-shadow: 0 8px 30px rgba(16, 231, 116, 0.35);
 }
 
 .smart-block2-list div img {
@@ -532,48 +653,55 @@
    Contact CTA Block (.contact-block)
    ========================================================================== */
 .contact-block {
-  background: #000000;
+  background: #0A0D0E;
   min-height: 420px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 80px 20px;
+  padding: 90px 20px;
   text-align: center;
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .contact-block__title {
   font-size: 64px;
-  font-weight: 550;
+  font-weight: 600;
   line-height: 1.2;
-  color: #d3f9f5;
+  background: linear-gradient(90deg, #6CE8C3 0%, #A8F7E2 40%, #FFFFFF 85%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
   margin-bottom: 32px;
 }
 
 .contact-block__title strong {
-  color: #d3f9f5;
+  background: linear-gradient(90deg, #6CE8C3 0%, #A8F7E2 40%, #FFFFFF 85%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .contact-block .ant-btn {
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  background: #6432ff;
-  color: #ffffff;
+  background: #10E774;
+  color: #003D5B;
   padding: 16px 38px;
   border-radius: 64px;
   font-size: 16px;
-  font-weight: 500;
+  font-weight: 700;
   text-decoration: none;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 20px rgba(100, 50, 255, 0.4);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 0 25px rgba(16, 231, 116, 0.4);
 }
 
 .contact-block .ant-btn:hover {
-  background: #784bf8;
+  background: #0ecb66;
+  color: #003D5B;
   transform: translateY(-2px);
-  box-shadow: 0 6px 25px rgba(100, 50, 255, 0.55);
+  box-shadow: 0 0 35px rgba(16, 231, 116, 0.65);
 }
 
 /* ==========================================================================
@@ -599,11 +727,13 @@
 
 @media (max-width: 768px) {
   .smartcommerce-area {
-    padding-top: 40px;
-    margin-bottom: 40px;
+    padding-top: 80px;
+    margin-bottom: 30px;
+    min-height: 100vh;
+    min-height: 100svh;
   }
   .smart-inner {
-    padding: 30px 16px;
+    padding: 20px 16px;
   }
   .smart-title-row1, .smart-title-row2 {
     font-size: 32px;
