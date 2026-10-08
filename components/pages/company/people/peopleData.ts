@@ -14,6 +14,9 @@ export interface TeamMember {
   linkedin?: string;
   bio: string;
   skills: string[];
+  isLeader?: boolean;
+  order?: number;
+  status?: string;
 }
 
 export const leadershipTeam: TeamMember[] = [

@@ -40,9 +40,10 @@ export default function PeopleClientView({
   // Dynamic lists from DB props with fallback to static data
   const leadersList = useMemo(() => {
     if (initialPeople && initialPeople.length > 0) {
-      const leaders = initialPeople.filter(
-        (p) => p.department === 'Executive Leadership' || p.id.startsWith('lead-')
-      );
+      const leaders = initialPeople
+        .filter((p) => p.isLeader ?? (p.department === 'Executive Leadership' || p.id.startsWith('lead-')))
+        .slice()
+        .sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
       return leaders.length > 0 ? leaders : leadershipTeam;
     }
     return leadershipTeam;
@@ -50,9 +51,10 @@ export default function PeopleClientView({
 
   const expertsList = useMemo(() => {
     if (initialPeople && initialPeople.length > 0) {
-      const experts = initialPeople.filter(
-        (p) => p.department !== 'Executive Leadership' && !p.id.startsWith('lead-')
-      );
+      const experts = initialPeople
+        .filter((p) => !(p.isLeader ?? (p.department === 'Executive Leadership' || p.id.startsWith('lead-'))))
+        .slice()
+        .sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
       return experts.length > 0 ? experts : allExperts;
     }
     return allExperts;

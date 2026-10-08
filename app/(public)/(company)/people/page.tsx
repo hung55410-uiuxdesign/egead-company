@@ -28,7 +28,7 @@ export default async function PeoplePage() {
   let hierarchies: Record<string, LeaderTeamHierarchy> = leaderHierarchies;
 
   try {
-    const dbPeople = await getTeamMembers({ status: 'published', limit: 100 });
+    const dbPeople = await getTeamMembers({ status: 'published', limit: 200 });
     if (dbPeople && dbPeople.items && dbPeople.items.length > 0) {
       people = dbPeople.items.map((m) => ({
         id: m.id,
@@ -41,6 +41,9 @@ export default async function PeoplePage() {
         linkedin: m.linkedin ?? undefined,
         bio: m.bio,
         skills: m.skills,
+        isLeader: m.isLeader,
+        order: m.order,
+        status: m.status,
       }));
 
       const dbHierarchies = await getAllHierarchies();

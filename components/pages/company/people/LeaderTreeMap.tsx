@@ -16,7 +16,7 @@ export default function LeaderTreeMap({
   hierarchies,
   onSelectMember,
 }: Props) {
-  const hierarchy = hierarchies ? hierarchies[leader.id] : leaderHierarchies[leader.id];
+  const hierarchy = (hierarchies && hierarchies[leader.id]) || leaderHierarchies[leader.id];
 
   if (!hierarchy || !hierarchy.childNodes || hierarchy.childNodes.length === 0) {
     return null;
