@@ -10,7 +10,7 @@ import {
   UserCheck,
   ChevronRight,
 } from 'lucide-react';
-import { Button, Card, Badge, Field } from '@astryxdesign/core';
+import { Button, Card, Badge, Field, Selector } from '@astryxdesign/core';
 import { AdminTeamMember } from '@/lib/services/people.service';
 import type { ChildNode, SubChildNode } from '@/app/(public)/people/leaderTeamData';
 
@@ -246,26 +246,19 @@ export default function SquadCardEditor({
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <Field
+              <Selector
                 label="Chọn nhân sự làm Squad Lead"
-                inputID={`squad-${squadIndex}-lead`}
-                isRequired
                 description="Chọn thành viên phụ trách chính nhóm này"
-              >
-                <select
-                  id={`squad-${squadIndex}-lead`}
-                  value={squad.id}
-                  onChange={(e) => handleLeadChange(e.target.value)}
-                  className="w-full px-3.5 py-2.5 bg-white border border-slate-200 rounded-xl text-xs sm:text-sm text-slate-900 focus:outline-none focus:border-purple-600 focus:ring-1 focus:ring-purple-600 transition-colors font-medium"
-                >
-                  <option value="">-- Chọn thành viên phụ trách --</option>
-                  {allMembers.map((m) => (
-                    <option key={m.id} value={m.id}>
-                      {m.name} — {m.role} ({m.department})
-                    </option>
-                  ))}
-                </select>
-              </Field>
+                value={squad.id}
+                onChange={(val) => handleLeadChange(val)}
+                options={[
+                  { value: '', label: '-- Chọn thành viên phụ trách --' },
+                  ...allMembers.map((m) => ({
+                    value: m.id,
+                    label: `${m.name} — ${m.role} (${m.department})`,
+                  })),
+                ]}
+              />
 
               <Field
                 label="Nhãn cấp bậc (Level Tag)"
@@ -313,18 +306,22 @@ export default function SquadCardEditor({
 
               {/* Add member controls */}
               <div className="flex items-center gap-2">
-                <select
-                  value={selectedNewMemberId}
-                  onChange={(e) => setSelectedNewMemberId(e.target.value)}
-                  className="px-3 py-1.5 bg-slate-50 border border-slate-200 rounded-lg text-xs text-slate-800 max-w-[220px]"
-                >
-                  <option value="">-- Chọn thành viên thêm vào --</option>
-                  {availableCandidates.map((m) => (
-                    <option key={m.id} value={m.id}>
-                      {m.name} ({m.role})
-                    </option>
-                  ))}
-                </select>
+                <div className="w-56">
+                  <Selector
+                    label="Thêm thành viên"
+                    isLabelHidden
+                    size="sm"
+                    value={selectedNewMemberId}
+                    onChange={(val) => setSelectedNewMemberId(val)}
+                    options={[
+                      { value: '', label: '-- Chọn thành viên thêm vào --' },
+                      ...availableCandidates.map((m) => ({
+                        value: m.id,
+                        label: `${m.name} (${m.role})`,
+                      })),
+                    ]}
+                  />
+                </div>
                 <Button
                   label="Thêm vào Squad"
                   variant="secondary"

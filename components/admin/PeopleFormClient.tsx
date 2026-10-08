@@ -12,7 +12,7 @@ import {
   Camera,
   Layers,
 } from 'lucide-react';
-import { Button, Card, Badge, Field } from '@astryxdesign/core';
+import { Button, Card, Badge, Field, Selector } from '@astryxdesign/core';
 import { AdminTeamMember } from '@/lib/services/people.service';
 import { DEPARTMENTS, PEOPLE_STATUSES } from '@/lib/validations/people';
 import SkillTagInput from '@/components/admin/SkillTagInput';
@@ -165,7 +165,7 @@ export default function PeopleFormClient({
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6 max-w-5xl mx-auto pb-16">
+    <form onSubmit={handleSubmit} className="space-y-6 w-full pb-16">
       {/* =========================================================================
           PAGE HEADER
           ========================================================================= */}
@@ -287,25 +287,16 @@ export default function PeopleFormClient({
           </Field>
 
           {/* Department */}
-          <Field
-            label="Khối phòng ban"
-            inputID="people-department"
-            isRequired
-            description="Khối nghiệp vụ chính trực thuộc"
-          >
-            <select
-              id="people-department"
+          <div>
+            <Selector
+              label="Khối phòng ban"
+              isRequired
+              description="Khối nghiệp vụ chính trực thuộc"
               value={department}
-              onChange={(e) => setDepartment(e.target.value)}
-              className="w-full px-3.5 py-2.5 bg-slate-50/60 border border-slate-200 rounded-xl text-xs sm:text-sm text-slate-900 focus:outline-none focus:bg-white focus:border-slate-800 focus:ring-1 focus:ring-slate-800 transition-colors font-medium"
-            >
-              {DEPARTMENTS.map((dept) => (
-                <option key={dept} value={dept}>
-                  {dept}
-                </option>
-              ))}
-            </select>
-          </Field>
+              onChange={(val) => setDepartment(val)}
+              options={DEPARTMENTS.map((dept) => ({ value: dept, label: dept }))}
+            />
+          </div>
 
           {/* Location */}
           <Field
@@ -341,22 +332,19 @@ export default function PeopleFormClient({
           </Field>
 
           {/* Status */}
-          <Field
-            label="Trạng thái hiển thị"
-            inputID="people-status"
-            description="Kiểm soát khả năng hiển thị ngoài trang công khai"
-          >
-            <select
-              id="people-status"
+          <div>
+            <Selector
+              label="Trạng thái hiển thị"
+              description="Kiểm soát khả năng hiển thị ngoài trang công khai"
               value={status}
-              onChange={(e) => setStatus(e.target.value)}
-              className="w-full px-3.5 py-2.5 bg-slate-50/60 border border-slate-200 rounded-xl text-xs sm:text-sm text-slate-900 focus:outline-none focus:bg-white focus:border-slate-800 focus:ring-1 focus:ring-slate-800 transition-colors font-medium"
-            >
-              <option value="published">Đang hiển thị (Published)</option>
-              <option value="draft">Bản nháp (Draft)</option>
-              <option value="archived">Lưu trữ (Archived)</option>
-            </select>
-          </Field>
+              onChange={(val) => setStatus(val)}
+              options={[
+                { value: 'published', label: 'Đang hiển thị (Published)' },
+                { value: 'draft', label: 'Bản nháp (Draft)' },
+                { value: 'archived', label: 'Lưu trữ (Archived)' },
+              ]}
+            />
+          </div>
         </div>
 
         {/* Leadership Toggle */}

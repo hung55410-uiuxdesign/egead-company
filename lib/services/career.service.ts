@@ -418,3 +418,44 @@ export async function getCareerStats(): Promise<CareerStats> {
       .length,
   };
 }
+
+/**
+ * Bulk delete jobs by IDs
+ */
+export async function bulkDeleteJobs(ids: string[]): Promise<number> {
+  if (ids.length === 0) return 0;
+  const jobs = await readJobs();
+  const idSet = new Set(ids);
+  const remaining = jobs.filter((j) => !idSet.has(j.id));
+  const count = jobs.length - remaining.length;
+  await writeJobs(remaining);
+  return count;
+}
+
+/**
+ * Bulk update jobs (status or department) by IDs
+ */
+export async function bulkUpdateJobs(
+  ids: string[],
+  data: { status?: JobStatus; department?: string }
+): Promise<number> {
+  if (ids.length === 0) return 0;
+  const jobs = await readJobs();
+  const idSet = new Set(ids);
+  let count = 0;
+  const updated = jobs.map((job) => {
+    if (idSet.has(job.id)) {
+      count++;
+      return {
+        ...job,
+        ...(data.status ? { status: data.status } : {}),
+        ...(data.department ? { department: data.department } : {}),
+        updatedAt: new Date().toISOString(),
+      };
+    }
+    return job;
+  });
+  await writeJobs(updated);
+  return count;
+}
+

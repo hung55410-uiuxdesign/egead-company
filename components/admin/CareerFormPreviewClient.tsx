@@ -9,7 +9,7 @@ import {
   Copy,
 } from 'lucide-react';
 import { CareerPost } from '@/types/career';
-import { Card, Button, Badge } from '@astryxdesign/core';
+import { Card, Button, Badge, Selector } from '@astryxdesign/core';
 
 interface CareerFormPreviewClientProps {
   jobs: CareerPost[];
@@ -127,7 +127,7 @@ fetch('/api/admin/careers/applications', {
   };
 
   return (
-    <div className="space-y-6 font-open-sans max-w-4xl mx-auto pb-16">
+    <div className="space-y-6 font-open-sans w-full pb-16">
       {/* =========================================================================
           PAGE HEADER
           ========================================================================= */}
@@ -215,21 +215,18 @@ fetch('/api/admin/careers/applications', {
         <form onSubmit={handleSubmit} className="space-y-6">
           {/* Position Selector */}
           <div>
-            <label className="block text-xs font-bold text-slate-700 mb-2">
-              Vị trí ứng tuyển <span className="text-red-500">*</span>
-            </label>
-            <select
+            <Selector
+              label="Vị trí ứng tuyển"
               value={jobId}
-              onChange={(e) => setJobId(e.target.value)}
-              className="w-full px-4 py-3 bg-slate-50/70 border border-slate-200 rounded-xl text-slate-900 font-bold text-sm focus:outline-none focus:bg-white focus:border-slate-800 transition-colors cursor-pointer"
-            >
-              {jobs.map((job) => (
-                <option key={job.id} value={job.id}>
-                  {job.title} — {job.department} ({job.location})
-                </option>
-              ))}
-              <option value="general">Vị trí mở khác (General Application)</option>
-            </select>
+              onChange={(val) => setJobId(val)}
+              options={[
+                ...jobs.map((job) => ({
+                  value: job.id,
+                  label: `${job.title} — ${job.department} (${job.location})`,
+                })),
+                { value: 'general', label: 'Vị trí mở khác (General Application)' },
+              ]}
+            />
 
             {selectedJob && (
               <div className="mt-2.5 p-3 rounded-xl bg-emerald-50/70 border border-emerald-200/80 flex flex-wrap items-center gap-4 text-xs text-emerald-900">

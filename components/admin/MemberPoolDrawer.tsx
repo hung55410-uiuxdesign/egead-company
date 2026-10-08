@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { Search, GripVertical, ChevronRight, Sparkles } from 'lucide-react';
-import { Badge } from '@astryxdesign/core';
+import { Badge, Selector } from '@astryxdesign/core';
 import { AdminTeamMember } from '@/lib/services/people.service';
 import { DEPARTMENTS } from '@/lib/validations/people';
 
@@ -98,18 +98,17 @@ export default function MemberPoolDrawer({
           />
         </div>
 
-        <select
+        <Selector
+          label="Lọc theo phòng ban"
+          isLabelHidden
+          size="sm"
           value={departmentFilter}
-          onChange={(e) => setDepartmentFilter(e.target.value)}
-          className="w-full px-2.5 py-1.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-700 font-medium focus:outline-none focus:border-slate-800"
-        >
-          <option value="all">Tất cả phòng ban ({members.length})</option>
-          {DEPARTMENTS.map((dept) => (
-            <option key={dept} value={dept}>
-              {dept}
-            </option>
-          ))}
-        </select>
+          onChange={(val) => setDepartmentFilter(val)}
+          options={[
+            { value: 'all', label: `Tất cả phòng ban (${members.length})` },
+            ...DEPARTMENTS.map((dept) => ({ value: dept, label: dept })),
+          ]}
+        />
       </div>
 
       {/* Draggable Members List */}

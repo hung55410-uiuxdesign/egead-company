@@ -3,7 +3,7 @@ import { Card, Badge } from '@astryxdesign/core';
 
 export default function AdminSettingsPage() {
   return (
-    <div className="space-y-6 font-open-sans max-w-5xl mx-auto pb-8">
+    <div className="space-y-6 font-open-sans w-full pb-8">
       {/* Header */}
       <div>
         <div className="mb-1.5">

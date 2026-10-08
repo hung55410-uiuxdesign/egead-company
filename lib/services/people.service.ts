@@ -386,3 +386,39 @@ export async function upsertHierarchy(data: HierarchyInput): Promise<{
     updatedAt: upserted.updatedAt.toISOString(),
   };
 }
+
+/**
+ * Bulk delete team members by IDs
+ */
+export async function bulkDeleteTeamMembers(ids: string[]): Promise<number> {
+  if (ids.length === 0) return 0;
+  // Delete related leader hierarchy records first
+  await prisma.leaderHierarchy.deleteMany({
+    where: { leaderId: { in: ids } },
+  });
+
+  const res = await prisma.teamMember.deleteMany({
+    where: { id: { in: ids } },
+  });
+  return res.count;
+}
+
+/**
+ * Bulk update team members (status or department) by IDs
+ */
+export async function bulkUpdateTeamMembers(
+  ids: string[],
+  data: { status?: 'published' | 'draft' | 'archived'; department?: string }
+): Promise<number> {
+  if (ids.length === 0) return 0;
+  const updateData: { status?: string; department?: string } = {};
+  if (data.status) updateData.status = data.status;
+  if (data.department) updateData.department = data.department;
+
+  const res = await prisma.teamMember.updateMany({
+    where: { id: { in: ids } },
+    data: updateData,
+  });
+  return res.count;
+}
+

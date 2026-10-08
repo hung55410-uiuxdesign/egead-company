@@ -1,10 +1,9 @@
-'use client';
+"use client";
 
-import React from 'react';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { Menu, Bell } from 'lucide-react';
-import { Button } from '@astryxdesign/core';
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { Menu, Bell } from "lucide-react";
+import { Button, IconButton, Breadcrumbs, BreadcrumbItem } from "@astryxdesign/core";
 
 interface AdminNavbarProps {
   onOpenSidebar: () => void;
@@ -13,70 +12,109 @@ interface AdminNavbarProps {
 export default function AdminNavbar({ onOpenSidebar }: AdminNavbarProps) {
   const pathname = usePathname();
 
-  const getBreadcrumbTitle = () => {
-    if (pathname === '/admin') return 'Tổng quan bảng điều khiển';
-    if (pathname === '/admin/blogs') return 'Quản lý danh sách bài viết';
-    if (pathname === '/admin/blogs/new') return 'Tạo bài viết blog mới';
-    if (pathname?.startsWith('/admin/blogs/')) return 'Chỉnh sửa bài viết';
-    if (pathname === '/admin/categories') return 'Chuyên mục & Phân loại';
-    if (pathname === '/admin/careers') return 'Quản lý tuyển dụng';
-    if (pathname === '/admin/careers/new') return 'Đăng tin tuyển dụng mới';
-    if (pathname === '/admin/careers/applications') return 'Hồ sơ ứng tuyển đã nhận';
-    if (pathname === '/admin/careers/form-preview') return 'Biểu mẫu ứng tuyển trực tuyến';
-    if (pathname?.startsWith('/admin/careers/')) return 'Chỉnh sửa tin tuyển dụng';
-    if (pathname === '/admin/settings') return 'Cấu hình hệ thống';
-    return 'Admin Portal';
+  const getBreadcrumbs = () => {
+    const items: Array<{ label: string; href?: string }> = [
+      { label: "Admin", href: pathname === "/admin" ? undefined : "/admin" },
+    ];
+
+    if (pathname === "/admin") {
+      items.push({ label: "Tổng quan bảng điều khiển" });
+      return items;
+    }
+
+    if (pathname === "/admin/blogs") {
+      items.push({ label: "Quản lý bài viết" });
+    } else if (pathname === "/admin/blogs/new") {
+      items.push({ label: "Bài viết", href: "/admin/blogs" });
+      items.push({ label: "Tạo bài viết mới" });
+    } else if (pathname?.startsWith("/admin/blogs/")) {
+      items.push({ label: "Bài viết", href: "/admin/blogs" });
+      items.push({ label: "Chỉnh sửa bài viết" });
+    } else if (pathname === "/admin/categories") {
+      items.push({ label: "Chuyên mục & Phân loại" });
+    } else if (pathname === "/admin/people") {
+      items.push({ label: "Quản lý nhân sự" });
+    } else if (pathname === "/admin/people/new") {
+      items.push({ label: "Nhân sự", href: "/admin/people" });
+      items.push({ label: "Thêm nhân sự mới" });
+    } else if (pathname === "/admin/people/hierarchy") {
+      items.push({ label: "Nhân sự", href: "/admin/people" });
+      items.push({ label: "Sơ đồ tổ chức" });
+    } else if (pathname?.startsWith("/admin/people/")) {
+      items.push({ label: "Nhân sự", href: "/admin/people" });
+      items.push({ label: "Chỉnh sửa nhân sự" });
+    } else if (pathname === "/admin/careers") {
+      items.push({ label: "Quản lý tuyển dụng" });
+    } else if (pathname === "/admin/careers/new") {
+      items.push({ label: "Tuyển dụng", href: "/admin/careers" });
+      items.push({ label: "Đăng tin mới" });
+    } else if (pathname === "/admin/careers/applications") {
+      items.push({ label: "Tuyển dụng", href: "/admin/careers" });
+      items.push({ label: "Hồ sơ ứng tuyển" });
+    } else if (pathname === "/admin/careers/form-preview") {
+      items.push({ label: "Tuyển dụng", href: "/admin/careers" });
+      items.push({ label: "Biểu mẫu ứng tuyển" });
+    } else if (pathname?.startsWith("/admin/careers/")) {
+      items.push({ label: "Tuyển dụng", href: "/admin/careers" });
+      items.push({ label: "Chỉnh sửa tin tuyển dụng" });
+    } else if (pathname === "/admin/settings") {
+      items.push({ label: "Cấu hình hệ thống" });
+    } else {
+      items.push({ label: "Admin Portal" });
+    }
+
+    return items;
   };
 
-  return (
-    <header className="h-16 bg-white/90 backdrop-blur-md border-b border-slate-200/80 px-4 sm:px-6 flex items-center justify-between sticky top-0 z-30 font-open-sans shrink-0">
-      <div className="flex items-center gap-3">
-        <button
-          type="button"
-          onClick={onOpenSidebar}
-          className="p-2 text-slate-500 hover:text-slate-800 rounded-lg hover:bg-slate-100 lg:hidden transition-colors"
-          aria-label="Mở menu điều hướng"
-        >
-          <Menu className="w-5 h-5" />
-        </button>
+  const breadcrumbs = getBreadcrumbs();
 
-        <div className="flex items-center gap-2 text-sm">
-          <Link
-            href="/admin"
-            className="text-slate-400 hover:text-slate-700 transition-colors hidden sm:inline font-semibold text-xs"
-          >
-            Admin
-          </Link>
-          <span className="text-slate-300 hidden sm:inline">/</span>
-          <h1 className="text-sm sm:text-base font-extrabold text-slate-900">
-            {getBreadcrumbTitle()}
-          </h1>
+  return (
+    <header className="h-16 bg-white/90 backdrop-blur-md border-b border-slate-200/80 px-[6%] sm:px-[7%] xl:px-[8%] flex items-center justify-between sticky top-0 z-30 font-open-sans shrink-0">
+      <div className="flex items-center gap-3">
+        <div className="lg:hidden">
+          <IconButton
+            label="Mở menu điều hướng"
+            icon={<Menu className="w-5 h-5" />}
+            variant="ghost"
+            onClick={onOpenSidebar}
+          />
         </div>
+
+        <Breadcrumbs label="Điều hướng quản trị">
+          {breadcrumbs.map((crumb, idx) => (
+            <BreadcrumbItem
+              key={idx}
+              href={crumb.href}
+              as={crumb.href ? Link : undefined}
+              isCurrent={idx === breadcrumbs.length - 1}
+            >
+              {crumb.label}
+            </BreadcrumbItem>
+          ))}
+        </Breadcrumbs>
       </div>
 
       <div className="flex items-center gap-2 sm:gap-3">
         <Button
           label="Xem trang live"
           variant="secondary"
-          size="sm"
           href="/insights"
           target="_blank"
         />
 
-        <button
-          type="button"
-          className="p-2 text-slate-400 hover:text-slate-700 rounded-xl hover:bg-slate-100 relative transition-colors"
-          aria-label="Thông báo hệ thống"
-        >
-          <Bell className="w-4 h-4" />
-          <span className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-emerald-500 ring-2 ring-white" />
-        </button>
+        <div className="relative inline-flex items-center">
+          <IconButton
+            label="Thông báo hệ thống"
+            icon={<Bell className="w-4 h-4" />}
+            variant="ghost"
+          />
+          <span className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-emerald-500 ring-2 ring-white pointer-events-none" />
+        </div>
 
-        {pathname !== '/admin/blogs/new' && (
+        {pathname !== "/admin/blogs/new" && (
           <Button
             label="Viết bài mới"
             variant="primary"
-            size="sm"
             href="/admin/blogs/new"
           />
         )}

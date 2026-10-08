@@ -87,6 +87,7 @@ model Category {
   name        String   @unique
   slug        String   @unique
   description String?
+  icon        String?
   posts       Post[]
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt

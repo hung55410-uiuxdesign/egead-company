@@ -11,6 +11,9 @@ import { leaderHierarchies } from '../app/(public)/people/leaderTeamData';
 import {
   getTeamMembers,
   getTeamMember,
+  createTeamMember,
+  bulkUpdateTeamMembers,
+  bulkDeleteTeamMembers,
   getPeopleStats,
   getHierarchy,
   getAllHierarchies,
@@ -205,5 +208,64 @@ describe('People Validation & Consistency Tests', () => {
       expect(all['lead-1']).toBeDefined();
       expect(all['lead-8']).toBeDefined();
     });
+
+    test('bulkUpdateTeamMembers and bulkDeleteTeamMembers operate on member IDs', async () => {
+      // Test empty arrays
+      const emptyUpdate = await bulkUpdateTeamMembers([], { status: 'published' });
+      expect(emptyUpdate).toBe(0);
+
+      const emptyDelete = await bulkDeleteTeamMembers([]);
+      expect(emptyDelete).toBe(0);
+
+      // Create two test members
+      const mem1 = await createTeamMember({
+        name: 'Bulk Test Person 1',
+        role: 'Consultant',
+        department: DEPARTMENTS[0],
+        location: 'Hanoi',
+        image: 'https://example.com/avatar.jpg',
+        bio: 'Bio 1',
+        skills: ['Strategy'],
+        isLeader: false,
+        order: 99,
+        status: 'draft',
+      });
+
+      const mem2 = await createTeamMember({
+        name: 'Bulk Test Person 2',
+        role: 'Consultant',
+        department: DEPARTMENTS[0],
+        location: 'Hanoi',
+        image: 'https://example.com/avatar.jpg',
+        bio: 'Bio 2',
+        skills: ['Strategy'],
+        isLeader: false,
+        order: 100,
+        status: 'draft',
+      });
+
+      const ids = [mem1.id, mem2.id];
+
+      // Bulk update
+      const updated = await bulkUpdateTeamMembers(ids, {
+        status: 'published',
+        department: DEPARTMENTS[1],
+      });
+      expect(updated).toBe(2);
+
+      // Verify update
+      const checkMem1 = await getTeamMember(mem1.id);
+      expect(checkMem1?.status).toBe('published');
+      expect(checkMem1?.department).toBe(DEPARTMENTS[1]);
+
+      // Bulk delete
+      const deleted = await bulkDeleteTeamMembers(ids);
+      expect(deleted).toBe(2);
+
+      // Verify deletion
+      const checkDeleted = await getTeamMember(mem1.id);
+      expect(checkDeleted).toBeNull();
+    });
   });
 });
+

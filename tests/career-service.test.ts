@@ -12,6 +12,8 @@ import {
   updateApplicationStatus,
   deleteApplication,
   getCareerStats,
+  bulkUpdateJobs,
+  bulkDeleteJobs,
 } from '../lib/services/career.service';
 
 describe('Career Service Unit Tests', () => {
@@ -228,4 +230,71 @@ describe('Career Service Unit Tests', () => {
       ).rejects.toThrow();
     });
   });
+
+  describe('bulkUpdateJobs and bulkDeleteJobs', () => {
+    test('bulk updates status and department of jobs, then deletes them', async () => {
+      const job1 = await saveJob({
+        title: 'Bulk Job Alpha',
+        department: 'Engineering',
+        location: 'Hanoi',
+        type: 'Full-time',
+        experience: '1 year',
+        salary: 'Negotiable',
+        quantity: '01',
+        deadline: '2026-12-31',
+        excerpt: 'Alpha excerpt',
+        description: '<p>Desc</p>',
+        requirements: 'Reqs',
+        benefits: 'Benefits',
+        status: 'draft',
+      });
+
+      const job2 = await saveJob({
+        title: 'Bulk Job Beta',
+        department: 'Engineering',
+        location: 'Hanoi',
+        type: 'Full-time',
+        experience: '1 year',
+        salary: 'Negotiable',
+        quantity: '01',
+        deadline: '2026-12-31',
+        excerpt: 'Beta excerpt',
+        description: '<p>Desc</p>',
+        requirements: 'Reqs',
+        benefits: 'Benefits',
+        status: 'draft',
+      });
+
+      const ids = [job1.id, job2.id];
+
+      // Bulk update
+      const updatedCount = await bulkUpdateJobs(ids, {
+        status: 'published',
+        department: 'Design',
+      });
+      expect(updatedCount).toBe(2);
+
+      // Verify updated
+      const fetched1 = await getJobById(job1.id);
+      expect(fetched1?.status).toBe('published');
+      expect(fetched1?.department).toBe('Design');
+
+      // Bulk delete
+      const deletedCount = await bulkDeleteJobs(ids);
+      expect(deletedCount).toBe(2);
+
+      // Verify deletion
+      const checkDeleted = await getJobById(job1.id);
+      expect(checkDeleted).toBeNull();
+    });
+
+    test('handles empty ids gracefully', async () => {
+      const updated = await bulkUpdateJobs([], { status: 'closed' });
+      expect(updated).toBe(0);
+
+      const deleted = await bulkDeleteJobs([]);
+      expect(deleted).toBe(0);
+    });
+  });
 });
+

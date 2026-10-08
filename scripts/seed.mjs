@@ -190,6 +190,54 @@ async function main() {
     console.log('✅ Đã nạp danh sách bài viết thành công!');
   }
 
+  // 3. Seed chuyên mục (Categories) từ bài viết và liên kết
+  console.log('🏷️ Đang khởi tạo và liên kết các chuyên mục (categories)...');
+  const allPosts = await prisma.post.findMany({
+    select: { id: true, categoryName: true, tag: true },
+  });
+  const catNames = new Set();
+  allPosts.forEach((p) => {
+    if (p.categoryName) catNames.add(p.categoryName.trim());
+    if (p.tag) catNames.add(p.tag.trim());
+  });
+  if (catNames.size === 0) {
+    catNames.add('Technology');
+    catNames.add('Market Expansion');
+    catNames.add('Operations & SLA');
+    catNames.add('Technology & WMS');
+    catNames.add('Financial Strategy');
+  }
+  for (const name of catNames) {
+    const slug = name
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .toLowerCase()
+      .trim()
+      .replace(/[^a-z0-9 -]/g, '')
+      .replace(/\s+/g, '-')
+      .replace(/-+/g, '-');
+    const cat = await prisma.category.upsert({
+      where: { slug },
+      update: { name },
+      create: {
+        name,
+        slug,
+        description: `Chuyên mục kiến thức ${name} của E-GEAD`,
+      },
+    });
+    await prisma.post.updateMany({
+      where: {
+        OR: [{ categoryName: name }, { tag: name }],
+        categoryId: null,
+      },
+      data: {
+        categoryId: cat.id,
+        categoryName: cat.name,
+      },
+    });
+  }
+  console.log(`✅ Đã đồng bộ ${catNames.size} chuyên mục và liên kết với bài viết!`);
+
   console.log('\n🎉 Quá trình khởi tạo cơ sở dữ liệu hoàn tất!');
   console.log('🔑 Thông tin đăng nhập quản trị:');
   console.log(`   Email:    admin@egead.com`);

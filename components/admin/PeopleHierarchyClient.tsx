@@ -12,7 +12,7 @@ import {
   Maximize2,
   Move,
 } from 'lucide-react';
-import { Button, Card, Badge, Field, EmptyState, IconButton } from '@astryxdesign/core';
+import { Button, Card, Badge, Field, EmptyState, IconButton, Selector } from '@astryxdesign/core';
 import { AdminTeamMember } from '@/lib/services/people.service';
 import type { ChildNode, SubChildNode } from '@/app/(public)/people/leaderTeamData';
 import OrgNodeCard from '@/components/admin/OrgNodeCard';
@@ -533,18 +533,18 @@ export default function PeopleHierarchyClient({
           </div>
 
           {/* Leader Select Dropdown */}
-          <div className="sm:ml-4">
-            <select
+          <div className="sm:ml-4 min-w-[240px]">
+            <Selector
+              label="Chọn lãnh đạo"
+              isLabelHidden
+              size="sm"
               value={selectedLeaderId}
-              onChange={(e) => handleSelectLeader(e.target.value)}
-              className="px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs sm:text-sm text-slate-900 font-extrabold focus:outline-none focus:border-slate-800"
-            >
-              {leaders.map((lead) => (
-                <option key={lead.id} value={lead.id}>
-                  {lead.name} — {lead.role}
-                </option>
-              ))}
-            </select>
+              onChange={(val) => handleSelectLeader(val)}
+              options={leaders.map((lead) => ({
+                value: lead.id,
+                label: `${lead.name} — ${lead.role}`,
+              }))}
+            />
           </div>
         </div>
 

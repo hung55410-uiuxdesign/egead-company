@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { X, UserCheck, Shield } from 'lucide-react';
-import { Button, Card, Badge, Field } from '@astryxdesign/core';
+import { Button, Card, Badge, Field, Selector } from '@astryxdesign/core';
 import { AdminTeamMember } from '@/lib/services/people.service';
 import type { ChildNode, SubChildNode } from '@/app/(public)/people/leaderTeamData';
 
@@ -135,25 +135,16 @@ export default function NodeEditModal({
         {/* Content */}
         <div className="p-6 space-y-4 max-h-[75vh] overflow-y-auto">
           {/* Member assignment */}
-          <Field
+          <Selector
             label="Nhân sự được phân bổ vào vị trí này"
-            inputID="modal-member-select"
-            isRequired
             description="Chọn nhân sự thay thế từ kho thành viên"
-          >
-            <select
-              id="modal-member-select"
-              value={selectedMemberId}
-              onChange={(e) => setSelectedMemberId(e.target.value)}
-              className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs sm:text-sm text-slate-900 font-bold focus:outline-none focus:border-slate-800"
-            >
-              {allMembers.map((m) => (
-                <option key={m.id} value={m.id}>
-                  {m.name} — {m.role} ({m.department})
-                </option>
-              ))}
-            </select>
-          </Field>
+            value={selectedMemberId}
+            onChange={(val) => setSelectedMemberId(val)}
+            options={allMembers.map((m) => ({
+              value: m.id,
+              label: `${m.name} — ${m.role} (${m.department})`,
+            }))}
+          />
 
           {/* Member preview pill */}
           {currentMember && (

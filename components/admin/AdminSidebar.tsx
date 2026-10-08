@@ -7,7 +7,6 @@ import { usePathname, useRouter } from 'next/navigation';
 import {
   LayoutDashboard,
   FileText,
-  PenSquare,
   FolderTree,
   Settings,
   ExternalLink,
@@ -15,7 +14,6 @@ import {
   X,
   Sparkles,
   Briefcase,
-  UserPlus,
   Users,
   FileInput,
   GitFork,
@@ -42,12 +40,6 @@ const CONTENT_NAV_ITEMS = [
     exact: true,
   },
   {
-    label: 'Thêm bài viết mới',
-    href: '/admin/blogs/new',
-    icon: PenSquare,
-    exact: false,
-  },
-  {
     label: 'Chuyên mục & Thẻ',
     href: '/admin/categories',
     icon: FolderTree,
@@ -63,12 +55,6 @@ const PEOPLE_NAV_ITEMS = [
     exact: true,
   },
   {
-    label: 'Thêm nhân sự mới',
-    href: '/admin/people/new',
-    icon: UserPlus,
-    exact: false,
-  },
-  {
     label: 'Sơ đồ tổ chức & Squads',
     href: '/admin/people/hierarchy',
     icon: GitFork,
@@ -82,12 +68,6 @@ const CAREER_NAV_ITEMS = [
     href: '/admin/careers',
     icon: Briefcase,
     exact: true,
-  },
-  {
-    label: 'Đăng tin tuyển dụng',
-    href: '/admin/careers/new',
-    icon: UserPlus,
-    exact: false,
   },
   {
     label: 'Hồ sơ ứng tuyển',

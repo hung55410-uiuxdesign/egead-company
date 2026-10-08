@@ -446,25 +446,19 @@ export async function getBlogStats(): Promise<BlogStats> {
  */
 export async function getCategories(): Promise<BlogCategory[]> {
   try {
-    const categories = await prisma.category.findMany({
-      include: {
-        _count: {
-          select: { posts: true },
-        },
-      },
-    });
-
+    const { getCategoriesWithCount } = await import('@/lib/services/category.service');
+    const categories = await getCategoriesWithCount();
     if (categories.length > 0) {
       return categories.map((c) => ({
         id: c.id,
         name: c.name,
         slug: c.slug,
         description: c.description || undefined,
-        count: c._count.posts,
+        count: c.count,
       }));
     }
   } catch (error) {
-    console.warn('[blog.service] Prisma getCategories failed, using fallback:', error);
+    console.warn('[blog.service] getCategories failed, using fallback:', error);
   }
 
   const posts = await getAllPosts();
@@ -545,4 +539,91 @@ export async function seedDatabaseFromJSON(): Promise<BlogPost[]> {
     console.warn('[blog.service] Database seed skipped, returning fallback:', error);
     return fallback;
   }
+}
+
+/**
+ * Bulk delete blog posts by IDs
+ */
+export async function bulkDeletePosts(ids: string[]): Promise<number> {
+  if (ids.length === 0) return 0;
+  let count = 0;
+  try {
+    const res = await prisma.post.deleteMany({
+      where: { id: { in: ids } },
+    });
+    count = res.count;
+  } catch (error) {
+    console.warn('[blog.service] Prisma bulk delete failed:', error);
+  }
+
+  // Always sync with fallback JSON file
+  try {
+    const posts = await getFallbackPosts();
+    const idSet = new Set(ids);
+    const remaining = posts.filter((p) => !idSet.has(p.id));
+    if (remaining.length !== posts.length) {
+      if (count === 0) {
+        count = posts.length - remaining.length;
+      }
+      await fs.writeFile(BLOGS_FILE_PATH, JSON.stringify(remaining, null, 2), 'utf-8');
+    }
+  } catch (error) {
+    console.warn('[blog.service] JSON sync failed in bulk delete:', error);
+  }
+
+  return count;
+}
+
+/**
+ * Bulk update blog posts (e.g. status or category) by IDs
+ */
+export async function bulkUpdatePosts(
+  ids: string[],
+  data: { status?: PostStatus; category?: string }
+): Promise<number> {
+  if (ids.length === 0) return 0;
+  const updateData: { status?: string; categoryName?: string; tag?: string } = {};
+  if (data.status) updateData.status = data.status;
+  if (data.category) {
+    updateData.categoryName = data.category;
+    updateData.tag = data.category;
+  }
+
+  let count = 0;
+  try {
+    const res = await prisma.post.updateMany({
+      where: { id: { in: ids } },
+      data: updateData,
+    });
+    count = res.count;
+  } catch (error) {
+    console.warn('[blog.service] Prisma bulk update failed:', error);
+  }
+
+  // Always sync with fallback JSON file
+  try {
+    const posts = await getFallbackPosts();
+    const idSet = new Set(ids);
+    let jsonCount = 0;
+    const updated = posts.map((p) => {
+      if (idSet.has(p.id)) {
+        jsonCount++;
+        return {
+          ...p,
+          ...(data.status ? { status: data.status } : {}),
+          ...(data.category ? { category: data.category, tag: data.category } : {}),
+          updatedAt: new Date().toISOString(),
+        };
+      }
+      return p;
+    });
+    if (jsonCount > 0) {
+      if (count === 0) count = jsonCount;
+      await fs.writeFile(BLOGS_FILE_PATH, JSON.stringify(updated, null, 2), 'utf-8');
+    }
+  } catch (error) {
+    console.warn('[blog.service] JSON sync failed in bulk update:', error);
+  }
+
+  return count;
 }

@@ -9,9 +9,10 @@ import {
   X,
   CheckCircle2,
   AlertCircle,
+  MoreHorizontal,
 } from 'lucide-react';
 import { JobApplication, ApplicationStatus, CareerPost } from '@/types/career';
-import { Button, Badge, Card, EmptyState } from '@astryxdesign/core';
+import { Button, Badge, Card, EmptyState, Selector, DropdownMenu, Pagination } from '@astryxdesign/core';
 
 interface CareerApplicationsClientProps {
   initialApplications: JobApplication[];
@@ -41,6 +42,15 @@ export default function CareerApplicationsClient({
   const [isDeleting, setIsDeleting] = useState<string | null>(null);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
 
+  // Pagination State
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageSize, setPageSize] = useState(10);
+
+  // Reset page when search or filters change
+  React.useEffect(() => {
+    setCurrentPage(1);
+  }, [search, statusFilter, jobFilter]);
+
   const filteredApplications = applications.filter((app) => {
     const matchesSearch =
       app.fullName.toLowerCase().includes(search.toLowerCase()) ||
@@ -55,6 +65,15 @@ export default function CareerApplicationsClient({
 
     return matchesSearch && matchesStatus && matchesJob;
   });
+
+  const totalItems = filteredApplications.length;
+  const totalPages = Math.max(1, Math.ceil(totalItems / pageSize));
+  const safeCurrentPage = Math.min(currentPage, totalPages);
+  const startIndex = (safeCurrentPage - 1) * pageSize;
+  const paginatedApplications = filteredApplications.slice(
+    startIndex,
+    startIndex + pageSize
+  );
 
   const showToast = (msg: string) => {
     setToastMessage(msg);
@@ -191,7 +210,7 @@ export default function CareerApplicationsClient({
   const offeredCount = applications.filter((a) => a.status === 'offered').length;
 
   return (
-    <div className="space-y-6 font-open-sans max-w-7xl mx-auto pb-12">
+    <div className="space-y-6 font-open-sans w-full pb-12">
       {/* Toast Banner */}
       {toastMessage && (
         <div className="fixed bottom-6 right-6 z-50 p-4 rounded-xl bg-slate-900 text-white shadow-2xl flex items-center gap-3 border border-slate-700 animate-in fade-in slide-in-from-bottom-2">
@@ -363,36 +382,36 @@ export default function CareerApplicationsClient({
 
           {/* Job Filter */}
           <div className="md:col-span-3">
-            <select
+            <Selector
+              label="Lọc theo vị trí tuyển dụng"
+              isLabelHidden
               value={jobFilter}
-              onChange={(e) => setJobFilter(e.target.value)}
-              className="w-full px-3.5 py-2.5 bg-slate-50/60 border border-slate-200 rounded-xl text-xs sm:text-sm text-slate-900 focus:outline-none focus:bg-white focus:border-slate-800 focus:ring-1 focus:ring-slate-800 transition-colors font-medium"
-            >
-              <option value="all">Tất cả vị trí tuyển dụng</option>
-              {jobs.map((j) => (
-                <option key={j.id} value={j.id}>
-                  {j.title}
-                </option>
-              ))}
-            </select>
+              onChange={(val) => setJobFilter(val)}
+              options={[
+                { value: 'all', label: 'Tất cả vị trí tuyển dụng' },
+                ...jobs.map((j) => ({ value: j.id, label: j.title })),
+              ]}
+            />
           </div>
 
           {/* Status filter */}
           <div className="md:col-span-3">
-            <select
+            <Selector
+              label="Lọc theo trạng thái"
+              isLabelHidden
               value={statusFilter}
-              onChange={(e) =>
-                setStatusFilter(e.target.value as 'all' | ApplicationStatus)
+              onChange={(val) =>
+                setStatusFilter(val as 'all' | ApplicationStatus)
               }
-              className="w-full px-3.5 py-2.5 bg-slate-50/60 border border-slate-200 rounded-xl text-xs sm:text-sm text-slate-900 focus:outline-none focus:bg-white focus:border-slate-800 focus:ring-1 focus:ring-slate-800 transition-colors font-medium"
-            >
-              <option value="all">Tất cả trạng thái</option>
-              <option value="pending">Chờ duyệt (Pending)</option>
-              <option value="reviewing">Đang xem xét (Reviewing)</option>
-              <option value="interview">Mời phỏng vấn (Interview)</option>
-              <option value="offered">Trúng tuyển (Offered)</option>
-              <option value="rejected">Chưa phù hợp (Rejected)</option>
-            </select>
+              options={[
+                { value: 'all', label: 'Tất cả trạng thái' },
+                { value: 'pending', label: 'Chờ duyệt (Pending)' },
+                { value: 'reviewing', label: 'Đang xem xét (Reviewing)' },
+                { value: 'interview', label: 'Mời phỏng vấn (Interview)' },
+                { value: 'offered', label: 'Trúng tuyển (Offered)' },
+                { value: 'rejected', label: 'Chưa phù hợp (Rejected)' },
+              ]}
+            />
           </div>
         </div>
       </Card>
@@ -431,7 +450,7 @@ export default function CareerApplicationsClient({
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100 text-xs">
-                {filteredApplications.map((app) => (
+                {paginatedApplications.map((app) => (
                   <tr
                     key={app.id}
                     className="hover:bg-slate-50/70 transition-colors group cursor-pointer"
@@ -498,25 +517,28 @@ export default function CareerApplicationsClient({
 
                     {/* Status inline selector */}
                     <td
-                      className="py-4 px-4 whitespace-nowrap"
+                      className="py-4 px-4 whitespace-nowrap min-w-[160px]"
                       onClick={(e) => e.stopPropagation()}
                     >
-                      <select
+                      <Selector
+                        label="Trạng thái ứng viên"
+                        isLabelHidden
+                        size="sm"
                         value={app.status}
-                        onChange={(e) =>
+                        onChange={(val) =>
                           handleStatusChange(
                             app.id,
-                            e.target.value as ApplicationStatus
+                            val as ApplicationStatus
                           )
                         }
-                        className="px-2.5 py-1 rounded-lg text-xs font-bold border border-slate-300 bg-white text-slate-800 transition-colors cursor-pointer"
-                      >
-                        <option value="pending">Chờ duyệt</option>
-                        <option value="reviewing">Đang xem xét</option>
-                        <option value="interview">Mời phỏng vấn</option>
-                        <option value="offered">Trúng tuyển</option>
-                        <option value="rejected">Chưa phù hợp</option>
-                      </select>
+                        options={[
+                          { value: 'pending', label: 'Chờ duyệt' },
+                          { value: 'reviewing', label: 'Đang xem xét' },
+                          { value: 'interview', label: 'Mời phỏng vấn' },
+                          { value: 'offered', label: 'Trúng tuyển' },
+                          { value: 'rejected', label: 'Chưa phù hợp' },
+                        ]}
+                      />
                     </td>
 
                     {/* Actions */}
@@ -524,21 +546,39 @@ export default function CareerApplicationsClient({
                       className="py-4 px-4 text-right whitespace-nowrap"
                       onClick={(e) => e.stopPropagation()}
                     >
-                      <div className="flex items-center justify-end gap-1.5">
-                        <Button
-                          label="Chi tiết"
-                          variant="secondary"
-                          size="sm"
-                          onClick={() => openDetailModal(app)}
-                        />
-                        <Button
-                          label="Xoá"
-                          variant="ghost"
-                          size="sm"
-                          isIconOnly
-                          icon={<Trash2 className="w-3.5 h-3.5 text-red-500" />}
-                          isDisabled={isDeleting === app.id}
-                          onClick={() => handleDelete(app.id, app.fullName)}
+                      <div className="flex items-center justify-end">
+                        <DropdownMenu
+                          button={{
+                            label: 'Thao tác',
+                            isIconOnly: true,
+                            icon: <MoreHorizontal className="w-4 h-4" />,
+                            size: 'sm',
+                            variant: 'ghost',
+                          }}
+                          placement="below"
+                          alignment="end"
+                          items={[
+                            {
+                              label: 'Xem chi tiết hồ sơ',
+                              onClick: () => openDetailModal(app),
+                            },
+                            ...(app.cvUrl
+                              ? [
+                                  {
+                                    label: 'Mở CV / Portfolio',
+                                    onClick: () =>
+                                      window.open(app.cvUrl, '_blank'),
+                                  },
+                                ]
+                              : []),
+                            {
+                              label: 'Xóa hồ sơ ứng viên',
+                              variant: 'destructive',
+                              isDisabled: isDeleting === app.id,
+                              onClick: () =>
+                                handleDelete(app.id, app.fullName),
+                            },
+                          ]}
                         />
                       </div>
                     </td>
@@ -547,6 +587,28 @@ export default function CareerApplicationsClient({
               </tbody>
             </table>
           </div>
+
+          {/* Pagination Footer */}
+          {totalItems > 0 && (
+            <div className="px-6 py-4 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-4 bg-slate-50/50">
+              <span className="text-xs text-slate-500 font-medium">
+                Hiển thị {startIndex + 1}–{Math.min(startIndex + pageSize, totalItems)} trong tổng số {totalItems} hồ sơ ứng tuyển
+              </span>
+              <Pagination
+                page={safeCurrentPage}
+                onChange={(p) => setCurrentPage(p)}
+                totalItems={totalItems}
+                pageSize={pageSize}
+                pageSizeOptions={[10, 20, 50]}
+                onPageSizeChange={(newSize) => {
+                  setPageSize(newSize);
+                  setCurrentPage(1);
+                }}
+                variant="pages"
+                size="sm"
+              />
+            </div>
+          )}
         </div>
       )}
 
@@ -632,26 +694,24 @@ export default function CareerApplicationsClient({
 
             {/* Status Selector & Internal HR Notes */}
             <div className="space-y-3 pt-3 border-t border-slate-100">
-              <div className="flex items-center justify-between">
-                <label className="text-xs font-bold text-slate-800">
-                  Trạng thái đánh giá ứng viên:
-                </label>
-                <select
+              <div>
+                <Selector
+                  label="Trạng thái đánh giá ứng viên"
                   value={selectedApp.status}
-                  onChange={(e) =>
+                  onChange={(val) =>
                     handleStatusChange(
                       selectedApp.id,
-                      e.target.value as ApplicationStatus
+                      val as ApplicationStatus
                     )
                   }
-                  className="px-3 py-1.5 bg-white border border-slate-300 rounded-xl text-xs font-bold text-slate-800 focus:outline-none"
-                >
-                  <option value="pending">Chờ duyệt (Pending)</option>
-                  <option value="reviewing">Đang xem xét (Reviewing)</option>
-                  <option value="interview">Mời phỏng vấn (Interview)</option>
-                  <option value="offered">Trúng tuyển / Đạt (Offered)</option>
-                  <option value="rejected">Chưa phù hợp (Rejected)</option>
-                </select>
+                  options={[
+                    { value: 'pending', label: 'Chờ duyệt (Pending)' },
+                    { value: 'reviewing', label: 'Đang xem xét (Reviewing)' },
+                    { value: 'interview', label: 'Mời phỏng vấn (Interview)' },
+                    { value: 'offered', label: 'Trúng tuyển / Đạt (Offered)' },
+                    { value: 'rejected', label: 'Chưa phù hợp (Rejected)' },
+                  ]}
+                />
               </div>
 
               <div>

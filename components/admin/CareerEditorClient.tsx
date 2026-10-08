@@ -17,7 +17,7 @@ import {
 } from 'lucide-react';
 import { CareerPost, JobStatus, JobType } from '@/types/career';
 import TipTapEditor from './TipTapEditor';
-import { Card, Button, Badge } from '@astryxdesign/core';
+import { Card, Button, Badge, Selector } from '@astryxdesign/core';
 
 interface CareerEditorClientProps {
   initialJob?: CareerPost | null;
@@ -203,7 +203,7 @@ export default function CareerEditorClient({
   };
 
   return (
-    <div className="space-y-6 font-open-sans max-w-5xl mx-auto pb-16">
+    <div className="space-y-6 font-open-sans w-full pb-16">
       {/* =========================================================================
           TOP NAV & ACTIONS HEADER
           ========================================================================= */}
@@ -438,18 +438,16 @@ export default function CareerEditorClient({
             </h3>
 
             <div>
-              <label className="block text-xs font-semibold text-slate-700 mb-1.5">
-                Trạng thái tuyển dụng
-              </label>
-              <select
+              <Selector
+                label="Trạng thái tuyển dụng"
                 value={status}
-                onChange={(e) => setStatus(e.target.value as JobStatus)}
-                className="w-full px-3.5 py-2.5 bg-white border border-slate-200 rounded-xl text-sm text-slate-900 font-medium focus:outline-none focus:border-slate-800 focus:ring-2 focus:ring-slate-800/10 transition-all cursor-pointer"
-              >
-                <option value="published">Đang mở tuyển (Published)</option>
-                <option value="draft">Lưu bản nháp (Draft)</option>
-                <option value="closed">Đã đóng tuyển (Closed)</option>
-              </select>
+                onChange={(val) => setStatus(val as JobStatus)}
+                options={[
+                  { value: 'published', label: 'Đang mở tuyển (Published)' },
+                  { value: 'draft', label: 'Lưu bản nháp (Draft)' },
+                  { value: 'closed', label: 'Đã đóng tuyển (Closed)' },
+                ]}
+              />
             </div>
 
             <div className="pt-2 border-t border-slate-100 flex items-center justify-between">
@@ -477,44 +475,30 @@ export default function CareerEditorClient({
             </h3>
 
             <div>
-              <label className="block text-xs font-semibold text-slate-700 mb-1.5">
-                Phòng ban
-              </label>
-              <select
+              <Selector
+                label="Phòng ban"
                 value={department}
-                onChange={(e) => setDepartment(e.target.value)}
-                className="w-full px-3.5 py-2.5 bg-white border border-slate-200 rounded-xl text-sm text-slate-900 font-medium focus:outline-none focus:border-slate-800 focus:ring-2 focus:ring-slate-800/10 transition-all cursor-pointer"
-              >
-                {departments.map((d) => (
-                  <option key={d} value={d}>
-                    {d}
-                  </option>
-                ))}
-                {!departments.includes('Engineering & Technology') && (
-                  <option value="Engineering & Technology">
-                    Engineering &amp; Technology
-                  </option>
-                )}
-                {!departments.includes('E-Commerce Operations') && (
-                  <option value="E-Commerce Operations">
-                    E-Commerce Operations
-                  </option>
-                )}
-                {!departments.includes('Logistics & Supply Chain') && (
-                  <option value="Logistics & Supply Chain">
-                    Logistics &amp; Supply Chain
-                  </option>
-                )}
-                {!departments.includes('Growth & Marketing') && (
-                  <option value="Growth & Marketing">Growth &amp; Marketing</option>
-                )}
-                {!departments.includes('HR & Administration') && (
-                  <option value="HR & Administration">
-                    HR &amp; Administration
-                  </option>
-                )}
-                <option value="__custom__">+ Nhập phòng ban khác...</option>
-              </select>
+                onChange={(val) => setDepartment(val)}
+                options={[
+                  ...departments.map((d) => ({ value: d, label: d })),
+                  ...(!departments.includes('Engineering & Technology')
+                    ? [{ value: 'Engineering & Technology', label: 'Engineering & Technology' }]
+                    : []),
+                  ...(!departments.includes('E-Commerce Operations')
+                    ? [{ value: 'E-Commerce Operations', label: 'E-Commerce Operations' }]
+                    : []),
+                  ...(!departments.includes('Logistics & Supply Chain')
+                    ? [{ value: 'Logistics & Supply Chain', label: 'Logistics & Supply Chain' }]
+                    : []),
+                  ...(!departments.includes('Growth & Marketing')
+                    ? [{ value: 'Growth & Marketing', label: 'Growth & Marketing' }]
+                    : []),
+                  ...(!departments.includes('HR & Administration')
+                    ? [{ value: 'HR & Administration', label: 'HR & Administration' }]
+                    : []),
+                  { value: '__custom__', label: '+ Nhập phòng ban khác...' },
+                ]}
+              />
 
               {department === '__custom__' && (
                 <input
@@ -528,20 +512,18 @@ export default function CareerEditorClient({
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-slate-700 mb-1.5">
-                Loại hình làm việc
-              </label>
-              <select
+              <Selector
+                label="Loại hình làm việc"
                 value={type}
-                onChange={(e) => setType(e.target.value as JobType)}
-                className="w-full px-3.5 py-2.5 bg-white border border-slate-200 rounded-xl text-sm text-slate-900 font-medium focus:outline-none focus:border-slate-800 focus:ring-2 focus:ring-slate-800/10 transition-all cursor-pointer"
-              >
-                <option value="Full-time">Toàn thời gian (Full-time)</option>
-                <option value="Part-time">Bán thời gian (Part-time)</option>
-                <option value="Contract">Hợp đồng (Contract)</option>
-                <option value="Internship">Thực tập sinh (Internship)</option>
-                <option value="Remote">Từ xa (Remote)</option>
-              </select>
+                onChange={(val) => setType(val as JobType)}
+                options={[
+                  { value: 'Full-time', label: 'Toàn thời gian (Full-time)' },
+                  { value: 'Part-time', label: 'Bán thời gian (Part-time)' },
+                  { value: 'Contract', label: 'Hợp đồng (Contract)' },
+                  { value: 'Internship', label: 'Thực tập sinh (Internship)' },
+                  { value: 'Remote', label: 'Từ xa (Remote)' },
+                ]}
+              />
             </div>
 
             <div>

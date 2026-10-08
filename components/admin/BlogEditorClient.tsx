@@ -12,7 +12,7 @@ import {
 } from 'lucide-react';
 import { BlogPost, BlogCategory, PostStatus } from '@/types/blog';
 import TipTapEditor from './TipTapEditor';
-import { Card, Button, Badge } from '@astryxdesign/core';
+import { Card, Button, Badge, Selector } from '@astryxdesign/core';
 
 interface BlogEditorClientProps {
   initialPost?: BlogPost | null;
@@ -186,7 +186,7 @@ export default function BlogEditorClient({
   };
 
   return (
-    <div className="space-y-6 font-open-sans max-w-5xl mx-auto pb-16">
+    <div className="space-y-6 font-open-sans w-full pb-16">
       {/* Top navigation & action header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div className="flex items-center gap-3">
@@ -347,17 +347,15 @@ export default function BlogEditorClient({
             </h3>
 
             <div>
-              <label className="block text-xs font-semibold text-slate-700 mb-1.5">
-                Trạng thái bài viết
-              </label>
-              <select
+              <Selector
+                label="Trạng thái bài viết"
                 value={status}
-                onChange={(e) => setStatus(e.target.value as PostStatus)}
-                className="w-full px-3.5 py-2.5 bg-white border border-slate-200 rounded-xl text-sm text-slate-900 font-medium focus:outline-none focus:border-slate-800 focus:ring-2 focus:ring-slate-800/10 transition-all cursor-pointer"
-              >
-                <option value="published">Xuất bản công khai (Published)</option>
-                <option value="draft">Lưu bản nháp (Draft)</option>
-              </select>
+                onChange={(val) => setStatus(val as PostStatus)}
+                options={[
+                  { value: 'published', label: 'Xuất bản công khai (Published)' },
+                  { value: 'draft', label: 'Lưu bản nháp (Draft)' },
+                ]}
+              />
             </div>
 
             <div>
@@ -384,29 +382,21 @@ export default function BlogEditorClient({
             </h3>
 
             <div>
-              <label className="block text-xs font-semibold text-slate-700 mb-1.5">
-                Chuyên mục chính
-              </label>
-              <select
+              <Selector
+                label="Chuyên mục chính"
                 value={category}
-                onChange={(e) => setCategory(e.target.value)}
-                className="w-full px-3.5 py-2.5 bg-white border border-slate-200 rounded-xl text-sm text-slate-900 font-medium focus:outline-none focus:border-slate-800 focus:ring-2 focus:ring-slate-800/10 transition-all cursor-pointer"
-              >
-                {categories.length > 0 ? (
-                  categories.map((c) => (
-                    <option key={c.id} value={c.name}>
-                      {c.name}
-                    </option>
-                  ))
-                ) : (
-                  <>
-                    <option value="E-Commerce Strategy">E-Commerce Strategy</option>
-                    <option value="Operations">Operations</option>
-                    <option value="Technology">Technology</option>
-                    <option value="Market Expansion">Market Expansion</option>
-                  </>
-                )}
-              </select>
+                onChange={(val) => setCategory(val)}
+                options={
+                  categories.length > 0
+                    ? categories.map((c) => ({ value: c.name, label: c.name }))
+                    : [
+                        { value: 'E-Commerce Strategy', label: 'E-Commerce Strategy' },
+                        { value: 'Operations', label: 'Operations' },
+                        { value: 'Technology', label: 'Technology' },
+                        { value: 'Market Expansion', label: 'Market Expansion' },
+                      ]
+                }
+              />
             </div>
 
             <div>

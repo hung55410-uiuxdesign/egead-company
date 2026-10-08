@@ -6,6 +6,8 @@ import {
   savePost,
   getBlogStats,
   getCategories,
+  bulkUpdatePosts,
+  bulkDeletePosts,
 } from '../lib/services/blog.service';
 
 describe('Blog Service Unit Tests', () => {
@@ -115,4 +117,59 @@ describe('Blog Service Unit Tests', () => {
       expect(saved.status).toBe('draft');
     });
   });
+
+  describe('bulkUpdatePosts and bulkDeletePosts', () => {
+    test('updates multiple posts status and category, then deletes them', async () => {
+      const post1 = await savePost({
+        title: 'Bulk Test Article 1',
+        subtitle: 'Sub 1',
+        tag: 'Tech',
+        category: 'General',
+        excerpt: 'Excerpt 1',
+        content: '<p>Content 1</p>',
+        status: 'draft',
+      });
+
+      const post2 = await savePost({
+        title: 'Bulk Test Article 2',
+        subtitle: 'Sub 2',
+        tag: 'Tech',
+        category: 'General',
+        excerpt: 'Excerpt 2',
+        content: '<p>Content 2</p>',
+        status: 'draft',
+      });
+
+      const ids = [post1.id, post2.id];
+
+      // Bulk update
+      const updatedCount = await bulkUpdatePosts(ids, {
+        status: 'published',
+        category: 'Insights',
+      });
+      expect(updatedCount).toBe(2);
+
+      // Verify updated post 1
+      const fetched1 = await getPostById(post1.id);
+      expect(fetched1?.status).toBe('published');
+      expect(fetched1?.category).toBe('Insights');
+
+      // Bulk delete
+      const deletedCount = await bulkDeletePosts(ids);
+      expect(deletedCount).toBe(2);
+
+      // Verify deletion
+      const checkDeleted1 = await getPostById(post1.id);
+      expect(checkDeleted1).toBeNull();
+    });
+
+    test('handles empty ids gracefully', async () => {
+      const updated = await bulkUpdatePosts([], { status: 'published' });
+      expect(updated).toBe(0);
+
+      const deleted = await bulkDeletePosts([]);
+      expect(deleted).toBe(0);
+    });
+  });
 });
+

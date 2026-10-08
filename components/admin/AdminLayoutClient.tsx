@@ -110,7 +110,7 @@ export default function AdminLayoutClient({
         {/* Main Content Area */}
         <div className="flex-1 flex flex-col min-w-0 h-screen overflow-hidden bg-slate-50 font-open-sans">
           <AdminNavbar onOpenSidebar={() => setSidebarOpen(true)} />
-          <main className="flex-1 p-4 sm:p-6 lg:p-8 overflow-y-auto">
+          <main className="flex-1 px-[6%] sm:px-[7%] xl:px-[8%] py-6 sm:py-8 overflow-y-auto w-full">
             {children}
           </main>
         </div>
