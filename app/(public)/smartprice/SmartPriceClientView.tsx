@@ -2,8 +2,36 @@
 
 import React from 'react';
 import Link from 'next/link';
+import { motion, type Variants } from 'framer-motion';
 import CaseStudiesSection from '@/components/CaseStudiesSection';
 import './smartprice.css';
+
+const MotionLink = motion.create(Link);
+
+// Reusable motion animation variants for smooth scroll reveals
+const fadeInUp: Variants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.7,
+      ease: [0.22, 1, 0.36, 1],
+    },
+  },
+};
+
+const cardVariant: Variants = {
+  hidden: { opacity: 0, y: 40 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.75,
+      ease: [0.22, 1, 0.36, 1],
+    },
+  },
+};
 
 export default function SmartPriceClientView() {
   return (
@@ -17,15 +45,42 @@ export default function SmartPriceClientView() {
             <div className="smartprice-hero__row">
               {/* Left Column: Title, Subtitle, Intro & CTA Button */}
               <div className="smartprice-hero__left">
-                <h1 className="smartprice-hero__title">SMARTPRICE</h1>
-                <h2 className="smartprice-hero__heading">
+                <motion.h1
+                  className="smartprice-hero__title"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.65, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+                >
+                  SMARTPRICE
+                </motion.h1>
+                <motion.h2
+                  className="smartprice-hero__heading"
+                  initial={{ opacity: 0, y: 25 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.7, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+                >
                   Maximize profits on pre-owned products.
-                </h2>
-                <p className="smartprice-hero__desc">
+                </motion.h2>
+                <motion.p
+                  className="smartprice-hero__desc"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.7, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                >
                   Catalyzer SmartPrice uses real-time intelligence to help enterprise businesses standardize their pricing for pre-owned products.
-                </p>
-                <div className="smartprice-hero__cta">
-                  <Link className="smartprice-hero__btn" href="/contact-us">
+                </motion.p>
+                <motion.div
+                  className="smartprice-hero__cta"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                >
+                  <MotionLink
+                    className="smartprice-hero__btn"
+                    href="/contact-us"
+                    whileHover={{ scale: 1.04 }}
+                    whileTap={{ scale: 0.97 }}
+                  >
                     <svg
                       width="18"
                       height="18"
@@ -40,24 +95,34 @@ export default function SmartPriceClientView() {
                       />
                     </svg>
                     <span>Schedule Demo</span>
-                  </Link>
-                </div>
+                  </MotionLink>
+                </motion.div>
               </div>
 
               {/* Right Column: Dual-Phone Mockups */}
-              <div className="smartprice-hero__right">
+              <motion.div
+                className="smartprice-hero__right"
+                initial={{ opacity: 0, y: 35, scale: 0.95 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                transition={{ duration: 0.9, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
+              >
                 <img
                   src="/assets/smartprice/Top.png"
                   alt="SmartPrice Mobile App Mockup"
                   className="smartprice-hero__mockup"
                   loading="eager"
                 />
-              </div>
+              </motion.div>
             </div>
           </div>
 
           {/* Glowing Ambient Aura & Video Background */}
-          <div className="smartprice-hero__ambient-glow" />
+          <motion.div
+            className="smartprice-hero__ambient-glow"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1.2 }}
+          />
           <video
             src="/assets/smartprice/SmartPrice_BG.mp4"
             className="smartprice-hero__video"
@@ -71,19 +136,42 @@ export default function SmartPriceClientView() {
         {/* ================================================================== */}
         {/* 2. OVERVIEW SECTION (product-overview__intro)                       */}
         {/* ================================================================== */}
-        <div className="product-overview__intro">
-          <p className="product-overview__intro-title">
+        <motion.div
+          className="product-overview__intro"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2, margin: '0px 0px -40px 0px' }}
+          variants={{
+            hidden: { opacity: 0 },
+            visible: {
+              opacity: 1,
+              transition: { staggerChildren: 0.15, delayChildren: 0.05 },
+            },
+          }}
+        >
+          <motion.p className="product-overview__intro-title" variants={fadeInUp}>
             Don&apos;t let your profits be lost in the guessing game
-          </p>
-          <h2 className="product-overview__intro-subtitle">
+          </motion.p>
+          <motion.h2 className="product-overview__intro-subtitle" variants={fadeInUp}>
             <span>
               Finding the sweet spot for pre-owned product pricing is <br />
             </span>
             <span>
               more art than science... until now.
             </span>
-          </h2>
-          <div className="product-overview__intro-content">
+          </motion.h2>
+          <motion.div
+            className="product-overview__intro-content"
+            variants={{
+              hidden: { opacity: 0, y: 30, scale: 0.98 },
+              visible: {
+                opacity: 1,
+                y: 0,
+                scale: 1,
+                transition: { duration: 0.75, ease: [0.22, 1, 0.36, 1] },
+              },
+            }}
+          >
             <div className="video-block" title="SmartPrice Overview">
               <img src="/assets/smartprice/SmartPrice.jpg" alt="SmartPrice Overview" />
               <div className="video-block__icon">
@@ -147,8 +235,8 @@ export default function SmartPriceClientView() {
                 </div>
               </div>
             </div>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
 
         {/* ================================================================== */}
         {/* 3. STRATEGY SECTION (full-width matching page.tsx)                 */}
@@ -156,7 +244,13 @@ export default function SmartPriceClientView() {
         <section className="relative w-full py-20 sm:py-28 lg:py-32 bg-[#000000] text-white overflow-hidden">
           <div className="w-full px-6 sm:px-10 lg:px-14 xl:px-16 2xl:px-20">
             {/* Header Block */}
-            <div className="w-full text-center max-w-4xl mx-auto mb-16 sm:mb-20">
+            <motion.div
+              className="w-full text-center max-w-4xl mx-auto mb-16 sm:mb-20"
+              initial={{ opacity: 0, y: 25 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+            >
               <p className="text-sm sm:text-base font-medium text-[#6CE8C3] mb-3 font-montserrat tracking-wider uppercase">
                 The future of pricing strategies
               </p>
@@ -167,10 +261,16 @@ export default function SmartPriceClientView() {
                   the power of AI/ML.
                 </span>
               </h2>
-            </div>
+            </motion.div>
 
             {/* Strategy Card 1: Streamline appraisal */}
-            <div className="w-full rounded-[28px] sm:rounded-[36px] lg:rounded-[40px] bg-[#12131C] border border-white/[0.08] p-7 sm:p-10 lg:p-12 xl:p-16 mb-8 sm:mb-12 shadow-2xl relative overflow-hidden transition-all duration-300">
+            <motion.div
+              className="w-full rounded-[28px] sm:rounded-[36px] lg:rounded-[40px] bg-[#12131C] border border-white/[0.08] p-7 sm:p-10 lg:p-12 xl:p-16 mb-8 sm:mb-12 shadow-2xl relative overflow-hidden transition-all duration-300"
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.15, margin: '0px 0px -50px 0px' }}
+              variants={cardVariant}
+            >
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 xl:gap-14 items-center">
                 {/* Left Column: Heading, description, bullet points */}
                 <div className="lg:col-span-5 xl:col-span-5 text-left">
@@ -242,10 +342,16 @@ export default function SmartPriceClientView() {
                   />
                 </div>
               </div>
-            </div>
+            </motion.div>
 
             {/* Strategy Card 2: Market intelligence */}
-            <div className="w-full rounded-[28px] sm:rounded-[36px] lg:rounded-[40px] bg-[#12131C] border border-white/[0.08] p-7 sm:p-10 lg:p-12 xl:p-16 relative overflow-hidden shadow-2xl transition-all duration-300">
+            <motion.div
+              className="w-full rounded-[28px] sm:rounded-[36px] lg:rounded-[40px] bg-[#12131C] border border-white/[0.08] p-7 sm:p-10 lg:p-12 xl:p-16 relative overflow-hidden shadow-2xl transition-all duration-300"
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.15, margin: '0px 0px -50px 0px' }}
+              variants={cardVariant}
+            >
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 xl:gap-14 items-center">
                 {/* Left Column: Heading, description, bullet points */}
                 <div className="lg:col-span-5 xl:col-span-5 text-left">
@@ -305,7 +411,7 @@ export default function SmartPriceClientView() {
                   />
                 </div>
               </div>
-            </div>
+            </motion.div>
           </div>
         </section>
 
@@ -315,7 +421,13 @@ export default function SmartPriceClientView() {
         <section className="relative w-full py-20 sm:py-28 lg:py-32 bg-[#000000] text-white overflow-hidden border-t border-white/5">
           <div className="w-full px-6 sm:px-10 lg:px-14 xl:px-16 2xl:px-20">
             {/* Header Block */}
-            <div className="w-full text-center max-w-4xl mx-auto mb-14 sm:mb-18">
+            <motion.div
+              className="w-full text-center max-w-4xl mx-auto mb-14 sm:mb-18"
+              initial={{ opacity: 0, y: 25 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+            >
               <p className="text-sm sm:text-base font-medium text-[#6CE8C3] mb-3 font-montserrat tracking-wider uppercase">
                 How it works
               </p>
@@ -328,10 +440,16 @@ export default function SmartPriceClientView() {
               <p className="text-base sm:text-lg lg:text-[19px] text-[#A1A1AA] font-light leading-[1.7] max-w-3xl mx-auto font-montserrat">
                 The self-learning model progressively improves pricing accuracy as more data and feedback is provided.
               </p>
-            </div>
+            </motion.div>
 
             {/* Diagram Card Container - Full width matching Section 3 */}
-            <div className="w-full rounded-[28px] sm:rounded-[36px] lg:rounded-[40px] bg-[#12131C] border border-white/[0.08] p-6 sm:p-10 lg:p-14 xl:p-16 shadow-2xl relative overflow-hidden flex items-center justify-center transition-all duration-300">
+            <motion.div
+              className="w-full rounded-[28px] sm:rounded-[36px] lg:rounded-[40px] bg-[#12131C] border border-white/[0.08] p-6 sm:p-10 lg:p-14 xl:p-16 shadow-2xl relative overflow-hidden flex items-center justify-center transition-all duration-300"
+              initial={{ opacity: 0, y: 35, scale: 0.98 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+            >
               <video
                 src="/assets/smartprice/Diagram_Desktop.mp4"
                 className="w-full h-auto max-w-[1360px] xl:max-w-[1500px] object-contain rounded-[18px] sm:rounded-[24px] block drop-shadow-[0_20px_50px_rgba(0,0,0,0.9)]"
@@ -340,14 +458,21 @@ export default function SmartPriceClientView() {
                 loop
                 playsInline
               />
-            </div>
+            </motion.div>
           </div>
         </section>
 
         {/* ================================================================== */}
         {/* 5. LOGO SLIDER (Using CaseStudiesSection marquee)                  */}
         {/* ================================================================== */}
-        <CaseStudiesSection variant="smartprice" />
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.8 }}
+        >
+          <CaseStudiesSection variant="smartprice" />
+        </motion.div>
 
         {/* ================================================================== */}
         {/* 6. VIDEO BADGE CONTAINER (SAP Store Availability)                 */}
@@ -363,7 +488,13 @@ export default function SmartPriceClientView() {
           />
           <div className="absolute inset-0 bg-black/75 backdrop-blur-[2px]" />
           <div className="relative z-10 w-full px-6 sm:px-10 lg:px-14 xl:px-16 2xl:px-20 py-16 sm:py-20">
-            <div className="w-full rounded-[28px] sm:rounded-[36px] lg:rounded-[40px] bg-[#12131C]/90 border border-white/[0.12] backdrop-blur-md p-8 sm:p-12 lg:p-14 flex flex-col sm:flex-row items-center justify-between gap-8 shadow-2xl">
+            <motion.div
+              className="w-full rounded-[28px] sm:rounded-[36px] lg:rounded-[40px] bg-[#12131C]/90 border border-white/[0.12] backdrop-blur-md p-8 sm:p-12 lg:p-14 flex flex-col sm:flex-row items-center justify-between gap-8 shadow-2xl"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+            >
               <p className="text-xl sm:text-2xl lg:text-[28px] font-medium text-white font-montserrat text-center sm:text-left">
                 Catalyzer SmartPrice is available on:
               </p>
@@ -379,7 +510,7 @@ export default function SmartPriceClientView() {
                   className="w-[210px] sm:w-[240px] h-auto object-contain"
                 />
               </a>
-            </div>
+            </motion.div>
           </div>
         </section>
 
@@ -387,18 +518,26 @@ export default function SmartPriceClientView() {
         {/* 7. CONTACT BLOCK (Boost profits now with SmartPrice)               */}
         {/* ================================================================== */}
         <section className="relative w-full py-24 sm:py-32 bg-[#000000] text-white border-t border-white/10 overflow-hidden text-center">
-          <div className="w-full px-6 sm:px-10 lg:px-14 xl:px-16 2xl:px-20">
+          <motion.div
+            className="w-full px-6 sm:px-10 lg:px-14 xl:px-16 2xl:px-20"
+            initial={{ opacity: 0, y: 25 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+          >
             <h2 className="text-3xl sm:text-4xl lg:text-[52px] font-bold font-montserrat leading-[1.2] mb-10">
               <span className="text-white font-extrabold">Boost profits</span> now <br className="hidden sm:inline" />
               with SmartPrice.
             </h2>
-            <Link
+            <MotionLink
               href="/contact-us"
-              className="inline-flex items-center gap-2.5 px-8 sm:px-10 py-4 rounded-full bg-[#10E774] hover:bg-[#0ecb66] text-[#003D5B] font-bold text-base font-montserrat transition-all duration-300 shadow-[0_0_30px_rgba(16,231,116,0.4)] hover:shadow-[0_0_40px_rgba(16,231,116,0.7)] hover:scale-105"
+              className="inline-flex items-center gap-2.5 px-8 sm:px-10 py-4 rounded-full bg-[#10E774] hover:bg-[#0ecb66] text-[#003D5B] font-bold text-base font-montserrat transition-all duration-300 shadow-[0_0_30px_rgba(16,231,116,0.4)] hover:shadow-[0_0_40px_rgba(16,231,116,0.7)]"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.96 }}
             >
               Let&apos;s talk
-            </Link>
-          </div>
+            </MotionLink>
+          </motion.div>
         </section>
       </div>
     </div>

@@ -2,8 +2,36 @@
 
 import React from 'react';
 import Link from 'next/link';
+import { motion, type Variants } from 'framer-motion';
 import CaseStudiesSection from '@/components/CaseStudiesSection';
 import './loyalty.css';
+
+const MotionLink = motion.create(Link);
+
+// Reusable motion animation variants for smooth scroll reveals
+const fadeInUp: Variants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.7,
+      ease: [0.22, 1, 0.36, 1],
+    },
+  },
+};
+
+const cardVariant: Variants = {
+  hidden: { opacity: 0, y: 40 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.75,
+      ease: [0.22, 1, 0.36, 1],
+    },
+  },
+};
 
 export default function LoyaltyClientView() {
   return (
@@ -17,16 +45,50 @@ export default function LoyaltyClientView() {
             <div className="loyalty-hero__row">
               {/* Left Column: Title, Subtitle, Intro & CTA Button */}
               <div className="loyalty-hero__left">
-                <span className="loyalty-hero__badge">Our Products</span>
-                <h1 className="loyalty-hero__title">SMARTLOYALTY</h1>
-                <h2 className="loyalty-hero__heading">
+                <motion.span
+                  className="loyalty-hero__badge"
+                  initial={{ opacity: 0, y: 15 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                >
+                  Our Products
+                </motion.span>
+                <motion.h1
+                  className="loyalty-hero__title"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.65, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+                >
+                  SMARTLOYALTY
+                </motion.h1>
+                <motion.h2
+                  className="loyalty-hero__heading"
+                  initial={{ opacity: 0, y: 25 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.7, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+                >
                   Harness omni-channel loyalty the easy way.
-                </h2>
-                <p className="loyalty-hero__desc">
+                </motion.h2>
+                <motion.p
+                  className="loyalty-hero__desc"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.7, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                >
                   Cultivate deeper customer relationships, drive retention, and fortify your business growth at every touchpoint.
-                </p>
-                <div className="loyalty-hero__cta">
-                  <Link className="loyalty-hero__btn" href="/contact-us">
+                </motion.p>
+                <motion.div
+                  className="loyalty-hero__cta"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                >
+                  <MotionLink
+                    className="loyalty-hero__btn"
+                    href="/contact-us"
+                    whileHover={{ scale: 1.04 }}
+                    whileTap={{ scale: 0.97 }}
+                  >
                     <svg
                       width="18"
                       height="18"
@@ -41,24 +103,34 @@ export default function LoyaltyClientView() {
                       />
                     </svg>
                     <span>Schedule demo</span>
-                  </Link>
-                </div>
+                  </MotionLink>
+                </motion.div>
               </div>
 
               {/* Right Column: Hero Mockup */}
-              <div className="loyalty-hero__right">
+              <motion.div
+                className="loyalty-hero__right"
+                initial={{ opacity: 0, y: 35, scale: 0.95 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                transition={{ duration: 0.9, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
+              >
                 <img
                   src="/assets/loyalty/hero-mockup.png"
                   alt="SmartLoyalty Mobile App Interface"
                   className="loyalty-hero__mockup"
                   loading="eager"
                 />
-              </div>
+              </motion.div>
             </div>
           </div>
 
           {/* Glowing Ambient Aura & Video Background */}
-          <div className="loyalty-hero__ambient-glow" />
+          <motion.div
+            className="loyalty-hero__ambient-glow"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1.2 }}
+          />
           <video
             src="/assets/loyalty/loyalty-bg03.mp4"
             className="loyalty-hero__video"
@@ -72,16 +144,39 @@ export default function LoyaltyClientView() {
         {/* ================================================================== */}
         {/* 2. OVERVIEW SECTION (product-overview__intro)                       */}
         {/* ================================================================== */}
-        <div className="product-overview__intro">
-          <p className="product-overview__intro-title">
+        <motion.div
+          className="product-overview__intro"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2, margin: '0px 0px -40px 0px' }}
+          variants={{
+            hidden: { opacity: 0 },
+            visible: {
+              opacity: 1,
+              transition: { staggerChildren: 0.15, delayChildren: 0.05 },
+            },
+          }}
+        >
+          <motion.p className="product-overview__intro-title" variants={fadeInUp}>
             Is your brand experience connecting or pushing away?
-          </p>
-          <h2 className="product-overview__intro-subtitle">
+          </motion.p>
+          <motion.h2 className="product-overview__intro-subtitle" variants={fadeInUp}>
             <span>
               Today’s customer craves more than transactions; they want meaningful connections and recognition for their loyalty.
             </span>
-          </h2>
-          <div className="product-overview__intro-content">
+          </motion.h2>
+          <motion.div
+            className="product-overview__intro-content"
+            variants={{
+              hidden: { opacity: 0, y: 30, scale: 0.98 },
+              visible: {
+                opacity: 1,
+                y: 0,
+                scale: 1,
+                transition: { duration: 0.75, ease: [0.22, 1, 0.36, 1] },
+              },
+            }}
+          >
             <div className="video-block" title="SmartLoyalty Overview">
               <img src="/assets/loyalty/loyalty-video-cover.jpg" alt="SmartLoyalty Overview Video Cover" />
               <div className="video-block__icon">
@@ -145,8 +240,8 @@ export default function LoyaltyClientView() {
                 </div>
               </div>
             </div>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
 
         {/* ================================================================== */}
         {/* 3. STRATEGY SECTION (Full-width matching page.tsx)                 */}
@@ -154,7 +249,13 @@ export default function LoyaltyClientView() {
         <section className="relative w-full py-20 sm:py-28 lg:py-32 bg-[#000000] text-white overflow-hidden">
           <div className="w-full px-6 sm:px-10 lg:px-14 xl:px-16 2xl:px-20">
             {/* Header Block */}
-            <div className="w-full text-center max-w-4xl mx-auto mb-16 sm:mb-20">
+            <motion.div
+              className="w-full text-center max-w-4xl mx-auto mb-16 sm:mb-20"
+              initial={{ opacity: 0, y: 25 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+            >
               <p className="text-sm sm:text-base font-medium text-[#6CE8C3] mb-3 font-montserrat tracking-wider uppercase">
                 Step into the future of O2O with SmartLoyalty
               </p>
@@ -165,10 +266,16 @@ export default function LoyaltyClientView() {
                   to keep customers engaged, ensuring your brand thrives at every touchpoint.
                 </span>
               </h2>
-            </div>
+            </motion.div>
 
             {/* Strategy Card 1: Enterprise-Class Loyalty */}
-            <div className="w-full rounded-[28px] sm:rounded-[36px] lg:rounded-[40px] bg-[#12131C] border border-white/[0.08] p-7 sm:p-10 lg:p-12 xl:p-16 mb-8 sm:mb-12 shadow-2xl relative overflow-hidden transition-all duration-300">
+            <motion.div
+              className="w-full rounded-[28px] sm:rounded-[36px] lg:rounded-[40px] bg-[#12131C] border border-white/[0.08] p-7 sm:p-10 lg:p-12 xl:p-16 mb-8 sm:mb-12 shadow-2xl relative overflow-hidden transition-all duration-300"
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.15, margin: '0px 0px -50px 0px' }}
+              variants={cardVariant}
+            >
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 xl:gap-14 items-center">
                 {/* Left Column: Heading, description, bullet points */}
                 <div className="lg:col-span-5 xl:col-span-5 text-left">
@@ -216,10 +323,16 @@ export default function LoyaltyClientView() {
                   />
                 </div>
               </div>
-            </div>
+            </motion.div>
 
             {/* Strategy Card 2: Intelligent and Evolving */}
-            <div className="w-full rounded-[28px] sm:rounded-[36px] lg:rounded-[40px] bg-[#12131C] border border-white/[0.08] p-7 sm:p-10 lg:p-12 xl:p-16 mb-8 sm:mb-12 shadow-2xl relative overflow-hidden transition-all duration-300">
+            <motion.div
+              className="w-full rounded-[28px] sm:rounded-[36px] lg:rounded-[40px] bg-[#12131C] border border-white/[0.08] p-7 sm:p-10 lg:p-12 xl:p-16 mb-8 sm:mb-12 shadow-2xl relative overflow-hidden transition-all duration-300"
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.15, margin: '0px 0px -50px 0px' }}
+              variants={cardVariant}
+            >
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 xl:gap-14 items-center">
                 {/* Left Column: Heading, description, bullet points */}
                 <div className="lg:col-span-5 xl:col-span-5 text-left">
@@ -267,10 +380,16 @@ export default function LoyaltyClientView() {
                   />
                 </div>
               </div>
-            </div>
+            </motion.div>
 
             {/* Strategy Card 3: Social Sharing of Reward Points */}
-            <div className="w-full rounded-[28px] sm:rounded-[36px] lg:rounded-[40px] bg-[#12131C] border border-white/[0.08] p-7 sm:p-10 lg:p-12 xl:p-16 relative overflow-hidden shadow-2xl transition-all duration-300">
+            <motion.div
+              className="w-full rounded-[28px] sm:rounded-[36px] lg:rounded-[40px] bg-[#12131C] border border-white/[0.08] p-7 sm:p-10 lg:p-12 xl:p-16 relative overflow-hidden shadow-2xl transition-all duration-300"
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.15, margin: '0px 0px -50px 0px' }}
+              variants={cardVariant}
+            >
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 xl:gap-14 items-center">
                 {/* Left Column: Heading, description, paragraph */}
                 <div className="lg:col-span-5 xl:col-span-5 text-left">
@@ -295,7 +414,7 @@ export default function LoyaltyClientView() {
                   />
                 </div>
               </div>
-            </div>
+            </motion.div>
           </div>
         </section>
 
@@ -305,7 +424,13 @@ export default function LoyaltyClientView() {
         <section className="relative w-full py-20 sm:py-28 lg:py-32 bg-[#000000] text-white overflow-hidden border-t border-white/5">
           <div className="w-full px-6 sm:px-10 lg:px-14 xl:px-16 2xl:px-20">
             {/* Header Block */}
-            <div className="w-full text-center max-w-4xl mx-auto mb-16 sm:mb-20">
+            <motion.div
+              className="w-full text-center max-w-4xl mx-auto mb-16 sm:mb-20"
+              initial={{ opacity: 0, y: 25 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+            >
               <p className="text-sm sm:text-base font-medium text-[#6CE8C3] mb-3 font-montserrat tracking-wider uppercase">
                 Next-gen technology
               </p>
@@ -318,12 +443,18 @@ export default function LoyaltyClientView() {
               <p className="text-base sm:text-lg lg:text-[19px] text-[#A1A1AA] font-light leading-[1.7] max-w-3xl mx-auto font-montserrat">
                 Cultivate deeper customer relationships, drive retention, and propel your enterprise forward.
               </p>
-            </div>
+            </motion.div>
 
             {/* 2 Bento Cards */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10">
               {/* Bento Card 1: MACH Architecture */}
-              <div className="rounded-[28px] sm:rounded-[36px] lg:rounded-[40px] bg-[#12131C] border border-white/[0.08] p-8 sm:p-12 lg:p-14 shadow-2xl relative overflow-hidden group hover:border-[#10E774]/40 transition-all duration-300 flex flex-col justify-between">
+              <motion.div
+                className="rounded-[28px] sm:rounded-[36px] lg:rounded-[40px] bg-[#12131C] border border-white/[0.08] p-8 sm:p-12 lg:p-14 shadow-2xl relative overflow-hidden group hover:border-[#10E774]/40 transition-all duration-300 flex flex-col justify-between"
+                initial={{ opacity: 0, y: 35 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+              >
                 <div>
                   <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl flex items-center justify-center mb-6 sm:mb-8 group-hover:scale-105 transition-transform duration-300">
                     <img
@@ -339,10 +470,16 @@ export default function LoyaltyClientView() {
                     SmartLoyalty’s MACH-based architecture elevates shopping experiences, seamlessly supporting both online and offline models while incentivizing in-store actions.
                   </p>
                 </div>
-              </div>
+              </motion.div>
 
               {/* Bento Card 2: Blockchain Integration and Smart Contract */}
-              <div className="rounded-[28px] sm:rounded-[36px] lg:rounded-[40px] bg-[#12131C] border border-white/[0.08] p-8 sm:p-12 lg:p-14 shadow-2xl relative overflow-hidden group hover:border-[#10E774]/40 transition-all duration-300 flex flex-col justify-between">
+              <motion.div
+                className="rounded-[28px] sm:rounded-[36px] lg:rounded-[40px] bg-[#12131C] border border-white/[0.08] p-8 sm:p-12 lg:p-14 shadow-2xl relative overflow-hidden group hover:border-[#10E774]/40 transition-all duration-300 flex flex-col justify-between"
+                initial={{ opacity: 0, y: 35 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.7, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
+              >
                 <div>
                   <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl flex items-center justify-center mb-6 sm:mb-8 group-hover:scale-105 transition-transform duration-300">
                     <img
@@ -358,7 +495,7 @@ export default function LoyaltyClientView() {
                     Use blockchain technology and smart contracts to provide a secure, transparent, and reliable reward points system that your customers can trust.
                   </p>
                 </div>
-              </div>
+              </motion.div>
             </div>
           </div>
         </section>
@@ -369,7 +506,13 @@ export default function LoyaltyClientView() {
         <section className="relative w-full py-20 sm:py-28 lg:py-32 bg-[#000000] text-white overflow-hidden border-t border-white/5">
           <div className="w-full px-6 sm:px-10 lg:px-14 xl:px-16 2xl:px-20">
             {/* Header Block */}
-            <div className="w-full text-center max-w-4xl mx-auto mb-14 sm:mb-18">
+            <motion.div
+              className="w-full text-center max-w-4xl mx-auto mb-14 sm:mb-18"
+              initial={{ opacity: 0, y: 25 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+            >
               <p className="text-sm sm:text-base font-medium text-[#6CE8C3] mb-3 font-montserrat tracking-wider uppercase">
                 How it works
               </p>
@@ -382,10 +525,16 @@ export default function LoyaltyClientView() {
               <p className="text-base sm:text-lg lg:text-[19px] text-[#A1A1AA] font-light leading-[1.7] max-w-3xl mx-auto font-montserrat">
                 From precise segmentation to seamless O2O experiences, SmartLoyalty drives customer retention with minimal effort.
               </p>
-            </div>
+            </motion.div>
 
             {/* Diagram Card Container */}
-            <div className="w-full rounded-[28px] sm:rounded-[36px] lg:rounded-[40px] bg-[#12131C] border border-white/[0.08] p-6 sm:p-10 lg:p-14 xl:p-16 shadow-2xl relative overflow-hidden flex items-center justify-center transition-all duration-300">
+            <motion.div
+              className="w-full rounded-[28px] sm:rounded-[36px] lg:rounded-[40px] bg-[#12131C] border border-white/[0.08] p-6 sm:p-10 lg:p-14 xl:p-16 shadow-2xl relative overflow-hidden flex items-center justify-center transition-all duration-300"
+              initial={{ opacity: 0, y: 40, scale: 0.98 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+            >
               <video
                 src="/assets/loyalty/loyalty-how-it-works.mp4"
                 className="w-full h-auto max-w-[1360px] xl:max-w-[1500px] object-contain rounded-[18px] sm:rounded-[24px] block drop-shadow-[0_20px_50px_rgba(0,0,0,0.9)]"
@@ -394,7 +543,7 @@ export default function LoyaltyClientView() {
                 loop
                 playsInline
               />
-            </div>
+            </motion.div>
           </div>
         </section>
 
@@ -421,7 +570,13 @@ export default function LoyaltyClientView() {
           />
           <div className="absolute inset-0 bg-black/75 backdrop-blur-[2px]" />
           <div className="relative z-10 w-full px-6 sm:px-10 lg:px-14 xl:px-16 2xl:px-20 py-16 sm:py-20">
-            <div className="w-full rounded-[28px] sm:rounded-[36px] lg:rounded-[40px] bg-[#12131C]/90 border border-white/[0.12] backdrop-blur-md p-8 sm:p-12 lg:p-14 flex flex-col sm:flex-row items-center justify-between gap-8 shadow-2xl">
+            <motion.div
+              className="w-full rounded-[28px] sm:rounded-[36px] lg:rounded-[40px] bg-[#12131C]/90 border border-white/[0.12] backdrop-blur-md p-8 sm:p-12 lg:p-14 flex flex-col sm:flex-row items-center justify-between gap-8 shadow-2xl"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
+            >
               <p className="text-xl sm:text-2xl lg:text-[28px] font-medium text-white font-montserrat text-center sm:text-left">
                 SmartLoyalty is available on:
               </p>
@@ -437,7 +592,7 @@ export default function LoyaltyClientView() {
                   className="w-[210px] sm:w-[240px] h-auto object-contain"
                 />
               </a>
-            </div>
+            </motion.div>
           </div>
         </section>
 
@@ -446,20 +601,32 @@ export default function LoyaltyClientView() {
         {/* ================================================================== */}
         <section className="relative w-full py-24 sm:py-32 bg-[#000000] text-white border-t border-white/10 overflow-hidden text-center">
           <div className="w-full px-6 sm:px-10 lg:px-14 xl:px-16 2xl:px-20">
-            <h2 className="text-3xl sm:text-4xl lg:text-[52px] font-bold font-montserrat leading-[1.2] mb-10">
+            <motion.h2
+              className="text-3xl sm:text-4xl lg:text-[52px] font-bold font-montserrat leading-[1.2] mb-10"
+              initial={{ opacity: 0, y: 25 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.4 }}
+              transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+            >
               <span>Transform your </span>
               <br className="hidden sm:inline" />
               <span className="bg-gradient-to-r from-[#6CE8C3] via-[#A8F7E2] to-white bg-clip-text text-transparent font-extrabold">
                 customer retention
               </span>
               <span> today.</span>
-            </h2>
-            <Link
+            </motion.h2>
+            <MotionLink
               href="/contact-us"
-              className="inline-flex items-center gap-2.5 px-8 sm:px-10 py-4 rounded-full bg-[#10E774] hover:bg-[#0ecb66] text-[#003D5B] font-bold text-base font-montserrat transition-all duration-300 shadow-[0_0_30px_rgba(16,231,116,0.4)] hover:shadow-[0_0_40px_rgba(16,231,116,0.7)] hover:scale-105"
+              className="inline-flex items-center gap-2.5 px-8 sm:px-10 py-4 rounded-full bg-[#10E774] hover:bg-[#0ecb66] text-[#003D5B] font-bold text-base font-montserrat transition-all duration-300 shadow-[0_0_30px_rgba(16,231,116,0.4)] hover:shadow-[0_0_40px_rgba(16,231,116,0.7)]"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.4 }}
+              transition={{ duration: 0.6, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.97 }}
             >
               Let&apos;s talk
-            </Link>
+            </MotionLink>
           </div>
         </section>
       </div>
