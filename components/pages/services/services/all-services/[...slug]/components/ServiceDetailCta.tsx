@@ -25,7 +25,7 @@ export default function ServiceDetailCta() {
         transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
       >
         <h2 className="contact-block__title text-4xl sm:text-5xl lg:text-[68px] font-medium leading-[1.15] tracking-tight font-montserrat text-[#d3f9f5] mb-8 sm:mb-10">
-          Let&apos;s <span className="bg-gradient-to-r from-[#6CE8C3] via-[#A8F7E2] to-[#10E774] bg-clip-text text-transparent font-bold">boost</span> your <br className="hidden sm:inline" />
+          Let&apos;s <span className="bg-gradient-to-r from-[#6CE8C3] via-[#A8F7E2] to-[#E0FCF4] bg-clip-text text-transparent font-bold">boost</span> your <br className="hidden sm:inline" />
           commerce outcomes.
         </h2>
 

@@ -15,7 +15,7 @@ export default function CaseStudyHeader({ study }: Props) {
         <div className="info">
           <p className="subtitle">{study.customer}</p>
           <h1 className="title font-montserrat">
-            <span className="bg-gradient-to-r from-[#d3f9f5] via-[#a3f7eb] to-[#7ceee0] bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-[#6CE8C3] via-[#A8F7E2] to-[#E0FCF4] bg-clip-text text-transparent">
               {study.title}
             </span>
           </h1>

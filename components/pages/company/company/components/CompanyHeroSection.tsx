@@ -10,7 +10,7 @@ export default function CompanyHeroSection() {
           </p>
           <h1 className="text-4xl sm:text-6xl lg:text-[72px] font-medium leading-[1.15] font-montserrat text-[#D4FAE6]">
             <span className="block">Transform today,</span>
-            <span className="bg-gradient-to-r from-[#5EFC8D] via-[#10E774] to-[#7ceee0] bg-clip-text text-transparent block font-medium">
+            <span className="bg-gradient-to-r from-[#6CE8C3] via-[#A8F7E2] to-[#E0FCF4] bg-clip-text text-transparent block font-medium">
               lead tomorrow.
             </span>
           </h1>

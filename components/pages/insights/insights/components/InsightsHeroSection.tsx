@@ -15,7 +15,7 @@ export default function InsightsHeroSection({ categories }: Props) {
           Insights
         </span>
         <h1 className="text-3xl sm:text-5xl lg:text-[56px] font-semibold text-white font-montserrat leading-tight mb-4">
-          <span>Discover</span> the Future, Today.
+          <span className="bg-gradient-to-r from-[#6CE8C3] via-[#A8F7E2] to-[#E0FCF4] bg-clip-text text-transparent">Discover</span> the Future, Today.
         </h1>
         <p className="text-base sm:text-lg text-gray-400 font-light max-w-2xl leading-relaxed font-montserrat">
           Stay updated on new products, company milestones, and upcoming events.

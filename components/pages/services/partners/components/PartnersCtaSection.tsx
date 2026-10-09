@@ -14,18 +14,18 @@ export default function PartnersCtaSection() {
         <div className="rounded-[36px] bg-gradient-to-br from-[#1A2224] via-[#141718] to-[#0A0D0E] border border-[#10E774]/40 p-8 sm:p-14 lg:p-16 shadow-2xl relative overflow-hidden">
           <div 
             aria-hidden="true" 
-            className="absolute top-0 right-0 w-80 h-80 bg-[#10E774]/15 rounded-full blur-3xl pointer-events-none" 
+            className="absolute top-0 right-0 w-80 h-80 bg-[#6CE8C3]/15 rounded-full blur-3xl pointer-events-none" 
           />
 
           <div className="relative z-10 max-w-3xl">
             <div className="inline-flex items-center gap-2 text-sm sm:text-base font-normal text-[#D4FAE6] mb-6 font-montserrat">
-              <Globe2 className="w-4 h-4 text-[#5EFC8D]" aria-hidden="true" />
+              <Globe2 className="w-4 h-4 text-[#6CE8C3]" aria-hidden="true" />
               Alliance Partnership Program
             </div>
 
             <h2 className="text-3xl sm:text-5xl lg:text-[54px] font-medium text-[#D4FAE6] font-montserrat leading-[1.15]">
               Expand Your Reach Within the <br />
-              <span className="bg-gradient-to-r from-[#5EFC8D] via-[#10E774] to-[#7ceee0] bg-clip-text text-transparent font-medium">E-GEAD Global Network.</span>
+              <span className="bg-gradient-to-r from-[#6CE8C3] via-[#A8F7E2] to-[#E0FCF4] bg-clip-text text-transparent font-medium">E-GEAD Global Network.</span>
             </h2>
 
             <p className="mt-4 text-base sm:text-lg text-[#b3b3b3] font-light leading-[1.75] font-montserrat">

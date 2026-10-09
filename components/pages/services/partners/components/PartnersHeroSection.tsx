@@ -15,13 +15,13 @@ export default function PartnersHeroSection() {
           {/* Left Headline & Positioning */}
           <div className="lg:col-span-7">
             <p className="text-sm sm:text-base font-normal text-[#D4FAE6] mb-6 font-montserrat flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-[#10E774] animate-pulse" />
+              <span className="w-2 h-2 rounded-full bg-[#6CE8C3] animate-pulse" />
               Global Commerce Alliances
             </p>
 
             <h1 className="text-4xl sm:text-6xl lg:text-[72px] font-medium leading-[1.08] text-[#D4FAE6] font-montserrat mb-6">
               Integrated with the World&apos;s <br />
-              <span className="bg-gradient-to-r from-[#5EFC8D] via-[#10E774] to-[#7ceee0] bg-clip-text text-transparent font-medium">Leading Commerce Ecosystems.</span>
+              <span className="bg-gradient-to-r from-[#6CE8C3] via-[#A8F7E2] to-[#E0FCF4] bg-clip-text text-transparent font-medium">Leading Commerce Ecosystems.</span>
             </h1>
 
             <p className="text-base sm:text-lg lg:text-xl text-[#b3b3b3] font-light leading-[1.75] font-montserrat max-w-2xl mb-8">

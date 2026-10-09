@@ -116,24 +116,10 @@ export default function PeopleClientView({
       >
         <div className="hidden" itemScope itemType="https://schema.org/Organization" />
         <h1>
-          <span
-            className="bg-clip-text text-transparent block"
-            style={{
-              background: 'linear-gradient(90deg, #FFFFFF 0%, #E0FAF0 40%, #7CEEE0 80%, #38BDF8 100%)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-            }}
-          >
+          <span className="bg-gradient-to-r from-[#6CE8C3] via-[#A8F7E2] to-[#E0FCF4] bg-clip-text text-transparent block">
             Meet the People
           </span>
-          <span
-            className="bg-clip-text text-transparent block"
-            style={{
-              background: 'linear-gradient(90deg, #5EFC8D 0%, #10E774 30%, #00F5A0 55%, #00D8F6 85%, #38BDF8 100%)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-            }}
-          >
+          <span className="bg-gradient-to-r from-[#8EF5D8] via-[#CBFBF0] to-white bg-clip-text text-transparent block font-medium">
             Behind (Y)our Success.
           </span>
         </h1>
@@ -149,14 +135,7 @@ export default function PeopleClientView({
         transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
         className="people-block"
       >
-        <p
-          className="people-block__title px-5 sm:px-0 bg-clip-text text-transparent inline-block"
-          style={{
-            background: 'linear-gradient(90deg, #FFFFFF 0%, #D4FAE6 40%, #5EFC8D 80%, #00E5FF 100%)',
-            WebkitBackgroundClip: 'text',
-            WebkitTextFillColor: 'transparent',
-          }}
-        >
+        <p className="people-block__title px-5 sm:px-0 bg-gradient-to-r from-[#6CE8C3] via-[#A8F7E2] to-white bg-clip-text text-transparent inline-block">
           Leadership Team
         </p>
 
@@ -350,14 +329,7 @@ export default function PeopleClientView({
             }}
           >
             Let&apos;s{' '}
-            <strong
-              className="bg-clip-text text-transparent font-bold"
-              style={{
-                background: 'linear-gradient(90deg, #5EFC8D 0%, #00F5A0 40%, #00D8F6 100%)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-              }}
-            >
+            <strong className="bg-gradient-to-r from-[#6CE8C3] via-[#A8F7E2] to-[#E0FCF4] bg-clip-text text-transparent font-bold">
               boost
             </strong>{' '}
             your&nbsp;<br />

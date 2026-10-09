@@ -8,12 +8,12 @@ export default function PrivacyPolicyView() {
       <div className="w-full px-6 sm:px-10 lg:px-14 xl:px-16">
         <MotionHero className="max-w-4xl">
           <h1 className="text-4xl sm:text-6xl lg:text-[68px] font-medium text-[#D4FAE6] font-montserrat mb-6">
-            <span className="bg-gradient-to-r from-[#5EFC8D] via-[#10E774] to-[#7ceee0] bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-[#6CE8C3] via-[#A8F7E2] to-[#E0FCF4] bg-clip-text text-transparent">
               Privacy Policy
             </span>
           </h1>
-          <p className="text-xs font-montserrat text-[#5EFC8D] mb-8 inline-flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-[#10E774] animate-pulse" />
+          <p className="text-xs font-montserrat text-[#6CE8C3] mb-8 inline-flex items-center gap-2">
+            <span className="w-2 h-2 rounded-full bg-[#6CE8C3] animate-pulse" />
             Last Updated: January 2026
           </p>
         </MotionHero>

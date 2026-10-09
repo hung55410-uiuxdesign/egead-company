@@ -18,7 +18,7 @@ export default function AllServicesHero() {
         <div className="heading-text mb-8 sm:mb-12">
           <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-[76px] xl:text-[84px] font-bold font-montserrat leading-[1.06] tracking-tight">
             <span className="block text-white">FROM CHALLENGES</span>
-            <span className="block bg-gradient-to-r from-[#6CE8C3] via-[#A8F7E2] to-white bg-clip-text text-transparent">
+            <span className="block bg-gradient-to-r from-[#6CE8C3] via-[#A8F7E2] to-[#E0FCF4] bg-clip-text text-transparent">
               TO OPPORTUNITIES
             </span>
           </h1>

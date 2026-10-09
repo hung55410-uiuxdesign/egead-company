@@ -7,12 +7,12 @@ export default function CareerHeroSection() {
       {/* 1. Hero Section: Kinetic Typography */}
       <MotionHero className="w-full px-6 sm:px-10 lg:px-14 xl:px-16 mb-12 sm:mb-16">
         <div className="w-full">
-          <p className="text-sm sm:text-base font-semibold uppercase tracking-widest text-[#10E774] mb-4 font-montserrat">
+          <p className="text-sm sm:text-base font-semibold uppercase tracking-widest text-[#6CE8C3] mb-4 font-montserrat">
             Careers
           </p>
           <h1 className="text-4xl sm:text-6xl lg:text-[76px] xl:text-[84px] font-medium leading-[1.05] text-[#D4FAE6] font-montserrat tracking-tight mb-8">
             BRING FORWARD THE <br />
-            <span className="bg-gradient-to-r from-[#5EFC8D] via-[#10E774] to-[#7ceee0] bg-clip-text text-transparent font-medium">
+            <span className="bg-gradient-to-r from-[#6CE8C3] via-[#A8F7E2] to-[#E0FCF4] bg-clip-text text-transparent font-medium">
               TRUE YOU.
             </span>
           </h1>

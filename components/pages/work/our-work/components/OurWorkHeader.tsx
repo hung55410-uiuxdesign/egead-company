@@ -13,7 +13,7 @@ export default function OurWorkHeader() {
       <span className="subtitle font-montserrat">Our Work</span>
       <div className="title">
         <h1 className="font-montserrat">
-          <span className="bg-gradient-to-r from-[#7ceee0] via-[#5EFC8D] to-[#10E774] bg-clip-text text-transparent">
+          <span className="bg-gradient-to-r from-[#6CE8C3] via-[#A8F7E2] to-[#E0FCF4] bg-clip-text text-transparent">
             Impactful Experiences
           </span>{' '}
           from <br className="hidden sm:inline" />
