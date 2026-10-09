@@ -7,7 +7,7 @@ export default function AdminSettingsPage() {
       {/* Header */}
       <div>
         <div className="mb-1.5">
-          <Badge label="Hệ thống CMS trực tuyến · Light Mode" variant="success" />
+          <Badge label="Hệ thống CMS trực tuyến · Light Mode" variant="success" className="h-8 px-4" />
         </div>
         <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900">
           Cài đặt hệ thống Blog CMS
@@ -30,7 +30,7 @@ export default function AdminSettingsPage() {
               </p>
             </div>
 
-            <Badge label="Đang kết nối" variant="success" />
+            <Badge label="Đang kết nối" variant="success" className="h-8 px-4" />
           </div>
 
           <div className="p-4 rounded-xl bg-slate-50/70 border border-slate-200/80 text-xs text-slate-700 space-y-2 leading-relaxed">
@@ -63,7 +63,7 @@ export default function AdminSettingsPage() {
               </p>
             </div>
 
-            <Badge label="CDN Active" variant="info" />
+            <Badge label="CDN Active" variant="info" className="h-8 px-4" />
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
@@ -121,7 +121,7 @@ export default function AdminSettingsPage() {
               </p>
             </div>
 
-            <Badge label="Được bảo vệ" variant="purple" />
+            <Badge label="Được bảo vệ" variant="purple" className="h-8 px-4" />
           </div>
 
           <div className="p-4 rounded-xl bg-slate-50/70 border border-slate-200/80 text-xs text-slate-700 space-y-2 leading-relaxed">

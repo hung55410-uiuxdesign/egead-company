@@ -10,6 +10,7 @@ import {
 } from 'lucide-react';
 import { CareerPost } from '@/types/career';
 import { Card, Button, Badge, Selector } from '@astryxdesign/core';
+import { useSubmitApplicationMutation } from '@/lib/hooks';
 
 interface CareerFormPreviewClientProps {
   jobs: CareerPost[];
@@ -33,12 +34,29 @@ export default function CareerFormPreviewClient({
   const [startDate, setStartDate] = useState('');
   const [coverLetter, setCoverLetter] = useState('');
 
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [copiedCode, setCopiedCode] = useState(false);
 
   const selectedJob = jobs.find((j) => j.id === jobId);
+
+  const submitMutation = useSubmitApplicationMutation({
+    onSuccess: () => {
+      setSubmitSuccess(true);
+      setFullName('');
+      setEmail('');
+      setPhone('');
+      setCvUrl('');
+      setPortfolioUrl('');
+      setExpectedSalary('');
+      setCoverLetter('');
+    },
+    onError: (error) => {
+      setErrorMessage(error.message || 'Có lỗi xảy ra khi gửi form ứng tuyển.');
+    },
+  });
+
+  const isSubmitting = submitMutation.isPending;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -61,46 +79,19 @@ export default function CareerFormPreviewClient({
       return;
     }
 
-    try {
-      setIsSubmitting(true);
-      const res = await fetch('/api/admin/careers/applications', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          jobId,
-          jobTitle: selectedJob ? selectedJob.title : 'Ứng tuyển tự do',
-          fullName: fullName.trim(),
-          email: email.trim(),
-          phone: phone.trim(),
-          cvUrl: cvUrl.trim(),
-          portfolioUrl: portfolioUrl.trim() || undefined,
-          expectedSalary: expectedSalary.trim() || undefined,
-          experienceYears: experienceYears.trim() || undefined,
-          startDate: startDate || undefined,
-          coverLetter: coverLetter.trim() || undefined,
-        }),
-      });
-
-      const data = await res.json();
-
-      if (data.success) {
-        setSubmitSuccess(true);
-        // Clear fields
-        setFullName('');
-        setEmail('');
-        setPhone('');
-        setCvUrl('');
-        setPortfolioUrl('');
-        setExpectedSalary('');
-        setCoverLetter('');
-      } else {
-        setErrorMessage(data.error || 'Có lỗi xảy ra khi gửi form ứng tuyển.');
-      }
-    } catch {
-      setErrorMessage('Lỗi kết nối máy chủ, vui lòng thử lại.');
-    } finally {
-      setIsSubmitting(false);
-    }
+    submitMutation.mutate({
+      jobId,
+      jobTitle: selectedJob ? selectedJob.title : 'Ứng tuyển tự do',
+      fullName: fullName.trim(),
+      email: email.trim(),
+      phone: phone.trim(),
+      cvUrl: cvUrl.trim(),
+      portfolioUrl: portfolioUrl.trim() || undefined,
+      expectedSalary: expectedSalary.trim() || undefined,
+      experienceYears: experienceYears.trim() || undefined,
+      startDate: startDate || undefined,
+      coverLetter: coverLetter.trim() || undefined,
+    });
   };
 
   const handleCopyApiSnippet = () => {
@@ -137,7 +128,7 @@ fetch('/api/admin/careers/applications', {
             <h1 className="text-2xl font-extrabold text-slate-900">
               Biểu mẫu ứng tuyển trực tuyến
             </h1>
-            <Badge label="Trình thử nghiệm" variant="success" />
+            <Badge label="Trình thử nghiệm" variant="success" className='h-8 px-4' />
           </div>
           <p className="text-slate-500 text-xs sm:text-sm mt-1">
             Biểu mẫu ứng tuyển để người ứng tuyển nộp CV về hệ thống quản trị E-GEAD Admin
@@ -148,6 +139,7 @@ fetch('/api/admin/careers/applications', {
           <Button
             label="Danh sách hồ sơ đã nhận"
             variant="secondary"
+            className='h-10 px-4'
             href="/admin/careers/applications"
           />
         </div>
@@ -180,11 +172,13 @@ fetch('/api/admin/careers/applications', {
               <Button
                 label="Gửi thêm hồ sơ khác"
                 variant="secondary"
+                className='h-10 px-4'
                 onClick={() => setSubmitSuccess(false)}
               />
               <Button
                 label="Xem trong Quản trị"
                 variant="primary"
+                className='h-10 px-4'
                 href="/admin/careers/applications"
               />
             </div>
@@ -217,6 +211,7 @@ fetch('/api/admin/careers/applications', {
           <div>
             <Selector
               label="Vị trí ứng tuyển"
+              className='h-10 border'
               value={jobId}
               onChange={(val) => setJobId(val)}
               options={[
@@ -364,7 +359,7 @@ fetch('/api/admin/careers/applications', {
             <Button
               label={isSubmitting ? 'Đang gửi hồ sơ...' : 'Gửi hồ sơ ứng tuyển'}
               variant="primary"
-              size="lg"
+              className='h-10 px-4'
               isDisabled={isSubmitting}
               isLoading={isSubmitting}
               onClick={handleSubmit}
@@ -384,7 +379,7 @@ fetch('/api/admin/careers/applications', {
           <Button
             label={copiedCode ? 'Đã sao chép!' : 'Sao chép mã API'}
             variant="secondary"
-            size="sm"
+            className='h-10 px-4'
             onClick={handleCopyApiSnippet}
           />
         </div>
@@ -397,7 +392,7 @@ fetch('/api/admin/careers/applications', {
         </p>
 
         <pre className="p-3.5 rounded-xl bg-black/60 font-mono text-xs text-slate-200 overflow-x-auto leading-relaxed border border-slate-800">
-{`POST /api/admin/careers/applications
+          {`POST /api/admin/careers/applications
 Content-Type: application/json
 
 {

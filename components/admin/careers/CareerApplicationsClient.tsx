@@ -13,6 +13,7 @@ import {
 } from 'lucide-react';
 import { JobApplication, ApplicationStatus, CareerPost } from '@/types/career';
 import { Button, Badge, Card, EmptyState, Selector, DropdownMenu, Pagination } from '@astryxdesign/core';
+import { useCareerApplicationMutations } from '@/lib/hooks';
 
 interface CareerApplicationsClientProps {
   initialApplications: JobApplication[];
@@ -39,9 +40,36 @@ export default function CareerApplicationsClient({
   const [selectedApp, setSelectedApp] = useState<JobApplication | null>(null);
   const [viewingCvApp, setViewingCvApp] = useState<JobApplication | null>(null);
   const [editingNotes, setEditingNotes] = useState('');
-  const [isSavingNotes, setIsSavingNotes] = useState(false);
-  const [isDeleting, setIsDeleting] = useState<string | null>(null);
-  const [toastMessage, setToastMessage] = useState<string | null>(null);
+
+  const {
+    updateStatus,
+    isUpdatingStatus,
+    saveNotes,
+    isSavingNotes,
+    deleteApplication,
+    deleteMutation,
+  } = useCareerApplicationMutations({
+    onStatusChangeSuccess: (id, newStatus) => {
+      setApplications((prev) =>
+        prev.map((a) => (a.id === id ? { ...a, status: newStatus } : a))
+      );
+      if (selectedApp && selectedApp.id === id) {
+        setSelectedApp((prev) => (prev ? { ...prev, status: newStatus } : null));
+      }
+    },
+    onSaveNotesSuccess: (id, notes) => {
+      setApplications((prev) =>
+        prev.map((a) => (a.id === id ? { ...a, notes } : a))
+      );
+      setSelectedApp((prev) => (prev ? { ...prev, notes } : null));
+    },
+    onDeleteSuccess: (id) => {
+      setApplications((prev) => prev.filter((a) => a.id !== id));
+      if (selectedApp?.id === id) {
+        setSelectedApp(null);
+      }
+    },
+  });
 
   // Pagination State
   const [currentPage, setCurrentPage] = useState(1);
@@ -76,105 +104,28 @@ export default function CareerApplicationsClient({
     startIndex + pageSize
   );
 
-  const showToast = (msg: string) => {
-    setToastMessage(msg);
-    setTimeout(() => setToastMessage(null), 3500);
-  };
-
-  const handleStatusChange = async (
+  const handleStatusChange = (
     id: string,
     newStatus: ApplicationStatus
   ) => {
-    try {
-      const res = await fetch(`/api/admin/careers/applications/${id}`, {
-        method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ status: newStatus }),
-      });
-      const data = await res.json();
-
-      if (data.success) {
-        setApplications((prev) =>
-          prev.map((a) => (a.id === id ? { ...a, status: newStatus } : a))
-        );
-        if (selectedApp && selectedApp.id === id) {
-          setSelectedApp((prev) => (prev ? { ...prev, status: newStatus } : null));
-        }
-        showToast('Đã cập nhật trạng thái hồ sơ thành công!');
-        router.refresh();
-      } else {
-        alert(data.error || 'Có lỗi xảy ra khi cập nhật trạng thái');
-      }
-    } catch {
-      alert('Không thể kết nối đến máy chủ');
-    }
+    updateStatus({ id, status: newStatus });
   };
 
-  const handleSaveNotes = async () => {
+  const handleSaveNotes = () => {
     if (!selectedApp) return;
-
-    try {
-      setIsSavingNotes(true);
-      const res = await fetch(
-        `/api/admin/careers/applications/${selectedApp.id}`,
-        {
-          method: 'PATCH',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            status: selectedApp.status,
-            notes: editingNotes,
-          }),
-        }
-      );
-      const data = await res.json();
-
-      if (data.success) {
-        setApplications((prev) =>
-          prev.map((a) =>
-            a.id === selectedApp.id ? { ...a, notes: editingNotes } : a
-          )
-        );
-        setSelectedApp((prev) =>
-          prev ? { ...prev, notes: editingNotes } : null
-        );
-        showToast('Đã lưu ghi chú tuyển dụng!');
-      } else {
-        alert(data.error || 'Có lỗi xảy ra khi lưu ghi chú');
-      }
-    } catch {
-      alert('Không thể kết nối đến máy chủ');
-    } finally {
-      setIsSavingNotes(false);
-    }
+    saveNotes({
+      id: selectedApp.id,
+      status: selectedApp.status,
+      notes: editingNotes,
+      candidateName: selectedApp.fullName,
+    });
   };
 
-  const handleDelete = async (id: string, name: string) => {
+  const handleDelete = (id: string, name: string) => {
     if (!confirm(`Bạn có chắc muốn xoá hồ sơ ứng tuyển của "${name}"?`)) {
       return;
     }
-
-    try {
-      setIsDeleting(id);
-      const res = await fetch(`/api/admin/careers/applications/${id}`, {
-        method: 'DELETE',
-      });
-      const data = await res.json();
-
-      if (data.success) {
-        setApplications((prev) => prev.filter((a) => a.id !== id));
-        if (selectedApp?.id === id) {
-          setSelectedApp(null);
-        }
-        showToast('Đã xoá hồ sơ ứng tuyển thành công!');
-        router.refresh();
-      } else {
-        alert(data.error || 'Có lỗi xảy ra khi xoá hồ sơ');
-      }
-    } catch {
-      alert('Không thể kết nối đến máy chủ');
-    } finally {
-      setIsDeleting(null);
-    }
+    deleteApplication({ id, candidateName: name });
   };
 
   const openDetailModal = (app: JobApplication) => {
@@ -185,17 +136,17 @@ export default function CareerApplicationsClient({
   const getStatusBadge = (status: ApplicationStatus) => {
     switch (status) {
       case 'pending':
-        return <Badge label="Chờ duyệt" variant="neutral" />;
+        return <Badge label="Chờ duyệt" variant="neutral" className='h-8 px-4' />;
       case 'reviewing':
-        return <Badge label="Đang xem xét" variant="info" />;
+        return <Badge label="Đang xem xét" variant="info" className='h-8 px-4' />;
       case 'interview':
-        return <Badge label="Phỏng vấn" variant="warning" />;
+        return <Badge label="Phỏng vấn" variant="warning" className='h-8 px-4' />;
       case 'offered':
-        return <Badge label="Trúng tuyển" variant="success" />;
+        return <Badge label="Trúng tuyển" variant="success" className='h-8 px-4' />;
       case 'rejected':
-        return <Badge label="Chưa phù hợp" variant="error" />;
+        return <Badge label="Chưa phù hợp" variant="error" className='h-8 px-4' />;
       default:
-        return <Badge label={status} variant="neutral" />;
+        return <Badge label={status} variant="neutral" className='h-8 px-4' />;
     }
   };
 
@@ -212,14 +163,6 @@ export default function CareerApplicationsClient({
 
   return (
     <div className="space-y-6 font-open-sans w-full pb-12">
-      {/* Toast Banner */}
-      {toastMessage && (
-        <div className="fixed bottom-6 right-6 z-50 p-4 rounded-xl bg-slate-900 text-white shadow-2xl flex items-center gap-3 border border-slate-700 animate-in fade-in slide-in-from-bottom-2">
-          <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0" />
-          <span className="text-xs font-semibold">{toastMessage}</span>
-        </div>
-      )}
-
       {/* =========================================================================
           PAGE HEADER
           ========================================================================= */}
@@ -229,7 +172,7 @@ export default function CareerApplicationsClient({
             <h1 className="text-2xl font-extrabold text-slate-900">
               Hồ sơ ứng tuyển đã nhận
             </h1>
-            <Badge label={`${applications.length} hồ sơ`} variant="neutral" />
+            <Badge label={`${applications.length} hồ sơ`} variant="neutral" className='h-8 px-4' />
           </div>
           <p className="text-slate-500 text-xs sm:text-sm mt-1">
             Toàn bộ các đơn ứng tuyển và CV do ứng viên gửi về hệ thống
@@ -241,11 +184,13 @@ export default function CareerApplicationsClient({
             label="Quản lý tin tuyển dụng"
             variant="secondary"
             href="/admin/careers"
+            className='h-10 px-4'
           />
           <Button
             label="Thử nghiệm gửi form mới"
             variant="primary"
             href="/admin/careers/form-preview"
+            className='h-10 px-4'
           />
         </div>
       </div>
@@ -256,16 +201,14 @@ export default function CareerApplicationsClient({
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3.5">
         <div
           onClick={() => setStatusFilter('all')}
-          className={`cursor-pointer rounded-2xl p-4 border transition-all ${
-            statusFilter === 'all'
-              ? 'bg-slate-900 text-white border-slate-900 shadow-md'
-              : 'bg-white text-slate-800 border-slate-200 hover:border-slate-300'
-          }`}
+          className={`cursor-pointer rounded-2xl p-4 border transition-all ${statusFilter === 'all'
+            ? 'bg-slate-900 text-white border-slate-900 shadow-md'
+            : 'bg-white text-slate-800 border-slate-200 hover:border-slate-300'
+            }`}
         >
           <span
-            className={`text-xs font-bold block ${
-              statusFilter === 'all' ? 'text-slate-300' : 'text-slate-500'
-            }`}
+            className={`text-xs font-bold block ${statusFilter === 'all' ? 'text-slate-300' : 'text-slate-500'
+              }`}
           >
             Tất cả hồ sơ
           </span>
@@ -276,16 +219,14 @@ export default function CareerApplicationsClient({
 
         <div
           onClick={() => setStatusFilter('pending')}
-          className={`cursor-pointer rounded-2xl p-4 border transition-all ${
-            statusFilter === 'pending'
-              ? 'bg-emerald-600 text-white border-emerald-600 shadow-md'
-              : 'bg-white text-slate-800 border-slate-200 hover:border-emerald-300'
-          }`}
+          className={`cursor-pointer rounded-2xl p-4 border transition-all ${statusFilter === 'pending'
+            ? 'bg-emerald-600 text-white border-emerald-600 shadow-md'
+            : 'bg-white text-slate-800 border-slate-200 hover:border-emerald-300'
+            }`}
         >
           <span
-            className={`text-xs font-bold block ${
-              statusFilter === 'pending' ? 'text-emerald-100' : 'text-slate-500'
-            }`}
+            className={`text-xs font-bold block ${statusFilter === 'pending' ? 'text-emerald-100' : 'text-slate-500'
+              }`}
           >
             Mới / Chờ duyệt
           </span>
@@ -296,16 +237,14 @@ export default function CareerApplicationsClient({
 
         <div
           onClick={() => setStatusFilter('reviewing')}
-          className={`cursor-pointer rounded-2xl p-4 border transition-all ${
-            statusFilter === 'reviewing'
-              ? 'bg-blue-600 text-white border-blue-600 shadow-md'
-              : 'bg-white text-slate-800 border-slate-200 hover:border-blue-300'
-          }`}
+          className={`cursor-pointer rounded-2xl p-4 border transition-all ${statusFilter === 'reviewing'
+            ? 'bg-blue-600 text-white border-blue-600 shadow-md'
+            : 'bg-white text-slate-800 border-slate-200 hover:border-blue-300'
+            }`}
         >
           <span
-            className={`text-xs font-bold block ${
-              statusFilter === 'reviewing' ? 'text-blue-100' : 'text-slate-500'
-            }`}
+            className={`text-xs font-bold block ${statusFilter === 'reviewing' ? 'text-blue-100' : 'text-slate-500'
+              }`}
           >
             Đang xem xét
           </span>
@@ -316,16 +255,14 @@ export default function CareerApplicationsClient({
 
         <div
           onClick={() => setStatusFilter('interview')}
-          className={`cursor-pointer rounded-2xl p-4 border transition-all ${
-            statusFilter === 'interview'
-              ? 'bg-amber-500 text-white border-amber-500 shadow-md'
-              : 'bg-white text-slate-800 border-slate-200 hover:border-amber-300'
-          }`}
+          className={`cursor-pointer rounded-2xl p-4 border transition-all ${statusFilter === 'interview'
+            ? 'bg-amber-500 text-white border-amber-500 shadow-md'
+            : 'bg-white text-slate-800 border-slate-200 hover:border-amber-300'
+            }`}
         >
           <span
-            className={`text-xs font-bold block ${
-              statusFilter === 'interview' ? 'text-amber-100' : 'text-slate-500'
-            }`}
+            className={`text-xs font-bold block ${statusFilter === 'interview' ? 'text-amber-100' : 'text-slate-500'
+              }`}
           >
             Mời phỏng vấn
           </span>
@@ -336,16 +273,14 @@ export default function CareerApplicationsClient({
 
         <div
           onClick={() => setStatusFilter('offered')}
-          className={`cursor-pointer rounded-2xl p-4 border transition-all ${
-            statusFilter === 'offered'
-              ? 'bg-purple-600 text-white border-purple-600 shadow-md'
-              : 'bg-white text-slate-800 border-slate-200 hover:border-purple-300'
-          }`}
+          className={`cursor-pointer rounded-2xl p-4 border transition-all ${statusFilter === 'offered'
+            ? 'bg-purple-600 text-white border-purple-600 shadow-md'
+            : 'bg-white text-slate-800 border-slate-200 hover:border-purple-300'
+            }`}
         >
           <span
-            className={`text-xs font-bold block ${
-              statusFilter === 'offered' ? 'text-purple-100' : 'text-slate-500'
-            }`}
+            className={`text-xs font-bold block ${statusFilter === 'offered' ? 'text-purple-100' : 'text-slate-500'
+              }`}
           >
             Đã Offer / Đạt
           </span>
@@ -392,6 +327,7 @@ export default function CareerApplicationsClient({
                 { value: 'all', label: 'Tất cả vị trí tuyển dụng' },
                 ...jobs.map((j) => ({ value: j.id, label: j.title })),
               ]}
+              className='h-10 border'
             />
           </div>
 
@@ -412,6 +348,7 @@ export default function CareerApplicationsClient({
                 { value: 'offered', label: 'Trúng tuyển (Offered)' },
                 { value: 'rejected', label: 'Chưa phù hợp (Rejected)' },
               ]}
+              className='h-10 border'
             />
           </div>
         </div>
@@ -431,6 +368,7 @@ export default function CareerApplicationsClient({
                 label="Mở Form ứng tuyển để gửi thử"
                 variant="primary"
                 href="/admin/careers/form-preview"
+                className='h-10 px-4'
               />
             }
           />
@@ -486,13 +424,13 @@ export default function CareerApplicationsClient({
                         <Button
                           label="Xem CV"
                           variant="secondary"
-                          size="sm"
+                          className='h-10 px-4'
                           onClick={() => setViewingCvApp(app)}
                         />
                         <Button
                           label="Tải về"
                           variant="ghost"
-                          size="sm"
+                          className='h-10 px-4'
                           href={`/api/admin/careers/applications/${app.id}/cv?download=true`}
                           target="_blank"
                         />
@@ -532,7 +470,7 @@ export default function CareerApplicationsClient({
                       <Selector
                         label="Trạng thái ứng viên"
                         isLabelHidden
-                        size="sm"
+                        className='h-10 border'
                         value={app.status}
                         onChange={(val) =>
                           handleStatusChange(
@@ -573,24 +511,24 @@ export default function CareerApplicationsClient({
                             },
                             ...(app.cvUrl
                               ? [
-                                  {
-                                    label: 'Xem tệp CV trong modal',
-                                    onClick: () => setViewingCvApp(app),
-                                  },
-                                  {
-                                    label: 'Tải xuống tệp CV',
-                                    onClick: () =>
-                                      window.open(
-                                        `/api/admin/careers/applications/${app.id}/cv?download=true`,
-                                        '_blank'
-                                      ),
-                                  },
-                                ]
+                                {
+                                  label: 'Xem tệp CV trong modal',
+                                  onClick: () => setViewingCvApp(app),
+                                },
+                                {
+                                  label: 'Tải xuống tệp CV',
+                                  onClick: () =>
+                                    window.open(
+                                      `/api/admin/careers/applications/${app.id}/cv?download=true`,
+                                      '_blank'
+                                    ),
+                                },
+                              ]
                               : []),
                             {
                               label: 'Xóa hồ sơ ứng viên',
                               variant: 'destructive',
-                              isDisabled: isDeleting === app.id,
+                              isDisabled: deleteMutation.isPending && deleteMutation.variables?.id === app.id,
                               onClick: () =>
                                 handleDelete(app.id, app.fullName),
                             },
@@ -683,6 +621,7 @@ export default function CareerApplicationsClient({
                 label="Xem trực tiếp tệp CV"
                 variant="primary"
                 onClick={() => setViewingCvApp(selectedApp)}
+                className='h-10 px-4'
               />
 
               <Button
@@ -690,6 +629,7 @@ export default function CareerApplicationsClient({
                 variant="secondary"
                 href={`/api/admin/careers/applications/${selectedApp.id}/cv?download=true`}
                 target="_blank"
+                className='h-10 px-4'
               />
 
               {selectedApp.portfolioUrl && (
@@ -698,6 +638,7 @@ export default function CareerApplicationsClient({
                   variant="secondary"
                   href={selectedApp.portfolioUrl}
                   target="_blank"
+                  className='h-10 px-4'
                 />
               )}
             </div>
@@ -720,6 +661,7 @@ export default function CareerApplicationsClient({
                 <Selector
                   label="Trạng thái đánh giá ứng viên"
                   value={selectedApp.status}
+                  className='h-10 border'
                   onChange={(val) =>
                     handleStatusChange(
                       selectedApp.id,
@@ -752,15 +694,15 @@ export default function CareerApplicationsClient({
               <div className="flex items-center justify-between pt-2">
                 <Button
                   label="Xoá hồ sơ này"
-                  variant="ghost"
-                  size="sm"
+                  variant="destructive"
+                  className='h-10 px-4'
                   onClick={() => handleDelete(selectedApp.id, selectedApp.fullName)}
                 />
 
                 <Button
                   label="Lưu ghi chú nội bộ"
                   variant="primary"
-                  size="sm"
+                  className='h-10 px-4'
                   isDisabled={isSavingNotes}
                   isLoading={isSavingNotes}
                   onClick={handleSaveNotes}
@@ -798,21 +740,21 @@ export default function CareerApplicationsClient({
                 <Button
                   label="Tải xuống CV"
                   variant="primary"
-                  size="sm"
+                  className='h-10 px-4'
                   href={`/api/admin/careers/applications/${viewingCvApp.id}/cv?download=true`}
                   target="_blank"
                 />
                 <Button
                   label="Mở tab mới"
                   variant="secondary"
-                  size="sm"
+                  className='h-10 px-4'
                   href={`/api/admin/careers/applications/${viewingCvApp.id}/cv`}
                   target="_blank"
                 />
                 <Button
                   label="Đóng"
-                  variant="ghost"
-                  size="sm"
+                  variant="secondary"
+                  className='h-10 px-4'
                   onClick={() => setViewingCvApp(null)}
                 />
               </div>
@@ -821,8 +763,8 @@ export default function CareerApplicationsClient({
             {/* Modal Body: Embedded Preview */}
             <div className="flex-1 w-full h-full p-3 sm:p-4 bg-slate-100/70 overflow-hidden flex flex-col">
               {viewingCvApp.cvUrl.startsWith('http') &&
-              !viewingCvApp.cvUrl.includes('cloudinary.com') &&
-              !viewingCvApp.cvUrl.startsWith('/uploads/') ? (
+                !viewingCvApp.cvUrl.includes('cloudinary.com') &&
+                !viewingCvApp.cvUrl.startsWith('/uploads/') ? (
                 <div className="flex-1 flex flex-col items-center justify-center p-8 text-center bg-white rounded-2xl border border-slate-200">
                   <h3 className="text-base font-bold text-slate-900 mb-2">
                     Liên kết CV bên ngoài
@@ -836,11 +778,13 @@ export default function CareerApplicationsClient({
                       variant="primary"
                       href={viewingCvApp.cvUrl}
                       target="_blank"
+                      className='h-10 px-4'
                     />
                     <Button
                       label="Đóng"
                       variant="secondary"
                       onClick={() => setViewingCvApp(null)}
+                      className='h-10 px-4'
                     />
                   </div>
                 </div>

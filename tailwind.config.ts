@@ -26,7 +26,8 @@ const config: Config = {
       fontFamily: {
         sans: ["var(--font-montserrat)", "Montserrat", "-apple-system", "BlinkMacSystemFont", "'Segoe UI'", "Roboto", "sans-serif"],
         montserrat: ["var(--font-montserrat)", "Montserrat", "-apple-system", "BlinkMacSystemFont", "'Segoe UI'", "Roboto", "sans-serif"],
-        'open-sans': ["var(--font-open-sans)", "'Open Sans'", "-apple-system", "BlinkMacSystemFont", "'Segoe UI'", "Roboto", "sans-serif"],
+        'mona-sans': ["var(--font-mona-sans)", "'Mona Sans'", "-apple-system", "BlinkMacSystemFont", "'Segoe UI'", "Roboto", "sans-serif"],
+        'open-sans': ["var(--font-mona-sans)", "'Mona Sans'", "var(--font-open-sans)", "'Open Sans'", "-apple-system", "BlinkMacSystemFont", "'Segoe UI'", "Roboto", "sans-serif"],
         rubik: ["var(--font-montserrat)", "Montserrat", "-apple-system", "BlinkMacSystemFont", "'Segoe UI'", "Roboto", "sans-serif"],
         mono: ["var(--font-montserrat)", "Montserrat", "-apple-system", "BlinkMacSystemFont", "'Segoe UI'", "Roboto", "sans-serif"],
       },

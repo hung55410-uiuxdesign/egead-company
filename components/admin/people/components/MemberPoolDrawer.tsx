@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { Search, GripVertical, ChevronRight, Sparkles } from 'lucide-react';
-import { Badge, Selector } from '@astryxdesign/core';
+import { Badge, Selector, TextInput } from '@astryxdesign/core';
 import { AdminTeamMember } from '@/lib/services/people.service';
 import { DEPARTMENTS } from '@/lib/validations/people';
 
@@ -60,15 +60,15 @@ export default function MemberPoolDrawer({
   };
 
   return (
-    <aside className="w-80 xl:w-88 shrink-0 h-full bg-white rounded-2xl sm:rounded-3xl border border-slate-200/90 shadow-sm flex flex-col overflow-hidden animate-in slide-in-from-right duration-200">
+    <aside className="w-80 xl:w-88 shrink-0 h-full bg-white rounded-2xl flex flex-col overflow-hidden animate-in slide-in-from-right duration-200">
       {/* Drawer Header */}
       <div className="p-4 border-b border-slate-100 flex items-center justify-between bg-slate-50/80">
         <div>
           <div className="flex items-center gap-2">
             <h3 className="font-extrabold text-slate-900 text-sm">
-              Kho nhân sự kéo &amp; thả
+              Kho nhân sự
             </h3>
-            <Badge label={`${filteredMembers.length}`} variant="neutral" />
+            <Badge label={`${filteredMembers.length}`} variant="neutral" className='h-8 px-4' />
           </div>
           <p className="text-[11px] text-slate-500 mt-0.5">
             Kéo thẻ bất kỳ thả vào sơ đồ để thay thế vị trí
@@ -87,21 +87,22 @@ export default function MemberPoolDrawer({
 
       {/* Search & Department Filters */}
       <div className="p-3 border-b border-slate-100 space-y-2.5 bg-white">
-        <div className="relative">
-          <Search className="w-3.5 h-3.5 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
-          <input
-            type="text"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            placeholder="Tìm theo tên, chức danh, kỹ năng..."
-            className="w-full pl-8 pr-3 py-1.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:border-slate-800"
-          />
-        </div>
+        <TextInput
+          label="Tìm kiếm nhân sự"
+          isLabelHidden
+          value={search}
+          onChange={(val) => setSearch(val)}
+          placeholder="Tìm theo tên, chức danh, kỹ năng..."
+          startIcon={<Search className="w-4 h-4 text-slate-400" />}
+          hasClear
+          width="100%"
+          className="h-10 border text-xs font-semibile"
+        />
 
         <Selector
           label="Lọc theo phòng ban"
           isLabelHidden
-          size="sm"
+          className='h-10 border'
           value={departmentFilter}
           onChange={(val) => setDepartmentFilter(val)}
           options={[
@@ -153,9 +154,9 @@ export default function MemberPoolDrawer({
               {/* Right: Badge + Drag Grip Handle */}
               <div className="flex items-center gap-1.5 shrink-0">
                 {member.isLeader ? (
-                  <Badge label="Lãnh đạo" variant="purple" />
+                  <Badge label="Lãnh đạo" variant="purple" className='h-8 px-4' />
                 ) : (
-                  <Badge label={member.department.split('&')[0].trim()} variant="neutral" />
+                  <Badge label={member.department.split('&')[0].trim()} variant="neutral" className='h-8 px-4' />
                 )}
                 <div className="text-slate-300 group-hover:text-purple-600 transition-colors p-1">
                   <GripVertical className="w-4 h-4" />
@@ -164,14 +165,6 @@ export default function MemberPoolDrawer({
             </div>
           ))
         )}
-      </div>
-
-      {/* Tip footer */}
-      <div className="p-3 bg-purple-50/60 border-t border-purple-100 text-[11px] text-purple-900 flex items-center gap-2">
-        <Sparkles className="w-4 h-4 text-purple-600 shrink-0" />
-        <span>
-          Kéo thả nhân sự vào bất kỳ vị trí nào để thay thế ngay lập tức.
-        </span>
       </div>
     </aside>
   );

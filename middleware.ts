@@ -6,6 +6,11 @@ export function middleware(request: NextRequest) {
 
   // Protect /admin routes
   if (pathname.startsWith('/admin')) {
+    // Allow static files in /admin (e.g. /admin/bg.png, images, icons, fonts)
+    if (/\.(png|jpe?g|gif|webp|svg|ico|css|js|woff2?|map)$/i.test(pathname)) {
+      return NextResponse.next();
+    }
+
     const isLoginPage = pathname === '/admin/login';
     
     // Check Better Auth session cookies

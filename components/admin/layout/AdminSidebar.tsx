@@ -92,6 +92,41 @@ const SYSTEM_NAV_ITEMS = [
   },
 ];
 
+function SidebarNavLink({
+  href,
+  label,
+  icon: Icon,
+  isActive,
+  onClose,
+}: {
+  href: string;
+  label: string;
+  icon: React.ComponentType<{ className?: string }>;
+  isActive: boolean;
+  onClose?: () => void;
+}) {
+  return (
+    <Link
+      href={href}
+      onClick={onClose}
+      className={`flex items-center justify-between px-3 py-2.5 rounded-xl text-sm transition-all duration-150 ${isActive
+        ? 'bg-[#111827] text-white font-bold'
+        : 'text-gray-600 hover:text-slate-900 hover:bg-slate-100/70 font-semibold'
+        }`}
+    >
+      <div className="flex items-center gap-2.5">
+        <Icon
+          className={`w-5 h-5 transition-colors ${isActive ? 'text-white' : 'text-gray-500'}`}
+        />
+        <span>{label}</span>
+      </div>
+      {isActive && (
+        <span className="w-1.5 h-4 bg-white rounded-full" />
+      )}
+    </Link>
+  );
+}
+
 export default function AdminSidebar({ isOpen, onClose }: AdminSidebarProps) {
   const pathname = usePathname();
   const router = useRouter();
@@ -117,9 +152,8 @@ export default function AdminSidebar({ isOpen, onClose }: AdminSidebarProps) {
 
       {/* Sidebar container - Light Mode */}
       <aside
-        className={`fixed top-0 bottom-0 left-0 z-50 w-64 bg-white border-r border-slate-200 flex flex-col transition-transform duration-300 ease-in-out lg:sticky lg:top-0 lg:h-screen lg:shrink-0 lg:translate-x-0 ${
-          isOpen ? 'translate-x-0' : '-translate-x-full'
-        }`}
+        className={`fixed top-0 bottom-0 left-0 z-50 w-64 bg-white border-r border-slate-200 flex flex-col transition-transform duration-300 ease-in-out lg:sticky lg:top-0 lg:h-screen lg:shrink-0 lg:translate-x-0 ${isOpen ? 'translate-x-0' : '-translate-x-full'
+          }`}
       >
         {/* Header / Logo */}
         <div className="h-16 px-4 flex items-center justify-between border-b border-slate-200/80 bg-white shrink-0">
@@ -145,7 +179,7 @@ export default function AdminSidebar({ isOpen, onClose }: AdminSidebarProps) {
               />
             </div>
             <div className="shrink-0 flex items-center">
-              <Badge label="CMS" variant="success" />
+              <Badge label="CMS" variant="success" className='h-8 px-4' />
             </div>
           </Link>
           <button
@@ -166,37 +200,16 @@ export default function AdminSidebar({ isOpen, onClose }: AdminSidebarProps) {
               Quản lý nội dung
             </div>
             <nav className="space-y-1">
-              {CONTENT_NAV_ITEMS.map((item) => {
-                const Icon = item.icon;
-                const isActive = item.exact
-                  ? pathname === item.href
-                  : pathname?.startsWith(item.href);
-
-                return (
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    onClick={onClose}
-                    className={`flex items-center justify-between px-3 py-2.5 rounded-xl text-xs font-semibold transition-all duration-150 ${
-                      isActive
-                        ? 'bg-emerald-50/90 text-emerald-900 border border-emerald-200/90 font-bold'
-                        : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100/70 border border-transparent'
-                    }`}
-                  >
-                    <div className="flex items-center gap-2.5">
-                      <Icon
-                        className={`w-4 h-4 transition-colors ${
-                          isActive ? 'text-emerald-600' : 'text-slate-400'
-                        }`}
-                      />
-                      <span>{item.label}</span>
-                    </div>
-                    {isActive && (
-                      <span className="w-1.5 h-4 bg-emerald-600 rounded-full" />
-                    )}
-                  </Link>
-                );
-              })}
+              {CONTENT_NAV_ITEMS.map((item) => (
+                <SidebarNavLink
+                  key={item.href}
+                  href={item.href}
+                  label={item.label}
+                  icon={item.icon}
+                  isActive={Boolean(item.exact ? pathname === item.href : pathname?.startsWith(item.href))}
+                  onClose={onClose}
+                />
+              ))}
             </nav>
           </div>
 
@@ -204,40 +217,18 @@ export default function AdminSidebar({ isOpen, onClose }: AdminSidebarProps) {
           <div>
             <div className="px-3 mb-2 text-xs font-bold text-slate-500 flex items-center justify-between">
               <span>Nhân sự &amp; Tổ chức</span>
-              <span className="w-2 h-2 rounded-full bg-emerald-500" />
             </div>
             <nav className="space-y-1">
-              {PEOPLE_NAV_ITEMS.map((item) => {
-                const Icon = item.icon;
-                const isActive = item.exact
-                  ? pathname === item.href
-                  : pathname?.startsWith(item.href);
-
-                return (
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    onClick={onClose}
-                    className={`flex items-center justify-between px-3 py-2.5 rounded-xl text-xs font-semibold transition-all duration-150 ${
-                      isActive
-                        ? 'bg-emerald-50/90 text-emerald-900 border border-emerald-200/90 font-bold'
-                        : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100/70 border border-transparent'
-                    }`}
-                  >
-                    <div className="flex items-center gap-2.5">
-                      <Icon
-                        className={`w-4 h-4 transition-colors ${
-                          isActive ? 'text-emerald-600' : 'text-slate-400'
-                        }`}
-                      />
-                      <span>{item.label}</span>
-                    </div>
-                    {isActive && (
-                      <span className="w-1.5 h-4 bg-emerald-600 rounded-full" />
-                    )}
-                  </Link>
-                );
-              })}
+              {PEOPLE_NAV_ITEMS.map((item) => (
+                <SidebarNavLink
+                  key={item.href}
+                  href={item.href}
+                  label={item.label}
+                  icon={item.icon}
+                  isActive={Boolean(item.exact ? pathname === item.href : pathname?.startsWith(item.href))}
+                  onClose={onClose}
+                />
+              ))}
             </nav>
           </div>
 
@@ -245,40 +236,18 @@ export default function AdminSidebar({ isOpen, onClose }: AdminSidebarProps) {
           <div>
             <div className="px-3 mb-2 text-xs font-bold text-slate-500 flex items-center justify-between">
               <span>Tuyển dụng &amp; Ứng tuyển</span>
-              <span className="w-2 h-2 rounded-full bg-emerald-500" />
             </div>
             <nav className="space-y-1">
-              {CAREER_NAV_ITEMS.map((item) => {
-                const Icon = item.icon;
-                const isActive = item.exact
-                  ? pathname === item.href
-                  : pathname?.startsWith(item.href);
-
-                return (
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    onClick={onClose}
-                    className={`flex items-center justify-between px-3 py-2.5 rounded-xl text-xs font-semibold transition-all duration-150 ${
-                      isActive
-                        ? 'bg-emerald-50/90 text-emerald-900 border border-emerald-200/90 font-bold'
-                        : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100/70 border border-transparent'
-                    }`}
-                  >
-                    <div className="flex items-center gap-2.5">
-                      <Icon
-                        className={`w-4 h-4 transition-colors ${
-                          isActive ? 'text-emerald-600' : 'text-slate-400'
-                        }`}
-                      />
-                      <span>{item.label}</span>
-                    </div>
-                    {isActive && (
-                      <span className="w-1.5 h-4 bg-emerald-600 rounded-full" />
-                    )}
-                  </Link>
-                );
-              })}
+              {CAREER_NAV_ITEMS.map((item) => (
+                <SidebarNavLink
+                  key={item.href}
+                  href={item.href}
+                  label={item.label}
+                  icon={item.icon}
+                  isActive={Boolean(item.exact ? pathname === item.href : pathname?.startsWith(item.href))}
+                  onClose={onClose}
+                />
+              ))}
             </nav>
           </div>
 
@@ -288,64 +257,46 @@ export default function AdminSidebar({ isOpen, onClose }: AdminSidebarProps) {
               Hệ thống
             </div>
             <nav className="space-y-1">
-              {SYSTEM_NAV_ITEMS.map((item) => {
-                const Icon = item.icon;
-                const isActive = pathname === item.href;
-
-                return (
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    onClick={onClose}
-                    className={`flex items-center justify-between px-3 py-2.5 rounded-xl text-xs font-semibold transition-all duration-150 ${
-                      isActive
-                        ? 'bg-emerald-50/90 text-emerald-900 border border-emerald-200/90 font-bold'
-                        : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100/70 border border-transparent'
-                    }`}
-                  >
-                    <div className="flex items-center gap-2.5">
-                      <Icon
-                        className={`w-4 h-4 transition-colors ${
-                          isActive ? 'text-emerald-600' : 'text-slate-400'
-                        }`}
-                      />
-                      <span>{item.label}</span>
-                    </div>
-                    {isActive && (
-                      <span className="w-1.5 h-4 bg-emerald-600 rounded-full" />
-                    )}
-                  </Link>
-                );
-              })}
+              {SYSTEM_NAV_ITEMS.map((item) => (
+                <SidebarNavLink
+                  key={item.href}
+                  href={item.href}
+                  label={item.label}
+                  icon={item.icon}
+                  isActive={pathname === item.href}
+                  onClose={onClose}
+                />
+              ))}
             </nav>
           </div>
 
+
           <div>
-            <div className="px-3 mb-2 text-[11px] font-bold text-slate-500">
+            <div className="px-3 mb-2 text-xs font-bold text-slate-500">
               Đường dẫn nhanh
             </div>
             <div className="space-y-1">
               <Link
                 href="/insights"
                 target="_blank"
-                className="flex items-center justify-between px-3 py-2.5 rounded-xl text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-100/70 border border-transparent transition-all group"
+                className="flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-100/70 border border-transparent transition-all group"
               >
                 <div className="flex items-center gap-2.5">
-                  <Layers className="w-4 h-4 text-slate-400 group-hover:text-emerald-600 transition-colors" />
+                  <Layers className="w-4 h-4 text-gray-700 group-hover:text-emerald-600 transition-colors" />
                   <span>Trang Insights Live</span>
                 </div>
-                <ExternalLink className="w-3.5 h-3.5 text-slate-400 group-hover:text-slate-700 transition-colors" />
+                <ExternalLink className="w-4 h-4 text-gray-700 group-hover:text-slate-700 transition-colors" />
               </Link>
               <Link
                 href="/"
                 target="_blank"
-                className="flex items-center justify-between px-3 py-2.5 rounded-xl text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-100/70 border border-transparent transition-all group"
+                className="flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-100/70 border border-transparent transition-all group"
               >
                 <div className="flex items-center gap-2.5">
-                  <Sparkles className="w-4 h-4 text-slate-400 group-hover:text-emerald-600 transition-colors" />
+                  <Sparkles className="w-4 h-4 text-gray-700 group-hover:text-emerald-600 transition-colors" />
                   <span>Trang chủ E-GEAD</span>
                 </div>
-                <ExternalLink className="w-3.5 h-3.5 text-slate-400 group-hover:text-slate-700 transition-colors" />
+                <ExternalLink className="w-4 h-4 text-gray-700 group-hover:text-slate-700 transition-colors" />
               </Link>
             </div>
           </div>
@@ -375,6 +326,7 @@ export default function AdminSidebar({ isOpen, onClose }: AdminSidebarProps) {
               label="Đăng xuất"
               variant="secondary"
               width="100%"
+              className='px-4 h-10'
               onClick={handleSignOut}
             />
           </div>

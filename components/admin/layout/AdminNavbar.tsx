@@ -77,6 +77,7 @@ export default function AdminNavbar({ onOpenSidebar }: AdminNavbarProps) {
             icon={<Menu className="w-5 h-5" />}
             variant="ghost"
             onClick={onOpenSidebar}
+            className="w-10 h-10"
           />
         </div>
 
@@ -95,27 +96,27 @@ export default function AdminNavbar({ onOpenSidebar }: AdminNavbarProps) {
       </div>
 
       <div className="flex items-center gap-2 sm:gap-3">
+        <div className="relative inline-flex items-center">
+          <IconButton
+            label="Thông báo hệ thống"
+            icon={<Bell className="w-4 h-4" />}
+            className="w-10 h-10"
+          />
+          <span className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-emerald-500 ring-2 ring-white pointer-events-none" />
+        </div>
         <Button
           label="Xem trang live"
           variant="secondary"
           href="/insights"
           target="_blank"
+          className="h-10 px-4"
         />
-
-        <div className="relative inline-flex items-center">
-          <IconButton
-            label="Thông báo hệ thống"
-            icon={<Bell className="w-4 h-4" />}
-            variant="ghost"
-          />
-          <span className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-emerald-500 ring-2 ring-white pointer-events-none" />
-        </div>
-
         {pathname !== "/admin/blogs/new" && (
           <Button
             label="Viết bài mới"
             variant="primary"
             href="/admin/blogs/new"
+            className="h-10 px-4"
           />
         )}
       </div>

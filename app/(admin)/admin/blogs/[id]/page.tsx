@@ -1,4 +1,3 @@
-import React from 'react';
 import { notFound } from 'next/navigation';
 import { getPostById, getCategories } from '@/lib/blogs';
 import { BlogEditorClient } from '@/components/admin/blogs';

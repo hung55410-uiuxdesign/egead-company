@@ -63,7 +63,7 @@ export default function SkillTagInput({
         <Button
           label="Thêm"
           variant="secondary"
-          size="sm"
+          className="px-4 h-10"
           type="button"
           isDisabled={disabled || !inputValue.trim()}
           onClick={() => addSkill(inputValue)}

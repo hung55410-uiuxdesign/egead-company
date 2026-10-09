@@ -1,8 +1,8 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
-import { X, UserCheck, Shield } from 'lucide-react';
-import { Button, Card, Badge, Field, Selector } from '@astryxdesign/core';
+import { useState, useEffect } from 'react';
+import { X } from 'lucide-react';
+import { Button, Badge, Field, Selector } from '@astryxdesign/core';
 import { AdminTeamMember } from '@/lib/services/people.service';
 import type { ChildNode, SubChildNode } from '@/components/pages/company/people/leaderTeamData';
 
@@ -114,10 +114,10 @@ export default function NodeEditModal({
               {target.type === 'leader'
                 ? 'Thông tin Lãnh đạo Cấp cao'
                 : target.type === 'squadLead'
-                ? `Cấu hình ${target.squad.squadName || 'Squad'}`
-                : target.type === 'subMember'
-                ? `Thành viên Squad: ${target.squadName}`
-                : `Thành viên trực thuộc: ${target.parentName}`}
+                  ? `Cấu hình ${target.squad.squadName || 'Squad'}`
+                  : target.type === 'subMember'
+                    ? `Thành viên Squad: ${target.squadName}`
+                    : `Thành viên trực thuộc: ${target.parentName}`}
             </h3>
             <p className="text-xs text-slate-500 mt-0.5">
               Thay đổi nhân sự phụ trách hoặc điều chỉnh thông số vai trò
@@ -138,6 +138,7 @@ export default function NodeEditModal({
           <Selector
             label="Nhân sự được phân bổ vào vị trí này"
             description="Chọn nhân sự thay thế từ kho thành viên"
+            className='h-10 border'
             value={selectedMemberId}
             onChange={(val) => setSelectedMemberId(val)}
             options={allMembers.map((m) => ({
@@ -170,7 +171,7 @@ export default function NodeEditModal({
                   {currentMember.role}
                 </div>
               </div>
-              <Badge label={currentMember.department} variant="neutral" />
+              <Badge label={currentMember.department} variant="neutral" className='h-8 px-4' />
             </div>
           )}
 
@@ -251,10 +252,12 @@ export default function NodeEditModal({
             label="Hủy bỏ"
             variant="ghost"
             onClick={onClose}
+            className="px-4 h-10"
           />
           <Button
             label="Cập nhật vị trí"
             variant="primary"
+            className="px-4 h-10"
             onClick={handleSave}
           />
         </div>

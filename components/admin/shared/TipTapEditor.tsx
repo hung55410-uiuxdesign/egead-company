@@ -18,6 +18,7 @@ import TableRow from '@tiptap/extension-table-row';
 import TableCell from '@tiptap/extension-table-cell';
 import TableHeader from '@tiptap/extension-table-header';
 import Youtube from '@tiptap/extension-youtube';
+import { useUploadMedia } from '@/lib/hooks';
 import {
   Bold,
   Italic,
@@ -112,8 +113,6 @@ export default function TipTapEditor({
   const [linkUrl, setLinkUrl] = useState('');
   const [imageModalOpen, setImageModalOpen] = useState(false);
   const [imageUrl, setImageUrl] = useState('');
-  const [isUploadingImage, setIsUploadingImage] = useState(false);
-  const [uploadImageError, setUploadImageError] = useState<string | null>(null);
   const [youtubeModalOpen, setYoutubeModalOpen] = useState(false);
   const [youtubeUrl, setYoutubeUrl] = useState('');
   const [highlightMenuOpen, setHighlightMenuOpen] = useState(false);
@@ -291,42 +290,29 @@ export default function TipTapEditor({
     setLinkModalOpen(false);
   };
 
+  // Upload content image hook with Astryx toast
+  const {
+    uploadFile: handleFileUpload,
+    isUploading: isUploadingImage,
+    error: uploadImageError,
+    reset: resetUploadImage,
+  } = useUploadMedia({
+    defaultFolder: 'egead_cms/content',
+    successMessage: 'Tải và chèn ảnh vào bài viết thành công!',
+    onSuccess: (data) => {
+      editor.chain().focus().setImage({ src: data.url }).run();
+      setImageUrl('');
+      setImageModalOpen(false);
+    },
+  });
+
   // Image action
   const applyImage = () => {
     if (imageUrl.trim()) {
       editor.chain().focus().setImage({ src: imageUrl.trim() }).run();
       setImageUrl('');
       setImageModalOpen(false);
-      setUploadImageError(null);
-    }
-  };
-
-  const handleFileUpload = async (file: File) => {
-    try {
-      setIsUploadingImage(true);
-      setUploadImageError(null);
-
-      const formData = new FormData();
-      formData.append('file', file);
-      formData.append('folder', 'egead_cms/content');
-
-      const res = await fetch('/api/admin/upload', {
-        method: 'POST',
-        body: formData,
-      });
-
-      const data = await res.json();
-      if (data.success && data.url) {
-        editor.chain().focus().setImage({ src: data.url }).run();
-        setImageUrl('');
-        setImageModalOpen(false);
-      } else {
-        setUploadImageError(data.error || 'Tải ảnh lên Cloudinary thất bại');
-      }
-    } catch {
-      setUploadImageError('Lỗi kết nối khi tải ảnh lên Cloudinary');
-    } finally {
-      setIsUploadingImage(false);
+      resetUploadImage();
     }
   };
 
@@ -1109,7 +1095,7 @@ export default function TipTapEditor({
               type="button"
               onClick={() => {
                 setImageModalOpen(false);
-                setUploadImageError(null);
+                resetUploadImage();
               }}
               className="p-1 text-slate-500 hover:text-slate-800 rounded"
             >

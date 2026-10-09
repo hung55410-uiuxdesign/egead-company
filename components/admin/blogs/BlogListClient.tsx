@@ -5,7 +5,6 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import {
   Search,
-  AlertCircle,
   X,
   FileText,
   MoreHorizontal,
@@ -19,7 +18,10 @@ import {
   Selector,
   DropdownMenu,
   Pagination,
+  useToast,
+  CheckboxInput,
 } from "@astryxdesign/core";
+import { useBlogMutations } from "@/lib/hooks";
 
 interface BlogListClientProps {
   initialPosts: BlogPost[];
@@ -31,6 +33,7 @@ export default function BlogListClient({
   categories,
 }: BlogListClientProps) {
   const router = useRouter();
+  const toast = useToast();
   const [posts, setPosts] = useState<BlogPost[]>(initialPosts);
   const [search, setSearch] = useState("");
   const [statusFilter, setStatusFilter] = useState<
@@ -44,12 +47,59 @@ export default function BlogListClient({
   const [isBulkEditOpen, setIsBulkEditOpen] = useState(false);
   const [bulkStatus, setBulkStatus] = useState<PostStatus | "">("");
   const [bulkCategory, setBulkCategory] = useState<string>("");
-  const [isBulkLoading, setIsBulkLoading] = useState(false);
-  const [toastMessage, setToastMessage] = useState<string | null>(null);
+
+  // TanStack Query Blog Mutations
+  const {
+    bulkDelete,
+    isBulkDeleting,
+    bulkUpdate,
+    isBulkUpdating,
+    deleteBlog,
+  } = useBlogMutations({
+    onBulkDeleteSuccess: (ids) => {
+      setPosts((prev) => prev.filter((p) => !ids.includes(p.id)));
+      setSelectedIds([]);
+    },
+    onBulkUpdateSuccess: (ids, data) => {
+      setPosts((prev) =>
+        prev.map((p) => {
+          if (ids.includes(p.id)) {
+            return {
+              ...p,
+              ...(data.status ? { status: data.status } : {}),
+              ...(data.category
+                ? { category: data.category, tag: data.category }
+                : {}),
+            };
+          }
+          return p;
+        })
+      );
+      setIsBulkEditOpen(false);
+      setBulkStatus("");
+      setBulkCategory("");
+      setSelectedIds([]);
+    },
+    onDeleteSuccess: (id) => {
+      setPosts((prev) => prev.filter((p) => p.id !== id));
+      setSelectedIds((prev) => prev.filter((item) => item !== id));
+      setIsDeleting(null);
+    },
+    onError: () => {
+      setIsDeleting(null);
+    },
+  });
+
+  const isBulkLoading = isBulkDeleting || isBulkUpdating;
 
   // Pagination State
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
+
+  // Synchronize state when server props update
+  React.useEffect(() => {
+    setPosts(initialPosts);
+  }, [initialPosts]);
 
   // Reset page when search or filters change
   React.useEffect(() => {
@@ -99,147 +149,63 @@ export default function BlogListClient({
   };
 
   // Bulk Delete Handler
-  const handleBulkDelete = async () => {
+  const handleBulkDelete = () => {
     if (selectedIds.length === 0) return;
     const confirmed = confirm(
       `Bạn có chắc chắn muốn xóa ${selectedIds.length} bài viết đã chọn không? Thao tác này không thể hoàn tác.`,
     );
     if (!confirmed) return;
 
-    setIsBulkLoading(true);
-    try {
-      const res = await fetch("/api/admin/blogs/bulk", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ action: "delete", ids: selectedIds }),
-      });
-      const data = await res.json();
-      if (!res.ok || !data.success) {
-        throw new Error(data.error || "Xóa hàng loạt thất bại");
-      }
-
-      setPosts((prev) => prev.filter((p) => !selectedIds.includes(p.id)));
-      setToastMessage(`Đã xóa thành công ${selectedIds.length} bài viết`);
-      setSelectedIds([]);
-      router.refresh();
-      setTimeout(() => setToastMessage(null), 4000);
-    } catch (err) {
-      alert((err as Error).message);
-    } finally {
-      setIsBulkLoading(false);
-    }
+    bulkDelete({ ids: selectedIds });
   };
 
   // Bulk Update Submit Handler
-  const handleBulkUpdateSubmit = async (e: React.FormEvent) => {
+  const handleBulkUpdateSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (selectedIds.length === 0) return;
     if (!bulkStatus && !bulkCategory) {
-      alert("Vui lòng chọn trạng thái hoặc chuyên mục để cập nhật");
+      toast({
+        body: "Vui lòng chọn trạng thái hoặc chuyên mục để cập nhật",
+        type: "error",
+        isAutoHide: true,
+        autoHideDuration: 4000,
+      });
       return;
     }
 
-    setIsBulkLoading(true);
-    try {
-      const res = await fetch("/api/admin/blogs/bulk", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          action: "update",
-          ids: selectedIds,
-          data: {
-            ...(bulkStatus ? { status: bulkStatus } : {}),
-            ...(bulkCategory ? { category: bulkCategory } : {}),
-          },
-        }),
-      });
-      const data = await res.json();
-      if (!res.ok || !data.success) {
-        throw new Error(data.error || "Cập nhật hàng loạt thất bại");
-      }
-
-      setPosts((prev) =>
-        prev.map((p) => {
-          if (selectedIds.includes(p.id)) {
-            return {
-              ...p,
-              ...(bulkStatus ? { status: bulkStatus } : {}),
-              ...(bulkCategory
-                ? { category: bulkCategory, tag: bulkCategory }
-                : {}),
-            };
-          }
-          return p;
-        }),
-      );
-
-      setToastMessage(`Đã cập nhật ${selectedIds.length} bài viết thành công`);
-      setIsBulkEditOpen(false);
-      setBulkStatus("");
-      setBulkCategory("");
-      setSelectedIds([]);
-      router.refresh();
-      setTimeout(() => setToastMessage(null), 4000);
-    } catch (err) {
-      alert((err as Error).message);
-    } finally {
-      setIsBulkLoading(false);
-    }
+    bulkUpdate({
+      ids: selectedIds,
+      data: {
+        ...(bulkStatus ? { status: bulkStatus } : {}),
+        ...(bulkCategory ? { category: bulkCategory } : {}),
+      },
+    });
   };
 
-  const handleDelete = async (id: string, title: string) => {
+  const handleDelete = (id: string, title: string) => {
     if (!confirm(`Bạn có chắc chắn muốn xoá bài viết: "${title}"?`)) {
       return;
     }
 
-    try {
-      setIsDeleting(id);
-      const res = await fetch(`/api/admin/blogs/${id}`, {
-        method: "DELETE",
-      });
-      const data = await res.json();
-
-      if (data.success) {
-        setPosts((prev) => prev.filter((p) => p.id !== id));
-        setSelectedIds((prev) => prev.filter((item) => item !== id));
-        router.refresh();
-      } else {
-        alert(data.error || "Có lỗi xảy ra khi xoá bài viết");
-      }
-    } catch {
-      alert("Không thể kết nối đến máy chủ");
-    } finally {
-      setIsDeleting(null);
-    }
+    setIsDeleting(id);
+    deleteBlog({ id, title });
   };
 
   const isAllSelected =
     paginatedPosts.length > 0 &&
     paginatedPosts.every((p) => selectedIds.includes(p.id));
+  const isPartiallySelected =
+    paginatedPosts.some((p) => selectedIds.includes(p.id)) && !isAllSelected;
 
   return (
     <div className="space-y-6 font-open-sans w-full pb-12">
-      {/* Toast Notification */}
-      {toastMessage && (
-        <div className="p-4 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-sm flex items-center justify-between shadow-sm">
-          <span>{toastMessage}</span>
-          <Button
-            label="Đóng"
-            variant="ghost"
-            onClick={() => setToastMessage(null)}
-          />
-        </div>
-      )}
-      {/* =========================================================================
-          PAGE HEADER
-          ========================================================================= */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2.5">
             <h1 className="text-2xl font-extrabold text-slate-900">
               Quản lý bài viết blog
             </h1>
-            <Badge label={`${posts.length} bài`} variant="neutral" />
+            <Badge label={`${posts.length} bài`} variant="neutral" className="h-8 px-4" />
           </div>
           <p className="text-slate-500 text-xs sm:text-sm mt-1">
             Toàn bộ danh sách các bài viết phân tích, cẩm nang chiến lược
@@ -251,12 +217,9 @@ export default function BlogListClient({
           label="Thêm bài viết mới"
           variant="primary"
           href="/admin/blogs/new"
+          className="h-10 px-4"
         />
       </div>
-
-      {/* =========================================================================
-          FILTERS & SEARCH BAR (Astryx Card)
-          ========================================================================= */}
       <Card variant="default" className="rounded-2xl p-4 sm:p-5 space-y-4">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-3">
           {/* Search box */}
@@ -267,7 +230,7 @@ export default function BlogListClient({
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Tìm kiếm theo tiêu đề bài viết, tóm tắt, slug..."
-              className="w-full pl-10 pr-9 py-2.5 bg-slate-50/60 border border-slate-200 rounded-xl text-xs sm:text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:bg-white focus:border-slate-800 focus:ring-1 focus:ring-slate-800 transition-colors"
+              className="w-full pl-10 pr-9 py-2.5 h-10 bg-slate-50/60 border border-slate-200 rounded-xl text-xs sm:text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:bg-white focus:border-slate-800 focus:ring-1 focus:ring-slate-800 transition-colors"
             />
             {search && (
               <button
@@ -320,13 +283,14 @@ export default function BlogListClient({
 
       {/* Bulk Action Bar */}
       {selectedIds.length > 0 && (
-        <div className="p-3.5 bg-emerald-50/90 border border-emerald-200/90 rounded-2xl flex flex-wrap items-center justify-between gap-3 shadow-sm animate-in fade-in duration-200">
+        <div className="p-3.5 bg-white rounded-2xl flex flex-wrap items-center justify-between gap-3 shadow-sm animate-in fade-in duration-200">
           <div className="flex items-center gap-2.5">
             <Badge
               label={`Đã chọn ${selectedIds.length} bài viết`}
               variant="success"
+              className="h-8 px-4"
             />
-            <span className="text-xs text-emerald-800 hidden sm:inline">
+            <span className="text-sm text-gray-800 hidden sm:inline">
               Áp dụng thao tác đồng loạt trên các bài viết đã chọn
             </span>
           </div>
@@ -335,7 +299,7 @@ export default function BlogListClient({
             <Button
               label="Chỉnh sửa hàng loạt"
               variant="secondary"
-              size="sm"
+              className="px-4 h-10"
               onClick={() => setIsBulkEditOpen(true)}
             />
             <Button
@@ -344,16 +308,15 @@ export default function BlogListClient({
                   ? "Đang xử lý..."
                   : `Xóa ${selectedIds.length} bài`
               }
-              variant="ghost"
-              size="sm"
-              className="text-rose-600 hover:text-rose-700 hover:bg-rose-100/60"
+              variant="destructive"
+              className="px-4 h-10"
               isDisabled={isBulkLoading}
               onClick={handleBulkDelete}
             />
             <Button
               label="Bỏ chọn"
               variant="ghost"
-              size="sm"
+              className="px-4 h-10"
               onClick={() => setSelectedIds([])}
             />
           </div>
@@ -363,7 +326,6 @@ export default function BlogListClient({
         {filteredPosts.length === 0 ? (
           <div className="py-12 px-4">
             <EmptyState
-              icon={<AlertCircle className="w-8 h-8 text-slate-400" />}
               title="Không tìm thấy bài viết nào"
               description="Không có bài viết nào khớp với từ khoá hoặc bộ lọc bạn chọn. Thử thay đổi bộ lọc hoặc thêm bài mới."
               actions={
@@ -371,6 +333,7 @@ export default function BlogListClient({
                   label="Tạo bài viết mới"
                   variant="primary"
                   href="/admin/blogs/new"
+                  className="h-10 px-4"
                 />
               }
             />
@@ -378,177 +341,182 @@ export default function BlogListClient({
         ) : (
           <>
             <div className="overflow-x-auto">
-            <table className="w-full text-left border-collapse text-sm">
-              <thead>
-                <tr className="border-b border-slate-200/80 bg-slate-50/70 text-xs font-bold text-slate-500">
-                  <th className="py-3.5 pl-4 sm:pl-6 pr-2 w-10">
-                    <input
-                      type="checkbox"
-                      checked={isAllSelected}
-                      onChange={handleToggleAll}
-                      className="w-4 h-4 rounded text-emerald-600 border-slate-300 focus:ring-emerald-500 cursor-pointer"
-                      title="Chọn tất cả bài viết"
-                    />
-                  </th>
-                  <th className="py-3.5 px-3">Bài viết</th>
-                  <th className="py-3.5 px-4">Chuyên mục</th>
-                  <th className="py-3.5 px-4">Trạng thái</th>
-                  <th className="py-3.5 px-4">Lượt xem</th>
-                  <th className="py-3.5 px-4">Ngày tạo</th>
-                  <th className="py-3.5 px-4 sm:px-6 text-right">Thao tác</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-slate-100">
-                {paginatedPosts.map((post) => {
-                  const isChecked = selectedIds.includes(post.id);
-                  return (
-                    <tr
-                      key={post.id}
-                      className={`hover:bg-slate-50/70 transition-colors group ${
-                        isChecked ? "bg-emerald-50/40" : ""
-                      }`}
-                    >
-                      {/* Checkbox */}
-                      <td className="py-4 pl-4 sm:pl-6 pr-2">
-                        <input
-                          type="checkbox"
-                          checked={isChecked}
-                          onChange={() => handleToggleRow(post.id)}
-                          className="w-4 h-4 rounded text-emerald-600 border-slate-300 focus:ring-emerald-500 cursor-pointer"
-                        />
-                      </td>
-
-                      {/* Title, Thumbnail & Slug */}
-                      <td className="py-4 px-3 max-w-md">
-                        <div className="flex items-start gap-3">
-                          {post.heroImage ? (
-                            <div className="w-12 h-12 rounded-lg overflow-hidden border border-slate-200 bg-slate-100 shrink-0 hidden sm:block">
-                              {/* eslint-disable-next-line @next/next/no-img-element */}
-                              <img
-                                src={post.heroImage}
-                                alt={post.title}
-                                className="w-full h-full object-cover"
-                              />
-                            </div>
-                          ) : (
-                            <div className="w-12 h-12 rounded-lg bg-slate-100 border border-slate-200 flex items-center justify-center text-slate-400 shrink-0 hidden sm:block">
-                              <FileText className="w-5 h-5" />
-                            </div>
-                          )}
-                          <div className="min-w-0 flex-1">
-                            <Link
-                              href={`/admin/blogs/${post.id}`}
-                              className="font-bold text-slate-900 group-hover:text-emerald-700 transition-colors line-clamp-1 text-sm"
-                            >
-                              {post.title}
-                            </Link>
-                            <p className="text-xs text-slate-500 line-clamp-1 mt-0.5">
-                              {post.excerpt || "Chưa có tóm tắt..."}
-                            </p>
-                            <span className="text-[11px] text-slate-400 font-mono block mt-0.5 truncate">
-                              /articles/{post.slug}
-                            </span>
-                          </div>
-                        </div>
-                      </td>
-
-                      {/* Category */}
-                      <td className="py-4 px-4 whitespace-nowrap">
-                        <Badge
-                          label={post.tag || post.category || "General"}
-                          variant="neutral"
-                        />
-                      </td>
-
-                      {/* Status */}
-                      <td className="py-4 px-4 whitespace-nowrap">
-                        <Badge
-                          label={
-                            post.status === "published"
-                              ? "Đã xuất bản"
-                              : "Bản nháp"
-                          }
-                          variant={
-                            post.status === "published" ? "success" : "warning"
-                          }
-                        />
-                      </td>
-
-                      {/* Views */}
-                      <td className="py-4 px-4 whitespace-nowrap text-xs text-slate-600 font-medium">
-                        <span>{(post.views || 0).toLocaleString()} lượt</span>
-                      </td>
-
-                      {/* Date */}
-                      <td className="py-4 px-4 whitespace-nowrap text-xs text-slate-500 font-medium">
-                        <span>{post.date}</span>
-                      </td>
-
-                      {/* Actions */}
-                      <td className="py-4 px-4 sm:px-6 whitespace-nowrap text-right">
-                        <div className="flex items-center justify-end">
-                          <DropdownMenu
-                            button={{
-                              label: "Thao tác",
-                              isIconOnly: true,
-                              icon: <MoreHorizontal className="w-4 h-4" />,
-                              size: "sm",
-                              variant: "ghost",
-                            }}
-                            placement="below"
-                            alignment="end"
-                            items={[
-                              {
-                                label: "Chỉnh sửa bài viết",
-                                onClick: () =>
-                                  router.push(`/admin/blogs/${post.id}`),
-                              },
-                              {
-                                label: "Xem trên website",
-                                onClick: () =>
-                                  window.open(`/articles/${post.slug}`, "_blank"),
-                              },
-                              {
-                                label: "Xoá bài viết",
-                                variant: "destructive",
-                                isDisabled: isDeleting === post.id,
-                                onClick: () =>
-                                  handleDelete(post.id, post.title),
-                              },
-                            ]}
+              <table className="w-full text-left border-collapse text-sm">
+                <thead>
+                  <tr className="border-b border-slate-200/80 bg-slate-50/70 text-xs font-bold text-slate-500">
+                    <th className="py-3.5 pl-4 sm:pl-6 pr-2 w-10">
+                      <CheckboxInput
+                        label="Chọn tất cả bài viết"
+                        isLabelHidden
+                        value={
+                          isAllSelected
+                            ? true
+                            : isPartiallySelected
+                              ? "indeterminate"
+                              : false
+                        }
+                        onChange={handleToggleAll}
+                      />
+                    </th>
+                    <th className="py-3.5 px-3">Bài viết</th>
+                    <th className="py-3.5 px-4">Chuyên mục</th>
+                    <th className="py-3.5 px-4">Trạng thái</th>
+                    <th className="py-3.5 px-4">Lượt xem</th>
+                    <th className="py-3.5 px-4">Ngày tạo</th>
+                    <th className="py-3.5 px-4 sm:px-6 text-right">Thao tác</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-slate-100">
+                  {paginatedPosts.map((post) => {
+                    const isChecked = selectedIds.includes(post.id);
+                    return (
+                      <tr
+                        key={post.id}
+                        className={`hover:bg-slate-50/70 transition-colors group ${isChecked ? "bg-emerald-50/40" : ""
+                          }`}
+                      >
+                        {/* Checkbox */}
+                        <td className="py-4 pl-4 sm:pl-6 pr-2">
+                          <CheckboxInput
+                            label={`Chọn bài viết ${post.title}`}
+                            isLabelHidden
+                            size="sm"
+                            value={isChecked}
+                            onChange={() => handleToggleRow(post.id)}
                           />
-                        </div>
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </div>
+                        </td>
 
-          {/* Pagination Footer */}
-          {totalItems > 0 && (
-            <div className="px-6 py-4 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-4 bg-slate-50/50">
-              <span className="text-xs text-slate-500 font-medium">
-                Hiển thị {startIndex + 1}–{Math.min(startIndex + pageSize, totalItems)} trong tổng số {totalItems} bài viết
-              </span>
-              <Pagination
-                page={safeCurrentPage}
-                onChange={(p) => setCurrentPage(p)}
-                totalItems={totalItems}
-                pageSize={pageSize}
-                pageSizeOptions={[10, 20, 50]}
-                onPageSizeChange={(newSize) => {
-                  setPageSize(newSize);
-                  setCurrentPage(1);
-                }}
-                variant="pages"
-                size="sm"
-              />
+                        {/* Title, Thumbnail & Slug */}
+                        <td className="py-4 px-3 max-w-md">
+                          <div className="flex items-start gap-3">
+                            {post.heroImage ? (
+                              <div className="w-12 h-12 rounded-lg overflow-hidden border border-slate-200 bg-slate-100 shrink-0 hidden sm:block">
+                                {/* eslint-disable-next-line @next/next/no-img-element */}
+                                <img
+                                  src={post.heroImage}
+                                  alt={post.title}
+                                  className="w-full h-full object-cover"
+                                />
+                              </div>
+                            ) : (
+                              <div className="w-12 h-12 rounded-lg bg-slate-100 border border-slate-200 flex items-center justify-center text-slate-400 shrink-0 hidden sm:block">
+                                <FileText className="w-5 h-5" />
+                              </div>
+                            )}
+                            <div className="min-w-0 flex-1">
+                              <Link
+                                href={`/admin/blogs/${post.id}`}
+                                className="font-bold text-slate-900 group-hover:text-emerald-700 transition-colors line-clamp-1 text-sm"
+                              >
+                                {post.title}
+                              </Link>
+                              <p className="text-xs text-slate-500 line-clamp-1 mt-0.5">
+                                {post.excerpt || "Chưa có tóm tắt..."}
+                              </p>
+                              <span className="text-[11px] text-slate-400 font-mono block mt-0.5 truncate">
+                                /articles/{post.slug}
+                              </span>
+                            </div>
+                          </div>
+                        </td>
+
+                        {/* Category */}
+                        <td className="py-4 px-4 whitespace-nowrap">
+                          <Badge
+                            label={post.tag || post.category || "General"}
+                            variant="neutral"
+                            className="h-8 px-4"
+                          />
+                        </td>
+
+                        {/* Status */}
+                        <td className="py-4 px-4 whitespace-nowrap">
+                          <Badge
+                            label={
+                              post.status === "published"
+                                ? "Đã xuất bản"
+                                : "Bản nháp"
+                            }
+                            variant={
+                              post.status === "published" ? "success" : "warning"
+                            }
+                            className="h-8 px-4"
+                          />
+                        </td>
+
+                        {/* Views */}
+                        <td className="py-4 px-4 whitespace-nowrap text-sm text-gray-700 font-medium">
+                          <span>{(post.views || 0).toLocaleString()} lượt</span>
+                        </td>
+
+                        {/* Date */}
+                        <td className="py-4 px-4 whitespace-nowrap text-sm text-gray-700 font-medium">
+                          <span>{post.date}</span>
+                        </td>
+
+                        {/* Actions */}
+                        <td className="py-4 px-4 sm:px-6 whitespace-nowrap text-right">
+                          <div className="flex items-center justify-end">
+                            <DropdownMenu
+                              button={{
+                                label: "Thao tác",
+                                isIconOnly: true,
+                                icon: <MoreHorizontal className="w-4 h-4" />,
+                                className: "h-10 w-10"
+                              }}
+                              placement="below"
+                              alignment="end"
+                              items={[
+                                {
+                                  label: "Chỉnh sửa bài viết",
+                                  onClick: () =>
+                                    router.push(`/admin/blogs/${post.id}`),
+                                },
+                                {
+                                  label: "Xem trên website",
+                                  onClick: () =>
+                                    window.open(`/articles/${post.slug}`, "_blank"),
+                                },
+                                {
+                                  label: "Xoá bài viết",
+                                  variant: "destructive",
+                                  isDisabled: isDeleting === post.id,
+                                  onClick: () =>
+                                    handleDelete(post.id, post.title),
+                                },
+                              ]}
+                            />
+                          </div>
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
             </div>
-          )}
-        </>
-      )}
+
+            {/* Pagination Footer */}
+            {totalItems > 0 && (
+              <div className="px-6 py-4 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-4 bg-slate-50/50">
+                <span className="text-xs text-slate-500 font-medium">
+                  Hiển thị {startIndex + 1}–{Math.min(startIndex + pageSize, totalItems)} trong tổng số {totalItems} bài viết
+                </span>
+                <Pagination
+                  page={safeCurrentPage}
+                  onChange={(p) => setCurrentPage(p)}
+                  totalItems={totalItems}
+                  pageSize={pageSize}
+                  pageSizeOptions={[10, 20, 50]}
+                  onPageSizeChange={(newSize) => {
+                    setPageSize(newSize);
+                    setCurrentPage(1);
+                  }}
+                  variant="pages"
+                />
+              </div>
+            )}
+          </>
+        )}
       </Card>
 
       {/* Bulk Edit Modal */}
@@ -568,8 +536,8 @@ export default function BlogListClient({
               <Button
                 label="Đóng"
                 variant="ghost"
-                size="sm"
                 onClick={() => setIsBulkEditOpen(false)}
+                className="h-10 px-4"
               />
             </div>
 
@@ -590,6 +558,7 @@ export default function BlogListClient({
                     { value: "draft", label: "Bản nháp (draft)" },
                     { value: "archived", label: "Lưu trữ (archived)" },
                   ]}
+                  className='h-10 border'
                 />
               </div>
 
@@ -609,6 +578,7 @@ export default function BlogListClient({
                       label: c.name,
                     })),
                   ]}
+                  className='h-10 border'
                 />
               </div>
 
@@ -620,6 +590,7 @@ export default function BlogListClient({
                   type="button"
                   onClick={() => setIsBulkEditOpen(false)}
                   isDisabled={isBulkLoading}
+                  className="h-10 px-4"
                 />
                 <Button
                   label={
@@ -627,6 +598,7 @@ export default function BlogListClient({
                   }
                   variant="primary"
                   type="submit"
+                  className="h-10 px-4"
                   isDisabled={isBulkLoading || (!bulkStatus && !bulkCategory)}
                 />
               </div>

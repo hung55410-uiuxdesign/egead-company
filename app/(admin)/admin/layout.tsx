@@ -1,17 +1,8 @@
 import type { Metadata } from 'next';
-import { Open_Sans } from 'next/font/google';
-import '@astryxdesign/core/astryx.css';
-import '@astryxdesign/theme-neutral/theme.css';
 import './admin.css';
 import { AdminLayoutClient } from '@/components/admin/layout';
 import { AdminQueryProvider } from '@/components/admin/providers';
-
-const openSans = Open_Sans({
-  subsets: ['latin', 'vietnamese'],
-  weight: ['300', '400', '500', '600', '700', '800'],
-  variable: '--font-open-sans',
-  display: 'swap',
-});
+import { AstryxProviders } from '@/components/admin/providers/AstryxProvider';
 
 export const metadata: Metadata = {
   title: 'E-GEAD Admin Portal — Quản lý nội dung & Blog CMS',
@@ -28,11 +19,12 @@ export default function AdminLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className={`${openSans.variable} ${openSans.className} font-open-sans`}>
+    <div className="font-mona-sans antialiased">
       <AdminQueryProvider>
-        <AdminLayoutClient>{children}</AdminLayoutClient>
+        <AstryxProviders>
+          <AdminLayoutClient>{children}</AdminLayoutClient>
+        </AstryxProviders>
       </AdminQueryProvider>
     </div>
   );
 }
-

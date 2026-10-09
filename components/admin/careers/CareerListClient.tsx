@@ -15,6 +15,7 @@ import {
   DropdownMenu,
   Pagination,
 } from "@astryxdesign/core";
+import { useCareerMutations } from "@/lib/hooks";
 
 interface CareerListClientProps {
   initialJobs: CareerPost[];
@@ -41,8 +42,44 @@ export default function CareerListClient({
   const [isBulkEditOpen, setIsBulkEditOpen] = useState(false);
   const [bulkStatus, setBulkStatus] = useState<JobStatus | "">("");
   const [bulkDepartment, setBulkDepartment] = useState<string>("");
-  const [isBulkLoading, setIsBulkLoading] = useState(false);
-  const [toastMessage, setToastMessage] = useState<string | null>(null);
+
+  // Career mutations hook with TanStack Query and Astryx Toast
+  const {
+    deleteJobAsync,
+    bulkDeleteAsync,
+    bulkUpdateAsync,
+    isBulkDeleting,
+    isBulkUpdating,
+  } = useCareerMutations({
+    onDeleteSuccess: (id) => {
+      setJobs((prev) => prev.filter((j) => j.id !== id));
+      setSelectedIds((prev) => prev.filter((item) => item !== id));
+    },
+    onBulkDeleteSuccess: (ids) => {
+      setJobs((prev) => prev.filter((j) => !ids.includes(j.id)));
+      setSelectedIds([]);
+    },
+    onBulkUpdateSuccess: (ids, data) => {
+      setJobs((prev) =>
+        prev.map((j) => {
+          if (ids.includes(j.id)) {
+            return {
+              ...j,
+              ...(data.status ? { status: data.status } : {}),
+              ...(data.department ? { department: data.department } : {}),
+            };
+          }
+          return j;
+        }),
+      );
+      setIsBulkEditOpen(false);
+      setBulkStatus("");
+      setBulkDepartment("");
+      setSelectedIds([]);
+    },
+  });
+
+  const isBulkLoading = isBulkDeleting || isBulkUpdating;
 
   // Pagination State
   const [currentPage, setCurrentPage] = useState(1);
@@ -102,27 +139,10 @@ export default function CareerListClient({
     );
     if (!confirmed) return;
 
-    setIsBulkLoading(true);
     try {
-      const res = await fetch("/api/admin/careers/bulk", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ action: "delete", ids: selectedIds }),
-      });
-      const data = await res.json();
-      if (!res.ok || !data.success) {
-        throw new Error(data.error || "Xóa hàng loạt thất bại");
-      }
-
-      setJobs((prev) => prev.filter((j) => !selectedIds.includes(j.id)));
-      setToastMessage(`Đã xóa thành công ${selectedIds.length} tin tuyển dụng`);
-      setSelectedIds([]);
-      router.refresh();
-      setTimeout(() => setToastMessage(null), 4000);
-    } catch (err) {
-      alert((err as Error).message);
-    } finally {
-      setIsBulkLoading(false);
+      await bulkDeleteAsync({ ids: selectedIds });
+    } catch {
+      // Astryx Toast handles error
     }
   };
 
@@ -135,51 +155,16 @@ export default function CareerListClient({
       return;
     }
 
-    setIsBulkLoading(true);
     try {
-      const res = await fetch("/api/admin/careers/bulk", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          action: "update",
-          ids: selectedIds,
-          data: {
-            ...(bulkStatus ? { status: bulkStatus } : {}),
-            ...(bulkDepartment ? { department: bulkDepartment } : {}),
-          },
-        }),
+      await bulkUpdateAsync({
+        ids: selectedIds,
+        data: {
+          ...(bulkStatus ? { status: bulkStatus } : {}),
+          ...(bulkDepartment ? { department: bulkDepartment } : {}),
+        },
       });
-      const data = await res.json();
-      if (!res.ok || !data.success) {
-        throw new Error(data.error || "Cập nhật hàng loạt thất bại");
-      }
-
-      setJobs((prev) =>
-        prev.map((j) => {
-          if (selectedIds.includes(j.id)) {
-            return {
-              ...j,
-              ...(bulkStatus ? { status: bulkStatus } : {}),
-              ...(bulkDepartment ? { department: bulkDepartment } : {}),
-            };
-          }
-          return j;
-        }),
-      );
-
-      setToastMessage(
-        `Đã cập nhật ${selectedIds.length} tin tuyển dụng thành công`,
-      );
-      setIsBulkEditOpen(false);
-      setBulkStatus("");
-      setBulkDepartment("");
-      setSelectedIds([]);
-      router.refresh();
-      setTimeout(() => setToastMessage(null), 4000);
-    } catch (err) {
-      alert((err as Error).message);
-    } finally {
-      setIsBulkLoading(false);
+    } catch {
+      // Astryx Toast handles error
     }
   };
 
@@ -190,20 +175,9 @@ export default function CareerListClient({
 
     try {
       setIsDeleting(id);
-      const res = await fetch(`/api/admin/careers/${id}`, {
-        method: "DELETE",
-      });
-      const data = await res.json();
-
-      if (data.success) {
-        setJobs((prev) => prev.filter((j) => j.id !== id));
-        setSelectedIds((prev) => prev.filter((item) => item !== id));
-        router.refresh();
-      } else {
-        alert(data.error || "Có lỗi xảy ra khi xoá tin tuyển dụng");
-      }
+      await deleteJobAsync({ id, title });
     } catch {
-      alert("Không thể kết nối đến máy chủ");
+      // Astryx Toast handles error
     } finally {
       setIsDeleting(null);
     }
@@ -216,13 +190,13 @@ export default function CareerListClient({
   const getStatusBadge = (status: CareerPost["status"]) => {
     switch (status) {
       case "published":
-        return <Badge label="Đang tuyển" variant="success" />;
+        return <Badge label="Đang tuyển" variant="success" className='h-8 px-4' />;
       case "draft":
-        return <Badge label="Bản nháp" variant="neutral" />;
+        return <Badge label="Bản nháp" variant="neutral" className='h-8 px-4' />;
       case "closed":
-        return <Badge label="Đã đóng" variant="error" />;
+        return <Badge label="Đã đóng" variant="error" className='h-8 px-4' />;
       default:
-        return <Badge label={status} variant="neutral" />;
+        return <Badge label={status} variant="neutral" className='h-8 px-4' />;
     }
   };
 
@@ -237,7 +211,7 @@ export default function CareerListClient({
             <h1 className="text-2xl font-extrabold text-slate-900">
               Quản lý tuyển dụng
             </h1>
-            <Badge label={`${jobs.length} vị trí`} variant="neutral" />
+            <Badge label={`${jobs.length} vị trí`} variant="neutral" className='h-8 px-4' />
           </div>
           <p className="text-slate-500 text-xs sm:text-sm mt-1">
             Hệ thống đăng bài tuyển dụng, cấu hình biểu mẫu và quản lý hồ sơ ứng
@@ -250,16 +224,19 @@ export default function CareerListClient({
             label={`Hồ sơ ứng tuyển (${stats.totalApplications}${stats.pendingApplications > 0 ? ` - ${stats.pendingApplications} mới` : ""})`}
             variant="secondary"
             href="/admin/careers/applications"
+            className='h-10 px-4'
           />
           <Button
             label="Biểu mẫu ứng tuyển"
             variant="secondary"
             href="/admin/careers/form-preview"
+            className='h-10 px-4'
           />
           <Button
             label="Đăng tin tuyển dụng mới"
             variant="primary"
             href="/admin/careers/new"
+            className='h-10 px-4'
           />
         </div>
       </div>
@@ -401,19 +378,6 @@ export default function CareerListClient({
         )}
       </Card>
 
-      {/* Toast Notification */}
-      {toastMessage && (
-        <div className="p-4 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-sm flex items-center justify-between shadow-sm">
-          <span>{toastMessage}</span>
-          <Button
-            label="Đóng"
-            variant="ghost"
-            size="sm"
-            onClick={() => setToastMessage(null)}
-          />
-        </div>
-      )}
-
       {/* Bulk Action Bar */}
       {selectedIds.length > 0 && (
         <div className="p-3.5 bg-emerald-50/90 border border-emerald-200/90 rounded-2xl flex flex-wrap items-center justify-between gap-3 shadow-sm animate-in fade-in duration-200">
@@ -421,6 +385,7 @@ export default function CareerListClient({
             <Badge
               label={`Đã chọn ${selectedIds.length} tin tuyển dụng`}
               variant="success"
+              className='h-8 px-4'
             />
             <span className="text-xs text-emerald-800 hidden sm:inline">
               Áp dụng thao tác đồng loạt trên các tin tuyển dụng đã chọn
@@ -431,7 +396,7 @@ export default function CareerListClient({
             <Button
               label="Chỉnh sửa hàng loạt"
               variant="secondary"
-              size="sm"
+              className='h-10 px-4'
               onClick={() => setIsBulkEditOpen(true)}
             />
             <Button
@@ -440,16 +405,14 @@ export default function CareerListClient({
                   ? "Đang xử lý..."
                   : `Xóa ${selectedIds.length} tin`
               }
-              variant="ghost"
-              size="sm"
-              className="text-rose-600 hover:text-rose-700 hover:bg-rose-100/60"
+              variant="destructive"
               isDisabled={isBulkLoading}
               onClick={handleBulkDelete}
             />
             <Button
               label="Bỏ chọn"
-              variant="ghost"
-              size="sm"
+              variant="secondary"
+              className="px-4 h-10"
               onClick={() => setSelectedIds([])}
             />
           </div>
@@ -470,6 +433,7 @@ export default function CareerListClient({
                 label="Đăng tin tuyển dụng mới"
                 variant="primary"
                 href="/admin/careers/new"
+                className="px-4 h-10"
               />
             }
           />
@@ -504,9 +468,8 @@ export default function CareerListClient({
                   return (
                     <tr
                       key={job.id}
-                      className={`hover:bg-slate-50/70 transition-colors group ${
-                        isChecked ? "bg-emerald-50/40" : ""
-                      }`}
+                      className={`hover:bg-slate-50/70 transition-colors group ${isChecked ? "bg-emerald-50/40" : ""
+                        }`}
                     >
                       {/* Checkbox */}
                       <td className="py-4 pl-4 sm:pl-6 pr-2">
@@ -532,7 +495,7 @@ export default function CareerListClient({
                               /{job.slug}
                             </span>
                             {job.featured && (
-                              <Badge label="Nổi bật" variant="warning" />
+                              <Badge label="Nổi bật" variant="warning" className='h-8 px-4' />
                             )}
                           </div>
                         </div>
@@ -540,7 +503,7 @@ export default function CareerListClient({
 
                       {/* Department */}
                       <td className="py-4 px-4">
-                        <Badge label={job.department} variant="neutral" />
+                        <Badge label={job.department} variant="neutral" className='h-8 px-4' />
                       </td>
 
                       {/* Location & Type */}
@@ -575,6 +538,7 @@ export default function CareerListClient({
                             variant={
                               job.applicationsCount > 0 ? "success" : "neutral"
                             }
+                            className='h-8 px-4'
                           />
                         </Link>
                       </td>
@@ -680,7 +644,7 @@ export default function CareerListClient({
               <Button
                 label="Đóng"
                 variant="ghost"
-                size="sm"
+                className="px-4 h-10"
                 onClick={() => setIsBulkEditOpen(false)}
               />
             </div>
@@ -702,6 +666,7 @@ export default function CareerListClient({
                     { value: "draft", label: "Bản nháp (draft)" },
                     { value: "closed", label: "Đã đóng (closed)" },
                   ]}
+                  className='h-10 border'
                 />
               </div>
 
@@ -710,6 +675,7 @@ export default function CareerListClient({
                   label="Phòng ban mới"
                   description="Chọn phòng ban mới nếu muốn thay đổi đồng loạt"
                   value={bulkDepartment || ""}
+                  className='h-10 border'
                   onChange={(val) => setBulkDepartment(val)}
                   options={[
                     { value: "", label: "-- Giữ nguyên phòng ban hiện tại --" },
@@ -727,6 +693,7 @@ export default function CareerListClient({
                   label="Hủy"
                   variant="ghost"
                   type="button"
+                  className="px-4 h-10"
                   onClick={() => setIsBulkEditOpen(false)}
                   isDisabled={isBulkLoading}
                 />
@@ -736,6 +703,7 @@ export default function CareerListClient({
                   }
                   variant="primary"
                   type="submit"
+                  className="px-4 h-10"
                   isDisabled={isBulkLoading || (!bulkStatus && !bulkDepartment)}
                 />
               </div>

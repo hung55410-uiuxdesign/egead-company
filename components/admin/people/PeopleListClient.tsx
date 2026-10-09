@@ -17,6 +17,7 @@ import {
   Pagination,
 } from "@astryxdesign/core";
 import { DEPARTMENTS } from "@/lib/validations/people";
+import { usePeopleMutations } from "@/lib/hooks";
 
 interface PeopleListClientProps {
   initialMembers: AdminTeamMember[];
@@ -45,8 +46,68 @@ export default function PeopleListClient({
     "published" | "draft" | "archived" | ""
   >("");
   const [bulkDepartment, setBulkDepartment] = useState<string>("");
-  const [isBulkLoading, setIsBulkLoading] = useState(false);
-  const [toastMessage, setToastMessage] = useState<string | null>(null);
+
+  // People mutations hook with TanStack Query and Astryx Toast
+  const {
+    deletePersonAsync,
+    bulkDeleteAsync,
+    bulkUpdateAsync,
+    isBulkDeleting,
+    isBulkUpdating,
+  } = usePeopleMutations({
+    onDeleteSuccess: (id) => {
+      setMembers((prev) => {
+        const next = prev.filter((m) => m.id !== id);
+        const total = next.length;
+        const leaders = next.filter((m) => m.isLeader).length;
+        const published = next.filter((m) => m.status === "published").length;
+        setStats({
+          total,
+          leaders,
+          experts: total - leaders,
+          published,
+        });
+        return next;
+      });
+      setSelectedIds((prev) => prev.filter((item) => item !== id));
+    },
+    onBulkDeleteSuccess: (ids) => {
+      setMembers((prev) => {
+        const next = prev.filter((m) => !ids.includes(m.id));
+        const total = next.length;
+        const leaders = next.filter((m) => m.isLeader).length;
+        const published = next.filter((m) => m.status === "published").length;
+        setStats({
+          total,
+          leaders,
+          experts: total - leaders,
+          published,
+        });
+        return next;
+      });
+      setSelectedIds([]);
+    },
+    onBulkUpdateSuccess: (ids, data) => {
+      setMembers((prev) =>
+        prev.map((m) => {
+          if (ids.includes(m.id)) {
+            return {
+              ...m,
+              ...(data.status ? { status: data.status } : {}),
+              ...(data.department ? { department: data.department } : {}),
+            };
+          }
+          return m;
+        }),
+      );
+      setIsBulkEditOpen(false);
+      setBulkStatus("");
+      setBulkDepartment("");
+      setSelectedIds([]);
+    },
+  });
+
+  const isBulkLoading = isBulkDeleting || isBulkUpdating;
 
   // Pagination State
   const [currentPage, setCurrentPage] = useState(1);
@@ -119,40 +180,10 @@ export default function PeopleListClient({
     );
     if (!confirmed) return;
 
-    setIsBulkLoading(true);
     try {
-      const res = await fetch("/api/admin/people/bulk", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ action: "delete", ids: selectedIds }),
-      });
-      const data = await res.json();
-      if (!res.ok || !data.success) {
-        throw new Error(data.error || "Xóa hàng loạt thất bại");
-      }
-
-      setMembers((prev) => {
-        const next = prev.filter((m) => !selectedIds.includes(m.id));
-        const total = next.length;
-        const leaders = next.filter((m) => m.isLeader).length;
-        const published = next.filter((m) => m.status === "published").length;
-        setStats({
-          total,
-          leaders,
-          experts: total - leaders,
-          published,
-        });
-        return next;
-      });
-
-      setToastMessage(`Đã xóa thành công ${selectedIds.length} nhân sự`);
-      setSelectedIds([]);
-      router.refresh();
-      setTimeout(() => setToastMessage(null), 4000);
-    } catch (err) {
-      alert((err as Error).message);
-    } finally {
-      setIsBulkLoading(false);
+      await bulkDeleteAsync({ ids: selectedIds });
+    } catch {
+      // Toast notification handles error display
     }
   };
 
@@ -165,49 +196,16 @@ export default function PeopleListClient({
       return;
     }
 
-    setIsBulkLoading(true);
     try {
-      const res = await fetch("/api/admin/people/bulk", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          action: "update",
-          ids: selectedIds,
-          data: {
-            ...(bulkStatus ? { status: bulkStatus } : {}),
-            ...(bulkDepartment ? { department: bulkDepartment } : {}),
-          },
-        }),
+      await bulkUpdateAsync({
+        ids: selectedIds,
+        data: {
+          ...(bulkStatus ? { status: bulkStatus } : {}),
+          ...(bulkDepartment ? { department: bulkDepartment } : {}),
+        },
       });
-      const data = await res.json();
-      if (!res.ok || !data.success) {
-        throw new Error(data.error || "Cập nhật hàng loạt thất bại");
-      }
-
-      setMembers((prev) =>
-        prev.map((m) => {
-          if (selectedIds.includes(m.id)) {
-            return {
-              ...m,
-              ...(bulkStatus ? { status: bulkStatus } : {}),
-              ...(bulkDepartment ? { department: bulkDepartment } : {}),
-            };
-          }
-          return m;
-        }),
-      );
-
-      setToastMessage(`Đã cập nhật ${selectedIds.length} nhân sự thành công`);
-      setIsBulkEditOpen(false);
-      setBulkStatus("");
-      setBulkDepartment("");
-      setSelectedIds([]);
-      router.refresh();
-      setTimeout(() => setToastMessage(null), 4000);
-    } catch (err) {
-      alert((err as Error).message);
-    } finally {
-      setIsBulkLoading(false);
+    } catch {
+      // Toast notification handles error display
     }
   };
 
@@ -222,32 +220,9 @@ export default function PeopleListClient({
 
     try {
       setIsDeleting(id);
-      const res = await fetch(`/api/admin/people/${id}`, {
-        method: "DELETE",
-      });
-      const data = await res.json();
-
-      if (data.success) {
-        setMembers((prev) => {
-          const next = prev.filter((m) => m.id !== id);
-          const total = next.length;
-          const leaders = next.filter((m) => m.isLeader).length;
-          const published = next.filter((m) => m.status === "published").length;
-          setStats({
-            total,
-            leaders,
-            experts: total - leaders,
-            published,
-          });
-          return next;
-        });
-        setSelectedIds((prev) => prev.filter((item) => item !== id));
-        router.refresh();
-      } else {
-        alert(data.error || "Có lỗi xảy ra khi xóa nhân sự");
-      }
+      await deletePersonAsync({ id, name });
     } catch {
-      alert("Không thể kết nối đến máy chủ");
+      // Toast notification handles error display
     } finally {
       setIsDeleting(null);
     }
@@ -268,7 +243,7 @@ export default function PeopleListClient({
             <h1 className="text-2xl font-extrabold text-slate-900">
               Quản lý Đội ngũ &amp; Nhân sự
             </h1>
-            <Badge label={`${members.length} nhân sự`} variant="neutral" />
+            <Badge label={`${members.length} nhân sự`} variant="neutral" className='h-8 px-4' />
           </div>
           <p className="text-slate-500 text-xs sm:text-sm mt-1">
             Toàn bộ danh sách ban lãnh đạo cấp cao, sơ đồ squads và chuyên gia
@@ -281,11 +256,13 @@ export default function PeopleListClient({
             label="Sơ đồ tổ chức &amp; Squads"
             variant="secondary"
             href="/admin/people/hierarchy"
+            className="px-4 h-10"
           />
           <Button
             label="Thêm nhân sự mới"
             variant="primary"
             href="/admin/people/new"
+            className="px-4 h-10"
           />
         </div>
       </div>
@@ -415,19 +392,6 @@ export default function PeopleListClient({
         </div>
       </Card>
 
-      {/* Toast Notification */}
-      {toastMessage && (
-        <div className="p-4 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-sm flex items-center justify-between shadow-sm">
-          <span>{toastMessage}</span>
-          <Button
-            label="Đóng"
-            variant="ghost"
-            size="sm"
-            onClick={() => setToastMessage(null)}
-          />
-        </div>
-      )}
-
       {/* Bulk Action Bar */}
       {selectedIds.length > 0 && (
         <div className="p-3.5 bg-emerald-50/90 border border-emerald-200/90 rounded-2xl flex flex-wrap items-center justify-between gap-3 shadow-sm animate-in fade-in duration-200">
@@ -435,6 +399,7 @@ export default function PeopleListClient({
             <Badge
               label={`Đã chọn ${selectedIds.length} nhân sự`}
               variant="success"
+              className='h-8 px-4'
             />
             <span className="text-xs text-emerald-800 hidden sm:inline">
               Áp dụng thao tác đồng loạt trên các nhân sự đã chọn
@@ -445,7 +410,7 @@ export default function PeopleListClient({
             <Button
               label="Chỉnh sửa hàng loạt"
               variant="secondary"
-              size="sm"
+              className="px-4 h-10"
               onClick={() => setIsBulkEditOpen(true)}
             />
             <Button
@@ -454,16 +419,15 @@ export default function PeopleListClient({
                   ? "Đang xử lý..."
                   : `Xóa ${selectedIds.length} người`
               }
-              variant="ghost"
-              size="sm"
-              className="text-rose-600 hover:text-rose-700 hover:bg-rose-100/60"
+              variant="destructive"
+              className="px-4 h-10"
               isDisabled={isBulkLoading}
               onClick={handleBulkDelete}
             />
             <Button
               label="Bỏ chọn"
               variant="ghost"
-              size="sm"
+              className="px-4 h-10"
               onClick={() => setSelectedIds([])}
             />
           </div>
@@ -485,6 +449,7 @@ export default function PeopleListClient({
                   label="Thêm nhân sự mới"
                   variant="primary"
                   href="/admin/people/new"
+                  className="px-4 h-10"
                 />
               }
             />
@@ -492,128 +457,127 @@ export default function PeopleListClient({
         ) : (
           <>
             <div className="overflow-x-auto">
-            <table className="w-full text-left border-collapse text-xs sm:text-sm">
-              <thead>
-                <tr className="bg-slate-50/80 border-b border-slate-200/80 text-slate-500 font-bold">
-                  <th className="py-3.5 pl-4 sm:pl-6 pr-2 w-10">
-                    <input
-                      type="checkbox"
-                      checked={isAllSelected}
-                      onChange={handleToggleAll}
-                      className="w-4 h-4 rounded text-emerald-600 border-slate-300 focus:ring-emerald-500 cursor-pointer"
-                      title="Chọn tất cả nhân sự"
-                    />
-                  </th>
-                  <th className="py-3.5 px-3">Thành viên</th>
-                  <th className="py-3.5 px-4">Khối phòng ban</th>
-                  <th className="py-3.5 px-4">Phân loại</th>
-                  <th className="py-3.5 px-4">Địa điểm</th>
-                  <th className="py-3.5 px-4 text-center">Thứ tự</th>
-                  <th className="py-3.5 px-4">Trạng thái</th>
-                  <th className="py-3.5 px-4 sm:px-6 text-right">Thao tác</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-slate-100">
-                {paginatedMembers.map((member) => {
-                  const isChecked = selectedIds.includes(member.id);
-                  return (
-                    <tr
-                      key={member.id}
-                      className={`hover:bg-slate-50/50 transition-colors ${
-                        isChecked ? "bg-emerald-50/40" : ""
-                      }`}
-                    >
-                      {/* Checkbox */}
-                      <td className="py-3.5 pl-4 sm:pl-6 pr-2">
-                        <input
-                          type="checkbox"
-                          checked={isChecked}
-                          onChange={() => handleToggleRow(member.id)}
-                          className="w-4 h-4 rounded text-emerald-600 border-slate-300 focus:ring-emerald-500 cursor-pointer"
-                        />
-                      </td>
+              <table className="w-full text-left border-collapse text-xs sm:text-sm">
+                <thead>
+                  <tr className="bg-slate-50/80 border-b border-slate-200/80 text-slate-500 font-bold">
+                    <th className="py-3.5 pl-4 sm:pl-6 pr-2 w-10">
+                      <input
+                        type="checkbox"
+                        checked={isAllSelected}
+                        onChange={handleToggleAll}
+                        className="w-4 h-4 rounded text-emerald-600 border-slate-300 focus:ring-emerald-500 cursor-pointer"
+                        title="Chọn tất cả nhân sự"
+                      />
+                    </th>
+                    <th className="py-3.5 px-3">Thành viên</th>
+                    <th className="py-3.5 px-4">Khối phòng ban</th>
+                    <th className="py-3.5 px-4">Phân loại</th>
+                    <th className="py-3.5 px-4">Địa điểm</th>
+                    <th className="py-3.5 px-4 text-center">Thứ tự</th>
+                    <th className="py-3.5 px-4">Trạng thái</th>
+                    <th className="py-3.5 px-4 sm:px-6 text-right">Thao tác</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-slate-100">
+                  {paginatedMembers.map((member) => {
+                    const isChecked = selectedIds.includes(member.id);
+                    return (
+                      <tr
+                        key={member.id}
+                        className={`hover:bg-slate-50/50 transition-colors ${isChecked ? "bg-emerald-50/40" : ""
+                          }`}
+                      >
+                        {/* Checkbox */}
+                        <td className="py-3.5 pl-4 sm:pl-6 pr-2">
+                          <input
+                            type="checkbox"
+                            checked={isChecked}
+                            onChange={() => handleToggleRow(member.id)}
+                            className="w-4 h-4 rounded text-emerald-600 border-slate-300 focus:ring-emerald-500 cursor-pointer"
+                          />
+                        </td>
 
-                      {/* Name & Avatar */}
-                      <td className="py-3.5 px-3">
-                        <div className="flex items-center gap-3">
-                          <div className="relative w-10 h-10 rounded-full overflow-hidden bg-slate-100 shrink-0 border border-slate-200">
-                            {member.image ? (
-                              <img
-                                src={member.image}
-                                alt={member.name}
-                                className="w-full h-full object-cover"
-                              />
-                            ) : (
-                              <div className="w-full h-full flex items-center justify-center font-bold text-slate-400">
-                                {member.name.charAt(0)}
+                        {/* Name & Avatar */}
+                        <td className="py-3.5 px-3">
+                          <div className="flex items-center gap-3">
+                            <div className="relative w-10 h-10 rounded-full overflow-hidden bg-slate-100 shrink-0 border border-slate-200">
+                              {member.image ? (
+                                <img
+                                  src={member.image}
+                                  alt={member.name}
+                                  className="w-full h-full object-cover"
+                                />
+                              ) : (
+                                <div className="w-full h-full flex items-center justify-center font-bold text-slate-400">
+                                  {member.name.charAt(0)}
+                                </div>
+                              )}
+                            </div>
+                            <div className="min-w-0">
+                              <Link
+                                href={`/admin/people/${member.id}`}
+                                className="font-bold text-slate-900 hover:text-emerald-700 transition-colors block truncate max-w-[200px] sm:max-w-xs"
+                              >
+                                {member.name}
+                              </Link>
+                              <div className="text-xs text-slate-500 truncate max-w-[200px] sm:max-w-xs">
+                                {member.role}
                               </div>
-                            )}
-                          </div>
-                          <div className="min-w-0">
-                            <Link
-                              href={`/admin/people/${member.id}`}
-                              className="font-bold text-slate-900 hover:text-emerald-700 transition-colors block truncate max-w-[200px] sm:max-w-xs"
-                            >
-                              {member.name}
-                            </Link>
-                            <div className="text-xs text-slate-500 truncate max-w-[200px] sm:max-w-xs">
-                              {member.role}
                             </div>
                           </div>
-                        </div>
-                      </td>
+                        </td>
 
-                      {/* Department */}
-                      <td className="py-3.5 px-4 whitespace-nowrap">
-                        <Badge label={member.department} variant="neutral" />
-                      </td>
+                        {/* Department */}
+                        <td className="py-3.5 px-4 whitespace-nowrap">
+                          <Badge label={member.department} variant="neutral" className='h-8 px-4' />
+                        </td>
 
-                      {/* Classification */}
-                      <td className="py-3.5 px-4 whitespace-nowrap">
-                        {member.isLeader ? (
-                          <Badge label="Lãnh đạo" variant="purple" />
-                        ) : (
-                          <Badge label="Chuyên gia" variant="blue" />
-                        )}
-                      </td>
+                        {/* Classification */}
+                        <td className="py-3.5 px-4 whitespace-nowrap">
+                          {member.isLeader ? (
+                            <Badge label="Lãnh đạo" variant="purple" className='h-8 px-4' />
+                          ) : (
+                            <Badge label="Chuyên gia" variant="blue" className='h-8 px-4' />
+                          )}
+                        </td>
 
-                      {/* Location */}
-                      <td className="py-3.5 px-4 text-slate-600 whitespace-nowrap">
-                        {member.location}
-                      </td>
+                        {/* Location */}
+                        <td className="py-3.5 px-4 text-slate-600 whitespace-nowrap">
+                          {member.location}
+                        </td>
 
-                      {/* Order */}
-                      <td className="py-3.5 px-4 text-center font-medium text-slate-700">
-                        {member.order}
-                      </td>
+                        {/* Order */}
+                        <td className="py-3.5 px-4 text-center font-medium text-slate-700">
+                          {member.order}
+                        </td>
 
-                      {/* Status */}
-                      <td className="py-3.5 px-4 whitespace-nowrap">
-                        {member.status === "published" ? (
-                          <Badge label="Đang hiển thị" variant="success" />
-                        ) : member.status === "draft" ? (
-                          <Badge label="Bản nháp" variant="warning" />
-                        ) : (
-                          <Badge label="Lưu trữ" variant="neutral" />
-                        )}
-                      </td>
+                        {/* Status */}
+                        <td className="py-3.5 px-4 whitespace-nowrap">
+                          {member.status === "published" ? (
+                            <Badge label="Đang hiển thị" variant="success" className='h-8 px-4' />
+                          ) : member.status === "draft" ? (
+                            <Badge label="Bản nháp" variant="warning" className='h-8 px-4' />
+                          ) : (
+                            <Badge label="Lưu trữ" variant="neutral" className='h-8 px-4' />
+                          )}
+                        </td>
 
-                      {/* Actions */}
-                      <td className="py-3.5 px-4 sm:px-6 text-right whitespace-nowrap">
-                        <div className="flex items-center justify-end">
-                          <DropdownMenu
-                            button={{
-                              label: "Thao tác",
-                              isIconOnly: true,
-                              icon: <MoreHorizontal className="w-4 h-4" />,
-                              size: "sm",
-                              variant: "ghost",
-                            }}
-                            placement="below"
-                            alignment="end"
-                            items={[
-                              ...(member.isLeader
-                                ? [
+                        {/* Actions */}
+                        <td className="py-3.5 px-4 sm:px-6 text-right whitespace-nowrap">
+                          <div className="flex items-center justify-end">
+                            <DropdownMenu
+                              button={{
+                                label: "Thao tác",
+                                isIconOnly: true,
+                                icon: <MoreHorizontal className="w-4 h-4" />,
+                                size: "sm",
+                                variant: "ghost",
+                              }}
+                              placement="below"
+                              alignment="end"
+                              items={[
+                                ...(member.isLeader
+                                  ? [
                                     {
                                       label: "Sơ đồ tổ chức & Squads",
                                       onClick: () =>
@@ -622,53 +586,53 @@ export default function PeopleListClient({
                                         ),
                                     },
                                   ]
-                                : []),
-                              {
-                                label: "Chỉnh sửa hồ sơ",
-                                onClick: () =>
-                                  router.push(`/admin/people/${member.id}`),
-                              },
-                              {
-                                label: "Xóa nhân sự",
-                                variant: "destructive",
-                                isDisabled: isDeleting === member.id,
-                                onClick: () =>
-                                  handleDelete(member.id, member.name),
-                              },
-                            ]}
-                          />
-                        </div>
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </div>
-
-          {/* Pagination Footer */}
-          {totalItems > 0 && (
-            <div className="px-6 py-4 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-4 bg-slate-50/50">
-              <span className="text-xs text-slate-500 font-medium">
-                Hiển thị {startIndex + 1}–{Math.min(startIndex + pageSize, totalItems)} trong tổng số {totalItems} nhân sự
-              </span>
-              <Pagination
-                page={safeCurrentPage}
-                onChange={(p) => setCurrentPage(p)}
-                totalItems={totalItems}
-                pageSize={pageSize}
-                pageSizeOptions={[10, 20, 50]}
-                onPageSizeChange={(newSize) => {
-                  setPageSize(newSize);
-                  setCurrentPage(1);
-                }}
-                variant="pages"
-                size="sm"
-              />
+                                  : []),
+                                {
+                                  label: "Chỉnh sửa hồ sơ",
+                                  onClick: () =>
+                                    router.push(`/admin/people/${member.id}`),
+                                },
+                                {
+                                  label: "Xóa nhân sự",
+                                  variant: "destructive",
+                                  isDisabled: isDeleting === member.id,
+                                  onClick: () =>
+                                    handleDelete(member.id, member.name),
+                                },
+                              ]}
+                            />
+                          </div>
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
             </div>
-          )}
-        </>
-      )}
+
+            {/* Pagination Footer */}
+            {totalItems > 0 && (
+              <div className="px-6 py-4 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-4 bg-slate-50/50">
+                <span className="text-xs text-slate-500 font-medium">
+                  Hiển thị {startIndex + 1}–{Math.min(startIndex + pageSize, totalItems)} trong tổng số {totalItems} nhân sự
+                </span>
+                <Pagination
+                  page={safeCurrentPage}
+                  onChange={(p) => setCurrentPage(p)}
+                  totalItems={totalItems}
+                  pageSize={pageSize}
+                  pageSizeOptions={[10, 20, 50]}
+                  onPageSizeChange={(newSize) => {
+                    setPageSize(newSize);
+                    setCurrentPage(1);
+                  }}
+                  variant="pages"
+                  size="sm"
+                />
+              </div>
+            )}
+          </>
+        )}
       </Card>
 
       {/* Bulk Edit Modal */}
@@ -688,7 +652,7 @@ export default function PeopleListClient({
               <Button
                 label="Đóng"
                 variant="ghost"
-                size="sm"
+                className="px-4 h-10"
                 onClick={() => setIsBulkEditOpen(false)}
               />
             </div>
@@ -700,6 +664,7 @@ export default function PeopleListClient({
                   label="Trạng thái hiển thị mới"
                   description="Chọn trạng thái mới nếu muốn thay đổi đồng loạt"
                   value={bulkStatus || ""}
+                  className='h-10 border'
                   onChange={(val) =>
                     setBulkStatus(
                       val as "published" | "draft" | "archived" | "",
@@ -720,6 +685,7 @@ export default function PeopleListClient({
               <div>
                 <Selector
                   label="Khối phòng ban mới"
+                  className='h-10 border'
                   description="Chọn khối phòng ban mới nếu muốn thay đổi đồng loạt"
                   value={bulkDepartment || ""}
                   onChange={(val) => setBulkDepartment(val)}
@@ -739,6 +705,7 @@ export default function PeopleListClient({
                   label="Hủy"
                   variant="ghost"
                   type="button"
+                  className="px-4 h-10"
                   onClick={() => setIsBulkEditOpen(false)}
                   isDisabled={isBulkLoading}
                 />
@@ -746,6 +713,7 @@ export default function PeopleListClient({
                   label={
                     isBulkLoading ? "Đang cập nhật..." : "Áp dụng cập nhật"
                   }
+                  className="px-4 h-10"
                   variant="primary"
                   type="submit"
                   isDisabled={isBulkLoading || (!bulkStatus && !bulkDepartment)}

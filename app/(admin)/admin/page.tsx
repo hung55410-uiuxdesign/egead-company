@@ -1,15 +1,16 @@
 import Link from "next/link";
+import Image from "next/image";
 import {
   FileText,
   CheckCircle2,
   Clock,
   Eye,
-  ArrowRight,
   ArrowUpRight,
 } from "lucide-react";
 import { getAllPosts, getBlogStats, getCategories } from "@/lib/blogs";
 import { getCareerStats } from "@/lib/careers";
 import { Card, Button, Badge, EmptyState } from "@astryxdesign/core";
+import DashboardPromoCarousel from "@/components/admin/dashboard/DashboardPromoCarousel";
 
 export const dynamic = "force-dynamic";
 
@@ -21,7 +22,6 @@ export default async function AdminDashboardPage() {
     getCareerStats(),
   ]);
 
-  // Lấy chính xác 5 bài viết mới nhất dựa trên thời gian tạo hoặc ngày tháng
   const recentPosts = [...allPosts]
     .sort((a, b) => {
       const timeA = new Date(a.createdAt || a.date).getTime() || 0;
@@ -30,7 +30,6 @@ export default async function AdminDashboardPage() {
     })
     .slice(0, 5);
 
-  // Lấy 5 chuyên mục có nhiều bài viết nhất (sắp xếp giảm dần theo số lượng bài viết)
   const topCategories = [...categories]
     .sort((a, b) => (b.count || 0) - (a.count || 0))
     .slice(0, 5);
@@ -47,6 +46,7 @@ export default async function AdminDashboardPage() {
               <Badge
                 label="Hệ thống quản trị nội dung E-GEAD CMS"
                 variant="success"
+                className="h-8 px-4"
               />
             </div>
             <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900">
@@ -63,11 +63,13 @@ export default async function AdminDashboardPage() {
               label="Tạo bài viết mới"
               variant="primary"
               href="/admin/blogs/new"
+              className="h-10 px-4"
             />
             <Button
               label={`Quản lý tất cả (${stats.totalPosts})`}
               variant="secondary"
               href="/admin/blogs"
+              className="h-10 px-4"
             />
           </div>
         </div>
@@ -92,7 +94,7 @@ export default async function AdminDashboardPage() {
             <span className="text-xs font-medium text-slate-400">bài viết</span>
           </div>
           <div className="mt-3">
-            <Badge label="Toàn bộ hệ thống" variant="info" />
+            <Badge label="Toàn bộ hệ thống" variant="info" className="h-8 px-4" />
           </div>
         </Card>
 
@@ -117,7 +119,7 @@ export default async function AdminDashboardPage() {
             </span>
           </div>
           <div className="mt-3">
-            <Badge label="Phát hành Insights" variant="success" />
+            <Badge label="Phát hành Insights" variant="success" className="h-8 px-4" />
           </div>
         </Card>
 
@@ -140,7 +142,7 @@ export default async function AdminDashboardPage() {
             </span>
           </div>
           <div className="mt-3">
-            <Badge label="Chưa công khai" variant="warning" />
+            <Badge label="Chưa công khai" variant="warning" className="h-8 px-4" />
           </div>
         </Card>
 
@@ -163,59 +165,14 @@ export default async function AdminDashboardPage() {
             <span className="text-xs font-medium text-slate-400">lượt đọc</span>
           </div>
           <div className="mt-3">
-            <Badge label="Độc giả B2B" variant="purple" />
+            <Badge label="Độc giả B2B" variant="purple" className="h-8 px-4" />
           </div>
         </Card>
       </div>
-      <Card
-        variant="default"
-        className="rounded-2xl p-5 sm:p-6 bg-gradient-to-r from-emerald-950 via-slate-900 to-slate-900 text-white border-slate-800"
-      >
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-5">
-          <div className="space-y-1.5">
-            <div className="flex items-center gap-2">
-              <span className="text-xs font-bold text-emerald-400">
-                Tuyển dụng &amp; Thu hút nhân tài
-              </span>
-            </div>
-            <h2 className="text-lg sm:text-xl font-extrabold text-white">
-              Cổng tuyển dụng E-GEAD Careers
-            </h2>
-            <p className="text-xs text-slate-300 max-w-xl">
-              Đang có{" "}
-              <strong className="text-emerald-300 font-bold">
-                {careerStats.activeJobs} vị trí mở
-              </strong>{" "}
-              và{" "}
-              <strong className="text-emerald-300 font-bold">
-                {careerStats.totalApplications} hồ sơ ứng tuyển
-              </strong>{" "}
-              đã nộp về hệ thống
-              {careerStats.pendingApplications > 0 &&
-                ` (${careerStats.pendingApplications} hồ sơ mới chờ duyệt)`}
-              .
-            </p>
-          </div>
-
-          <div className="flex flex-wrap items-center gap-2.5">
-            <Button
-              label="Quản lý tuyển dụng"
-              variant="secondary"
-              href="/admin/careers"
-            />
-            <Button
-              label={`Hồ sơ ứng tuyển (${careerStats.totalApplications})`}
-              variant="secondary"
-              href="/admin/careers/applications"
-            />
-            <Button
-              label="Biểu mẫu ứng tuyển"
-              variant="secondary"
-              href="/admin/careers/form-preview"
-            />
-          </div>
-        </div>
-      </Card>
+      <DashboardPromoCarousel
+        careerStats={careerStats}
+        blogStats={stats}
+      />
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <Card
           variant="default"
@@ -226,17 +183,17 @@ export default async function AdminDashboardPage() {
               <h2 className="text-base font-bold text-slate-900">
                 Bài viết gần đây
               </h2>
-              <p className="text-xs text-slate-500 mt-0.5">
+              <p className="text-xs text-gray-700 mt-0.5">
                 Các bài viết mới nhất đã tạo hoặc chỉnh sửa trong hệ thống
               </p>
             </div>
-            <Link
+            <Button
+              label="Xem tất cả bài viết"
+              variant="primary"
+              size="sm"
               href="/admin/blogs"
-              className="inline-flex items-center gap-1 text-xs font-semibold text-slate-700 hover:text-emerald-700 transition-colors"
-            >
-              <span>Xem tất cả bài</span>
-              <ArrowRight className="w-3.5 h-3.5" />
-            </Link>
+              className="px-4 h-10"
+            />
           </div>
 
           <div className="divide-y divide-slate-100">
@@ -250,6 +207,7 @@ export default async function AdminDashboardPage() {
                       label="Tạo bài viết mới"
                       variant="primary"
                       href="/admin/blogs/new"
+                      className="h-10 px-4"
                     />
                   }
                 />
@@ -266,6 +224,7 @@ export default async function AdminDashboardPage() {
                       <Badge
                         label={post.tag || post.category || "General"}
                         variant="purple"
+                        className="px-4 h-8"
                       />
                       <Badge
                         label={
@@ -276,35 +235,36 @@ export default async function AdminDashboardPage() {
                         variant={
                           post.status === "published" ? "success" : "warning"
                         }
+                        className="px-4 h-8"
                       />
-                      <span className="text-[11px] text-slate-400">
+                      <span className="text-xs text-gray-600">
                         {post.date}
                       </span>
                     </div>
 
-                    <h3 className="text-sm font-bold text-slate-900 group-hover:text-emerald-700 transition-colors line-clamp-1">
+                    <h3 className="px-4 text-sm font-bold text-slate-900 group-hover:text-emerald-700 transition-colors line-clamp-1">
                       <Link href={`/admin/blogs/${post.id}`}>{post.title}</Link>
                     </h3>
-                    <p className="text-xs text-slate-500 line-clamp-1 mt-1">
+                    <p className="px-4 text-xs text-slate-500 line-clamp-1 mt-1">
                       {post.excerpt || "Chưa có mô tả tóm tắt..."}
                     </p>
                   </div>
 
                   {/* Actions */}
                   <div className="flex items-center gap-2 shrink-0 self-end sm:self-auto">
-                    <Link
+                    <Button
+                      label="Xem trên website"
+                      isIconOnly
+                      icon={<ArrowUpRight className="w-5 h-5 text-gray-700" />}
                       href={`/articles/${post.slug}`}
                       target="_blank"
-                      className="p-1.5 text-slate-400 hover:text-slate-800 rounded-lg hover:bg-slate-100 border border-transparent hover:border-slate-200 transition-colors"
-                      title="Xem trên trang website live"
-                    >
-                      <ArrowUpRight className="w-4 h-4" />
-                    </Link>
+                      className="h-10 w-10"
+                    />
                     <Button
                       label="Chỉnh sửa"
-                      variant="secondary"
-                      size="sm"
+                      variant="primary"
                       href={`/admin/blogs/${post.id}`}
+                      className="h-10 px-4"
                     />
                   </div>
                 </div>
@@ -314,39 +274,52 @@ export default async function AdminDashboardPage() {
         </Card>
 
         <div className="space-y-6">
-          <Card variant="default" className="rounded-2xl p-5">
-            <div className="flex items-center justify-between mb-4 border-b border-slate-100 pb-3">
+          <Card variant="default" className="rounded-2xl p-0">
+            <div className="flex items-center justify-between mb-4 border-b px-6 py-4 border-slate-100 pb-3">
               <div>
                 <h2 className="text-sm font-bold text-slate-900">
                   Chuyên mục nổi bật
                 </h2>
-                <p className="text-[11px] text-slate-500 mt-0.5">
+                <p className="text-xs text-gray-700 mt-0.5">
                   5 chuyên mục có nhiều bài viết nhất
                 </p>
               </div>
-              <Link
+              <Button
+                label={`Quản lý (${categories.length})`}
+                variant="primary"
                 href="/admin/categories"
-                className="text-xs font-semibold text-slate-500 hover:text-emerald-700 transition-colors"
-              >
-                Quản lý ({categories.length})
-              </Link>
+                className="px-4 h-10"
+              />
             </div>
 
-            <div className="space-y-2">
+            <div className="space-y-2 pb-4">
               {topCategories.length === 0 ? (
-                <p className="text-xs text-slate-400 py-3 text-center">
-                  Chưa có chuyên mục nào
-                </p>
+                <div className="py-4 px-2 mx-6">
+                  <EmptyState
+                    isCompact
+                    title="Chưa có chuyên mục nào"
+                    description="Hệ thống chưa có chuyên mục bài viết nào. Hãy tạo chuyên mục để phân loại bài viết."
+                    actions={
+                      <Button
+                        label="Tạo chuyên mục mới"
+                        variant="primary"
+                        href="/admin/categories"
+                        className="h-10 px-4"
+                      />
+                    }
+                  />
+                </div>
               ) : (
-                topCategories.map((cat) => (
+                topCategories.map((cat, index) => (
                   <div
                     key={cat.id}
-                    className="flex items-center justify-between p-3 rounded-xl bg-slate-50/80 hover:bg-slate-100/70 border border-slate-200/60 transition-colors"
+                    className={`flex items-center justify-between p-3 mx-6 transition-colors ${index !== topCategories.length - 1 ? "border-b border-slate-100" : ""
+                      }`}
                   >
-                    <span className="text-xs font-semibold text-slate-800">
+                    <span className="text-sm font-semibold text-gray-800">
                       {cat.name}
                     </span>
-                    <Badge label={`${cat.count || 0} bài`} variant="neutral" />
+                    <Badge label={`${cat.count || 0} bài`} variant="neutral" className="h-8 px-4" />
                   </div>
                 ))
               )}
@@ -355,23 +328,52 @@ export default async function AdminDashboardPage() {
 
           {/* Publishing Tips Card */}
           <Card
-            variant="green"
-            className="rounded-2xl p-5 relative overflow-hidden"
+            variant="default"
+            className="rounded-2xl border border-slate-200/90 bg-[#fbfaf8] overflow-hidden p-0"
           >
-            <h3 className="text-sm font-bold text-emerald-900 mb-2">
-              Mẹo tối ưu bài viết
-            </h3>
-            <p className="text-xs text-slate-600 leading-relaxed mb-4">
-              Các bài viết có thời gian đọc từ 4 - 6 phút kèm ảnh minh hoạ có tỷ
-              lệ giữ chân khách hàng B2B cao gấp 2.4 lần.
-            </p>
-            <Link
-              href="/admin/blogs/new"
-              className="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-800 hover:text-emerald-900 transition-colors"
-            >
-              <span>Viết bài mới ngay</span>
-              <ArrowRight className="w-3.5 h-3.5" />
-            </Link>
+            {/* Top Visual Banner */}
+            <div className="relative w-full h-48 sm:h-52 flex items-center justify-center">
+              <Image
+                src="/admin/book.png"
+                alt="Mẹo tối ưu bài viết & độc giả B2B"
+                fill
+                sizes="(max-width: 1024px) 100vw, 33vw"
+                className="object-contain p-4 transition-transform duration-700 hover:scale-105 absolute top-0 right-0"
+              />
+            </div>
+
+            {/* Content Body */}
+            <div className="p-5 sm:p-6 bg-[#fbfaf8]">
+              {/* Badges */}
+              <div className="flex items-center gap-2 mb-3">
+                <Badge variant="cyan" label="Mới" className="h-8 px-4" />
+                <Badge
+                  variant="neutral"
+                  label="Thịnh hành"
+                  className="h-8 px-4 bg-white border border-slate-200 text-slate-700 font-medium"
+                />
+              </div>
+
+              {/* Title */}
+              <h3 className="text-xl sm:text-2xl font-extrabold text-[#212b10] leading-tight mb-2.5">
+                Mẹo tối ưu
+                <br />
+                Bài viết &amp; Độc giả B2B
+              </h3>
+
+              {/* Description */}
+              <p className="text-xs sm:text-sm text-slate-600 leading-relaxed mb-6">
+                Khám phá bí quyết nâng cao tỷ lệ chuyển đổi từ nội dung mới, tối ưu thời gian đọc 4–6 phút giúp giữ chân đối tác B2B cao gấp 2.4 lần.
+              </p>
+
+              {/* CTA Button */}
+              <Button
+                variant="primary"
+                label="Viết bài mới ngay"
+                href="/admin/blogs/new"
+                className="h-10 px-4"
+              />
+            </div>
           </Card>
         </div>
       </div>

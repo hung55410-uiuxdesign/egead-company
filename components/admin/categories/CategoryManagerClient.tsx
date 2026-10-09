@@ -13,6 +13,7 @@ import {
 } from "@astryxdesign/core";
 import { CategoryItem, generateSlug } from "@/types/category";
 import { BlogPost } from "@/types/blog";
+import { useUploadMedia, useCategoryMutations } from "@/lib/hooks";
 
 interface CategoryManagerClientProps {
   initialCategories: CategoryItem[];
@@ -43,21 +44,14 @@ export default function CategoryManagerClient({
   const [icon, setIcon] = useState("");
   const [autoSlug, setAutoSlug] = useState(true);
 
-  // Upload icon state
-  const [isUploadingIcon, setIsUploadingIcon] = useState(false);
-  const [uploadIconError, setUploadIconError] = useState<string | null>(null);
 
-  // Loading & notification state
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSyncing, setIsSyncing] = useState(false);
+  // Form error state
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
   // Selection & Bulk Actions State
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
   const [isBulkEditOpen, setIsBulkEditOpen] = useState(false);
   const [bulkDescription, setBulkDescription] = useState("");
-  const [isBulkLoading, setIsBulkLoading] = useState(false);
 
   // Pagination State
   const [currentPage, setCurrentPage] = useState(1);
@@ -93,42 +87,80 @@ export default function CategoryManagerClient({
     );
   };
 
-  // Handle Cloudinary icon upload via /api/admin/upload
-  const handleIconFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-
-    const validTypes = ['image/svg+xml', 'image/png', 'image/jpeg', 'image/webp'];
-    if (!validTypes.includes(file.type)) {
-      setUploadIconError('Vui lòng chọn tệp ảnh định dạng SVG hoặc PNG');
-      return;
-    }
-
-    try {
-      setIsUploadingIcon(true);
-      setUploadIconError(null);
-
-      const formData = new FormData();
-      formData.append('file', file);
-      formData.append('folder', 'egead_cms/categories');
-
-      const res = await fetch('/api/admin/upload', {
-        method: 'POST',
-        body: formData,
-      });
-
-      const data = await res.json();
-      if (data.success && data.url) {
-        setIcon(data.url);
-      } else {
-        setUploadIconError(data.error || 'Tải icon lên Cloudinary thất bại');
+  // Upload icon hook with Astryx toast & SVG/PNG validation
+  const {
+    uploadFile: uploadIconFile,
+    isUploading: isUploadingIcon,
+    error: uploadIconError,
+    reset: resetUploadIcon,
+  } = useUploadMedia({
+    defaultFolder: 'egead_cms/categories',
+    successMessage: 'Tải biểu tượng chuyên mục lên Cloudinary thành công!',
+    validate: (file) => {
+      const validTypes = ['image/svg+xml', 'image/png', 'image/jpeg', 'image/webp'];
+      if (!validTypes.includes(file.type)) {
+        return 'Vui lòng chọn tệp ảnh định dạng SVG hoặc PNG';
       }
-    } catch {
-      setUploadIconError('Không thể kết nối đến máy chủ khi tải icon');
-    } finally {
-      setIsUploadingIcon(false);
-    }
+      return null;
+    },
+    onSuccess: (data) => {
+      setIcon(data.url);
+    },
+  });
+
+  const handleIconFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) uploadIconFile(file);
   };
+
+  // Category mutations hook with TanStack Query and Astryx Toast
+  const {
+    saveCategoryAsync,
+    isSaving: isSubmitting,
+    deleteCategoryAsync,
+    syncCategoriesAsync,
+    isSyncing,
+    bulkDeleteAsync,
+    bulkUpdateAsync,
+    isBulkDeleting,
+    isBulkUpdating,
+  } = useCategoryMutations({
+    onSaveSuccess: (savedCategory, isEditing) => {
+      if (isEditing) {
+        setCategories((prev) =>
+          prev.map((c) => (c.id === savedCategory.id ? savedCategory : c)),
+        );
+      } else {
+        setCategories((prev) =>
+          [...prev, savedCategory].sort((a, b) => a.name.localeCompare(b.name)),
+        );
+      }
+      handleCloseModal();
+    },
+    onDeleteSuccess: (id) => {
+      setCategories((prev) => prev.filter((c) => c.id !== id));
+      setSelectedIds((prev) => prev.filter((item) => item !== id));
+    },
+    onSyncSuccess: (syncedCategories) => {
+      setCategories(syncedCategories);
+    },
+    onBulkDeleteSuccess: (ids) => {
+      setCategories((prev) => prev.filter((c) => !ids.includes(c.id)));
+      setSelectedIds([]);
+    },
+    onBulkUpdateSuccess: (ids, data) => {
+      setCategories((prev) =>
+        prev.map((c) =>
+          ids.includes(c.id) ? { ...c, description: data.description ?? c.description } : c,
+        ),
+      );
+      setIsBulkEditOpen(false);
+      setBulkDescription("");
+      setSelectedIds([]);
+    },
+  });
+
+  const isBulkLoading = isBulkDeleting || isBulkUpdating;
 
   // Open modal for Create
   const handleOpenCreate = () => {
@@ -139,7 +171,7 @@ export default function CategoryManagerClient({
     setIcon("");
     setAutoSlug(true);
     setErrorMessage(null);
-    setUploadIconError(null);
+    resetUploadIcon();
     setIsModalOpen(true);
   };
 
@@ -152,7 +184,7 @@ export default function CategoryManagerClient({
     setIcon(category.icon || "");
     setAutoSlug(false);
     setErrorMessage(null);
-    setUploadIconError(null);
+    resetUploadIcon();
     setIsModalOpen(true);
   };
 
@@ -162,7 +194,7 @@ export default function CategoryManagerClient({
     setEditingCategory(null);
     setIcon("");
     setErrorMessage(null);
-    setUploadIconError(null);
+    resetUploadIcon();
   };
 
   // Name change handler
@@ -184,55 +216,16 @@ export default function CategoryManagerClient({
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setErrorMessage(null);
-    setIsSubmitting(true);
-
     try {
-      if (editingCategory) {
-        // Update
-        const res = await fetch(`/api/admin/categories/${editingCategory.id}`, {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ name, slug, description, icon: icon || null }),
-        });
-        const result = await res.json();
-        if (!res.ok) {
-          throw new Error(result.error || "Cập nhật chuyên mục thất bại");
-        }
-
-        setCategories((prev) =>
-          prev.map((c) => (c.id === editingCategory.id ? result.data : c)),
-        );
-        setSuccessMessage("Cập nhật chuyên mục thành công");
-      } else {
-        // Create
-        const res = await fetch("/api/admin/categories", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            name,
-            slug,
-            description,
-            ...(icon ? { icon } : {}),
-          }),
-        });
-        const result = await res.json();
-        if (!res.ok) {
-          throw new Error(result.error || "Tạo chuyên mục thất bại");
-        }
-
-        setCategories((prev) =>
-          [...prev, result.data].sort((a, b) => a.name.localeCompare(b.name)),
-        );
-        setSuccessMessage("Tạo chuyên mục mới thành công");
-      }
-
-      handleCloseModal();
-      router.refresh();
-      setTimeout(() => setSuccessMessage(null), 4000);
+      await saveCategoryAsync({
+        id: editingCategory?.id,
+        name,
+        slug,
+        description,
+        icon: icon || null,
+      });
     } catch (err) {
       setErrorMessage((err as Error).message);
-    } finally {
-      setIsSubmitting(false);
     }
   };
 
@@ -244,46 +237,19 @@ export default function CategoryManagerClient({
     if (!confirmed) return;
 
     try {
-      const res = await fetch(`/api/admin/categories/${category.id}`, {
-        method: "DELETE",
-      });
-      const result = await res.json();
-      if (!res.ok) {
-        throw new Error(result.error || "Xóa chuyên mục thất bại");
-      }
-
-      setCategories((prev) => prev.filter((c) => c.id !== category.id));
-      setSuccessMessage(`Đã xóa chuyên mục "${category.name}" thành công`);
-      router.refresh();
-      setTimeout(() => setSuccessMessage(null), 4000);
-    } catch (err) {
-      alert((err as Error).message);
+      await deleteCategoryAsync({ id: category.id, name: category.name });
+    } catch {
+      // Toast notification handles error display
     }
   };
 
   // Sync from existing posts handler
   const handleSync = async () => {
-    setIsSyncing(true);
     setErrorMessage(null);
     try {
-      const res = await fetch("/api/admin/categories", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ action: "sync" }),
-      });
-      const result = await res.json();
-      if (!res.ok) {
-        throw new Error(result.error || "Đồng bộ thất bại");
-      }
-
-      setCategories(result.data);
-      setSuccessMessage("Đã đồng bộ chuyên mục từ dữ liệu bài viết thành công");
-      router.refresh();
-      setTimeout(() => setSuccessMessage(null), 4000);
+      await syncCategoriesAsync();
     } catch (err) {
       setErrorMessage((err as Error).message);
-    } finally {
-      setIsSyncing(false);
     }
   };
 
@@ -295,32 +261,10 @@ export default function CategoryManagerClient({
     );
     if (!confirmed) return;
 
-    setIsBulkLoading(true);
     try {
-      const res = await fetch("/api/admin/categories/bulk", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          action: "delete",
-          ids: selectedIds,
-        }),
-      });
-      const result = await res.json();
-      if (!res.ok || !result.success) {
-        throw new Error(result.error || "Xóa hàng loạt thất bại");
-      }
-
-      setCategories((prev) => prev.filter((c) => !selectedIds.includes(c.id)));
-      setSelectedIds([]);
-      setSuccessMessage(
-        result.message || `Đã xóa thành công ${selectedIds.length} chuyên mục`,
-      );
-      router.refresh();
-      setTimeout(() => setSuccessMessage(null), 4000);
-    } catch (err) {
-      alert((err as Error).message);
-    } finally {
-      setIsBulkLoading(false);
+      await bulkDeleteAsync({ ids: selectedIds });
+    } catch {
+      // Toast notification handles error display
     }
   };
 
@@ -329,59 +273,18 @@ export default function CategoryManagerClient({
     e.preventDefault();
     if (selectedIds.length === 0) return;
 
-    setIsBulkLoading(true);
     try {
-      const res = await fetch("/api/admin/categories/bulk", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          action: "update",
-          ids: selectedIds,
-          data: { description: bulkDescription },
-        }),
+      await bulkUpdateAsync({
+        ids: selectedIds,
+        data: { description: bulkDescription },
       });
-      const result = await res.json();
-      if (!res.ok || !result.success) {
-        throw new Error(result.error || "Cập nhật hàng loạt thất bại");
-      }
-
-      setCategories((prev) =>
-        prev.map((c) =>
-          selectedIds.includes(c.id)
-            ? { ...c, description: bulkDescription }
-            : c,
-        ),
-      );
-      setIsBulkEditOpen(false);
-      setBulkDescription("");
-      setSelectedIds([]);
-      setSuccessMessage(
-        result.message ||
-          `Đã cập nhật thành công ${selectedIds.length} chuyên mục`,
-      );
-      router.refresh();
-      setTimeout(() => setSuccessMessage(null), 4000);
-    } catch (err) {
-      alert((err as Error).message);
-    } finally {
-      setIsBulkLoading(false);
+    } catch {
+      // Toast notification handles error display
     }
   };
 
   return (
     <div className="space-y-6 w-full pb-8">
-      {/* Toast Alert Success */}
-      {successMessage && (
-        <div className="p-4 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-sm flex items-center justify-between shadow-sm">
-          <span>{successMessage}</span>
-          <Button
-            label="Đóng"
-            variant="ghost"
-            size="sm"
-            onClick={() => setSuccessMessage(null)}
-          />
-        </div>
-      )}
 
       {/* Page Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
@@ -390,6 +293,7 @@ export default function CategoryManagerClient({
             <Badge
               label={`${categories.length} chuyên mục kiến thức`}
               variant="success"
+              className='h-8 px-4'
             />
           </div>
           <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900">
@@ -406,14 +310,14 @@ export default function CategoryManagerClient({
             label="Thêm chuyên mục"
             variant="primary"
             onClick={handleOpenCreate}
-            className="text-sm px-4"
+            className="px-4 h-10"
           />
           <Button
             label={isSyncing ? "Đang đồng bộ..." : "Đồng bộ từ bài viết"}
             variant="secondary"
             isDisabled={isSyncing}
             onClick={handleSync}
-            className="text-sm px-4"
+            className="px-4 h-10"
           />
         </div>
       </div>
@@ -425,6 +329,7 @@ export default function CategoryManagerClient({
             <Badge
               label={`Đã chọn ${selectedIds.length} chuyên mục`}
               variant="success"
+              className='h-8 px-4'
             />
             <span className="text-xs text-emerald-800 hidden sm:inline">
               Áp dụng thao tác đồng loạt trên các chuyên mục đã chọn
@@ -435,7 +340,7 @@ export default function CategoryManagerClient({
             <Button
               label="Chỉnh sửa hàng loạt"
               variant="secondary"
-              size="sm"
+              className="px-4 h-10"
               onClick={() => setIsBulkEditOpen(true)}
             />
             <Button
@@ -444,16 +349,15 @@ export default function CategoryManagerClient({
                   ? "Đang xử lý..."
                   : `Xóa ${selectedIds.length} chuyên mục`
               }
-              variant="ghost"
-              size="sm"
-              className="text-rose-600 hover:text-rose-700 hover:bg-rose-100/60"
+              variant="destructive"
+              className="px-4 h-10"
               isDisabled={isBulkLoading}
               onClick={handleBulkDelete}
             />
             <Button
               label="Bỏ chọn"
               variant="ghost"
-              size="sm"
+              className="px-4 h-10"
               onClick={() => setSelectedIds([])}
             />
           </div>
@@ -469,7 +373,7 @@ export default function CategoryManagerClient({
             actions={
               <Button
                 label="Tạo chuyên mục đầu tiên"
-                variant="primary"
+                variant="primary" className="px-4 h-10"
                 onClick={handleOpenCreate}
               />
             }
@@ -508,11 +412,10 @@ export default function CategoryManagerClient({
                 <Card
                   key={cat.id}
                   variant="default"
-                  className={`rounded-2xl p-6 transition-colors flex flex-col justify-between ${
-                    isChecked
-                      ? "border-emerald-500 bg-emerald-50/20"
-                      : "hover:border-slate-300"
-                  }`}
+                  className={`rounded-2xl p-6 transition-colors flex flex-col justify-between ${isChecked
+                    ? "border-emerald-500 bg-emerald-50/20"
+                    : "hover:border-slate-300"
+                    }`}
                 >
                   <div>
                     {/* Card Header */}
@@ -552,6 +455,7 @@ export default function CategoryManagerClient({
                       <Badge
                         label={`${cat.count} bài viết`}
                         variant="neutral"
+                        className='h-8 px-4'
                       />
                     </div>
 
@@ -607,14 +511,13 @@ export default function CategoryManagerClient({
                       <Button
                         label="Sửa"
                         variant="ghost"
-                        size="sm"
+                        className="px-4 h-10"
                         onClick={() => handleOpenEdit(cat)}
                       />
                       <Button
                         label="Xóa"
-                        variant="ghost"
-                        size="sm"
-                        className="text-rose-600 hover:text-rose-700"
+                        variant="destructive"
+                        className="px-4 h-10"
                         onClick={() => handleDelete(cat)}
                       />
                     </div>
@@ -686,7 +589,7 @@ export default function CategoryManagerClient({
               <Button
                 label="Đóng"
                 variant="ghost"
-                size="sm"
+                className="px-4 h-10"
                 onClick={handleCloseModal}
               />
             </div>
@@ -776,7 +679,7 @@ export default function CategoryManagerClient({
                           <Button
                             label="Gỡ icon"
                             variant="ghost"
-                            size="sm"
+                            className="px-4 h-10"
                             type="button"
                             onClick={() => setIcon("")}
                           />
@@ -822,7 +725,7 @@ export default function CategoryManagerClient({
                   type="button"
                   onClick={handleCloseModal}
                   isDisabled={isSubmitting}
-                  className="px-4"
+                  className="px-4 h-10"
                 />
                 <Button
                   label={
@@ -834,7 +737,7 @@ export default function CategoryManagerClient({
                   }
                   variant="primary"
                   type="submit"
-                  className="px-4"
+                  className="px-4 h-10"
                   isDisabled={isSubmitting || !name.trim() || !slug.trim()}
                 />
               </div>
@@ -860,7 +763,7 @@ export default function CategoryManagerClient({
               <Button
                 label="Đóng"
                 variant="ghost"
-                size="sm"
+                className="px-4 h-10"
                 onClick={() => setIsBulkEditOpen(false)}
               />
             </div>
@@ -889,6 +792,7 @@ export default function CategoryManagerClient({
                 <Button
                   label="Hủy"
                   variant="ghost"
+                  className="px-4 h-10"
                   type="button"
                   onClick={() => setIsBulkEditOpen(false)}
                   isDisabled={isBulkLoading}
@@ -899,6 +803,7 @@ export default function CategoryManagerClient({
                   }
                   variant="primary"
                   type="submit"
+                  className="px-4 h-10"
                   isDisabled={isBulkLoading}
                 />
               </div>

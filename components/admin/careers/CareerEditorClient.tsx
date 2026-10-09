@@ -18,6 +18,7 @@ import {
 import { CareerPost, JobStatus, JobType } from '@/types/career';
 import TipTapEditor from '@/components/admin/shared/TipTapEditor';
 import { Card, Button, Badge, Selector } from '@astryxdesign/core';
+import { useSaveJobMutation } from '@/lib/hooks';
 
 interface CareerEditorClientProps {
   initialJob?: CareerPost | null;
@@ -56,15 +57,15 @@ export default function CareerEditorClient({
   const [excerpt, setExcerpt] = useState(initialJob?.excerpt || '');
   const [description, setDescription] = useState(
     initialJob?.description ||
-      '<p>Mô tả chi tiết các trách nhiệm chính của vị trí...</p><ul><li>Nhiệm vụ 1: Thực thi và tối ưu hóa hệ thống.</li><li>Nhiệm vụ 2: Phối hợp cùng các phòng ban liên quan.</li></ul>'
+    '<p>Mô tả chi tiết các trách nhiệm chính của vị trí...</p><ul><li>Nhiệm vụ 1: Thực thi và tối ưu hóa hệ thống.</li><li>Nhiệm vụ 2: Phối hợp cùng các phòng ban liên quan.</li></ul>'
   );
   const [requirements, setRequirements] = useState(
     initialJob?.requirements ||
-      '<ul><li>Tối thiểu 2 năm kinh nghiệm thực chiến ở vị trí tương đương.</li><li>Thành thạo kỹ năng chuyên môn và có tư duy giải quyết vấn đề tốt.</li><li>Kỹ năng giao tiếp và làm việc nhóm hiệu quả.</li></ul>'
+    '<ul><li>Tối thiểu 2 năm kinh nghiệm thực chiến ở vị trí tương đương.</li><li>Thành thạo kỹ năng chuyên môn và có tư duy giải quyết vấn đề tốt.</li><li>Kỹ năng giao tiếp và làm việc nhóm hiệu quả.</li></ul>'
   );
   const [benefits, setBenefits] = useState(
     initialJob?.benefits ||
-      '<ul><li>Mức lương cạnh tranh theo năng lực + Thưởng hiệu suất hàng quý.</li><li>Đóng bảo hiểm đầy đủ (BHXH, BHYT) theo quy định và bảo hiểm sức khỏe nâng cao.</li><li>Môi trường quốc tế, năng động, trang thiết bị làm việc hiện đại.</li></ul>'
+    '<ul><li>Mức lương cạnh tranh theo năng lực + Thưởng hiệu suất hàng quý.</li><li>Đóng bảo hiểm đầy đủ (BHXH, BHYT) theo quy định và bảo hiểm sức khỏe nâng cao.</li><li>Môi trường quốc tế, năng động, trang thiết bị làm việc hiện đại.</li></ul>'
   );
   const [contactEmail, setContactEmail] = useState(
     initialJob?.contactEmail || 'hr@egead.com'
@@ -77,11 +78,8 @@ export default function CareerEditorClient({
   );
 
   const [activeTab, setActiveTab] = useState<'desc' | 'req' | 'ben'>('desc');
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [feedbackMessage, setFeedbackMessage] = useState<{
-    type: 'success' | 'error';
-    text: string;
-  } | null>(null);
+  const saveJobMutation = useSaveJobMutation();
+  const isSubmitting = saveJobMutation.isPending;
 
   const generateSlugFromTitle = () => {
     if (!title) return;
@@ -116,10 +114,6 @@ export default function CareerEditorClient({
     const submitStatus = targetStatus || status;
 
     if (!title.trim()) {
-      setFeedbackMessage({
-        type: 'error',
-        text: 'Vui lòng nhập tiêu đề vị trí tuyển dụng.',
-      });
       return;
     }
 
@@ -159,46 +153,9 @@ export default function CareerEditorClient({
     };
 
     try {
-      setIsSubmitting(true);
-      setFeedbackMessage(null);
-
-      const url = isEditing
-        ? `/api/admin/careers/${initialJob?.id}`
-        : '/api/admin/careers';
-      const method = isEditing ? 'PUT' : 'POST';
-
-      const res = await fetch(url, {
-        method,
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
-      });
-
-      const data = await res.json();
-
-      if (data.success) {
-        setFeedbackMessage({
-          type: 'success',
-          text: isEditing
-            ? 'Cập nhật tin tuyển dụng thành công!'
-            : 'Đã tạo tin tuyển dụng mới thành công!',
-        });
-        setTimeout(() => {
-          router.push('/admin/careers');
-          router.refresh();
-        }, 900);
-      } else {
-        setFeedbackMessage({
-          type: 'error',
-          text: data.error || 'Có lỗi xảy ra khi lưu tin tuyển dụng.',
-        });
-      }
+      await saveJobMutation.mutateAsync(payload);
     } catch {
-      setFeedbackMessage({
-        type: 'error',
-        text: 'Lỗi kết nối máy chủ, vui lòng thử lại.',
-      });
-    } finally {
-      setIsSubmitting(false);
+      // Astryx Toast displays error automatically
     }
   };
 
@@ -233,10 +190,12 @@ export default function CareerEditorClient({
               label="Xem Form"
               variant="secondary"
               href={`/admin/careers/form-preview?jobId=${initialJob?.id}`}
+              className='h-10 px-4'
             />
           )}
           <Button
             label="Lưu bản nháp"
+            className='h-10 px-4'
             variant="secondary"
             isDisabled={isSubmitting}
             isLoading={isSubmitting}
@@ -245,30 +204,13 @@ export default function CareerEditorClient({
           <Button
             label={status === 'published' ? 'Lưu & Đang tuyển' : 'Xuất bản ngay'}
             variant="primary"
+            className='h-10 px-4'
             isDisabled={isSubmitting}
             isLoading={isSubmitting}
             onClick={() => handleSubmit('published')}
           />
         </div>
       </div>
-
-      {/* Feedback Alert */}
-      {feedbackMessage && (
-        <div
-          className={`p-4 rounded-xl flex items-center gap-3 border text-sm ${
-            feedbackMessage.type === 'success'
-              ? 'bg-emerald-50 border-emerald-200 text-emerald-800'
-              : 'bg-red-50 border-red-200 text-red-800'
-          }`}
-        >
-          {feedbackMessage.type === 'success' ? (
-            <CheckCircle className="w-5 h-5 shrink-0 text-emerald-600" />
-          ) : (
-            <AlertCircle className="w-5 h-5 shrink-0 text-red-600" />
-          )}
-          <span className="font-medium">{feedbackMessage.text}</span>
-        </div>
-      )}
 
       {/* Main 2-column Layout */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -298,7 +240,7 @@ export default function CareerEditorClient({
                 <Button
                   label="Tự động tạo từ tiêu đề"
                   variant="secondary"
-                  size="sm"
+                  className='h-10 px-4'
                   onClick={generateSlugFromTitle}
                 />
               </div>
@@ -348,33 +290,30 @@ export default function CareerEditorClient({
                 <button
                   type="button"
                   onClick={() => setActiveTab('desc')}
-                  className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
-                    activeTab === 'desc'
-                      ? 'bg-white text-slate-900 shadow-sm'
-                      : 'text-slate-600 hover:text-slate-900'
-                  }`}
+                  className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${activeTab === 'desc'
+                    ? 'bg-white text-slate-900 shadow-sm'
+                    : 'text-slate-600 hover:text-slate-900'
+                    }`}
                 >
                   Mô tả công việc
                 </button>
                 <button
                   type="button"
                   onClick={() => setActiveTab('req')}
-                  className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
-                    activeTab === 'req'
-                      ? 'bg-white text-slate-900 shadow-sm'
-                      : 'text-slate-600 hover:text-slate-900'
-                  }`}
+                  className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${activeTab === 'req'
+                    ? 'bg-white text-slate-900 shadow-sm'
+                    : 'text-slate-600 hover:text-slate-900'
+                    }`}
                 >
                   Yêu cầu ứng viên
                 </button>
                 <button
                   type="button"
                   onClick={() => setActiveTab('ben')}
-                  className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
-                    activeTab === 'ben'
-                      ? 'bg-white text-slate-900 shadow-sm'
-                      : 'text-slate-600 hover:text-slate-900'
-                  }`}
+                  className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${activeTab === 'ben'
+                    ? 'bg-white text-slate-900 shadow-sm'
+                    : 'text-slate-600 hover:text-slate-900'
+                    }`}
                 >
                   Quyền lợi &amp; Đãi ngộ
                 </button>
@@ -447,6 +386,7 @@ export default function CareerEditorClient({
                   { value: 'draft', label: 'Lưu bản nháp (Draft)' },
                   { value: 'closed', label: 'Đã đóng tuyển (Closed)' },
                 ]}
+                className='h-10 border'
               />
             </div>
 
@@ -477,6 +417,7 @@ export default function CareerEditorClient({
             <div>
               <Selector
                 label="Phòng ban"
+                className='h-10 border'
                 value={department}
                 onChange={(val) => setDepartment(val)}
                 options={[
@@ -514,6 +455,7 @@ export default function CareerEditorClient({
             <div>
               <Selector
                 label="Loại hình làm việc"
+                className='h-10 border'
                 value={type}
                 onChange={(val) => setType(val as JobType)}
                 options={[

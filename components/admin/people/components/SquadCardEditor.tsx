@@ -157,7 +157,7 @@ export default function SquadCardEditor({
       {/* Squad Header Bar */}
       <div className="flex items-center justify-between p-4 bg-slate-50/80 border-b border-slate-200/80 gap-3">
         <div className="flex items-center gap-2.5 min-w-0">
-          <Badge label={`Squad ${squadIndex + 1}`} variant="purple" />
+          <Badge label={`Squad ${squadIndex + 1}`} variant="purple" className='h-8 px-4' />
           <div className="font-extrabold text-slate-900 text-sm truncate">
             {squad.squadName || 'Squad chưa đặt tên'}
           </div>
@@ -171,14 +171,14 @@ export default function SquadCardEditor({
           <Button
             label="Lên"
             variant="ghost"
-            size="sm"
+            className="px-4 h-10"
             isDisabled={squadIndex === 0}
             onClick={onMoveUp}
           />
           <Button
             label="Xuống"
             variant="ghost"
-            size="sm"
+            className="px-4 h-10"
             isDisabled={squadIndex === totalSquads - 1}
             onClick={onMoveDown}
           />
@@ -186,14 +186,14 @@ export default function SquadCardEditor({
           <Button
             label={isExpanded ? 'Thu gọn' : 'Mở rộng'}
             variant="secondary"
-            size="sm"
+            className="px-4 h-10"
             onClick={() => setIsExpanded(!isExpanded)}
           />
 
           <Button
             label="Xóa Squad"
             variant="destructive"
-            size="sm"
+            className="px-4 h-10"
             onClick={onDelete}
           />
         </div>
@@ -242,7 +242,7 @@ export default function SquadCardEditor({
               <div className="text-xs font-bold text-purple-900">
                 Chỉ huy Squad (Squad Lead / Sub-Node)
               </div>
-              <Badge label="Trưởng nhóm Squad" variant="purple" />
+              <Badge label="Trưởng nhóm Squad" variant="purple" className='h-8 px-4' />
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -250,6 +250,7 @@ export default function SquadCardEditor({
                 label="Chọn nhân sự làm Squad Lead"
                 description="Chọn thành viên phụ trách chính nhóm này"
                 value={squad.id}
+                className='h-10 border'
                 onChange={(val) => handleLeadChange(val)}
                 options={[
                   { value: '', label: '-- Chọn thành viên phụ trách --' },
@@ -310,7 +311,7 @@ export default function SquadCardEditor({
                   <Selector
                     label="Thêm thành viên"
                     isLabelHidden
-                    size="sm"
+                    className='h-10 border'
                     value={selectedNewMemberId}
                     onChange={(val) => setSelectedNewMemberId(val)}
                     options={[
@@ -325,7 +326,7 @@ export default function SquadCardEditor({
                 <Button
                   label="Thêm vào Squad"
                   variant="secondary"
-                  size="sm"
+                  className="px-4 h-10"
                   isDisabled={!selectedNewMemberId}
                   onClick={handleAddSubMember}
                 />
@@ -386,21 +387,21 @@ export default function SquadCardEditor({
                       <Button
                         label="Lên"
                         variant="ghost"
-                        size="sm"
+                        className="px-4 h-10"
                         isDisabled={subIdx === 0}
                         onClick={() => handleMoveSubUp(subIdx)}
                       />
                       <Button
                         label="Xuống"
                         variant="ghost"
-                        size="sm"
+                        className="px-4 h-10"
                         isDisabled={subIdx === squad.children.length - 1}
                         onClick={() => handleMoveSubDown(subIdx)}
                       />
                       <Button
                         label="Xóa"
                         variant="destructive"
-                        size="sm"
+                        className="px-4 h-10"
                         onClick={() => handleRemoveSubMember(subIdx)}
                       />
                     </div>

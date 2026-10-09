@@ -15,6 +15,7 @@ import {
 import { Button, Card, Badge, Field, Selector } from '@astryxdesign/core';
 import { AdminTeamMember } from '@/lib/services/people.service';
 import { DEPARTMENTS, PEOPLE_STATUSES } from '@/lib/validations/people';
+import { useUploadMedia, useSavePersonMutation } from '@/lib/hooks';
 import SkillTagInput from './components/SkillTagInput';
 
 interface PeopleFormClientProps {
@@ -44,52 +45,36 @@ export default function PeopleFormClient({
   const [skills, setSkills] = useState<string[]>(initialData?.skills || []);
   const [isLeader, setIsLeader] = useState<boolean>(initialData?.isLeader ?? false);
   const [order, setOrder] = useState<number>(initialData?.order ?? 0);
-  const [status, setStatus] = useState<string>(
-    initialData?.status || 'published'
+  const [status, setStatus] = useState<'published' | 'draft' | 'archived'>(
+    (initialData?.status as 'published' | 'draft' | 'archived') || 'published'
   );
 
-  // Status & loading states
-  const [isUploadingImage, setIsUploadingImage] = useState(false);
-  const [uploadError, setUploadError] = useState<string | null>(null);
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  // Mutation hook with TanStack Query and Astryx Toast
+  const savePersonMutation = useSavePersonMutation();
+  const isSubmitting = savePersonMutation.isPending;
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
-  // Handle Cloudinary upload via /api/admin/upload
-  const handleImageFileChange = async (e: ChangeEvent<HTMLInputElement>) => {
+  // Handle Cloudinary upload via useUploadMedia
+  const {
+    uploadFile: uploadAvatarFile,
+    isUploading: isUploadingImage,
+    error: uploadError,
+  } = useUploadMedia({
+    defaultFolder: 'egead_cms/people',
+    successMessage: 'Tải ảnh chân dung lên Cloudinary thành công!',
+    onSuccess: (data) => {
+      setImage(data.url);
+    },
+  });
+
+  const handleImageFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
-    if (!file) return;
-
-    try {
-      setIsUploadingImage(true);
-      setUploadError(null);
-
-      const formData = new FormData();
-      formData.append('file', file);
-      formData.append('folder', 'egead_cms/people');
-
-      const res = await fetch('/api/admin/upload', {
-        method: 'POST',
-        body: formData,
-      });
-
-      const data = await res.json();
-      if (data.success && data.url) {
-        setImage(data.url);
-      } else {
-        setUploadError(data.error || 'Tải ảnh thất bại');
-      }
-    } catch {
-      setUploadError('Không thể kết nối đến máy chủ khi tải ảnh');
-    } finally {
-      setIsUploadingImage(false);
-    }
+    if (file) uploadAvatarFile(file);
   };
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setErrorMessage(null);
-    setSuccessMessage(null);
 
     // Client validation
     if (!name.trim()) {
@@ -114,8 +99,8 @@ export default function PeopleFormClient({
     }
 
     try {
-      setIsSubmitting(true);
-      const payload = {
+      await savePersonMutation.mutateAsync({
+        id: mode === 'edit' ? initialData?.id : undefined,
         name: name.trim(),
         role: role.trim(),
         department,
@@ -128,39 +113,9 @@ export default function PeopleFormClient({
         isLeader,
         order: Number(order) || 0,
         status,
-      };
-
-      const url =
-        mode === 'create'
-          ? '/api/admin/people'
-          : `/api/admin/people/${initialData?.id}`;
-      const method = mode === 'create' ? 'POST' : 'PUT';
-
-      const res = await fetch(url, {
-        method,
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
       });
-
-      const result = await res.json();
-
-      if (result.success) {
-        setSuccessMessage(
-          mode === 'create'
-            ? 'Đã tạo hồ sơ nhân sự thành công!'
-            : 'Đã cập nhật hồ sơ nhân sự thành công!'
-        );
-        setTimeout(() => {
-          router.push('/admin/people');
-          router.refresh();
-        }, 800);
-      } else {
-        setErrorMessage(result.error || 'Có lỗi xảy ra khi lưu thông tin');
-      }
-    } catch {
-      setErrorMessage('Lỗi kết nối khi gửi dữ liệu lên máy chủ');
-    } finally {
-      setIsSubmitting(false);
+    } catch (err) {
+      setErrorMessage((err as Error).message);
     }
   };
 
@@ -175,13 +130,13 @@ export default function PeopleFormClient({
             <Button
               label="Quay lại danh sách"
               variant="secondary"
-              size="sm"
+              className="px-4 h-10"
               href="/admin/people"
             />
             {isLeader && (
-              <Badge label="Ban Lãnh đạo Cấp cao" variant="purple" />
+              <Badge label="Ban Lãnh đạo Cấp cao" variant="purple" className='h-8 px-4' />
             )}
-            <Badge label={department} variant="neutral" />
+            <Badge label={department} variant="neutral" className='h-8 px-4' />
           </div>
           <h1 className="text-2xl font-extrabold text-slate-900 mt-2">
             {mode === 'create'
@@ -199,6 +154,7 @@ export default function PeopleFormClient({
           <Button
             label="Hủy bỏ"
             variant="ghost"
+            className="px-4 h-10"
             href="/admin/people"
           />
           <Button
@@ -206,11 +162,12 @@ export default function PeopleFormClient({
               isSubmitting
                 ? 'Đang lưu dữ liệu...'
                 : mode === 'create'
-                ? 'Tạo nhân sự mới'
-                : 'Lưu thay đổi'
+                  ? 'Tạo nhân sự mới'
+                  : 'Lưu thay đổi'
             }
             variant="primary"
             type="submit"
+            className="px-4 h-10"
             isDisabled={isSubmitting}
           />
         </div>
@@ -227,12 +184,6 @@ export default function PeopleFormClient({
           >
             <X className="w-4 h-4" />
           </button>
-        </div>
-      )}
-
-      {successMessage && (
-        <div className="p-4 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs sm:text-sm flex items-center justify-between">
-          <span>{successMessage}</span>
         </div>
       )}
 
@@ -291,6 +242,7 @@ export default function PeopleFormClient({
             <Selector
               label="Khối phòng ban"
               isRequired
+              className='h-10 border'
               description="Khối nghiệp vụ chính trực thuộc"
               value={department}
               onChange={(val) => setDepartment(val)}
@@ -337,7 +289,8 @@ export default function PeopleFormClient({
               label="Trạng thái hiển thị"
               description="Kiểm soát khả năng hiển thị ngoài trang công khai"
               value={status}
-              onChange={(val) => setStatus(val)}
+              className='h-10 border'
+              onChange={(val) => setStatus(val as 'published' | 'draft' | 'archived')}
               options={[
                 { value: 'published', label: 'Đang hiển thị (Published)' },
                 { value: 'draft', label: 'Bản nháp (Draft)' },
@@ -421,7 +374,7 @@ export default function PeopleFormClient({
                   <Button
                     label="Xóa ảnh"
                     variant="ghost"
-                    size="sm"
+                    className="px-4 h-10"
                     type="button"
                     onClick={() => setImage('')}
                   />
@@ -528,17 +481,19 @@ export default function PeopleFormClient({
           label="Hủy bỏ"
           variant="ghost"
           href="/admin/people"
+          className="px-4 h-10"
         />
         <Button
           label={
             isSubmitting
               ? 'Đang lưu dữ liệu...'
               : mode === 'create'
-              ? 'Tạo nhân sự mới'
-              : 'Lưu thay đổi'
+                ? 'Tạo nhân sự mới'
+                : 'Lưu thay đổi'
           }
           variant="primary"
           type="submit"
+          className="px-4 h-10"
           isDisabled={isSubmitting}
         />
       </div>

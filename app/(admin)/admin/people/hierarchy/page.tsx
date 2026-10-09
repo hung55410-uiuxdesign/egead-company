@@ -1,4 +1,3 @@
-import React from 'react';
 import { getTeamMembers } from '@/lib/people';
 import { PeopleHierarchyClient } from '@/components/admin/people';
 
@@ -17,7 +16,7 @@ export default async function PeopleHierarchyPage({ searchParams }: PageProps) {
   ]);
 
   return (
-    <div className="w-full flex-1 flex flex-col -m-4 sm:-m-6 lg:-m-8 p-3 sm:p-4 min-h-[calc(100vh-4rem)]">
+    <div className="w-full h-full flex flex-col">
       <PeopleHierarchyClient
         leaders={leadersData.items}
         allMembers={allMembersData.items}

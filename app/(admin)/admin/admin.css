@@ -1,124 +1,118 @@
-/* ==========================================================================
-   E-GEAD Modern Admin SaaS Light Mode Styles & Normalization
-   ========================================================================== */
+@layer reset, tw-preflight, astryx-base, astryx-theme;
 
-/* Enforce Open Sans font family for all admin components */
-.font-open-sans,
-.font-open-sans * {
-  font-family: var(--font-open-sans), 'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+@import "@astryxdesign/core/reset.css";
+@import "@astryxdesign/core/astryx.css";
+@import "./theme.css";
+
+@layer tw-preflight {
+  @tailwind base;
 }
+@tailwind components;
+@tailwind utilities;
 
-/* Enforce pure light mode color-scheme and CSS variables */
-:root:has([data-astryx-admin]),
+/* Astryx light-mode enforcer for Admin */
 html[data-theme="light"],
-[data-astryx-admin] {
+[data-astryx-theme] {
   color-scheme: light !important;
-  --color-background-card: #ffffff;
-  --color-background-surface: #ffffff;
-  --color-background-body: #f8fafc;
-  --color-background-muted: #f1f5f9;
-  --color-text-primary: #0f172a;
-  --color-text-secondary: #475569;
-  --color-text-disabled: #94a3b8;
-  --color-border: #e2e8f0;
-  --color-border-emphasized: #cbd5e1;
-  --color-accent: #0f172a;
-  --color-on-accent: #ffffff;
 }
 
-/* Astryx Primary & Action buttons */
-.astryx-button.primary,
-button.astryx-button.primary,
-a.astryx-button.primary {
-  background-color: #0f172a !important;
+/* Astryx Button typography: compact 13px (0.8125rem), medium weight (500) */
+.astryx-button,
+a.astryx-button,
+button.astryx-button {
+  font-size: 0.8125rem !important;
+  font-weight: 500 !important;
+  line-height: 1.25rem !important;
+  letter-spacing: normal !important;
+}
+
+.astryx-button span,
+a.astryx-button span,
+button.astryx-button span {
+  font-size: inherit !important;
+  font-weight: inherit !important;
+}
+
+.astryx-button[data-size="sm"],
+a.astryx-button[data-size="sm"],
+button.astryx-button[data-size="sm"] {
+  font-size: 0.75rem !important;
+}
+
+/* Astryx Primary Button: dark #111827 and sharp white text */
+.astryx-button[data-variant="primary"],
+a.astryx-button[data-variant="primary"],
+button.astryx-button[data-variant="primary"] {
+  background-color: var(--color-accent, #111827) !important;
+  color: var(--color-on-accent, #ffffff) !important;
+  font-weight: 500 !important;
+}
+
+.astryx-button[data-variant="primary"]:hover:where(:not(:disabled, [aria-disabled="true"])) {
+  background-color: #1f2937 !important;
   color: #ffffff !important;
-  border: 1px solid #0f172a !important;
 }
 
-.astryx-button.primary:hover,
-button.astryx-button.primary:hover,
-a.astryx-button.primary:hover {
-  background-color: #1e293b !important;
-  border-color: #1e293b !important;
+/* Astryx Secondary Button: ensures <button> and <a> render identical neutral background and text */
+.astryx-button[data-variant="secondary"],
+a.astryx-button[data-variant="secondary"],
+button.astryx-button[data-variant="secondary"] {
+  background-color: var(--color-neutral, #F1F5F9) !important;
+  color: var(--color-text-primary, #0F172A) !important;
+  font-weight: 500 !important;
+}
+
+.astryx-button[data-variant="secondary"]:hover:where(:not(:disabled, [aria-disabled="true"])) {
+  background-color: #E2E8F0 !important;
+  color: #0F172A !important;
+}
+
+/* Astryx Ghost Button */
+.astryx-button[data-variant="ghost"],
+a.astryx-button[data-variant="ghost"],
+button.astryx-button[data-variant="ghost"] {
+  background-color: transparent !important;
+  color: var(--color-text-secondary, #475569) !important;
+  font-weight: 500 !important;
+}
+
+.astryx-button[data-variant="ghost"]:hover:where(:not(:disabled, [aria-disabled="true"])) {
+  background-color: var(--color-neutral, #F1F5F9) !important;
+  color: #0F172A !important;
+}
+
+/* Astryx Destructive Button */
+.astryx-button[data-variant="destructive"],
+a.astryx-button[data-variant="destructive"],
+button.astryx-button[data-variant="destructive"] {
+  background-color: #EF4444 !important;
+  color: #ffffff !important;
+  font-weight: 500 !important;
+}
+
+.astryx-button[data-variant="destructive"]:hover:where(:not(:disabled, [aria-disabled="true"])) {
+  background-color: #DC2626 !important;
   color: #ffffff !important;
 }
 
-.astryx-button.secondary,
-button.astryx-button.secondary,
-a.astryx-button.secondary {
+.astryx-button:disabled,
+.astryx-button[aria-disabled="true"] {
+  opacity: 0.6 !important;
+  cursor: not-allowed !important;
+}
+
+
+/* Astryx Checkbox: make indicator borders clearly visible on light backgrounds */
+.astryx-checkbox-indicator:not(.checked) {
+  border: 1.5px solid #CBD5E1 !important;
   background-color: #ffffff !important;
-  color: #334155 !important;
-  border: 1px solid #cbd5e1 !important;
 }
 
-.astryx-button.secondary:hover,
-button.astryx-button.secondary:hover,
-a.astryx-button.secondary:hover {
-  background-color: #f8fafc !important;
-  color: #0f172a !important;
-  border-color: #94a3b8 !important;
+.astryx-checkbox-indicator:hover:not(.checked) {
+  border-color: #94A3B8 !important;
 }
 
-.x1ewilqj,
-.x17wrial,
-.x1ewilqj *,
-.x17wrial * {
-  color: #ffffff !important;
-}
-
-/* Admin Input Utility */
-.admin-input {
-  width: 100%;
-  background-color: #ffffff;
-  border: 1px solid #e2e8f0;
-  border-radius: 0.75rem;
-  color: #0f172a;
-  font-size: 0.875rem;
-  padding: 0.625rem 0.875rem;
-  transition: all 0.15s ease;
-}
-
-.admin-input:focus {
-  outline: none;
-  border-color: #0f172a;
-  background-color: #ffffff;
-}
-
-.admin-input::placeholder {
-  color: #94a3b8;
-}
-
-/* Admin Table Styling */
-[data-astryx-admin] table th {
-  color: #475569;
-  background-color: #f8fafc;
-  border-bottom: 1px solid #e2e8f0;
-}
-
-[data-astryx-admin] table td {
-  border-bottom: 1px solid #f1f5f9;
-  color: #0f172a;
-}
-
-[data-astryx-admin] table tr:hover td {
-  background-color: #f8fafc;
-}
-
-/* Sleek custom scrollbars for admin panels */
-[data-astryx-admin] ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
-}
-
-[data-astryx-admin] ::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-[data-astryx-admin] ::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
-  border-radius: 9999px;
-}
-
-[data-astryx-admin] ::-webkit-scrollbar-thumb:hover {
-  background: #94a3b8;
+.astryx-checkbox-indicator.checked {
+  background-color: var(--color-accent, #111827) !important;
+  border-color: var(--color-accent, #111827) !important;
 }

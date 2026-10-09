@@ -1,18 +1,16 @@
 'use client';
 
-import React, { useState } from 'react';
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 import {
   ArrowLeft,
   AlertCircle,
-  CheckCircle,
   UploadCloud,
   Loader2,
 } from 'lucide-react';
 import { BlogPost, BlogCategory, PostStatus } from '@/types/blog';
 import TipTapEditor from '@/components/admin/shared/TipTapEditor';
-import { Card, Button, Badge, Selector } from '@astryxdesign/core';
+import { Card, Button, Badge, Selector, IconButton, useToast } from '@astryxdesign/core';
+import { useSaveBlogMutation, useUploadMedia } from '@/lib/hooks';
 
 interface BlogEditorClientProps {
   initialPost?: BlogPost | null;
@@ -23,8 +21,10 @@ export default function BlogEditorClient({
   initialPost,
   categories,
 }: BlogEditorClientProps) {
-  const router = useRouter();
   const isEditing = Boolean(initialPost?.id);
+  const toast = useToast();
+  const saveBlogMutation = useSaveBlogMutation();
+  const isSubmitting = saveBlogMutation.isPending;
 
   // Initialize HTML content from string or legacy array
   const initialContentHtml = initialPost?.content
@@ -54,40 +54,17 @@ export default function BlogEditorClient({
     initialPost?.status || 'published'
   );
 
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isUploadingHero, setIsUploadingHero] = useState(false);
-  const [uploadHeroError, setUploadHeroError] = useState<string | null>(null);
-  const [feedbackMessage, setFeedbackMessage] = useState<{
-    type: 'success' | 'error';
-    text: string;
-  } | null>(null);
-
-  const handleHeroFileUpload = async (file: File) => {
-    try {
-      setIsUploadingHero(true);
-      setUploadHeroError(null);
-
-      const formData = new FormData();
-      formData.append('file', file);
-      formData.append('folder', 'egead_cms/covers');
-
-      const res = await fetch('/api/admin/upload', {
-        method: 'POST',
-        body: formData,
-      });
-
-      const data = await res.json();
-      if (data.success && data.url) {
-        setHeroImage(data.url);
-      } else {
-        setUploadHeroError(data.error || 'Tải ảnh bìa thất bại');
-      }
-    } catch {
-      setUploadHeroError('Lỗi kết nối khi tải ảnh lên Cloudinary');
-    } finally {
-      setIsUploadingHero(false);
-    }
-  };
+  const {
+    uploadFile: handleHeroFileUpload,
+    isUploading: isUploadingHero,
+    error: uploadHeroError,
+  } = useUploadMedia({
+    defaultFolder: 'egead_cms/covers',
+    successMessage: 'Tải ảnh bìa lên Cloudinary thành công!',
+    onSuccess: (data) => {
+      setHeroImage(data.url);
+    },
+  });
 
   const generateSlugFromTitle = () => {
     if (!title) return;
@@ -102,13 +79,15 @@ export default function BlogEditorClient({
     setSlug(generated);
   };
 
-  const handleSubmit = async (targetStatus?: PostStatus) => {
+  const handleSubmit = (targetStatus?: PostStatus) => {
     const submitStatus = targetStatus || status;
 
     if (!title.trim()) {
-      setFeedbackMessage({
+      toast({
+        body: 'Vui lòng nhập tiêu đề bài viết.',
         type: 'error',
-        text: 'Vui lòng nhập tiêu đề bài viết.',
+        isAutoHide: true,
+        autoHideDuration: 4000,
       });
       return;
     }
@@ -141,48 +120,7 @@ export default function BlogEditorClient({
       status: submitStatus,
     };
 
-    try {
-      setIsSubmitting(true);
-      setFeedbackMessage(null);
-
-      const url = isEditing
-        ? `/api/admin/blogs/${initialPost?.id}`
-        : '/api/admin/blogs';
-      const method = isEditing ? 'PUT' : 'POST';
-
-      const res = await fetch(url, {
-        method,
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
-      });
-
-      const data = await res.json();
-
-      if (data.success) {
-        setFeedbackMessage({
-          type: 'success',
-          text: isEditing
-            ? 'Cập nhật bài viết thành công!'
-            : 'Đã tạo bài viết mới thành công!',
-        });
-        setTimeout(() => {
-          router.push('/admin/blogs');
-          router.refresh();
-        }, 1000);
-      } else {
-        setFeedbackMessage({
-          type: 'error',
-          text: data.error || 'Có lỗi xảy ra khi lưu bài viết',
-        });
-      }
-    } catch {
-      setFeedbackMessage({
-        type: 'error',
-        text: 'Lỗi kết nối máy chủ, vui lòng thử lại.',
-      });
-    } finally {
-      setIsSubmitting(false);
-    }
+    saveBlogMutation.mutate(payload);
   };
 
   return (
@@ -190,12 +128,12 @@ export default function BlogEditorClient({
       {/* Top navigation & action header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div className="flex items-center gap-3">
-          <Link
+          <IconButton
+            label="Quay lại danh sách bài viết"
+            icon={<ArrowLeft className="w-5 h-5 text-gray-700" />}
             href="/admin/blogs"
-            className="p-2 rounded-lg bg-white hover:bg-slate-50 text-slate-700 border border-slate-300 transition-colors"
-          >
-            <ArrowLeft className="w-4 h-4" />
-          </Link>
+            className="w-10 h-10"
+          />
           <div>
             <h2 className="text-xl sm:text-2xl font-extrabold text-slate-900">
               {isEditing ? 'Chỉnh sửa bài viết' : 'Soạn thảo bài viết mới'}
@@ -215,6 +153,7 @@ export default function BlogEditorClient({
             isDisabled={isSubmitting}
             isLoading={isSubmitting}
             onClick={() => handleSubmit('draft')}
+            className='h-10 px-4'
           />
           <Button
             label={status === 'published' ? 'Lưu & Xuất bản' : 'Xuất bản ngay'}
@@ -222,27 +161,11 @@ export default function BlogEditorClient({
             isDisabled={isSubmitting}
             isLoading={isSubmitting}
             onClick={() => handleSubmit('published')}
+            className='h-10 px-4'
           />
         </div>
       </div>
 
-      {/* Feedback banner */}
-      {feedbackMessage && (
-        <div
-          className={`p-4 rounded-xl flex items-center gap-3 border text-sm ${
-            feedbackMessage.type === 'success'
-              ? 'bg-emerald-50 border-emerald-200 text-emerald-800'
-              : 'bg-red-50 border-red-200 text-red-800'
-          }`}
-        >
-          {feedbackMessage.type === 'success' ? (
-            <CheckCircle className="w-5 h-5 shrink-0 text-emerald-600" />
-          ) : (
-            <AlertCircle className="w-5 h-5 shrink-0 text-red-600" />
-          )}
-          <span className="font-medium">{feedbackMessage.text}</span>
-        </div>
-      )}
 
       {/* Form sections - Standardized Astryx Cards */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -264,28 +187,31 @@ export default function BlogEditorClient({
             </div>
 
             {/* Slug input with auto button */}
-            <div>
+            <div className='w-full'>
               <div className="flex items-center justify-between mb-2">
                 <label className="text-xs font-bold text-slate-700">
                   Đường dẫn tĩnh (Slug)
                 </label>
+              </div>
+
+              <div className="w-full flex flex-row items-center mt-2 gap-4">
+                <div className="flex items-center w-full bg-white border border-slate-200 rounded-xl overflow-hidden focus-within:border-slate-800 focus-within:ring-2 focus-within:ring-slate-800/10 transition-all">
+                  <span className="px-3.5 text-xs text-slate-500 font-mono select-none bg-slate-50 border-r border-slate-200 py-2.5 font-medium">
+                    /articles/
+                  </span>
+                  <input
+                    type="text"
+                    value={slug}
+                    onChange={(e) => setSlug(e.target.value)}
+                    placeholder="expanding-cross-border-ecommerce-playbook"
+                    className="w-full py-2.5 px-3.5 bg-transparent text-xs font-mono text-slate-900 placeholder-slate-400 focus:outline-none"
+                  />
+                </div>
                 <Button
                   label="Tự động tạo từ tiêu đề"
                   variant="secondary"
-                  size="sm"
                   onClick={generateSlugFromTitle}
-                />
-              </div>
-              <div className="flex items-center bg-white border border-slate-200 rounded-xl overflow-hidden focus-within:border-slate-800 focus-within:ring-2 focus-within:ring-slate-800/10 transition-all">
-                <span className="px-3.5 text-xs text-slate-500 font-mono select-none bg-slate-50 border-r border-slate-200 py-2.5 font-medium">
-                  /articles/
-                </span>
-                <input
-                  type="text"
-                  value={slug}
-                  onChange={(e) => setSlug(e.target.value)}
-                  placeholder="expanding-cross-border-ecommerce-playbook"
-                  className="w-full py-2.5 px-3.5 bg-transparent text-xs font-mono text-slate-900 placeholder-slate-400 focus:outline-none"
+                  className='h-10 px-4 w-fit shrink-0'
                 />
               </div>
             </div>
@@ -325,7 +251,7 @@ export default function BlogEditorClient({
               <label className="block text-xs font-bold text-slate-700">
                 Nội dung chi tiết bài viết (Trình soạn thảo Editor) <span className="text-red-500">*</span>
               </label>
-              <Badge label="TipTap Rich Text Active" variant="success" />
+              <Badge label="TipTap Rich Text Active" variant="success" className='h-8 px-4' />
             </div>
 
             <TipTapEditor
@@ -355,6 +281,7 @@ export default function BlogEditorClient({
                   { value: 'published', label: 'Xuất bản công khai (Published)' },
                   { value: 'draft', label: 'Lưu bản nháp (Draft)' },
                 ]}
+                className='h-10 border'
               />
             </div>
 
@@ -384,17 +311,18 @@ export default function BlogEditorClient({
             <div>
               <Selector
                 label="Chuyên mục chính"
+                className='h-10 border'
                 value={category}
                 onChange={(val) => setCategory(val)}
                 options={
                   categories.length > 0
                     ? categories.map((c) => ({ value: c.name, label: c.name }))
                     : [
-                        { value: 'E-Commerce Strategy', label: 'E-Commerce Strategy' },
-                        { value: 'Operations', label: 'Operations' },
-                        { value: 'Technology', label: 'Technology' },
-                        { value: 'Market Expansion', label: 'Market Expansion' },
-                      ]
+                      { value: 'E-Commerce Strategy', label: 'E-Commerce Strategy' },
+                      { value: 'Operations', label: 'Operations' },
+                      { value: 'Technology', label: 'Technology' },
+                      { value: 'Market Expansion', label: 'Market Expansion' },
+                    ]
                 }
               />
             </div>
@@ -419,7 +347,7 @@ export default function BlogEditorClient({
               <h3 className="text-xs font-bold text-slate-800">
                 Hình ảnh tiêu đề (Hero Cover)
               </h3>
-              <Badge label="Cloudinary CDN" variant="info" />
+              <Badge label="Cloudinary CDN" variant="info" className='h-8 px-4' />
             </div>
 
             {/* Cloudinary Drag-Drop / Upload Box */}
@@ -427,7 +355,7 @@ export default function BlogEditorClient({
               <label className="block text-xs font-semibold text-slate-700 mb-1.5">
                 Tải ảnh bìa lên Cloudinary
               </label>
-              <label className="relative flex flex-col items-center justify-center p-5 border-2 border-dashed border-slate-200 hover:border-emerald-500 hover:bg-emerald-50/30 rounded-2xl cursor-pointer transition-all bg-slate-50/50 group">
+              <label className="relative flex flex-col items-center justify-center p-5 border border-dashed border-gray-200 hover:border-gray-800 hover:bg-gray-50/30 rounded-2xl cursor-pointer transition-all bg-slate-50/50 group">
                 <input
                   type="file"
                   accept="image/jpeg,image/png,image/webp,image/gif,image/svg+xml,image/avif"
@@ -445,13 +373,13 @@ export default function BlogEditorClient({
                   </div>
                 ) : (
                   <div className="flex flex-col items-center gap-2 text-center">
-                    <div className="p-2.5 rounded-xl bg-emerald-100/70 text-emerald-700 group-hover:scale-105 group-hover:bg-emerald-100 transition-all">
+                    <div className="p-2.5 rounded-xl bg-gray-100/70 text-gray-700 group-hover:scale-105 group-hover:bg-gray-100 transition-all">
                       <UploadCloud className="w-5 h-5" />
                     </div>
-                    <span className="text-xs font-semibold text-slate-800">
+                    <span className="text-sm font-semibold text-gray-800">
                       Bấm để chọn ảnh từ máy tính
                     </span>
-                    <span className="text-[11px] text-slate-400">
+                    <span className="text-xs text-gray-700">
                       JPG, PNG, WebP tối đa 10MB • CDN tối ưu hóa tự động
                     </span>
                   </div>
@@ -479,39 +407,11 @@ export default function BlogEditorClient({
               />
             </div>
 
-            {/* Quick preset selector */}
-            <div className="space-y-2">
-              <span className="text-[11px] text-slate-500 font-semibold block">
-                Hoặc chọn ảnh mẫu có sẵn:
-              </span>
-              <div className="grid grid-cols-2 gap-2">
-                {[
-                  { name: 'Brother Case', path: '/assets/case_brother.jpg' },
-                  { name: 'Suntory Case', path: '/assets/case_suntory.jpg' },
-                  { name: 'Weir Case', path: '/assets/case_weir.jpg' },
-                  { name: 'Manulife Case', path: '/assets/case_manulife.jpg' },
-                ].map((item) => (
-                  <button
-                    key={item.path}
-                    type="button"
-                    onClick={() => setHeroImage(item.path)}
-                    className={`p-2.5 rounded-xl border text-left transition-all text-xs font-medium cursor-pointer ${
-                      heroImage === item.path
-                        ? 'border-emerald-600 bg-emerald-50 text-emerald-900'
-                        : 'border-slate-200 hover:border-slate-300 text-slate-700 hover:bg-slate-50'
-                    }`}
-                  >
-                    <span className="truncate block">{item.name}</span>
-                  </button>
-                ))}
-              </div>
-            </div>
-
             {/* Image Preview thumbnail */}
             {heroImage && (
               <div className="space-y-1.5 mt-2">
-                <div className="flex items-center justify-between text-[11px]">
-                  <span className="text-slate-500 font-medium">Xem trước ảnh bìa:</span>
+                <div className="flex items-center justify-between text-xs">
+                  <span className="text-gray-700 font-medium">Xem trước ảnh bìa:</span>
                   {heroImage.includes('cloudinary.com') && (
                     <span className="text-emerald-700 font-semibold">
                       Lưu trữ trên Cloudinary CDN
