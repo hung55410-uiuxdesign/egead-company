@@ -100,7 +100,7 @@ export default function InsightsCategorySections({ sections }: Props) {
           ) : (
             <div className="py-12 px-6 rounded-2xl bg-gray-50/80 border border-dashed border-gray-200 text-center">
               <p className="text-sm text-gray-400 font-montserrat">
-                Chưa có bài viết nào trong chuyên mục {sec.category.name}.
+                No articles published yet in {sec.category.name}.
               </p>
             </div>
           )}

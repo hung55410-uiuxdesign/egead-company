@@ -159,10 +159,10 @@ export async function saveJob(
       title: jobData.title.trim(),
       slug,
       department: jobData.department?.trim() || jobs[index].department || 'General',
-      location: jobData.location?.trim() || jobs[index].location || 'Hà Nội',
+      location: jobData.location?.trim() || jobs[index].location || 'Hanoi',
       type: jobData.type || jobs[index].type || 'Full-time',
-      experience: jobData.experience?.trim() || jobs[index].experience || 'Không yêu cầu',
-      salary: jobData.salary?.trim() || jobs[index].salary || 'Thỏa thuận',
+      experience: jobData.experience?.trim() || jobs[index].experience || 'Not required',
+      salary: jobData.salary?.trim() || jobs[index].salary || 'Negotiable',
       quantity: jobData.quantity || jobs[index].quantity || '01',
       deadline: jobData.deadline || jobs[index].deadline || '2026-12-31',
       excerpt: jobData.excerpt?.trim() || jobs[index].excerpt || '',
@@ -182,10 +182,10 @@ export async function saveJob(
       title: jobData.title.trim(),
       slug,
       department: jobData.department?.trim() || 'General',
-      location: jobData.location?.trim() || 'Hà Nội',
+      location: jobData.location?.trim() || 'Hanoi',
       type: jobData.type || 'Full-time',
-      experience: jobData.experience?.trim() || 'Không yêu cầu',
-      salary: jobData.salary?.trim() || 'Thỏa thuận',
+      experience: jobData.experience?.trim() || 'Not required',
+      salary: jobData.salary?.trim() || 'Negotiable',
       quantity: jobData.quantity || '01',
       deadline: jobData.deadline || '2026-12-31',
       excerpt: jobData.excerpt?.trim() || '',
@@ -303,7 +303,7 @@ export async function submitApplication(
   const now = new Date().toISOString();
 
   // Find job title if jobId is provided and jobTitle is empty
-  let jobTitle = data.jobTitle?.trim() || 'Vị trí mở (General Application)';
+  let jobTitle = data.jobTitle?.trim() || 'General Application';
   if (data.jobId && data.jobId !== 'general') {
     const targetJob = await getJobById(data.jobId);
     if (targetJob) {

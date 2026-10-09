@@ -118,7 +118,7 @@ export default function LeaderRow({
               }}
               onClick={() => handleCardClick(leader, index)}
               className="people-card people-card--lead group"
-              title={`Nhấp để xem sơ đồ quản lý của ${leader.name}`}
+              title={`Click to view leadership tree for ${leader.name}`}
             >
               <p className="people-card__thumb">
                 <img src={leader.image} alt={leader.name} loading="lazy" />
@@ -174,7 +174,7 @@ export default function LeaderRow({
             <button
               onClick={() => onLeaderChange(null)}
               className="absolute top-5 right-5 sm:top-6 sm:right-6 z-30 w-9 h-9 rounded-full bg-white/5 hover:bg-white/15 text-gray-400 hover:text-white flex items-center justify-center transition"
-              aria-label="Đóng chi tiết"
+              aria-label="Close details"
             >
               <X className="w-4 h-4" />
             </button>
@@ -212,7 +212,7 @@ export default function LeaderRow({
                     className="inline-flex items-center justify-center gap-2.5 w-full max-w-[280px] py-2.5 rounded-full bg-[#0077B5]/90 hover:bg-[#0077B5] text-white text-xs font-medium transition shadow-md"
                   >
                     <LinkedInIcon />
-                    <span>Kết nối trên LinkedIn</span>
+                    <span>Connect on LinkedIn</span>
                   </a>
                 )}
               </div>
@@ -231,7 +231,7 @@ export default function LeaderRow({
 
                 <div className="mb-6">
                   <h4 className="text-xs font-semibold text-emerald-400/80 mb-2">
-                    Tầm nhìn chiến lược &amp; vai trò lãnh đạo
+                    Strategic Vision &amp; Leadership Role
                   </h4>
                   <p className="text-sm sm:text-base text-gray-300 leading-relaxed font-normal">
                     {activeLeader.bio}
@@ -240,7 +240,7 @@ export default function LeaderRow({
 
                 <div className="mb-8">
                   <h4 className="text-xs font-semibold text-emerald-400/80 mb-3">
-                    Lĩnh vực chuyên môn trọng tâm
+                    Core Areas of Expertise
                   </h4>
                   <div className="flex flex-wrap gap-2">
                     {activeLeader.skills.map((skill, sIdx) => (

@@ -45,7 +45,7 @@ export async function seedCategoriesFromPosts(): Promise<CategoryItem[]> {
         create: {
           name,
           slug,
-          description: `Chuyên mục kiến thức ${name} của E-GEAD`,
+          description: `Knowledge category: ${name} by E-GEAD`,
         },
       });
 

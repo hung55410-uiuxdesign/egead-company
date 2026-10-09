@@ -22,10 +22,10 @@ function SubMemberCard({
     <div
       onClick={() => onSelect && onSelect(member as unknown as TeamMember)}
       className="tree-node-card group cursor-pointer mx-auto"
-      title={`Nhấp để xem chi tiết ${member.name}`}
+      title={`Click to view details for ${member.name}`}
     >
       <span className="absolute top-3 left-3 z-10 px-2.5 py-0.5 rounded-full bg-white/[0.08] backdrop-blur-md text-[9px] font-montserrat text-gray-300">
-        Thành viên
+        Team Member
       </span>
       <span className="absolute top-3 right-3 z-10 px-2.5 py-0.5 rounded-full bg-black/60 backdrop-blur-md text-[10px] font-montserrat text-gray-300">
         {member.location}
@@ -47,7 +47,7 @@ function SubMemberCard({
           </p>
           <div className="text-[11px] text-gray-300 border-t border-white/10 pt-1.5 mb-2 line-clamp-2">
             <span className="text-emerald-400/80 font-medium block text-[9px]">
-              Trách nhiệm:
+              Key Responsibility:
             </span>
             {member.responsibility}
           </div>
@@ -226,7 +226,7 @@ export default function LeaderTreeMap({
                       onSelectMember(childNode as unknown as TeamMember)
                     }
                     className="tree-node-card group cursor-pointer mx-auto"
-                    title={`Nhấp để xem chi tiết ${childNode.name}`}
+                    title={`Click to view details for ${childNode.name}`}
                   >
                     <span className="absolute top-3 left-3 z-10 px-2.5 py-0.5 rounded-full bg-emerald-500/15 backdrop-blur-md text-[10px] font-medium text-emerald-300">
                       {childNode.levelTag.split(':')[0]}
@@ -258,7 +258,7 @@ export default function LeaderTreeMap({
                         </p>
                         <div className="text-[11px] text-gray-300 border-t border-white/10 pt-1.5 mb-2 line-clamp-2">
                           <span className="text-emerald-400/80 font-medium block text-[9px]">
-                            Nhiệm vụ quản lý:
+                            Management Scope:
                           </span>
                           {childNode.responsibility}
                         </div>
@@ -292,7 +292,7 @@ export default function LeaderTreeMap({
                     <div className="mt-2 mb-2 text-center">
                       <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-white/[0.04] text-[11px] font-medium text-gray-300">
                         <Users className="w-3.5 h-3.5 text-emerald-400/80" />
-                        <span>Trực thuộc {childNode.name.split(' ')[0]} ({childNode.children.length})</span>
+                        <span>Reporting to {childNode.name.split(' ')[0]} ({childNode.children.length})</span>
                       </span>
                     </div>
 

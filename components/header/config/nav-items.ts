@@ -180,6 +180,6 @@ export const MOBILE_PRODUCT_CARDS: MobileProductCard[] = [
 
 export const AVAILABLE_LANGUAGES: { code: LanguageCode; label: string }[] = [
   { code: 'EN', label: 'English (EN)' },
-  { code: 'JA', label: '日本語 (JA)' },
-  { code: 'VI', label: 'Tiếng Việt (VI)' },
+  { code: 'JA', label: 'Japanese (JA)' },
+  { code: 'VI', label: 'Vietnamese (VI)' },
 ];

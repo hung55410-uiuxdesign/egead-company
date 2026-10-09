@@ -183,7 +183,7 @@ export default function PeopleClientView({
               Our Team of Experts
             </p>
             <p className="text-sm text-gray-500 font-medium">
-              Đội ngũ chuyên gia kỹ thuật, kiến trúc sư giải pháp và vận hành thương mại điện tử toàn cầu
+              Global team of technical experts, solution architects, and e-commerce operational leaders
             </p>
           </div>
 
@@ -250,7 +250,7 @@ export default function PeopleClientView({
                 key={expert.id}
                 onClick={() => setSelectedMember(expert)}
                 className="people-card people-card--more group cursor-pointer"
-                title={`Nhấp để xem hồ sơ ${expert.name}`}
+                title={`Click to view profile of ${expert.name}`}
               >
                 {/* Photo Thumbnail */}
                 <div className="people-card__thumb">
@@ -410,7 +410,7 @@ export default function PeopleClientView({
             {/* Biography */}
             <div className="mb-6">
               <h4 className="text-xs font-semibold text-emerald-400/80 mb-2">
-                Thông tin &amp; chuyên môn
+                Background &amp; Expertise
               </h4>
               <p className="text-sm sm:text-base text-gray-300 leading-relaxed font-normal">
                 {selectedMember.bio}
@@ -420,7 +420,7 @@ export default function PeopleClientView({
             {/* Core Skills & Expertise */}
             <div className="mb-8">
               <h4 className="text-xs font-semibold text-emerald-400/80 mb-3">
-                Lĩnh vực trọng tâm
+                Core Focus Areas
               </h4>
               <div className="flex flex-wrap gap-2">
                 {selectedMember.skills.map((skill, index) => (

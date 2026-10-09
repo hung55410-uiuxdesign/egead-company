@@ -37,7 +37,7 @@ export async function generateMetadata(props: {
       if (dbCat) {
         return {
           title: `${dbCat.name} | E-GEAD Insights`,
-          description: dbCat.description || `Chuyên mục kiến thức ${dbCat.name} của E-GEAD`,
+          description: dbCat.description || `Knowledge category: ${dbCat.name} by E-GEAD`,
         };
       }
     } catch {
@@ -77,7 +77,7 @@ export default async function InsightsPage(props: InsightsPageProps) {
         subtitle:
           dbCategory?.description ||
           CATEGORY_MAP[currentCategory]?.subtitle ||
-          `Chuyên mục kiến thức ${dbCategory?.name || currentCategory} của E-GEAD`,
+          `Knowledge category: ${dbCategory?.name || currentCategory} by E-GEAD`,
         icon: dbCategory?.icon || CATEGORY_MAP[currentCategory]?.icon || '',
         link: getCategoryHref(currentCategory),
       };
