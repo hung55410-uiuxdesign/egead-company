@@ -16,7 +16,7 @@ import {
   FileText,
 } from 'lucide-react';
 import { CareerPost, JobStatus, JobType } from '@/types/career';
-import TipTapEditor from './TipTapEditor';
+import TipTapEditor from '@/components/admin/shared/TipTapEditor';
 import { Card, Button, Badge, Selector } from '@astryxdesign/core';
 
 interface CareerEditorClientProps {

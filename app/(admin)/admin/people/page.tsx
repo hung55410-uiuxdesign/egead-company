@@ -1,6 +1,6 @@
 import React from 'react';
 import { getTeamMembers, getPeopleStats } from '@/lib/people';
-import PeopleListClient from '@/components/admin/PeopleListClient';
+import { PeopleListClient } from '@/components/admin/people';
 
 export const dynamic = 'force-dynamic';
 

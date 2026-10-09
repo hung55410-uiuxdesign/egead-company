@@ -1,5 +1,5 @@
 import React from 'react';
-import PeopleFormClient from '@/components/admin/PeopleFormClient';
+import { PeopleFormClient } from '@/components/admin/people';
 
 export const dynamic = 'force-dynamic';
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { notFound } from 'next/navigation';
 import { getTeamMember } from '@/lib/people';
-import PeopleFormClient from '@/components/admin/PeopleFormClient';
+import { PeopleFormClient } from '@/components/admin/people';
 
 export const dynamic = 'force-dynamic';
 

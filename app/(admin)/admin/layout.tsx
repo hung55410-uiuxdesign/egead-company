@@ -3,7 +3,8 @@ import { Open_Sans } from 'next/font/google';
 import '@astryxdesign/core/astryx.css';
 import '@astryxdesign/theme-neutral/theme.css';
 import './admin.css';
-import AdminLayoutClient from '@/components/admin/AdminLayoutClient';
+import { AdminLayoutClient } from '@/components/admin/layout';
+import { AdminQueryProvider } from '@/components/admin/providers';
 
 const openSans = Open_Sans({
   subsets: ['latin', 'vietnamese'],
@@ -28,7 +29,9 @@ export default function AdminLayout({
 }) {
   return (
     <div className={`${openSans.variable} ${openSans.className} font-open-sans`}>
-      <AdminLayoutClient>{children}</AdminLayoutClient>
+      <AdminQueryProvider>
+        <AdminLayoutClient>{children}</AdminLayoutClient>
+      </AdminQueryProvider>
     </div>
   );
 }

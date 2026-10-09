@@ -1,6 +1,6 @@
 import React from 'react';
 import { getCategories } from '@/lib/blogs';
-import BlogEditorClient from '@/components/admin/BlogEditorClient';
+import { BlogEditorClient } from '@/components/admin/blogs';
 
 export const dynamic = 'force-dynamic';
 

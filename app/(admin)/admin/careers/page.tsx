@@ -1,6 +1,6 @@
 import React from 'react';
 import { getAllJobs, getCareerStats, getDepartments } from '@/lib/careers';
-import CareerListClient from '@/components/admin/CareerListClient';
+import { CareerListClient } from '@/components/admin/careers';
 
 export const dynamic = 'force-dynamic';
 

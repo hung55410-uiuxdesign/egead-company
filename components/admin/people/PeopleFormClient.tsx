@@ -15,7 +15,7 @@ import {
 import { Button, Card, Badge, Field, Selector } from '@astryxdesign/core';
 import { AdminTeamMember } from '@/lib/services/people.service';
 import { DEPARTMENTS, PEOPLE_STATUSES } from '@/lib/validations/people';
-import SkillTagInput from '@/components/admin/SkillTagInput';
+import SkillTagInput from './components/SkillTagInput';
 
 interface PeopleFormClientProps {
   mode: 'create' | 'edit';

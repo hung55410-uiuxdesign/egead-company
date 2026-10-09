@@ -1,5 +1,5 @@
 import { getAllPosts, getCategories } from "@/lib/blogs";
-import BlogListClient from "@/components/admin/BlogListClient";
+import { BlogListClient } from "@/components/admin/blogs";
 
 export const dynamic = "force-dynamic";
 

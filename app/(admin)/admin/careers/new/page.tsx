@@ -1,6 +1,6 @@
 import React from 'react';
 import { getDepartments } from '@/lib/careers';
-import CareerEditorClient from '@/components/admin/CareerEditorClient';
+import { CareerEditorClient } from '@/components/admin/careers';
 
 export const dynamic = 'force-dynamic';
 

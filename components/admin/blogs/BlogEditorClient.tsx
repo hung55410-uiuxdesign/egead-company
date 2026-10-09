@@ -11,7 +11,7 @@ import {
   Loader2,
 } from 'lucide-react';
 import { BlogPost, BlogCategory, PostStatus } from '@/types/blog';
-import TipTapEditor from './TipTapEditor';
+import TipTapEditor from '@/components/admin/shared/TipTapEditor';
 import { Card, Button, Badge, Selector } from '@astryxdesign/core';
 
 interface BlogEditorClientProps {

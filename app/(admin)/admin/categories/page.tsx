@@ -1,6 +1,6 @@
 import { getCategoriesWithCount } from "@/lib/services/category.service";
 import { getAllPosts } from "@/lib/services/blog.service";
-import CategoryManagerClient from "@/components/admin/CategoryManagerClient";
+import { CategoryManagerClient } from "@/components/admin/categories";
 
 export const dynamic = "force-dynamic";
 

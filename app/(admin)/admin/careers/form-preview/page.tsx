@@ -1,6 +1,6 @@
 import React from 'react';
 import { getAllJobs } from '@/lib/careers';
-import CareerFormPreviewClient from '@/components/admin/CareerFormPreviewClient';
+import { CareerFormPreviewClient } from '@/components/admin/careers';
 
 export const dynamic = 'force-dynamic';
 

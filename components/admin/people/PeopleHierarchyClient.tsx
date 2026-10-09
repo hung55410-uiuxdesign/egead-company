@@ -15,9 +15,9 @@ import {
 import { Button, Card, Badge, Field, EmptyState, IconButton, Selector } from '@astryxdesign/core';
 import { AdminTeamMember } from '@/lib/services/people.service';
 import type { ChildNode, SubChildNode } from '@/components/pages/company/people/leaderTeamData';
-import OrgNodeCard from '@/components/admin/OrgNodeCard';
-import MemberPoolDrawer from '@/components/admin/MemberPoolDrawer';
-import NodeEditModal, { EditTarget } from '@/components/admin/NodeEditModal';
+import OrgNodeCard from './components/OrgNodeCard';
+import MemberPoolDrawer from './components/MemberPoolDrawer';
+import NodeEditModal, { EditTarget } from './components/NodeEditModal';
 
 interface PeopleHierarchyClientProps {
   leaders: AdminTeamMember[];
