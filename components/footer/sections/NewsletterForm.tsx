@@ -35,7 +35,7 @@ export default function NewsletterForm() {
         </button>
       </form>
 
-      <p className="text-[11px] text-gray-400 mt-4 leading-relaxed">
+      <p className="text-sm text-gray-800 mt-4 leading-relaxed">
         This site is protected by reCAPTCHA and the{' '}
         <a
           target="_blank"

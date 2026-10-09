@@ -2,6 +2,7 @@ import React from 'react';
 import Header from '@/components/header';
 import Footer from '@/components/footer';
 import SmoothScroll from '@/components/SmoothScroll';
+import QueryProvider from '@/components/providers/QueryProvider';
 import { getCategoriesWithCount } from '@/lib/services/category.service';
 
 export default async function PublicLayout({
@@ -12,11 +13,13 @@ export default async function PublicLayout({
   const categories = await getCategoriesWithCount();
 
   return (
-    <SmoothScroll>
-      <Header initialCategories={categories} />
-      <main className="flex-grow">{children}</main>
-      <Footer />
-    </SmoothScroll>
+    <QueryProvider>
+      <SmoothScroll>
+        <Header initialCategories={categories} />
+        <main className="flex-grow">{children}</main>
+        <Footer />
+      </SmoothScroll>
+    </QueryProvider>
   );
 }
 

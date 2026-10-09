@@ -2,192 +2,320 @@
 
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Mail, MapPin, Send, CheckCircle } from 'lucide-react';
+import { CheckCircle2, ChevronDown, Mail, AlertCircle } from 'lucide-react';
+import { useSubmitContactInquiry } from '@/lib/hooks';
+
+const REGIONS = [
+  'Singapore',
+  'Japan',
+  'Australia',
+  'Hong Kong',
+  'Vietnam',
+  'South Korea',
+  'India',
+  'United States / Americas',
+  'Europe / Global',
+  'Other',
+];
 
 export default function ContactFormSection() {
   const [submitted, setSubmitted] = useState(false);
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
+    firstName: '',
+    lastName: '',
     company: '',
-    service: 'US Print-on-Demand Fulfillment (<24H SLA)',
+    email: '',
+    phone: '',
+    region: '',
     message: '',
+  });
+
+  const {
+    submit: submitInquiry,
+    isLoading: isSubmitting,
+    error,
+    reset: resetMutation,
+  } = useSubmitContactInquiry({
+    onSuccess: () => {
+      setSubmitted(true);
+    },
   });
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
+    submitInquiry(formData);
   };
 
+  const errorMessage = error ? (error as Error).message : null;
+
   return (
-    <motion.section
-      initial={{ opacity: 0, y: 35, filter: 'blur(4px)' }}
-      whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-      viewport={{ once: true, amount: 0.1, margin: '0px 0px -50px 0px' }}
-      transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
-      className="w-full px-6 sm:px-10 lg:px-14 xl:px-16 mb-28"
-    >
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
-        {/* Left Form */}
-        <div className="lg:col-span-7 bg-[#141718] p-8 sm:p-12 rounded-[36px] border border-white/10 shadow-2xl">
-          <h2 className="text-2xl sm:text-3xl font-medium text-[#D4FAE6] mb-2 font-montserrat">
-            Send us a message
-          </h2>
-          <p className="text-sm text-[#b3b3b3] font-light mb-8">
-            Fill out the form below and one of our operations directors will respond within 24 hours.
-          </p>
+    <section className="relative w-full bg-white text-slate-900 py-16 sm:py-24 lg:py-28 overflow-hidden">
+      {/* Global override for autofill to ensure typed/autofilled text stays bold and deep black */}
+      <style>{`
+        .contact-form-field:-webkit-autofill,
+        .contact-form-field:-webkit-autofill:hover,
+        .contact-form-field:-webkit-autofill:focus,
+        .contact-form-field:-webkit-autofill:active {
+          -webkit-text-fill-color: #020617 !important;
+          font-weight: 600 !important;
+          -webkit-box-shadow: 0 0 0px 1000px #ffffff inset !important;
+          box-shadow: 0 0 0px 1000px #ffffff inset !important;
+          transition: background-color 5000s ease-in-out 0s;
+        }
+      `}</style>
 
-          {submitted ? (
-            <div className="p-8 rounded-2xl bg-[#5EFC8D]/10 border border-[#5EFC8D]/30 text-center py-12">
-              <CheckCircle className="w-12 h-12 text-[#5EFC8D] mx-auto mb-4" />
-              <h3 className="text-xl font-bold text-white mb-2">Message received!</h3>
-              <p className="text-sm text-gray-300 max-w-md mx-auto">
-                Thank you for reaching out to E-GEAD. Our operations team has received your inquiry and will be in touch within 24 hours.
-              </p>
-              <button
-                type="button"
-                onClick={() => setSubmitted(false)}
-                className="mt-6 px-6 py-2.5 rounded-full bg-[#5EFC8D] text-black text-xs font-bold"
-              >
-                Send another inquiry
-              </button>
-            </div>
-          ) : (
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                <div>
-                  <label className="block text-xs font-semibold text-gray-300 mb-2">
-                    Full Name *
-                  </label>
-                  <input
-                    type="text"
-                    required
-                    placeholder="Jane Doe"
-                    value={formData.name}
-                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    className="w-full bg-[#0A0D0E] border border-white/15 rounded-xl px-4 py-3 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-[#5EFC8D]"
-                  />
-                </div>
-                <div>
-                  <label className="block text-xs font-semibold text-gray-300 mb-2">
-                    Business Email *
-                  </label>
-                  <input
-                    type="email"
-                    required
-                    placeholder="jane@company.com"
-                    value={formData.email}
-                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    className="w-full bg-[#0A0D0E] border border-white/15 rounded-xl px-4 py-3 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-[#5EFC8D]"
-                  />
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                <div>
-                  <label className="block text-xs font-semibold text-gray-300 mb-2">
-                    Company / Organization *
-                  </label>
-                  <input
-                    type="text"
-                    required
-                    placeholder="Acme Corp"
-                    value={formData.company}
-                    onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-                    className="w-full bg-[#0A0D0E] border border-white/15 rounded-xl px-4 py-3 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-[#5EFC8D]"
-                  />
-                </div>
-                <div>
-                  <label className="block text-xs font-semibold text-gray-300 mb-2">
-                    Area of Interest
-                  </label>
-                  <select
-                    value={formData.service}
-                    onChange={(e) => setFormData({ ...formData, service: e.target.value })}
-                    className="w-full bg-[#0A0D0E] border border-white/15 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-[#5EFC8D]"
-                  >
-                    <option value="US Print-on-Demand Fulfillment (<24H SLA)">US Print-on-Demand Fulfillment (&lt;24H SLA)</option>
-                    <option value="Sales Automation & Multi-Channel Sync">Sales Automation & Multi-Channel Sync</option>
-                    <option value="Digital Advertising & ROAS Scaling">Digital Advertising & ROAS Scaling</option>
-                    <option value="WMS & Open API Systems Integration">WMS & Open API Systems Integration</option>
-                    <option value="Eweb Suite Platform Onboarding">Eweb Suite Platform Onboarding</option>
-                  </select>
-                </div>
-              </div>
-
-              <div>
-                <label className="block text-xs font-semibold text-gray-300 mb-2">
-                  Project Overview or Message *
-                </label>
-                <textarea
-                  required
-                  rows={4}
-                  placeholder="Tell us about your storefront, order volume, or operational challenges..."
-                  value={formData.message}
-                  onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                  className="w-full bg-[#0A0D0E] border border-white/15 rounded-xl px-4 py-3 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-[#5EFC8D]"
-                />
-              </div>
-
-              <button
-                type="submit"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-[#5EFC8D] hover:bg-[#4ee37e] text-black font-medium text-sm px-8 py-3.5 rounded-full transition duration-300"
-              >
-                <span>Submit Inquiry</span>
-                <Send className="w-4 h-4" />
-              </button>
-            </form>
-          )}
-        </div>
-
-        {/* Right Direct Channels */}
-        <div className="lg:col-span-5 flex flex-col justify-between space-y-8">
-          <div className="p-8 rounded-[32px] bg-[#141718] border border-white/10">
-            <h3 className="text-xl font-bold text-white mb-4">Direct Contacts</h3>
-            <div className="space-y-4 text-sm text-gray-300">
-              <div className="flex items-center gap-3">
-                <div className="w-9 h-9 rounded-full bg-white/5 flex items-center justify-center text-[#5EFC8D]">
-                  <Mail className="w-4 h-4" />
-                </div>
-                <div>
-                  <span className="block text-xs text-gray-400 font-semibold">General &amp; Sales Inquiries</span>
-                  <a href="mailto:support@egead.com" className="hover:text-[#5EFC8D] transition">
-                    support@egead.com
-                  </a>
-                </div>
-              </div>
-              <div className="flex items-center gap-3">
-                <div className="w-9 h-9 rounded-full bg-white/5 flex items-center justify-center text-[#5EFC8D]">
-                  <Mail className="w-4 h-4" />
-                </div>
-                <div>
-                  <span className="block text-xs text-gray-400 font-semibold">Partnership &amp; US Operations</span>
-                  <a href="mailto:contact@egeadcompany.com" className="hover:text-[#5EFC8D] transition">
-                    contact@egeadcompany.com
-                  </a>
-                </div>
-              </div>
-              <div className="flex items-center gap-3">
-                <div className="w-9 h-9 rounded-full bg-white/5 flex items-center justify-center text-[#5EFC8D]">
-                  <MapPin className="w-4 h-4" />
-                </div>
-                <div>
-                  <span className="block text-xs text-gray-400 font-semibold">Headquarters</span>
-                  <span>Buon Ma Thuot City, Dak Lak, Vietnam</span>
-                </div>
-              </div>
-            </div>
+      <div className="w-full px-6 sm:px-10 lg:px-14 xl:px-16">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
+          {/* Left Title Column */}
+          <div className="lg:col-span-4">
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="text-2xl sm:text-3xl lg:text-[34px] font-semibold text-[#0A1C2A] font-montserrat leading-snug sticky top-32"
+            >
+              Leave Us Your Information, <br className="hidden sm:inline" />
+              and We&apos;ll Be in Touch.
+            </motion.h2>
           </div>
 
-          <div className="p-8 rounded-[32px] bg-[#141718] border border-white/10">
-            <h3 className="text-xl font-bold text-white mb-2">99.9% Fulfillment Accuracy</h3>
-            <p className="text-xs text-gray-400 mb-4 leading-relaxed">
-              E-GEAD enforces strict barcode verification, enterprise data protection, and 100% marketplace SLA compliance verified across millions of shipments.
-            </p>
-            <img src="/assets/Badges_SOC.svg" alt="SOC Badge" className="h-10 w-auto" />
+          {/* Right Form Column */}
+          <div className="lg:col-span-8">
+            {submitted ? (
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                className="p-8 sm:p-12 rounded-2xl bg-slate-50 border border-slate-200 text-center"
+              >
+                <div className="w-14 h-14 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto mb-4">
+                  <CheckCircle2 className="w-8 h-8" />
+                </div>
+                <h3 className="text-2xl font-bold text-slate-900 font-montserrat mb-2">
+                  Thank You for Reaching Out!
+                </h3>
+                <p className="text-sm text-slate-600 max-w-md mx-auto mb-6 leading-relaxed font-montserrat">
+                  We have received your message. One of our regional directors will review your inquiry and get back to you shortly.
+                </p>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setSubmitted(false);
+                    resetMutation();
+                    setFormData({
+                      firstName: '',
+                      lastName: '',
+                      company: '',
+                      email: '',
+                      phone: '',
+                      region: '',
+                      message: '',
+                    });
+                  }}
+                  className="px-6 py-2.5 rounded-full bg-slate-900 text-white text-xs font-semibold hover:bg-slate-800 transition"
+                >
+                  Send another inquiry
+                </button>
+              </motion.div>
+            ) : (
+              <form onSubmit={handleSubmit} className="space-y-6">
+                {errorMessage && (
+                  <div className="p-4 rounded-xl bg-red-50 border border-red-200 text-red-700 text-xs sm:text-sm flex items-start gap-2.5">
+                    <AlertCircle className="w-5 h-5 flex-shrink-0 text-red-500 mt-0.5" />
+                    <span>{errorMessage}</span>
+                  </div>
+                )}
+
+                {/* Row 1: First Name, Last Name, Company */}
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 sm:gap-6">
+                  <div>
+                    <label className="block text-xs font-bold text-slate-900 mb-2 font-montserrat">
+                      First Name<span className="text-red-500 ml-0.5">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      required
+                      placeholder="Enter your First Name"
+                      value={formData.firstName}
+                      onChange={(e) =>
+                        setFormData({ ...formData, firstName: e.target.value })
+                      }
+                      className="contact-form-field w-full bg-white border border-slate-300 rounded-lg px-3.5 py-3 text-sm sm:text-base font-semibold text-slate-950 placeholder:text-slate-400 placeholder:font-normal focus:outline-none focus:border-slate-900 focus:ring-1 focus:ring-slate-900 transition-colors"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-bold text-slate-900 mb-2 font-montserrat">
+                      Last Name<span className="text-red-500 ml-0.5">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      required
+                      placeholder="Enter your Last Name"
+                      value={formData.lastName}
+                      onChange={(e) =>
+                        setFormData({ ...formData, lastName: e.target.value })
+                      }
+                      className="contact-form-field w-full bg-white border border-slate-300 rounded-lg px-3.5 py-3 text-sm sm:text-base font-semibold text-slate-950 placeholder:text-slate-400 placeholder:font-normal focus:outline-none focus:border-slate-900 focus:ring-1 focus:ring-slate-900 transition-colors"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-bold text-slate-900 mb-2 font-montserrat">
+                      Company
+                    </label>
+                    <input
+                      type="text"
+                      placeholder="Enter your Company (Optional)"
+                      value={formData.company}
+                      onChange={(e) =>
+                        setFormData({ ...formData, company: e.target.value })
+                      }
+                      className="contact-form-field w-full bg-white border border-slate-300 rounded-lg px-3.5 py-3 text-sm sm:text-base font-semibold text-slate-950 placeholder:text-slate-400 placeholder:font-normal focus:outline-none focus:border-slate-900 focus:ring-1 focus:ring-slate-900 transition-colors"
+                    />
+                  </div>
+                </div>
+
+                {/* Row 2: Email, Phone, Region */}
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 sm:gap-6">
+                  <div>
+                    <label className="block text-xs font-bold text-slate-900 mb-2 font-montserrat">
+                      Email<span className="text-red-500 ml-0.5">*</span>
+                    </label>
+                    <input
+                      type="email"
+                      required
+                      placeholder="Enter your Email"
+                      value={formData.email}
+                      onChange={(e) =>
+                        setFormData({ ...formData, email: e.target.value })
+                      }
+                      className="contact-form-field w-full bg-white border border-slate-300 rounded-lg px-3.5 py-3 text-sm sm:text-base font-semibold text-slate-950 placeholder:text-slate-400 placeholder:font-normal focus:outline-none focus:border-slate-900 focus:ring-1 focus:ring-slate-900 transition-colors"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-bold text-slate-900 mb-2 font-montserrat">
+                      Phone
+                    </label>
+                    <input
+                      type="tel"
+                      placeholder="Enter your Phone Number"
+                      value={formData.phone}
+                      onChange={(e) =>
+                        setFormData({ ...formData, phone: e.target.value })
+                      }
+                      className="contact-form-field w-full bg-white border border-slate-300 rounded-lg px-3.5 py-3 text-sm sm:text-base font-semibold text-slate-950 placeholder:text-slate-400 placeholder:font-normal focus:outline-none focus:border-slate-900 focus:ring-1 focus:ring-slate-900 transition-colors"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-bold text-slate-900 mb-2 font-montserrat">
+                      Region
+                    </label>
+                    <div className="relative">
+                      <select
+                        value={formData.region}
+                        onChange={(e) =>
+                          setFormData({ ...formData, region: e.target.value })
+                        }
+                        className="contact-form-field w-full appearance-none bg-white border border-slate-300 rounded-lg px-3.5 py-3 pr-9 text-sm sm:text-base font-semibold text-slate-950 focus:outline-none focus:border-slate-900 focus:ring-1 focus:ring-slate-900 transition-colors cursor-pointer"
+                      >
+                        <option value="" className="text-slate-400 font-normal">
+                          Select a Region (Optional)
+                        </option>
+                        {REGIONS.map((r) => (
+                          <option key={r} value={r} className="text-slate-950 font-semibold">
+                            {r}
+                          </option>
+                        ))}
+                      </select>
+                      <ChevronDown className="w-4 h-4 text-slate-500 pointer-events-none absolute right-3.5 top-1/2 -translate-y-1/2" />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Row 3: Message */}
+                <div>
+                  <label className="block text-xs font-bold text-slate-900 mb-2 font-montserrat">
+                    Message<span className="text-red-500 ml-0.5">*</span>
+                  </label>
+                  <textarea
+                    required
+                    rows={5}
+                    placeholder="Enter a Message..."
+                    value={formData.message}
+                    onChange={(e) =>
+                      setFormData({ ...formData, message: e.target.value })
+                    }
+                    className="contact-form-field w-full bg-white border border-slate-300 rounded-lg p-3.5 text-sm sm:text-base font-semibold text-slate-950 placeholder:text-slate-400 placeholder:font-normal focus:outline-none focus:border-slate-900 focus:ring-1 focus:ring-slate-900 transition-colors"
+                  />
+                </div>
+
+                {/* Privacy note */}
+                <p className="text-sm text-gray-800 font-light leading-relaxed font-montserrat">
+                  This site is protected by reCAPTCHA and the{' '}
+                  <a
+                    href="https://policies.google.com/privacy?hl=en"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="underline text-slate-700 hover:text-black"
+                  >
+                    Google Privacy Policy
+                  </a>{' '}
+                  and{' '}
+                  <a
+                    href="https://policies.google.com/terms?hl=en"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="underline text-slate-700 hover:text-black"
+                  >
+                    Terms of Service
+                  </a>{' '}
+                  apply.
+                </p>
+
+                {/* Submit Pill Button */}
+                <div className="pt-2">
+                  <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="group inline-flex items-center gap-2.5 bg-black hover:bg-slate-800 text-white font-medium text-sm px-8 py-3.5 rounded-full transition-all duration-300 shadow-md hover:shadow-lg disabled:opacity-60 cursor-pointer"
+                  >
+                    <svg
+                      width="16"
+                      height="16"
+                      viewBox="0 0 19 18"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="fill-white transition-transform duration-300 group-hover:translate-x-0.5"
+                    >
+                      <path d="M15.125 10.875L10.625 15.375L9.56 14.31L12.2525 11.625H3.875V2.625H5.375V10.125H12.2525L9.56 7.44L10.625 6.375L15.125 10.875Z" />
+                    </svg>
+                    <span>{isSubmitting ? 'Submitting...' : 'Submit'}</span>
+                  </button>
+                </div>
+              </form>
+            )}
+
+            {/* Direct Email block */}
+            <div className="mt-16 pt-10 border-t border-slate-200">
+              <span className="block text-xs font-medium text-slate-500 mb-2 font-montserrat">
+                Or email us at
+              </span>
+              <a
+                href="mailto:contact@egead-company.com"
+                className="inline-flex items-center gap-3 text-lg sm:text-2xl font-bold text-slate-900 hover:text-emerald-600 transition-colors group"
+              >
+                <div className="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-slate-800 group-hover:bg-emerald-50 group-hover:text-emerald-600 transition-colors">
+                  <Mail className="w-5 h-5" />
+                </div>
+                <span>contact@egead-company.com</span>
+              </a>
+            </div>
           </div>
         </div>
       </div>
-    </motion.section>
+    </section>
   );
 }

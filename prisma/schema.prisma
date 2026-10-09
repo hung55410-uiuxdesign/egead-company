@@ -169,3 +169,27 @@ model LeaderHierarchy {
   @@map("leader_hierarchy")
 }
 
+// -------------------------------------------------------------
+// E-GEAD Contact & Inquiry Models
+// -------------------------------------------------------------
+
+model ContactInquiry {
+  id        String   @id @default(cuid())
+  firstName String
+  lastName  String
+  fullName  String
+  company   String
+  email     String
+  phone     String?
+  region    String
+  message   String   @db.Text
+  status    String   @default("new") // "new" | "contacted" | "resolved" | "archived"
+  notes     String?  @db.Text
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([status])
+  @@index([email])
+  @@map("contact_inquiry")
+}
+

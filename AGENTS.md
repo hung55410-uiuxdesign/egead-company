@@ -27,6 +27,16 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
      - `EmptyState`: Cho các màn hình không có dữ liệu hoặc tìm kiếm rỗng.
      - `Field`, `FieldLabel`: Cho các trường form nhập liệu.
 
+4. **Ưu tiên số một: Quản lý State và Bắt buộc sử dụng TanStack Query & Zustand:**
+   - **TanStack Query (`@tanstack/react-query`)**:
+     - BẮT BUỘC là lựa chọn ưu tiên hàng đầu cho toàn bộ thao tác kết nối dữ liệu máy chủ / API (cả khu vực Admin lẫn các trang Public).
+     - TUYỆT ĐỐI KHÔNG gọi `fetch` hoặc `axios` trực tiếp trong thân component. Mọi logic API phải được trừu tượng hóa và tách thành custom hooks chuyên biệt trong `lib/hooks/` (sử dụng `useQuery`, `useMutation`).
+     - Tận dụng tối đa các tính năng tự động của TanStack Query: quản lý cache, đồng bộ dữ liệu (`invalidateQueries`), trạng thái loading (`isPending`, `isLoading`), xử lý lỗi (`error`), và retry để code component luôn tinh gọn, sạch sẽ và dễ bảo trì.
+   - **Zustand (`zustand`)**:
+     - BẮT BUỘC sử dụng Zustand cho toàn bộ Global Client State (trạng thái mở/đóng sidebar, drawer, modal, bộ lọc tìm kiếm dùng chung, giỏ hàng, cài đặt người dùng, v.v.).
+     - TUYỆT ĐỐI KHÔNG prop-drilling qua nhiều tầng component hoặc lạm dụng `useState` phân mảnh gây khó đồng bộ và khó kiểm soát state.
+     - Đặt các store có cấu trúc rõ ràng theo từng miền nghiệp vụ trong thư mục `lib/stores/` (hoặc `stores/`).
+
 <!-- ASTRYX:START -->
 Astryx v0.6.6 · 168 components
 CLI: run every command as `bunx astryx <cmd>` (shown below as `astryx ...`).

@@ -6,3 +6,4 @@ export * from './useCategoryMutations';
 export * from './usePeopleMutations';
 export * from './useCareerMutations';
 export * from './useCareerApplicationMutations';
+export * from './useContactInquiryMutations';

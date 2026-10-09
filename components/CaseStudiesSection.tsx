@@ -214,24 +214,24 @@ export default function CaseStudiesSection({
 
   // If used on Company Page
   if (variant === 'company') {
-    const clientsDoubled = [...companyClientLogos, ...companyClientLogos];
-    const servicesDoubled = [...companyServiceLogos, ...companyServiceLogos];
+    const clientsDoubled = [...companyClientLogos, ...companyClientLogos, ...companyClientLogos];
+    const servicesDoubled = [...companyServiceLogos, ...companyServiceLogos, ...companyServiceLogos];
 
     return (
       <section
         id={id}
-        className="relative w-full bg-[#0A0D0E] text-white overflow-hidden py-12 sm:py-16 scroll-mt-28"
+        className="relative w-full bg-[#0A0D0E] text-white overflow-hidden py-14 sm:py-20 scroll-mt-28"
       >
         {/* =========================================================
             ROW 1: CLIENTS
         ========================================================= */}
-        <div className="w-full pb-16 sm:pb-20 border-b border-white/5">
-          <div className="w-full px-6 sm:px-10 lg:px-14 xl:px-16 mb-8">
+        <div className="w-full pb-16 sm:pb-24 border-b border-white/5">
+          <div className="w-full px-6 sm:px-10 lg:px-14 xl:px-16 mb-10 sm:mb-12">
             <motion.p
               initial={{ opacity: 0, y: 15 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="text-sm sm:text-base font-normal text-[#D4FAE6] mb-2 font-montserrat"
+              className="text-sm sm:text-base font-normal text-[#D4FAE6] mb-2.5 font-montserrat"
             >
               Clients
             </motion.p>
@@ -240,7 +240,7 @@ export default function CaseStudiesSection({
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.1 }}
-              className="text-xl sm:text-2xl lg:text-[32px] font-normal text-white font-montserrat leading-snug"
+              className="text-xl sm:text-2xl lg:text-[34px] font-normal text-white font-montserrat leading-snug max-w-4xl"
             >
               We work with established global enterprises and ambitious brands.
             </motion.h3>
@@ -249,24 +249,24 @@ export default function CaseStudiesSection({
           {/* Marquee Track for Clients */}
           <div className="relative w-full overflow-hidden">
             {/* Edge Gradients */}
-            <div className="pointer-events-none absolute inset-y-0 left-0 w-24 sm:w-44 bg-gradient-to-r from-[#0A0D0E] via-[#0A0D0E]/80 to-transparent z-10" />
-            <div className="pointer-events-none absolute inset-y-0 right-0 w-24 sm:w-44 bg-gradient-to-l from-[#0A0D0E] via-[#0A0D0E]/80 to-transparent z-10" />
+            <div className="pointer-events-none absolute inset-y-0 left-0 w-24 sm:w-48 bg-gradient-to-r from-[#0A0D0E] via-[#0A0D0E]/80 to-transparent z-10" />
+            <div className="pointer-events-none absolute inset-y-0 right-0 w-24 sm:w-48 bg-gradient-to-l from-[#0A0D0E] via-[#0A0D0E]/80 to-transparent z-10" />
 
             <div
-              className="flex w-max pause-hover items-center gap-10 sm:gap-14 lg:gap-16 py-3"
-              style={{ animation: 'marquee 55s linear infinite' }}
+              className="flex w-max pause-hover items-center gap-12 sm:gap-16 lg:gap-20 py-4 sm:py-6"
+              style={{ animation: 'marquee 50s linear infinite' }}
             >
               {clientsDoubled.map((client, idx) => (
                 <motion.div
                   key={`client-${idx}`}
-                  whileHover={{ scale: 1.18 }}
+                  whileHover={{ scale: 1.15 }}
                   transition={{ type: 'spring', stiffness: 400, damping: 15 }}
-                  className="flex items-center justify-center min-w-[140px] sm:min-w-[170px] lg:min-w-[200px] h-12 sm:h-14 lg:h-16 opacity-75 hover:opacity-100 transition-opacity duration-300 group cursor-pointer"
+                  className="flex items-center justify-center min-w-[160px] sm:min-w-[200px] lg:min-w-[240px] h-16 sm:h-20 lg:h-24 opacity-80 hover:opacity-100 transition-all duration-300 group cursor-pointer px-4"
                 >
                   <img
                     src={client.src}
                     alt={client.name}
-                    className="h-full w-auto max-h-10 sm:max-h-12 max-w-[160px] object-contain invert drop-shadow-sm group-hover:drop-shadow-[0_0_12px_rgba(108,232,195,0.6)] transition-all duration-300 pointer-events-none"
+                    className="h-12 sm:h-16 lg:h-20 w-auto max-w-[170px] sm:max-w-[210px] lg:max-w-[240px] object-contain brightness-0 invert drop-shadow-sm group-hover:drop-shadow-[0_0_16px_rgba(108,232,195,0.7)] transition-all duration-300 pointer-events-none"
                   />
                 </motion.div>
               ))}
@@ -277,13 +277,13 @@ export default function CaseStudiesSection({
         {/* =========================================================
             ROW 2: SERVICES / TECH PARTNERS
         ========================================================= */}
-        <div className="w-full pt-16 sm:pt-20">
-          <div className="w-full px-6 sm:px-10 lg:px-14 xl:px-16 mb-8">
+        <div className="w-full pt-16 sm:pt-24">
+          <div className="w-full px-6 sm:px-10 lg:px-14 xl:px-16 mb-10 sm:mb-12">
             <motion.p
               initial={{ opacity: 0, y: 15 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="text-sm sm:text-base font-normal text-[#D4FAE6] mb-2 font-montserrat"
+              className="text-sm sm:text-base font-normal text-[#D4FAE6] mb-2.5 font-montserrat"
             >
               Services
             </motion.p>
@@ -292,7 +292,7 @@ export default function CaseStudiesSection({
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.1 }}
-              className="text-xl sm:text-2xl lg:text-[32px] font-normal text-white font-montserrat leading-snug"
+              className="text-xl sm:text-2xl lg:text-[34px] font-normal text-white font-montserrat leading-snug max-w-4xl"
             >
               We are partnering with leading tech providers.
             </motion.h3>
@@ -301,24 +301,24 @@ export default function CaseStudiesSection({
           {/* Marquee Track for Services */}
           <div className="relative w-full overflow-hidden">
             {/* Edge Gradients */}
-            <div className="pointer-events-none absolute inset-y-0 left-0 w-24 sm:w-44 bg-gradient-to-r from-[#0A0D0E] via-[#0A0D0E]/80 to-transparent z-10" />
-            <div className="pointer-events-none absolute inset-y-0 right-0 w-24 sm:w-44 bg-gradient-to-l from-[#0A0D0E] via-[#0A0D0E]/80 to-transparent z-10" />
+            <div className="pointer-events-none absolute inset-y-0 left-0 w-24 sm:w-48 bg-gradient-to-r from-[#0A0D0E] via-[#0A0D0E]/80 to-transparent z-10" />
+            <div className="pointer-events-none absolute inset-y-0 right-0 w-24 sm:w-48 bg-gradient-to-l from-[#0A0D0E] via-[#0A0D0E]/80 to-transparent z-10" />
 
             <div
-              className="flex w-max pause-hover items-center gap-10 sm:gap-14 lg:gap-16 py-3"
-              style={{ animation: 'marquee 60s linear infinite reverse' }}
+              className="flex w-max pause-hover items-center gap-12 sm:gap-16 lg:gap-20 py-4 sm:py-6"
+              style={{ animation: 'marquee 55s linear infinite reverse' }}
             >
               {servicesDoubled.map((service, idx) => (
                 <motion.div
                   key={`service-${idx}`}
-                  whileHover={{ scale: 1.18 }}
+                  whileHover={{ scale: 1.15 }}
                   transition={{ type: 'spring', stiffness: 400, damping: 15 }}
-                  className="flex items-center justify-center min-w-[140px] sm:min-w-[170px] lg:min-w-[200px] h-12 sm:h-14 lg:h-16 opacity-75 hover:opacity-100 transition-opacity duration-300 group cursor-pointer"
+                  className="flex items-center justify-center min-w-[160px] sm:min-w-[200px] lg:min-w-[240px] h-16 sm:h-20 lg:h-24 opacity-80 hover:opacity-100 transition-all duration-300 group cursor-pointer px-4"
                 >
                   <img
                     src={service.src}
                     alt={service.name}
-                    className="h-full w-auto max-h-10 sm:max-h-12 max-w-[160px] object-contain invert drop-shadow-sm group-hover:drop-shadow-[0_0_12px_rgba(108,232,195,0.6)] transition-all duration-300 pointer-events-none"
+                    className="h-12 sm:h-16 lg:h-20 w-auto max-w-[170px] sm:max-w-[210px] lg:max-w-[240px] object-contain brightness-0 invert drop-shadow-sm group-hover:drop-shadow-[0_0_16px_rgba(108,232,195,0.7)] transition-all duration-300 pointer-events-none"
                   />
                 </motion.div>
               ))}

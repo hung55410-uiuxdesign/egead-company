@@ -9,18 +9,22 @@ import {
 } from "lucide-react";
 import { getAllPosts, getBlogStats, getCategories } from "@/lib/blogs";
 import { getCareerStats } from "@/lib/careers";
+import { getAllContactInquiries, getContactStats } from "@/lib/contacts";
 import { Card, Button, Badge, EmptyState } from "@astryxdesign/core";
 import DashboardPromoCarousel from "@/components/admin/dashboard/DashboardPromoCarousel";
 
 export const dynamic = "force-dynamic";
 
 export default async function AdminDashboardPage() {
-  const [stats, allPosts, categories, careerStats] = await Promise.all([
-    getBlogStats(),
-    getAllPosts(),
-    getCategories(),
-    getCareerStats(),
-  ]);
+  const [stats, allPosts, categories, careerStats, contactStats, recentInquiries] =
+    await Promise.all([
+      getBlogStats(),
+      getAllPosts(),
+      getCategories(),
+      getCareerStats(),
+      getContactStats(),
+      getAllContactInquiries(),
+    ]);
 
   const recentPosts = [...allPosts]
     .sort((a, b) => {
@@ -174,104 +178,205 @@ export default async function AdminDashboardPage() {
         blogStats={stats}
       />
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <Card
-          variant="default"
-          className="lg:col-span-2 rounded-2xl overflow-hidden p-0 h-fit"
-        >
-          <div className="px-6 py-4 border-b border-slate-200/80 flex items-center justify-between bg-slate-50/50">
-            <div>
-              <h2 className="text-base font-bold text-slate-900">
-                Bài viết gần đây
-              </h2>
-              <p className="text-xs text-gray-700 mt-0.5">
-                Các bài viết mới nhất đã tạo hoặc chỉnh sửa trong hệ thống
-              </p>
-            </div>
-            <Button
-              label="Xem tất cả bài viết"
-              variant="primary"
-              size="sm"
-              href="/admin/blogs"
-              className="px-4 h-10"
-            />
-          </div>
-
-          <div className="divide-y divide-slate-100">
-            {recentPosts.length === 0 ? (
-              <div className="py-10 px-4">
-                <EmptyState
-                  title="Chưa có bài viết nào"
-                  description="Hệ thống chưa có bài viết nào. Hãy tạo bài viết đầu tiên của bạn."
-                  actions={
-                    <Button
-                      label="Tạo bài viết mới"
-                      variant="primary"
-                      href="/admin/blogs/new"
-                      className="h-10 px-4"
-                    />
-                  }
-                />
+        <div className="lg:col-span-2 space-y-6">
+          <Card
+            variant="default"
+            className="rounded-2xl overflow-hidden p-0 h-fit"
+          >
+            <div className="px-6 py-4 border-b border-slate-200/80 flex items-center justify-between bg-slate-50/50">
+              <div>
+                <h2 className="text-base font-bold text-slate-900">
+                  Bài viết gần đây
+                </h2>
+                <p className="text-xs text-gray-700 mt-0.5">
+                  Các bài viết mới nhất đã tạo hoặc chỉnh sửa trong hệ thống
+                </p>
               </div>
-            ) : (
-              recentPosts.slice(0, 5).map((post) => (
-                <div
-                  key={post.id}
-                  className="p-5 hover:bg-slate-50/70 transition-colors flex flex-col sm:flex-row sm:items-center justify-between gap-4 group"
-                >
-                  {/* Post details */}
-                  <div className="min-w-0 flex-1">
-                    <div className="flex items-center gap-2 mb-2 flex-wrap">
-                      <Badge
-                        label={post.tag || post.category || "General"}
-                        variant="purple"
-                        className="px-4 h-8"
+              <Button
+                label="Xem tất cả bài viết"
+                variant="primary"
+                size="sm"
+                href="/admin/blogs"
+                className="px-4 h-10"
+              />
+            </div>
+
+            <div className="divide-y divide-slate-100">
+              {recentPosts.length === 0 ? (
+                <div className="py-10 px-4">
+                  <EmptyState
+                    title="Chưa có bài viết nào"
+                    description="Hệ thống chưa có bài viết nào. Hãy tạo bài viết đầu tiên của bạn."
+                    actions={
+                      <Button
+                        label="Tạo bài viết mới"
+                        variant="primary"
+                        href="/admin/blogs/new"
+                        className="h-10 px-4"
                       />
-                      <Badge
-                        label={
-                          post.status === "published"
-                            ? "Đã xuất bản"
-                            : "Bản nháp"
-                        }
-                        variant={
-                          post.status === "published" ? "success" : "warning"
-                        }
-                        className="px-4 h-8"
-                      />
-                      <span className="text-xs text-gray-600">
-                        {post.date}
-                      </span>
+                    }
+                  />
+                </div>
+              ) : (
+                recentPosts.slice(0, 5).map((post) => (
+                  <div
+                    key={post.id}
+                    className="p-5 hover:bg-slate-50/70 transition-colors flex flex-col sm:flex-row sm:items-center justify-between gap-4 group"
+                  >
+                    {/* Post details */}
+                    <div className="min-w-0 flex-1">
+                      <div className="flex items-center gap-2 mb-2 flex-wrap">
+                        <Badge
+                          label={post.tag || post.category || "General"}
+                          variant="purple"
+                          className="px-4 h-8"
+                        />
+                        <Badge
+                          label={
+                            post.status === "published"
+                              ? "Đã xuất bản"
+                              : "Bản nháp"
+                          }
+                          variant={
+                            post.status === "published" ? "success" : "warning"
+                          }
+                          className="px-4 h-8"
+                        />
+                        <span className="text-xs text-gray-600">
+                          {post.date}
+                        </span>
+                      </div>
+
+                      <h3 className="px-4 text-sm font-bold text-slate-900 group-hover:text-emerald-700 transition-colors line-clamp-1">
+                        <Link href={`/admin/blogs/${post.id}`}>{post.title}</Link>
+                      </h3>
+                      <p className="px-4 text-xs text-slate-500 line-clamp-1 mt-1">
+                        {post.excerpt || "Chưa có mô tả tóm tắt..."}
+                      </p>
                     </div>
 
-                    <h3 className="px-4 text-sm font-bold text-slate-900 group-hover:text-emerald-700 transition-colors line-clamp-1">
-                      <Link href={`/admin/blogs/${post.id}`}>{post.title}</Link>
-                    </h3>
-                    <p className="px-4 text-xs text-slate-500 line-clamp-1 mt-1">
-                      {post.excerpt || "Chưa có mô tả tóm tắt..."}
-                    </p>
+                    {/* Actions */}
+                    <div className="flex items-center gap-2 shrink-0 self-end sm:self-auto">
+                      <Button
+                        label="Xem trên website"
+                        isIconOnly
+                        icon={<ArrowUpRight className="w-5 h-5 text-gray-700" />}
+                        href={`/articles/${post.slug}`}
+                        target="_blank"
+                        className="h-10 w-10"
+                      />
+                      <Button
+                        label="Chỉnh sửa"
+                        variant="primary"
+                        href={`/admin/blogs/${post.id}`}
+                        className="h-10 px-4"
+                      />
+                    </div>
                   </div>
+                ))
+              )}
+            </div>
+          </Card>
 
-                  {/* Actions */}
-                  <div className="flex items-center gap-2 shrink-0 self-end sm:self-auto">
-                    <Button
-                      label="Xem trên website"
-                      isIconOnly
-                      icon={<ArrowUpRight className="w-5 h-5 text-gray-700" />}
-                      href={`/articles/${post.slug}`}
-                      target="_blank"
-                      className="h-10 w-10"
+          {/* Recent Contact Inquiries */}
+          <Card
+            variant="default"
+            className="rounded-2xl overflow-hidden p-0 h-fit"
+          >
+            <div className="px-6 py-4 border-b border-slate-200/80 flex items-center justify-between bg-slate-50/50">
+              <div>
+                <div className="flex items-center gap-2">
+                  <h2 className="text-base font-bold text-slate-900">
+                    Yêu cầu liên hệ &amp; tư vấn mới
+                  </h2>
+                  {contactStats.newCount > 0 && (
+                    <Badge
+                      label={`${contactStats.newCount} mới`}
+                      variant="info"
+                      className="h-8 px-4"
                     />
-                    <Button
-                      label="Chỉnh sửa"
-                      variant="primary"
-                      href={`/admin/blogs/${post.id}`}
-                      className="h-10 px-4"
-                    />
-                  </div>
+                  )}
                 </div>
-              ))
-            )}
-          </div>
-        </Card>
+                <p className="text-xs text-gray-700 mt-0.5">
+                  Khách hàng doanh nghiệp và đối tác liên hệ gần đây
+                </p>
+              </div>
+              <Button
+                label={`Xem tất cả (${contactStats.total})`}
+                variant="primary"
+                size="sm"
+                href="/admin/contacts"
+                className="px-4 h-10"
+              />
+            </div>
+
+            <div className="divide-y divide-slate-100">
+              {recentInquiries.length === 0 ? (
+                <div className="py-10 px-4">
+                  <EmptyState
+                    title="Chưa có yêu cầu liên hệ nào"
+                    description="Hiện tại chưa có khách hàng gửi yêu cầu tư vấn mới."
+                  />
+                </div>
+              ) : (
+                recentInquiries.slice(0, 4).map((inq) => (
+                  <div
+                    key={inq.id}
+                    className="p-5 hover:bg-slate-50/70 transition-colors flex flex-col sm:flex-row sm:items-center justify-between gap-4"
+                  >
+                    <div className="min-w-0 space-y-1">
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <span className="font-bold text-slate-900 text-sm">
+                          {inq.fullName}
+                        </span>
+                        <span className="text-slate-400 text-xs">•</span>
+                        <span className="text-emerald-700 font-semibold text-xs">
+                          {inq.company}
+                        </span>
+                        <span className="text-slate-400 text-xs">•</span>
+                        <span className="text-slate-500 text-xs">
+                          {inq.region}
+                        </span>
+                      </div>
+                      <p className="text-xs text-slate-600 line-clamp-1 max-w-xl">
+                        {inq.message}
+                      </p>
+                    </div>
+                    <div className="flex items-center gap-3 shrink-0">
+                      <Badge
+                        label={
+                          inq.status === 'new'
+                            ? 'Mới nhận'
+                            : inq.status === 'contacted'
+                            ? 'Đã liên hệ'
+                            : inq.status === 'resolved'
+                            ? 'Đã xử lý'
+                            : 'Lưu trữ'
+                        }
+                        variant={
+                          inq.status === 'new'
+                            ? 'info'
+                            : inq.status === 'contacted'
+                            ? 'warning'
+                            : inq.status === 'resolved'
+                            ? 'success'
+                            : 'neutral'
+                        }
+                        className="h-8 px-4"
+                      />
+                      <Button
+                        label="Chi tiết"
+                        variant="secondary"
+                        href="/admin/contacts"
+                        className="h-10 px-4"
+                      />
+                    </div>
+                  </div>
+                ))
+              )}
+            </div>
+          </Card>
+        </div>
 
         <div className="space-y-6">
           <Card variant="default" className="rounded-2xl p-0">

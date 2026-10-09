@@ -57,6 +57,8 @@ export default function AdminNavbar({ onOpenSidebar }: AdminNavbarProps) {
     } else if (pathname?.startsWith("/admin/careers/")) {
       items.push({ label: "Tuyển dụng", href: "/admin/careers" });
       items.push({ label: "Chỉnh sửa tin tuyển dụng" });
+    } else if (pathname === "/admin/contacts") {
+      items.push({ label: "Yêu cầu liên hệ & Tư vấn" });
     } else if (pathname === "/admin/settings") {
       items.push({ label: "Cấu hình hệ thống" });
     } else {

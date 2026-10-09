@@ -17,6 +17,7 @@ import {
   Users,
   FileInput,
   GitFork,
+  Mail,
 } from 'lucide-react';
 import { useSession, authClient } from '@/lib/auth-client';
 import { Badge, Button } from '@astryxdesign/core';
@@ -43,6 +44,15 @@ const CONTENT_NAV_ITEMS = [
     label: 'Chuyên mục & Thẻ',
     href: '/admin/categories',
     icon: FolderTree,
+    exact: false,
+  },
+];
+
+const CONTACT_NAV_ITEMS = [
+  {
+    label: 'Yêu cầu liên hệ & Tư vấn',
+    href: '/admin/contacts',
+    icon: Mail,
     exact: false,
   },
 ];
@@ -201,6 +211,25 @@ export default function AdminSidebar({ isOpen, onClose }: AdminSidebarProps) {
             </div>
             <nav className="space-y-1">
               {CONTENT_NAV_ITEMS.map((item) => (
+                <SidebarNavLink
+                  key={item.href}
+                  href={item.href}
+                  label={item.label}
+                  icon={item.icon}
+                  isActive={Boolean(item.exact ? pathname === item.href : pathname?.startsWith(item.href))}
+                  onClose={onClose}
+                />
+              ))}
+            </nav>
+          </div>
+
+          {/* Customer & Contacts Group */}
+          <div>
+            <div className="px-3 mb-2 text-xs font-bold text-slate-500 flex items-center justify-between">
+              <span>Khách hàng &amp; Liên hệ</span>
+            </div>
+            <nav className="space-y-1">
+              {CONTACT_NAV_ITEMS.map((item) => (
                 <SidebarNavLink
                   key={item.href}
                   href={item.href}

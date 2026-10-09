@@ -1,38 +1,23 @@
-type OfficeItem = {
+export interface OfficeItem {
+  id: string;
   country: string;
   city: string;
+  company: string;
   address: string;
+  phone: string;
   email: string;
-  type: string;
+  timezone: string;
 }
 
-export const OFFICES: OfficeItem[] = [
+export const OFFICES_DATA: OfficeItem[] = [
   {
+    id: 'vietnam-bmt',
     country: 'Vietnam',
-    city: 'Buon Ma Thuot City, Dak Lak Province',
-    address: '217/9 Ngo Quyen Street, Tan An Ward, Buon Ma Thuot City, Dak Lak Province, Vietnam',
-    email: 'support@egead.com',
-    type: 'Headquarters & Engineering Hub',
-  },
-  {
-    country: 'United States',
-    city: 'California & East Coast Centers',
-    address: 'High-throughput 23-inch POD manufacturing lines and WMS distribution facilities',
-    email: 'contact@egeadcompany.com',
-    type: 'US Production & Logistics Network',
-  },
-  {
-    country: 'International Support',
-    city: 'US, UK & EU Timezones',
-    address: '24/7 client support and real-time SLA operations monitoring',
-    email: 'support@egead.com',
-    type: '24/7 Operations Desk',
-  },
-  {
-    country: 'Global Developers',
-    city: 'Remote & Cloud',
-    address: 'RESTful API integration, webhook endpoints, and ERP synchronization',
-    email: 'contact@egeadcompany.com',
-    type: 'Developer Hub',
+    city: 'Buôn Ma Thuột',
+    company: 'E-GEAD Company Limited',
+    address: '217/9 Ngô Quyền, Phường Tân An, TP. Buôn Ma Thuột, Tỉnh Đắk Lắk, Việt Nam',
+    phone: '+84 (0) 90 541 4410',
+    email: 'contact@egead-company.com',
+    timezone: 'Asia/Ho_Chi_Minh',
   },
 ];
