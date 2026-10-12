@@ -124,12 +124,15 @@ docker network create egeadcompanywebsite_default
 # 4. Build và chạy app + MySQL
 docker compose up -d --build
 
-# 5. Tạo bảng MySQL và nạp dữ liệu mẫu
+# 5. Nối egead_app vào mạng của Nginx cũ và reload proxy
+sh docker/setup-proxy.sh
+
+# 6. Tạo bảng MySQL và nạp dữ liệu mẫu
 docker compose exec app npm run prisma:push
 docker compose exec app npm run prisma:seed
 ```
 
-Nginx trong container `egead_app` lắng nghe port `80` và chuyển tiếp sang Next.js ở `127.0.0.1:3000`. Host map port này qua `APP_PORT`, mặc định là `8080`. Proxy cũ `egead-nginx` tiếp tục dùng `proxy_pass http://egead_app:80`.
+Nginx trong container `egead_app` lắng nghe port `80` và chuyển tiếp sang Next.js ở `127.0.0.1:3000`. Host map port này qua `APP_PORT`, mặc định là `8080`. Container `egead-nginx` nhận domain và chuyển tiếp tới `http://egead_app:80`.
 
 ### 8. Chạy Unit Tests
 ```bash
