@@ -7,6 +7,9 @@ WORKDIR /app
 
 ENV NEXT_TELEMETRY_DISABLED=1
 
+RUN apt-get update && apt-get install -y --no-install-recommends openssl \
+    && rm -rf /var/lib/apt/lists/*
+
 COPY package.json package-lock.json ./
 COPY prisma ./prisma
 COPY scripts ./scripts
@@ -17,6 +20,9 @@ FROM node:${NODE_VERSION} AS builder
 WORKDIR /app
 
 ENV NEXT_TELEMETRY_DISABLED=1
+
+RUN apt-get update && apt-get install -y --no-install-recommends openssl \
+    && rm -rf /var/lib/apt/lists/*
 
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
@@ -31,7 +37,7 @@ ENV NODE_ENV=production \
     HOSTNAME=127.0.0.1 \
     PORT=3000
 
-RUN apt-get update && apt-get install -y --no-install-recommends nginx \
+RUN apt-get update && apt-get install -y --no-install-recommends nginx openssl \
     && rm -rf /var/lib/apt/lists/* \
     && rm -f /etc/nginx/sites-enabled/default \
     && ln -sf /dev/stdout /var/log/nginx/access.log \
