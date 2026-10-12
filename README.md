@@ -107,7 +107,31 @@ npm run dev
 ```
 Truy cập [http://localhost:3000](http://localhost:3000) trên trình duyệt.
 
-### 7. Chạy Unit Tests
+### 7. Deploy bằng Docker trên Linux Server
+
+Source mới thay thế source Laravel/PHP cũ bằng stack **Next.js + MySQL**. File `docker-compose.yml` vẫn giữ tên container `egead_app`, image `egeadcompanywebsite_app`, port host mặc định `8080`, và network proxy external `egeadcompanywebsite_default` để dễ map vào reverse proxy hiện có.
+
+```bash
+# 1. Tạo file môi trường production
+cp .env.docker.example .env
+
+# 2. Sửa .env: domain, BETTER_AUTH_SECRET, mật khẩu MySQL, Cloudinary
+nano .env
+
+# 3. Nếu server chưa có network proxy cũ thì tạo một lần
+docker network create egeadcompanywebsite_default
+
+# 4. Build và chạy app + MySQL
+docker compose up -d --build
+
+# 5. Tạo bảng MySQL và nạp dữ liệu mẫu
+docker compose exec app npm run prisma:push
+docker compose exec app npm run prisma:seed
+```
+
+Sau khi chạy, app lắng nghe trong container tại port `3000` và được map ra host qua `APP_PORT` trong `.env` mặc định là `8080`.
+
+### 8. Chạy Unit Tests
 ```bash
 npm test
 # hoặc: bun test
