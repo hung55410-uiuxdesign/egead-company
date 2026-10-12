@@ -9,7 +9,7 @@ export default function FooterTopBar() {
     <div className="flex flex-col md:flex-row md:items-center justify-between gap-8 pb-12 border-b border-gray-100">
       <Link href="/" className="inline-block transition-opacity hover:opacity-90">
         <img
-          src="/assets/logo/black.png"
+          src="/assets/logo/logo-color.png"
           alt="E-GEAD Company"
           className="h-20 sm:h-24 lg:h-[96px] w-auto object-contain"
         />

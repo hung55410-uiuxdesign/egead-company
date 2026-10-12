@@ -169,22 +169,12 @@ export default function AdminSidebar({ isOpen, onClose }: AdminSidebarProps) {
         <div className="h-16 px-4 flex items-center justify-between border-b border-slate-200/80 bg-white shrink-0">
           <Link href="/admin" className="flex items-center gap-2.5 group min-w-0">
             <div className="relative flex items-center shrink-0">
-              {/* Light mode logo */}
               <Image
-                src="/assets/logo/black.png"
+                src="/assets/logo/logo-color.png"
                 alt="E-GEAD"
                 width={112}
                 height={28}
-                className="h-7 w-auto object-contain dark:hidden group-hover:opacity-85 transition-opacity"
-                priority
-              />
-              {/* Dark mode logo */}
-              <Image
-                src="/assets/logo/white.png"
-                alt="E-GEAD"
-                width={112}
-                height={28}
-                className="h-7 w-auto object-contain hidden dark:block group-hover:opacity-85 transition-opacity"
+                className="h-7 w-auto object-contain group-hover:opacity-85 transition-opacity"
                 priority
               />
             </div>
