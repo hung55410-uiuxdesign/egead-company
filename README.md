@@ -129,7 +129,7 @@ docker compose exec app npm run prisma:push
 docker compose exec app npm run prisma:seed
 ```
 
-Sau khi chạy, app lắng nghe trong container tại port `3000` và được map ra host qua `APP_PORT` trong `.env` mặc định là `8080`.
+Nginx trong container `egead_app` lắng nghe port `80` và chuyển tiếp sang Next.js ở `127.0.0.1:3000`. Host map port này qua `APP_PORT`, mặc định là `8080`. Proxy cũ `egead-nginx` tiếp tục dùng `proxy_pass http://egead_app:80`.
 
 ### 8. Chạy Unit Tests
 ```bash

@@ -28,8 +28,14 @@ WORKDIR /app
 
 ENV NODE_ENV=production \
     NEXT_TELEMETRY_DISABLED=1 \
-    HOSTNAME=0.0.0.0 \
+    HOSTNAME=127.0.0.1 \
     PORT=3000
+
+RUN apt-get update && apt-get install -y --no-install-recommends nginx \
+    && rm -rf /var/lib/apt/lists/* \
+    && rm -f /etc/nginx/sites-enabled/default \
+    && ln -sf /dev/stdout /var/log/nginx/access.log \
+    && ln -sf /dev/stderr /var/log/nginx/error.log
 
 RUN addgroup --system --gid 1001 nodejs \
     && adduser --system --uid 1001 nextjs
@@ -48,10 +54,12 @@ COPY --from=builder --chown=nextjs:nodejs /app/public ./public
 COPY --from=builder --chown=nextjs:nodejs /app/data ./data
 COPY --from=builder --chown=nextjs:nodejs /app/next.config.mjs ./next.config.mjs
 
-RUN chown -R nextjs:nodejs /app
+COPY docker/nginx/default.conf /etc/nginx/conf.d/default.conf
+COPY docker/entrypoint.sh /usr/local/bin/entrypoint.sh
 
-USER nextjs
+RUN chown -R nextjs:nodejs /app \
+    && chmod +x /usr/local/bin/entrypoint.sh
 
-EXPOSE 3000
+EXPOSE 80
 
-CMD ["node_modules/.bin/next", "start", "-p", "3000"]
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
