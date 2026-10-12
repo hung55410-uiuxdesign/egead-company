@@ -2,7 +2,6 @@
 set -e
 
 SITE_DIR="$(CDPATH= cd -- "$(dirname "$0")/.." && pwd)"
-CONF_SRC="$SITE_DIR/docker/nginx/egeadcompany.com.conf"
 
 cd "$SITE_DIR"
 
@@ -15,9 +14,9 @@ docker inspect egead-nginx --format '{{range $k, $v := .NetworkSettings.Networks
   docker network connect "$net" egead_app 2>/dev/null || true
 done
 
-docker cp "$CONF_SRC" egead-nginx:/etc/nginx/conf.d/egeadcompany.com.conf
+docker exec egead-nginx rm -f /etc/nginx/conf.d/egeadcompany.com.conf
+docker restart egead-nginx >/dev/null
 docker exec egead-nginx nginx -t
-docker exec egead-nginx nginx -s reload
 
 echo "OK. Test:"
 curl -sI -H "Host: egeadcompany.com" http://127.0.0.1 | head -n 15
