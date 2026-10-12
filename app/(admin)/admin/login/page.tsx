@@ -44,7 +44,7 @@ export default function AdminLoginPage() {
     setSuccess(null);
 
     if (!dbStatus.dbConnected) {
-      const msg = 'Chưa thể đăng nhập vì chưa kết nối được cơ sở dữ liệu PostgreSQL. Vui lòng cập nhật chuỗi DATABASE_URL trong file .env và thử lại.';
+      const msg = 'Chưa thể đăng nhập vì chưa kết nối được cơ sở dữ liệu MySQL. Vui lòng cập nhật chuỗi DATABASE_URL trong file .env và thử lại.';
       setError(msg);
       toast({
         body: msg,

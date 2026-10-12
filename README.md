@@ -20,7 +20,7 @@ A pixel-perfect, high-performance enterprise digital commerce web platform and *
   - Primary Accents: Signature cyan (`#5EFC8D` / `#10E774`) set against sleek dark backgrounds (`#0A0D0E`, `#141718`).
 - **Real-Time Global APAC Clocks**: Dynamic local clocks for 7 regional delivery hubs: Singapore, Japan, Australia, Hong Kong, Vietnam, South Korea, and India.
 - **Enterprise Blog CMS & Admin Portal (`/admin`)**:
-  - **Prisma ORM + PostgreSQL**: Lưu trữ dữ liệu bài viết, chuyên mục, tài khoản quản trị.
+  - **Prisma ORM + MySQL**: Lưu trữ dữ liệu bài viết, chuyên mục, tài khoản quản trị.
   - **Better Auth Authentication**: Hệ thống đăng nhập bảo mật với phiên làm việc 7 ngày, bảo vệ các trang `/admin/*`.
   - **TipTap Rich Text Editor**: Trình soạn thảo văn bản trực quan (WYSIWYG) hỗ trợ H1-H3, Bold, Italic, Bullet/Number Lists, Blockquote, Link, Image, xem trước Live Preview và chỉnh sửa mã HTML.
 - **Complete Enterprise Pages**:
@@ -42,7 +42,7 @@ Khi bạn chuyển sang máy tính mới hoặc clone project từ GitHub về, 
 
 ### 1. Yêu cầu môi trường (Prerequisites)
 - **Node.js**: Phiên bản 20+ hoặc [Bun](https://bun.sh/) 1.3+
-- **PostgreSQL**: Cài đặt PostgreSQL trên máy (hoặc dùng Docker, Supabase, Neon.tech).
+- **MySQL**: Cài đặt MySQL 8+ trên máy (XAMPP, Laragon, Docker, hoặc MySQL Community Server).
 
 ### 2. Cài đặt các thư viện (Install Dependencies)
 ```bash
@@ -60,13 +60,13 @@ Tạo file `.env` từ file mẫu `.env.example`:
 ```bash
 cp .env.example .env
 ```
-Mở file `.env` và cập nhật biến `DATABASE_URL` theo PostgreSQL của máy bạn:
+Mở file `.env` và cập nhật biến `DATABASE_URL` theo MySQL của máy bạn:
 ```env
-# PostgreSQL trên máy local (Ví dụ với user macOS hoặc postgres)
-DATABASE_URL="postgresql://<username>@localhost:5432/postgres"
+# MySQL trên máy local (tạo database `egead` trước)
+DATABASE_URL="mysql://root:root@localhost:3306/egead"
 
-# Hoặc nếu dùng mật khẩu:
-# DATABASE_URL="postgresql://postgres:password@localhost:5432/postgres"
+# XAMPP / Laragon thường dùng mật khẩu trống:
+# DATABASE_URL="mysql://root@localhost:3306/egead"
 
 # Better Auth Secret (tối thiểu 32 ký tự)
 BETTER_AUTH_SECRET="egead-super-secret-auth-key-production-ready-2026-secure"
@@ -75,12 +75,16 @@ NEXT_PUBLIC_BETTER_AUTH_URL="http://localhost:3000"
 ```
 
 ### 4. Khởi tạo Database & Dữ liệu mẫu (Database Migration & Seed)
+Tạo database MySQL trước (một lần):
+```sql
+CREATE DATABASE egead CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+```
 Chạy các lệnh sau để Prisma tạo bảng và cấp tài khoản Admin:
 ```bash
 # 1. Sinh Prisma Client
 npm run prisma:generate
 
-# 2. Tạo cấu trúc bảng vào PostgreSQL (user, session, account, post, category)
+# 2. Tạo cấu trúc bảng vào MySQL (user, session, account, post, category)
 npm run prisma:push
 
 # 3. Nạp dữ liệu mẫu ban đầu (Bài viết & Tài khoản admin)
@@ -121,7 +125,7 @@ npm test
 | `npm run lint` | Kiểm tra cú pháp và coding standards với ESLint 9 |
 | `npm test` | Chạy toàn bộ các bài Unit Tests cho services và components |
 | `npm run prisma:generate` | Tạo TypeScript client từ `schema.prisma` |
-| `npm run prisma:push` | Đẩy trực tiếp schema vào cơ sở dữ liệu PostgreSQL |
+| `npm run prisma:push` | Đẩy trực tiếp schema vào cơ sở dữ liệu MySQL |
 | `npm run prisma:seed` | Nạp tài khoản Admin và danh sách bài viết mẫu vào DB |
 
 ---
@@ -149,7 +153,7 @@ npm test
 │   ├── admin/                  # Components quản trị (TipTapEditor, Navbar, Sidebar)
 │   └── ...                     # Components trang chủ & giao diện public
 ├── lib/
-│   ├── prisma.ts               # Singleton Prisma Client kết nối PostgreSQL
+│   ├── prisma.ts               # Singleton Prisma Client kết nối MySQL
 │   ├── auth.ts                 # Better Auth server configuration
 │   ├── auth-client.ts          # Better Auth client hooks (useSession, signIn, signOut)
 │   └── services/               # Blog Service & Auth Service

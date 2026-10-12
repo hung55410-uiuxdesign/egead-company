@@ -83,13 +83,13 @@ export async function getAllContactInquiries(filters?: {
       if (filters?.search) {
         const query = filters.search.trim();
         where.OR = [
-          { firstName: { contains: query, mode: 'insensitive' } },
-          { lastName: { contains: query, mode: 'insensitive' } },
-          { fullName: { contains: query, mode: 'insensitive' } },
-          { email: { contains: query, mode: 'insensitive' } },
-          { company: { contains: query, mode: 'insensitive' } },
-          { phone: { contains: query, mode: 'insensitive' } },
-          { message: { contains: query, mode: 'insensitive' } },
+          { firstName: { contains: query } },
+          { lastName: { contains: query } },
+          { fullName: { contains: query } },
+          { email: { contains: query } },
+          { company: { contains: query } },
+          { phone: { contains: query } },
+          { message: { contains: query } },
         ];
       }
 

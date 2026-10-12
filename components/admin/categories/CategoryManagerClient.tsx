@@ -560,7 +560,7 @@ export default function CategoryManagerClient({
             Cơ chế phân loại và lưu trữ Database
           </h4>
           <p className="text-xs text-slate-300 max-w-xl leading-relaxed">
-            Các chuyên mục này được lưu trữ trực tiếp vào bảng PostgreSQL
+            Các chuyên mục này được lưu trữ trực tiếp vào bảng MySQL
             `category` và liên kết với bảng `post`. Khi xuất bản bài viết mới,
             bạn có thể chọn ngay chuyên mục từ danh sách này.
           </p>

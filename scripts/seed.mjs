@@ -5,11 +5,12 @@
 import { PrismaClient } from '@prisma/client';
 import fs from 'fs';
 import path from 'path';
+import { MYSQL_DDL_STATEMENTS } from '../lib/db/mysql-ddl.mjs';
 
 const prisma = new PrismaClient({
   datasources: {
     db: {
-      url: process.env.DATABASE_URL || 'postgresql://nguyenhung@localhost:5432/postgres',
+      url: process.env.DATABASE_URL || 'mysql://root@localhost:3306/egead',
     },
   },
 });
@@ -22,122 +23,15 @@ const DEFAULT_ADMIN = {
 };
 
 async function ensureTables() {
-  console.log('📦 Kiểm tra và tạo các bảng trong PostgreSQL nếu chưa có...');
-  const ddlStatements = [
-    `CREATE TABLE IF NOT EXISTS "user" (
-      "id" TEXT PRIMARY KEY,
-      "name" TEXT NOT NULL,
-      "email" TEXT UNIQUE NOT NULL,
-      "emailVerified" BOOLEAN NOT NULL DEFAULT false,
-      "image" TEXT,
-      "role" TEXT DEFAULT 'admin',
-      "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-      "updatedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP
-    );`,
-    `CREATE TABLE IF NOT EXISTS "session" (
-      "id" TEXT PRIMARY KEY,
-      "expiresAt" TIMESTAMP(3) NOT NULL,
-      "token" TEXT UNIQUE NOT NULL,
-      "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-      "updatedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-      "ipAddress" TEXT,
-      "userAgent" TEXT,
-      "userId" TEXT NOT NULL REFERENCES "user"("id") ON DELETE CASCADE
-    );`,
-    `CREATE TABLE IF NOT EXISTS "account" (
-      "id" TEXT PRIMARY KEY,
-      "accountId" TEXT NOT NULL,
-      "providerId" TEXT NOT NULL,
-      "userId" TEXT NOT NULL REFERENCES "user"("id") ON DELETE CASCADE,
-      "accessToken" TEXT,
-      "refreshToken" TEXT,
-      "idToken" TEXT,
-      "accessTokenExpiresAt" TIMESTAMP(3),
-      "refreshTokenExpiresAt" TIMESTAMP(3),
-      "scope" TEXT,
-      "password" TEXT,
-      "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-      "updatedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-      UNIQUE ("providerId", "accountId")
-    );`,
-    `CREATE TABLE IF NOT EXISTS "verification" (
-      "id" TEXT PRIMARY KEY,
-      "identifier" TEXT NOT NULL,
-      "value" TEXT NOT NULL,
-      "expiresAt" TIMESTAMP(3) NOT NULL,
-      "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-      "updatedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP
-    );`,
-    `CREATE TABLE IF NOT EXISTS "category" (
-      "id" TEXT PRIMARY KEY,
-      "name" TEXT UNIQUE NOT NULL,
-      "slug" TEXT UNIQUE NOT NULL,
-      "description" TEXT,
-      "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-      "updatedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP
-    );`,
-    `CREATE TABLE IF NOT EXISTS "post" (
-      "id" TEXT PRIMARY KEY,
-      "slug" TEXT UNIQUE NOT NULL,
-      "title" TEXT NOT NULL,
-      "subtitle" TEXT,
-      "tag" TEXT NOT NULL DEFAULT 'General',
-      "categoryName" TEXT NOT NULL DEFAULT 'E-Commerce',
-      "categoryId" TEXT REFERENCES "category"("id") ON DELETE SET NULL,
-      "date" TEXT NOT NULL,
-      "readTime" TEXT NOT NULL DEFAULT '5 mins read',
-      "heroImage" TEXT NOT NULL DEFAULT '/assets/case_brother.jpg',
-      "excerpt" TEXT NOT NULL,
-      "content" TEXT NOT NULL,
-      "authorName" TEXT NOT NULL DEFAULT 'E-GEAD Team',
-      "authorRole" TEXT DEFAULT 'Editor',
-      "authorAvatar" TEXT,
-      "authorId" TEXT REFERENCES "user"("id") ON DELETE SET NULL,
-      "status" TEXT NOT NULL DEFAULT 'draft',
-      "views" INTEGER NOT NULL DEFAULT 0,
-      "featured" BOOLEAN NOT NULL DEFAULT false,
-      "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-      "updatedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP
-    );`,
-    `CREATE TABLE IF NOT EXISTS "team_member" (
-      "id" TEXT PRIMARY KEY,
-      "name" TEXT NOT NULL,
-      "role" TEXT NOT NULL,
-      "department" TEXT NOT NULL,
-      "location" TEXT NOT NULL,
-      "quote" TEXT,
-      "image" TEXT NOT NULL,
-      "linkedin" TEXT,
-      "bio" TEXT NOT NULL,
-      "skills" TEXT[] NOT NULL DEFAULT '{}',
-      "isLeader" BOOLEAN NOT NULL DEFAULT false,
-      "order" INTEGER NOT NULL DEFAULT 0,
-      "status" TEXT NOT NULL DEFAULT 'published',
-      "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-      "updatedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP
-    );`,
-    `CREATE TABLE IF NOT EXISTS "leader_hierarchy" (
-      "id" TEXT PRIMARY KEY,
-      "leaderId" TEXT UNIQUE NOT NULL REFERENCES "team_member"("id") ON DELETE CASCADE,
-      "departmentScope" TEXT NOT NULL,
-      "overview" TEXT NOT NULL,
-      "childNodes" JSONB NOT NULL,
-      "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-      "updatedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP
-    );`,
-    `CREATE INDEX IF NOT EXISTS "team_member_department_idx" ON "team_member"("department");`,
-    `CREATE INDEX IF NOT EXISTS "team_member_isLeader_idx" ON "team_member"("isLeader");`,
-    `CREATE INDEX IF NOT EXISTS "team_member_status_idx" ON "team_member"("status");`,
-  ];
-
-  for (const sql of ddlStatements) {
+  console.log('📦 Kiểm tra và tạo các bảng trong MySQL nếu chưa có...');
+  for (const sql of MYSQL_DDL_STATEMENTS) {
     await prisma.$executeRawUnsafe(sql);
   }
-  console.log('✅ Cấu trúc bảng PostgreSQL đã sẵn sàng.');
+  console.log('✅ Cấu trúc bảng MySQL đã sẵn sàng.');
 }
 
 async function main() {
-  console.log('🚀 Bắt đầu khởi tạo cơ sở dữ liệu E-GEAD trên PostgreSQL local...');
+  console.log('🚀 Bắt đầu khởi tạo cơ sở dữ liệu E-GEAD trên MySQL local...');
   await ensureTables();
 
   // 1. Kiểm tra hoặc tạo User Admin

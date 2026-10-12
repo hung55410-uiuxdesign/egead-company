@@ -46,7 +46,7 @@ export default function AdminSettingsPage() {
               .
             </p>
             <p className="text-slate-500">
-              Hệ thống đã sẵn sàng kết nối sang cơ sở dữ liệu PostgreSQL cục bộ hoặc Supabase / Cloud SQL thông qua Prisma ORM khi khối lượng dữ liệu phát triển lớn.
+              Hệ thống đã sẵn sàng kết nối sang cơ sở dữ liệu MySQL cục bộ hoặc Cloud SQL thông qua Prisma ORM khi khối lượng dữ liệu phát triển lớn.
             </p>
           </div>
         </Card>

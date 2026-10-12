@@ -1,14 +1,13 @@
 // Prisma schema for E-GEAD Blog CMS & Better Auth
-// Configured for PostgreSQL
+// Configured for MySQL
 
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider  = "postgresql"
-  url       = env("DATABASE_URL")
-  directUrl = env("DIRECT_URL")
+  provider = "mysql"
+  url      = env("DATABASE_URL")
 }
 
 // -------------------------------------------------------------
@@ -141,7 +140,7 @@ model TeamMember {
   image       String   // URL ảnh Cloudinary / local asset
   linkedin    String?
   bio         String   @db.Text
-  skills      String[] // Postgres native text array
+  skills      Json     @default("[]") // JSON string[] — MySQL does not support native arrays
   isLeader    Boolean  @default(false)
   order       Int      @default(0)
   status      String   @default("published") // 'published' | 'draft' | 'archived'

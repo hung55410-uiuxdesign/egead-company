@@ -68,7 +68,7 @@ function buildPostWhereInput(filter?: PostFilter): Prisma.PostWhereInput {
   }
 
   if (filter?.tag && filter.tag !== 'all') {
-    where.tag = { equals: filter.tag, mode: 'insensitive' };
+    where.tag = { equals: filter.tag };
   }
 
   if (filter?.category && filter.category !== 'all') {
@@ -78,15 +78,15 @@ function buildPostWhereInput(filter?: PostFilter): Prisma.PostWhereInput {
       catSlug === 'blog' ? 'blogs' : catSlug === 'blogs' ? 'blog' : undefined;
 
     const categoryConditions: Prisma.PostWhereInput[] = [
-      { categoryName: { equals: catVal, mode: 'insensitive' } },
-      { category: { is: { slug: { equals: catSlug, mode: 'insensitive' } } } },
-      { category: { is: { name: { equals: catVal, mode: 'insensitive' } } } },
+      { categoryName: { equals: catVal } },
+      { category: { is: { slug: { equals: catSlug } } } },
+      { category: { is: { name: { equals: catVal } } } },
     ];
 
     if (aliasSlug) {
       categoryConditions.push(
-        { category: { is: { slug: { equals: aliasSlug, mode: 'insensitive' } } } },
-        { categoryName: { equals: aliasSlug, mode: 'insensitive' } }
+        { category: { is: { slug: { equals: aliasSlug } } } },
+        { categoryName: { equals: aliasSlug } }
       );
     }
 
@@ -95,9 +95,9 @@ function buildPostWhereInput(filter?: PostFilter): Prisma.PostWhereInput {
 
   if (filter?.search) {
     const searchConditions: Prisma.PostWhereInput[] = [
-      { title: { contains: filter.search, mode: 'insensitive' } },
-      { excerpt: { contains: filter.search, mode: 'insensitive' } },
-      { slug: { contains: filter.search, mode: 'insensitive' } },
+      { title: { contains: filter.search } },
+      { excerpt: { contains: filter.search } },
+      { slug: { contains: filter.search } },
     ];
     if (where.OR) {
       where.AND = [{ OR: where.OR }, { OR: searchConditions }];
@@ -558,8 +558,8 @@ export async function savePost(
         const cat = await prisma.category.findFirst({
           where: {
             OR: [
-              { name: { equals: postData.category, mode: 'insensitive' } },
-              { slug: { equals: postData.category.toLowerCase().replace(/\s+/g, '-'), mode: 'insensitive' } },
+              { name: { equals: postData.category } },
+              { slug: { equals: postData.category.toLowerCase().replace(/\s+/g, '-') } },
             ],
           },
         });

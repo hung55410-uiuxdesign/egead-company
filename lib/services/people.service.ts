@@ -115,10 +115,10 @@ export async function getTeamMembers(filter?: PeopleFilter): Promise<{
     if (filter?.search && filter.search.trim()) {
       const q = filter.search.trim();
       where.OR = [
-        { name: { contains: q, mode: 'insensitive' } },
-        { role: { contains: q, mode: 'insensitive' } },
-        { location: { contains: q, mode: 'insensitive' } },
-        { skills: { has: q } },
+        { name: { contains: q } },
+        { role: { contains: q } },
+        { location: { contains: q } },
+        { skills: { string_contains: q } },
       ];
     }
 
@@ -191,7 +191,7 @@ export async function createTeamMember(data: TeamMemberInput): Promise<AdminTeam
       image: validated.image,
       linkedin: validated.linkedin ?? null,
       bio: validated.bio,
-      skills: validated.skills,
+      skills: validated.skills as Prisma.InputJsonValue,
       isLeader: validated.isLeader,
       order: validated.order,
       status: validated.status,
@@ -224,7 +224,7 @@ export async function updateTeamMember(
       ...(validated.image !== undefined && { image: validated.image }),
       ...(validated.linkedin !== undefined && { linkedin: validated.linkedin }),
       ...(validated.bio !== undefined && { bio: validated.bio }),
-      ...(validated.skills !== undefined && { skills: validated.skills }),
+      ...(validated.skills !== undefined && { skills: validated.skills as Prisma.InputJsonValue }),
       ...(validated.isLeader !== undefined && { isLeader: validated.isLeader }),
       ...(validated.order !== undefined && { order: validated.order }),
       ...(validated.status !== undefined && { status: validated.status }),

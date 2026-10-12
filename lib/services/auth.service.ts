@@ -1,5 +1,6 @@
 import { prisma } from '@/lib/prisma';
 import { auth } from '@/lib/auth';
+import { MYSQL_DDL_STATEMENTS } from '@/lib/db/mysql-ddl.mjs';
 import { seedDatabaseFromJSON } from './blog.service';
 
 export interface AdminCredentials {
@@ -16,118 +17,11 @@ export const DEFAULT_ADMIN_CONFIG = {
 };
 
 /**
- * Ensure PostgreSQL tables exist in the database.
+ * Ensure MySQL tables exist in the database.
  * If tables do not exist, creates them via raw DDL so user doesn't even need manual migrations.
  */
 export async function ensureDatabaseTablesExist(): Promise<void> {
-  const ddlStatements = [
-    `CREATE TABLE IF NOT EXISTS "user" (
-      "id" TEXT PRIMARY KEY,
-      "name" TEXT NOT NULL,
-      "email" TEXT UNIQUE NOT NULL,
-      "emailVerified" BOOLEAN NOT NULL DEFAULT false,
-      "image" TEXT,
-      "role" TEXT DEFAULT 'admin',
-      "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-      "updatedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP
-    );`,
-    `CREATE TABLE IF NOT EXISTS "session" (
-      "id" TEXT PRIMARY KEY,
-      "expiresAt" TIMESTAMP(3) NOT NULL,
-      "token" TEXT UNIQUE NOT NULL,
-      "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-      "updatedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-      "ipAddress" TEXT,
-      "userAgent" TEXT,
-      "userId" TEXT NOT NULL REFERENCES "user"("id") ON DELETE CASCADE
-    );`,
-    `CREATE TABLE IF NOT EXISTS "account" (
-      "id" TEXT PRIMARY KEY,
-      "accountId" TEXT NOT NULL,
-      "providerId" TEXT NOT NULL,
-      "userId" TEXT NOT NULL REFERENCES "user"("id") ON DELETE CASCADE,
-      "accessToken" TEXT,
-      "refreshToken" TEXT,
-      "idToken" TEXT,
-      "accessTokenExpiresAt" TIMESTAMP(3),
-      "refreshTokenExpiresAt" TIMESTAMP(3),
-      "scope" TEXT,
-      "password" TEXT,
-      "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-      "updatedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-      UNIQUE ("providerId", "accountId")
-    );`,
-    `CREATE TABLE IF NOT EXISTS "verification" (
-      "id" TEXT PRIMARY KEY,
-      "identifier" TEXT NOT NULL,
-      "value" TEXT NOT NULL,
-      "expiresAt" TIMESTAMP(3) NOT NULL,
-      "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-      "updatedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP
-    );`,
-    `CREATE TABLE IF NOT EXISTS "category" (
-      "id" TEXT PRIMARY KEY,
-      "name" TEXT UNIQUE NOT NULL,
-      "slug" TEXT UNIQUE NOT NULL,
-      "description" TEXT,
-      "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-      "updatedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP
-    );`,
-    `CREATE TABLE IF NOT EXISTS "post" (
-      "id" TEXT PRIMARY KEY,
-      "slug" TEXT UNIQUE NOT NULL,
-      "title" TEXT NOT NULL,
-      "subtitle" TEXT,
-      "tag" TEXT NOT NULL DEFAULT 'General',
-      "categoryName" TEXT NOT NULL DEFAULT 'E-Commerce',
-      "categoryId" TEXT REFERENCES "category"("id") ON DELETE SET NULL,
-      "date" TEXT NOT NULL,
-      "readTime" TEXT NOT NULL DEFAULT '5 mins read',
-      "heroImage" TEXT NOT NULL DEFAULT '/assets/case_brother.jpg',
-      "excerpt" TEXT NOT NULL,
-      "content" TEXT NOT NULL,
-      "authorName" TEXT NOT NULL DEFAULT 'E-GEAD Team',
-      "authorRole" TEXT DEFAULT 'Editor',
-      "authorAvatar" TEXT,
-      "authorId" TEXT REFERENCES "user"("id") ON DELETE SET NULL,
-      "status" TEXT NOT NULL DEFAULT 'draft',
-      "views" INTEGER NOT NULL DEFAULT 0,
-      "featured" BOOLEAN NOT NULL DEFAULT false,
-      "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-      "updatedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP
-    );`,
-    `CREATE TABLE IF NOT EXISTS "team_member" (
-      "id" TEXT PRIMARY KEY,
-      "name" TEXT NOT NULL,
-      "role" TEXT NOT NULL,
-      "department" TEXT NOT NULL,
-      "location" TEXT NOT NULL,
-      "quote" TEXT,
-      "image" TEXT NOT NULL,
-      "linkedin" TEXT,
-      "bio" TEXT NOT NULL,
-      "skills" TEXT[] NOT NULL DEFAULT '{}',
-      "isLeader" BOOLEAN NOT NULL DEFAULT false,
-      "order" INTEGER NOT NULL DEFAULT 0,
-      "status" TEXT NOT NULL DEFAULT 'published',
-      "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-      "updatedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP
-    );`,
-    `CREATE TABLE IF NOT EXISTS "leader_hierarchy" (
-      "id" TEXT PRIMARY KEY,
-      "leaderId" TEXT UNIQUE NOT NULL REFERENCES "team_member"("id") ON DELETE CASCADE,
-      "departmentScope" TEXT NOT NULL,
-      "overview" TEXT NOT NULL,
-      "childNodes" JSONB NOT NULL,
-      "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-      "updatedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP
-    );`,
-    `CREATE INDEX IF NOT EXISTS "team_member_department_idx" ON "team_member"("department");`,
-    `CREATE INDEX IF NOT EXISTS "team_member_isLeader_idx" ON "team_member"("isLeader");`,
-    `CREATE INDEX IF NOT EXISTS "team_member_status_idx" ON "team_member"("status");`,
-  ];
-
-  for (const statement of ddlStatements) {
+  for (const statement of MYSQL_DDL_STATEMENTS) {
     await prisma.$executeRawUnsafe(statement);
   }
 }
@@ -164,7 +58,7 @@ export async function createDefaultAdminIfNotExist(): Promise<{
   email: string;
 }> {
   try {
-    // 1. Ensure tables exist in PostgreSQL
+    // 1. Ensure tables exist in MySQL
     await ensureDatabaseTablesExist();
 
     // 2. Check if admin exists

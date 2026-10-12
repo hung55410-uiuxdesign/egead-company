@@ -8,7 +8,7 @@ export type { CategoryItem };
 export { generateSlug, getCategoryHref };
 
 /**
- * Seed initial categories into PostgreSQL database from existing posts if empty
+ * Seed initial categories into MySQL database from existing posts if empty
  */
 export async function seedCategoriesFromPosts(): Promise<CategoryItem[]> {
   try {
@@ -107,7 +107,7 @@ export async function getCategoriesWithCount(): Promise<CategoryItem[]> {
     if (needIconEnrichment) {
       try {
         const raw = await prisma.$queryRawUnsafe<{ id: string; icon: string | null }[]>(
-          `SELECT "id", "icon" FROM "category"`
+          `SELECT \`id\`, \`icon\` FROM \`category\``
         );
         iconMap = new Map(raw.map((r) => [r.id, r.icon]));
       } catch {
@@ -155,7 +155,7 @@ export async function getCategoryById(id: string): Promise<CategoryItem | null> 
   if (icon === undefined || icon === null) {
     try {
       const raw = await prisma.$queryRawUnsafe<{ icon: string | null }[]>(
-        `SELECT "icon" FROM "category" WHERE "id" = $1 LIMIT 1`,
+        `SELECT \`icon\` FROM \`category\` WHERE \`id\` = ? LIMIT 1`,
         c.id
       );
       if (raw.length > 0 && raw[0].icon) {
@@ -186,7 +186,7 @@ export async function createCategory(rawInput: CategoryInput): Promise<CategoryI
 
   // Check unique name
   const existingName = await prisma.category.findFirst({
-    where: { name: { equals: validated.name, mode: 'insensitive' } },
+    where: { name: { equals: validated.name } },
   });
   if (existingName) {
     throw new Error(`Chuyên mục có tên "${validated.name}" đã tồn tại`);
@@ -257,7 +257,7 @@ export async function createCategory(rawInput: CategoryInput): Promise<CategoryI
       if (iconVal) {
         try {
           await prisma.$executeRawUnsafe(
-            `UPDATE "category" SET "icon" = $1 WHERE "id" = $2`,
+            `UPDATE \`category\` SET \`icon\` = ? WHERE \`id\` = ?`,
             iconVal,
             created.id
           );
@@ -300,7 +300,7 @@ export async function updateCategory(
   // Check unique name with other categories
   const duplicateName = await prisma.category.findFirst({
     where: {
-      name: { equals: validated.name, mode: 'insensitive' },
+      name: { equals: validated.name },
       NOT: { id },
     },
   });
@@ -384,7 +384,7 @@ export async function updateCategory(
       if (iconVal !== undefined) {
         try {
           await prisma.$executeRawUnsafe(
-            `UPDATE "category" SET "icon" = $1 WHERE "id" = $2`,
+            `UPDATE \`category\` SET \`icon\` = ? WHERE \`id\` = ?`,
             iconVal,
             id
           );
@@ -488,7 +488,7 @@ export async function bulkDeleteCategories(ids: string[]): Promise<number> {
   if (toDelete.length === 0) return 0;
   const names = toDelete.map((c) => c.name);
 
-  // 2. Unlink all posts in PostgreSQL referencing these categories
+  // 2. Unlink all posts in MySQL referencing these categories
   await prisma.post.updateMany({
     where: {
       OR: [
@@ -569,9 +569,9 @@ export async function bulkUpdateCategories(
       if (iconVal !== undefined) {
         try {
           await prisma.$executeRawUnsafe(
-            `UPDATE "category" SET "icon" = $1 WHERE "id" = ANY($2::text[])`,
+            `UPDATE \`category\` SET \`icon\` = ? WHERE \`id\` IN (${ids.map(() => '?').join(',')})`,
             iconVal,
-            ids
+            ...ids
           );
         } catch (rawErr) {
           console.warn('[category.service] Bulk raw SQL icon update error:', rawErr);

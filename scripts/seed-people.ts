@@ -3,7 +3,7 @@ import { leadershipTeam, allExperts, TeamMember } from '../components/pages/comp
 import { leaderHierarchies } from '../components/pages/company/people/leaderTeamData';
 
 async function seedPeople() {
-  console.log('🌱 Bắt đầu seed dữ liệu Nhân sự & Sơ đồ Tổ chức vào PostgreSQL...');
+  console.log('🌱 Bắt đầu seed dữ liệu Nhân sự & Sơ đồ Tổ chức vào MySQL...');
 
   // 1. Seed Team Members (Leaders + Experts)
   const allMembers: Array<{ member: TeamMember; isLeader: boolean; order: number }> = [];

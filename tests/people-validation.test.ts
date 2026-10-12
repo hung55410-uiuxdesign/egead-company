@@ -175,7 +175,7 @@ describe('People Validation & Consistency Tests', () => {
   });
 
   describe('People Service Database Queries', () => {
-    test('getTeamMembers returns seeded members from PostgreSQL', async () => {
+    test('getTeamMembers returns seeded members from MySQL', async () => {
       const res = await getTeamMembers({ limit: 100 });
       expect(res.total).toBeGreaterThanOrEqual(26);
       expect(res.items.length).toBeGreaterThanOrEqual(26);

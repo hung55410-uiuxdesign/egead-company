@@ -1,15 +1,8 @@
 import { PrismaClient } from '@prisma/client';
 
-export const LOCAL_POSTGRES_URL =
-  'postgresql://nguyenhung@localhost:5432/postgres';
+export const LOCAL_MYSQL_URL = 'mysql://root@localhost:3306/egead';
 
-const getTargetDatabaseUrl = () => {
-  const envUrl = process.env.DATABASE_URL;
-  if (envUrl && !envUrl.includes('postgres:postgres@localhost:5432/egead_db')) {
-    return envUrl;
-  }
-  return LOCAL_POSTGRES_URL;
-};
+const getTargetDatabaseUrl = () => process.env.DATABASE_URL || LOCAL_MYSQL_URL;
 
 const targetUrl = getTargetDatabaseUrl();
 
