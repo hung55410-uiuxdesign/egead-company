@@ -24,7 +24,19 @@ export const auth = betterAuth({
     updateAge: 60 * 60 * 24, // 1 day
   },
   secret: process.env.BETTER_AUTH_SECRET || 'egead-development-auth-secret-key-32chars',
-  baseURL: process.env.BETTER_AUTH_URL || 'http://localhost:3000',
+  baseURL:
+    process.env.BETTER_AUTH_URL ||
+    (process.env.VERCEL_PROJECT_PRODUCTION_URL
+      ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+      : undefined) ||
+    (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : undefined) ||
+    'http://localhost:8080',
+  trustedOrigins: [
+    'https://egeadcompany.com',
+    'https://www.egeadcompany.com',
+    'http://localhost:8080',
+    'http://localhost:3000',
+  ],
 });
 
 export type Auth = typeof auth;
