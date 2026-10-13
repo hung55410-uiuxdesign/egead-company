@@ -19,7 +19,9 @@ RUN npm ci
 FROM node:${NODE_VERSION} AS builder
 WORKDIR /app
 
-ENV NEXT_TELEMETRY_DISABLED=1
+ENV NEXT_TELEMETRY_DISABLED=1 \
+    NODE_OPTIONS=--max-old-space-size=1536 \
+    NEXT_PRIVATE_WORKER_THREADS=1
 
 RUN apt-get update && apt-get install -y --no-install-recommends openssl \
     && rm -rf /var/lib/apt/lists/*

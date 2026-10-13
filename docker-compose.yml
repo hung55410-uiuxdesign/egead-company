@@ -5,9 +5,6 @@ services:
     image: egeadcompanywebsite_app
     container_name: egead_app
     restart: unless-stopped
-    depends_on:
-      db:
-        condition: service_healthy
     ports:
       - "${APP_PORT:-8080}:80"
     environment:
@@ -39,6 +36,8 @@ services:
   db:
     image: mysql:8.4
     container_name: egead_mysql
+    profiles:
+      - local-db
     restart: unless-stopped
     environment:
       MYSQL_DATABASE: "${MYSQL_DATABASE:-egead}"

@@ -121,7 +121,8 @@ nano .env
 # 3. Nếu server chưa có network proxy cũ thì tạo một lần
 docker network create egeadcompanywebsite_default
 
-# 4. Build và chạy app + MySQL
+# 4. Build và chạy app. MySQL local chỉ bật khi cần:
+# docker compose --profile local-db up -d --build
 docker compose up -d --build
 
 # 5. Nối egead_app vào mạng của Nginx cũ và reload proxy
