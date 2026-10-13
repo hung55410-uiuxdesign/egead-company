@@ -38,4 +38,15 @@ if (!globalForPrisma.prisma || globalForPrisma.activeUrl !== targetUrl) {
   globalForPrisma.activeUrl = targetUrl;
 }
 
-export const prisma = globalForPrisma.prisma;
+export const prisma = (globalForPrisma.prisma ||
+  new PrismaClient({
+    datasources: {
+      db: {
+        url: targetUrl,
+      },
+    },
+    log:
+      process.env.NODE_ENV === 'development'
+        ? ['warn', 'error']
+        : ['error'],
+  })) as PrismaClient;

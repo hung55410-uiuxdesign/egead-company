@@ -7,3 +7,5 @@ export * from './usePeopleMutations';
 export * from './useCareerMutations';
 export * from './useCareerApplicationMutations';
 export * from './useContactInquiryMutations';
+export * from './useCaseStudyMutations';
+export * from './useServiceMutations';

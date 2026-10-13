@@ -7,6 +7,7 @@ import { Lock, Mail, Eye, EyeOff } from 'lucide-react';
 import { useSession } from '@/lib/auth-client';
 import { Card, Button, TextInput, Field, useToast } from '@astryxdesign/core';
 import { useAdminBootstrap, useAdminLogin } from '@/lib/hooks';
+import { LoginLoadingFallback } from '@/components/admin/shared';
 
 export default function AdminLoginPage() {
   const router = useRouter();
@@ -37,6 +38,15 @@ export default function AdminLoginPage() {
       setError(err.message);
     },
   });
+
+  if (sessionPending || sessionData?.session) {
+    return (
+      <LoginLoadingFallback
+        message={sessionData?.session ? 'Đang chuyển hướng vào bảng điều khiển...' : 'Đang kiểm tra phiên đăng nhập...'}
+        subMessage="Vui lòng chờ trong giây lát trong khi hệ thống xác thực tài khoản quản trị."
+      />
+    );
+  }
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
