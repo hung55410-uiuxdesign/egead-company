@@ -5,6 +5,8 @@ import {
   parseAIBlogContent,
   getAIBlogPromptTemplate,
   SAMPLE_AI_BLOG_MARKDOWN,
+  AI_BLOG_TEMPLATES,
+  BlogPromptTemplate,
 } from '../lib/utils/aiBlogParser';
 
 describe('AI Blog Parser Unit Tests', () => {
@@ -123,6 +125,42 @@ Nội dung tiếp theo của bài viết phân tích.`;
       expect(prompt).toContain('Category Alpha, Category Beta');
       expect(prompt).toContain('title: "[Tiêu đề bài viết');
       expect(prompt).toContain('category: "[Chọn 1 trong các chuyên mục');
+    });
+  });
+
+  describe('AI_BLOG_TEMPLATES & Culture Event Sample', () => {
+    test('contains all 5 specialized templates', () => {
+      expect(AI_BLOG_TEMPLATES.length).toBe(5);
+      const ids = AI_BLOG_TEMPLATES.map((t) => t.id);
+      expect(ids).toContain('culture-events');
+      expect(ids).toContain('social-to-blog');
+      expect(ids).toContain('teambuilding');
+      expect(ids).toContain('strategy-ecommerce');
+      expect(ids).toContain('career-branding');
+    });
+
+    test('parses E-GEAD culture event sample (Mid-Autumn & Birthday) correctly', () => {
+      const cultureTemplate = AI_BLOG_TEMPLATES.find((t) => t.id === 'culture-events');
+      expect(cultureTemplate).toBeDefined();
+
+      const parsed = parseAIBlogContent(cultureTemplate!.sampleMarkdown);
+      expect(parsed.title).toContain('Trung thu đoàn viên');
+      expect(parsed.title).toContain('Sinh nhật tháng 9');
+      expect(parsed.category).toBe('Culture & People');
+      expect(parsed.tag).toBe('Company Culture');
+      expect(parsed.contentHtml).toContain('Đắk Lắk');
+      expect(parsed.contentHtml).toContain('Hà Nội');
+      expect(parsed.contentHtml).toContain('EGEADTogether');
+    });
+
+    test('parses teambuilding sample (Amazing Race) correctly', () => {
+      const tbTemplate = AI_BLOG_TEMPLATES.find((t) => t.id === 'teambuilding');
+      expect(tbTemplate).toBeDefined();
+
+      const parsed = parseAIBlogContent(tbTemplate!.sampleMarkdown);
+      expect(parsed.title).toContain('Amazing Race');
+      expect(parsed.tag).toBe('Teambuilding');
+      expect(parsed.contentHtml).toContain('Trạm Vượt Sóng');
     });
   });
 });

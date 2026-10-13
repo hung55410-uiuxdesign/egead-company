@@ -5,13 +5,14 @@ import {
   Card,
   Button,
   Badge,
+  Selector,
   useToast,
 } from '@astryxdesign/core';
 import { BlogCategory } from '@/types/blog';
 import {
   parseAIBlogContent,
-  getAIBlogPromptTemplate,
-  SAMPLE_AI_BLOG_MARKDOWN,
+  AI_BLOG_TEMPLATES,
+  BlogPromptTemplate,
   ParsedBlogPost,
 } from '@/lib/utils/aiBlogParser';
 
@@ -33,6 +34,7 @@ export default function AIBlogImportModal({
   isSavingDirectly = false,
 }: AIBlogImportModalProps) {
   const toast = useToast();
+  const [selectedTemplateId, setSelectedTemplateId] = useState<string>('culture-events');
   const [rawText, setRawText] = useState<string>('');
   const [parseError, setParseError] = useState<string | null>(null);
 
@@ -40,6 +42,13 @@ export default function AIBlogImportModal({
     () => categories.map((c) => c.name),
     [categories]
   );
+
+  const activeTemplate: BlogPromptTemplate = useMemo(() => {
+    return (
+      AI_BLOG_TEMPLATES.find((t) => t.id === selectedTemplateId) ||
+      AI_BLOG_TEMPLATES[0]
+    );
+  }, [selectedTemplateId]);
 
   // Parse result memoized
   const parsedData: ParsedBlogPost | null = useMemo(() => {
@@ -61,10 +70,10 @@ export default function AIBlogImportModal({
 
   const handleCopyPrompt = async () => {
     try {
-      const template = getAIBlogPromptTemplate(categoryNames);
-      await navigator.clipboard.writeText(template);
+      const templateText = activeTemplate.prompt(categoryNames);
+      await navigator.clipboard.writeText(templateText);
       toast({
-        body: 'Đã sao chép Prompt mẫu vào Clipboard. Hãy dán sang ChatGPT hoặc Claude để tạo bài.',
+        body: `Đã sao chép Prompt mẫu "${activeTemplate.name}" vào Clipboard!`,
         type: 'info',
         isAutoHide: true,
         autoHideDuration: 4000,
@@ -80,9 +89,9 @@ export default function AIBlogImportModal({
   };
 
   const handleLoadSample = () => {
-    setRawText(SAMPLE_AI_BLOG_MARKDOWN);
+    setRawText(activeTemplate.sampleMarkdown);
     toast({
-      body: 'Đã nạp bài viết mẫu của E-GEAD. Bạn có thể kiểm tra nội dung bóc tách bên dưới.',
+      body: `Đã nạp bài viết mẫu "${activeTemplate.name}". Bạn có thể kiểm tra nội dung bóc tách bên dưới.`,
       type: 'info',
       isAutoHide: true,
       autoHideDuration: 3000,
@@ -157,29 +166,59 @@ export default function AIBlogImportModal({
 
         {/* Scrollable Content Body */}
         <div className="p-6 overflow-y-auto space-y-5 flex-1">
-          {/* Quick Action Helpers */}
-          <div className="flex flex-wrap items-center justify-between gap-2.5 pb-2 border-b border-slate-100">
-            <div className="flex flex-wrap items-center gap-2">
-              <Button
-                label="Sao chép Prompt mẫu cho AI"
-                variant="secondary"
-                onClick={handleCopyPrompt}
-                className="h-9 px-3.5"
-              />
-              <Button
-                label="Dán dữ liệu mẫu thử nghiệm"
-                variant="secondary"
-                onClick={handleLoadSample}
-                className="h-9 px-3.5"
-              />
+          {/* Template Selection Box */}
+          <div className="bg-slate-50 border border-slate-200/90 rounded-2xl p-4 sm:p-5 space-y-3.5">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
+              <label className="text-xs font-bold text-slate-800">
+                Chọn mẫu chủ đề &amp; định dạng bài viết:
+              </label>
+              <Badge label={activeTemplate.badge} variant="neutral" className="h-6 px-2.5 text-xs w-fit" />
             </div>
 
+            <Selector
+              label=""
+              value={selectedTemplateId}
+              onChange={(val) => setSelectedTemplateId(val)}
+              options={AI_BLOG_TEMPLATES.map((t) => ({
+                value: t.id,
+                label: t.name,
+              }))}
+              className="h-10 border bg-white"
+            />
+
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-1">
+              <p className="text-xs text-slate-600 font-medium">
+                {activeTemplate.description}
+              </p>
+
+              <div className="flex items-center gap-2 shrink-0">
+                <Button
+                  label="Sao chép Prompt mẫu"
+                  variant="secondary"
+                  onClick={handleCopyPrompt}
+                  className="h-9 px-3.5 text-xs"
+                />
+                <Button
+                  label="Dán dữ liệu mẫu"
+                  variant="secondary"
+                  onClick={handleLoadSample}
+                  className="h-9 px-3.5 text-xs"
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* Textarea Header & Clear button */}
+          <div className="flex items-center justify-between">
+            <label className="block text-xs font-bold text-slate-700">
+              Nội dung văn bản từ AI
+            </label>
             {rawText && (
               <Button
                 label="Xóa nội dung"
                 variant="ghost"
                 onClick={handleClear}
-                className="h-9 px-3 text-slate-500 hover:text-slate-800"
+                className="h-7 px-2 text-xs text-slate-500 hover:text-slate-800"
               />
             )}
           </div>
