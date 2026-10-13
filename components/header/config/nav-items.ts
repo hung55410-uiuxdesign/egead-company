@@ -12,7 +12,6 @@ import type {
 
 export const NAV_ITEMS: NavItem[] = [
   { id: 'work', label: 'Our Work', href: '/our-work' },
-  { id: 'products', label: 'Our Products', href: '/smartcommerce', hasDropdown: true },
   { id: 'services', label: 'Our Services', href: '/services/all-services', hasDropdown: true },
   { id: 'insights', label: 'Insights', href: '/insights', hasDropdown: true },
   { id: 'company', label: 'Company', href: '/company', hasDropdown: true },

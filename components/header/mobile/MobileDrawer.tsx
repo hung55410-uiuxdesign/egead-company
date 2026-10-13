@@ -6,7 +6,6 @@ import type { CategoryItem } from '@/types/category';
 import MobileHeader from './MobileHeader';
 import MobileTabs, { type MobileTabKey } from './MobileTabs';
 import MobileServicesTab from './panels/MobileServicesTab';
-import MobileProductsTab from './panels/MobileProductsTab';
 import MobileInsightsTab from './panels/MobileInsightsTab';
 import MobileCompanyTab from './panels/MobileCompanyTab';
 import MobilePromoCard from './panels/MobilePromoCard';
@@ -59,9 +58,6 @@ export default function MobileDrawer({
                 <div className="lg:col-span-8">
                   {activeTab === 'services' && (
                     <MobileServicesTab onClose={onClose} />
-                  )}
-                  {activeTab === 'products' && (
-                    <MobileProductsTab onClose={onClose} />
                   )}
                   {activeTab === 'insights' && (
                     <MobileInsightsTab

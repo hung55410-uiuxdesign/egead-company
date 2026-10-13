@@ -3,7 +3,6 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import type { CategoryItem } from '@/types/category';
-import ProductsPanel from './panels/ProductsPanel';
 import ServicesPanel from './panels/ServicesPanel';
 import InsightsPanel from './panels/InsightsPanel';
 import CompanyPanel from './panels/CompanyPanel';
@@ -45,9 +44,6 @@ export default function MegaSubmenuContainer({
                 exit={{ opacity: 0, x: -10 }}
                 transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] as const }}
               >
-                {activeDropdown === 'products' && (
-                  <ProductsPanel onItemClick={onItemClick} />
-                )}
                 {activeDropdown === 'services' && (
                   <ServicesPanel onItemClick={onItemClick} />
                 )}
