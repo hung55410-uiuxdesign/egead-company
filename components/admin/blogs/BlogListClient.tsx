@@ -21,7 +21,9 @@ import {
   useToast,
   CheckboxInput,
 } from "@astryxdesign/core";
-import { useBlogMutations } from "@/lib/hooks";
+import { useBlogMutations, useSaveBlogMutation } from "@/lib/hooks";
+import AIBlogImportModal from "./AIBlogImportModal";
+import { ParsedBlogPost } from "@/lib/utils/aiBlogParser";
 
 interface BlogListClientProps {
   initialPosts: BlogPost[];
@@ -47,6 +49,37 @@ export default function BlogListClient({
   const [isBulkEditOpen, setIsBulkEditOpen] = useState(false);
   const [bulkStatus, setBulkStatus] = useState<PostStatus | "">("");
   const [bulkCategory, setBulkCategory] = useState<string>("");
+  const [isAIImportOpen, setIsAIImportOpen] = useState(false);
+
+  const saveBlogMutation = useSaveBlogMutation({
+    showToast: true,
+    onSuccess: (savedPost) => {
+      if (savedPost?.data) {
+        setPosts((prev) => [savedPost.data, ...prev]);
+      }
+      setIsAIImportOpen(false);
+    },
+  });
+
+  const handleSaveDirectlyFromAI = (data: ParsedBlogPost) => {
+    const payload = {
+      title: data.title,
+      slug: data.slug || data.title.toLowerCase().replace(/\s+/g, '-'),
+      subtitle: data.subtitle || '',
+      tag: data.tag || 'General',
+      category: data.category || 'E-Commerce Strategy',
+      readTime: data.readTime || '5 mins read',
+      heroImage: data.heroImage || '/assets/case_brother.jpg',
+      excerpt: data.excerpt || '',
+      content: data.contentHtml,
+      author: {
+        name: data.authorName || 'E-GEAD Research Team',
+        role: data.authorRole || 'Global Commerce Strategist',
+      },
+      status: data.status || 'draft',
+    };
+    saveBlogMutation.mutate(payload);
+  };
 
   // TanStack Query Blog Mutations
   const {
@@ -213,12 +246,20 @@ export default function BlogListClient({
           </p>
         </div>
 
-        <Button
-          label="Thêm bài viết mới"
-          variant="primary"
-          href="/admin/blogs/new"
-          className="h-10 px-4"
-        />
+        <div className="flex items-center gap-2.5">
+          <Button
+            label="Thêm nhanh bằng AI"
+            variant="secondary"
+            onClick={() => setIsAIImportOpen(true)}
+            className="h-10 px-4"
+          />
+          <Button
+            label="Thêm bài viết mới"
+            variant="primary"
+            href="/admin/blogs/new"
+            className="h-10 px-4"
+          />
+        </div>
       </div>
       <Card variant="default" className="rounded-2xl p-4 sm:p-5 space-y-4">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-3">
@@ -606,6 +647,15 @@ export default function BlogListClient({
           </div>
         </div>
       )}
+
+      {/* AI Blog Quick Import Modal */}
+      <AIBlogImportModal
+        isOpen={isAIImportOpen}
+        onClose={() => setIsAIImportOpen(false)}
+        categories={categories}
+        onSaveDirectly={handleSaveDirectlyFromAI}
+        isSavingDirectly={saveBlogMutation.isPending}
+      />
     </div>
   );
 }
