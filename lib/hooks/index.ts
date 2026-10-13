@@ -9,3 +9,4 @@ export * from './useCareerApplicationMutations';
 export * from './useContactInquiryMutations';
 export * from './useCaseStudyMutations';
 export * from './useServiceMutations';
+export * from './useHomeSectionMutations';

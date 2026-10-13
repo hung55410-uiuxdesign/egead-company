@@ -91,6 +91,9 @@ export interface CaseStudiesSectionProps {
   id?: string;
   subtitle?: string;
   title?: string;
+  description?: string;
+  row1Partners?: LogoItem[];
+  row2Partners?: LogoItem[];
   logos?: LogoItem[];
 }
 
@@ -99,6 +102,9 @@ export default function CaseStudiesSection({
   id = 'homepage__customers',
   subtitle,
   title,
+  description,
+  row1Partners: customRow1,
+  row2Partners: customRow2,
   logos,
 }: CaseStudiesSectionProps) {
   // If used on Services Page / Single Partners Slider
@@ -332,8 +338,15 @@ export default function CaseStudiesSection({
   // =========================================================
   // HOMEPAGE DEFAULT VARIANT
   // =========================================================
-  const row1Doubled = [...row1Partners, ...row1Partners];
-  const row2Doubled = [...row2Partners, ...row2Partners];
+  const effectiveRow1 = customRow1 && customRow1.length > 0 ? customRow1 : row1Partners;
+  const effectiveRow2 = customRow2 && customRow2.length > 0 ? customRow2 : row2Partners;
+
+  const row1Doubled = effectiveRow1.length < 8
+    ? [...effectiveRow1, ...effectiveRow1, ...effectiveRow1, ...effectiveRow1]
+    : [...effectiveRow1, ...effectiveRow1];
+  const row2Doubled = effectiveRow2.length < 8
+    ? [...effectiveRow2, ...effectiveRow2, ...effectiveRow2, ...effectiveRow2]
+    : [...effectiveRow2, ...effectiveRow2];
 
   return (
     <section
@@ -348,19 +361,26 @@ export default function CaseStudiesSection({
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-            className="text-4xl sm:text-5xl lg:text-[54px] xl:text-[60px] font-normal text-white font-montserrat leading-[1.18] tracking-tight mb-7"
+            className="text-4xl sm:text-5xl lg:text-[54px] xl:text-[60px] font-normal text-white font-montserrat leading-[1.18] tracking-tight mb-7 whitespace-pre-line"
           >
-            Trusted by the world&apos;s
-            <br className="hidden sm:inline" /> leading brands
+            {title ? (
+              title
+            ) : (
+              <>
+                Operating Across the World&apos;s
+                <br className="hidden sm:inline" /> Leading Marketplaces &amp; Platforms
+              </>
+            )}
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
-            className="text-base sm:text-lg lg:text-[19px] text-[#b3b3b3] font-light leading-[1.8] font-montserrat max-w-3xl"
+            className="text-base sm:text-lg lg:text-[19px] text-[#b3b3b3] font-light leading-[1.8] font-montserrat max-w-3xl whitespace-pre-line"
           >
-            More than 13,000 companies trust Egead to manage their global e-commerce logistics and digital infrastructure across 24 time zones. From Fortune 500s to emerging direct-to-consumer brands, companies rely on our fulfillment, sales automation, and growth marketing to drive supply chain efficiencies.
+            {description ||
+              'EGEAD drives cross-border e-commerce growth across major global platforms, including TikTok Shop, Shopify, Etsy, and eBay. Combining data-driven marketing via TikTok & Google Ads with streamlined fulfillment and dedicated operating tools, we help products reach international consumers efficiently.'}
           </motion.p>
         </div>
       </div>

@@ -280,4 +280,23 @@ model ServiceItem {
   @@map("service_item")
 }
 
+model HomeSection {
+  id          String   @id @default(cuid())
+  key         String   @unique // e.g. "marketplaces-partners"
+  name        String   // Display name in admin
+  title       String?  @db.Text
+  subtitle    String?  @db.Text
+  description String?  @db.Text
+  data        Json?    // Flexible JSON content: { row1Partners: [...], row2Partners: [...] }
+  isActive    Boolean  @default(true)
+  order       Int      @default(0)
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([key])
+  @@index([order])
+  @@map("home_section")
+}
+
 

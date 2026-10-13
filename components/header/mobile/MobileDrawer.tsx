@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import type { CategoryItem } from '@/types/category';
+import type { HeaderServicesMenuData } from '@/lib/services/home-section.service';
 import MobileHeader from './MobileHeader';
 import MobileTabs, { type MobileTabKey } from './MobileTabs';
 import MobileServicesTab from './panels/MobileServicesTab';
@@ -14,12 +15,14 @@ interface MobileDrawerProps {
   isOpen: boolean;
   onClose: () => void;
   categories: CategoryItem[];
+  servicesMenu?: HeaderServicesMenuData | null;
 }
 
 export default function MobileDrawer({
   isOpen,
   onClose,
   categories,
+  servicesMenu,
 }: MobileDrawerProps) {
   const [activeTab, setActiveTab] = useState<MobileTabKey>('services');
 
@@ -57,7 +60,7 @@ export default function MobileDrawer({
                 {/* Left Content Area (Columns) */}
                 <div className="lg:col-span-8">
                   {activeTab === 'services' && (
-                    <MobileServicesTab onClose={onClose} />
+                    <MobileServicesTab servicesMenu={servicesMenu} onClose={onClose} />
                   )}
                   {activeTab === 'insights' && (
                     <MobileInsightsTab

@@ -11,6 +11,10 @@ import {
 } from './components';
 import CaseStudiesSection from '@/components/CaseStudiesSection';
 import ContactBlock from '@/components/ContactBlock';
+import type {
+  HomeSectionModel,
+  CapabilitiesSectionData,
+} from '@/lib/services/home-section.service';
 
 const sectionVariants: Variants = {
   hidden: {
@@ -29,7 +33,20 @@ const sectionVariants: Variants = {
   },
 };
 
-export default function HomeView() {
+interface HomeViewProps {
+  marketplacesSection?: HomeSectionModel | null;
+  servicesSection?: HomeSectionModel | null;
+}
+
+export default function HomeView({
+  marketplacesSection,
+  servicesSection,
+}: HomeViewProps = {}) {
+  const row1 = marketplacesSection?.data?.row1Partners;
+  const row2 = marketplacesSection?.data?.row2Partners;
+
+  const servicesData = servicesSection?.data as CapabilitiesSectionData | undefined;
+
   return (
     <div className="w-full overflow-hidden">
       {/* 1. Hero Section */}
@@ -48,7 +65,18 @@ export default function HomeView() {
         viewport={{ once: true, amount: 0.1, margin: '0px 0px -60px 0px' }}
         variants={sectionVariants}
       >
-        <ServicesSection />
+        <ServicesSection
+          subtitle={servicesSection?.subtitle || undefined}
+          title={servicesSection?.title || undefined}
+          buttonText={servicesData?.buttonText || undefined}
+          buttonHref={servicesData?.buttonHref || undefined}
+          backgroundImage={servicesData?.backgroundImage || undefined}
+          items={
+            servicesData?.items && servicesData.items.length > 0
+              ? servicesData.items
+              : undefined
+          }
+        />
       </motion.div>
 
       {/* 3. Case Studies Section */}
@@ -58,7 +86,12 @@ export default function HomeView() {
         viewport={{ once: true, amount: 0.1, margin: '0px 0px -60px 0px' }}
         variants={sectionVariants}
       >
-        <CaseStudiesSection />
+        <CaseStudiesSection
+          title={marketplacesSection?.title || undefined}
+          description={marketplacesSection?.description || undefined}
+          row1Partners={row1 && row1.length > 0 ? row1 : undefined}
+          row2Partners={row2 && row2.length > 0 ? row2 : undefined}
+        />
       </motion.div>
 
       {/* 4. SmartCX Section */}

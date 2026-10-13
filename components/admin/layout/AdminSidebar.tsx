@@ -11,6 +11,7 @@ import {
   Settings,
   ExternalLink,
   Layers,
+  Home,
   X,
   Sparkles,
   Briefcase,
@@ -49,6 +50,12 @@ const CONTENT_NAV_ITEMS = [
 ];
 
 const PAGE_NAV_ITEMS = [
+  {
+    label: 'Trang chủ',
+    href: '/admin/home',
+    icon: Home,
+    exact: false,
+  },
   {
     label: 'Trang Our Work (Dự án)',
     href: '/admin/our-work',

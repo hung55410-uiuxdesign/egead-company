@@ -17,18 +17,23 @@ import type {
   ServiceItemListItem,
   ServiceItemStats,
 } from '@/lib/services/service-item.service';
+import type { HomeSectionModel } from '@/lib/services/home-section.service';
 import { useServiceMutations } from '@/lib/hooks';
+import HeaderMenuConfigSection from './HeaderMenuConfigSection';
 
 interface ServiceListClientProps {
   initialItems: ServiceItemListItem[];
   initialStats: ServiceItemStats;
+  initialHeaderMenu?: HomeSectionModel | null;
 }
 
 export default function ServiceListClient({
   initialItems,
   initialStats,
+  initialHeaderMenu,
 }: ServiceListClientProps) {
   const router = useRouter();
+  const [activeTab, setActiveTab] = useState<'list' | 'menu'>('list');
   const [items, setItems] = useState<ServiceItemListItem[]>(initialItems);
   const [stats, setStats] = useState<ServiceItemStats>(initialStats);
   const [search, setSearch] = useState('');
@@ -148,9 +153,41 @@ export default function ServiceListClient({
       </div>
 
       {/* =========================================================================
-          KEY STATS ROW (Astryx Cards - pure text, no icons before text)
+          VIEW SWITCHER TABS
           ========================================================================= */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-3.5">
+      <div className="flex items-center gap-2 p-1 bg-slate-100 rounded-xl w-fit">
+        <button
+          type="button"
+          onClick={() => setActiveTab('list')}
+          className={`px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all ${
+            activeTab === 'list'
+              ? 'bg-white text-slate-900 shadow-xs'
+              : 'text-slate-600 hover:text-slate-900'
+          }`}
+        >
+          Danh sách bài viết dịch vụ ({items.length})
+        </button>
+        <button
+          type="button"
+          onClick={() => setActiveTab('menu')}
+          className={`px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all ${
+            activeTab === 'menu'
+              ? 'bg-white text-slate-900 shadow-xs'
+              : 'text-slate-600 hover:text-slate-900'
+          }`}
+        >
+          Cấu hình Menu Header (Mega Menu)
+        </button>
+      </div>
+
+      {activeTab === 'menu' ? (
+        <HeaderMenuConfigSection initialSection={initialHeaderMenu} />
+      ) : (
+        <>
+          {/* =========================================================================
+              KEY STATS ROW (Astryx Cards - pure text, no icons before text)
+              ========================================================================= */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3.5">
         <Card
           variant="default"
           className="rounded-2xl p-4 bg-white border border-slate-200/80"
@@ -459,6 +496,8 @@ export default function ServiceListClient({
           </>
         )}
       </Card>
+        </>
+      )}
     </div>
   );
 }
