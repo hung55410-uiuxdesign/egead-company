@@ -1,5 +1,9 @@
 import type { Metadata } from 'next';
 import { OurWorkView } from '@/components/pages/work/our-work';
+import { getCaseStudies } from '@/lib/services/casestudy.service';
+import type { CaseStudyItem } from '@/components/pages/work/our-work/types';
+
+export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
   title: 'Explore Our Innovative Projects and Success Stories | E-GEAD',
@@ -15,6 +19,26 @@ export const metadata: Metadata = {
   ],
 };
 
-export default function OurWorkPage() {
-  return <OurWorkView />;
+export default async function OurWorkPage() {
+  let studies: CaseStudyItem[] = [];
+  try {
+    const rawStudies = await getCaseStudies({ status: 'published' });
+    studies = rawStudies.map((s) => ({
+      id: s.id,
+      slug: s.slug,
+      customer: s.customer,
+      title: s.title,
+      description: s.description,
+      image: s.image,
+      services: s.services,
+      industries: s.industries,
+      tags: s.tags,
+      highlight: s.highlight || undefined,
+      order: s.order,
+    }));
+  } catch (error) {
+    console.error('Error fetching studies for our-work page:', error);
+  }
+
+  return <OurWorkView initialStudies={studies} />;
 }

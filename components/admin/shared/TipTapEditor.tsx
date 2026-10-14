@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useEditor, EditorContent } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import LinkExtension from '@tiptap/extension-link';
@@ -50,19 +50,9 @@ import {
   Redo2,
   RemoveFormatting,
   Eye,
-  CodeXml,
-  Sparkles,
-  Maximize2,
-  Minimize2,
   Check,
   X,
-  UploadCloud,
-  Loader2,
   ChevronDown,
-  Columns,
-  Rows,
-  Trash2,
-  Plus,
   ZoomIn,
   ZoomOut,
   FileCode,
@@ -250,6 +240,22 @@ export default function TipTapEditor({
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
+  // Upload content image hook with Astryx toast
+  const {
+    uploadFile: handleFileUpload,
+    isUploading: isUploadingImage,
+    error: uploadImageError,
+    reset: resetUploadImage,
+  } = useUploadMedia({
+    defaultFolder: 'egead_cms/content',
+    successMessage: 'Tải và chèn ảnh vào bài viết thành công!',
+    onSuccess: (data) => {
+      editor?.chain().focus().setImage({ src: data.url }).run();
+      setImageUrl('');
+      setImageModalOpen(false);
+    },
+  });
+
   if (!editor) {
     return (
       <div className="p-8 border border-slate-200 rounded-xl bg-slate-50 flex items-center justify-center text-slate-500 text-xs font-open-sans">
@@ -289,22 +295,6 @@ export default function TipTapEditor({
     editor.chain().focus().unsetLink().run();
     setLinkModalOpen(false);
   };
-
-  // Upload content image hook with Astryx toast
-  const {
-    uploadFile: handleFileUpload,
-    isUploading: isUploadingImage,
-    error: uploadImageError,
-    reset: resetUploadImage,
-  } = useUploadMedia({
-    defaultFolder: 'egead_cms/content',
-    successMessage: 'Tải và chèn ảnh vào bài viết thành công!',
-    onSuccess: (data) => {
-      editor.chain().focus().setImage({ src: data.url }).run();
-      setImageUrl('');
-      setImageModalOpen(false);
-    },
-  });
 
   // Image action
   const applyImage = () => {
@@ -391,11 +381,10 @@ export default function TipTapEditor({
 
   return (
     <div
-      className={`bg-white font-open-sans transition-all ${
-        isFullscreen
-          ? 'fixed inset-0 z-50 flex flex-col h-screen w-screen overflow-hidden'
-          : 'border border-slate-200 rounded-xl overflow-hidden flex flex-col'
-      }`}
+      className={`bg-white font-open-sans transition-all ${isFullscreen
+        ? 'fixed inset-0 z-50 flex flex-col h-screen w-screen overflow-hidden'
+        : 'border border-slate-200 rounded-xl overflow-hidden flex flex-col'
+        }`}
     >
       {/* =========================================================================
           TOP BAR: Modes, Focus Controls, Zoom & Fullscreen
@@ -407,11 +396,10 @@ export default function TipTapEditor({
             <button
               type="button"
               onClick={() => setActiveTab('editor')}
-              className={`px-3 py-1 text-xs font-semibold rounded-md transition-all ${
-                activeTab === 'editor'
-                  ? 'bg-white text-slate-900'
-                  : 'text-slate-600 hover:text-slate-900'
-              }`}
+              className={`px-3 py-1 text-xs font-semibold rounded-md transition-all ${activeTab === 'editor'
+                ? 'bg-white text-slate-900'
+                : 'text-slate-600 hover:text-slate-900'
+                }`}
             >
               Trực quan (WYSIWYG)
             </button>
@@ -423,11 +411,10 @@ export default function TipTapEditor({
                 }
                 setActiveTab('preview');
               }}
-              className={`px-3 py-1 text-xs font-semibold rounded-md transition-all ${
-                activeTab === 'preview'
-                  ? 'bg-white text-slate-900'
-                  : 'text-slate-600 hover:text-slate-900'
-              }`}
+              className={`px-3 py-1 text-xs font-semibold rounded-md transition-all ${activeTab === 'preview'
+                ? 'bg-white text-slate-900'
+                : 'text-slate-600 hover:text-slate-900'
+                }`}
             >
               Xem trước
             </button>
@@ -439,11 +426,10 @@ export default function TipTapEditor({
                 }
                 setActiveTab('html');
               }}
-              className={`px-3 py-1 text-xs font-semibold rounded-md transition-all ${
-                activeTab === 'html'
-                  ? 'bg-white text-slate-900'
-                  : 'text-slate-600 hover:text-slate-900'
-              }`}
+              className={`px-3 py-1 text-xs font-semibold rounded-md transition-all ${activeTab === 'html'
+                ? 'bg-white text-slate-900'
+                : 'text-slate-600 hover:text-slate-900'
+                }`}
             >
               Mã HTML
             </button>
@@ -482,9 +468,8 @@ export default function TipTapEditor({
                       key={w}
                       type="button"
                       onClick={() => setFocusWidth(w)}
-                      className={`px-2 py-0.5 text-[11px] font-medium rounded transition ${
-                        focusWidth === w ? 'bg-slate-900 text-white' : 'text-slate-600 hover:bg-slate-100'
-                      }`}
+                      className={`px-2 py-0.5 text-[11px] font-medium rounded transition ${focusWidth === w ? 'bg-slate-900 text-white' : 'text-slate-600 hover:bg-slate-100'
+                        }`}
                       title={`Độ rộng khung soạn: ${w}`}
                     >
                       {w === 'compact' ? 'Gọn' : w === 'standard' ? 'Chuẩn' : w === 'wide' ? 'Rộng' : 'Tràn'}
@@ -539,11 +524,10 @@ export default function TipTapEditor({
           <button
             type="button"
             onClick={() => setIsFullscreen(!isFullscreen)}
-            className={`flex items-center px-3 py-1.5 rounded-lg text-xs font-semibold transition ${
-              isFullscreen
-                ? 'bg-emerald-600 hover:bg-emerald-700 text-white'
-                : 'bg-white hover:bg-slate-100 text-slate-700 border border-slate-300'
-            }`}
+            className={`flex items-center px-3 py-1.5 rounded-lg text-xs font-semibold transition ${isFullscreen
+              ? 'bg-emerald-600 hover:bg-emerald-700 text-white'
+              : 'bg-white hover:bg-slate-100 text-slate-700 border border-slate-300'
+              }`}
             title={isFullscreen ? 'Thu nhỏ về màn hình quản trị (Esc)' : 'Phóng to tập trung soạn thảo (Zen Mode)'}
           >
             {isFullscreen ? (
@@ -565,9 +549,8 @@ export default function TipTapEditor({
             <button
               type="button"
               onClick={() => editor.chain().focus().setParagraph().run()}
-              className={`p-1.5 rounded text-xs font-medium ${
-                editor.isActive('paragraph') ? 'bg-emerald-100 text-emerald-800' : 'text-slate-600 hover:bg-slate-100'
-              }`}
+              className={`p-1.5 rounded text-xs font-medium ${editor.isActive('paragraph') ? 'bg-emerald-100 text-emerald-800' : 'text-slate-600 hover:bg-slate-100'
+                }`}
               title="Đoạn văn bình thường (Paragraph)"
             >
               <Pilcrow className="w-4 h-4" />
@@ -575,11 +558,10 @@ export default function TipTapEditor({
             <button
               type="button"
               onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
-              className={`p-1.5 rounded text-xs font-bold ${
-                editor.isActive('heading', { level: 1 })
-                  ? 'bg-emerald-100 text-emerald-800'
-                  : 'text-slate-600 hover:bg-slate-100'
-              }`}
+              className={`p-1.5 rounded text-xs font-bold ${editor.isActive('heading', { level: 1 })
+                ? 'bg-emerald-100 text-emerald-800'
+                : 'text-slate-600 hover:bg-slate-100'
+                }`}
               title="Tiêu đề H1"
             >
               <Heading1 className="w-4 h-4" />
@@ -587,11 +569,10 @@ export default function TipTapEditor({
             <button
               type="button"
               onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
-              className={`p-1.5 rounded text-xs font-bold ${
-                editor.isActive('heading', { level: 2 })
-                  ? 'bg-emerald-100 text-emerald-800'
-                  : 'text-slate-600 hover:bg-slate-100'
-              }`}
+              className={`p-1.5 rounded text-xs font-bold ${editor.isActive('heading', { level: 2 })
+                ? 'bg-emerald-100 text-emerald-800'
+                : 'text-slate-600 hover:bg-slate-100'
+                }`}
               title="Tiêu đề H2"
             >
               <Heading2 className="w-4 h-4" />
@@ -599,11 +580,10 @@ export default function TipTapEditor({
             <button
               type="button"
               onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}
-              className={`p-1.5 rounded text-xs font-bold ${
-                editor.isActive('heading', { level: 3 })
-                  ? 'bg-emerald-100 text-emerald-800'
-                  : 'text-slate-600 hover:bg-slate-100'
-              }`}
+              className={`p-1.5 rounded text-xs font-bold ${editor.isActive('heading', { level: 3 })
+                ? 'bg-emerald-100 text-emerald-800'
+                : 'text-slate-600 hover:bg-slate-100'
+                }`}
               title="Tiêu đề H3"
             >
               <Heading3 className="w-4 h-4" />
@@ -611,11 +591,10 @@ export default function TipTapEditor({
             <button
               type="button"
               onClick={() => editor.chain().focus().toggleHeading({ level: 4 }).run()}
-              className={`p-1.5 rounded text-xs font-bold ${
-                editor.isActive('heading', { level: 4 })
-                  ? 'bg-emerald-100 text-emerald-800'
-                  : 'text-slate-600 hover:bg-slate-100'
-              }`}
+              className={`p-1.5 rounded text-xs font-bold ${editor.isActive('heading', { level: 4 })
+                ? 'bg-emerald-100 text-emerald-800'
+                : 'text-slate-600 hover:bg-slate-100'
+                }`}
               title="Tiêu đề H4"
             >
               <Heading4 className="w-4 h-4" />
@@ -627,9 +606,8 @@ export default function TipTapEditor({
             <button
               type="button"
               onClick={() => editor.chain().focus().toggleBold().run()}
-              className={`p-1.5 rounded ${
-                editor.isActive('bold') ? 'bg-emerald-100 text-emerald-800 font-bold' : 'text-slate-600 hover:bg-slate-100'
-              }`}
+              className={`p-1.5 rounded ${editor.isActive('bold') ? 'bg-emerald-100 text-emerald-800 font-bold' : 'text-slate-600 hover:bg-slate-100'
+                }`}
               title="In đậm (Ctrl+B)"
             >
               <Bold className="w-4 h-4" />
@@ -637,9 +615,8 @@ export default function TipTapEditor({
             <button
               type="button"
               onClick={() => editor.chain().focus().toggleItalic().run()}
-              className={`p-1.5 rounded ${
-                editor.isActive('italic') ? 'bg-emerald-100 text-emerald-800 italic' : 'text-slate-600 hover:bg-slate-100'
-              }`}
+              className={`p-1.5 rounded ${editor.isActive('italic') ? 'bg-emerald-100 text-emerald-800 italic' : 'text-slate-600 hover:bg-slate-100'
+                }`}
               title="In nghiêng (Ctrl+I)"
             >
               <Italic className="w-4 h-4" />
@@ -647,9 +624,8 @@ export default function TipTapEditor({
             <button
               type="button"
               onClick={() => editor.chain().focus().toggleUnderline().run()}
-              className={`p-1.5 rounded ${
-                editor.isActive('underline') ? 'bg-emerald-100 text-emerald-800' : 'text-slate-600 hover:bg-slate-100'
-              }`}
+              className={`p-1.5 rounded ${editor.isActive('underline') ? 'bg-emerald-100 text-emerald-800' : 'text-slate-600 hover:bg-slate-100'
+                }`}
               title="Gạch chân (Ctrl+U)"
             >
               <UnderlineIcon className="w-4 h-4" />
@@ -657,9 +633,8 @@ export default function TipTapEditor({
             <button
               type="button"
               onClick={() => editor.chain().focus().toggleStrike().run()}
-              className={`p-1.5 rounded ${
-                editor.isActive('strike') ? 'bg-emerald-100 text-emerald-800 line-through' : 'text-slate-600 hover:bg-slate-100'
-              }`}
+              className={`p-1.5 rounded ${editor.isActive('strike') ? 'bg-emerald-100 text-emerald-800 line-through' : 'text-slate-600 hover:bg-slate-100'
+                }`}
               title="Gạch ngang chữ"
             >
               <Strikethrough className="w-4 h-4" />
@@ -667,9 +642,8 @@ export default function TipTapEditor({
             <button
               type="button"
               onClick={() => editor.chain().focus().toggleCode().run()}
-              className={`p-1.5 rounded ${
-                editor.isActive('code') ? 'bg-emerald-100 text-emerald-800' : 'text-slate-600 hover:bg-slate-100'
-              }`}
+              className={`p-1.5 rounded ${editor.isActive('code') ? 'bg-emerald-100 text-emerald-800' : 'text-slate-600 hover:bg-slate-100'
+                }`}
               title="Mã nội dòng (Inline Code)"
             >
               <Code className="w-4 h-4" />
@@ -680,9 +654,8 @@ export default function TipTapEditor({
               <button
                 type="button"
                 onClick={() => setHighlightMenuOpen(!highlightMenuOpen)}
-                className={`p-1.5 rounded flex items-center gap-0.5 ${
-                  editor.isActive('highlight') ? 'bg-amber-100 text-amber-800' : 'text-slate-600 hover:bg-slate-100'
-                }`}
+                className={`p-1.5 rounded flex items-center gap-0.5 ${editor.isActive('highlight') ? 'bg-amber-100 text-amber-800' : 'text-slate-600 hover:bg-slate-100'
+                  }`}
                 title="Tô màu nền chữ (Highlight)"
               >
                 <Highlighter className="w-4 h-4" />
@@ -773,9 +746,8 @@ export default function TipTapEditor({
             <button
               type="button"
               onClick={() => editor.chain().focus().setTextAlign('left').run()}
-              className={`p-1.5 rounded ${
-                editor.isActive({ textAlign: 'left' }) ? 'bg-emerald-100 text-emerald-800' : 'text-slate-600 hover:bg-slate-100'
-              }`}
+              className={`p-1.5 rounded ${editor.isActive({ textAlign: 'left' }) ? 'bg-emerald-100 text-emerald-800' : 'text-slate-600 hover:bg-slate-100'
+                }`}
               title="Căn lề trái"
             >
               <AlignLeft className="w-4 h-4" />
@@ -783,9 +755,8 @@ export default function TipTapEditor({
             <button
               type="button"
               onClick={() => editor.chain().focus().setTextAlign('center').run()}
-              className={`p-1.5 rounded ${
-                editor.isActive({ textAlign: 'center' }) ? 'bg-emerald-100 text-emerald-800' : 'text-slate-600 hover:bg-slate-100'
-              }`}
+              className={`p-1.5 rounded ${editor.isActive({ textAlign: 'center' }) ? 'bg-emerald-100 text-emerald-800' : 'text-slate-600 hover:bg-slate-100'
+                }`}
               title="Căn giữa"
             >
               <AlignCenter className="w-4 h-4" />
@@ -793,9 +764,8 @@ export default function TipTapEditor({
             <button
               type="button"
               onClick={() => editor.chain().focus().setTextAlign('right').run()}
-              className={`p-1.5 rounded ${
-                editor.isActive({ textAlign: 'right' }) ? 'bg-emerald-100 text-emerald-800' : 'text-slate-600 hover:bg-slate-100'
-              }`}
+              className={`p-1.5 rounded ${editor.isActive({ textAlign: 'right' }) ? 'bg-emerald-100 text-emerald-800' : 'text-slate-600 hover:bg-slate-100'
+                }`}
               title="Căn lề phải"
             >
               <AlignRight className="w-4 h-4" />
@@ -803,9 +773,8 @@ export default function TipTapEditor({
             <button
               type="button"
               onClick={() => editor.chain().focus().setTextAlign('justify').run()}
-              className={`p-1.5 rounded ${
-                editor.isActive({ textAlign: 'justify' }) ? 'bg-emerald-100 text-emerald-800' : 'text-slate-600 hover:bg-slate-100'
-              }`}
+              className={`p-1.5 rounded ${editor.isActive({ textAlign: 'justify' }) ? 'bg-emerald-100 text-emerald-800' : 'text-slate-600 hover:bg-slate-100'
+                }`}
               title="Căn đều hai bên"
             >
               <AlignJustify className="w-4 h-4" />
@@ -817,9 +786,8 @@ export default function TipTapEditor({
             <button
               type="button"
               onClick={() => editor.chain().focus().toggleBulletList().run()}
-              className={`p-1.5 rounded ${
-                editor.isActive('bulletList') ? 'bg-emerald-100 text-emerald-800' : 'text-slate-600 hover:bg-slate-100'
-              }`}
+              className={`p-1.5 rounded ${editor.isActive('bulletList') ? 'bg-emerald-100 text-emerald-800' : 'text-slate-600 hover:bg-slate-100'
+                }`}
               title="Danh sách gạch đầu dòng"
             >
               <List className="w-4 h-4" />
@@ -827,9 +795,8 @@ export default function TipTapEditor({
             <button
               type="button"
               onClick={() => editor.chain().focus().toggleOrderedList().run()}
-              className={`p-1.5 rounded ${
-                editor.isActive('orderedList') ? 'bg-emerald-100 text-emerald-800' : 'text-slate-600 hover:bg-slate-100'
-              }`}
+              className={`p-1.5 rounded ${editor.isActive('orderedList') ? 'bg-emerald-100 text-emerald-800' : 'text-slate-600 hover:bg-slate-100'
+                }`}
               title="Danh sách đánh số thứ tự"
             >
               <ListOrdered className="w-4 h-4" />
@@ -837,9 +804,8 @@ export default function TipTapEditor({
             <button
               type="button"
               onClick={() => editor.chain().focus().toggleTaskList().run()}
-              className={`p-1.5 rounded ${
-                editor.isActive('taskList') ? 'bg-emerald-100 text-emerald-800' : 'text-slate-600 hover:bg-slate-100'
-              }`}
+              className={`p-1.5 rounded ${editor.isActive('taskList') ? 'bg-emerald-100 text-emerald-800' : 'text-slate-600 hover:bg-slate-100'
+                }`}
               title="Danh sách việc cần làm (Task List)"
             >
               <ListTodo className="w-4 h-4" />
@@ -851,9 +817,8 @@ export default function TipTapEditor({
             <button
               type="button"
               onClick={() => editor.chain().focus().toggleBlockquote().run()}
-              className={`p-1.5 rounded ${
-                editor.isActive('blockquote') ? 'bg-emerald-100 text-emerald-800' : 'text-slate-600 hover:bg-slate-100'
-              }`}
+              className={`p-1.5 rounded ${editor.isActive('blockquote') ? 'bg-emerald-100 text-emerald-800' : 'text-slate-600 hover:bg-slate-100'
+                }`}
               title="Khối trích dẫn nổi bật (Quote)"
             >
               <Quote className="w-4 h-4" />
@@ -861,9 +826,8 @@ export default function TipTapEditor({
             <button
               type="button"
               onClick={() => editor.chain().focus().toggleCodeBlock().run()}
-              className={`p-1.5 rounded ${
-                editor.isActive('codeBlock') ? 'bg-emerald-100 text-emerald-800' : 'text-slate-600 hover:bg-slate-100'
-              }`}
+              className={`p-1.5 rounded ${editor.isActive('codeBlock') ? 'bg-emerald-100 text-emerald-800' : 'text-slate-600 hover:bg-slate-100'
+                }`}
               title="Khối mã lập trình (Code Block)"
             >
               <FileCode className="w-4 h-4" />
@@ -883,9 +847,8 @@ export default function TipTapEditor({
             <button
               type="button"
               onClick={() => setTableMenuOpen(!tableMenuOpen)}
-              className={`p-1.5 rounded flex items-center gap-0.5 ${
-                editor.isActive('table') ? 'bg-emerald-100 text-emerald-800 font-bold' : 'text-slate-600 hover:bg-slate-100'
-              }`}
+              className={`p-1.5 rounded flex items-center gap-0.5 ${editor.isActive('table') ? 'bg-emerald-100 text-emerald-800 font-bold' : 'text-slate-600 hover:bg-slate-100'
+                }`}
               title="Chèn & Quản lý bảng dữ liệu (Table)"
             >
               <TableIcon className="w-4 h-4" />
@@ -972,9 +935,8 @@ export default function TipTapEditor({
             <button
               type="button"
               onClick={openLinkModal}
-              className={`p-1.5 rounded ${
-                editor.isActive('link') ? 'bg-emerald-100 text-emerald-800' : 'text-slate-600 hover:bg-slate-100'
-              }`}
+              className={`p-1.5 rounded ${editor.isActive('link') ? 'bg-emerald-100 text-emerald-800' : 'text-slate-600 hover:bg-slate-100'
+                }`}
               title="Chèn liên kết URL (Link)"
             >
               <LinkIcon className="w-4 h-4" />
@@ -1223,9 +1185,8 @@ export default function TipTapEditor({
           ========================================================================= */}
       {(activeTab === 'editor' || activeTab === 'preview') && (
         <div
-          className={`flex-1 bg-white overflow-y-auto ${
-            activeTab === 'editor' ? 'cursor-text' : 'cursor-default'
-          } ${isFullscreen ? 'p-6 sm:p-12' : 'min-h-[420px]'}`}
+          className={`flex-1 bg-white overflow-y-auto ${activeTab === 'editor' ? 'cursor-text' : 'cursor-default'
+            } ${isFullscreen ? 'p-6 sm:p-12' : 'min-h-[420px]'}`}
           onClick={() => {
             if (activeTab === 'editor') {
               editor.commands.focus();
@@ -1255,9 +1216,8 @@ export default function TipTapEditor({
       {/* HTML Code View - Clean Light Mode with Action Buttons */}
       {activeTab === 'html' && (
         <div
-          className={`flex-1 bg-slate-50 text-slate-800 font-mono text-xs overflow-y-auto border-t border-slate-200 flex flex-col ${
-            isFullscreen ? 'p-8' : 'p-4 min-h-[420px]'
-          }`}
+          className={`flex-1 bg-slate-50 text-slate-800 font-mono text-xs overflow-y-auto border-t border-slate-200 flex flex-col ${isFullscreen ? 'p-8' : 'p-4 min-h-[420px]'
+            }`}
         >
           <div className="flex items-center justify-between mb-2">
             <span className="text-xs font-bold text-slate-600">Trình chỉnh sửa mã HTML nguồn</span>

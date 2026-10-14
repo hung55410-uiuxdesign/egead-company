@@ -193,3 +193,172 @@ model ContactInquiry {
   @@map("contact_inquiry")
 }
 
+// -------------------------------------------------------------
+// E-GEAD Case Studies / Our Work Models
+// -------------------------------------------------------------
+
+model CaseStudy {
+  id                  String   @id @default(cuid())
+  slug                String   @unique
+  title               String
+  customer            String
+  description         String   @db.Text
+  image               String
+  services            String[]
+  industries          String[]
+  tags                String[]
+  highlight           String?
+  order               Int      @default(0)
+  status              String   @default("published") // 'published' | 'draft' | 'archived'
+
+  // Detail Page Fields
+  bannerImage         String?
+  bannerVideo         String?
+
+  // Section 1: Overview
+  overviewSubtitle    String?  @default("OVERVIEW")
+  overviewTitle       String?  @db.Text
+  overviewDescription String?  @db.Text
+  overviewImage       String?
+
+  // Section 2: Challenge & Solution
+  challengeTitle      String?  @db.Text
+  challengeContent    String?  @db.Text
+  solutionTitle       String?  @db.Text
+  solutionContent     String?  @db.Text
+
+  // Section 3: Task & Implementation
+  taskSubtitle        String?  @default("TASK")
+  taskTitle           String?  @db.Text
+  taskImages          String[]
+  taskItems           Json?    // Array of { taskTitle: string, description: string }
+
+  // Section 4: Next Case Study
+  nextStudySlug       String?
+  nextStudyTitle      String?
+  nextStudyCustomer   String?
+
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+
+  @@index([slug])
+  @@index([status])
+  @@index([order])
+  @@map("case_study")
+}
+
+model ServiceItem {
+  id                 String   @id @default(cuid())
+  slug               String   @unique
+  category           String   @default("service") // 'service' | 'industry'
+  title              String
+  tagline            String   @db.Text
+  subtitle           String   @db.Text
+  heroImage          String?
+  middleImage        String?
+
+  // Section 2: Overview
+  overviewSubTitle   String?  @db.Text
+  overviewHeading    String?  @db.Text
+  overviewParagraphs String[]
+
+  // Section 3: Approach & Principles
+  approachHeading    String?  @default("Our approach")
+  approachIntro      String?  @db.Text
+  principles         Json?    // Array of { title: string, description: string }
+
+  order              Int      @default(0)
+  status             String   @default("published") // 'published' | 'draft'
+
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+
+  @@index([slug])
+  @@index([category])
+  @@index([status])
+  @@index([order])
+  @@map("service_item")
+}
+
+model HomeSection {
+  id          String   @id @default(cuid())
+  key         String   @unique // e.g. "marketplaces-partners"
+  name        String   // Display name in admin
+  title       String?  @db.Text
+  subtitle    String?  @db.Text
+  description String?  @db.Text
+  data        Json?    // Flexible JSON content: { row1Partners: [...], row2Partners: [...] }
+  isActive    Boolean  @default(true)
+  order       Int      @default(0)
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([key])
+  @@index([order])
+  @@map("home_section")
+}
+
+// -------------------------------------------------------------
+// E-GEAD Strategic Partner Models
+// -------------------------------------------------------------
+
+model PartnerItem {
+  id                 String   @id @default(cuid())
+  slug               String   @unique
+  name               String
+  badge              String?
+  headline           String?  @db.Text
+  description        String?  @db.Text
+  bannerImage        String?
+  bannerFallback     String?
+  ctaText            String?  @default("Schedule demo")
+  ctaHref            String?  @default("/contact-us")
+
+  // Section 2: Advantages
+  advantagesSubtitle String?  @default("E-GEAD advantages")
+  advantagesHeadline String?  @db.Text
+  advantagesItems    Json?    // Array of { id, metric, description, iconName }
+
+  // Section 3: Expertise
+  expertiseSubtitle  String?  @default("Our expertise")
+  expertiseHeadline  String?  @db.Text
+  expertiseItems     Json?    // Array of { id, title, paragraphs: string[], image, imageFallback, alt }
+
+  // Section 4: Why
+  whyTitlePrefix     String?
+  whyHeadline        String?  @db.Text
+  whyDescription     String?  @db.Text
+  whyItems           Json?    // Array of { id, title, content }
+
+  // Section 5: Case studies
+  casesSubtitle      String?  @default("Proven outcomes")
+  casesHeadline      String?  @default("Read our cases")
+  casesItems         Json?    // Array of { id, slug, customer, title, tags: string[], image }
+
+  // Section 6: CTA
+  ctaHeadingPart1    String?  @default("Unleash your ")
+  ctaHighlight       String?  @default("growth potential")
+  ctaHeadingPart2    String?
+  ctaDescription     String?  @db.Text
+  ctaButtonText      String?  @default("Let's talk")
+  ctaButtonHref      String?  @default("/contact-us")
+
+  // SEO
+  metaTitle          String?
+  metaDescription    String?  @db.Text
+
+  order              Int      @default(0)
+  status             String   @default("published") // 'published' | 'draft'
+
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+
+  @@index([slug])
+  @@index([status])
+  @@index([order])
+  @@map("partner_item")
+}
+
+
+

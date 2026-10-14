@@ -9,7 +9,10 @@ import MegaSubmenuContainer from './desktop/MegaSubmenuContainer';
 import MobileDrawer from './mobile/MobileDrawer';
 import type { HeaderProps } from './types';
 
-export default function Header({ initialCategories = [] }: HeaderProps) {
+export default function Header({
+  initialCategories = [],
+  initialServicesMenu,
+}: HeaderProps) {
   const categories = useHeaderCategories(initialCategories);
   const scrolled = useHeaderScroll(25);
   const {
@@ -43,6 +46,7 @@ export default function Header({ initialCategories = [] }: HeaderProps) {
         <MegaSubmenuContainer
           activeDropdown={activeDropdown}
           categories={categories}
+          servicesMenu={initialServicesMenu}
           onMouseEnter={clearDropdownTimeout}
           onMouseLeave={handleMouseLeave}
           onItemClick={closeDropdownImmediately}
@@ -54,6 +58,7 @@ export default function Header({ initialCategories = [] }: HeaderProps) {
         isOpen={isMobileMenuOpen}
         onClose={() => setIsMobileMenuOpen(false)}
         categories={categories}
+        servicesMenu={initialServicesMenu}
       />
     </>
   );

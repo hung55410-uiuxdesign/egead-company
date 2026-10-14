@@ -49,6 +49,9 @@ export interface MobileProductCard {
   actionText: string;
 }
 
+import type { HeaderServicesMenuData } from '@/lib/services/home-section.service';
+
 export interface HeaderProps {
   initialCategories?: CategoryItem[];
+  initialServicesMenu?: HeaderServicesMenuData | null;
 }

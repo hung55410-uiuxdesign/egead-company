@@ -3,6 +3,7 @@ import path from 'path';
 import { Prisma } from '@prisma/client';
 import { prisma } from '@/lib/prisma';
 import { BlogPost, BlogStats, BlogCategory, PostStatus } from '@/types/blog';
+export type { BlogPost, BlogStats, BlogCategory, PostStatus } from '@/types/blog';
 import { CategoryItem, getCategoryHref } from '@/types/category';
 import { getCategoriesWithCount } from './category.service';
 import initialBlogs from '@/data/blogs.json';

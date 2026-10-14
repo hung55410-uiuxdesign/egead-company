@@ -1,5 +1,8 @@
 import type { Metadata } from 'next';
 import { AllServicesView } from '@/components/pages/services/services/all-services';
+import { getServiceItems } from '@/lib/services/service-item.service';
+
+export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
   title: 'All Services & Capabilities | E-GEAD: End-to-End E-Commerce & POD Solutions',
@@ -15,6 +18,8 @@ export const metadata: Metadata = {
   ],
 };
 
-export default function AllServicesPage() {
-  return <AllServicesView />;
+export default async function AllServicesPage() {
+  const serviceItems = await getServiceItems({ status: 'published' }).catch(() => []);
+  return <AllServicesView serviceItems={serviceItems} />;
 }
+

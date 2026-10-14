@@ -37,6 +37,18 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
      - TUYỆT ĐỐI KHÔNG prop-drilling qua nhiều tầng component hoặc lạm dụng `useState` phân mảnh gây khó đồng bộ và khó kiểm soát state.
      - Đặt các store có cấu trúc rõ ràng theo từng miền nghiệp vụ trong thư mục `lib/stores/` (hoặc `stores/`).
 
+5. **QUY TẮC BẢO VỆ DỮ LIỆU & AN TOÀN DATABASE (BẮT BUỘC):**
+   - **Tuyệt đối KHÔNG Reset hoặc Xóa Database:**
+     - TUYỆT ĐỐI KHÔNG chạy các lệnh phá hủy hoặc xóa sạch dữ liệu: `prisma migrate reset`, `prisma db push --force-reset`, `DROP DATABASE`, `DROP SCHEMA`, `TRUNCATE`.
+     - TUYỆT ĐỐI KHÔNG bấm xác nhận `y` khi Prisma CLI hỏi `Drift detected / We need to reset the database. All data will be lost`.
+     - Khi thêm hoặc cập nhật bảng/trường trong `prisma/schema.prisma`: BẮT BUỘC sử dụng lệnh đồng bộ an toàn: `bun run prisma:push` (`bunx prisma db push`) KHÔNG dùng cờ `--force-reset`.
+     - Các trường mới trong schema phải là optional (`?`) hoặc có giá trị mặc định (`@default(...)`) để không làm hỏng các bản ghi đang chạy.
+   - **Bảo toàn 100% dữ liệu đang hoạt động khi Seed / Nạp dữ liệu:**
+     - TUYỆT ĐỐI KHÔNG ghi đè dữ liệu cũ khi chạy các script seed hoặc khi thêm tính năng mới.
+     - Trong mọi script seed/migration data, khi dùng `prisma.<model>.upsert({ where, update, create })`, phần `update` BẮT BUỘC phải để rỗng `update: {}` (hoặc kiểm tra `findUnique` tồn tại thì bỏ qua).
+     - Chỉ được `create` (tạo mới) các bản ghi/section chưa có trong database.
+     - Tuyệt đối không can thiệp, ghi đè hoặc reset bất kỳ dữ liệu nào mà người dùng hoặc admin đã nhập/chỉnh sửa trên trang quản trị.
+
 <!-- ASTRYX:START -->
 Astryx v0.6.6 · 168 components
 CLI: run every command as `bunx astryx <cmd>` (shown below as `astryx ...`).

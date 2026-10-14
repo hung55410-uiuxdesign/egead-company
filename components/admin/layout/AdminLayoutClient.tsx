@@ -5,6 +5,7 @@ import { usePathname, useRouter } from 'next/navigation';
 import AdminSidebar from './AdminSidebar';
 import AdminNavbar from './AdminNavbar';
 import { useSession } from '@/lib/auth-client';
+import { LoginLoadingFallback } from '@/components/admin/shared';
 
 export default function AdminLayoutClient({
   children,
@@ -35,13 +36,10 @@ export default function AdminLayoutClient({
 
   if (isPending || !sessionData?.session) {
     return (
-      <div className="min-h-screen bg-slate-50 flex flex-col items-center justify-center font-open-sans text-slate-700">
-        <div className="w-8 h-8 border-3 border-emerald-600 border-t-transparent rounded-full animate-spin mb-4" />
-        <p className="text-sm font-semibold">
-          {isPending ? 'Đang kiểm tra quyền quản trị viên...' : 'Đang chuyển hướng đến trang đăng nhập...'}
-        </p>
-        <span className="text-xs text-slate-400 mt-1">E-GEAD CMS Portal</span>
-      </div>
+      <LoginLoadingFallback
+        message={isPending ? 'Đang kiểm tra quyền quản trị viên...' : 'Đang chuyển hướng đến trang đăng nhập...'}
+        subMessage="Vui lòng chờ trong giây lát trong khi hệ thống xác thực phiên làm việc."
+      />
     );
   }
 

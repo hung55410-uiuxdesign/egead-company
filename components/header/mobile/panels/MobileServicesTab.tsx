@@ -5,12 +5,42 @@ import Link from 'next/link';
 import { ChevronRight } from 'lucide-react';
 import NavArrowIcon from '../../ui/NavArrowIcon';
 import { SERVICE_ITEMS, INDUSTRY_ITEMS, PARTNER_ITEMS } from '../../config/nav-items';
+import type { HeaderServicesMenuData } from '@/lib/services/home-section.service';
 
 interface MobileServicesTabProps {
   onClose: () => void;
+  servicesMenu?: HeaderServicesMenuData | null;
 }
 
-export default function MobileServicesTab({ onClose }: MobileServicesTabProps) {
+export default function MobileServicesTab({
+  onClose,
+  servicesMenu,
+}: MobileServicesTabProps) {
+  const servicesList =
+    servicesMenu?.services && servicesMenu.services.length > 0
+      ? servicesMenu.services
+      : SERVICE_ITEMS;
+  const industriesList =
+    servicesMenu?.industries && servicesMenu.industries.length > 0
+      ? servicesMenu.industries
+      : INDUSTRY_ITEMS;
+  const partnersList =
+    servicesMenu?.partners && servicesMenu.partners.length > 0
+      ? servicesMenu.partners
+      : PARTNER_ITEMS;
+
+  const allServicesText = servicesMenu?.allServicesText || 'All Our Services';
+  const allServicesHref =
+    servicesMenu?.allServicesHref || '/services/all-services';
+
+  const allIndustriesText =
+    servicesMenu?.allIndustriesText || 'All Industries';
+  const allIndustriesHref =
+    servicesMenu?.allIndustriesHref || '/services/all-services#industries';
+
+  const allPartnersText = servicesMenu?.allPartnersText || 'All Partners';
+  const allPartnersHref = servicesMenu?.allPartnersHref || '/partners';
+
   return (
     <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
       {/* Column 1: Our Services */}
@@ -19,7 +49,7 @@ export default function MobileServicesTab({ onClose }: MobileServicesTabProps) {
           Our Services
         </h3>
         <ul className="space-y-3.5 mb-6">
-          {SERVICE_ITEMS.map((service) => (
+          {servicesList.map((service) => (
             <li key={service.name}>
               <Link
                 href={service.href}
@@ -28,9 +58,12 @@ export default function MobileServicesTab({ onClose }: MobileServicesTabProps) {
               >
                 <div className="flex items-center gap-2.5">
                   <img
-                    src={service.icon}
+                    src={service.icon || '/assets/icon_strategy_design.svg'}
                     alt={service.name}
                     className="w-4 h-4 object-contain"
+                    onError={(e) => {
+                      (e.target as HTMLElement).style.opacity = '0.3';
+                    }}
                   />
                   <span>{service.name}</span>
                 </div>
@@ -42,12 +75,12 @@ export default function MobileServicesTab({ onClose }: MobileServicesTabProps) {
 
         <div className="pt-2">
           <Link
-            href="/services/all-services"
+            href={allServicesHref}
             onClick={onClose}
             className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-gray-300 hover:border-black text-xs font-semibold text-gray-800 transition"
           >
             <NavArrowIcon size={12} />
-            <span>All Our Services</span>
+            <span>{allServicesText}</span>
           </Link>
         </div>
       </div>
@@ -58,7 +91,7 @@ export default function MobileServicesTab({ onClose }: MobileServicesTabProps) {
           Industries
         </h3>
         <ul className="space-y-3.5 mb-6">
-          {INDUSTRY_ITEMS.map((ind) => (
+          {industriesList.map((ind) => (
             <li key={ind.name}>
               <Link
                 href={ind.href}
@@ -67,9 +100,12 @@ export default function MobileServicesTab({ onClose }: MobileServicesTabProps) {
               >
                 <div className="flex items-center gap-2.5">
                   <img
-                    src={ind.icon}
+                    src={ind.icon || '/assets/icon_automotive.svg'}
                     alt={ind.name}
                     className="w-4 h-4 object-contain"
+                    onError={(e) => {
+                      (e.target as HTMLElement).style.opacity = '0.3';
+                    }}
                   />
                   <span>{ind.name}</span>
                 </div>
@@ -81,12 +117,12 @@ export default function MobileServicesTab({ onClose }: MobileServicesTabProps) {
 
         <div className="pt-2">
           <Link
-            href="/services/all-services#industries"
+            href={allIndustriesHref}
             onClick={onClose}
             className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-gray-300 hover:border-black text-xs font-semibold text-gray-800 transition"
           >
             <NavArrowIcon size={12} />
-            <span>All Industries</span>
+            <span>{allIndustriesText}</span>
           </Link>
         </div>
       </div>
@@ -97,7 +133,7 @@ export default function MobileServicesTab({ onClose }: MobileServicesTabProps) {
           Partners
         </h3>
         <ul className="space-y-3.5 mb-6">
-          {PARTNER_ITEMS.map((p) => (
+          {partnersList.map((p) => (
             <li key={p.name}>
               <Link
                 href={p.href}
@@ -113,12 +149,12 @@ export default function MobileServicesTab({ onClose }: MobileServicesTabProps) {
 
         <div className="pt-2">
           <Link
-            href="/partners"
+            href={allPartnersHref}
             onClick={onClose}
             className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-gray-300 hover:border-black text-xs font-semibold text-gray-800 transition"
           >
             <NavArrowIcon size={12} />
-            <span>All Partners</span>
+            <span>{allPartnersText}</span>
           </Link>
         </div>
       </div>

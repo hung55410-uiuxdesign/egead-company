@@ -38,7 +38,10 @@ export default function ArticleDetailView({
       <div className="w-full bg-white text-black py-16 sm:py-24 px-6 sm:px-10 lg:px-14 xl:px-16">
         <div className="max-w-7xl mx-auto flex flex-col lg:flex-row gap-12 lg:gap-16 justify-between items-start">
           <ArticleContent post={post} tagsList={tagsList} />
-          <ArticleSidebar isWhitePaper={isWhitePaper} />
+          <ArticleSidebar
+            isWhitePaper={isWhitePaper}
+            articleTitle={post.title}
+          />
         </div>
       </div>
 

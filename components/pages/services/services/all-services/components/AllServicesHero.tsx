@@ -6,7 +6,7 @@ export default function AllServicesHero() {
   return (
     <section
       id="services-hero"
-      className="relative w-full px-6 sm:px-10 lg:px-14 xl:px-16 pt-4 sm:pt-6 pb-6 overflow-hidden"
+      className="relative w-full px-6 sm:px-10 lg:px-14 xl:px-16 pt-28 sm:pt-36 lg:pt-40 pb-8 overflow-hidden"
     >
       <MotionHero className="relative z-10">
         {/* Top Eyebrow: Plain text matching SAI Digital */}

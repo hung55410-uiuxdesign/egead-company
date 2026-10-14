@@ -7,13 +7,20 @@ import { CASE_STUDIES } from "./data/case-studies.data";
 import OurWorkHeader from "./components/OurWorkHeader";
 import OurWorkFilters from "./components/OurWorkFilters";
 import OurWorkGrid from "./components/OurWorkGrid";
+import type { CaseStudyItem } from "./types";
 
-export default function OurWorkView() {
+interface OurWorkViewProps {
+  initialStudies?: CaseStudyItem[];
+}
+
+export default function OurWorkView({ initialStudies }: OurWorkViewProps) {
   const [selectedService, setSelectedService] = useState("All Services");
   const [selectedIndustry, setSelectedIndustry] = useState("All Industries");
 
+  const allStudies = initialStudies && initialStudies.length > 0 ? initialStudies : CASE_STUDIES;
+
   const filteredStudies = useMemo(() => {
-    return CASE_STUDIES.filter((item) => {
+    return allStudies.filter((item) => {
       const matchService =
         selectedService === "All Services" ||
         item.services.includes(selectedService);
@@ -22,7 +29,7 @@ export default function OurWorkView() {
         item.industries.includes(selectedIndustry);
       return matchService && matchIndustry;
     });
-  }, [selectedService, selectedIndustry]);
+  }, [allStudies, selectedService, selectedIndustry]);
 
   return (
     <div className="ourwork" id="ourwork">

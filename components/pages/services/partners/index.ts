@@ -14,3 +14,6 @@ export * from './components/IntegrationBridgeVisualizer';
 export * from './data/partners-throughput.data';
 export * from './data/partners-bento.data';
 export * from './data/partners-faq.data';
+export * from './data/partner-details.data';
+export * from './sap';
+

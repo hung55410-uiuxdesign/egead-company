@@ -3,7 +3,7 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import type { CategoryItem } from '@/types/category';
-import ProductsPanel from './panels/ProductsPanel';
+import type { HeaderServicesMenuData } from '@/lib/services/home-section.service';
 import ServicesPanel from './panels/ServicesPanel';
 import InsightsPanel from './panels/InsightsPanel';
 import CompanyPanel from './panels/CompanyPanel';
@@ -11,6 +11,7 @@ import CompanyPanel from './panels/CompanyPanel';
 interface MegaSubmenuContainerProps {
   activeDropdown: string | null;
   categories: CategoryItem[];
+  servicesMenu?: HeaderServicesMenuData | null;
   onMouseEnter: () => void;
   onMouseLeave: () => void;
   onItemClick: () => void;
@@ -19,6 +20,7 @@ interface MegaSubmenuContainerProps {
 export default function MegaSubmenuContainer({
   activeDropdown,
   categories,
+  servicesMenu,
   onMouseEnter,
   onMouseLeave,
   onItemClick,
@@ -45,11 +47,8 @@ export default function MegaSubmenuContainer({
                 exit={{ opacity: 0, x: -10 }}
                 transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] as const }}
               >
-                {activeDropdown === 'products' && (
-                  <ProductsPanel onItemClick={onItemClick} />
-                )}
                 {activeDropdown === 'services' && (
-                  <ServicesPanel onItemClick={onItemClick} />
+                  <ServicesPanel servicesMenu={servicesMenu} onItemClick={onItemClick} />
                 )}
                 {activeDropdown === 'insights' && (
                   <InsightsPanel categories={categories} onItemClick={onItemClick} />

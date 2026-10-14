@@ -11,6 +11,8 @@ import { BlogPost, BlogCategory, PostStatus } from '@/types/blog';
 import TipTapEditor from '@/components/admin/shared/TipTapEditor';
 import { Card, Button, Badge, Selector, IconButton, useToast } from '@astryxdesign/core';
 import { useSaveBlogMutation, useUploadMedia } from '@/lib/hooks';
+import AIBlogImportModal from './AIBlogImportModal';
+import { ParsedBlogPost } from '@/lib/utils/aiBlogParser';
 
 interface BlogEditorClientProps {
   initialPost?: BlogPost | null;
@@ -53,6 +55,7 @@ export default function BlogEditorClient({
   const [status, setStatus] = useState<PostStatus>(
     initialPost?.status || 'published'
   );
+  const [isAIModalOpen, setIsAIModalOpen] = useState(false);
 
   const {
     uploadFile: handleHeroFileUpload,
@@ -77,6 +80,21 @@ export default function BlogEditorClient({
       .trim()
       .replace(/\s+/g, '-');
     setSlug(generated);
+  };
+
+  const handleApplyFromAI = (data: ParsedBlogPost) => {
+    if (data.title) setTitle(data.title);
+    if (data.slug) setSlug(data.slug);
+    if (data.subtitle !== undefined) setSubtitle(data.subtitle);
+    if (data.tag) setTag(data.tag);
+    if (data.category) setCategory(data.category);
+    if (data.readTime) setReadTime(data.readTime);
+    if (data.heroImage) setHeroImage(data.heroImage);
+    if (data.excerpt) setExcerpt(data.excerpt);
+    if (data.contentHtml) setContentHtml(data.contentHtml);
+    if (data.authorName) setAuthorName(data.authorName);
+    if (data.authorRole) setAuthorRole(data.authorRole);
+    if (data.status) setStatus(data.status);
   };
 
   const handleSubmit = (targetStatus?: PostStatus) => {
@@ -147,6 +165,13 @@ export default function BlogEditorClient({
         </div>
 
         <div className="flex items-center gap-2.5 self-end sm:self-auto">
+          <Button
+            label="Nhập từ AI"
+            variant="secondary"
+            isDisabled={isSubmitting}
+            onClick={() => setIsAIModalOpen(true)}
+            className="h-10 px-4"
+          />
           <Button
             label="Lưu nháp"
             variant="secondary"
@@ -464,6 +489,14 @@ export default function BlogEditorClient({
           </Card>
         </div>
       </div>
+
+      {/* AI Blog Import Modal */}
+      <AIBlogImportModal
+        isOpen={isAIModalOpen}
+        onClose={() => setIsAIModalOpen(false)}
+        categories={categories}
+        onApplyToEditor={handleApplyFromAI}
+      />
     </div>
   );
 }

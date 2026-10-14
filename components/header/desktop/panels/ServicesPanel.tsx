@@ -4,12 +4,42 @@ import React from 'react';
 import Link from 'next/link';
 import NavArrowIcon from '../../ui/NavArrowIcon';
 import { SERVICE_ITEMS, INDUSTRY_ITEMS, PARTNER_ITEMS } from '../../config/nav-items';
+import type { HeaderServicesMenuData } from '@/lib/services/home-section.service';
 
 interface ServicesPanelProps {
   onItemClick: () => void;
+  servicesMenu?: HeaderServicesMenuData | null;
 }
 
-export default function ServicesPanel({ onItemClick }: ServicesPanelProps) {
+export default function ServicesPanel({
+  onItemClick,
+  servicesMenu,
+}: ServicesPanelProps) {
+  const servicesList =
+    servicesMenu?.services && servicesMenu.services.length > 0
+      ? servicesMenu.services
+      : SERVICE_ITEMS;
+  const industriesList =
+    servicesMenu?.industries && servicesMenu.industries.length > 0
+      ? servicesMenu.industries
+      : INDUSTRY_ITEMS;
+  const partnersList =
+    servicesMenu?.partners && servicesMenu.partners.length > 0
+      ? servicesMenu.partners
+      : PARTNER_ITEMS;
+
+  const allServicesText = servicesMenu?.allServicesText || 'All Our Services';
+  const allServicesHref =
+    servicesMenu?.allServicesHref || '/services/all-services';
+
+  const allIndustriesText =
+    servicesMenu?.allIndustriesText || 'All Industries';
+  const allIndustriesHref =
+    servicesMenu?.allIndustriesHref || '/services/all-services#industries';
+
+  const allPartnersText = servicesMenu?.allPartnersText || 'All Partners';
+  const allPartnersHref = servicesMenu?.allPartnersHref || '/partners';
+
   return (
     <div>
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 lg:gap-14 items-start">
@@ -19,7 +49,7 @@ export default function ServicesPanel({ onItemClick }: ServicesPanelProps) {
             Our Services
           </h3>
           <div className="space-y-4 mb-8">
-            {SERVICE_ITEMS.map((service) => (
+            {servicesList.map((service) => (
               <Link
                 key={service.name}
                 href={service.href}
@@ -28,23 +58,28 @@ export default function ServicesPanel({ onItemClick }: ServicesPanelProps) {
               >
                 <span className="w-5 h-5 flex items-center justify-center shrink-0">
                   <img
-                    src={service.icon}
+                    src={service.icon || '/assets/icon_strategy_design.svg'}
                     alt={service.name}
                     className="w-5 h-5 object-contain transition-transform group-hover:scale-110"
+                    onError={(e) => {
+                      (e.target as HTMLElement).style.opacity = '0.3';
+                    }}
                   />
                 </span>
-                <span className="group-hover:translate-x-0.5 transition-transform">{service.name}</span>
+                <span className="group-hover:translate-x-0.5 transition-transform">
+                  {service.name}
+                </span>
               </Link>
             ))}
           </div>
 
           <Link
-            href="/services/all-services"
+            href={allServicesHref}
             onClick={onItemClick}
             className="inline-flex items-center gap-2 px-5 py-2 rounded-full border border-gray-300 hover:border-black text-[13.5px] font-semibold text-gray-800 hover:text-black transition duration-200 hover:bg-gray-50/80 shadow-sm"
           >
             <NavArrowIcon />
-            <span>All Our Services</span>
+            <span>{allServicesText}</span>
           </Link>
         </div>
 
@@ -54,7 +89,7 @@ export default function ServicesPanel({ onItemClick }: ServicesPanelProps) {
             Industries
           </h3>
           <div className="space-y-4 mb-8">
-            {INDUSTRY_ITEMS.map((ind) => (
+            {industriesList.map((ind) => (
               <Link
                 key={ind.name}
                 href={ind.href}
@@ -63,23 +98,28 @@ export default function ServicesPanel({ onItemClick }: ServicesPanelProps) {
               >
                 <span className="w-5 h-5 flex items-center justify-center shrink-0">
                   <img
-                    src={ind.icon}
+                    src={ind.icon || '/assets/icon_automotive.svg'}
                     alt={ind.name}
                     className="w-5 h-5 object-contain transition-transform group-hover:scale-110"
+                    onError={(e) => {
+                      (e.target as HTMLElement).style.opacity = '0.3';
+                    }}
                   />
                 </span>
-                <span className="group-hover:translate-x-0.5 transition-transform">{ind.name}</span>
+                <span className="group-hover:translate-x-0.5 transition-transform">
+                  {ind.name}
+                </span>
               </Link>
             ))}
           </div>
 
           <Link
-            href="/services/all-services#industries"
+            href={allIndustriesHref}
             onClick={onItemClick}
             className="inline-flex items-center gap-2 px-5 py-2 rounded-full border border-gray-300 hover:border-black text-[13.5px] font-semibold text-gray-800 hover:text-black transition duration-200 hover:bg-gray-50/80 shadow-sm"
           >
             <NavArrowIcon />
-            <span>All Industries</span>
+            <span>{allIndustriesText}</span>
           </Link>
         </div>
 
@@ -89,25 +129,27 @@ export default function ServicesPanel({ onItemClick }: ServicesPanelProps) {
             Partners
           </h3>
           <div className="space-y-4 mb-8">
-            {PARTNER_ITEMS.map((partner) => (
+            {partnersList.map((partner) => (
               <Link
                 key={partner.name}
                 href={partner.href}
                 onClick={onItemClick}
                 className="group flex items-center py-1 text-[15px] font-semibold text-gray-800 hover:text-[#007A3D] transition duration-200"
               >
-                <span className="group-hover:translate-x-0.5 transition-transform">{partner.name}</span>
+                <span className="group-hover:translate-x-0.5 transition-transform">
+                  {partner.name}
+                </span>
               </Link>
             ))}
           </div>
 
           <Link
-            href="/partners"
+            href={allPartnersHref}
             onClick={onItemClick}
             className="inline-flex items-center gap-2 px-5 py-2 rounded-full border border-gray-300 hover:border-black text-[13.5px] font-semibold text-gray-800 hover:text-black transition duration-200 hover:bg-gray-50/80 shadow-sm"
           >
             <NavArrowIcon />
-            <span>All Partners</span>
+            <span>{allPartnersText}</span>
           </Link>
         </div>
       </div>

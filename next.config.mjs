@@ -1,4 +1,5 @@
 /** @type {import('next').NextConfig} */
+// Reload config for partner route tree update
 const nextConfig = {
   reactStrictMode: true,
   images: {
@@ -10,6 +11,45 @@ const nextConfig = {
       },
     ],
   },
+  async redirects() {
+    return [
+      {
+        source: '/smartcommerce',
+        destination: '/404',
+        permanent: false,
+      },
+      {
+        source: '/speedx',
+        destination: '/404',
+        permanent: false,
+      },
+      {
+        source: '/smartprice',
+        destination: '/404',
+        permanent: false,
+      },
+      {
+        source: '/loyalty',
+        destination: '/404',
+        permanent: false,
+      },
+      {
+        source: '/catalyzer/smartprice',
+        destination: '/404',
+        permanent: false,
+      },
+      {
+        source: '/products',
+        destination: '/404',
+        permanent: false,
+      },
+      {
+        source: '/products/:path*',
+        destination: '/404',
+        permanent: false,
+      },
+    ];
+  },
   async rewrites() {
     return [
       { source: '/blog', destination: '/insights?category=blog' },
@@ -19,8 +59,6 @@ const nextConfig = {
       { source: '/articles', destination: '/insights' },
       { source: '/career', destination: '/careers' },
       { source: '/career/:path*', destination: '/careers/:path*' },
-      { source: '/partners/:path*', destination: '/partners' },
-      { source: '/catalyzer/smartprice', destination: '/smartprice' },
     ];
   },
 };

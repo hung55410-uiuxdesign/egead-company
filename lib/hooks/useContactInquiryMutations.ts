@@ -13,8 +13,8 @@ export interface SubmitContactInquiryVariables {
   company: string;
   email: string;
   phone?: string;
-  region: string;
-  message: string;
+  region?: string;
+  message?: string;
 }
 
 export interface UpdateInquiryStatusVariables {

@@ -18,7 +18,11 @@ const globalForPrisma = globalThis as unknown as {
   activeUrl: string | undefined;
 };
 
-if (!globalForPrisma.prisma || globalForPrisma.activeUrl !== targetUrl) {
+if (
+  !globalForPrisma.prisma ||
+  globalForPrisma.activeUrl !== targetUrl ||
+  !('partnerItem' in (globalForPrisma.prisma as object))
+) {
   if (globalForPrisma.prisma) {
     try {
       globalForPrisma.prisma.$disconnect();
@@ -38,4 +42,15 @@ if (!globalForPrisma.prisma || globalForPrisma.activeUrl !== targetUrl) {
   globalForPrisma.activeUrl = targetUrl;
 }
 
-export const prisma = globalForPrisma.prisma;
+export const prisma = (globalForPrisma.prisma ||
+  new PrismaClient({
+    datasources: {
+      db: {
+        url: targetUrl,
+      },
+    },
+    log:
+      process.env.NODE_ENV === 'development'
+        ? ['warn', 'error']
+        : ['error'],
+  })) as PrismaClient;

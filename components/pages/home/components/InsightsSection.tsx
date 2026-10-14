@@ -1,11 +1,14 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useMemo } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence, type Variants } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useLatestArticlesQuery } from "@/lib/hooks";
+import { getOptimizedImageUrl } from "@/lib/utils/image";
+import type { BlogPost } from "@/types/blog";
 
-type ArticleItem = {
+export type ArticleItem = {
   id: string;
   slug: string;
   title: string;
@@ -16,96 +19,36 @@ type ArticleItem = {
   tag: string;
 };
 
-const articles: ArticleItem[] = [
-  {
-    id: "omnichannel",
-    slug: "omnichannel-fulfillment-retail-playbook",
-    title:
-      "Omnichannel Fulfillment: The Definitive Guide for Modern Retailers (2026)",
-    author: "Worawalan Tanawatsuwan",
-    date: "Sep 22, 2026",
-    readTime: "17 MIN",
-    image: "/assets/insight_omnichannel.jpg",
-    tag: "Retail Strategy",
-  },
-  {
-    id: "o2o",
-    slug: "o2o-online-to-offline-marketing-strategies",
-    title:
-      "Online-to-Offline Commerce: Driving In-Store Foot Traffic Through Digital Channels",
-    author: "Rebecca Menezes",
-    date: "Jan 6, 2026",
-    readTime: "25 MIN",
-    image: "/assets/insight_o2o.jpg",
-    tag: "Growth Marketing",
-  },
-  {
-    id: "tiktok",
-    slug: "conquering-tiktok-shop-us-ldr-compliance",
-    title:
-      "Mastering TikTok Shop US: Keeping Late Dispatch Rate Below 1% with Sub-24H Fulfillment",
-    author: "Marcus Vance",
-    date: "Oct 02, 2026",
-    readTime: "12 MIN",
-    image: "/assets/insight_tiktok.jpg",
-    tag: "Operations",
-  },
-  {
-    id: "ai-analytics",
-    slug: "ai-market-trend-forecasting-ecommerce-2027",
-    title:
-      "Predictive E-Commerce 2027: Leveraging AI Consumer Analytics for Global Expansion",
-    author: "Sarah Jenkins",
-    date: "Oct 15, 2026",
-    readTime: "15 MIN",
-    image: "/assets/insight_ai_analytics.jpg",
-    tag: "Technology",
-  },
-  {
-    id: "supply-chain",
-    slug: "cross-border-supply-chain-optimization-d2c",
-    title:
-      "Cross-Border Supply Chain Optimization: Warehouse Strategies for Scaled D2C Brands",
-    author: "Alexander Wright",
-    date: "Nov 04, 2026",
-    readTime: "18 MIN",
-    image: "/assets/insight_supply_chain.jpg",
-    tag: "Logistics",
-  },
-  {
-    id: "dtf-tech",
-    slug: "dtf-automated-printing-breakthrough-apparel-pod",
-    title:
-      "Automated Industrial DTF Technology: The Next Frontier in Custom Apparel & Print-on-Demand",
-    author: "Kenji Sato",
-    date: "Nov 12, 2026",
-    readTime: "14 MIN",
-    image: "/assets/insight_dtf_tech.jpg",
-    tag: "Manufacturing",
-  },
-  {
-    id: "wms-cloud",
-    slug: "multi-channel-wms-warehouse-integration-scale",
-    title:
-      "Multi-Channel Cloud WMS: Real-Time Warehouse Synchronization for High-Volume Merchants",
-    author: "Thao Nguyen",
-    date: "Nov 20, 2026",
-    readTime: "20 MIN",
-    image: "/assets/insight_wms_cloud.jpg",
-    tag: "Cloud WMS",
-  },
-  {
-    id: "brand-ip",
-    slug: "brand-protection-ip-compliance-global-marketplaces",
-    title:
-      "Brand IP Protection & Trademark Compliance Across Global E-Commerce Marketplaces",
-    author: "Elena Rostova",
-    date: "Dec 01, 2026",
-    readTime: "16 MIN",
-    image: "/assets/insight_brand_ip.jpg",
-    tag: "Legal & Policy",
-  },
-];
+function formatPostToArticleItem(post: any): ArticleItem {
+  const authorName =
+    typeof post.author === "string"
+      ? post.author
+      : post.author?.name || post.authorName || "E-GEAD Team";
+
+  let displayDate = post.date;
+  if (!displayDate && post.createdAt) {
+    try {
+      displayDate = new Date(post.createdAt).toLocaleDateString("en-US", {
+        month: "short",
+        day: "numeric",
+        year: "numeric",
+      });
+    } catch {
+      displayDate = "Recently";
+    }
+  }
+
+  return {
+    id: post.id || post.slug,
+    slug: post.slug,
+    title: post.title,
+    author: authorName,
+    date: displayDate || "Recently",
+    readTime: post.readTime || "5 MIN",
+    image: post.heroImage || post.image || "/assets/case_brother.jpg",
+    tag: post.tag || post.categoryName || post.category || "Insights",
+  };
+}
 
 const rowSlideVariants: Variants = {
   enter: (direction: number) => ({
@@ -135,21 +78,53 @@ const rowSlideVariants: Variants = {
   }),
 };
 
-export default function InsightsSection() {
+export interface InsightsSectionProps {
+  initialArticles?: BlogPost[] | ArticleItem[];
+}
+
+export default function InsightsSection({
+  initialArticles,
+}: InsightsSectionProps = {}) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [direction, setDirection] = useState(1);
 
+  // TanStack Query: Fetch latest published articles with SSR initialData
+  const { data: postsData } = useLatestArticlesQuery({
+    limit: 10,
+    initialData: initialArticles,
+  });
+
+  const articles: ArticleItem[] = useMemo(() => {
+    if (postsData && Array.isArray(postsData) && postsData.length > 0) {
+      return postsData.map(formatPostToArticleItem);
+    }
+    if (
+      initialArticles &&
+      Array.isArray(initialArticles) &&
+      initialArticles.length > 0
+    ) {
+      return initialArticles.map(formatPostToArticleItem);
+    }
+    return [];
+  }, [postsData, initialArticles]);
+
+  const total = articles.length;
+  const safeCurrentIndex = total > 0 ? currentIndex % total : 0;
+
   const handlePrev = useCallback(() => {
+    if (total === 0) return;
     setDirection(-1);
-    setCurrentIndex((prev) => (prev - 1 + articles.length) % articles.length);
-  }, []);
+    setCurrentIndex((prev) => (prev - 1 + total) % total);
+  }, [total]);
 
   const handleNext = useCallback(() => {
+    if (total === 0) return;
     setDirection(1);
-    setCurrentIndex((prev) => (prev + 1) % articles.length);
-  }, []);
+    setCurrentIndex((prev) => (prev + 1) % total);
+  }, [total]);
 
   useEffect(() => {
+    if (total === 0) return;
     const handleKeyDown = (e: KeyboardEvent) => {
       if (
         ["INPUT", "TEXTAREA"].includes(document.activeElement?.tagName || "")
@@ -160,10 +135,14 @@ export default function InsightsSection() {
     };
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [handlePrev, handleNext]);
+  }, [handlePrev, handleNext, total]);
+
+  if (total === 0) {
+    return null;
+  }
 
   const visibleItems = [0, 1, 2, 3].map((offset) => {
-    const index = (currentIndex + offset) % articles.length;
+    const index = (safeCurrentIndex + offset) % total;
     return {
       article: articles[index],
       isHero: offset === 0,
@@ -220,7 +199,7 @@ export default function InsightsSection() {
               </motion.span>
             </AnimatePresence>
             <span className="mx-1 text-white/30">/</span>
-            <span>{String(articles.length).padStart(2, "0")}</span>
+            <span>{String(total).padStart(2, "0")}</span>
           </div>
 
           <div className="flex items-center gap-2.5">
@@ -311,9 +290,12 @@ export default function InsightsSection() {
                     >
                       <div className="relative w-full h-[280px] sm:h-[340px] lg:h-[380px] xl:h-[420px] overflow-hidden bg-[#181d1f] rounded-xl border border-white/10 group-hover:border-[#5EFC8D]/50 transition-colors shadow-lg">
                         <img
-                          src={article.image}
+                          src={getOptimizedImageUrl(article.image, { width: 1200, quality: "best" })}
                           alt={article.title}
                           className="w-full h-full object-cover group-hover:scale-108 transition-transform duration-500"
+                          onError={(e) => {
+                            (e.target as HTMLImageElement).src = "/assets/case_brother.jpg";
+                          }}
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
                       </div>
@@ -327,7 +309,7 @@ export default function InsightsSection() {
                         </span>
                       </div>
 
-                      <h3 className="text-lg sm:text-xl lg:text-[22px] xl:text-[24px] font-medium text-white group-hover:text-[#5EFC8D] transition-colors leading-[1.35] font-montserrat">
+                      <h3 className="text-lg sm:text-xl lg:text-[22px] xl:text-[24px] font-medium text-white group-hover:text-[#5EFC8D] transition-colors leading-[1.35] font-montserrat line-clamp-3">
                         {article.title}
                       </h3>
 
@@ -357,9 +339,12 @@ export default function InsightsSection() {
                   >
                     <div className="relative w-full h-[180px] sm:h-[200px] lg:h-[200px] xl:h-[220px] overflow-hidden bg-[#181d1f] rounded-xl border border-white/10 group-hover:border-[#5EFC8D]/50 transition-colors shadow-lg">
                       <img
-                        src={article.image}
+                        src={getOptimizedImageUrl(article.image, { width: 600, quality: "best" })}
                         alt={article.title}
                         className="w-full h-full object-cover group-hover:scale-108 transition-transform duration-500"
+                        onError={(e) => {
+                          (e.target as HTMLImageElement).src = "/assets/case_brother.jpg";
+                        }}
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
                     </div>

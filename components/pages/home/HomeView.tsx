@@ -11,6 +11,10 @@ import {
 } from './components';
 import CaseStudiesSection from '@/components/CaseStudiesSection';
 import ContactBlock from '@/components/ContactBlock';
+import type {
+  HomeSectionModel,
+  CapabilitiesSectionData,
+} from '@/lib/services/home-section.service';
 
 const sectionVariants: Variants = {
   hidden: {
@@ -29,7 +33,27 @@ const sectionVariants: Variants = {
   },
 };
 
-export default function HomeView() {
+interface HomeViewProps {
+  marketplacesSection?: HomeSectionModel | null;
+  servicesSection?: HomeSectionModel | null;
+  smartCXSection?: HomeSectionModel | null;
+  testimonialsSection?: HomeSectionModel | null;
+  latestPosts?: any[];
+}
+
+export default function HomeView({
+  marketplacesSection,
+  servicesSection,
+  smartCXSection,
+  testimonialsSection,
+  latestPosts,
+}: HomeViewProps = {}) {
+  const rows = marketplacesSection?.data?.rows;
+  const row1 = marketplacesSection?.data?.row1Partners;
+  const row2 = marketplacesSection?.data?.row2Partners;
+
+  const servicesData = servicesSection?.data as CapabilitiesSectionData | undefined;
+
   return (
     <div className="w-full overflow-hidden">
       {/* 1. Hero Section */}
@@ -48,7 +72,18 @@ export default function HomeView() {
         viewport={{ once: true, amount: 0.1, margin: '0px 0px -60px 0px' }}
         variants={sectionVariants}
       >
-        <ServicesSection />
+        <ServicesSection
+          subtitle={servicesSection?.subtitle || undefined}
+          title={servicesSection?.title || undefined}
+          buttonText={servicesData?.buttonText || undefined}
+          buttonHref={servicesData?.buttonHref || undefined}
+          backgroundImage={servicesData?.backgroundImage || undefined}
+          items={
+            servicesData?.items && servicesData.items.length > 0
+              ? servicesData.items
+              : undefined
+          }
+        />
       </motion.div>
 
       {/* 3. Case Studies Section */}
@@ -58,28 +93,46 @@ export default function HomeView() {
         viewport={{ once: true, amount: 0.1, margin: '0px 0px -60px 0px' }}
         variants={sectionVariants}
       >
-        <CaseStudiesSection />
+        <CaseStudiesSection
+          title={marketplacesSection?.title || undefined}
+          description={marketplacesSection?.description || undefined}
+          rows={rows && rows.length > 0 ? rows : undefined}
+          row1Partners={row1 && row1.length > 0 ? row1 : undefined}
+          row2Partners={row2 && row2.length > 0 ? row2 : undefined}
+        />
       </motion.div>
 
       {/* 4. SmartCX Section */}
-      <motion.div
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.1, margin: '0px 0px -60px 0px' }}
-        variants={sectionVariants}
-      >
-        <SmartCXSection />
-      </motion.div>
+      {smartCXSection?.isActive !== false && (
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.1, margin: '0px 0px -60px 0px' }}
+          variants={sectionVariants}
+        >
+          <SmartCXSection
+            title={smartCXSection?.title || undefined}
+            data={smartCXSection?.data || undefined}
+          />
+        </motion.div>
+      )}
 
       {/* 5. Testimonials Section */}
-      <motion.div
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.1, margin: '0px 0px -60px 0px' }}
-        variants={sectionVariants}
-      >
-        <TestimonialsSection />
-      </motion.div>
+      {testimonialsSection?.isActive !== false && (
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.1, margin: '0px 0px -60px 0px' }}
+          variants={sectionVariants}
+        >
+          <TestimonialsSection
+            title={testimonialsSection?.title || undefined}
+            subtitle={testimonialsSection?.subtitle || undefined}
+            items={testimonialsSection?.data?.items || undefined}
+            ratingImage={testimonialsSection?.data?.ratingImage || undefined}
+          />
+        </motion.div>
+      )}
 
       {/* 6. Insights Section */}
       <motion.div
@@ -88,7 +141,7 @@ export default function HomeView() {
         viewport={{ once: true, amount: 0.1, margin: '0px 0px -60px 0px' }}
         variants={sectionVariants}
       >
-        <InsightsSection />
+        <InsightsSection initialArticles={latestPosts} />
       </motion.div>
 
       {/* 7. Culture Section */}

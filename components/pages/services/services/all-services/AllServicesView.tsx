@@ -6,6 +6,7 @@ import {
 import ContactBlock from '@/components/ContactBlock';
 import CaseStudiesSection from '@/components/CaseStudiesSection';
 import { MotionDiv } from '@/components/MotionSection';
+import type { ServiceItemListItem } from '@/lib/services/service-item.service';
 import {
   AllServicesHero,
   AllServicesVisualBanner,
@@ -18,12 +19,16 @@ import {
   allServicesFaqs,
 } from './index';
 
-export default function AllServicesView() {
+interface AllServicesViewProps {
+  serviceItems?: ServiceItemListItem[];
+}
+
+export default function AllServicesView({ serviceItems }: AllServicesViewProps) {
   return (
     <div className="flex flex-col w-full bg-[#0A0D0E] min-h-screen text-[#B3B3B3]">
       <AllServicesHero />
       <AllServicesVisualBanner />
-      <ServicePillarsSection />
+      <ServicePillarsSection serviceItems={serviceItems} />
       <IntegratedAdvantageQuote />
       <ProvenResultsSection />
       <CaseStudiesSection
