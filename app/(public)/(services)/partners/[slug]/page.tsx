@@ -1,88 +1,77 @@
 import React from 'react';
 import type { Metadata } from 'next';
-import { notFound, redirect } from 'next/navigation';
-import { SapPartnerView } from '@/components/pages/services/partners/sap';
-import { PARTNER_ITEMS } from '@/components/header/config/nav-items';
-import Link from 'next/link';
-import { ArrowLeft } from 'lucide-react';
+import { PartnerDetailView, getPartnerDetailData } from '@/components/pages/services/partners';
+import {
+  getPartnerItemBySlug,
+  mapDbPartnerToPartnerDetailData,
+} from '@/lib/services/partner-item.service';
+import type { PartnerDetailData } from '@/components/pages/services/partners/sap/types';
+
+export const dynamic = 'force-dynamic';
 
 type Props = {
   params: Promise<{ slug: string }>;
 };
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { slug } = await params;
+async function getMergedPartnerItem(slug: string): Promise<PartnerDetailData> {
+  const normalizedSlug = slug.trim().toLowerCase();
+  try {
+    const dbItem =
+      (await getPartnerItemBySlug(normalizedSlug)) ||
+      (normalizedSlug === 'site-core' ? await getPartnerItemBySlug('sitecore') : null);
 
-  if (slug === 'sap') {
-    return {
-      title: 'SAP Partner Solutions & Enterprise Commerce | E-GEAD',
-      description:
-        'Give your enterprise business an unparalleled advantage with our tailored SAP solutions. We can help you streamline processes, enhance efficiency, and drive profitability.',
-    };
+    if (dbItem) {
+      return mapDbPartnerToPartnerDetailData(dbItem);
+    }
+  } catch (error) {
+    console.error('[partners/[slug]] Error fetching partner from DB, using fallback:', error);
   }
 
-  const partner = PARTNER_ITEMS.find(
-    (p) => p.href === `/partners/${slug}` || p.name.toLowerCase().replace(/\s+/g, '-') === slug
-  );
+  return getPartnerDetailData(normalizedSlug);
+}
 
-  const name = partner ? partner.name : slug.toUpperCase();
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  try {
+    const { slug } = await params;
+    const partnerData = await getMergedPartnerItem(slug);
 
-  return {
-    title: `${name} Partner Solutions | E-GEAD`,
-    description: `Explore E-GEAD technical integration and enterprise commerce capabilities with ${name}.`,
-  };
+    return {
+      title: partnerData?.metaTitle ?? `${partnerData?.name || 'Partner'} Solutions | E-GEAD`,
+      description: partnerData?.metaDescription ?? partnerData?.hero?.description,
+      openGraph: {
+        title: partnerData?.metaTitle ?? `${partnerData?.name || 'Partner'} Solutions | E-GEAD`,
+        description: partnerData?.metaDescription ?? partnerData?.hero?.description,
+        images: partnerData?.hero?.bannerImage
+          ? [
+              {
+                url: partnerData.hero.bannerImage,
+                width: 1200,
+                height: 630,
+                alt: partnerData.hero.bannerAlt ?? `${partnerData.name} Partner - E-GEAD`,
+              },
+            ]
+          : [],
+      },
+    };
+  } catch (err) {
+    console.error('[generateMetadata error]:', err);
+    return { title: 'Partner Solutions | E-GEAD' };
+  }
 }
 
 export default async function PartnerDetailPage({ params }: Props) {
-  const { slug } = await params;
+  try {
+    const { slug } = await params;
+    const partnerData = await getMergedPartnerItem(slug);
 
-  if (slug === 'sap') {
-    return <SapPartnerView />;
-  }
-
-  const partner = PARTNER_ITEMS.find(
-    (p) => p.href === `/partners/${slug}` || p.name.toLowerCase().replace(/\s+/g, '-') === slug
-  );
-
-  if (!partner) {
-    notFound();
-  }
-
-  // Generic fallback view for other partner slugs until their custom views are designed
-  return (
-    <div className="w-full min-h-[70vh] bg-[#0A0D0E] text-white pt-36 sm:pt-44 pb-24 px-6 sm:px-10 lg:px-14 xl:px-16 2xl:px-20 flex flex-col items-center justify-center text-center">
-      <div className="max-w-2xl mx-auto space-y-6">
-        <Link
-          href="/partners"
-          className="inline-flex items-center gap-2 text-sm text-[#b3b3b3] hover:text-white transition-colors mb-4"
-        >
-          <ArrowLeft className="w-4 h-4" />
-          <span>Back to All Partners</span>
-        </Link>
-        <span className="inline-block px-3 py-1 rounded-full bg-[#10E774]/10 border border-[#10E774]/20 text-xs text-[#7ceee0]">
-          Strategic Integration Partner
-        </span>
-        <h1 className="text-3xl sm:text-5xl font-semibold font-montserrat">
-          {partner.name}
-        </h1>
-        <p className="text-base sm:text-lg text-[#b3b3b3] font-light leading-relaxed">
-          Deep programmatic integrations, automated workflows, and enterprise scale with {partner.name}.
-        </p>
-        <div className="pt-4 flex flex-wrap items-center justify-center gap-4">
-          <Link
-            href="/contact-us"
-            className="px-8 py-3.5 rounded-full bg-[#10E774] text-[#003D5B] font-semibold text-sm hover:bg-[#5EFC8D] transition-colors"
-          >
-            Connect with technical team
-          </Link>
-          <Link
-            href="/partners/sap"
-            className="px-8 py-3.5 rounded-full bg-[#141718] border border-white/20 text-white font-normal text-sm hover:border-[#10E774] transition-colors"
-          >
-            View SAP Partner Page
-          </Link>
-        </div>
+    return <PartnerDetailView data={partnerData} />;
+  } catch (err: any) {
+    console.error('[PartnerDetailPage error]:', err);
+    return (
+      <div className="min-h-screen bg-[#0A0D0E] text-white p-10 flex flex-col items-center justify-center">
+        <h1 className="text-xl font-bold">Lỗi hiển thị đối tác</h1>
+        <p className="text-red-400 mt-2">{err?.message || String(err)}</p>
       </div>
-    </div>
-  );
+    );
+  }
 }

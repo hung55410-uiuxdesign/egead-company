@@ -31,11 +31,15 @@ export default function ServicesSectionFormClient({
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   // Custom Data Fields
-  const initialData: CapabilitiesSectionData = section.data || {
-    buttonText: 'Explore All Capabilities',
-    buttonHref: '/services/all-services',
-    backgroundImage: '/assets/bg_services.jpg',
-    items: [],
+  const rawData: any = section.data || {};
+  const unwrappedData: CapabilitiesSectionData =
+    rawData?.data && rawData.data?.items ? rawData.data : rawData;
+
+  const initialData: CapabilitiesSectionData = {
+    buttonText: unwrappedData.buttonText || 'Explore All Capabilities',
+    buttonHref: unwrappedData.buttonHref || '/services/all-services',
+    backgroundImage: unwrappedData.backgroundImage || '/assets/bg_services.jpg',
+    items: unwrappedData.items || [],
   };
 
   const [buttonText, setButtonText] = useState(
@@ -173,25 +177,20 @@ export default function ServicesSectionFormClient({
       return;
     }
 
-    const payload = {
-      title: title.trim(),
-      subtitle: subtitle.trim(),
-      description: section.description || '',
-      isActive,
-      data: {
-        buttonText: buttonText.trim(),
-        buttonHref: buttonHref.trim(),
-        backgroundImage: backgroundImage.trim(),
-        items,
-      },
-    };
-
     try {
       await updateMutation.mutateAsync({
         key: section.key,
-        data: payload,
+        title: title.trim(),
+        subtitle: subtitle.trim() || null,
+        description: section.description || null,
+        isActive,
+        data: {
+          buttonText: buttonText.trim(),
+          buttonHref: buttonHref.trim(),
+          backgroundImage: backgroundImage.trim(),
+          items,
+        },
       });
-      alert('Đã lưu thành công nội dung Khối Dịch vụ & Năng lực lõi!');
       router.refresh();
     } catch (err: any) {
       setErrorMessage(err?.message || 'Có lỗi xảy ra khi lưu nội dung.');

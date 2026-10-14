@@ -4,7 +4,7 @@ import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence, type Variants } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
-type TestimonialItem = {
+export type TestimonialItem = {
   id: string;
   quote: string;
   name: string;
@@ -13,7 +13,14 @@ type TestimonialItem = {
   partnerLogo: string;
 };
 
-const testimonials: TestimonialItem[] = [
+export interface TestimonialsSectionProps {
+  title?: string;
+  subtitle?: string;
+  items?: TestimonialItem[];
+  ratingImage?: string;
+}
+
+const defaultTestimonials: TestimonialItem[] = [
   {
     id: "shinosuke",
     quote:
@@ -166,29 +173,37 @@ const rightSideVariants: Variants = {
   }),
 };
 
-export default function TestimonialsSection() {
+export default function TestimonialsSection({
+  title,
+  subtitle,
+  items,
+  ratingImage,
+}: TestimonialsSectionProps = {}) {
+  const list = items && items.length > 0 ? items : defaultTestimonials;
+  const starsSrc = ratingImage || "/images/star.png";
+  const displayTitle = title || "Voices of Our Sellers";
+  const displaySubtitle = subtitle || "Testimonials";
+
   const [currentIndex, setCurrentIndex] = useState(0);
   const [direction, setDirection] = useState(1);
 
-  const prevIndex =
-    (currentIndex - 1 + testimonials.length) % testimonials.length;
-  const nextIndex = (currentIndex + 1) % testimonials.length;
+  const safeIndex = currentIndex >= list.length ? 0 : currentIndex;
+  const prevIndex = (safeIndex - 1 + list.length) % list.length;
+  const nextIndex = (safeIndex + 1) % list.length;
 
-  const current = testimonials[currentIndex];
-  const prev = testimonials[prevIndex];
-  const next = testimonials[nextIndex];
+  const current = list[safeIndex];
+  const prev = list[prevIndex];
+  const next = list[nextIndex];
 
   const handlePrev = useCallback(() => {
     setDirection(-1);
-    setCurrentIndex(
-      (prev) => (prev - 1 + testimonials.length) % testimonials.length,
-    );
-  }, []);
+    setCurrentIndex((p) => (p - 1 + list.length) % list.length);
+  }, [list.length]);
 
   const handleNext = useCallback(() => {
     setDirection(1);
-    setCurrentIndex((prev) => (prev + 1) % testimonials.length);
-  }, []);
+    setCurrentIndex((p) => (p + 1) % list.length);
+  }, [list.length]);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -221,7 +236,7 @@ export default function TestimonialsSection() {
             transition={{ duration: 0.5 }}
             className="text-sm sm:text-base font-normal text-[#D4FAE6] mb-2 font-montserrat tracking-wide"
           >
-            Testimonials
+            {displaySubtitle}
           </motion.p>
           <motion.h2
             initial={{ opacity: 0, y: 15 }}
@@ -230,7 +245,7 @@ export default function TestimonialsSection() {
             transition={{ duration: 0.6, delay: 0.1 }}
             className="text-2xl sm:text-3xl md:text-4xl lg:text-[44px] font-normal text-white font-montserrat tracking-tight"
           >
-            Voices of Our Sellers
+            {displayTitle}
           </motion.h2>
         </motion.div>
 
@@ -244,18 +259,18 @@ export default function TestimonialsSection() {
           <div className="text-xs text-white/50 font-mono tracking-widest mr-1 flex items-center">
             <AnimatePresence mode="wait">
               <motion.span
-                key={currentIndex}
+                key={safeIndex}
                 initial={{ opacity: 0, y: -6 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: 6 }}
                 transition={{ duration: 0.2 }}
                 className="text-[#6CE8C3] font-semibold inline-block"
               >
-                {String(currentIndex + 1).padStart(2, "0")}
+                {String(safeIndex + 1).padStart(2, "0")}
               </motion.span>
             </AnimatePresence>
             <span className="mx-1 text-white/30">/</span>
-            <span>{String(testimonials.length).padStart(2, "0")}</span>
+            <span>{String(list.length).padStart(2, "0")}</span>
           </div>
 
           <div className="flex items-center gap-2.5">
@@ -312,7 +327,7 @@ export default function TestimonialsSection() {
 
               <div className="flex justify-center mt-6 mb-5">
                 <img
-                  src="/images/star.png"
+                  src={starsSrc}
                   alt="5 stars"
                   className="h-9 sm:h-10 w-auto object-contain opacity-80"
                 />
@@ -393,7 +408,7 @@ export default function TestimonialsSection() {
                 className="flex justify-center mt-7 sm:mt-9 mb-6 sm:mb-8"
               >
                 <img
-                  src="/images/star.png"
+                  src={starsSrc}
                   alt="5 stars customer rating"
                   className="h-12 sm:h-14 lg:h-16 w-auto object-contain drop-shadow-xl select-none pointer-events-none"
                 />
@@ -473,7 +488,7 @@ export default function TestimonialsSection() {
 
               <div className="flex justify-center mt-6 mb-5">
                 <img
-                  src="/images/star.png"
+                  src={starsSrc}
                   alt="5 stars"
                   className="h-9 sm:h-10 w-auto object-contain opacity-80"
                 />

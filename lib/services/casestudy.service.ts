@@ -230,3 +230,83 @@ export async function deleteCaseStudy(id: string): Promise<boolean> {
   });
   return true;
 }
+
+/**
+ * Bulk delete case studies by IDs
+ */
+export async function bulkDeleteCaseStudies(ids: string[]): Promise<number> {
+  if (ids.length === 0) return 0;
+  const res = await prisma.caseStudy.deleteMany({
+    where: { id: { in: ids } },
+  });
+  return res.count;
+}
+
+/**
+ * Bulk update case studies (status, services, industries) by IDs
+ */
+export async function bulkUpdateCaseStudies(
+  ids: string[],
+  data: {
+    status?: 'published' | 'draft';
+    service?: string;
+    industry?: string;
+    serviceAction?: 'add' | 'replace';
+    industryAction?: 'add' | 'replace';
+  }
+): Promise<number> {
+  if (ids.length === 0) return 0;
+
+  // If only updating status, we can run a single query
+  if (data.status && !data.service && !data.industry) {
+    const res = await prisma.caseStudy.updateMany({
+      where: { id: { in: ids } },
+      data: { status: data.status },
+    });
+    return res.count;
+  }
+
+  // If service or industry changes are requested, process each record
+  const items = await prisma.caseStudy.findMany({
+    where: { id: { in: ids } },
+    select: { id: true, services: true, industries: true },
+  });
+
+  let count = 0;
+  for (const item of items) {
+    const updatePayload: any = {};
+    if (data.status) {
+      updatePayload.status = data.status;
+    }
+    if (data.service) {
+      if (data.serviceAction === 'replace') {
+        updatePayload.services = [data.service];
+      } else {
+        const current = item.services || [];
+        if (!current.includes(data.service)) {
+          updatePayload.services = [...current, data.service];
+        }
+      }
+    }
+    if (data.industry) {
+      if (data.industryAction === 'replace') {
+        updatePayload.industries = [data.industry];
+      } else {
+        const current = item.industries || [];
+        if (!current.includes(data.industry)) {
+          updatePayload.industries = [...current, data.industry];
+        }
+      }
+    }
+
+    if (Object.keys(updatePayload).length > 0) {
+      await prisma.caseStudy.update({
+        where: { id: item.id },
+        data: updatePayload,
+      });
+      count++;
+    }
+  }
+
+  return count;
+}

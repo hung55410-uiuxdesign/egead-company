@@ -57,13 +57,13 @@ const PAGE_NAV_ITEMS = [
     exact: false,
   },
   {
-    label: 'Trang Our Work (Dự án)',
+    label: 'Our Work (Dự án)',
     href: '/admin/our-work',
     icon: Layers,
     exact: false,
   },
   {
-    label: 'Trang Dịch vụ & Ngành nghề',
+    label: 'Dịch vụ & Ngành nghề',
     href: '/admin/services',
     icon: Sparkles,
     exact: false,
@@ -72,7 +72,7 @@ const PAGE_NAV_ITEMS = [
 
 const CONTACT_NAV_ITEMS = [
   {
-    label: 'Yêu cầu liên hệ & Tư vấn',
+    label: 'Liên hệ & Tư vấn',
     href: '/admin/contacts',
     icon: Mail,
     exact: false,
@@ -328,59 +328,6 @@ export default function AdminSidebar({ isOpen, onClose }: AdminSidebarProps) {
                 />
               ))}
             </nav>
-          </div>
-
-
-          <div>
-            <div className="px-3 mb-2 text-xs font-bold text-slate-500">
-              Đường dẫn nhanh
-            </div>
-            <div className="space-y-1">
-              <Link
-                href="/services/all-services"
-                target="_blank"
-                className="flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-100/70 border border-transparent transition-all group"
-              >
-                <div className="flex items-center gap-2.5">
-                  <Sparkles className="w-4 h-4 text-gray-700 group-hover:text-emerald-600 transition-colors" />
-                  <span>Trang All Services Live</span>
-                </div>
-                <ExternalLink className="w-4 h-4 text-gray-700 group-hover:text-slate-700 transition-colors" />
-              </Link>
-              <Link
-                href="/our-work"
-                target="_blank"
-                className="flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-100/70 border border-transparent transition-all group"
-              >
-                <div className="flex items-center gap-2.5">
-                  <Briefcase className="w-4 h-4 text-gray-700 group-hover:text-emerald-600 transition-colors" />
-                  <span>Trang Our Work Live</span>
-                </div>
-                <ExternalLink className="w-4 h-4 text-gray-700 group-hover:text-slate-700 transition-colors" />
-              </Link>
-              <Link
-                href="/insights"
-                target="_blank"
-                className="flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-100/70 border border-transparent transition-all group"
-              >
-                <div className="flex items-center gap-2.5">
-                  <Layers className="w-4 h-4 text-gray-700 group-hover:text-emerald-600 transition-colors" />
-                  <span>Trang Insights Live</span>
-                </div>
-                <ExternalLink className="w-4 h-4 text-gray-700 group-hover:text-slate-700 transition-colors" />
-              </Link>
-              <Link
-                href="/"
-                target="_blank"
-                className="flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-100/70 border border-transparent transition-all group"
-              >
-                <div className="flex items-center gap-2.5">
-                  <Sparkles className="w-4 h-4 text-gray-700 group-hover:text-emerald-600 transition-colors" />
-                  <span>Trang chủ E-GEAD</span>
-                </div>
-                <ExternalLink className="w-4 h-4 text-gray-700 group-hover:text-slate-700 transition-colors" />
-              </Link>
-            </div>
           </div>
         </div>
 

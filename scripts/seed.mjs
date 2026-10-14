@@ -218,7 +218,7 @@ async function main() {
       .replace(/-+/g, '-');
     const cat = await prisma.category.upsert({
       where: { slug },
-      update: { name },
+      update: {}, // An toàn dữ liệu: Không ghi đè nếu chuyên mục đã tồn tại
       create: {
         name,
         slug,

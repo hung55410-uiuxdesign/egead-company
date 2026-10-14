@@ -135,7 +135,7 @@ export default function ServicesSection({
               className="h-full"
             >
               <Link
-                href={svc.href || "/services/all-services"}
+                href={svc.href || "#"}
                 className="group relative flex flex-col justify-between h-full p-8 sm:p-9 xl:p-10 rounded-[32px] bg-[#141718]/85 hover:bg-[#181D1F] border border-white/10 hover:border-[#5EFC8D]/50 transition-all duration-300 min-h-[460px] sm:min-h-[500px] xl:min-h-[530px] backdrop-blur-md shadow-2xl hover:shadow-[0_20px_40px_rgba(16,231,116,0.12)]"
               >
                 <div className="flex items-center justify-between">

@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { Search, X, AlertCircle, MoreHorizontal } from 'lucide-react';
 import {
   Button,
@@ -18,35 +18,73 @@ import type {
   ServiceItemStats,
 } from '@/lib/services/service-item.service';
 import type { HomeSectionModel } from '@/lib/services/home-section.service';
+import type { PartnerItemModel, PartnerItemStats } from '@/lib/services/partner-item.service';
 import { useServiceMutations } from '@/lib/hooks';
 import HeaderMenuConfigSection from './HeaderMenuConfigSection';
+import ServiceImportModal from './components/ServiceImportModal';
+import ServiceBulkEditModal from './components/ServiceBulkEditModal';
+import PartnerManagementSection from './components/PartnerManagementSection';
 
 interface ServiceListClientProps {
   initialItems: ServiceItemListItem[];
   initialStats: ServiceItemStats;
   initialHeaderMenu?: HomeSectionModel | null;
+  initialPartners?: PartnerItemModel[];
+  initialPartnerStats?: PartnerItemStats;
 }
 
 export default function ServiceListClient({
   initialItems,
   initialStats,
   initialHeaderMenu,
+  initialPartners = [],
+  initialPartnerStats = { total: 0, published: 0, draft: 0 },
 }: ServiceListClientProps) {
   const router = useRouter();
-  const [activeTab, setActiveTab] = useState<'list' | 'menu'>('list');
+  const searchParams = useSearchParams();
+  const tabParam = searchParams.get('tab');
+  const initialActiveTab =
+    tabParam === 'partners' || tabParam === 'menu' || tabParam === 'list' ? tabParam : 'list';
+  const [activeTab, setActiveTab] = useState<'list' | 'menu' | 'partners'>(initialActiveTab);
+
+  const handleTabChange = (tab: 'list' | 'menu' | 'partners') => {
+    setActiveTab(tab);
+    if (typeof window !== 'undefined') {
+      const url = new URL(window.location.href);
+      if (tab === 'list') {
+        url.searchParams.delete('tab');
+      } else {
+        url.searchParams.set('tab', tab);
+      }
+      window.history.replaceState({}, '', url.toString());
+    }
+  };
+
   const [items, setItems] = useState<ServiceItemListItem[]>(initialItems);
+
   const [stats, setStats] = useState<ServiceItemStats>(initialStats);
   const [search, setSearch] = useState('');
   const [categoryFilter, setCategoryFilter] = useState<string>('all');
   const [statusFilter, setStatusFilter] = useState<string>('all');
   const [isDeleting, setIsDeleting] = useState<string | null>(null);
+  const [isImportModalOpen, setIsImportModalOpen] = useState(false);
+
+  // Selection & Bulk Actions State
+  const [selectedIds, setSelectedIds] = useState<string[]>([]);
+  const [isBulkEditOpen, setIsBulkEditOpen] = useState(false);
 
   // Pagination State
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
 
   // TanStack Query Mutations
-  const { deleteServiceAsync } = useServiceMutations({
+  const {
+    deleteServiceAsync,
+    bulkDeleteServicesAsync,
+    bulkUpdateServicesAsync,
+    isBulkDeleting,
+    isBulkUpdating,
+  } = useServiceMutations({
     onDeleteSuccess: (id) => {
       setItems((prev) => {
         const next = prev.filter((item) => item.id !== id);
@@ -58,8 +96,63 @@ export default function ServiceListClient({
         setStats({ total, services, industries, published, draft });
         return next;
       });
+      setSelectedIds((prev) => prev.filter((item) => item !== id));
+    },
+    onBulkDeleteSuccess: (ids) => {
+      setItems((prev) => {
+        const next = prev.filter((item) => !ids.includes(item.id));
+        const total = next.length;
+        const services = next.filter((item) => item.category === 'service').length;
+        const industries = next.filter((item) => item.category === 'industry').length;
+        const published = next.filter((item) => item.status === 'published').length;
+        const draft = next.filter((item) => item.status === 'draft').length;
+        setStats({ total, services, industries, published, draft });
+        return next;
+      });
+      setSelectedIds([]);
+    },
+    onBulkUpdateSuccess: (ids, data) => {
+      setItems((prev) => {
+        const next = prev.map((item) => {
+          if (ids.includes(item.id)) {
+            return {
+              ...item,
+              ...(data.status ? { status: data.status } : {}),
+              ...(data.category ? { category: data.category } : {}),
+            };
+          }
+          return item;
+        });
+        const total = next.length;
+        const services = next.filter((item) => item.category === 'service').length;
+        const industries = next.filter((item) => item.category === 'industry').length;
+        const published = next.filter((item) => item.status === 'published').length;
+        const draft = next.filter((item) => item.status === 'draft').length;
+        setStats({ total, services, industries, published, draft });
+        return next;
+      });
+      setIsBulkEditOpen(false);
+      setSelectedIds([]);
     },
   });
+
+  const isBulkLoading = isBulkDeleting || isBulkUpdating;
+
+  const handleImportSuccess = (importedItems: ServiceItemListItem[]) => {
+    setItems((prev) => {
+      const importedIds = new Set(importedItems.map((item) => item.id));
+      const remainingPrev = prev.filter((item) => !importedIds.has(item.id));
+      const combined = [...importedItems, ...remainingPrev].sort((a, b) => a.order - b.order);
+      const total = combined.length;
+      const services = combined.filter((item) => item.category === 'service').length;
+      const industries = combined.filter((item) => item.category === 'industry').length;
+      const published = combined.filter((item) => item.status === 'published').length;
+      const draft = combined.filter((item) => item.status === 'draft').length;
+      setStats({ total, services, industries, published, draft });
+      return combined;
+    });
+    router.refresh();
+  };
 
   // Reset page when filters change
   React.useEffect(() => {
@@ -94,6 +187,56 @@ export default function ServiceListClient({
     startIndex + pageSize
   );
 
+  // Checkbox & Selection handlers
+  const visibleIds = paginatedItems.map((item) => item.id);
+  const isAllSelected =
+    visibleIds.length > 0 && visibleIds.every((id) => selectedIds.includes(id));
+
+  const handleToggleRow = (id: string) => {
+    setSelectedIds((prev) =>
+      prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]
+    );
+  };
+
+  const handleToggleAll = () => {
+    if (isAllSelected) {
+      setSelectedIds((prev) => prev.filter((id) => !visibleIds.includes(id)));
+    } else {
+      setSelectedIds((prev) => Array.from(new Set([...prev, ...visibleIds])));
+    }
+  };
+
+  // Bulk Delete Handler
+  const handleBulkDelete = async () => {
+    if (selectedIds.length === 0) return;
+    const confirmed = confirm(
+      `Bạn có chắc chắn muốn xóa ${selectedIds.length} mục đã chọn? Thao tác này sẽ xóa vĩnh viễn và không thể hoàn tác.`
+    );
+    if (!confirmed) return;
+
+    try {
+      await bulkDeleteServicesAsync({ ids: selectedIds });
+    } catch {
+      // Toast notification handles error
+    }
+  };
+
+  // Bulk Update Submit Handler
+  const handleBulkUpdateSubmit = async (data: {
+    status?: 'published' | 'draft';
+    category?: 'service' | 'industry';
+  }) => {
+    if (selectedIds.length === 0) return;
+    try {
+      await bulkUpdateServicesAsync({
+        ids: selectedIds,
+        data,
+      });
+    } catch {
+      // Toast notification handles error
+    }
+  };
+
   const handleDelete = async (id: string, title: string) => {
     if (
       !confirm(
@@ -122,33 +265,77 @@ export default function ServiceListClient({
         <div>
           <div className="flex items-center gap-2.5">
             <h1 className="text-2xl font-extrabold text-slate-900">
-              Quản lý Dịch vụ &amp; Ngành nghề
+              {activeTab === 'partners'
+                ? 'Quản lý Đối tác chiến lược (Partners)'
+                : activeTab === 'menu'
+                ? 'Cấu hình Menu Header (Mega Menu)'
+                : 'Quản lý Dịch vụ & Ngành nghề'}
             </h1>
             <Badge
-              label={`${items.length} dịch vụ & ngành nghề`}
+              label={
+                activeTab === 'partners'
+                  ? `${initialPartnerStats?.total ?? initialPartners?.length ?? 0} đối tác`
+                  : activeTab === 'menu'
+                  ? 'Header Mega Menu'
+                  : `${items.length} dịch vụ & ngành nghề`
+              }
               variant="neutral"
               className="h-8 px-4"
             />
           </div>
           <p className="text-slate-500 text-xs sm:text-sm mt-1">
-            Quản lý các trụ cột dịch vụ công nghệ và ngành nghề chuyên sâu hiển thị trên menu điều hướng và trang All Services
+            {activeTab === 'partners'
+              ? 'Quản lý các trang đích đối tác chiến lược liên kết với Cột 3 của Menu Header và trang Partners'
+              : activeTab === 'menu'
+              ? 'Cấu hình liên kết 3 cột trong menu đa cấp Dịch vụ & Ngành nghề trên thanh điều hướng chính'
+              : 'Quản lý các trụ cột dịch vụ công nghệ và ngành nghề chuyên sâu hiển thị trên menu điều hướng và trang All Services'}
           </p>
         </div>
 
         <div className="flex items-center gap-2">
-          <Button
-            label="Xem trang All Services"
-            variant="secondary"
-            href="/services/all-services"
-            target="_blank"
-            className="px-4 h-10"
-          />
-          <Button
-            label="Thêm dịch vụ mới"
-            variant="primary"
-            href="/admin/services/new"
-            className="px-4 h-10"
-          />
+          {activeTab === 'list' && (
+            <>
+              <Button
+                label="Thêm nhanh (JSON)"
+                variant="secondary"
+                onClick={() => setIsImportModalOpen(true)}
+                className="px-4 h-10 border-slate-300 hover:border-slate-400"
+              />
+              <Button
+                label="Xem trang All Services"
+                variant="secondary"
+                href="/services/all-services"
+                target="_blank"
+                className="px-4 h-10"
+              />
+              <Button
+                label="Thêm dịch vụ mới"
+                variant="primary"
+                href="/admin/services/new"
+                className="px-4 h-10"
+              />
+            </>
+          )}
+
+          {activeTab === 'partners' && (
+            <Button
+              label="Xem trang Partners"
+              variant="secondary"
+              href="/partners"
+              target="_blank"
+              className="px-4 h-10"
+            />
+          )}
+
+          {activeTab === 'menu' && (
+            <Button
+              label="Xem trang chủ"
+              variant="secondary"
+              href="/"
+              target="_blank"
+              className="px-4 h-10"
+            />
+          )}
         </div>
       </div>
 
@@ -158,7 +345,7 @@ export default function ServiceListClient({
       <div className="flex items-center gap-2 p-1 bg-slate-100 rounded-xl w-fit">
         <button
           type="button"
-          onClick={() => setActiveTab('list')}
+          onClick={() => handleTabChange('list')}
           className={`px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all ${
             activeTab === 'list'
               ? 'bg-white text-slate-900 shadow-xs'
@@ -169,7 +356,7 @@ export default function ServiceListClient({
         </button>
         <button
           type="button"
-          onClick={() => setActiveTab('menu')}
+          onClick={() => handleTabChange('menu')}
           className={`px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all ${
             activeTab === 'menu'
               ? 'bg-white text-slate-900 shadow-xs'
@@ -178,12 +365,34 @@ export default function ServiceListClient({
         >
           Cấu hình Menu Header (Mega Menu)
         </button>
+        <button
+          type="button"
+          onClick={() => handleTabChange('partners')}
+          className={`px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all ${
+            activeTab === 'partners'
+              ? 'bg-white text-slate-900 shadow-xs'
+              : 'text-slate-600 hover:text-slate-900'
+          }`}
+        >
+          Đối tác chiến lược (Partners) ({initialPartnerStats?.total ?? initialPartners?.length ?? 0})
+        </button>
       </div>
 
       {activeTab === 'menu' ? (
-        <HeaderMenuConfigSection initialSection={initialHeaderMenu} />
+        <HeaderMenuConfigSection
+          initialSection={initialHeaderMenu}
+          onSwitchToPartners={() => setActiveTab('partners')}
+        />
+      ) : activeTab === 'partners' ? (
+        <PartnerManagementSection
+          initialPartners={initialPartners}
+          initialStats={initialPartnerStats}
+          headerMenuSection={initialHeaderMenu}
+          onNavigateToMenuTab={() => setActiveTab('menu')}
+        />
       ) : (
         <>
+
           {/* =========================================================================
               KEY STATS ROW (Astryx Cards - pure text, no icons before text)
               ========================================================================= */}
@@ -309,6 +518,48 @@ export default function ServiceListClient({
         </div>
       </Card>
 
+      {/* Bulk Action Bar */}
+      {selectedIds.length > 0 && (
+        <div className="p-3.5 bg-emerald-50/90 border border-emerald-200/90 rounded-2xl flex flex-wrap items-center justify-between gap-3 shadow-sm animate-in fade-in duration-200">
+          <div className="flex items-center gap-2.5">
+            <Badge
+              label={`Đã chọn ${selectedIds.length} mục`}
+              variant="success"
+              className="h-8 px-4"
+            />
+            <span className="text-xs text-emerald-800 hidden sm:inline">
+              Áp dụng thao tác đồng loạt trên các mục đã chọn
+            </span>
+          </div>
+
+          <div className="flex items-center gap-2">
+            <Button
+              label="Chỉnh sửa hàng loạt"
+              variant="secondary"
+              className="px-4 h-10 border-emerald-300 hover:border-emerald-400"
+              onClick={() => setIsBulkEditOpen(true)}
+            />
+            <Button
+              label={
+                isBulkLoading
+                  ? 'Đang xử lý...'
+                  : `Xóa ${selectedIds.length} mục`
+              }
+              variant="destructive"
+              className="px-4 h-10"
+              isDisabled={isBulkLoading}
+              onClick={handleBulkDelete}
+            />
+            <Button
+              label="Bỏ chọn"
+              variant="ghost"
+              className="px-4 h-10"
+              onClick={() => setSelectedIds([])}
+            />
+          </div>
+        </div>
+      )}
+
       {/* =========================================================================
           SERVICES TABLE (Astryx Card & EmptyState)
           ========================================================================= */}
@@ -335,7 +586,16 @@ export default function ServiceListClient({
               <table className="w-full text-left border-collapse text-xs sm:text-sm">
                 <thead>
                   <tr className="bg-slate-50/80 border-b border-slate-200/80 text-slate-500 font-bold">
-                    <th className="py-3.5 pl-4 sm:pl-6 pr-3 w-16">Ảnh</th>
+                    <th className="py-3.5 pl-4 sm:pl-6 pr-2 w-10">
+                      <input
+                        type="checkbox"
+                        checked={isAllSelected}
+                        onChange={handleToggleAll}
+                        className="w-4 h-4 rounded text-emerald-600 border-slate-300 focus:ring-emerald-500 cursor-pointer"
+                        title="Chọn tất cả mục trong trang này"
+                      />
+                    </th>
+                    <th className="py-3.5 px-3 w-16">Ảnh</th>
                     <th className="py-3.5 px-3">Tên &amp; Đường dẫn</th>
                     <th className="py-3.5 px-3">Phân loại</th>
                     <th className="py-3.5 px-3">Khẩu hiệu (Tagline)</th>
@@ -345,27 +605,41 @@ export default function ServiceListClient({
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-100">
-                  {paginatedItems.map((item) => (
-                    <tr
-                      key={item.id}
-                      className="hover:bg-slate-50/50 transition-colors"
-                    >
-                      {/* Thumbnail */}
-                      <td className="py-3.5 pl-4 sm:pl-6 pr-3">
-                        <div className="relative w-16 h-12 rounded-lg overflow-hidden bg-slate-100 shrink-0 border border-slate-200">
-                          {item.heroImage ? (
-                            <img
-                              src={item.heroImage}
-                              alt={item.title}
-                              className="w-full h-full object-cover"
-                            />
-                          ) : (
-                            <div className="w-full h-full flex items-center justify-center font-bold text-slate-400">
-                              {item.title.charAt(0)}
-                            </div>
-                          )}
-                        </div>
-                      </td>
+                  {paginatedItems.map((item) => {
+                    const isChecked = selectedIds.includes(item.id);
+                    return (
+                      <tr
+                        key={item.id}
+                        className={`hover:bg-slate-50/50 transition-colors ${
+                          isChecked ? 'bg-emerald-50/40' : ''
+                        }`}
+                      >
+                        {/* Checkbox */}
+                        <td className="py-3.5 pl-4 sm:pl-6 pr-2">
+                          <input
+                            type="checkbox"
+                            checked={isChecked}
+                            onChange={() => handleToggleRow(item.id)}
+                            className="w-4 h-4 rounded text-emerald-600 border-slate-300 focus:ring-emerald-500 cursor-pointer"
+                          />
+                        </td>
+
+                        {/* Thumbnail */}
+                        <td className="py-3.5 px-3">
+                          <div className="relative w-16 h-12 rounded-lg overflow-hidden bg-slate-100 shrink-0 border border-slate-200">
+                            {item.heroImage ? (
+                              <img
+                                src={item.heroImage}
+                                alt={item.title}
+                                className="w-full h-full object-cover"
+                              />
+                            ) : (
+                              <div className="w-full h-full flex items-center justify-center font-bold text-slate-400">
+                                {item.title.charAt(0)}
+                              </div>
+                            )}
+                          </div>
+                        </td>
 
                       {/* Title & Slug */}
                       <td className="py-3.5 px-3">
@@ -467,8 +741,9 @@ export default function ServiceListClient({
                         </div>
                       </td>
                     </tr>
-                  ))}
-                </tbody>
+                  );
+                })}
+              </tbody>
               </table>
             </div>
 
@@ -498,6 +773,22 @@ export default function ServiceListClient({
       </Card>
         </>
       )}
+
+      {/* Modal Thêm nhanh qua JSON */}
+      <ServiceImportModal
+        isOpen={isImportModalOpen}
+        onClose={() => setIsImportModalOpen(false)}
+        onSuccess={handleImportSuccess}
+      />
+
+      {/* Modal Chỉnh sửa hàng loạt */}
+      <ServiceBulkEditModal
+        isOpen={isBulkEditOpen}
+        selectedCount={selectedIds.length}
+        isSubmitting={isBulkUpdating}
+        onClose={() => setIsBulkEditOpen(false)}
+        onSubmit={handleBulkUpdateSubmit}
+      />
     </div>
   );
 }

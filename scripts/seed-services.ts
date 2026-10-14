@@ -19,22 +19,7 @@ async function seedServices() {
 
     await prisma.serviceItem.upsert({
       where: { slug },
-      update: {
-        category: item.category || 'service',
-        title: item.title,
-        tagline: item.tagline || '',
-        subtitle: item.subtitle || '',
-        heroImage: item.heroImage || null,
-        middleImage: item.middleImage || null,
-        overviewSubTitle: item.overviewSubTitle || null,
-        overviewHeading: item.overviewHeading || null,
-        overviewParagraphs: item.overviewParagraphs || [],
-        approachHeading: item.approachHeading || 'Our approach',
-        approachIntro: item.approachIntro || null,
-        principles: principlesJson,
-        order: count,
-        status: 'published',
-      },
+      update: {}, // An toàn dữ liệu: Không ghi đè nếu bản ghi đã tồn tại trong DB
       create: {
         slug,
         category: item.category || 'service',

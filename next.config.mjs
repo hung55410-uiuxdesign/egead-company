@@ -1,4 +1,5 @@
 /** @type {import('next').NextConfig} */
+// Reload config for partner route tree update
 const nextConfig = {
   reactStrictMode: true,
   images: {

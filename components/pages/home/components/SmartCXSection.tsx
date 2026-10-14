@@ -2,8 +2,53 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
+import type { SmartCXSectionData } from "@/lib/services/home-section.service";
 
-export default function SmartCXSection() {
+export interface SmartCXSectionProps {
+  title?: string;
+  data?: SmartCXSectionData | null;
+}
+
+export default function SmartCXSection({
+  title,
+  data,
+}: SmartCXSectionProps = {}) {
+  const displayTitle = title || "Why brands ship with Egead";
+  const ctaText = data?.ctaText || "Read Customer Stories";
+  const ctaHref = data?.ctaHref || "/our-work";
+
+  const photo1 = data?.photo1 || {
+    image: "/assets/success_apparel.jpg",
+    alt: "E-GEAD precision industrial DTF print-on-demand streetwear apparel",
+  };
+  const stat1 = data?.stat1 || {
+    brand: "URBANVIBE",
+    tagline: "URBANVIBE\nACHIEVED SUB-24H DISPATCH\nON TIKTOK SHOP US",
+    value: "<24H",
+    label: "Average Production SLA",
+  };
+  const widePhoto = data?.widePhoto || {
+    image: "/assets/success_warehouse.jpg",
+    alt: "E-GEAD high-speed automated robotics fulfillment facility",
+  };
+  const quote = data?.quote || {
+    quote:
+      "“Egead eliminated our fulfillment delays entirely. With sub-24h industrial DTF printing and automated TikTok Shop US compliance, we scaled to 28,000 peak holiday orders with a 0.18% late dispatch rate and zero algorithmic penalties.”",
+    author: "MARCUS VANCE",
+    role: "HEAD OF GLOBAL SUPPLY CHAIN & OPERATIONS",
+    brand: "URBANVIBE",
+  };
+  const photo2 = data?.photo2 || {
+    image: "/assets/success_scanner.jpg",
+    alt: "Smart barcode scan warehouse management and error-free dispatch",
+  };
+  const stat2 = data?.stat2 || {
+    brand: "HOMECRAFT",
+    tagline: "HOMECRAFT\nELIMINATED OVERSELLING &\nCUT MANUAL OPS BY 85%",
+    value: "99.9%",
+    label: "WMS Barcode Scan Accuracy",
+  };
+
   return (
     <section
       id="homepage__customersuccess"
@@ -20,7 +65,7 @@ export default function SmartCXSection() {
               className="text-3xl sm:text-4xl lg:text-[46px] font-semibold font-montserrat leading-[1.2] tracking-tight"
             >
               <span className="bg-gradient-to-r from-[#6CE8C3] via-[#A8F7E2] to-white bg-clip-text text-transparent">
-                Why brands ship with Egead
+                {displayTitle}
               </span>
             </motion.h2>
           </div>
@@ -38,8 +83,8 @@ export default function SmartCXSection() {
               className="relative aspect-square overflow-hidden bg-[#181d1f] border border-white/10 hover:border-[#6CE8C3]/50 rounded-xl group transition-all duration-300 shadow-lg cursor-pointer"
             >
               <img
-                src="/assets/success_apparel.jpg"
-                alt="E-GEAD precision industrial DTF print-on-demand streetwear apparel"
+                src={photo1.image || "/assets/success_apparel.jpg"}
+                alt={photo1.alt || "Product apparel"}
                 className="w-full h-full object-cover group-hover:scale-108 transition-transform duration-500"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
@@ -63,16 +108,12 @@ export default function SmartCXSection() {
                   className="border border-white/40 px-2 py-0.5 inline-flex items-center shrink-0 rounded-sm group-hover:border-[#6CE8C3]"
                 >
                   <span className="text-[11px] sm:text-xs font-bold tracking-widest text-white group-hover:text-[#6CE8C3] font-mono transition-colors">
-                    URBANVIBE
+                    {stat1.brand}
                   </span>
                 </motion.div>
                 <div className="w-[1px] h-10 bg-white/20 shrink-0" />
-                <p className="text-[10px] sm:text-[11px] font-mono uppercase tracking-wider text-[#b3b3b3] leading-[1.45]">
-                  URBANVIBE
-                  <br />
-                  ACHIEVED SUB-24H DISPATCH
-                  <br />
-                  ON TIKTOK SHOP US
+                <p className="text-[10px] sm:text-[11px] font-mono uppercase tracking-wider text-[#b3b3b3] leading-[1.45] whitespace-pre-line">
+                  {stat1.tagline}
                 </p>
               </div>
 
@@ -82,10 +123,10 @@ export default function SmartCXSection() {
                   transition={{ type: "spring", stiffness: 300 }}
                   className="text-5xl sm:text-6xl lg:text-[76px] xl:text-[84px] font-light text-white group-hover:text-[#6CE8C3] tracking-tighter leading-none font-montserrat transition-colors"
                 >
-                  &lt;24H
+                  {stat1.value}
                 </motion.div>
                 <p className="text-[11px] sm:text-xs text-[#5EFC8D] font-mono uppercase tracking-wider mt-2.5 font-medium">
-                  Average Production SLA
+                  {stat1.label}
                 </p>
               </div>
             </motion.div>
@@ -101,8 +142,8 @@ export default function SmartCXSection() {
             className="relative w-full h-[280px] sm:h-[320px] lg:h-full min-h-[260px] overflow-hidden bg-[#181d1f] border border-white/10 hover:border-[#6CE8C3]/50 rounded-xl group transition-all duration-300 shadow-lg cursor-pointer"
           >
             <img
-              src="/assets/success_warehouse.jpg"
-              alt="E-GEAD high-speed automated robotics fulfillment facility"
+              src={widePhoto.image || "/assets/success_warehouse.jpg"}
+              alt={widePhoto.alt || "Warehouse fulfillment"}
               className="w-full h-full object-cover group-hover:scale-108 transition-transform duration-500"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
@@ -122,21 +163,21 @@ export default function SmartCXSection() {
             className="flex flex-col justify-between p-7 sm:p-9 lg:p-10 bg-[#141718] border border-white/10 transition-all duration-300 min-h-[300px] lg:min-h-full rounded-xl shadow-lg group cursor-pointer"
           >
             <p className="text-lg sm:text-xl lg:text-[22px] font-normal text-white font-montserrat leading-[1.55] tracking-tight">
-              &ldquo;Egead eliminated our fulfillment delays entirely. With sub-24h industrial DTF printing and automated TikTok Shop US compliance, we scaled to 28,000 peak holiday orders with a 0.18% late dispatch rate and zero algorithmic penalties.&rdquo;
+              {quote.quote}
             </p>
 
             <div className="flex items-end justify-between mt-8 pt-6 border-t border-white/10">
               <div>
                 <h4 className="text-xs sm:text-sm font-semibold tracking-wider uppercase text-white font-mono">
-                  MARCUS VANCE
+                  {quote.author}
                 </h4>
                 <p className="text-[11px] sm:text-xs text-[#a3a3a3] font-mono uppercase tracking-wider mt-1">
-                  HEAD OF GLOBAL SUPPLY CHAIN &amp; OPERATIONS
+                  {quote.role}
                 </p>
               </div>
               <motion.div whileHover={{ scale: 1.08 }} className="shrink-0">
                 <span className="text-xs sm:text-sm font-bold tracking-widest text-white/90 group-hover:text-[#6CE8C3] font-mono uppercase border border-white/30 group-hover:border-[#6CE8C3] px-2.5 py-1 rounded bg-white/5 transition-colors">
-                  URBANVIBE
+                  {quote.brand}
                 </span>
               </motion.div>
             </div>
@@ -153,8 +194,8 @@ export default function SmartCXSection() {
               className="relative aspect-square overflow-hidden bg-[#181d1f] border border-white/10 hover:border-[#6CE8C3]/50 rounded-xl group transition-all duration-300 shadow-lg cursor-pointer"
             >
               <img
-                src="/assets/success_scanner.jpg"
-                alt="Smart barcode scan warehouse management and error-free dispatch"
+                src={photo2.image || "/assets/success_scanner.jpg"}
+                alt={photo2.alt || "Scanner management"}
                 className="w-full h-full object-cover group-hover:scale-108 transition-transform duration-500"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
@@ -178,16 +219,12 @@ export default function SmartCXSection() {
                   className="border border-white/40 px-2 py-0.5 inline-flex items-center shrink-0 rounded-sm group-hover:border-[#6CE8C3]"
                 >
                   <span className="text-[11px] sm:text-xs font-bold tracking-widest text-white group-hover:text-[#6CE8C3] font-mono transition-colors">
-                    HOMECRAFT
+                    {stat2.brand}
                   </span>
                 </motion.div>
                 <div className="w-[1px] h-10 bg-white/20 shrink-0" />
-                <p className="text-[10px] sm:text-[11px] font-mono uppercase tracking-wider text-[#b3b3b3] leading-[1.45]">
-                  HOMECRAFT
-                  <br />
-                  ELIMINATED OVERSELLING &amp;
-                  <br />
-                  CUT MANUAL OPS BY 85%
+                <p className="text-[10px] sm:text-[11px] font-mono uppercase tracking-wider text-[#b3b3b3] leading-[1.45] whitespace-pre-line">
+                  {stat2.tagline}
                 </p>
               </div>
 
@@ -197,10 +234,10 @@ export default function SmartCXSection() {
                   transition={{ type: "spring", stiffness: 300 }}
                   className="text-5xl sm:text-6xl lg:text-[76px] xl:text-[84px] font-light text-white group-hover:text-[#6CE8C3] tracking-tighter leading-none font-montserrat transition-colors"
                 >
-                  99.9%
+                  {stat2.value}
                 </motion.div>
                 <p className="text-[11px] sm:text-xs text-[#5EFC8D] font-mono uppercase tracking-wider mt-2.5 font-medium">
-                  WMS Barcode Scan Accuracy
+                  {stat2.label}
                 </p>
               </div>
             </motion.div>
@@ -217,7 +254,7 @@ export default function SmartCXSection() {
             transition={{ type: "spring", stiffness: 400, damping: 17 }}
           >
             <Link
-              href="/our-work"
+              href={ctaHref}
               className="group inline-flex items-center gap-2.5 px-8 py-3.5 rounded-full border border-white/20 hover:border-[#5EFC8D] hover:text-[#5EFC8D] hover:bg-white/5 text-[#D4FAE6] font-medium text-sm transition duration-300 shrink-0 font-montserrat shadow-lg"
             >
               <svg
@@ -230,7 +267,7 @@ export default function SmartCXSection() {
               >
                 <path d="M15.125 10.875L10.625 15.375L9.56 14.31L12.2525 11.625H3.875V2.625H5.375V10.125H12.2525L9.56 7.44L10.625 6.375L15.125 10.875Z" />
               </svg>
-              <span>Read Customer Stories</span>
+              <span>{ctaText}</span>
             </Link>
           </motion.div>
         </div>

@@ -6,6 +6,7 @@ import { motion } from 'framer-motion';
 export interface LogoItem {
   name: string;
   src: string;
+  invert?: boolean;
 }
 
 // Homepage default partner logos
@@ -94,6 +95,7 @@ export interface CaseStudiesSectionProps {
   description?: string;
   row1Partners?: LogoItem[];
   row2Partners?: LogoItem[];
+  rows?: LogoItem[][];
   logos?: LogoItem[];
 }
 
@@ -105,6 +107,7 @@ export default function CaseStudiesSection({
   description,
   row1Partners: customRow1,
   row2Partners: customRow2,
+  rows: customRows,
   logos,
 }: CaseStudiesSectionProps) {
   // If used on Services Page / Single Partners Slider
@@ -338,15 +341,15 @@ export default function CaseStudiesSection({
   // =========================================================
   // HOMEPAGE DEFAULT VARIANT
   // =========================================================
-  const effectiveRow1 = customRow1 && customRow1.length > 0 ? customRow1 : row1Partners;
-  const effectiveRow2 = customRow2 && customRow2.length > 0 ? customRow2 : row2Partners;
-
-  const row1Doubled = effectiveRow1.length < 8
-    ? [...effectiveRow1, ...effectiveRow1, ...effectiveRow1, ...effectiveRow1]
-    : [...effectiveRow1, ...effectiveRow1];
-  const row2Doubled = effectiveRow2.length < 8
-    ? [...effectiveRow2, ...effectiveRow2, ...effectiveRow2, ...effectiveRow2]
-    : [...effectiveRow2, ...effectiveRow2];
+  const effectiveRows: LogoItem[][] = (() => {
+    if (customRows && customRows.length > 0) {
+      const valid = customRows.filter((r) => Array.isArray(r) && r.length > 0);
+      if (valid.length > 0) return valid;
+    }
+    const r1 = customRow1 && customRow1.length > 0 ? customRow1 : row1Partners;
+    const r2 = customRow2 && customRow2.length > 0 ? customRow2 : row2Partners;
+    return [r1, r2];
+  })();
 
   return (
     <section
@@ -385,61 +388,52 @@ export default function CaseStudiesSection({
         </div>
       </div>
 
-      {/* 2 Marquee Rows */}
+      {/* Dynamic Marquee Rows (Xen kẽ: Hàng 1, 3, 5... cuộn sang trái; Hàng 2, 4, 6... cuộn sang phải) */}
       <div className="relative w-full overflow-hidden space-y-8 sm:space-y-12">
-        {/* Row 1 Marquee (Flows Left) */}
-        <div className="relative w-full overflow-hidden">
-          {/* Subtle Left & Right Edge Gradients */}
-          <div className="pointer-events-none absolute inset-y-0 left-0 w-24 sm:w-44 bg-gradient-to-r from-[#0A0D0E] via-[#0A0D0E]/80 to-transparent z-10" />
-          <div className="pointer-events-none absolute inset-y-0 right-0 w-24 sm:w-44 bg-gradient-to-l from-[#0A0D0E] via-[#0A0D0E]/80 to-transparent z-10" />
+        {effectiveRows.map((rowLogos, rowIndex) => {
+          const isReverse = rowIndex % 2 === 1;
+          const doubled = rowLogos.length < 8
+            ? [...rowLogos, ...rowLogos, ...rowLogos, ...rowLogos]
+            : [...rowLogos, ...rowLogos];
+          const animDuration = 55 + (rowIndex % 3) * 5;
 
-          <div
-            className="flex w-max pause-hover items-center gap-8 sm:gap-12 lg:gap-16"
-            style={{ animation: 'marquee 60s linear infinite' }}
-          >
-            {row1Doubled.map((partner, idx) => (
-              <motion.div
-                key={`r1-${idx}`}
-                whileHover={{ scale: 1.2 }}
-                transition={{ type: 'spring', stiffness: 400, damping: 15 }}
-                className="flex items-center justify-center min-w-[140px] sm:min-w-[170px] lg:min-w-[200px] h-12 sm:h-14 lg:h-16 opacity-75 hover:opacity-100 transition-opacity duration-300 group cursor-pointer"
+          return (
+            <div key={`row-${rowIndex}`} className="relative w-full overflow-hidden">
+              {/* Subtle Left & Right Edge Gradients */}
+              <div className="pointer-events-none absolute inset-y-0 left-0 w-24 sm:w-44 bg-gradient-to-r from-[#0A0D0E] via-[#0A0D0E]/80 to-transparent z-10" />
+              <div className="pointer-events-none absolute inset-y-0 right-0 w-24 sm:w-44 bg-gradient-to-l from-[#0A0D0E] via-[#0A0D0E]/80 to-transparent z-10" />
+
+              <div
+                className="flex w-max pause-hover items-center gap-8 sm:gap-12 lg:gap-16"
+                style={{
+                  animation: `marquee ${animDuration}s linear infinite ${isReverse ? 'reverse' : 'normal'}`,
+                }}
               >
-                <img
-                  src={partner.src}
-                  alt={partner.name}
-                  className="h-full w-auto max-h-10 sm:max-h-12 max-w-[160px] object-contain invert drop-shadow-sm group-hover:drop-shadow-[0_0_12px_rgba(108,232,195,0.6)] transition-all duration-300 pointer-events-none"
-                />
-              </motion.div>
-            ))}
-          </div>
-        </div>
+                {doubled.map((partner, idx) => {
+                  const shouldInvert =
+                    partner.invert ?? partner.src?.startsWith('/assets/partners/');
 
-        {/* Row 2 Marquee (Flows Right / Reverse) */}
-        <div className="relative w-full overflow-hidden">
-          {/* Subtle Left & Right Edge Gradients */}
-          <div className="pointer-events-none absolute inset-y-0 left-0 w-24 sm:w-44 bg-gradient-to-r from-[#0A0D0E] via-[#0A0D0E]/80 to-transparent z-10" />
-          <div className="pointer-events-none absolute inset-y-0 right-0 w-24 sm:w-44 bg-gradient-to-l from-[#0A0D0E] via-[#0A0D0E]/80 to-transparent z-10" />
-
-          <div
-            className="flex w-max pause-hover items-center gap-8 sm:gap-12 lg:gap-16"
-            style={{ animation: 'marquee 65s linear infinite reverse' }}
-          >
-            {row2Doubled.map((partner, idx) => (
-              <motion.div
-                key={`r2-${idx}`}
-                whileHover={{ scale: 1.2 }}
-                transition={{ type: 'spring', stiffness: 400, damping: 15 }}
-                className="flex items-center justify-center min-w-[140px] sm:min-w-[170px] lg:min-w-[200px] h-12 sm:h-14 lg:h-16 opacity-75 hover:opacity-100 transition-opacity duration-300 group cursor-pointer"
-              >
-                <img
-                  src={partner.src}
-                  alt={partner.name}
-                  className="h-full w-auto max-h-10 sm:max-h-12 max-w-[160px] object-contain invert drop-shadow-sm group-hover:drop-shadow-[0_0_12px_rgba(108,232,195,0.6)] transition-all duration-300 pointer-events-none"
-                />
-              </motion.div>
-            ))}
-          </div>
-        </div>
+                  return (
+                    <motion.div
+                      key={`r${rowIndex}-${idx}`}
+                      whileHover={{ scale: 1.2 }}
+                      transition={{ type: 'spring', stiffness: 400, damping: 15 }}
+                      className="flex items-center justify-center min-w-[140px] sm:min-w-[170px] lg:min-w-[200px] h-12 sm:h-14 lg:h-16 opacity-75 hover:opacity-100 transition-opacity duration-300 group cursor-pointer"
+                    >
+                      <img
+                        src={partner.src}
+                        alt={partner.name}
+                        className={`h-full w-auto max-h-10 sm:max-h-12 max-w-[160px] object-contain drop-shadow-sm group-hover:drop-shadow-[0_0_12px_rgba(108,232,195,0.6)] transition-all duration-300 pointer-events-none ${
+                          shouldInvert ? 'invert' : ''
+                        }`}
+                      />
+                    </motion.div>
+                  );
+                })}
+              </div>
+            </div>
+          );
+        })}
       </div>
     </section>
   );

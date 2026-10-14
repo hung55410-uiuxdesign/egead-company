@@ -15,6 +15,7 @@ export interface ServiceItemListItem {
   subtitle: string;
   heroImage: string | null;
   middleImage: string | null;
+  principles?: any;
   order: number;
   status: string;
   createdAt: Date;
@@ -209,4 +210,37 @@ export async function deleteServiceItem(id: string): Promise<boolean> {
     where: { id },
   });
   return true;
+}
+
+/**
+ * Bulk delete service items by IDs
+ */
+export async function bulkDeleteServiceItems(ids: string[]): Promise<number> {
+  if (ids.length === 0) return 0;
+  const res = await prisma.serviceItem.deleteMany({
+    where: { id: { in: ids } },
+  });
+  return res.count;
+}
+
+/**
+ * Bulk update service items (status, category) by IDs
+ */
+export async function bulkUpdateServiceItems(
+  ids: string[],
+  data: {
+    status?: 'published' | 'draft';
+    category?: 'service' | 'industry';
+  }
+): Promise<number> {
+  if (ids.length === 0) return 0;
+  const updateData: { status?: string; category?: string } = {};
+  if (data.status) updateData.status = data.status;
+  if (data.category) updateData.category = data.category;
+
+  const res = await prisma.serviceItem.updateMany({
+    where: { id: { in: ids } },
+    data: updateData,
+  });
+  return res.count;
 }

@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { revalidatePath } from 'next/cache';
 import {
   getHomeSectionByKey,
   updateHomeSection,
@@ -41,6 +42,11 @@ export async function PUT(request: NextRequest, { params }: RouteContext) {
     const body = await request.json();
 
     const updated = await updateHomeSection(key, body);
+
+    revalidatePath('/');
+    revalidatePath('/admin/home');
+    revalidatePath(`/admin/home/${key}`);
+    revalidatePath('/', 'layout');
 
     return NextResponse.json({
       success: true,

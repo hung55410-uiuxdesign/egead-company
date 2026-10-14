@@ -6,7 +6,7 @@ import { Calendar, CheckCircle2, Users, Clock } from 'lucide-react';
 import { SAP_ADVANTAGES } from '../data/sap-partner.data';
 import type { SapAdvantageItem } from '../types';
 
-const ICON_SVGS: Record<SapAdvantageItem['iconName'], string> = {
+const ICON_SVGS: Record<string, string> = {
   years:
     'https://www.sai-digital.com/site/sai-website/master/_/attachment/inline/8317818f-e26c-434a-b7ff-37943f6147f1:f6de9061226b903d177e9781dba8c884d20f34c7/Name=Years,%20Color=Colorful.svg',
   delivery:
@@ -21,7 +21,7 @@ function AdvantageCard({ item, index }: { item: SapAdvantageItem; index: number 
   const [imgFailed, setImgFailed] = useState(false);
 
   const renderFallbackIcon = () => {
-    switch (item.iconName) {
+    switch (item?.iconName) {
       case 'years':
         return <Calendar className="w-10 h-10 text-[#10E774]" />;
       case 'delivery':
@@ -30,8 +30,12 @@ function AdvantageCard({ item, index }: { item: SapAdvantageItem; index: number 
         return <Users className="w-10 h-10 text-[#5EFC8D]" />;
       case 'support':
         return <Clock className="w-10 h-10 text-[#6CE8C3]" />;
+      default:
+        return <CheckCircle2 className="w-10 h-10 text-[#10E774]" />;
     }
   };
+
+  const svgSrc = item?.iconName ? ICON_SVGS[item.iconName] : undefined;
 
   return (
     <motion.div
@@ -44,10 +48,10 @@ function AdvantageCard({ item, index }: { item: SapAdvantageItem; index: number 
     >
       {/* Icon Area */}
       <div className="w-20 h-20 rounded-2xl bg-white/[0.04] border border-white/10 flex items-center justify-center mb-6 group-hover:scale-105 group-hover:bg-[#10E774]/10 group-hover:border-[#10E774]/30 transition-all duration-300">
-        {!imgFailed ? (
+        {!imgFailed && svgSrc ? (
           <img
-            src={ICON_SVGS[item.iconName]}
-            alt={item.metric}
+            src={svgSrc}
+            alt={item.metric || (item as any).title || 'Advantage'}
             className="w-12 h-12 object-contain group-hover:scale-110 transition-transform duration-300"
             onError={() => setImgFailed(true)}
           />
@@ -56,28 +60,50 @@ function AdvantageCard({ item, index }: { item: SapAdvantageItem; index: number 
         )}
       </div>
 
+      {(item as any).tag && (
+        <span className="inline-block px-2.5 py-0.5 rounded-full bg-[#10E774]/10 text-[#10E774] border border-[#10E774]/20 text-[11px] font-semibold mb-2">
+          {(item as any).tag}
+        </span>
+      )}
+
       {/* Metric Title */}
-      <h3 className="text-2xl sm:text-3xl font-semibold text-white font-montserrat mb-3 group-hover:text-[#7ceee0] transition-colors duration-300">
-        {item.metric}
+      <h3 className="text-xl sm:text-2xl font-semibold text-white font-montserrat mb-3 group-hover:text-[#7ceee0] transition-colors duration-300 leading-snug">
+        {item.metric || (item as any).title || (item as any).headline || 'Lợi thế'}
       </h3>
 
       {/* Description */}
       <p className="text-sm sm:text-base text-[#b3b3b3] font-light leading-relaxed font-montserrat">
-        {item.description}
+        {item.description || (item as any).content || ''}
       </p>
     </motion.div>
   );
+
 }
 
-export default function SapAdvantagesSection() {
+export interface SapAdvantagesSectionProps {
+  partnerName?: string;
+  subtitle?: string;
+  headline?: string;
+  items?: SapAdvantageItem[];
+}
+
+export default function SapAdvantagesSection({
+  partnerName = 'SAP',
+  subtitle = 'E-GEAD advantages',
+  headline = 'Qualified SAP Gold Partner Specializing in CX Enterprise eCommerce Technologies.',
+  items = SAP_ADVANTAGES,
+}: SapAdvantagesSectionProps = {}) {
+  const displayItems = items && items.length > 0 ? items : SAP_ADVANTAGES;
+
   return (
     <section
       id="advantages"
-      aria-label="SAP Partner Advantages"
-      className="block-items partner-advance w-full py-20 sm:py-28 px-6 sm:px-10 lg:px-14 xl:px-16 2xl:px-20 border-t border-white/5 relative overflow-hidden"
+      aria-label={`${partnerName} Partner Advantages`}
+      className="block-items partner-advance w-full py-20 sm:py-28 px-6 sm:px-10 lg:px-14 xl:px-16 border-t border-white/5 relative overflow-hidden"
     >
-      <div className="max-w-[1560px] mx-auto">
+      <div className="w-full">
         {/* Header */}
+
         <div className="text-center max-w-4xl mx-auto mb-16 sm:mb-20">
           <motion.p
             initial={{ opacity: 0, y: 15 }}
@@ -86,7 +112,7 @@ export default function SapAdvantagesSection() {
             transition={{ duration: 0.5 }}
             className="text-sm sm:text-base font-normal text-[#D4FAE6] mb-3 font-montserrat"
           >
-            E-GEAD advantages
+            {subtitle}
           </motion.p>
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
@@ -95,17 +121,22 @@ export default function SapAdvantagesSection() {
             transition={{ duration: 0.6, delay: 0.1 }}
             className="text-2xl sm:text-4xl lg:text-[44px] font-medium text-white leading-tight font-montserrat"
           >
-            Qualified SAP Gold Partner Specializing in CX Enterprise eCommerce Technologies.
+            {headline}
           </motion.h2>
         </div>
 
-        {/* 4 Cards Grid */}
+        {/* Cards Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
-          {SAP_ADVANTAGES.map((item, idx) => (
-            <AdvantageCard key={item.id} item={item} index={idx} />
+          {displayItems.map((item, idx) => (
+            <AdvantageCard
+              key={item.id || item.metric || (item as any).title || `adv-${idx}`}
+              item={item}
+              index={idx}
+            />
           ))}
         </div>
       </div>
     </section>
   );
 }
+

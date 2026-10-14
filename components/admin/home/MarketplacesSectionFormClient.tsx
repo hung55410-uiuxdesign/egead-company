@@ -2,7 +2,7 @@
 
 import React, { useState, FormEvent } from 'react';
 import { useRouter } from 'next/navigation';
-import { X, Trash2, Plus, Upload } from 'lucide-react';
+import { X, Trash2, ArrowUp, ArrowDown } from 'lucide-react';
 import { Button, Card, Badge, Field } from '@astryxdesign/core';
 import type {
   HomeSectionModel,
@@ -13,6 +13,41 @@ import { useUploadMedia, useUpdateHomeSectionMutation } from '@/lib/hooks';
 interface MarketplacesSectionFormClientProps {
   section: HomeSectionModel;
 }
+
+const defaultRow1: PartnerLogo[] = [
+  { name: 'Partner 01', src: '/assets/partners/01.svg' },
+  { name: 'Partner 02', src: '/assets/partners/02.svg' },
+  { name: 'Partner 03', src: '/assets/partners/03.svg' },
+  { name: 'Partner 04', src: '/assets/partners/04.png' },
+  { name: 'Partner 05', src: '/assets/partners/05.svg' },
+  { name: 'Partner 06', src: '/assets/partners/06.svg' },
+  { name: 'Partner 07', src: '/assets/partners/07.svg' },
+  { name: 'Partner 08', src: '/assets/partners/08.svg' },
+  { name: 'Partner 09', src: '/assets/partners/09.svg' },
+  { name: 'Partner 10', src: '/assets/partners/10.svg' },
+  { name: 'Partner 11', src: '/assets/partners/11.svg' },
+  { name: 'Partner 12', src: '/assets/partners/12.svg' },
+  { name: 'Partner 13', src: '/assets/partners/13.svg' },
+  { name: 'Partner 14', src: '/assets/partners/14.svg' },
+  { name: 'Partner 15', src: '/assets/partners/15.svg' },
+];
+
+const defaultRow2: PartnerLogo[] = [
+  { name: 'Partner 16', src: '/assets/partners/16.svg' },
+  { name: 'Partner 17', src: '/assets/partners/17.svg' },
+  { name: 'Partner 18', src: '/assets/partners/18.svg' },
+  { name: 'Partner 19', src: '/assets/partners/19.svg' },
+  { name: 'Partner 20', src: '/assets/partners/20.svg' },
+  { name: 'Partner 21', src: '/assets/partners/21.svg' },
+  { name: 'Partner 22', src: '/assets/partners/22.svg' },
+  { name: 'Partner 23', src: '/assets/partners/23.svg' },
+  { name: 'Partner 24', src: '/assets/partners/24.svg' },
+  { name: 'Partner 25', src: '/assets/partners/25.svg' },
+  { name: 'Partner 26', src: '/assets/partners/26.svg' },
+  { name: 'Partner 27', src: '/assets/partners/27.svg' },
+  { name: 'Partner 28', src: '/assets/partners/28.svg' },
+  { name: 'Partner 29', src: '/assets/partners/29.svg' },
+];
 
 export default function MarketplacesSectionFormClient({
   section,
@@ -33,125 +68,211 @@ export default function MarketplacesSectionFormClient({
   );
   const [isActive, setIsActive] = useState<boolean>(section.isActive ?? true);
 
-  // Marquee Rows
-  const [row1Partners, setRow1Partners] = useState<PartnerLogo[]>(
-    section.data?.row1Partners || []
-  );
-  const [row2Partners, setRow2Partners] = useState<PartnerLogo[]>(
-    section.data?.row2Partners || []
-  );
+  // Dynamic Marquee Rows
+  const initialRows: PartnerLogo[][] = (() => {
+    const rawData: any = section.data || {};
+    const unwrappedData: any =
+      rawData?.data && (rawData.data?.rows || rawData.data?.row1Partners)
+        ? rawData.data
+        : rawData;
+
+    if (Array.isArray(unwrappedData?.rows) && unwrappedData.rows.length > 0) {
+      return unwrappedData.rows;
+    }
+    const r1 = unwrappedData?.row1Partners;
+    const r2 = unwrappedData?.row2Partners;
+    if (
+      (Array.isArray(r1) && r1.length > 0) ||
+      (Array.isArray(r2) && r2.length > 0)
+    ) {
+      return [r1 || defaultRow1, r2 || defaultRow2];
+    }
+    return [defaultRow1, defaultRow2];
+  })();
+
+  const [rows, setRows] = useState<PartnerLogo[][]>(initialRows);
 
   // TanStack Query Mutation
   const updateMutation = useUpdateHomeSectionMutation();
   const isSaving = updateMutation.isPending;
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  // Track specific item uploading index for Row 1 and Row 2
-  const [targetRow1Index, setTargetRow1Index] = useState<number | null>(null);
-  const [targetRow2Index, setTargetRow2Index] = useState<number | null>(null);
+  // Upload state
+  const [uploadTarget, setUploadTarget] = useState<{
+    rowIndex: number;
+    logoIndex?: number;
+  } | null>(null);
 
-  // Cloudinary Upload for Row 1
-  const { uploadFile: uploadRow1File, isUploading: isUploadingRow1 } =
-    useUploadMedia({
-      defaultFolder: 'egead_cms/partners',
-      successMessage: 'Tải logo hàng 1 lên thành công!',
-      onSuccess: (data) => {
-        if (targetRow1Index !== null) {
-          setRow1Partners((prev) =>
-            prev.map((item, idx) =>
-              idx === targetRow1Index ? { ...item, src: data.url } : item
-            )
-          );
-          setTargetRow1Index(null);
-        } else {
-          setRow1Partners((prev) => [
-            ...prev,
-            {
-              name: `Partner ${prev.length + 1}`,
-              src: data.url,
-            },
-          ]);
-        }
-      },
+  const { uploadFileAsync, isUploading } = useUploadMedia({
+    defaultFolder: 'egead_cms/partners',
+    successMessage: 'Tải logo lên thành công!',
+  });
+
+  // Row Management Handlers
+  const handleAddRow = () => {
+    setRows((prev) => {
+      const nextIndex = prev.length + 1;
+      return [
+        ...prev,
+        [
+          {
+            name: `Partner ${nextIndex}-01`,
+            src: '/assets/partners/01.svg',
+          },
+        ],
+      ];
     });
-
-  // Cloudinary Upload for Row 2
-  const { uploadFile: uploadRow2File, isUploading: isUploadingRow2 } =
-    useUploadMedia({
-      defaultFolder: 'egead_cms/partners',
-      successMessage: 'Tải logo hàng 2 lên thành công!',
-      onSuccess: (data) => {
-        if (targetRow2Index !== null) {
-          setRow2Partners((prev) =>
-            prev.map((item, idx) =>
-              idx === targetRow2Index ? { ...item, src: data.url } : item
-            )
-          );
-          setTargetRow2Index(null);
-        } else {
-          setRow2Partners((prev) => [
-            ...prev,
-            {
-              name: `Partner ${prev.length + 16}`,
-              src: data.url,
-            },
-          ]);
-        }
-      },
-    });
-
-  // Row 1 Handlers
-  const handleAddRow1Logo = () => {
-    setRow1Partners((prev) => [
-      ...prev,
-      {
-        name: `Partner ${prev.length + 1}`,
-        src: '/assets/partners/01.svg',
-      },
-    ]);
   };
 
-  const handleUpdateRow1Logo = (
-    index: number,
-    field: keyof PartnerLogo,
-    value: string
-  ) => {
-    setRow1Partners((prev) => {
+  const handleRemoveRow = (rowIndex: number) => {
+    if (rows.length <= 1) {
+      alert('Cần giữ lại ít nhất 1 hàng logo!');
+      return;
+    }
+    const count = rows[rowIndex]?.length || 0;
+    if (count > 0) {
+      const confirmed = window.confirm(
+        `Bạn có chắc chắn muốn xóa Hàng ${rowIndex + 1} (${count} logo)?`
+      );
+      if (!confirmed) return;
+    }
+    setRows((prev) => prev.filter((_, idx) => idx !== rowIndex));
+  };
+
+  const handleMoveRowUp = (rowIndex: number) => {
+    if (rowIndex === 0) return;
+    setRows((prev) => {
       const next = [...prev];
-      next[index] = { ...next[index], [field]: value };
+      const temp = next[rowIndex];
+      next[rowIndex] = next[rowIndex - 1];
+      next[rowIndex - 1] = temp;
       return next;
     });
   };
 
-  const handleRemoveRow1Logo = (index: number) => {
-    setRow1Partners((prev) => prev.filter((_, i) => i !== index));
-  };
-
-  // Row 2 Handlers
-  const handleAddRow2Logo = () => {
-    setRow2Partners((prev) => [
-      ...prev,
-      {
-        name: `Partner ${prev.length + 16}`,
-        src: '/assets/partners/16.svg',
-      },
-    ]);
-  };
-
-  const handleUpdateRow2Logo = (
-    index: number,
-    field: keyof PartnerLogo,
-    value: string
-  ) => {
-    setRow2Partners((prev) => {
+  const handleMoveRowDown = (rowIndex: number) => {
+    if (rowIndex >= rows.length - 1) return;
+    setRows((prev) => {
       const next = [...prev];
-      next[index] = { ...next[index], [field]: value };
+      const temp = next[rowIndex];
+      next[rowIndex] = next[rowIndex + 1];
+      next[rowIndex + 1] = temp;
       return next;
     });
   };
 
-  const handleRemoveRow2Logo = (index: number) => {
-    setRow2Partners((prev) => prev.filter((_, i) => i !== index));
+  // Logo Handlers
+  const handleAddLogo = (rowIndex: number) => {
+    setRows((prev) => {
+      const next = [...prev];
+      const currentRow = next[rowIndex] || [];
+      next[rowIndex] = [
+        ...currentRow,
+        {
+          name: `Partner ${currentRow.length + 1}`,
+          src: '/assets/partners/01.svg',
+        },
+      ];
+      return next;
+    });
+  };
+
+  const handleUpdateLogo = (
+    rowIndex: number,
+    logoIndex: number,
+    field: keyof PartnerLogo,
+    value: string
+  ) => {
+    setRows((prev) => {
+      const next = [...prev];
+      const currentRow = [...(next[rowIndex] || [])];
+      currentRow[logoIndex] = {
+        ...currentRow[logoIndex],
+        [field]: value,
+      };
+      next[rowIndex] = currentRow;
+      return next;
+    });
+  };
+
+  const handleRemoveLogo = (rowIndex: number, logoIndex: number) => {
+    setRows((prev) => {
+      const next = [...prev];
+      next[rowIndex] = (next[rowIndex] || []).filter(
+        (_, idx) => idx !== logoIndex
+      );
+      return next;
+    });
+  };
+
+  const handleUploadNewLogoToRow = async (rowIndex: number, file: File) => {
+    setUploadTarget({ rowIndex });
+    try {
+      const res = await uploadFileAsync(file);
+      if (res?.url) {
+        setRows((prev) => {
+          const next = [...prev];
+          const currentRow = next[rowIndex] || [];
+          next[rowIndex] = [
+            ...currentRow,
+            {
+              name: `Partner ${currentRow.length + 1}`,
+              src: res.url,
+              invert: false,
+            },
+          ];
+          return next;
+        });
+      }
+    } catch {
+      // Handled by toast
+    } finally {
+      setUploadTarget(null);
+    }
+  };
+
+  const handleReplaceLogo = async (
+    rowIndex: number,
+    logoIndex: number,
+    file: File
+  ) => {
+    setUploadTarget({ rowIndex, logoIndex });
+    try {
+      const res = await uploadFileAsync(file);
+      if (res?.url) {
+        setRows((prev) => {
+          const next = [...prev];
+          const currentRow = [...(next[rowIndex] || [])];
+          currentRow[logoIndex] = {
+            ...currentRow[logoIndex],
+            src: res.url,
+            invert: false,
+          };
+          next[rowIndex] = currentRow;
+          return next;
+        });
+      }
+    } catch {
+      // Handled by toast
+    } finally {
+      setUploadTarget(null);
+    }
+  };
+
+  const handleToggleInvert = (rowIndex: number, logoIndex: number) => {
+    setRows((prev) => {
+      const next = [...prev];
+      const currentRow = [...(next[rowIndex] || [])];
+      const item = currentRow[logoIndex];
+      const currentInvert =
+        item.invert ?? item.src?.startsWith('/assets/partners/');
+      currentRow[logoIndex] = {
+        ...item,
+        invert: !currentInvert,
+      };
+      next[rowIndex] = currentRow;
+      return next;
+    });
   };
 
   // Form Submit
@@ -172,10 +293,12 @@ export default function MarketplacesSectionFormClient({
         description: description.trim() || null,
         isActive,
         data: {
-          row1Partners,
-          row2Partners,
+          rows,
+          row1Partners: rows[0] || [],
+          row2Partners: rows[1] || [],
         },
       });
+      router.refresh();
     } catch (err: any) {
       setErrorMessage(err.message || 'Lỗi khi lưu dữ liệu section');
     }
@@ -212,7 +335,7 @@ export default function MarketplacesSectionFormClient({
             Chỉnh sửa: {section.name}
           </h1>
           <p className="text-slate-500 text-xs sm:text-sm">
-            Cập nhật tiêu đề, đoạn văn mô tả và 2 hàng logo đối tác chạy marquee trên trang chủ
+            Cập nhật tiêu đề, đoạn văn mô tả và danh sách các hàng logo đối tác chạy marquee xen kẽ chiều cuộn
           </p>
         </div>
 
@@ -326,296 +449,315 @@ export default function MarketplacesSectionFormClient({
       </Card>
 
       {/* =========================================================================
-          CARD 2: DANH SÁCH LOGO HÀNG 1 (ROW 1 MARQUEE - FLOWS LEFT)
+          CONTROL BAR: QUẢN LÝ CÁC HÀNG MARQUEE
           ========================================================================= */}
-      <Card variant="default" className="rounded-2xl p-5 sm:p-6 space-y-5 bg-white">
-        <div className="border-b border-slate-100 pb-3 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-          <div>
-            <div className="flex items-center gap-2">
-              <h2 className="text-base font-bold text-slate-900">
-                2. Danh sách Logo Hàng 1 (Cuộn sang trái)
-              </h2>
-              <Badge
-                label={`${row1Partners.length} logo`}
-                variant="neutral"
-                className="h-6 px-2.5 text-xs"
-              />
-            </div>
-            <p className="text-xs text-slate-500 mt-0.5">
-              Hàng marquee phía trên, chạy liên tục từ phải sang trái
-            </p>
-          </div>
-
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-4 bg-slate-100/80 rounded-2xl border border-slate-200">
+        <div>
           <div className="flex items-center gap-2">
-            <label className="cursor-pointer">
-              <span className="inline-flex items-center justify-center px-3 py-1.5 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 text-xs font-medium text-slate-700 transition-colors">
-                {isUploadingRow1 && targetRow1Index === null ? 'Đang tải lên...' : 'Thêm logo từ máy tính'}
-              </span>
-              <input
-                type="file"
-                accept="image/*,.svg"
-                className="hidden"
-                disabled={isUploadingRow1}
-                onChange={(e) => {
-                  const file = e.target.files?.[0];
-                  if (file) {
-                    setTargetRow1Index(null);
-                    uploadRow1File(file);
-                    e.target.value = '';
-                  }
-                }}
-              />
-            </label>
-            <Button
-              type="button"
-              label="Thêm logo rỗng"
-              variant="secondary"
-              className="px-3 h-8 text-xs"
-              onClick={handleAddRow1Logo}
+            <h3 className="text-sm font-bold text-slate-900">
+              Danh sách các Hàng Logo Marquee
+            </h3>
+            <Badge
+              label={`${rows.length} hàng`}
+              variant="neutral"
+              className="h-6 px-2.5 text-xs"
             />
           </div>
+          <p className="text-xs text-slate-500 mt-0.5">
+            Các hàng tự động xen kẽ chiều: Hàng lẻ (1, 3, 5...) cuộn sang trái, Hàng chẵn (2, 4, 6...) cuộn ngược sang phải
+          </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5">
-          {row1Partners.map((partner, index) => (
-            <div
-              key={index}
-              className="p-3 bg-slate-50/80 border border-slate-200 rounded-xl flex items-center gap-3 relative group"
-            >
-              {/* Logo Preview Box - Clickable to Upload */}
-              <label
-                className="cursor-pointer group/preview relative w-16 h-12 rounded-lg bg-[#0A0D0E] flex items-center justify-center p-1.5 shrink-0 border border-slate-700 hover:border-emerald-500 transition-all overflow-hidden"
-                title="Click để chọn ảnh thay thế"
-              >
-                <input
-                  type="file"
-                  accept="image/*,.svg"
-                  className="hidden"
-                  disabled={isUploadingRow1}
-                  onChange={async (e) => {
-                    const file = e.target.files?.[0];
-                    if (file) {
-                      setTargetRow1Index(index);
-                      await uploadRow1File(file);
-                      e.target.value = '';
-                    }
-                  }}
-                />
-                <img
-                  src={partner.src}
-                  alt={partner.name}
-                  className="max-h-full max-w-full object-contain invert group-hover/preview:opacity-30 transition-opacity"
-                  onError={(e) => {
-                    (e.target as HTMLElement).style.opacity = '0.3';
-                  }}
-                />
-                <div className="absolute inset-0 bg-black/70 opacity-0 group-hover/preview:opacity-100 flex items-center justify-center text-[10px] text-white font-medium transition-opacity">
-                  {isUploadingRow1 && targetRow1Index === index ? 'Đang tải...' : 'Đổi ảnh'}
-                </div>
-              </label>
-
-              {/* Edit Inputs */}
-              <div className="flex-1 min-w-0 space-y-1.5">
-                <input
-                  type="text"
-                  value={partner.name}
-                  onChange={(e) =>
-                    handleUpdateRow1Logo(index, 'name', e.target.value)
-                  }
-                  placeholder="Tên đối tác / sàn"
-                  className="w-full px-2.5 py-1 text-xs font-bold bg-white border border-slate-200 rounded-lg text-slate-900 focus:outline-none focus:border-slate-800"
-                />
-                <div className="flex items-center gap-1.5">
-                  <input
-                    type="text"
-                    value={partner.src}
-                    onChange={(e) =>
-                      handleUpdateRow1Logo(index, 'src', e.target.value)
-                    }
-                    placeholder="/assets/partners/01.svg"
-                    className="flex-1 min-w-0 px-2.5 py-1 text-[11px] font-mono bg-white border border-slate-200 rounded-lg text-slate-600 focus:outline-none focus:border-slate-800"
-                  />
-                  <label className="cursor-pointer shrink-0">
-                    <input
-                      type="file"
-                      accept="image/*,.svg"
-                      className="hidden"
-                      disabled={isUploadingRow1}
-                      onChange={async (e) => {
-                        const file = e.target.files?.[0];
-                        if (file) {
-                          setTargetRow1Index(index);
-                          await uploadRow1File(file);
-                          e.target.value = '';
-                        }
-                      }}
-                    />
-                    <span className="inline-flex items-center justify-center px-2 py-1 rounded-md border border-slate-300 bg-white hover:bg-slate-100 text-[11px] font-medium text-slate-700 transition-colors shadow-2xs">
-                      {isUploadingRow1 && targetRow1Index === index ? 'Đang tải...' : 'Tải ảnh'}
-                    </span>
-                  </label>
-                </div>
-              </div>
-
-              {/* Remove button */}
-              <button
-                type="button"
-                onClick={() => handleRemoveRow1Logo(index)}
-                className="text-slate-400 hover:text-rose-600 p-1 rounded-lg hover:bg-slate-200/50"
-                title="Xóa logo này"
-              >
-                <Trash2 className="w-4 h-4" />
-              </button>
-            </div>
-          ))}
-        </div>
-      </Card>
+        <Button
+          type="button"
+          label="Thêm hàng logo mới"
+          variant="primary"
+          className="px-4 h-9 text-xs"
+          onClick={handleAddRow}
+        />
+      </div>
 
       {/* =========================================================================
-          CARD 3: DANH SÁCH LOGO HÀNG 2 (ROW 2 MARQUEE - FLOWS RIGHT)
+          DYNAMIC MARQUEE ROWS LIST
           ========================================================================= */}
-      <Card variant="default" className="rounded-2xl p-5 sm:p-6 space-y-5 bg-white">
-        <div className="border-b border-slate-100 pb-3 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-          <div>
-            <div className="flex items-center gap-2">
-              <h2 className="text-base font-bold text-slate-900">
-                3. Danh sách Logo Hàng 2 (Cuộn ngược sang phải)
-              </h2>
-              <Badge
-                label={`${row2Partners.length} logo`}
-                variant="neutral"
-                className="h-6 px-2.5 text-xs"
-              />
-            </div>
-            <p className="text-xs text-slate-500 mt-0.5">
-              Hàng marquee phía dưới, chạy liên tục ngược chiều từ trái sang phải
-            </p>
-          </div>
+      {rows.map((row, rowIndex) => {
+        const isLeft = rowIndex % 2 === 0;
+        const isCurrentRowUploadingNew =
+          isUploading &&
+          uploadTarget?.rowIndex === rowIndex &&
+          uploadTarget?.logoIndex === undefined;
 
-          <div className="flex items-center gap-2">
-            <label className="cursor-pointer">
-              <span className="inline-flex items-center justify-center px-3 py-1.5 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 text-xs font-medium text-slate-700 transition-colors">
-                {isUploadingRow2 && targetRow2Index === null ? 'Đang tải lên...' : 'Thêm logo từ máy tính'}
-              </span>
-              <input
-                type="file"
-                accept="image/*,.svg"
-                className="hidden"
-                disabled={isUploadingRow2}
-                onChange={(e) => {
-                  const file = e.target.files?.[0];
-                  if (file) {
-                    setTargetRow2Index(null);
-                    uploadRow2File(file);
-                    e.target.value = '';
-                  }
-                }}
-              />
-            </label>
-            <Button
-              type="button"
-              label="Thêm logo rỗng"
-              variant="secondary"
-              className="px-3 h-8 text-xs"
-              onClick={handleAddRow2Logo}
-            />
-          </div>
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5">
-          {row2Partners.map((partner, index) => (
-            <div
-              key={index}
-              className="p-3 bg-slate-50/80 border border-slate-200 rounded-xl flex items-center gap-3 relative group"
-            >
-              {/* Logo Preview Box - Clickable to Upload */}
-              <label
-                className="cursor-pointer group/preview relative w-16 h-12 rounded-lg bg-[#0A0D0E] flex items-center justify-center p-1.5 shrink-0 border border-slate-700 hover:border-emerald-500 transition-all overflow-hidden"
-                title="Click để chọn ảnh thay thế"
-              >
-                <input
-                  type="file"
-                  accept="image/*,.svg"
-                  className="hidden"
-                  disabled={isUploadingRow2}
-                  onChange={async (e) => {
-                    const file = e.target.files?.[0];
-                    if (file) {
-                      setTargetRow2Index(index);
-                      await uploadRow2File(file);
-                      e.target.value = '';
-                    }
-                  }}
-                />
-                <img
-                  src={partner.src}
-                  alt={partner.name}
-                  className="max-h-full max-w-full object-contain invert group-hover/preview:opacity-30 transition-opacity"
-                  onError={(e) => {
-                    (e.target as HTMLElement).style.opacity = '0.3';
-                  }}
-                />
-                <div className="absolute inset-0 bg-black/70 opacity-0 group-hover/preview:opacity-100 flex items-center justify-center text-[10px] text-white font-medium transition-opacity">
-                  {isUploadingRow2 && targetRow2Index === index ? 'Đang tải...' : 'Đổi ảnh'}
-                </div>
-              </label>
-
-              {/* Edit Inputs */}
-              <div className="flex-1 min-w-0 space-y-1.5">
-                <input
-                  type="text"
-                  value={partner.name}
-                  onChange={(e) =>
-                    handleUpdateRow2Logo(index, 'name', e.target.value)
-                  }
-                  placeholder="Tên đối tác / sàn"
-                  className="w-full px-2.5 py-1 text-xs font-bold bg-white border border-slate-200 rounded-lg text-slate-900 focus:outline-none focus:border-slate-800"
-                />
-                <div className="flex items-center gap-1.5">
-                  <input
-                    type="text"
-                    value={partner.src}
-                    onChange={(e) =>
-                      handleUpdateRow2Logo(index, 'src', e.target.value)
-                    }
-                    placeholder="/assets/partners/16.svg"
-                    className="flex-1 min-w-0 px-2.5 py-1 text-[11px] font-mono bg-white border border-slate-200 rounded-lg text-slate-600 focus:outline-none focus:border-slate-800"
+        return (
+          <Card
+            key={rowIndex}
+            variant="default"
+            className="rounded-2xl p-5 sm:p-6 space-y-5 bg-white border border-slate-200/90 shadow-2xs"
+          >
+            {/* Row Card Header */}
+            <div className="border-b border-slate-100 pb-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <div className="space-y-1">
+                <div className="flex items-center gap-2 flex-wrap">
+                  <h2 className="text-base font-bold text-slate-900">
+                    {rowIndex + 2}. Danh sách Logo Hàng {rowIndex + 1}
+                  </h2>
+                  <Badge
+                    label={`${row.length} logo`}
+                    variant="neutral"
+                    className="h-6 px-2.5 text-xs"
                   />
-                  <label className="cursor-pointer shrink-0">
-                    <input
-                      type="file"
-                      accept="image/*,.svg"
-                      className="hidden"
-                      disabled={isUploadingRow2}
-                      onChange={async (e) => {
-                        const file = e.target.files?.[0];
-                        if (file) {
-                          setTargetRow2Index(index);
-                          await uploadRow2File(file);
-                          e.target.value = '';
-                        }
-                      }}
-                    />
-                    <span className="inline-flex items-center justify-center px-2 py-1 rounded-md border border-slate-300 bg-white hover:bg-slate-100 text-[11px] font-medium text-slate-700 transition-colors shadow-2xs">
-                      {isUploadingRow2 && targetRow2Index === index ? 'Đang tải...' : 'Tải ảnh'}
-                    </span>
-                  </label>
+                  <Badge
+                    label={isLeft ? 'Cuộn sang trái' : 'Cuộn ngược sang phải'}
+                    variant={isLeft ? 'neutral' : 'warning'}
+                    className="h-6 px-2.5 text-xs"
+                  />
                 </div>
+                <p className="text-xs text-slate-500">
+                  {isLeft
+                    ? 'Hàng marquee chạy liên tục từ phải sang trái (mặc định cho các hàng lẻ: 1, 3, 5...)'
+                    : 'Hàng marquee chạy liên tục ngược chiều từ trái sang phải (cho các hàng chẵn: 2, 4, 6...)'}
+                </p>
               </div>
 
-              {/* Remove button */}
-              <button
-                type="button"
-                onClick={() => handleRemoveRow2Logo(index)}
-                className="text-slate-400 hover:text-rose-600 p-1 rounded-lg hover:bg-slate-200/50"
-                title="Xóa logo này"
-              >
-                <Trash2 className="w-4 h-4" />
-              </button>
+              {/* Row Header Actions */}
+              <div className="flex items-center gap-2 flex-wrap">
+                {/* Move Row Up */}
+                <button
+                  type="button"
+                  onClick={() => handleMoveRowUp(rowIndex)}
+                  disabled={rowIndex === 0}
+                  className={`p-1.5 rounded-lg border border-slate-200 transition-colors ${
+                    rowIndex === 0
+                      ? 'text-slate-300 border-slate-100 cursor-not-allowed'
+                      : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
+                  }`}
+                  title="Di chuyển hàng lên trên"
+                >
+                  <ArrowUp className="w-4 h-4" />
+                </button>
+
+                {/* Move Row Down */}
+                <button
+                  type="button"
+                  onClick={() => handleMoveRowDown(rowIndex)}
+                  disabled={rowIndex === rows.length - 1}
+                  className={`p-1.5 rounded-lg border border-slate-200 transition-colors ${
+                    rowIndex === rows.length - 1
+                      ? 'text-slate-300 border-slate-100 cursor-not-allowed'
+                      : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
+                  }`}
+                  title="Di chuyển hàng xuống dưới"
+                >
+                  <ArrowDown className="w-4 h-4" />
+                </button>
+
+                {/* Delete Row Button */}
+                <button
+                  type="button"
+                  onClick={() => handleRemoveRow(rowIndex)}
+                  disabled={rows.length <= 1}
+                  className={`p-1.5 rounded-lg border border-slate-200 transition-colors ${
+                    rows.length <= 1
+                      ? 'text-slate-300 border-slate-100 cursor-not-allowed'
+                      : 'text-slate-500 hover:text-rose-600 hover:bg-rose-50 border-slate-200'
+                  }`}
+                  title="Xóa cả hàng này"
+                >
+                  <Trash2 className="w-4 h-4" />
+                </button>
+
+                {/* Upload logo from file */}
+                <label className="cursor-pointer">
+                  <span className="inline-flex items-center justify-center px-3 py-1.5 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 text-xs font-medium text-slate-700 transition-colors shadow-2xs">
+                    {isCurrentRowUploadingNew
+                      ? 'Đang tải lên...'
+                      : 'Thêm logo từ máy tính'}
+                  </span>
+                  <input
+                    type="file"
+                    accept="image/*,.svg"
+                    className="hidden"
+                    disabled={isUploading}
+                    onChange={(e) => {
+                      const file = e.target.files?.[0];
+                      if (file) {
+                        handleUploadNewLogoToRow(rowIndex, file);
+                        e.target.value = '';
+                      }
+                    }}
+                  />
+                </label>
+
+                {/* Add blank logo */}
+                <Button
+                  type="button"
+                  label="Thêm logo rỗng"
+                  variant="secondary"
+                  className="px-3 h-8 text-xs"
+                  onClick={() => handleAddLogo(rowIndex)}
+                />
+              </div>
             </div>
-          ))}
-        </div>
-      </Card>
+
+            {/* Logo Items Grid */}
+            {row.length === 0 ? (
+              <div className="py-8 text-center text-xs text-slate-400 bg-slate-50/50 rounded-xl border border-dashed border-slate-200">
+                Chưa có logo nào trong hàng này. Bấm &quot;Thêm logo từ máy tính&quot; hoặc &quot;Thêm logo rỗng&quot; ở trên.
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5">
+                {row.map((partner, logoIndex) => {
+                  const isCurrentItemReplacing =
+                    isUploading &&
+                    uploadTarget?.rowIndex === rowIndex &&
+                    uploadTarget?.logoIndex === logoIndex;
+
+                  const shouldInvert =
+                    partner.invert ?? partner.src?.startsWith('/assets/partners/');
+
+                  return (
+                    <div
+                      key={logoIndex}
+                      className="p-3 bg-slate-50/80 border border-slate-200 rounded-xl flex items-center gap-3 relative group hover:border-slate-300 transition-colors"
+                    >
+                      {/* Logo Preview Box - Clickable to Upload */}
+                      <label
+                        className="cursor-pointer group/preview relative w-16 h-12 rounded-lg bg-[#0A0D0E] flex items-center justify-center p-1.5 shrink-0 border border-slate-700 hover:border-emerald-500 transition-all overflow-hidden"
+                        title="Click để chọn ảnh thay thế từ máy tính"
+                      >
+                        <input
+                          type="file"
+                          accept="image/*,.svg"
+                          className="hidden"
+                          disabled={isUploading}
+                          onChange={async (e) => {
+                            const file = e.target.files?.[0];
+                            if (file) {
+                              await handleReplaceLogo(
+                                rowIndex,
+                                logoIndex,
+                                file
+                              );
+                              e.target.value = '';
+                            }
+                          }}
+                        />
+                        <img
+                          src={partner.src}
+                          alt={partner.name}
+                          className={`max-h-full max-w-full object-contain group-hover/preview:opacity-30 transition-opacity ${
+                            shouldInvert ? 'invert' : ''
+                          }`}
+                          onError={(e) => {
+                            (e.target as HTMLElement).style.opacity = '0.3';
+                          }}
+                        />
+                        <div className="absolute inset-0 bg-black/70 opacity-0 group-hover/preview:opacity-100 flex items-center justify-center text-[10px] text-white font-medium transition-opacity">
+                          {isCurrentItemReplacing ? '...' : 'Đổi ảnh'}
+                        </div>
+                      </label>
+
+                      {/* Edit Inputs */}
+                      <div className="flex-1 min-w-0 space-y-1.5">
+                        <input
+                          type="text"
+                          value={partner.name}
+                          onChange={(e) =>
+                            handleUpdateLogo(
+                              rowIndex,
+                              logoIndex,
+                              'name',
+                              e.target.value
+                            )
+                          }
+                          placeholder="Tên đối tác / sàn"
+                          className="w-full px-2.5 py-1 text-xs font-bold bg-white border border-slate-200 rounded-lg text-slate-900 focus:outline-none focus:border-slate-800"
+                        />
+                        <div className="flex items-center gap-1.5">
+                          <input
+                            type="text"
+                            value={partner.src}
+                            onChange={(e) =>
+                              handleUpdateLogo(
+                                rowIndex,
+                                logoIndex,
+                                'src',
+                                e.target.value
+                              )
+                            }
+                            placeholder="/assets/partners/01.svg"
+                            className="flex-1 min-w-0 px-2.5 py-1 text-[11px] font-mono bg-white border border-slate-200 rounded-lg text-slate-600 focus:outline-none focus:border-slate-800"
+                          />
+                          <label className="cursor-pointer shrink-0">
+                            <input
+                              type="file"
+                              accept="image/*,.svg"
+                              className="hidden"
+                              disabled={isUploading}
+                              onChange={async (e) => {
+                                const file = e.target.files?.[0];
+                                if (file) {
+                                  await handleReplaceLogo(
+                                    rowIndex,
+                                    logoIndex,
+                                    file
+                                  );
+                                  e.target.value = '';
+                                }
+                              }}
+                            />
+                            <span className="inline-flex items-center justify-center px-2 py-1 rounded-md border border-slate-300 bg-white hover:bg-slate-100 text-[11px] font-medium text-slate-700 transition-colors shadow-2xs">
+                              {isCurrentItemReplacing
+                                ? 'Đang tải...'
+                                : 'Tải ảnh'}
+                            </span>
+                          </label>
+                          <button
+                            type="button"
+                            onClick={() => handleToggleInvert(rowIndex, logoIndex)}
+                            className={`shrink-0 px-2 py-1 rounded-md border text-[11px] font-medium transition-colors ${
+                              shouldInvert
+                                ? 'bg-amber-50 text-amber-800 border-amber-300'
+                                : 'bg-white text-slate-600 border-slate-200 hover:bg-slate-100'
+                            }`}
+                            title={
+                              shouldInvert
+                                ? 'Đang bật đảo màu (đen thành trắng). Bấm nếu logo của bạn vốn đã màu trắng.'
+                                : 'Đang dùng màu gốc. Bấm để đảo màu nếu logo của bạn màu đen.'
+                            }
+                          >
+                            {shouldInvert ? 'Đang đảo màu' : 'Màu gốc'}
+                          </button>
+                        </div>
+                      </div>
+
+                      {/* Remove logo button */}
+                      <button
+                        type="button"
+                        onClick={() => handleRemoveLogo(rowIndex, logoIndex)}
+                        className="text-slate-400 hover:text-rose-600 p-1 rounded-lg hover:bg-slate-200/50 transition-colors"
+                        title="Xóa logo này"
+                      >
+                        <Trash2 className="w-4 h-4" />
+                      </button>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+          </Card>
+        );
+      })}
+
+      {/* Button to add another row at bottom */}
+      <div className="flex justify-center pt-2">
+        <Button
+          type="button"
+          label="Thêm hàng logo mới"
+          variant="secondary"
+          className="px-6 h-10 text-xs font-semibold"
+          onClick={handleAddRow}
+        />
+      </div>
 
       {/* =========================================================================
           BOTTOM ACTION BAR

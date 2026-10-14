@@ -4,6 +4,8 @@ import { getHomeSectionByKey } from '@/lib/services/home-section.service';
 import {
   MarketplacesSectionFormClient,
   ServicesSectionFormClient,
+  SmartCXSectionFormClient,
+  TestimonialsSectionFormClient,
 } from '@/components/admin/home';
 
 export const dynamic = 'force-dynamic';
@@ -33,9 +35,25 @@ export default async function AdminHomeSectionDetailPage({ params }: PageProps) 
   return (
     <div className="py-6 px-4 sm:px-6 lg:px-8">
       {key === 'services-capabilities' ? (
-        <ServicesSectionFormClient section={section} />
+        <ServicesSectionFormClient
+          key={`${section.key}-${section.updatedAt.toString()}`}
+          section={section}
+        />
+      ) : key === 'why-brands-ship' || key === 'smartcx-success' ? (
+        <SmartCXSectionFormClient
+          key={`${section.key}-${section.updatedAt.toString()}`}
+          section={section}
+        />
+      ) : key === 'testimonials' ? (
+        <TestimonialsSectionFormClient
+          key={`${section.key}-${section.updatedAt.toString()}`}
+          section={section}
+        />
       ) : (
-        <MarketplacesSectionFormClient section={section} />
+        <MarketplacesSectionFormClient
+          key={`${section.key}-${section.updatedAt.toString()}`}
+          section={section}
+        />
       )}
     </div>
   );

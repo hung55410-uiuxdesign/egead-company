@@ -18,6 +18,8 @@ import type {
   CaseStudyStats,
 } from '@/lib/services/casestudy.service';
 import { useCaseStudyMutations } from '@/lib/hooks';
+import CaseStudyImportModal from './components/CaseStudyImportModal';
+import CaseStudyBulkEditModal from './components/CaseStudyBulkEditModal';
 
 interface OurWorkListClientProps {
   initialItems: CaseStudyListItem[];
@@ -35,13 +37,24 @@ export default function OurWorkListClient({
   const [statusFilter, setStatusFilter] = useState<string>('all');
   const [serviceFilter, setServiceFilter] = useState<string>('all');
   const [isDeleting, setIsDeleting] = useState<string | null>(null);
+  const [isImportModalOpen, setIsImportModalOpen] = useState(false);
+
+  // Selection & Bulk Actions State
+  const [selectedIds, setSelectedIds] = useState<string[]>([]);
+  const [isBulkEditOpen, setIsBulkEditOpen] = useState(false);
 
   // Pagination State
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
 
   // TanStack Query Mutations
-  const { deleteCaseStudyAsync } = useCaseStudyMutations({
+  const {
+    deleteCaseStudyAsync,
+    bulkDeleteCaseStudiesAsync,
+    bulkUpdateCaseStudiesAsync,
+    isBulkDeleting,
+    isBulkUpdating,
+  } = useCaseStudyMutations({
     onDeleteSuccess: (id) => {
       setItems((prev) => {
         const next = prev.filter((item) => item.id !== id);
@@ -51,8 +64,78 @@ export default function OurWorkListClient({
         setStats({ total, published, draft });
         return next;
       });
+      setSelectedIds((prev) => prev.filter((item) => item !== id));
+    },
+    onBulkDeleteSuccess: (ids) => {
+      setItems((prev) => {
+        const next = prev.filter((item) => !ids.includes(item.id));
+        const total = next.length;
+        const published = next.filter((item) => item.status === 'published').length;
+        const draft = next.filter((item) => item.status === 'draft').length;
+        setStats({ total, published, draft });
+        return next;
+      });
+      setSelectedIds([]);
+    },
+    onBulkUpdateSuccess: (ids, data) => {
+      setItems((prev) =>
+        prev.map((item) => {
+          if (ids.includes(item.id)) {
+            const nextItem = { ...item };
+            if (data.status) {
+              nextItem.status = data.status;
+            }
+            if (data.service) {
+              if (data.serviceAction === 'replace') {
+                nextItem.services = [data.service];
+              } else if (!nextItem.services?.includes(data.service)) {
+                nextItem.services = [...(nextItem.services || []), data.service];
+              }
+            }
+            if (data.industry) {
+              if (data.industryAction === 'replace') {
+                nextItem.industries = [data.industry];
+              } else if (!nextItem.industries?.includes(data.industry)) {
+                nextItem.industries = [...(nextItem.industries || []), data.industry];
+              }
+            }
+            return nextItem;
+          }
+          return item;
+        })
+      );
+      if (data.status) {
+        setStats((prev) => {
+          const nextItems = items.map((item) =>
+            ids.includes(item.id) && data.status ? { ...item, status: data.status } : item
+          );
+          return {
+            total: nextItems.length,
+            published: nextItems.filter((i) => i.status === 'published').length,
+            draft: nextItems.filter((i) => i.status === 'draft').length,
+          };
+        });
+      }
+      setIsBulkEditOpen(false);
+      setSelectedIds([]);
     },
   });
+
+  const isBulkLoading = isBulkDeleting || isBulkUpdating;
+
+  const handleImportSuccess = (importedItems: CaseStudyListItem[]) => {
+    setItems((prev) => {
+      const importedIds = new Set(importedItems.map((item) => item.id));
+      const remainingPrev = prev.filter((item) => !importedIds.has(item.id));
+      const combined = [...importedItems, ...remainingPrev].sort((a, b) => a.order - b.order);
+      const total = combined.length;
+      const published = combined.filter((i) => i.status === 'published').length;
+      const draft = combined.filter((i) => i.status === 'draft').length;
+      setStats({ total, published, draft });
+      return combined;
+    });
+    router.refresh();
+  };
 
   // Calculate unique services from existing items
   const uniqueServices = React.useMemo(() => {
@@ -104,6 +187,59 @@ export default function OurWorkListClient({
     startIndex + pageSize
   );
 
+  // Checkbox & Selection handlers
+  const visibleIds = paginatedItems.map((item) => item.id);
+  const isAllSelected =
+    visibleIds.length > 0 && visibleIds.every((id) => selectedIds.includes(id));
+
+  const handleToggleRow = (id: string) => {
+    setSelectedIds((prev) =>
+      prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]
+    );
+  };
+
+  const handleToggleAll = () => {
+    if (isAllSelected) {
+      setSelectedIds((prev) => prev.filter((id) => !visibleIds.includes(id)));
+    } else {
+      setSelectedIds((prev) => Array.from(new Set([...prev, ...visibleIds])));
+    }
+  };
+
+  // Bulk Delete Handler
+  const handleBulkDelete = async () => {
+    if (selectedIds.length === 0) return;
+    const confirmed = confirm(
+      `Bạn có chắc chắn muốn xóa ${selectedIds.length} dự án đã chọn? Thao tác này sẽ xóa vĩnh viễn và không thể hoàn tác.`
+    );
+    if (!confirmed) return;
+
+    try {
+      await bulkDeleteCaseStudiesAsync({ ids: selectedIds });
+    } catch {
+      // Toast notification handles error
+    }
+  };
+
+  // Bulk Update Submit Handler
+  const handleBulkUpdateSubmit = async (data: {
+    status?: 'published' | 'draft';
+    service?: string;
+    industry?: string;
+    serviceAction?: 'add' | 'replace';
+    industryAction?: 'add' | 'replace';
+  }) => {
+    if (selectedIds.length === 0) return;
+    try {
+      await bulkUpdateCaseStudiesAsync({
+        ids: selectedIds,
+        data,
+      });
+    } catch {
+      // Toast notification handles error
+    }
+  };
+
   const handleDelete = async (id: string, title: string) => {
     if (
       !confirm(
@@ -146,6 +282,12 @@ export default function OurWorkListClient({
         </div>
 
         <div className="flex items-center gap-2">
+          <Button
+            label="Thêm nhanh (JSON)"
+            variant="secondary"
+            onClick={() => setIsImportModalOpen(true)}
+            className="px-4 h-10 border-slate-300 hover:border-slate-400"
+          />
           <Button
             label="Xem trang Our Work"
             variant="secondary"
@@ -286,6 +428,48 @@ export default function OurWorkListClient({
         </div>
       </Card>
 
+      {/* Bulk Action Bar */}
+      {selectedIds.length > 0 && (
+        <div className="p-3.5 bg-emerald-50/90 border border-emerald-200/90 rounded-2xl flex flex-wrap items-center justify-between gap-3 shadow-sm animate-in fade-in duration-200">
+          <div className="flex items-center gap-2.5">
+            <Badge
+              label={`Đã chọn ${selectedIds.length} dự án`}
+              variant="success"
+              className="h-8 px-4"
+            />
+            <span className="text-xs text-emerald-800 hidden sm:inline">
+              Áp dụng thao tác đồng loạt trên các dự án đã chọn
+            </span>
+          </div>
+
+          <div className="flex items-center gap-2">
+            <Button
+              label="Chỉnh sửa hàng loạt"
+              variant="secondary"
+              className="px-4 h-10 border-emerald-300 hover:border-emerald-400"
+              onClick={() => setIsBulkEditOpen(true)}
+            />
+            <Button
+              label={
+                isBulkLoading
+                  ? 'Đang xử lý...'
+                  : `Xóa ${selectedIds.length} dự án`
+              }
+              variant="destructive"
+              className="px-4 h-10"
+              isDisabled={isBulkLoading}
+              onClick={handleBulkDelete}
+            />
+            <Button
+              label="Bỏ chọn"
+              variant="ghost"
+              className="px-4 h-10"
+              onClick={() => setSelectedIds([])}
+            />
+          </div>
+        </div>
+      )}
+
       {/* =========================================================================
           CASE STUDIES TABLE (Astryx Card & EmptyState)
           ========================================================================= */}
@@ -312,7 +496,16 @@ export default function OurWorkListClient({
               <table className="w-full text-left border-collapse text-xs sm:text-sm">
                 <thead>
                   <tr className="bg-slate-50/80 border-b border-slate-200/80 text-slate-500 font-bold">
-                    <th className="py-3.5 pl-4 sm:pl-6 pr-3 w-16">Ảnh</th>
+                    <th className="py-3.5 pl-4 sm:pl-6 pr-2 w-10">
+                      <input
+                        type="checkbox"
+                        checked={isAllSelected}
+                        onChange={handleToggleAll}
+                        className="w-4 h-4 rounded text-emerald-600 border-slate-300 focus:ring-emerald-500 cursor-pointer"
+                        title="Chọn tất cả dự án trong trang này"
+                      />
+                    </th>
+                    <th className="py-3.5 px-3 w-16">Ảnh</th>
                     <th className="py-3.5 px-3">Dự án &amp; Khách hàng</th>
                     <th className="py-3.5 px-3">Dịch vụ &amp; Ngành nghề</th>
                     <th className="py-3.5 px-3">Điểm nhấn</th>
@@ -322,27 +515,41 @@ export default function OurWorkListClient({
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-100">
-                  {paginatedItems.map((item) => (
-                    <tr
-                      key={item.id}
-                      className="hover:bg-slate-50/50 transition-colors"
-                    >
-                      {/* Thumbnail */}
-                      <td className="py-3.5 pl-4 sm:pl-6 pr-3">
-                        <div className="relative w-16 h-12 rounded-lg overflow-hidden bg-slate-100 shrink-0 border border-slate-200">
-                          {item.image ? (
-                            <img
-                              src={item.image}
-                              alt={item.title}
-                              className="w-full h-full object-cover"
-                            />
-                          ) : (
-                            <div className="w-full h-full flex items-center justify-center font-bold text-slate-400">
-                              {item.title.charAt(0)}
-                            </div>
-                          )}
-                        </div>
-                      </td>
+                  {paginatedItems.map((item) => {
+                    const isChecked = selectedIds.includes(item.id);
+                    return (
+                      <tr
+                        key={item.id}
+                        className={`hover:bg-slate-50/50 transition-colors ${
+                          isChecked ? 'bg-emerald-50/40' : ''
+                        }`}
+                      >
+                        {/* Checkbox */}
+                        <td className="py-3.5 pl-4 sm:pl-6 pr-2">
+                          <input
+                            type="checkbox"
+                            checked={isChecked}
+                            onChange={() => handleToggleRow(item.id)}
+                            className="w-4 h-4 rounded text-emerald-600 border-slate-300 focus:ring-emerald-500 cursor-pointer"
+                          />
+                        </td>
+
+                        {/* Thumbnail */}
+                        <td className="py-3.5 px-3">
+                          <div className="relative w-16 h-12 rounded-lg overflow-hidden bg-slate-100 shrink-0 border border-slate-200">
+                            {item.image ? (
+                              <img
+                                src={item.image}
+                                alt={item.title}
+                                className="w-full h-full object-cover"
+                              />
+                            ) : (
+                              <div className="w-full h-full flex items-center justify-center font-bold text-slate-400">
+                                {item.title.charAt(0)}
+                              </div>
+                            )}
+                          </div>
+                        </td>
 
                       {/* Title & Customer */}
                       <td className="py-3.5 px-3">
@@ -458,8 +665,9 @@ export default function OurWorkListClient({
                         </div>
                       </td>
                     </tr>
-                  ))}
-                </tbody>
+                  );
+                })}
+              </tbody>
               </table>
             </div>
 
@@ -487,6 +695,22 @@ export default function OurWorkListClient({
           </>
         )}
       </Card>
+
+      {/* Modal Thêm nhanh qua JSON */}
+      <CaseStudyImportModal
+        isOpen={isImportModalOpen}
+        onClose={() => setIsImportModalOpen(false)}
+        onSuccess={handleImportSuccess}
+      />
+
+      {/* Modal Chỉnh sửa hàng loạt */}
+      <CaseStudyBulkEditModal
+        isOpen={isBulkEditOpen}
+        selectedCount={selectedIds.length}
+        isSubmitting={isBulkUpdating}
+        onClose={() => setIsBulkEditOpen(false)}
+        onSubmit={handleBulkUpdateSubmit}
+      />
     </div>
   );
 }

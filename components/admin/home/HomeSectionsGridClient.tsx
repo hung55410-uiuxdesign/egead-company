@@ -91,11 +91,19 @@ export default function HomeSectionsGridClient({
                     'Quản lý nội dung tiêu đề, lời dẫn và danh sách logo đối tác chạy marquee trên trang chủ.'}
                 </p>
 
-                {totalLogos > 0 && (
+                {section.key === 'marketplaces-partners' && (
                   <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500 font-medium">
-                    <span>Hàng 1: {row1Count} logos</span>
+                    <span>
+                      {Array.isArray(section.data?.rows)
+                        ? `${section.data.rows.length} hàng marquee`
+                        : '2 hàng marquee'}
+                    </span>
                     <span className="text-slate-300">•</span>
-                    <span>Hàng 2: {row2Count} logos</span>
+                    <span>
+                      {Array.isArray(section.data?.rows)
+                        ? `${section.data.rows.flat().length} logos`
+                        : `${(section.data?.row1Partners?.length || 0) + (section.data?.row2Partners?.length || 0)} logos`}
+                    </span>
                   </div>
                 )}
 
@@ -104,6 +112,26 @@ export default function HomeSectionsGridClient({
                     <span>{section.data.items.length} thẻ dịch vụ</span>
                     <span className="text-slate-300">•</span>
                     <span>Nút: {section.data.buttonText || 'Xem tất cả'}</span>
+                  </div>
+                )}
+
+                {section.key === 'why-brands-ship' && (
+                  <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500 font-medium">
+                    <span>4 khối bento (2 chỉ số, 1 quote)</span>
+                    <span className="text-slate-300">•</span>
+                    <span>Nút: {section.data?.ctaText || 'Read Stories'}</span>
+                  </div>
+                )}
+
+                {section.key === 'testimonials' && (
+                  <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500 font-medium">
+                    <span>
+                      {Array.isArray(section.data?.items)
+                        ? `${section.data.items.length} đánh giá`
+                        : '5 đánh giá'}
+                    </span>
+                    <span className="text-slate-300">•</span>
+                    <span>Hiệu ứng: 3D carousel</span>
                   </div>
                 )}
               </div>

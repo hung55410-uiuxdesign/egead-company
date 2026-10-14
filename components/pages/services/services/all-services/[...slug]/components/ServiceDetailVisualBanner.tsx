@@ -8,6 +8,8 @@ type Props = {
 };
 
 export default function ServiceDetailVisualBanner({ imageSrc, title }: Props) {
+  if (!imageSrc) return null;
+
   return (
     <motion.section
       className="w-full bg-white pb-16 sm:pb-24 px-6 sm:px-10 lg:px-14 xl:px-16 2xl:px-20"
@@ -16,7 +18,7 @@ export default function ServiceDetailVisualBanner({ imageSrc, title }: Props) {
       viewport={{ once: true, amount: 0.2 }}
       transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
     >
-      <div className="service-detail__img w-full rounded-[20px] overflow-hidden shadow-2xl border border-gray-100 max-h-[640px]">
+      <div className="service-detail__img w-full h-[480px] sm:h-[620px] md:h-[720px] lg:h-[820px] xl:h-[880px] rounded-[24px] overflow-hidden shadow-2xl border border-gray-100 relative">
         <img
           src={imageSrc}
           alt={`${title} Operational Infrastructure`}
@@ -26,3 +28,4 @@ export default function ServiceDetailVisualBanner({ imageSrc, title }: Props) {
     </motion.section>
   );
 }
+

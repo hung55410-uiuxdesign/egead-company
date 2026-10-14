@@ -11,9 +11,13 @@ export const metadata = {
 export default async function AdminHomePage() {
   const sections = await getHomeSections();
 
+  const timestampKey = sections
+    .map((s) => `${s.key}-${s.updatedAt.toString()}`)
+    .join('_');
+
   return (
     <div className="py-6 px-4 sm:px-6 lg:px-8">
-      <HomeSectionsGridClient sections={sections} />
+      <HomeSectionsGridClient key={timestampKey} sections={sections} />
     </div>
   );
 }

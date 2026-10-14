@@ -49,10 +49,43 @@ export interface DeleteCaseStudyVariables {
   title?: string;
 }
 
+export interface ImportCaseStudiesVariables {
+  items: any[];
+  onDuplicate?: 'rename' | 'update';
+}
+
+export interface BulkDeleteCaseStudiesVariables {
+  ids: string[];
+}
+
+export interface BulkUpdateCaseStudiesVariables {
+  ids: string[];
+  data: {
+    status?: 'published' | 'draft';
+    service?: string;
+    industry?: string;
+    serviceAction?: 'add' | 'replace';
+    industryAction?: 'add' | 'replace';
+  };
+}
+
 export interface UseCaseStudyMutationsOptions {
   showToast?: boolean;
   onSaveSuccess?: (data: CaseStudyDetailModel, isEditing: boolean) => void;
   onDeleteSuccess?: (id: string, title?: string) => void;
+  onImportSuccess?: (data: { count: number; items: any[] }) => void;
+  onBulkDeleteSuccess?: (ids: string[], count: number) => void;
+  onBulkUpdateSuccess?: (
+    ids: string[],
+    data: {
+      status?: 'published' | 'draft';
+      service?: string;
+      industry?: string;
+      serviceAction?: 'add' | 'replace';
+      industryAction?: 'add' | 'replace';
+    },
+    count: number
+  ) => void;
   onError?: (error: Error) => void;
 }
 
@@ -189,6 +222,177 @@ export function useDeleteCaseStudyMutation(options?: {
 }
 
 /**
+ * Hook mutation import danh sách dự án từ file JSON với TanStack Query và Astryx Toast
+ */
+export function useImportCaseStudiesMutation(options?: {
+  showToast?: boolean;
+  onSuccess?: (data: { count: number; items: any[] }) => void;
+  onError?: (error: Error) => void;
+}) {
+  const queryClient = useQueryClient();
+  const router = useRouter();
+  const toast = useToast();
+  const showToast = options?.showToast ?? true;
+
+  return useMutation({
+    mutationFn: async ({ items, onDuplicate = 'rename' }: ImportCaseStudiesVariables) => {
+      const res = await fetch('/api/admin/our-work/import', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ items, onDuplicate }),
+      });
+
+      const result = await res.json();
+      if (!res.ok || !result.success) {
+        throw new Error(result.error || 'Import dự án thất bại');
+      }
+
+      return { count: result.count as number, items: result.items as any[] };
+    },
+    onSuccess: (data) => {
+      if (showToast) {
+        toast({
+          body: `Đã thêm thành công ${data.count} dự án vào hệ thống!`,
+          type: 'info',
+          isAutoHide: true,
+          autoHideDuration: 4000,
+        });
+      }
+      queryClient.invalidateQueries({ queryKey: CASE_STUDIES_QUERY_KEY });
+      router.refresh();
+      options?.onSuccess?.(data);
+    },
+    onError: (error: Error) => {
+      if (showToast) {
+        toast({
+          body: error.message || 'Lỗi khi import dự án, vui lòng kiểm tra lại file JSON',
+          type: 'error',
+          isAutoHide: true,
+          autoHideDuration: 5000,
+        });
+      }
+      options?.onError?.(error);
+    },
+  });
+}
+
+/**
+ * Hook mutation xóa hàng loạt dự án với TanStack Query và Astryx Toast
+ */
+export function useBulkDeleteCaseStudiesMutation(options?: {
+  showToast?: boolean;
+  onSuccess?: (ids: string[], count: number) => void;
+  onError?: (error: Error) => void;
+}) {
+  const queryClient = useQueryClient();
+  const router = useRouter();
+  const toast = useToast();
+  const showToast = options?.showToast ?? true;
+
+  return useMutation({
+    mutationFn: async ({ ids }: BulkDeleteCaseStudiesVariables) => {
+      const res = await fetch('/api/admin/our-work/bulk', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'delete', ids }),
+      });
+      const result = await res.json();
+      if (!res.ok || !result.success) {
+        throw new Error(result.error || 'Xóa hàng loạt dự án thất bại');
+      }
+      return { ids, count: (result.count as number) || ids.length };
+    },
+    onSuccess: ({ ids, count }) => {
+      if (showToast) {
+        toast({
+          body: `Đã xóa thành công ${count} dự án đã chọn!`,
+          type: 'info',
+          isAutoHide: true,
+          autoHideDuration: 3500,
+        });
+      }
+      queryClient.invalidateQueries({ queryKey: CASE_STUDIES_QUERY_KEY });
+      router.refresh();
+      options?.onSuccess?.(ids, count);
+    },
+    onError: (error: Error) => {
+      if (showToast) {
+        toast({
+          body: error.message || 'Lỗi khi xóa hàng loạt dự án',
+          type: 'error',
+          isAutoHide: true,
+          autoHideDuration: 4000,
+        });
+      }
+      options?.onError?.(error);
+    },
+  });
+}
+
+/**
+ * Hook mutation cập nhật hàng loạt dự án với TanStack Query và Astryx Toast
+ */
+export function useBulkUpdateCaseStudiesMutation(options?: {
+  showToast?: boolean;
+  onSuccess?: (
+    ids: string[],
+    data: {
+      status?: 'published' | 'draft';
+      service?: string;
+      industry?: string;
+      serviceAction?: 'add' | 'replace';
+      industryAction?: 'add' | 'replace';
+    },
+    count: number
+  ) => void;
+  onError?: (error: Error) => void;
+}) {
+  const queryClient = useQueryClient();
+  const router = useRouter();
+  const toast = useToast();
+  const showToast = options?.showToast ?? true;
+
+  return useMutation({
+    mutationFn: async ({ ids, data }: BulkUpdateCaseStudiesVariables) => {
+      const res = await fetch('/api/admin/our-work/bulk', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'update', ids, data }),
+      });
+      const result = await res.json();
+      if (!res.ok || !result.success) {
+        throw new Error(result.error || 'Cập nhật hàng loạt dự án thất bại');
+      }
+      return { ids, data, count: (result.count as number) || ids.length };
+    },
+    onSuccess: ({ ids, data, count }) => {
+      if (showToast) {
+        toast({
+          body: `Đã cập nhật thành công ${count} dự án đã chọn!`,
+          type: 'info',
+          isAutoHide: true,
+          autoHideDuration: 3500,
+        });
+      }
+      queryClient.invalidateQueries({ queryKey: CASE_STUDIES_QUERY_KEY });
+      router.refresh();
+      options?.onSuccess?.(ids, data, count);
+    },
+    onError: (error: Error) => {
+      if (showToast) {
+        toast({
+          body: error.message || 'Lỗi khi cập nhật hàng loạt dự án',
+          type: 'error',
+          isAutoHide: true,
+          autoHideDuration: 4000,
+        });
+      }
+      options?.onError?.(error);
+    },
+  });
+}
+
+/**
  * Hook tổng hợp quản lý các thao tác mutation cho Our Work / Case Studies
  */
 export function useCaseStudyMutations(options?: UseCaseStudyMutationsOptions) {
@@ -204,6 +408,24 @@ export function useCaseStudyMutations(options?: UseCaseStudyMutationsOptions) {
     onError: options?.onError,
   });
 
+  const importMutation = useImportCaseStudiesMutation({
+    showToast: options?.showToast,
+    onSuccess: options?.onImportSuccess,
+    onError: options?.onError,
+  });
+
+  const bulkDeleteMutation = useBulkDeleteCaseStudiesMutation({
+    showToast: options?.showToast,
+    onSuccess: options?.onBulkDeleteSuccess,
+    onError: options?.onError,
+  });
+
+  const bulkUpdateMutation = useBulkUpdateCaseStudiesMutation({
+    showToast: options?.showToast,
+    onSuccess: options?.onBulkUpdateSuccess,
+    onError: options?.onError,
+  });
+
   return {
     // Save (Create or Update)
     saveCaseStudy: saveMutation.mutate,
@@ -216,5 +438,25 @@ export function useCaseStudyMutations(options?: UseCaseStudyMutationsOptions) {
     deleteCaseStudyAsync: deleteMutation.mutateAsync,
     isDeleting: deleteMutation.isPending,
     deleteMutation,
+
+    // Import JSON
+    importCaseStudies: importMutation.mutate,
+    importCaseStudiesAsync: importMutation.mutateAsync,
+    isImporting: importMutation.isPending,
+    importMutation,
+
+    // Bulk Delete
+    bulkDeleteCaseStudies: bulkDeleteMutation.mutate,
+    bulkDeleteCaseStudiesAsync: bulkDeleteMutation.mutateAsync,
+    bulkDeleteAsync: bulkDeleteMutation.mutateAsync,
+    isBulkDeleting: bulkDeleteMutation.isPending,
+    bulkDeleteMutation,
+
+    // Bulk Update
+    bulkUpdateCaseStudies: bulkUpdateMutation.mutate,
+    bulkUpdateCaseStudiesAsync: bulkUpdateMutation.mutateAsync,
+    bulkUpdateAsync: bulkUpdateMutation.mutateAsync,
+    isBulkUpdating: bulkUpdateMutation.isPending,
+    bulkUpdateMutation,
   };
 }

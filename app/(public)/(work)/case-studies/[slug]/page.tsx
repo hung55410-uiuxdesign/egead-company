@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import { getCaseStudyBySlug as getStaticCaseStudyBySlug, CaseStudyDetail } from '@/lib/case-studies-data';
 import { getCaseStudyBySlug as getDbCaseStudyBySlug } from '@/lib/services/casestudy.service';
 import { CaseStudyDetailView } from '@/components/pages/work/case-studies/[slug]';
+import { getOptimizedImageUrl } from '@/lib/utils/image';
 
 export const dynamic = 'force-dynamic';
 
@@ -22,12 +23,12 @@ async function getMergedCaseStudy(slug: string): Promise<CaseStudyDetail> {
         service: dbItem.services?.[0] || 'Technology',
         tags: dbItem.tags || [],
         highlight: dbItem.highlight || undefined,
-        bannerImage: dbItem.bannerImage || dbItem.image,
+        bannerImage: getOptimizedImageUrl(dbItem.bannerImage || dbItem.image, { width: 2400 }),
         bannerVideo: dbItem.bannerVideo || undefined,
         overview: {
           subtitle: dbItem.overviewSubtitle || 'OVERVIEW',
           title: dbItem.overviewTitle || dbItem.title,
-          image: dbItem.overviewImage || undefined,
+          image: dbItem.overviewImage ? getOptimizedImageUrl(dbItem.overviewImage, { width: 2400 }) : undefined,
           description: dbItem.overviewDescription || dbItem.description,
         },
         challengeSolution: {
@@ -39,7 +40,7 @@ async function getMergedCaseStudy(slug: string): Promise<CaseStudyDetail> {
         task: {
           subtitle: dbItem.taskSubtitle || 'TASK',
           title: dbItem.taskTitle || 'Tasks of The Project',
-          images: dbItem.taskImages || [],
+          images: (dbItem.taskImages || []).map((img) => getOptimizedImageUrl(img, { width: 2400 })),
           taskItems: Array.isArray(dbItem.taskItems) && dbItem.taskItems.length > 0
             ? dbItem.taskItems
             : [],
@@ -57,7 +58,19 @@ async function getMergedCaseStudy(slug: string): Promise<CaseStudyDetail> {
     console.error('Error fetching case study from DB, using fallback:', error);
   }
 
-  return getStaticCaseStudyBySlug(slug);
+  const staticItem = getStaticCaseStudyBySlug(slug);
+  return {
+    ...staticItem,
+    bannerImage: getOptimizedImageUrl(staticItem.bannerImage, { width: 2400 }),
+    overview: {
+      ...staticItem.overview,
+      image: staticItem.overview.image ? getOptimizedImageUrl(staticItem.overview.image, { width: 2400 }) : undefined,
+    },
+    task: {
+      ...staticItem.task,
+      images: (staticItem.task.images || []).map((img) => getOptimizedImageUrl(img, { width: 2400 })),
+    },
+  };
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {

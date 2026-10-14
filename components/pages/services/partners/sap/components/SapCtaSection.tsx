@@ -19,7 +19,24 @@ const SaiArrow = ({ className = 'w-[19px] h-[18px]' }: { className?: string }) =
   </svg>
 );
 
-export default function SapCtaSection() {
+import type { PartnerCtaData } from '../types';
+
+export interface SapCtaSectionProps {
+  partnerName?: string;
+  data?: PartnerCtaData;
+}
+
+export default function SapCtaSection({ partnerName = 'SAP', data }: SapCtaSectionProps = {}) {
+  const headingPart1 = data?.headingPart1 ?? 'Unleash your ';
+  const headingHighlight = data?.headingHighlight ?? 'growth potential';
+  const headingPart2 = data?.headingPart2 ?? ` with ${partnerName} now.`;
+  const description =
+    data?.description ??
+    `Connect with our certified ${partnerName} solutions team to explore bespoke architectures, seamless migrations, and high-velocity commerce operations.`;
+  const buttonText = data?.buttonText ?? "Let's talk";
+  const buttonHref =
+    data?.buttonHref ?? `/contact-us?subject=${encodeURIComponent(partnerName.toLowerCase())}-consultation`;
+
   return (
     <section className="contact-block relative w-full py-24 sm:py-32 lg:py-36 bg-[#0A0D0E] text-white overflow-hidden text-center border-t border-white/5">
       {/* Background glow */}
@@ -36,12 +53,12 @@ export default function SapCtaSection() {
           transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
           className="text-3xl sm:text-5xl lg:text-[64px] font-medium leading-[1.18] tracking-tight font-montserrat max-w-4xl"
         >
-          <span>Unleash your </span>
+          <span>{headingPart1}</span>
           <span className="bg-gradient-to-r from-[#6CE8C3] via-[#A8F7E2] to-white bg-clip-text text-transparent font-semibold">
-            growth potential
+            {headingHighlight}
           </span>
           <br className="hidden sm:inline" />
-          <span> with SAP now.</span>
+          <span>{headingPart2}</span>
         </motion.h2>
 
         <motion.p
@@ -51,7 +68,7 @@ export default function SapCtaSection() {
           transition={{ duration: 0.6, delay: 0.15 }}
           className="mt-6 text-base sm:text-lg text-[#b3b3b3] font-light max-w-2xl font-montserrat"
         >
-          Connect with our certified SAP solutions team to explore bespoke architectures, seamless migrations, and high-velocity commerce operations.
+          {description}
         </motion.p>
 
         <motion.div
@@ -67,10 +84,10 @@ export default function SapCtaSection() {
             transition={{ type: 'spring', stiffness: 400, damping: 20 }}
           >
             <Link
-              href="/contact-us?subject=sap-consultation"
+              href={buttonHref}
               className="group relative inline-flex items-center gap-3 bg-[#10E774] hover:bg-[#5EFC8D] text-[#003D5B] font-semibold text-base sm:text-lg px-9 sm:px-12 py-4 sm:py-4.5 rounded-full transition-all duration-300 shadow-[0_0_30px_rgba(16,231,116,0.35)] hover:shadow-[0_0_50px_rgba(94,252,141,0.7)] font-montserrat"
             >
-              <span>Let&apos;s talk</span>
+              <span>{buttonText}</span>
               <SaiArrow className="w-4 h-4 text-[#003D5B] transition-transform duration-300 group-hover:translate-x-1" />
             </Link>
           </motion.div>
@@ -79,3 +96,4 @@ export default function SapCtaSection() {
     </section>
   );
 }
+

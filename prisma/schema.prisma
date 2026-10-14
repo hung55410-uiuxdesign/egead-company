@@ -299,4 +299,66 @@ model HomeSection {
   @@map("home_section")
 }
 
+// -------------------------------------------------------------
+// E-GEAD Strategic Partner Models
+// -------------------------------------------------------------
+
+model PartnerItem {
+  id                 String   @id @default(cuid())
+  slug               String   @unique
+  name               String
+  badge              String?
+  headline           String?  @db.Text
+  description        String?  @db.Text
+  bannerImage        String?
+  bannerFallback     String?
+  ctaText            String?  @default("Schedule demo")
+  ctaHref            String?  @default("/contact-us")
+
+  // Section 2: Advantages
+  advantagesSubtitle String?  @default("E-GEAD advantages")
+  advantagesHeadline String?  @db.Text
+  advantagesItems    Json?    // Array of { id, metric, description, iconName }
+
+  // Section 3: Expertise
+  expertiseSubtitle  String?  @default("Our expertise")
+  expertiseHeadline  String?  @db.Text
+  expertiseItems     Json?    // Array of { id, title, paragraphs: string[], image, imageFallback, alt }
+
+  // Section 4: Why
+  whyTitlePrefix     String?
+  whyHeadline        String?  @db.Text
+  whyDescription     String?  @db.Text
+  whyItems           Json?    // Array of { id, title, content }
+
+  // Section 5: Case studies
+  casesSubtitle      String?  @default("Proven outcomes")
+  casesHeadline      String?  @default("Read our cases")
+  casesItems         Json?    // Array of { id, slug, customer, title, tags: string[], image }
+
+  // Section 6: CTA
+  ctaHeadingPart1    String?  @default("Unleash your ")
+  ctaHighlight       String?  @default("growth potential")
+  ctaHeadingPart2    String?
+  ctaDescription     String?  @db.Text
+  ctaButtonText      String?  @default("Let's talk")
+  ctaButtonHref      String?  @default("/contact-us")
+
+  // SEO
+  metaTitle          String?
+  metaDescription    String?  @db.Text
+
+  order              Int      @default(0)
+  status             String   @default("published") // 'published' | 'draft'
+
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+
+  @@index([slug])
+  @@index([status])
+  @@index([order])
+  @@map("partner_item")
+}
+
+
 

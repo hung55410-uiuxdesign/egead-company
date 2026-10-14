@@ -37,20 +37,7 @@ async function seedPeople() {
         order,
         status: 'published',
       },
-      update: {
-        name: member.name,
-        role: member.role,
-        department: member.department,
-        location: member.location,
-        quote: member.quote ?? null,
-        image: member.image,
-        linkedin: member.linkedin ?? null,
-        bio: member.bio,
-        skills: member.skills || [],
-        isLeader,
-        order,
-        status: 'published',
-      },
+      update: {}, // An toàn dữ liệu: Không ghi đè nếu bản ghi đã tồn tại trong DB
     });
     memberCount++;
   }
@@ -70,11 +57,7 @@ async function seedPeople() {
         overview: hierarchy.overview,
         childNodes: hierarchy.childNodes as any,
       },
-      update: {
-        departmentScope: hierarchy.departmentScope,
-        overview: hierarchy.overview,
-        childNodes: hierarchy.childNodes as any,
-      },
+      update: {}, // An toàn dữ liệu: Không ghi đè nếu bản ghi đã tồn tại trong DB
     });
     hierarchyCount++;
   }

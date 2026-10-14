@@ -1,10 +1,16 @@
 import type { Metadata } from 'next';
-import { Montserrat } from 'next/font/google';
+import { Montserrat, Open_Sans } from 'next/font/google';
 import './globals.css';
 
 const montserrat = Montserrat({
-  subsets: ['latin'],
+  subsets: ['latin', 'vietnamese'],
   variable: '--font-montserrat',
+  display: 'swap',
+});
+
+const openSans = Open_Sans({
+  subsets: ['latin', 'vietnamese'],
+  variable: '--font-open-sans',
   display: 'swap',
 });
 
@@ -31,7 +37,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${montserrat.variable} dark`}
+      className={`${montserrat.variable} ${openSans.variable} dark`}
       suppressHydrationWarning
       data-scroll-behavior="smooth"
     >

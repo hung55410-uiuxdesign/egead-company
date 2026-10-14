@@ -47,16 +47,7 @@ async function seedHomeSections() {
 
   await prisma.homeSection.upsert({
     where: { key: 'marketplaces-partners' },
-    update: {
-      name: 'Khối Sàn TMĐT & Đối tác toàn cầu',
-      title: "Operating Across the World's Leading Marketplaces & Platforms",
-      subtitle: 'LEADING PLATFORMS & MARKETPLACES',
-      description:
-        'EGEAD drives cross-border e-commerce growth across major global platforms, including TikTok Shop, Shopify, Etsy, and eBay. Combining data-driven marketing via TikTok & Google Ads with streamlined fulfillment and dedicated operating tools, we help products reach international consumers efficiently.',
-      data: sectionData,
-      isActive: true,
-      order: 1,
-    },
+    update: {}, // An toàn dữ liệu: Không ghi đè nếu bản ghi đã tồn tại trong DB
     create: {
       key: 'marketplaces-partners',
       name: 'Khối Sàn TMĐT & Đối tác toàn cầu',
@@ -108,16 +99,7 @@ async function seedHomeSections() {
 
   await prisma.homeSection.upsert({
     where: { key: 'services-capabilities' },
-    update: {
-      name: 'Khối Dịch vụ & Năng lực lõi (Our Capabilities)',
-      title: 'End-to-End E-Commerce Growth Ecosystem.',
-      subtitle: 'Our Capabilities',
-      description:
-        'E-GEAD cung cấp hệ sinh thái tăng trưởng thương mại điện tử toàn diện từ dịch vụ hoàn tất đơn hàng, bán hàng đa kênh đến tiếp thị số và giải pháp công nghệ bán lẻ.',
-      data: capabilitiesData,
-      isActive: true,
-      order: 2,
-    },
+    update: {}, // An toàn dữ liệu: Không ghi đè nếu bản ghi đã tồn tại trong DB
     create: {
       key: 'services-capabilities',
       name: 'Khối Dịch vụ & Năng lực lõi (Our Capabilities)',
@@ -128,6 +110,125 @@ async function seedHomeSections() {
       data: capabilitiesData,
       isActive: true,
       order: 2,
+    },
+  });
+
+  const smartCXData = {
+    ctaText: 'Read Customer Stories',
+    ctaHref: '/our-work',
+    photo1: {
+      image: '/assets/success_apparel.jpg',
+      alt: 'E-GEAD precision industrial DTF print-on-demand streetwear apparel',
+    },
+    stat1: {
+      brand: 'URBANVIBE',
+      tagline: 'URBANVIBE\nACHIEVED SUB-24H DISPATCH\nON TIKTOK SHOP US',
+      value: '<24H',
+      label: 'Average Production SLA',
+    },
+    widePhoto: {
+      image: '/assets/success_warehouse.jpg',
+      alt: 'E-GEAD high-speed automated robotics fulfillment facility',
+    },
+    quote: {
+      quote:
+        '“Egead eliminated our fulfillment delays entirely. With sub-24h industrial DTF printing and automated TikTok Shop US compliance, we scaled to 28,000 peak holiday orders with a 0.18% late dispatch rate and zero algorithmic penalties.”',
+      author: 'MARCUS VANCE',
+      role: 'HEAD OF GLOBAL SUPPLY CHAIN & OPERATIONS',
+      brand: 'URBANVIBE',
+    },
+    photo2: {
+      image: '/assets/success_scanner.jpg',
+      alt: 'Smart barcode scan warehouse management and error-free dispatch',
+    },
+    stat2: {
+      brand: 'HOMECRAFT',
+      tagline: 'HOMECRAFT\nELIMINATED OVERSELLING &\nCUT MANUAL OPS BY 85%',
+      value: '99.9%',
+      label: 'WMS Barcode Scan Accuracy',
+    },
+  } as unknown as Prisma.InputJsonValue;
+
+  await prisma.homeSection.upsert({
+    where: { key: 'why-brands-ship' },
+    update: {}, // An toàn dữ liệu: Không ghi đè nếu bản ghi đã tồn tại trong DB
+    create: {
+      key: 'why-brands-ship',
+      name: 'Khối Lý do chọn E-GEAD (Why Brands Ship with Egead)',
+      title: 'Why brands ship with Egead',
+      subtitle: 'Customer Success & SLA',
+      description:
+        'Khối bento grid hiển thị minh chứng thực tế: chỉ số sản xuất <24h, lời chứng thực từ UrbanVibe, cơ sở kho tự động và độ chính xác WMS 99.9%.',
+      data: smartCXData,
+      isActive: true,
+      order: 3,
+    },
+  });
+
+  const testimonialsData = {
+    ratingImage: '/images/star.png',
+    items: [
+      {
+        id: 'shinosuke',
+        quote:
+          'The AI market intelligence platform continuously aggregates and analyzes consumer behavior across leading e-commerce marketplaces (Amazon, Etsy, eBay, TikTok Shop). Trends delivers pinpoint forecasts on high-potential product niches, automatically recommends real-time POD design ideas, and optimizes SEO listings to help sellers stay ahead of demand and scale revenue effortlessly.',
+        name: 'Shinosuke',
+        subtitle: 'In-depth resources to help you',
+        avatar: '/assets/avatar_shinosuke.jpg',
+        partnerLogo: '/assets/partners-short/01.svg',
+      },
+      {
+        id: 'urbanvibe',
+        quote:
+          'Migrating our DTF printing and fulfillment operations to E-GEAD was the ultimate turning point for our brand. Sub-24h turnaround times and a 0.18% late dispatch rate across 28,000 peak holiday orders preserved our TikTok Shop US Fast Dispatch badge and drove a 180% surge in seasonal revenue.',
+        name: 'Marcus Vance',
+        subtitle: 'Head of Supply Chain, UrbanVibe',
+        avatar: '/assets/avatar_marcus.jpg',
+        partnerLogo: '/assets/partners-short/06.svg',
+      },
+      {
+        id: 'homecraft',
+        quote:
+          "SmartCommerce's multi-channel automation completely eliminated overselling risks between Amazon, Etsy, and Shopify. The real-time safety buffer engine combined with 99.9% barcode scan WMS accuracy reduced manual operational overhead by 85%, saving our logistics team over 15 hours each week.",
+        name: 'Elena Rostova',
+        subtitle: 'Operations Director, HomeCraft',
+        avatar: '/assets/avatar_elena.jpg',
+        partnerLogo: '/assets/partners-short/11.svg',
+      },
+      {
+        id: 'lumina',
+        quote:
+          "E-GEAD's performance marketing team transformed our unit economics, scaling blended ROAS to 4.8x while reducing acquisition costs to $8.40. Leveraging sub-24h fulfillment proof as authentic social proof in creative testing allowed us to scale daily ad spend to $25,000 profitably.",
+        name: 'David Chen',
+        subtitle: 'Growth Marketing Lead, Lumina DTC',
+        avatar: '/assets/avatar_marcus.jpg',
+        partnerLogo: '/assets/partners-short/15.svg',
+      },
+      {
+        id: 'printwave',
+        quote:
+          "E-GEAD's open RESTful API infrastructure and real-time event webhooks connect directly to US production centers with under 120ms latency. From automated order routing and print file validation to carrier label injection, 100% of our order pipeline runs flawlessly with 99.9% uptime.",
+        name: 'Sarah Jenkins',
+        subtitle: 'VP of Engineering, PrintWave',
+        avatar: '/assets/avatar_elena.jpg',
+        partnerLogo: '/assets/partners-short/20.svg',
+      },
+    ],
+  } as unknown as Prisma.InputJsonValue;
+
+  await prisma.homeSection.upsert({
+    where: { key: 'testimonials' },
+    update: {}, // An toàn dữ liệu: Không ghi đè nếu bản ghi đã tồn tại trong DB
+    create: {
+      key: 'testimonials',
+      name: 'Khối Đánh giá khách hàng (Voices of Our Sellers)',
+      title: 'Voices of Our Sellers',
+      subtitle: 'Testimonials',
+      description:
+        'Khối trình diễn 3D carousel các trích dẫn đánh giá, xếp hạng sao và thông tin đối tác/khách hàng uy tín hợp tác cùng E-GEAD.',
+      data: testimonialsData,
+      isActive: true,
+      order: 4,
     },
   });
 
@@ -202,15 +303,7 @@ async function seedHomeSections() {
 
   await prisma.homeSection.upsert({
     where: { key: 'header-services-menu' },
-    update: {
-      name: 'Cấu hình Menu Header (Our Services Mega Menu)',
-      title: 'Our Services Mega Menu',
-      subtitle: 'Menu điều hướng Header',
-      description: 'Cấu hình 3 cột danh sách hiển thị trên thanh Menu dropdown Our Services: Services, Industries và Partners.',
-      data: headerMenuData,
-      isActive: true,
-      order: 99,
-    },
+    update: {}, // An toàn dữ liệu: Không ghi đè nếu bản ghi đã tồn tại trong DB
     create: {
       key: 'header-services-menu',
       name: 'Cấu hình Menu Header (Our Services Mega Menu)',

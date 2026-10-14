@@ -7,12 +7,17 @@ export async function POST(request: NextRequest) {
 
     const { firstName, lastName, company, email, phone, region, message } = body;
 
-    if (!firstName || !lastName || !email || !message) {
+    const finalMessage =
+      message && typeof message === 'string' && message.trim()
+        ? message.trim()
+        : 'Yêu cầu liên hệ / Đăng ký từ bài viết';
+
+    if (!firstName || !lastName || !email) {
       return NextResponse.json(
         {
           success: false,
           error:
-            'Vui lòng điền đầy đủ các thông tin bắt buộc: Họ, Tên, Email và Lời nhắn.',
+            'Vui lòng điền đầy đủ các thông tin bắt buộc: Họ, Tên và Email.',
         },
         { status: 400 }
       );
@@ -37,7 +42,7 @@ export async function POST(request: NextRequest) {
       email,
       phone: phone || '',
       region: region?.trim() || 'Vietnam',
-      message,
+      message: finalMessage,
     });
 
     return NextResponse.json(

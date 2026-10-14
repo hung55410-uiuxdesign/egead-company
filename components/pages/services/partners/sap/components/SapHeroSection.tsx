@@ -4,6 +4,8 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 
+import type { PartnerHeroData } from '../types';
+
 const SaiArrow = ({ className = 'w-[19px] h-[18px]' }: { className?: string }) => (
   <svg
     className={className}
@@ -19,14 +21,28 @@ const SaiArrow = ({ className = 'w-[19px] h-[18px]' }: { className?: string }) =
   </svg>
 );
 
-export default function SapHeroSection() {
+export default function SapHeroSection({ data }: { data?: PartnerHeroData } = {}) {
   const [imageError, setImageError] = useState(false);
+
+  const name = data?.name ?? 'SAP';
+  const badge = data?.badge ?? 'Qualified SAP Gold Partner';
+  const bannerImage =
+    data?.bannerImage ??
+    'https://www.sai-digital.com/site/sai-website/master/_/attachment/inline/86de0e07-7dd4-4ddd-afdc-723c96eba1dd:335aa49d18ee1cefc92c820c337d1f354a080065/SAP_banner_sept24.png';
+  const bannerFallback = data?.bannerFallback ?? '/images/services/enterprise_tech.jpg';
+  const bannerAlt = data?.bannerAlt ?? `${name} Enterprise Solutions`;
+  const headline = data?.headline ?? 'Unlock enterprise operational excellence.';
+  const description =
+    data?.description ??
+    'Give your enterprise business an unparalleled advantage with our tailored SAP solutions. We can help you streamline processes, enhance efficiency, and drive profitability.';
+  const ctaText = data?.ctaText ?? 'Schedule demo';
+  const ctaHref = data?.ctaHref ?? '/contact-us?subject=sap-demo';
 
   return (
     <section
       id="hero"
-      aria-label="SAP Partner Hero"
-      className="service-detail partner relative w-full pt-32 sm:pt-40 lg:pt-44 pb-16 sm:pb-20 lg:pb-24 px-6 sm:px-10 lg:px-14 xl:px-16 2xl:px-20 overflow-hidden"
+      aria-label={`${name} Partner Hero`}
+      className="service-detail partner relative w-full pt-32 sm:pt-40 lg:pt-44 pb-16 sm:pb-20 lg:pb-24 px-6 sm:px-10 lg:px-14 xl:px-16 overflow-hidden"
     >
       {/* Background ambient lighting */}
       <div
@@ -38,9 +54,10 @@ export default function SapHeroSection() {
         className="pointer-events-none absolute top-1/3 right-1/4 w-[500px] h-[500px] bg-[#008FD3]/5 rounded-full blur-[140px]"
       />
 
-      <div className="relative z-10 max-w-[1560px] mx-auto">
+      <div className="relative z-10 w-full">
         {/* Back Link */}
         <motion.div
+
           initial={{ opacity: 0, x: -15 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
@@ -70,15 +87,17 @@ export default function SapHeroSection() {
 
         {/* Title */}
         <div className="service-detail__title mb-8 sm:mb-12">
-          <motion.div
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.05 }}
-            className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#008FD3]/15 border border-[#008FD3]/30 text-xs sm:text-sm text-[#7ceee0] font-normal mb-4"
-          >
-            <span className="w-1.5 h-1.5 rounded-full bg-[#10E774]" />
-            <span>Qualified SAP Gold Partner</span>
-          </motion.div>
+          {badge && (
+            <motion.div
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.05 }}
+              className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#008FD3]/15 border border-[#008FD3]/30 text-xs sm:text-sm text-[#7ceee0] font-normal mb-4"
+            >
+              <span className="w-1.5 h-1.5 rounded-full bg-[#10E774]" />
+              <span>{badge}</span>
+            </motion.div>
+          )}
 
           <motion.h1
             className="text-4xl sm:text-6xl lg:text-[76px] font-semibold tracking-tight text-white leading-[1.05] font-montserrat"
@@ -86,11 +105,11 @@ export default function SapHeroSection() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.65, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
           >
-            SAP
+            {name}
           </motion.h1>
         </div>
 
-        {/* Hero Visual Card / Banner - No cropping (ảnh không bị cắt) */}
+        {/* Hero Visual Card / Banner - No cropping */}
         <motion.div
           className="w-full mb-12 sm:mb-16"
           initial={{ opacity: 0, y: 30, scale: 0.98 }}
@@ -100,20 +119,20 @@ export default function SapHeroSection() {
           <div className="relative w-full rounded-[24px] sm:rounded-[32px] overflow-hidden border border-white/10 bg-[#141718] shadow-[0_24px_60px_rgba(0,0,0,0.6)]">
             {!imageError ? (
               <img
-                src="https://www.sai-digital.com/site/sai-website/master/_/attachment/inline/86de0e07-7dd4-4ddd-afdc-723c96eba1dd:335aa49d18ee1cefc92c820c337d1f354a080065/SAP_banner_sept24.png"
-                alt="SAP Enterprise Solutions"
+                src={bannerImage}
+                alt={bannerAlt}
                 className="w-full h-auto object-contain block"
                 onError={() => setImageError(true)}
               />
             ) : (
               <div className="relative w-full min-h-[380px] sm:min-h-[460px] bg-gradient-to-r from-[#001726] via-[#0A2540] to-[#0A0D0E] flex flex-col justify-center items-center p-8 sm:p-14 text-center">
                 <img
-                  src="/assets/smartprice/logo_sapgold.svg"
-                  alt="SAP Gold Partner"
-                  className="h-16 sm:h-20 w-auto mb-6 brightness-125"
+                  src={bannerFallback}
+                  alt={bannerAlt}
+                  className="max-h-24 w-auto mb-6 object-contain"
                 />
                 <h3 className="text-2xl sm:text-4xl font-semibold text-white font-montserrat max-w-2xl">
-                  Enterprise SAP Commerce Cloud &amp; ERP Architecture
+                  {headline}
                 </h3>
               </div>
             )}
@@ -129,10 +148,10 @@ export default function SapHeroSection() {
             transition={{ duration: 0.65, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
           >
             <h2 className="text-2xl sm:text-3xl lg:text-[40px] font-medium text-white leading-[1.2] font-montserrat">
-              Unlock enterprise operational excellence.
+              {headline}
             </h2>
             <p className="text-base sm:text-lg lg:text-xl text-[#b3b3b3] font-light leading-relaxed font-montserrat max-w-3xl">
-              Give your enterprise business an unparalleled advantage with our tailored SAP solutions. We can help you streamline processes, enhance efficiency, and drive profitability.
+              {description}
             </p>
           </motion.div>
 
@@ -143,10 +162,10 @@ export default function SapHeroSection() {
             transition={{ duration: 0.65, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
           >
             <Link
-              href="/contact-us?subject=sap-demo"
+              href={ctaHref}
               className="group inline-flex items-center gap-3 px-8 sm:px-10 py-4 rounded-full bg-[#10E774] hover:bg-[#5EFC8D] text-[#003D5B] font-semibold text-base transition-all duration-300 shadow-[0_0_25px_rgba(16,231,116,0.3)] hover:shadow-[0_0_40px_rgba(94,252,141,0.6)] font-montserrat"
             >
-              <span>Schedule demo</span>
+              <span>{ctaText}</span>
               <SaiArrow className="w-4 h-4 text-[#003D5B] transition-transform duration-300 group-hover:translate-x-1" />
             </Link>
           </motion.div>
@@ -155,3 +174,4 @@ export default function SapHeroSection() {
     </section>
   );
 }
+

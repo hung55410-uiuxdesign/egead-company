@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { getServiceData, ServiceDetailItem } from '@/data/services-data';
 import { getServiceItemBySlug } from '@/lib/services/service-item.service';
 import { ServiceDetailView } from '@/components/pages/services/services/all-services/[...slug]';
+import { getOptimizedImageUrl } from '@/lib/utils/image';
 
 export const dynamic = 'force-dynamic';
 
@@ -24,8 +25,8 @@ async function getMergedServiceItem(slugOrPath: string[]): Promise<ServiceDetail
         tagline: dbItem.tagline,
         subtitle: dbItem.subtitle,
         overviewSubTitle: dbItem.overviewSubTitle || '',
-        heroImage: dbItem.heroImage || '/images/services/strategy_design.jpg',
-        middleImage: dbItem.middleImage || '/images/services/Btm_Automotive.jpg',
+        heroImage: getOptimizedImageUrl(dbItem.heroImage, { width: 1600 }) || '/images/services/strategy_design.jpg',
+        middleImage: getOptimizedImageUrl(dbItem.middleImage, { width: 1600 }) || '/images/services/Btm_Automotive.jpg',
         overviewHeading: dbItem.overviewHeading || '',
         overviewParagraphs: dbItem.overviewParagraphs || [],
         approachHeading: dbItem.approachHeading || 'Our approach',

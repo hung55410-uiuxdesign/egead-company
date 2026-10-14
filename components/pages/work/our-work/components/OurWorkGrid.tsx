@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
+import { getOptimizedImageUrl } from "@/lib/utils/image";
 import type { CaseStudyItem } from "../types";
 
 type Props = {
@@ -23,7 +24,7 @@ export default function OurWorkGrid({ studies, onResetFilters }: Props) {
               viewport={{ once: true, amount: 0.08 }}
               transition={{
                 duration: 0.75,
-                delay: (idx % 2) * 0.1,
+                delay: (idx % 3) * 0.1,
                 ease: [0.22, 1, 0.36, 1],
               }}
               whileHover={{ y: -6, transition: { duration: 0.25 } }}
@@ -36,7 +37,7 @@ export default function OurWorkGrid({ studies, onResetFilters }: Props) {
                 {/* Visual Media Container */}
                 <div className="image shadow-[0_12px_30px_rgba(0,0,0,0.5)] group-hover:shadow-[0_20px_40px_rgba(124,238,224,0.15)] transition-shadow duration-500">
                   <Image
-                    src={study.image}
+                    src={getOptimizedImageUrl(study.image, { width: 1200 })}
                     alt={study.title}
                     width={800}
                     height={500}
