@@ -58,7 +58,6 @@ const nextConfig = {
       { source: '/articles', destination: '/insights' },
       { source: '/career', destination: '/careers' },
       { source: '/career/:path*', destination: '/careers/:path*' },
-      { source: '/partners/:path*', destination: '/partners' },
     ];
   },
 };
