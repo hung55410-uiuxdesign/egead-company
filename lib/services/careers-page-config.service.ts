@@ -16,6 +16,7 @@ export interface CareersAboutData {
 export interface BenefitCardData {
   title: string;
   items: string[];
+  icon?: string;
 }
 
 export interface CareersWhyChooseUsData {
@@ -59,6 +60,7 @@ export const DEFAULT_CAREERS_PAGE_CONFIG: CareersPageConfigData = {
     title: 'Why choose us?',
     benefits: {
       title: 'Great benefits',
+      icon: '',
       items: [
         'Bonus policy according to seniority',
         'Health insurance and social insurance as prescribed',
@@ -70,6 +72,7 @@ export const DEFAULT_CAREERS_PAGE_CONFIG: CareersPageConfigData = {
     },
     learning: {
       title: 'Learning and self-improvement',
+      icon: '',
       items: [
         'Encouraged to align with personal, team, and company goals.',
         'Receive expert training to boost skills and critical thinking on the job.',
@@ -78,6 +81,7 @@ export const DEFAULT_CAREERS_PAGE_CONFIG: CareersPageConfigData = {
     },
     environment: {
       title: 'Open working environment',
+      icon: '',
       items: [
         'Flexible working time, from Monday to Friday',
         'Leave days: 12 days/year',
@@ -149,18 +153,21 @@ export function normalizeCareersPageConfig(
       title: data.whyChooseUs?.title?.trim() || DEFAULT_CAREERS_PAGE_CONFIG.whyChooseUs.title,
       benefits: {
         title: data.whyChooseUs?.benefits?.title?.trim() || DEFAULT_CAREERS_PAGE_CONFIG.whyChooseUs.benefits.title,
+        icon: data.whyChooseUs?.benefits?.icon?.trim() || '',
         items: Array.isArray(data.whyChooseUs?.benefits?.items) && data.whyChooseUs.benefits.items.length > 0
           ? data.whyChooseUs.benefits.items
           : DEFAULT_CAREERS_PAGE_CONFIG.whyChooseUs.benefits.items,
       },
       learning: {
         title: data.whyChooseUs?.learning?.title?.trim() || DEFAULT_CAREERS_PAGE_CONFIG.whyChooseUs.learning.title,
+        icon: data.whyChooseUs?.learning?.icon?.trim() || '',
         items: Array.isArray(data.whyChooseUs?.learning?.items) && data.whyChooseUs.learning.items.length > 0
           ? data.whyChooseUs.learning.items
           : DEFAULT_CAREERS_PAGE_CONFIG.whyChooseUs.learning.items,
       },
       environment: {
         title: data.whyChooseUs?.environment?.title?.trim() || DEFAULT_CAREERS_PAGE_CONFIG.whyChooseUs.environment.title,
+        icon: data.whyChooseUs?.environment?.icon?.trim() || '',
         items: Array.isArray(data.whyChooseUs?.environment?.items) && data.whyChooseUs.environment.items.length > 0
           ? data.whyChooseUs.environment.items
           : DEFAULT_CAREERS_PAGE_CONFIG.whyChooseUs.environment.items,

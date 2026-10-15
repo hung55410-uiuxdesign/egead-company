@@ -13,6 +13,151 @@ import {
   useUploadMedia,
   useUpdateCareersPageConfigMutation,
 } from '@/lib/hooks';
+import { RenderColumnIcon } from '@/components/pages/company/careers/components/CareerWhyChooseUsSection';
+
+function DefaultBenefitsSvg() {
+  return (
+    <svg className="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+      <path d="M16 7a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2c0 2-1 4-1 8a4 4 0 0 0 4 4h2a4 4 0 0 0 4-4c0-4-1-6-1-8Z" />
+      <path d="M9 5h6" />
+      <path d="M12 10v4" />
+      <path d="M10.5 11.5h3" />
+      <path d="M10.5 13h3" />
+    </svg>
+  );
+}
+
+function DefaultLearningSvg() {
+  return (
+    <svg className="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+      <rect width="18" height="12" x="3" y="3" rx="2" />
+      <path d="m7 11 3-3 3 2 4-4" />
+      <path d="M9 19l-2 3" />
+      <path d="M15 19l2 3" />
+      <path d="M12 15v4" />
+    </svg>
+  );
+}
+
+function DefaultEnvironmentSvg() {
+  return (
+    <svg className="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+      <circle cx="12" cy="12" r="9" />
+      <path d="M12 3a14.5 14.5 0 0 1 4 9 14.5 14.5 0 0 1-4 9 14.5 14.5 0 0 1-4-9 14.5 14.5 0 0 1 4-9z" />
+      <path d="M3 12h18" />
+    </svg>
+  );
+}
+
+const PRESET_ICONS = [
+  { value: '', label: 'Mặc định (Default SVG)' },
+  { value: 'Gift', label: 'Hộp quà (Gift)' },
+  { value: 'Heart', label: 'Trái tim (Heart)' },
+  { value: 'Award', label: 'Giải thưởng (Award)' },
+  { value: 'Coffee', label: 'Cà phê & Đồ ăn (Coffee)' },
+  { value: 'GraduationCap', label: 'Đào tạo & Học tập (GraduationCap)' },
+  { value: 'Rocket', label: 'Đột phá & Khởi nghiệp (Rocket)' },
+  { value: 'TrendingUp', label: 'Tăng trưởng & Thăng tiến (TrendingUp)' },
+  { value: 'Lightbulb', label: 'Sáng tạo & Ý tưởng (Lightbulb)' },
+  { value: 'Globe', label: 'Toàn cầu & Đa quốc gia (Globe)' },
+  { value: 'Users', label: 'Đội ngũ & Con người (Users)' },
+  { value: 'Laptop', label: 'Thiết bị & Công nghệ (Laptop)' },
+  { value: 'ShieldCheck', label: 'Bảo hiểm & Đảm bảo (ShieldCheck)' },
+  { value: 'Clock', label: 'Thời gian linh hoạt (Clock)' },
+];
+
+function ColumnIconPicker({
+  title,
+  icon,
+  defaultSvg,
+  colKey,
+  isUploading,
+  onIconChange,
+  onFileChange,
+}: {
+  title: string;
+  icon?: string;
+  defaultSvg: React.ReactNode;
+  colKey: 'benefits' | 'learning' | 'environment';
+  isUploading: boolean;
+  onIconChange: (value: string) => void;
+  onFileChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}) {
+  return (
+    <div className="p-3.5 bg-white/80 rounded-xl border border-slate-200/80 space-y-2.5">
+      <div className="flex items-center justify-between">
+        <label className="text-xs font-bold text-slate-700">
+          Biểu tượng cột ({title})
+        </label>
+        {icon && (
+          <button
+            type="button"
+            onClick={() => onIconChange('')}
+            className="text-[11px] text-slate-500 hover:text-red-600 underline"
+          >
+            Đặt lại mặc định
+          </button>
+        )}
+      </div>
+
+      <div className="flex items-start gap-3">
+        {/* Live Preview Circle */}
+        <div className="w-12 h-12 rounded-full bg-[#189B8C] text-white flex items-center justify-center shrink-0 shadow-xs overflow-hidden p-2.5">
+          <RenderColumnIcon icon={icon} defaultIcon={defaultSvg} />
+        </div>
+
+        {/* Picker and Uploader */}
+        <div className="flex-1 min-w-0 space-y-2">
+          {/* Preset Select */}
+          <select
+            value={
+              PRESET_ICONS.some((p) => p.value === (icon || ''))
+                ? icon || ''
+                : 'custom'
+            }
+            onChange={(e) => {
+              if (e.target.value !== 'custom') {
+                onIconChange(e.target.value);
+              }
+            }}
+            className="w-full px-2.5 py-1.5 rounded-lg border border-slate-300 text-xs bg-white text-slate-800 font-normal focus:outline-none focus:ring-1 focus:ring-slate-900 truncate"
+          >
+            {PRESET_ICONS.map((p) => (
+              <option key={p.value} value={p.value}>
+                {p.label}
+              </option>
+            ))}
+            {!PRESET_ICONS.some((p) => p.value === (icon || '')) && icon && (
+              <option value="custom">Icon tùy chỉnh (URL / Upload)</option>
+            )}
+          </select>
+
+          {/* URL Input + Upload button */}
+          <div className="flex gap-1.5">
+            <input
+              type="text"
+              value={icon || ''}
+              onChange={(e) => onIconChange(e.target.value)}
+              placeholder="URL icon hoặc tên Lucide..."
+              className="flex-1 min-w-0 px-2.5 py-1 text-[11px] rounded-lg border border-slate-200 bg-white focus:outline-none focus:ring-1 focus:ring-slate-900 font-normal"
+            />
+            <label className="cursor-pointer shrink-0">
+              <input
+                type="file"
+                accept="image/*,.svg"
+                onChange={onFileChange}
+                className="hidden"
+              />
+              <span className="inline-flex items-center justify-center px-2.5 py-1 rounded-lg bg-slate-900 hover:bg-slate-800 text-white text-[11px] font-medium transition">
+                {isUploading ? 'Đang tải...' : 'Tải SVG/Ảnh'}
+              </span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 interface CareersPageConfigClientProps {
   initialConfig: CareersPageConfigData;
@@ -83,6 +228,44 @@ export default function CareersPageConfigClient({
     const file = e.target.files?.[0];
     if (file) {
       uploadAboutImage({ file, folder: 'careers' });
+    }
+  };
+
+  // Column Icon Upload Handler
+  const [uploadingCol, setUploadingCol] = useState<'benefits' | 'learning' | 'environment' | null>(null);
+
+  const { upload: uploadColumnIcon, isUploading: isUploadingColIcon } =
+    useUploadMedia({
+      defaultFolder: 'careers/icons',
+      showToast: true,
+      onSuccess: (res) => {
+        if (res?.url && uploadingCol) {
+          setConfig((prev) => ({
+            ...prev,
+            whyChooseUs: {
+              ...prev.whyChooseUs,
+              [uploadingCol]: {
+                ...prev.whyChooseUs[uploadingCol],
+                icon: res.url,
+              },
+            },
+          }));
+          setUploadingCol(null);
+        }
+      },
+      onError: () => {
+        setUploadingCol(null);
+      },
+    });
+
+  const handleColumnIconFileChange = (
+    colKey: 'benefits' | 'learning' | 'environment',
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setUploadingCol(colKey);
+      uploadColumnIcon({ file, folder: 'careers/icons' });
     }
   };
 
@@ -646,6 +829,28 @@ export default function CareersPageConfigClient({
                 </button>
               </div>
 
+              {/* Icon selector & uploader */}
+              <ColumnIconPicker
+                title="Phúc lợi"
+                icon={config.whyChooseUs.benefits.icon}
+                defaultSvg={<DefaultBenefitsSvg />}
+                colKey="benefits"
+                isUploading={uploadingCol === 'benefits' && isUploadingColIcon}
+                onIconChange={(val) =>
+                  setConfig((prev) => ({
+                    ...prev,
+                    whyChooseUs: {
+                      ...prev.whyChooseUs,
+                      benefits: {
+                        ...prev.whyChooseUs.benefits,
+                        icon: val,
+                      },
+                    },
+                  }))
+                }
+                onFileChange={(e) => handleColumnIconFileChange('benefits', e)}
+              />
+
               <div>
                 <label className="block text-xs font-bold text-slate-700 mb-1.5">
                   Tiêu đề cột
@@ -710,6 +915,28 @@ export default function CareersPageConfigClient({
                 </button>
               </div>
 
+              {/* Icon selector & uploader */}
+              <ColumnIconPicker
+                title="Đào tạo & Phát triển"
+                icon={config.whyChooseUs.learning.icon}
+                defaultSvg={<DefaultLearningSvg />}
+                colKey="learning"
+                isUploading={uploadingCol === 'learning' && isUploadingColIcon}
+                onIconChange={(val) =>
+                  setConfig((prev) => ({
+                    ...prev,
+                    whyChooseUs: {
+                      ...prev.whyChooseUs,
+                      learning: {
+                        ...prev.whyChooseUs.learning,
+                        icon: val,
+                      },
+                    },
+                  }))
+                }
+                onFileChange={(e) => handleColumnIconFileChange('learning', e)}
+              />
+
               <div>
                 <label className="block text-xs font-bold text-slate-700 mb-1.5">
                   Tiêu đề cột
@@ -773,6 +1000,28 @@ export default function CareersPageConfigClient({
                   Thêm dòng
                 </button>
               </div>
+
+              {/* Icon selector & uploader */}
+              <ColumnIconPicker
+                title="Môi trường làm việc"
+                icon={config.whyChooseUs.environment.icon}
+                defaultSvg={<DefaultEnvironmentSvg />}
+                colKey="environment"
+                isUploading={uploadingCol === 'environment' && isUploadingColIcon}
+                onIconChange={(val) =>
+                  setConfig((prev) => ({
+                    ...prev,
+                    whyChooseUs: {
+                      ...prev.whyChooseUs,
+                      environment: {
+                        ...prev.whyChooseUs.environment,
+                        icon: val,
+                      },
+                    },
+                  }))
+                }
+                onFileChange={(e) => handleColumnIconFileChange('environment', e)}
+              />
 
               <div>
                 <label className="block text-xs font-bold text-slate-700 mb-1.5">

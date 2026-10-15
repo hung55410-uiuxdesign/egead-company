@@ -2,7 +2,8 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import type { CareersWhyChooseUsData } from '@/lib/services/careers-page-config.service';
+import * as LucideIcons from 'lucide-react';
+import type { CareersWhyChooseUsData, BenefitCardData } from '@/lib/services/careers-page-config.service';
 
 interface CareerWhyChooseUsSectionProps {
   config?: CareersWhyChooseUsData;
@@ -72,8 +73,59 @@ function EnvironmentIcon() {
   );
 }
 
+export function RenderColumnIcon({
+  icon,
+  defaultIcon,
+}: {
+  icon?: string;
+  defaultIcon: React.ReactNode;
+}) {
+  if (!icon || icon.trim() === '') {
+    return <>{defaultIcon}</>;
+  }
+
+  const trimmed = icon.trim();
+
+  // If it's a URL or image path (e.g. Cloudinary, /assets, data URI)
+  if (
+    trimmed.startsWith('http://') ||
+    trimmed.startsWith('https://') ||
+    trimmed.startsWith('/') ||
+    trimmed.startsWith('data:')
+  ) {
+    return (
+      <div className="w-12 h-12 rounded-full bg-[#189B8C] text-white flex items-center justify-center mb-6 shadow-xs p-2.5 overflow-hidden">
+        <img
+          src={trimmed}
+          alt=""
+          className="w-full h-full object-contain filter brightness-0 invert"
+          onError={(e) => {
+            (e.target as HTMLElement).classList.remove('brightness-0', 'invert');
+          }}
+        />
+      </div>
+    );
+  }
+
+  // If it's a Lucide icon name (e.g. 'Gift', 'GraduationCap', 'Heart', etc.)
+  const normalized = trimmed.charAt(0).toUpperCase() + trimmed.slice(1);
+  const IconComponent =
+    (LucideIcons as Record<string, any>)[normalized] ||
+    (LucideIcons as Record<string, any>)[trimmed];
+
+  if (IconComponent && typeof IconComponent === 'object') {
+    return (
+      <div className="w-12 h-12 rounded-full bg-[#189B8C] text-white flex items-center justify-center mb-6 shadow-xs">
+        <IconComponent className="w-6 h-6 stroke-[1.8]" />
+      </div>
+    );
+  }
+
+  return <>{defaultIcon}</>;
+}
+
 const DEFAULT_TITLE = 'Why choose us?';
-const DEFAULT_BENEFITS = {
+const DEFAULT_BENEFITS: BenefitCardData = {
   title: 'Great benefits',
   items: [
     'Bonus policy according to seniority',
@@ -83,16 +135,18 @@ const DEFAULT_BENEFITS = {
     'Profesional equipment are provided',
     'Frequent team building, annual vacation',
   ],
+  icon: '',
 };
-const DEFAULT_LEARNING = {
+const DEFAULT_LEARNING: BenefitCardData = {
   title: 'Learning and self-improvement',
   items: [
     'Encouraged to align with personal, team, and company goals.',
     'Receive expert training to boost skills and critical thinking on the job.',
     'Learn new technologies and solve complex e-commerce problems.',
   ],
+  icon: '',
 };
-const DEFAULT_ENVIRONMENT = {
+const DEFAULT_ENVIRONMENT: BenefitCardData = {
   title: 'Open working environment',
   items: [
     'Flexible working time, from Monday to Friday',
@@ -100,6 +154,7 @@ const DEFAULT_ENVIRONMENT = {
     'Holidays, New Year according to regulations',
     'Working with a creative and enthusiastic team, ready to make breakthroughs.',
   ],
+  icon: '',
 };
 
 export default function CareerWhyChooseUsSection({
@@ -128,7 +183,10 @@ export default function CareerWhyChooseUsSection({
           <div className="grid grid-cols-1 md:grid-cols-3 gap-10 lg:gap-14">
             {/* 1. Great benefits */}
             <div className="space-y-4">
-              <BenefitsIcon />
+              <RenderColumnIcon
+                icon={benefits.icon}
+                defaultIcon={<BenefitsIcon />}
+              />
               <h3 className="text-lg font-bold text-slate-900">
                 {benefits.title}
               </h3>
@@ -141,7 +199,10 @@ export default function CareerWhyChooseUsSection({
 
             {/* 2. Learning and self-improvement */}
             <div className="space-y-4">
-              <LearningIcon />
+              <RenderColumnIcon
+                icon={learning.icon}
+                defaultIcon={<LearningIcon />}
+              />
               <h3 className="text-lg font-bold text-slate-900">
                 {learning.title}
               </h3>
@@ -154,7 +215,10 @@ export default function CareerWhyChooseUsSection({
 
             {/* 3. Open working environment */}
             <div className="space-y-4">
-              <EnvironmentIcon />
+              <RenderColumnIcon
+                icon={environment.icon}
+                defaultIcon={<EnvironmentIcon />}
+              />
               <h3 className="text-lg font-bold text-slate-900">
                 {environment.title}
               </h3>
