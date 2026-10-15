@@ -43,7 +43,7 @@ export default function CareerHeroSection() {
       <MotionSection className="w-full px-6 sm:px-10 lg:px-14 xl:px-16 mb-24 sm:mb-32">
         <div className="relative w-full h-[340px] sm:h-[480px] lg:h-[580px] rounded-[32px] sm:rounded-[48px] overflow-hidden shadow-2xl border border-white/10 bg-black group">
           <img
-            src="/assets/company.png"
+            src="/assets/2.jpg"
             alt="Life at E-GEAD - Vibrant Global Team"
             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-103"
           />

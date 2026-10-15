@@ -134,13 +134,43 @@ export default function HomeSectionsGridClient({
                     <span>Hiệu ứng: 3D carousel</span>
                   </div>
                 )}
+
+                {section.key === 'footer-config' && (
+                  <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500 font-medium">
+                    <span>
+                      {Array.isArray(section.data?.navColumns)
+                        ? `${section.data.navColumns.length} cột liên kết`
+                        : '3 cột liên kết'}
+                    </span>
+                    <span className="text-slate-300">•</span>
+                    <span>
+                      {Array.isArray(section.data?.topBar?.socialLinks)
+                        ? `${section.data.topBar.socialLinks.length} MXH`
+                        : '4 MXH'}
+                    </span>
+                    <span className="text-slate-300">•</span>
+                    <span>
+                      {Array.isArray(section.data?.timezones)
+                        ? `${section.data.timezones.length} múi giờ`
+                        : '6 múi giờ'}
+                    </span>
+                  </div>
+                )}
               </div>
 
               <div className="pt-6 mt-4 border-t border-slate-100">
                 <Button
-                  label="Chỉnh sửa nội dung section"
+                  label={
+                    section.key === 'footer-config'
+                      ? 'Chỉnh sửa nội dung footer'
+                      : 'Chỉnh sửa nội dung section'
+                  }
                   variant="primary"
-                  href={`/admin/home/${section.key}`}
+                  href={
+                    section.key === 'footer-config'
+                      ? '/admin/footer'
+                      : `/admin/home/${section.key}`
+                  }
                   className="w-full h-10 px-4"
                 />
               </div>

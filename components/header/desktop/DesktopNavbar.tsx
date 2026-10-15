@@ -6,7 +6,6 @@ import { motion } from 'framer-motion';
 import { Menu } from 'lucide-react';
 import { NAV_ITEMS } from '../config/nav-items';
 import NavItemLink from './NavItemLink';
-import LanguageDropdown from './LanguageDropdown';
 import NavCtaButton from '../ui/NavCtaButton';
 
 interface DesktopNavbarProps {
@@ -116,9 +115,6 @@ export default function DesktopNavbar({
 
       {/* Right Header Controls */}
       <div className="flex items-center gap-4 sm:gap-5">
-        {/* Language Selector */}
-        <LanguageDropdown />
-
         {/* CTA Button */}
         <NavCtaButton />
 

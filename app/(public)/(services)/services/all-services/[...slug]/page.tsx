@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
-import { getServiceData, ServiceDetailItem } from '@/data/services-data';
+import { notFound } from 'next/navigation';
+import { getExactServiceData, ServiceDetailItem } from '@/data/services-data';
 import { getServiceItemBySlug } from '@/lib/services/service-item.service';
 import { ServiceDetailView } from '@/components/pages/services/services/all-services/[...slug]';
 import { getOptimizedImageUrl } from '@/lib/utils/image';
@@ -12,12 +13,15 @@ type Props = {
   }>;
 };
 
-async function getMergedServiceItem(slugOrPath: string[]): Promise<ServiceDetailItem> {
+async function getMergedServiceItem(slugOrPath: string[]): Promise<ServiceDetailItem | null> {
   const targetSlug = slugOrPath[slugOrPath.length - 1] || slugOrPath[0];
 
   try {
     const dbItem = await getServiceItemBySlug(targetSlug);
     if (dbItem) {
+      if (dbItem.status && dbItem.status !== 'published') {
+        return null;
+      }
       return {
         slug: dbItem.slug,
         category: (dbItem.category as 'service' | 'industry') || 'service',
@@ -40,12 +44,19 @@ async function getMergedServiceItem(slugOrPath: string[]): Promise<ServiceDetail
     console.error('Error fetching service item from DB, using fallback:', error);
   }
 
-  return getServiceData(slugOrPath);
+  return getExactServiceData(slugOrPath);
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const service = await getMergedServiceItem(slug);
+
+  if (!service) {
+    return {
+      title: 'Trang không tìm thấy | E-GEAD Enterprise Digital Operations',
+      description: 'Dịch vụ bạn đang tìm kiếm không tồn tại hoặc đã được gỡ bỏ.',
+    };
+  }
 
   return {
     title: `${service.title} Solutions | E-GEAD Enterprise Digital Operations`,
@@ -77,5 +88,10 @@ export default async function ServiceDetailPage({ params }: Props) {
   const { slug } = await params;
   const service = await getMergedServiceItem(slug);
 
+  if (!service) {
+    notFound();
+  }
+
   return <ServiceDetailView service={service} />;
 }
+

@@ -1,5 +1,49 @@
 [
   {
+    "id": "post-1792051539793",
+    "slug": "unit-test-automated-blog-article",
+    "title": "Unit Test Automated Blog Article",
+    "subtitle": "Testing automated creation with Prisma & TipTap",
+    "tag": "Technology",
+    "category": "Innovation",
+    "date": "October 15, 2026",
+    "readTime": "5 mins read",
+    "heroImage": "/assets/case_brother.jpg",
+    "excerpt": "This is a test excerpt for service validation.",
+    "content": "<p>Paragraph 1 from rich editor</p>",
+    "author": {
+      "name": "E-GEAD Team",
+      "role": "Editor"
+    },
+    "status": "draft",
+    "views": 0,
+    "featured": false,
+    "createdAt": "2026-10-15T08:05:39.793Z",
+    "updatedAt": "2026-10-15T08:05:39.793Z"
+  },
+  {
+    "id": "post-1792051492432",
+    "slug": "unit-test-automated-blog-article",
+    "title": "Unit Test Automated Blog Article",
+    "subtitle": "Testing automated creation with Prisma & TipTap",
+    "tag": "Technology",
+    "category": "Innovation",
+    "date": "October 15, 2026",
+    "readTime": "5 mins read",
+    "heroImage": "/assets/case_brother.jpg",
+    "excerpt": "This is a test excerpt for service validation.",
+    "content": "<p>Paragraph 1 from rich editor</p>",
+    "author": {
+      "name": "E-GEAD Team",
+      "role": "Editor"
+    },
+    "status": "draft",
+    "views": 0,
+    "featured": false,
+    "createdAt": "2026-10-15T08:04:52.432Z",
+    "updatedAt": "2026-10-15T08:04:52.432Z"
+  },
+  {
     "id": "post-1791946090738",
     "slug": "chao-mung-quoc-khanh-2-9-khat-vong-tuoi-tre-e-gead-kien-tao-gia-tri-tu-manh-dat-dak-lak",
     "title": "Chào Mừng Quốc Khánh 2/9: Khát Vọng Tuổi Trẻ E-GEAD Kiến Tạo Giá Trị Từ Mảnh Đất Đắk Lắk",

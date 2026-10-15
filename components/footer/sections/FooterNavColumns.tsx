@@ -3,11 +3,19 @@
 import React from 'react';
 import Link from 'next/link';
 import { FOOTER_NAV_COLUMNS } from '../config/footer-links';
+import type { FooterNavColumn } from '../types';
 
-export default function FooterNavColumns() {
+interface FooterNavColumnsProps {
+  columns?: FooterNavColumn[];
+}
+
+export default function FooterNavColumns({ columns }: FooterNavColumnsProps) {
+  const displayColumns =
+    columns && columns.length > 0 ? columns : FOOTER_NAV_COLUMNS;
+
   return (
     <div className="lg:col-span-8 grid grid-cols-2 sm:grid-cols-3 gap-8">
-      {FOOTER_NAV_COLUMNS.map((col) => (
+      {displayColumns.map((col) => (
         <div key={col.title}>
           <span className="text-xs font-bold text-black block mb-4">
             {col.title}

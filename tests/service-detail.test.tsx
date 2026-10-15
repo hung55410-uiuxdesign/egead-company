@@ -110,14 +110,18 @@ describe('Service Detail Page (100% Authentic SAI Digital Match)', () => {
       expect(html).toContain('Hybrid model');
     });
 
-    test('renders graceful fallback for arbitrary new service', async () => {
-      const Component = await ServiceDetailPage({
-        params: Promise.resolve({ slug: ['supply-chain-ai'] }),
-      });
-      const html = renderToStaticMarkup(Component);
-      expect(html).toContain('Supply Chain Ai');
-      expect(html).toContain('Our approach');
-      expect(html).toContain('Other industries');
+    test('triggers notFound 404 for arbitrary non-existent service', async () => {
+      let threw404 = false;
+      try {
+        await ServiceDetailPage({
+          params: Promise.resolve({ slug: ['supply-chain-ai-nonexistent'] }),
+        });
+      } catch (err: unknown) {
+        if (err && typeof err === 'object' && 'digest' in err) {
+          threw404 = (err as { digest: string }).digest.includes('404');
+        }
+      }
+      expect(threw404).toBe(true);
     });
   });
 });

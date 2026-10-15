@@ -80,10 +80,18 @@ const rowSlideVariants: Variants = {
 
 export interface InsightsSectionProps {
   initialArticles?: BlogPost[] | ArticleItem[];
+  id?: string;
+  className?: string;
+  tagline?: string;
+  title?: string;
 }
 
 export default function InsightsSection({
   initialArticles,
+  id = "homepage__insight",
+  className = "",
+  tagline = "Insights",
+  title = "Our latest news.",
 }: InsightsSectionProps = {}) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [direction, setDirection] = useState(1);
@@ -151,8 +159,8 @@ export default function InsightsSection({
 
   return (
     <section
-      id="homepage__insight"
-      className="homepage__insight relative w-full py-20 sm:py-24 lg:py-28 bg-[#0A0D0E] text-white overflow-hidden border-t border-white/10 select-none"
+      id={id}
+      className={`homepage__insight relative w-full py-20 sm:py-24 lg:py-28 bg-[#0A0D0E] text-white overflow-hidden border-t border-white/10 select-none ${className}`}
     >
       <div className="w-full px-6 sm:px-10 lg:px-14 xl:px-16 mb-12 sm:mb-16 flex flex-col md:flex-row md:items-end justify-between gap-6">
         <div>
@@ -163,7 +171,7 @@ export default function InsightsSection({
             transition={{ duration: 0.5 }}
             className="text-base sm:text-lg font-normal text-[#D4FAE6] mb-3 font-montserrat"
           >
-            Insights
+            {tagline}
           </motion.p>
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
@@ -173,7 +181,7 @@ export default function InsightsSection({
             className="text-2xl sm:text-3xl lg:text-[34px] font-semibold font-montserrat leading-[1.3] tracking-tight"
           >
             <span className="bg-gradient-to-r from-[#6CE8C3] via-[#A8F7E2] to-white bg-clip-text text-transparent">
-              Our latest news.
+              {title}
             </span>
           </motion.h2>
         </div>

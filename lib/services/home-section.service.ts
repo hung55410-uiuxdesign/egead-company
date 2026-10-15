@@ -177,6 +177,7 @@ export async function getHomeSectionByKey(
 export async function updateHomeSection(
   key: string,
   payload: {
+    name?: string;
     title?: string | null;
     subtitle?: string | null;
     description?: string | null;
@@ -208,6 +209,7 @@ export async function updateHomeSection(
   }
 
   const updatePayload: any = {};
+  if (payload.name !== undefined) updatePayload.name = payload.name;
   if (cleanTitle !== undefined) updatePayload.title = cleanTitle;
   if (cleanSubtitle !== undefined) updatePayload.subtitle = cleanSubtitle;
   if (cleanDescription !== undefined) updatePayload.description = cleanDescription;
@@ -217,9 +219,22 @@ export async function updateHomeSection(
     updatePayload.data = cleanData as unknown as Prisma.InputJsonValue;
   }
 
-  const updated = await prisma.homeSection.update({
+  const updated = await prisma.homeSection.upsert({
     where: { key },
-    data: updatePayload,
+    update: updatePayload,
+    create: {
+      key,
+      name:
+        key === 'footer-config'
+          ? 'Khối Chân trang & Thông tin liên kết (Footer)'
+          : key,
+      title: cleanTitle ?? null,
+      subtitle: cleanSubtitle ?? null,
+      description: cleanDescription ?? null,
+      data: (cleanData ?? {}) as unknown as Prisma.InputJsonValue,
+      isActive: cleanIsActive ?? true,
+      order: cleanOrder ?? 5,
+    },
   });
 
   return updated as unknown as HomeSectionModel;

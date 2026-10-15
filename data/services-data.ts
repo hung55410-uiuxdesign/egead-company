@@ -633,6 +633,39 @@ export const SERVICES_DATA: Record<string, ServiceDetailItem> = {
  * Supports single slug string ('automotive') or array (['automotive'], ['strategy-design', 'commerce-strategy-consulting']).
  * Provides intelligent fallback so no route ever errors out.
  */
+/**
+ * Looks up a service item strictly from SERVICES_DATA or known aliases.
+ * Returns null if the slug is not found.
+ */
+export function getExactServiceData(slugOrPath: string | string[]): ServiceDetailItem | null {
+  let normalizedSlug = '';
+  if (Array.isArray(slugOrPath)) {
+    const last = slugOrPath[slugOrPath.length - 1];
+    const first = slugOrPath[0];
+    if (SERVICES_DATA[last]) {
+      normalizedSlug = last;
+    } else if (SERVICES_DATA[first]) {
+      normalizedSlug = first;
+    } else {
+      normalizedSlug = last;
+    }
+  } else {
+    normalizedSlug = slugOrPath.toLowerCase().trim();
+  }
+
+  if (SERVICES_DATA[normalizedSlug]) {
+    return SERVICES_DATA[normalizedSlug];
+  }
+
+  // Handle aliases
+  if (normalizedSlug === 'fashion-lifestyle') return SERVICES_DATA['fashion'];
+  if (normalizedSlug === 'science' || normalizedSlug === 'health') return SERVICES_DATA['health-science'];
+  if (normalizedSlug === 'banking') return SERVICES_DATA['banking-insurance'];
+  if (normalizedSlug === 'consumer') return SERVICES_DATA['consumer-goods'];
+
+  return null;
+}
+
 export function getServiceData(slugOrPath: string | string[]): ServiceDetailItem {
   let normalizedSlug = '';
   if (Array.isArray(slugOrPath)) {

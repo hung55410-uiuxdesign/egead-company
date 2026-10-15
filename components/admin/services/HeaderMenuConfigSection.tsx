@@ -31,7 +31,7 @@ export default function HeaderMenuConfigSection({
   const menuConfig: HeaderServicesMenuData = {
     ...unwrappedData,
     services:
-      unwrappedData.services && unwrappedData.services.length > 0
+      Array.isArray(unwrappedData.services)
         ? unwrappedData.services
         : [
             {
@@ -56,7 +56,7 @@ export default function HeaderMenuConfigSection({
             },
           ],
     industries:
-      unwrappedData.industries && unwrappedData.industries.length > 0
+      Array.isArray(unwrappedData.industries)
         ? unwrappedData.industries
         : [
             {
@@ -91,14 +91,9 @@ export default function HeaderMenuConfigSection({
             },
           ],
     partners:
-      unwrappedData.partners && unwrappedData.partners.length > 0
+      Array.isArray(unwrappedData.partners)
         ? unwrappedData.partners
-        : [
-            { name: 'SAP', href: '/partners/sap' },
-            { name: 'Shopify Plus', href: '/partners/shopify-plus' },
-            { name: 'Sitecore', href: '/partners/site-core' },
-            { name: 'Stripe', href: '/partners/stripe' },
-          ],
+        : [],
     allServicesText: unwrappedData.allServicesText || 'All Our Services',
     allServicesHref: unwrappedData.allServicesHref || '/services/all-services',
     allIndustriesText: unwrappedData.allIndustriesText || 'All Industries',

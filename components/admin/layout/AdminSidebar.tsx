@@ -20,6 +20,7 @@ import {
   GitFork,
   Mail,
   Building2,
+  PanelBottom,
 } from 'lucide-react';
 import { useSession, authClient } from '@/lib/auth-client';
 import { Badge, Button } from '@astryxdesign/core';
@@ -55,6 +56,12 @@ const PAGE_NAV_ITEMS = [
     label: 'Trang chủ',
     href: '/admin/home',
     icon: Home,
+    exact: false,
+  },
+  {
+    label: 'Chân trang (Footer)',
+    href: '/admin/footer',
+    icon: PanelBottom,
     exact: false,
   },
   {

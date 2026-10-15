@@ -18,6 +18,7 @@ import {
 } from "@astryxdesign/core";
 import { DEPARTMENTS } from "@/lib/validations/people";
 import { usePeopleMutations } from "@/lib/hooks";
+import { PeopleImportModal } from "./components";
 
 interface PeopleListClientProps {
   initialMembers: AdminTeamMember[];
@@ -108,6 +109,28 @@ export default function PeopleListClient({
   });
 
   const isBulkLoading = isBulkDeleting || isBulkUpdating;
+
+  // Import JSON Modal State
+  const [isImportModalOpen, setIsImportModalOpen] = useState(false);
+
+  const handleImportSuccess = (newItems: AdminTeamMember[]) => {
+    setMembers((prev) => {
+      const existingIds = new Set(prev.map((m) => m.id));
+      const filteredNew = newItems.filter((item) => !existingIds.has(item.id));
+      const updated = [...filteredNew, ...prev];
+      const total = updated.length;
+      const leaders = updated.filter((m) => m.isLeader).length;
+      const published = updated.filter((m) => m.status === "published").length;
+      setStats({
+        total,
+        leaders,
+        experts: total - leaders,
+        published,
+      });
+      return updated;
+    });
+    router.refresh();
+  };
 
   // Pagination State
   const [currentPage, setCurrentPage] = useState(1);
@@ -252,6 +275,12 @@ export default function PeopleListClient({
         </div>
 
         <div className="flex items-center gap-2">
+          <Button
+            label="Thêm nhanh (JSON)"
+            variant="secondary"
+            onClick={() => setIsImportModalOpen(true)}
+            className="px-4 h-10"
+          />
           <Button
             label="Sơ đồ tổ chức &amp; Squads"
             variant="secondary"
@@ -445,12 +474,20 @@ export default function PeopleListClient({
               title="Không tìm thấy nhân sự nào"
               description="Không có nhân sự nào khớp với từ khóa hoặc bộ lọc bạn chọn. Thử thay đổi bộ lọc hoặc thêm nhân sự mới."
               actions={
-                <Button
-                  label="Thêm nhân sự mới"
-                  variant="primary"
-                  href="/admin/people/new"
-                  className="px-4 h-10"
-                />
+                <div className="flex items-center gap-2">
+                  <Button
+                    label="Thêm nhanh (JSON)"
+                    variant="secondary"
+                    onClick={() => setIsImportModalOpen(true)}
+                    className="px-4 h-10"
+                  />
+                  <Button
+                    label="Thêm nhân sự mới"
+                    variant="primary"
+                    href="/admin/people/new"
+                    className="px-4 h-10"
+                  />
+                </div>
               }
             />
           </div>
@@ -723,6 +760,13 @@ export default function PeopleListClient({
           </div>
         </div>
       )}
+
+      {/* People Import Modal */}
+      <PeopleImportModal
+        isOpen={isImportModalOpen}
+        onClose={() => setIsImportModalOpen(false)}
+        onSuccess={handleImportSuccess}
+      />
     </div>
   );
 }

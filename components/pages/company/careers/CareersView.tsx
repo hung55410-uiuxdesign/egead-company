@@ -17,10 +17,10 @@ export default function CareersView({ jobs }: Props) {
   return (
     <div className="w-full bg-[#0A0D0E] text-white pt-28 sm:pt-36 overflow-hidden">
       <CareerHeroSection />
-      <CareerLifeSection />
-      <MotionSection className="w-full px-6 sm:px-10 lg:px-14 xl:px-16 mb-28 sm:mb-36">
+      {/* <CareerLifeSection /> */}
+      {/* <MotionSection className="w-full px-6 sm:px-10 lg:px-14 xl:px-16 mb-28 sm:mb-36">
         <CareerMomentsBento />
-      </MotionSection>
+      </MotionSection> */}
       <MotionSection className="w-full px-6 sm:px-10 lg:px-14 xl:px-16 mb-28 sm:mb-36">
         <CareerJobsList jobs={jobs} />
       </MotionSection>

@@ -8,7 +8,19 @@ import WorldClocksBar from './sections/WorldClocksBar';
 import CertificationBadges from './sections/CertificationBadges';
 import FooterBottomBar from './sections/FooterBottomBar';
 
-export default function Footer() {
+import type { FooterConfigData } from '@/lib/services/footer-config.service';
+
+interface FooterProps {
+  initialConfig?: FooterConfigData | null;
+}
+
+export default function Footer({ initialConfig }: FooterProps) {
+  if (initialConfig?.isActive === false) {
+    return null;
+  }
+
+  const config = initialConfig || null;
+
   return (
     <footer
       id="footer"
@@ -16,22 +28,22 @@ export default function Footer() {
     >
       <div className="w-full px-6 sm:px-10 lg:px-14 xl:px-16">
         {/* Top: Logo & Social Media */}
-        <FooterTopBar />
+        <FooterTopBar topBar={config?.topBar} />
 
         {/* Middle: Links & Newsletter */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 py-12 border-b border-gray-100">
-          <FooterNavColumns />
-          <NewsletterForm />
+          <FooterNavColumns columns={config?.navColumns} />
+          <NewsletterForm newsletter={config?.newsletter} />
         </div>
 
         {/* Live World Clocks Bar */}
-        <WorldClocksBar />
+        <WorldClocksBar timezones={config?.timezones} />
 
         {/* Badges SOC */}
-        <CertificationBadges />
+        <CertificationBadges certification={config?.certification} />
 
         {/* Bottom Bar: Language, Back to top, Copyright */}
-        <FooterBottomBar />
+        <FooterBottomBar bottomBar={config?.bottomBar} />
       </div>
     </footer>
   );

@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "framer-motion";
 
 type Props = {
@@ -8,6 +9,8 @@ type Props = {
 };
 
 export default function ServiceDetailVisualBanner({ imageSrc, title }: Props) {
+  const [isLoaded, setIsLoaded] = useState(false);
+
   if (!imageSrc) return null;
 
   return (
@@ -18,11 +21,19 @@ export default function ServiceDetailVisualBanner({ imageSrc, title }: Props) {
       viewport={{ once: true, amount: 0.2 }}
       transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
     >
-      <div className="service-detail__img w-full h-[480px] sm:h-[620px] md:h-[720px] lg:h-[820px] xl:h-[880px] rounded-[24px] overflow-hidden shadow-2xl border border-gray-100 relative">
+      <div className="service-detail__img w-full h-[480px] sm:h-[620px] md:h-[720px] lg:h-[820px] xl:h-[880px] rounded-[24px] overflow-hidden shadow-2xl border border-gray-100 relative bg-slate-100">
+        {!isLoaded && (
+          <div className="absolute inset-0 bg-slate-100 animate-pulse pointer-events-none" />
+        )}
         <img
           src={imageSrc}
           alt={`${title} Operational Infrastructure`}
-          className="w-full h-full object-cover object-center"
+          loading="lazy"
+          decoding="async"
+          onLoad={() => setIsLoaded(true)}
+          className={`w-full h-full object-cover object-center transition-opacity duration-500 ${
+            isLoaded ? "opacity-100" : "opacity-0"
+          }`}
         />
       </div>
     </motion.section>

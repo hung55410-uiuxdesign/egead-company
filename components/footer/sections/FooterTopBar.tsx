@@ -3,24 +3,38 @@
 import React from 'react';
 import Link from 'next/link';
 import { SOCIAL_LINKS } from '../config/social-links';
+import type { FooterTopBarData } from '@/lib/services/footer-config.service';
 
-export default function FooterTopBar() {
+interface FooterTopBarProps {
+  topBar?: FooterTopBarData;
+}
+
+export default function FooterTopBar({ topBar }: FooterTopBarProps) {
+  const logoUrl = topBar?.logoUrl || '/assets/logo/logo-color.png';
+  const logoAlt = topBar?.logoAlt || 'E-GEAD Company';
+  const logoHref = topBar?.logoHref || '/';
+  const networkTitle = topBar?.networkTitle ?? 'JOIN OUR NETWORK';
+  const socialLinks =
+    topBar?.socialLinks && topBar.socialLinks.length > 0
+      ? topBar.socialLinks
+      : SOCIAL_LINKS;
+
   return (
     <div className="flex flex-col md:flex-row md:items-center justify-between gap-8 pb-12 border-b border-gray-100">
-      <Link href="/" className="inline-block transition-opacity hover:opacity-90">
+      <Link href={logoHref} className="inline-block transition-opacity hover:opacity-90">
         <img
-          src="/assets/logo/logo-color.png"
-          alt="E-GEAD Company"
+          src={logoUrl}
+          alt={logoAlt}
           className="h-20 sm:h-24 lg:h-[96px] w-auto object-contain"
         />
       </Link>
 
       <div className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6">
         <span className="text-xs font-bold text-black font-montserrat">
-          JOIN OUR NETWORK
+          {networkTitle}
         </span>
         <div className="flex items-center gap-4 sm:gap-5">
-          {SOCIAL_LINKS.map((item) => (
+          {socialLinks.map((item) => (
             <a
               key={item.name}
               target="_blank"

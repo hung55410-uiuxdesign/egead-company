@@ -41,10 +41,18 @@ export function getOptimizedImageUrl(
     pathAfterTransform = segments.slice(1).join('/');
   }
 
-  const quality = options?.quality || 'best';
-  const upscale = options?.upscale !== false;
+  const quality = options?.quality || 'good';
+  const upscale = options?.upscale === true;
 
-  const transformList: string[] = ['f_auto', `q_auto:${quality}`];
+  const transformList: string[] = ['f_auto'];
+
+  if (quality === 'best') {
+    transformList.push('q_auto:best');
+  } else if (quality === 'eco') {
+    transformList.push('q_auto:eco');
+  } else {
+    transformList.push('q_auto:good');
+  }
 
   if (upscale) {
     transformList.push('e_upscale');

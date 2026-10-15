@@ -297,7 +297,72 @@ export function useBulkUpdatePeopleMutation(options?: {
 /**
  * Hook tổng hợp quản lý các thao tác mutation cho nhân sự
  */
-export function usePeopleMutations(options?: UsePeopleMutationsOptions) {
+/**
+ * Hook import danh sách nhân sự qua JSON
+ */
+export interface ImportPeopleVariables {
+  items: any[];
+  onDuplicate?: 'create' | 'update' | 'skip';
+}
+
+export function useImportPeopleMutation(options?: {
+  showToast?: boolean;
+  onSuccess?: (data: { count: number; items: AdminTeamMember[] }) => void;
+  onError?: (error: Error) => void;
+}) {
+  const queryClient = useQueryClient();
+  const router = useRouter();
+  const toast = useToast();
+  const showToast = options?.showToast ?? true;
+
+  return useMutation({
+    mutationFn: async (payload: ImportPeopleVariables) => {
+      const res = await fetch('/api/admin/people/import', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+
+      const result = await res.json();
+      if (!res.ok || !result.success) {
+        throw new Error(result.error || 'Import danh sách nhân sự thất bại');
+      }
+
+      return {
+        count: result.count as number,
+        items: result.items as AdminTeamMember[],
+      };
+    },
+    onSuccess: (data) => {
+      if (showToast) {
+        toast({
+          body: `Đã nhập thành công ${data.count} nhân sự vào hệ thống!`,
+          type: 'info',
+          isAutoHide: true,
+          autoHideDuration: 4000,
+        });
+      }
+      queryClient.invalidateQueries({ queryKey: PEOPLE_QUERY_KEY });
+      router.refresh();
+      options?.onSuccess?.(data);
+    },
+    onError: (error: Error) => {
+      if (showToast) {
+        toast({
+          body: error.message || 'Lỗi khi import danh sách nhân sự',
+          type: 'error',
+          isAutoHide: true,
+          autoHideDuration: 4000,
+        });
+      }
+      options?.onError?.(error);
+    },
+  });
+}
+
+export function usePeopleMutations(options?: UsePeopleMutationsOptions & {
+  onImportSuccess?: (data: { count: number; items: AdminTeamMember[] }) => void;
+}) {
   const saveMutation = useSavePersonMutation({
     showToast: options?.showToast,
     onSuccess: options?.onSaveSuccess,
@@ -319,6 +384,12 @@ export function usePeopleMutations(options?: UsePeopleMutationsOptions) {
   const bulkUpdateMutation = useBulkUpdatePeopleMutation({
     showToast: options?.showToast,
     onSuccess: options?.onBulkUpdateSuccess,
+    onError: options?.onError,
+  });
+
+  const importMutation = useImportPeopleMutation({
+    showToast: options?.showToast,
+    onSuccess: options?.onImportSuccess,
     onError: options?.onError,
   });
 
@@ -346,5 +417,11 @@ export function usePeopleMutations(options?: UsePeopleMutationsOptions) {
     bulkUpdateAsync: bulkUpdateMutation.mutateAsync,
     isBulkUpdating: bulkUpdateMutation.isPending,
     bulkUpdateMutation,
+
+    // Import JSON
+    importPeople: importMutation.mutate,
+    importPeopleAsync: importMutation.mutateAsync,
+    isImporting: importMutation.isPending,
+    importMutation,
   };
 }

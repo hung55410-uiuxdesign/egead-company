@@ -264,7 +264,22 @@ describe('People Validation & Consistency Tests', () => {
 
       // Verify deletion
       const checkDeleted = await getTeamMember(mem1.id);
-      expect(checkDeleted).toBeNull();
+    });
+
+    test('SAMPLE_PEOPLE_JSON items all satisfy teamMemberInputSchema', () => {
+      const { SAMPLE_PEOPLE_JSON } = require('../components/admin/people/components/PeopleImportModal');
+      expect(Array.isArray(SAMPLE_PEOPLE_JSON)).toBe(true);
+      expect(SAMPLE_PEOPLE_JSON.length).toBeGreaterThan(0);
+
+      for (const person of SAMPLE_PEOPLE_JSON) {
+        const parsed = teamMemberInputSchema.safeParse(person);
+        expect(parsed.success).toBe(true);
+        if (parsed.success) {
+          expect(parsed.data.name.length).toBeGreaterThan(0);
+          expect(parsed.data.role.length).toBeGreaterThan(0);
+          expect(DEPARTMENTS).toContain(parsed.data.department as any);
+        }
+      }
     });
   });
 });

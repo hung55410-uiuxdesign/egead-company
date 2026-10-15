@@ -1,5 +1,5 @@
 import React from 'react';
-import { notFound } from 'next/navigation';
+import { notFound, redirect } from 'next/navigation';
 import { getHomeSectionByKey } from '@/lib/services/home-section.service';
 import {
   MarketplacesSectionFormClient,
@@ -16,6 +16,9 @@ interface PageProps {
 
 export async function generateMetadata({ params }: PageProps) {
   const { key } = await params;
+  if (key === 'footer-config') {
+    return { title: 'Cấu hình Chân trang (Footer) | Admin E-GEAD' };
+  }
   const section = await getHomeSectionByKey(key);
   return {
     title: section
@@ -26,6 +29,11 @@ export async function generateMetadata({ params }: PageProps) {
 
 export default async function AdminHomeSectionDetailPage({ params }: PageProps) {
   const { key } = await params;
+
+  if (key === 'footer-config') {
+    redirect('/admin/footer');
+  }
+
   const section = await getHomeSectionByKey(key);
 
   if (!section) {

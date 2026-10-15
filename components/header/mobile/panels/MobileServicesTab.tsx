@@ -4,7 +4,6 @@ import React from 'react';
 import Link from 'next/link';
 import { ChevronRight } from 'lucide-react';
 import NavArrowIcon from '../../ui/NavArrowIcon';
-import { SERVICE_ITEMS, INDUSTRY_ITEMS, PARTNER_ITEMS } from '../../config/nav-items';
 import type { HeaderServicesMenuData } from '@/lib/services/home-section.service';
 
 interface MobileServicesTabProps {
@@ -16,18 +15,9 @@ export default function MobileServicesTab({
   onClose,
   servicesMenu,
 }: MobileServicesTabProps) {
-  const servicesList =
-    servicesMenu?.services && servicesMenu.services.length > 0
-      ? servicesMenu.services
-      : SERVICE_ITEMS;
-  const industriesList =
-    servicesMenu?.industries && servicesMenu.industries.length > 0
-      ? servicesMenu.industries
-      : INDUSTRY_ITEMS;
-  const partnersList =
-    servicesMenu?.partners && servicesMenu.partners.length > 0
-      ? servicesMenu.partners
-      : PARTNER_ITEMS;
+  const servicesList = servicesMenu?.services || [];
+  const industriesList = servicesMenu?.industries || [];
+  const partnersList = servicesMenu?.partners || [];
 
   const allServicesText = servicesMenu?.allServicesText || 'All Our Services';
   const allServicesHref =
@@ -41,11 +31,17 @@ export default function MobileServicesTab({
   const allPartnersText = servicesMenu?.allPartnersText || 'All Partners';
   const allPartnersHref = servicesMenu?.allPartnersHref || '/partners';
 
+  const hasPartners = partnersList.length > 0;
+
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
+    <div
+      className={`grid grid-cols-1 ${
+        hasPartners ? 'sm:grid-cols-3' : 'sm:grid-cols-2'
+      } gap-8`}
+    >
       {/* Column 1: Our Services */}
       <div>
-        <h3 className="text-xs font-bold text-gray-400 mb-4 uppercase tracking-wider">
+        <h3 className="text-xs font-bold text-gray-500 mb-4">
           Our Services
         </h3>
         <ul className="space-y-3.5 mb-6">
@@ -89,7 +85,7 @@ export default function MobileServicesTab({
 
       {/* Column 2: Industries */}
       <div>
-        <h3 className="text-xs font-bold text-gray-400 mb-4 uppercase tracking-wider">
+        <h3 className="text-xs font-bold text-gray-500 mb-4">
           Industries
         </h3>
         <ul className="space-y-3.5 mb-6">
@@ -132,36 +128,38 @@ export default function MobileServicesTab({
       </div>
 
       {/* Column 3: Partners */}
-      <div>
-        <h3 className="text-xs font-bold text-gray-400 mb-4 uppercase tracking-wider">
-          Partners
-        </h3>
-        <ul className="space-y-3.5 mb-6">
-          {partnersList.map((p) => (
-            <li key={p.name}>
-              <Link
-                href={p.href}
-                onClick={onClose}
-                className="group flex items-center justify-between text-sm font-semibold text-gray-800 hover:text-[#007A3D] transition"
-              >
-                <span>{p.name}</span>
-                <ChevronRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
-              </Link>
-            </li>
-          ))}
-        </ul>
+      {hasPartners && (
+        <div>
+          <h3 className="text-xs font-bold text-gray-500 mb-4">
+            Partners
+          </h3>
+          <ul className="space-y-3.5 mb-6">
+            {partnersList.map((p) => (
+              <li key={p.name}>
+                <Link
+                  href={p.href}
+                  onClick={onClose}
+                  className="group flex items-center justify-between text-sm font-semibold text-gray-800 hover:text-[#007A3D] transition"
+                >
+                  <span>{p.name}</span>
+                  <ChevronRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
+                </Link>
+              </li>
+            ))}
+          </ul>
 
-        <div className="pt-2">
-          <Link
-            href={allPartnersHref}
-            onClick={onClose}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-gray-300 hover:border-black text-xs font-semibold text-gray-800 transition"
-          >
-            <NavArrowIcon size={12} />
-            <span>{allPartnersText}</span>
-          </Link>
+          <div className="pt-2">
+            <Link
+              href={allPartnersHref}
+              onClick={onClose}
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-gray-300 hover:border-black text-xs font-semibold text-gray-800 transition"
+            >
+              <NavArrowIcon size={12} />
+              <span>{allPartnersText}</span>
+            </Link>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }

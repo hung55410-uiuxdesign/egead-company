@@ -2,14 +2,26 @@
 
 import React from 'react';
 import { useNewsletter } from '../hooks/useNewsletter';
+import type { FooterNewsletterData } from '@/lib/services/footer-config.service';
 
-export default function NewsletterForm() {
+interface NewsletterFormProps {
+  newsletter?: FooterNewsletterData;
+}
+
+export default function NewsletterForm({ newsletter }: NewsletterFormProps) {
   const { email, setEmail, handleSubscribe } = useNewsletter();
+
+  const title = newsletter?.title || 'Newsletter';
+  const placeholder = newsletter?.placeholder || 'name@youremail.com';
+  const privacyPolicyHref =
+    newsletter?.privacyPolicyHref || 'https://policies.google.com/privacy?hl=en';
+  const termsHref =
+    newsletter?.termsHref || 'https://policies.google.com/terms?hl=en';
 
   return (
     <div className="lg:col-span-4">
       <span className="text-xs font-bold text-black block mb-5">
-        Newsletter
+        {title}
       </span>
 
       <form onSubmit={handleSubscribe} className="relative">
@@ -18,7 +30,7 @@ export default function NewsletterForm() {
           required
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          placeholder="name@youremail.com"
+          placeholder={placeholder}
           className="w-full bg-white border border-gray-300 rounded-full px-5 py-3.5 text-sm text-black placeholder-gray-400 focus:outline-none focus:border-[#10E774] pr-14 transition shadow-sm"
         />
         <button
@@ -36,25 +48,31 @@ export default function NewsletterForm() {
       </form>
 
       <p className="text-sm text-gray-800 mt-4 leading-relaxed">
-        This site is protected by reCAPTCHA and the{' '}
-        <a
-          target="_blank"
-          rel="noopener noreferrer"
-          href="https://policies.google.com/privacy?hl=en"
-          className="underline hover:text-black"
-        >
-          Google Privacy Policy
-        </a>{' '}
-        and{' '}
-        <a
-          target="_blank"
-          rel="noopener noreferrer"
-          href="https://policies.google.com/terms?hl=en"
-          className="underline hover:text-black"
-        >
-          Terms of Service
-        </a>{' '}
-        apply.
+        {newsletter?.disclaimerText ? (
+          <span>{newsletter.disclaimerText}</span>
+        ) : (
+          <>
+            This site is protected by reCAPTCHA and the{' '}
+            <a
+              target="_blank"
+              rel="noopener noreferrer"
+              href={privacyPolicyHref}
+              className="underline hover:text-black"
+            >
+              Google Privacy Policy
+            </a>{' '}
+            and{' '}
+            <a
+              target="_blank"
+              rel="noopener noreferrer"
+              href={termsHref}
+              className="underline hover:text-black"
+            >
+              Terms of Service
+            </a>{' '}
+            apply.
+          </>
+        )}
       </p>
     </div>
   );

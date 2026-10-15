@@ -3,7 +3,6 @@
 import React from 'react';
 import Link from 'next/link';
 import NavArrowIcon from '../../ui/NavArrowIcon';
-import { SERVICE_ITEMS, INDUSTRY_ITEMS, PARTNER_ITEMS } from '../../config/nav-items';
 import type { HeaderServicesMenuData } from '@/lib/services/home-section.service';
 
 interface ServicesPanelProps {
@@ -15,18 +14,9 @@ export default function ServicesPanel({
   onItemClick,
   servicesMenu,
 }: ServicesPanelProps) {
-  const servicesList =
-    servicesMenu?.services && servicesMenu.services.length > 0
-      ? servicesMenu.services
-      : SERVICE_ITEMS;
-  const industriesList =
-    servicesMenu?.industries && servicesMenu.industries.length > 0
-      ? servicesMenu.industries
-      : INDUSTRY_ITEMS;
-  const partnersList =
-    servicesMenu?.partners && servicesMenu.partners.length > 0
-      ? servicesMenu.partners
-      : PARTNER_ITEMS;
+  const servicesList = servicesMenu?.services || [];
+  const industriesList = servicesMenu?.industries || [];
+  const partnersList = servicesMenu?.partners || [];
 
   const allServicesText = servicesMenu?.allServicesText || 'All Our Services';
   const allServicesHref =
@@ -35,14 +25,20 @@ export default function ServicesPanel({
   const allIndustriesText =
     servicesMenu?.allIndustriesText || 'All Industries';
   const allIndustriesHref =
-    servicesMenu?.allIndustriesHref || '/services/all-services#industries';
+    servicesMenu?.allIndustriesHref || '/services/all-services';
 
   const allPartnersText = servicesMenu?.allPartnersText || 'All Partners';
   const allPartnersHref = servicesMenu?.allPartnersHref || '/partners';
 
+  const hasPartners = partnersList.length > 0;
+
   return (
     <div>
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 lg:gap-14 items-start">
+      <div
+        className={`grid grid-cols-1 ${
+          hasPartners ? 'sm:grid-cols-3' : 'sm:grid-cols-2'
+        } gap-8 lg:gap-14 items-start`}
+      >
         {/* Column 1: Our Services */}
         <div>
           <h3 className="text-base sm:text-[17px] font-bold text-gray-900 mb-6 font-montserrat">
@@ -127,35 +123,37 @@ export default function ServicesPanel({
           </Link>
         </div>
 
-        {/* Column 3: Partners */}
-        <div>
-          <h3 className="text-base sm:text-[17px] font-bold text-gray-900 mb-6 font-montserrat">
-            Partners
-          </h3>
-          <div className="space-y-4 mb-8">
-            {partnersList.map((partner) => (
-              <Link
-                key={partner.name}
-                href={partner.href}
-                onClick={onItemClick}
-                className="group flex items-center py-1 text-[15px] font-semibold text-gray-800 hover:text-[#007A3D] transition duration-200"
-              >
-                <span className="group-hover:translate-x-0.5 transition-transform">
-                  {partner.name}
-                </span>
-              </Link>
-            ))}
-          </div>
+        {/* Column 3: Partners (Only displayed when real partners exist) */}
+        {hasPartners && (
+          <div>
+            <h3 className="text-base sm:text-[17px] font-bold text-gray-900 mb-6 font-montserrat">
+              Partners
+            </h3>
+            <div className="space-y-4 mb-8">
+              {partnersList.map((partner) => (
+                <Link
+                  key={partner.name}
+                  href={partner.href}
+                  onClick={onItemClick}
+                  className="group flex items-center py-1 text-[15px] font-semibold text-gray-800 hover:text-[#007A3D] transition duration-200"
+                >
+                  <span className="group-hover:translate-x-0.5 transition-transform">
+                    {partner.name}
+                  </span>
+                </Link>
+              ))}
+            </div>
 
-          <Link
-            href={allPartnersHref}
-            onClick={onItemClick}
-            className="inline-flex items-center gap-2 px-5 py-2 rounded-full border border-gray-300 hover:border-black text-[13.5px] font-semibold text-gray-800 hover:text-black transition duration-200 hover:bg-gray-50/80 shadow-sm"
-          >
-            <NavArrowIcon />
-            <span>{allPartnersText}</span>
-          </Link>
-        </div>
+            <Link
+              href={allPartnersHref}
+              onClick={onItemClick}
+              className="inline-flex items-center gap-2 px-5 py-2 rounded-full border border-gray-300 hover:border-black text-[13.5px] font-semibold text-gray-800 hover:text-black transition duration-200 hover:bg-gray-50/80 shadow-sm"
+            >
+              <NavArrowIcon />
+              <span>{allPartnersText}</span>
+            </Link>
+          </div>
+        )}
       </div>
     </div>
   );
