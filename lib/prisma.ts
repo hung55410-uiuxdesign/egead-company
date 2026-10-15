@@ -21,7 +21,8 @@ const globalForPrisma = globalThis as unknown as {
 if (
   !globalForPrisma.prisma ||
   globalForPrisma.activeUrl !== targetUrl ||
-  !('partnerItem' in (globalForPrisma.prisma as object))
+  !('partnerItem' in (globalForPrisma.prisma as object)) ||
+  !('companySection' in (globalForPrisma.prisma as object))
 ) {
   if (globalForPrisma.prisma) {
     try {

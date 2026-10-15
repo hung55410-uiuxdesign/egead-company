@@ -4,7 +4,26 @@ import React from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 
-export default function ContactBlock() {
+export interface ContactBlockProps {
+  title?: string;
+  buttonText?: string;
+  buttonHref?: string;
+  section?: any;
+}
+
+export default function ContactBlock({
+  title: propTitle,
+  buttonText: propButtonText,
+  buttonHref: propButtonHref,
+  section,
+}: ContactBlockProps = {}) {
+  const data = (section?.data || {}) as any;
+  const title = propTitle || section?.title || "Let's automate your\ne-commerce operations.";
+  const buttonText = propButtonText || data.buttonText || 'Get Free Consultation';
+  const buttonHref = propButtonHref || data.buttonHref || '/contact-us';
+
+  const titleLines = typeof title === 'string' ? title.split('\n') : [title];
+
   return (
     <section className="contact-block relative w-full py-24 sm:py-32 lg:py-36 bg-[#0A0D0E] text-white overflow-hidden text-center">
       {/* FULL WIDTH CENTERED BLOCK matching live site */}
@@ -17,8 +36,12 @@ export default function ContactBlock() {
           className="text-3xl sm:text-5xl lg:text-[68px] font-medium leading-[1.18] tracking-tight font-montserrat max-w-5xl"
         >
           <span className="bg-gradient-to-r from-[#6CE8C3] via-[#A8F7E2] to-white bg-clip-text text-transparent">
-            Let&apos;s automate your <br className="hidden sm:inline" />
-            e-commerce operations.
+            {titleLines.map((line: string, i: number) => (
+              <React.Fragment key={i}>
+                {i > 0 && <br className="hidden sm:inline" />}
+                {line}
+              </React.Fragment>
+            ))}
           </span>
         </motion.h2>
 
@@ -39,10 +62,10 @@ export default function ContactBlock() {
             transition={{ type: 'spring', stiffness: 400, damping: 20 }}
           >
             <Link
-              href="/contact-us"
+              href={buttonHref}
               className="group relative inline-flex items-center gap-2.5 bg-[#10E774] hover:bg-[#5EFC8D] text-[#003D5B] font-semibold text-sm sm:text-base px-8 sm:px-10 py-3.5 sm:py-4 rounded-full transition-all duration-300 shadow-[0_0_25px_rgba(16,231,116,0.35)] hover:shadow-[0_0_45px_rgba(94,252,141,0.7)]"
             >
-              <span>Get Free Consultation</span>
+              <span>{buttonText}</span>
               <svg
                 width="16"
                 height="16"
@@ -58,5 +81,6 @@ export default function ContactBlock() {
         </motion.div>
       </div>
     </section>
+
   );
 }

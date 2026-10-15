@@ -1,17 +1,44 @@
 import Link from 'next/link';
 import MotionSection, { MotionCard } from '@/components/MotionSection';
+import type { CompanySectionModel, CompanyPortalsData } from '@/lib/services/company-section.service';
 
-export default function CompanyPortalsSection() {
+interface CompanyPortalsSectionProps {
+  section?: CompanySectionModel | null;
+}
+
+export default function CompanyPortalsSection({ section }: CompanyPortalsSectionProps) {
+  const portalData = (section?.data || {}) as CompanyPortalsData;
+
+  const bannerImage = portalData.bannerImage || '/assets/company.png';
+  const bannerAlt = portalData.bannerAlt || 'E-GEAD People and Technology Hub';
+
+  const people = portalData.peopleCard || {
+    subtitle: 'Our People',
+    title: 'Meet the people behind your success.',
+    icon: '/assets/icon31.svg',
+    hoverIcon: '/assets/icon32.svg',
+    buttonText: 'Our people',
+    buttonHref: '/people',
+  };
+
+  const careers = portalData.careersCard || {
+    subtitle: 'Job Opportunities',
+    title: 'Be a Part of our wonderful team.',
+    icon: '/assets/Name_Job_Opportunities__Color_BnW.svg',
+    hoverIcon: '/assets/Name_Job_Opportunities__Color_Colorful.svg',
+    buttonText: 'Careers',
+    buttonHref: '/careers',
+  };
+
   return (
     <>
       <MotionSection className="w-full px-6 sm:px-10 lg:px-14 xl:px-16 mb-24 sm:mb-32">
-        <div className="relative w-full rounded-[28px] sm:rounded-[36px] overflow-hidden border border-white/10 shadow-2xl h-[320px] sm:h-[460px] lg:h-[580px]">
+        <div className="relative w-full rounded-[28px] sm:rounded-[36px] overflow-hidden border border-white/10 shadow-2xl">
           <img
-            src="/assets/company.png"
-            alt="E-GEAD People and Technology Hub"
-            className="w-full h-full object-cover object-center"
+            src={bannerImage}
+            alt={bannerAlt}
+            className="w-full h-auto block"
           />
-          <div className="absolute inset-0 bg-black/25 pointer-events-none" />
         </div>
       </MotionSection>
       <MotionSection className="w-full px-6 sm:px-10 lg:px-14 xl:px-16 mb-28 sm:mb-36">
@@ -19,28 +46,30 @@ export default function CompanyPortalsSection() {
           <MotionCard index={0} className="group p-8 sm:p-12 rounded-[32px] bg-[#141718] border border-white/10 hover:border-[#10E774]/50 transition-all duration-300 flex flex-col justify-between min-h-[380px] shadow-2xl hover:shadow-[0_20px_40px_rgba(16,231,116,0.12)]">
             <div>
               <p className="text-base sm:text-lg font-normal text-[#D4FAE6] mb-4 font-montserrat">
-                Our People
+                {people.subtitle}
               </p>
               <div className="relative w-24 h-24 sm:w-28 sm:h-28 mb-8">
                 <img
-                  src="/assets/icon31.svg"
-                  alt="Our people icon"
-                  className="w-full h-full object-contain transition-opacity duration-300 group-hover:opacity-0"
+                  src={people.icon}
+                  alt={people.title}
+                  className={`w-full h-full object-contain transition-opacity duration-300 ${people.hoverIcon ? 'group-hover:opacity-0' : ''}`}
                 />
-                <img
-                  src="/assets/icon32.svg"
-                  alt="Our people hover icon"
-                  className="w-full h-full object-contain absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-                />
+                {people.hoverIcon && (
+                  <img
+                    src={people.hoverIcon}
+                    alt={`${people.title} hover`}
+                    className="w-full h-full object-contain absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                  />
+                )}
               </div>
               <h3 className="text-2xl sm:text-3xl lg:text-[34px] font-medium text-[#D4FAE6] mb-6 font-montserrat leading-snug">
-                Meet the people behind your success.
+                {people.title}
               </h3>
             </div>
 
             <div>
               <Link
-                href="/people"
+                href={people.buttonHref || '/people'}
                 className="group/btn inline-flex items-center gap-2.5 px-6 py-3.5 rounded-full bg-white text-black font-medium text-sm hover:bg-[#10E774] transition-all duration-300"
               >
                 <svg
@@ -53,35 +82,37 @@ export default function CompanyPortalsSection() {
                 >
                   <path d="M15.125 10.875L10.625 15.375L9.56 14.31L12.2525 11.625H3.875V2.625H5.375V10.125H12.2525L9.56 7.44L10.625 6.375L15.125 10.875Z" />
                 </svg>
-                <span>Our people</span>
+                <span>{people.buttonText}</span>
               </Link>
             </div>
           </MotionCard>
           <MotionCard index={1} className="group p-8 sm:p-12 rounded-[32px] bg-[#141718] border border-white/10 hover:border-[#10E774]/50 transition-all duration-300 flex flex-col justify-between min-h-[380px] shadow-2xl hover:shadow-[0_20px_40px_rgba(16,231,116,0.12)]">
             <div>
               <p className="text-base sm:text-lg font-normal text-[#D4FAE6] mb-4 font-montserrat">
-                Job Opportunities
+                {careers.subtitle}
               </p>
               <div className="relative w-24 h-24 sm:w-28 sm:h-28 mb-8">
                 <img
-                  src="/assets/Name_Job_Opportunities__Color_BnW.svg"
-                  alt="Job opportunities icon"
-                  className="w-full h-full object-contain transition-opacity duration-300 group-hover:opacity-0"
+                  src={careers.icon}
+                  alt={careers.title}
+                  className={`w-full h-full object-contain transition-opacity duration-300 ${careers.hoverIcon ? 'group-hover:opacity-0' : ''}`}
                 />
-                <img
-                  src="/assets/Name_Job_Opportunities__Color_Colorful.svg"
-                  alt="Job opportunities colorful hover"
-                  className="w-full h-full object-contain absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-                />
+                {careers.hoverIcon && (
+                  <img
+                    src={careers.hoverIcon}
+                    alt={`${careers.title} hover`}
+                    className="w-full h-full object-contain absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                  />
+                )}
               </div>
               <h3 className="text-2xl sm:text-3xl lg:text-[34px] font-medium text-[#D4FAE6] mb-6 font-montserrat leading-snug">
-                Be a Part of our wonderful team.
+                {careers.title}
               </h3>
             </div>
 
             <div>
               <Link
-                href="/careers"
+                href={careers.buttonHref || '/careers'}
                 className="group/btn inline-flex items-center gap-2.5 px-6 py-3.5 rounded-full bg-white text-black font-medium text-sm hover:bg-[#10E774] transition-all duration-300"
               >
                 <svg
@@ -94,7 +125,7 @@ export default function CompanyPortalsSection() {
                 >
                   <path d="M15.125 10.875L10.625 15.375L9.56 14.31L12.2525 11.625H3.875V2.625H5.375V10.125H12.2525L9.56 7.44L10.625 6.375L15.125 10.875Z" />
                 </svg>
-                <span>Careers</span>
+                <span>{careers.buttonText}</span>
               </Link>
             </div>
           </MotionCard>
@@ -103,3 +134,4 @@ export default function CompanyPortalsSection() {
     </>
   );
 }
+

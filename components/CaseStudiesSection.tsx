@@ -97,6 +97,7 @@ export interface CaseStudiesSectionProps {
   row2Partners?: LogoItem[];
   rows?: LogoItem[][];
   logos?: LogoItem[];
+  companySection?: any;
 }
 
 export default function CaseStudiesSection({
@@ -109,6 +110,7 @@ export default function CaseStudiesSection({
   row2Partners: customRow2,
   rows: customRows,
   logos,
+  companySection,
 }: CaseStudiesSectionProps) {
   // If used on Services Page / Single Partners Slider
   if (variant === 'services') {
@@ -223,8 +225,16 @@ export default function CaseStudiesSection({
 
   // If used on Company Page
   if (variant === 'company') {
-    const clientsDoubled = [...companyClientLogos, ...companyClientLogos, ...companyClientLogos];
-    const servicesDoubled = [...companyServiceLogos, ...companyServiceLogos, ...companyServiceLogos];
+    const data = (companySection?.data || {}) as any;
+    const clientsList = (data.clients && data.clients.length > 0) ? data.clients : companyClientLogos;
+    const servicesList = (data.servicePartners && data.servicePartners.length > 0) ? data.servicePartners : companyServiceLogos;
+    const clientsSubtitle = data.clientsSubtitle || companySection?.subtitle || 'Clients';
+    const clientsTitle = data.clientsTitle || companySection?.title || 'We work with established global enterprises and ambitious brands.';
+    const servicesSubtitle = data.servicesSubtitle || 'Services';
+    const servicesTitle = data.servicesTitle || 'We are partnering with leading tech providers.';
+
+    const clientsDoubled = [...clientsList, ...clientsList, ...clientsList];
+    const servicesDoubled = [...servicesList, ...servicesList, ...servicesList];
 
     return (
       <section
@@ -242,7 +252,7 @@ export default function CaseStudiesSection({
               viewport={{ once: true }}
               className="text-sm sm:text-base font-normal text-[#D4FAE6] mb-2.5 font-montserrat"
             >
-              Clients
+              {clientsSubtitle}
             </motion.p>
             <motion.h3
               initial={{ opacity: 0, y: 20 }}
@@ -251,7 +261,7 @@ export default function CaseStudiesSection({
               transition={{ delay: 0.1 }}
               className="text-xl sm:text-2xl lg:text-[34px] font-normal text-white font-montserrat leading-snug max-w-4xl"
             >
-              We work with established global enterprises and ambitious brands.
+              {clientsTitle}
             </motion.h3>
           </div>
 
@@ -275,7 +285,7 @@ export default function CaseStudiesSection({
                   <img
                     src={client.src}
                     alt={client.name}
-                    className="h-12 sm:h-16 lg:h-20 w-auto max-w-[170px] sm:max-w-[210px] lg:max-w-[240px] object-contain brightness-0 invert drop-shadow-sm group-hover:drop-shadow-[0_0_16px_rgba(108,232,195,0.7)] transition-all duration-300 pointer-events-none"
+                    className={`h-12 sm:h-16 lg:h-20 w-auto max-w-[170px] sm:max-w-[210px] lg:max-w-[240px] object-contain drop-shadow-sm group-hover:drop-shadow-[0_0_16px_rgba(108,232,195,0.7)] transition-all duration-300 pointer-events-none ${client.invert !== false ? 'brightness-0 invert' : ''}`}
                   />
                 </motion.div>
               ))}
@@ -294,7 +304,7 @@ export default function CaseStudiesSection({
               viewport={{ once: true }}
               className="text-sm sm:text-base font-normal text-[#D4FAE6] mb-2.5 font-montserrat"
             >
-              Services
+              {servicesSubtitle}
             </motion.p>
             <motion.h3
               initial={{ opacity: 0, y: 20 }}
@@ -303,7 +313,7 @@ export default function CaseStudiesSection({
               transition={{ delay: 0.1 }}
               className="text-xl sm:text-2xl lg:text-[34px] font-normal text-white font-montserrat leading-snug max-w-4xl"
             >
-              We are partnering with leading tech providers.
+              {servicesTitle}
             </motion.h3>
           </div>
 
@@ -327,7 +337,7 @@ export default function CaseStudiesSection({
                   <img
                     src={service.src}
                     alt={service.name}
-                    className="h-12 sm:h-16 lg:h-20 w-auto max-w-[170px] sm:max-w-[210px] lg:max-w-[240px] object-contain brightness-0 invert drop-shadow-sm group-hover:drop-shadow-[0_0_16px_rgba(108,232,195,0.7)] transition-all duration-300 pointer-events-none"
+                    className={`h-12 sm:h-16 lg:h-20 w-auto max-w-[170px] sm:max-w-[210px] lg:max-w-[240px] object-contain drop-shadow-sm group-hover:drop-shadow-[0_0_16px_rgba(108,232,195,0.7)] transition-all duration-300 pointer-events-none ${service.invert !== false ? 'brightness-0 invert' : ''}`}
                   />
                 </motion.div>
               ))}

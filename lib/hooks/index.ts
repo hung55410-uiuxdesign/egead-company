@@ -12,4 +12,4 @@ export * from './useCaseStudyMutations';
 export * from './useServiceMutations';
 export * from './useHomeSectionMutations';
 export * from './usePartnerMutations';
-
+export * from './useCompanySectionMutations';

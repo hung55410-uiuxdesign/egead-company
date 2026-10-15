@@ -470,7 +470,7 @@ export default function BlogEditorClient({
                 value={authorName}
                 onChange={(e) => setAuthorName(e.target.value)}
                 placeholder="E-GEAD Research Team"
-                className="w-full px-3.5 py-2.5 bg-white border border-slate-200 rounded-xl text-sm text-slate-900 focus:outline-none focus:border-slate-800 focus:ring-2 focus:ring-slate-800/10 transition-all"
+                className="w-full h-10 px-3.5 py-2.5 bg-white border border-slate-200 rounded-xl text-sm text-slate-900 focus:outline-none focus:border-slate-800 focus:ring-2 focus:ring-slate-800/10 transition-all"
               />
             </div>
 
@@ -483,7 +483,7 @@ export default function BlogEditorClient({
                 value={authorRole}
                 onChange={(e) => setAuthorRole(e.target.value)}
                 placeholder="Global Commerce Strategist"
-                className="w-full px-3.5 py-2.5 bg-white border border-slate-200 rounded-xl text-sm text-slate-900 focus:outline-none focus:border-slate-800 focus:ring-2 focus:ring-slate-800/10 transition-all"
+                className="w-full h-10 px-3.5 py-2.5 bg-white border border-slate-200 rounded-xl text-sm text-slate-900 focus:outline-none focus:border-slate-800 focus:ring-2 focus:ring-slate-800/10 transition-all"
               />
             </div>
           </Card>

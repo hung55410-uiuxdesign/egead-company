@@ -1,6 +1,11 @@
 import MotionSection, { MotionCard } from '@/components/MotionSection';
+import type { CompanySectionModel, CompanyValueSystemData } from '@/lib/services/company-section.service';
 
-const VALUES = [
+interface CompanyValueSystemSectionProps {
+  section?: CompanySectionModel | null;
+}
+
+const DEFAULT_VALUES = [
   {
     number: '01',
     icon: '/assets/icon1.png',
@@ -24,22 +29,27 @@ const VALUES = [
   },
 ];
 
-export default function CompanyValueSystemSection() {
+export default function CompanyValueSystemSection({ section }: CompanyValueSystemSectionProps) {
+  const valueData = (section?.data || {}) as CompanyValueSystemData;
+  const subtitle = section?.subtitle || 'Value System';
+  const title = section?.title || 'We believe in building transformative experiences to empower individuals, businesses and communities.';
+  const items = (valueData.items && valueData.items.length > 0) ? valueData.items : DEFAULT_VALUES;
+
   return (
     <MotionSection className="w-full px-6 sm:px-10 lg:px-14 xl:px-16 mb-24 sm:mb-32">
       <div className="w-full mb-12 sm:mb-16">
         <p className="text-base sm:text-lg font-normal text-[#D4FAE6] mb-3 font-montserrat">
-          Value System
+          {subtitle}
         </p>
         <h2 className="text-2xl sm:text-3xl lg:text-[34px] font-medium text-[#D4FAE6] font-montserrat leading-[1.3]">
-          We believe in building transformative experiences to empower individuals, businesses and communities.
+          {title}
         </h2>
       </div>
 
       <div className="w-full grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
-        {VALUES.map((val, idx) => (
+        {items.map((val, idx) => (
           <MotionCard
-            key={val.number}
+            key={val.number || idx}
             index={idx}
             className="group p-8 sm:p-10 rounded-[32px] bg-[#141718] border border-white/10 hover:border-[#10E774]/50 transition-all duration-300 flex flex-col justify-between min-h-[360px] shadow-xl hover:shadow-[0_20px_40px_rgba(16,231,116,0.12)]"
           >
@@ -67,3 +77,4 @@ export default function CompanyValueSystemSection() {
     </MotionSection>
   );
 }
+

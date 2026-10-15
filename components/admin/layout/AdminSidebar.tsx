@@ -19,6 +19,7 @@ import {
   FileInput,
   GitFork,
   Mail,
+  Building2,
 } from 'lucide-react';
 import { useSession, authClient } from '@/lib/auth-client';
 import { Badge, Button } from '@astryxdesign/core';
@@ -66,6 +67,12 @@ const PAGE_NAV_ITEMS = [
     label: 'Dịch vụ & Ngành nghề',
     href: '/admin/services',
     icon: Sparkles,
+    exact: false,
+  },
+  {
+    label: 'Về E-GEAD (Company)',
+    href: '/admin/company',
+    icon: Building2,
     exact: false,
   },
 ];
