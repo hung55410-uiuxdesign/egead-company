@@ -1,52 +1,52 @@
-"use client";
+'use client';
 
-import { useState } from "react";
+import React, { useState } from 'react';
 import {
-  ArrowUpRight,
   Upload,
   CheckCircle2,
   AlertCircle,
   Loader2,
-} from "lucide-react";
+  ArrowRight,
+} from 'lucide-react';
 
-type Props = {
+interface JobApplicationFormProps {
   positionTitle: string;
   jobId?: string;
-};
+}
 
 export default function JobApplicationForm({
   positionTitle,
   jobId,
-}: Props) {
+}: JobApplicationFormProps) {
   const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    phone: "",
-    message: "",
+    firstName: '',
+    lastName: '',
+    email: '',
+    phone: '',
+    message: '',
   });
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [errorMsg, setErrorMsg] = useState("");
+  const [errorMsg, setErrorMsg] = useState('');
 
   const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
-    setErrorMsg("");
+    setErrorMsg('');
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       const file = e.target.files[0];
       if (file.size > 15 * 1024 * 1024) {
-        setErrorMsg("File size must be under 15MB.");
+        setErrorMsg('Dung lượng tệp không được vượt quá 15MB.');
         return;
       }
       setSelectedFile(file);
-      setErrorMsg("");
+      setErrorMsg('');
     }
   };
 
@@ -58,39 +58,39 @@ export default function JobApplicationForm({
       !formData.email.trim() ||
       !formData.phone.trim()
     ) {
-      setErrorMsg("Please complete all required fields (*).");
+      setErrorMsg('Vui lòng điền đầy đủ các trường thông tin bắt buộc (*).');
       return;
     }
 
     if (!selectedFile) {
-      setErrorMsg("Please upload your CV / Resume (PDF, DOC, DOCX).");
+      setErrorMsg('Vui lòng tải lên tệp CV / Hồ sơ ứng tuyển (PDF, DOC, DOCX).');
       return;
     }
 
     setIsSubmitting(true);
-    setErrorMsg("");
+    setErrorMsg('');
 
     try {
       const body = new FormData();
-      body.append("firstName", formData.firstName.trim());
-      body.append("lastName", formData.lastName.trim());
+      body.append('firstName', formData.firstName.trim());
+      body.append('lastName', formData.lastName.trim());
       body.append(
-        "fullName",
-        `${formData.firstName.trim()} ${formData.lastName.trim()}`,
+        'fullName',
+        `${formData.firstName.trim()} ${formData.lastName.trim()}`
       );
-      body.append("email", formData.email.trim());
-      body.append("phone", formData.phone.trim());
+      body.append('email', formData.email.trim());
+      body.append('phone', formData.phone.trim());
       if (jobId) {
-        body.append("jobId", jobId);
+        body.append('jobId', jobId);
       }
-      body.append("jobTitle", positionTitle);
+      body.append('jobTitle', positionTitle);
       if (formData.message.trim()) {
-        body.append("coverLetter", formData.message.trim());
+        body.append('coverLetter', formData.message.trim());
       }
-      body.append("file", selectedFile);
+      body.append('file', selectedFile);
 
-      const res = await fetch("/api/careers/apply", {
-        method: "POST",
+      const res = await fetch('/api/careers/apply', {
+        method: 'POST',
         body,
       });
 
@@ -98,16 +98,14 @@ export default function JobApplicationForm({
 
       if (!res.ok || !result.success) {
         throw new Error(
-          result.error || "Failed to submit application. Please try again.",
+          result.error || 'Nộp hồ sơ thất bại. Vui lòng thử lại sau.'
         );
       }
 
       setIsSubmitted(true);
-    } catch (err) {
+    } catch (err: any) {
       setErrorMsg(
-        err instanceof Error
-          ? err.message
-          : "An error occurred during submission. Please try again.",
+        err?.message || 'Có lỗi xảy ra trong quá trình nộp hồ sơ. Vui lòng thử lại.'
       );
     } finally {
       setIsSubmitting(false);
@@ -116,35 +114,34 @@ export default function JobApplicationForm({
 
   if (isSubmitted) {
     return (
-      <div className="rounded-3xl bg-[#F0FDF4] border border-[#10E774]/30 p-8 text-center sm:p-10">
-        <div className="w-16 h-16 rounded-full bg-[#10E774]/20 flex items-center justify-center mx-auto mb-4 text-[#007A3D]">
-          <CheckCircle2 className="w-8 h-8" />
+      <div className="rounded-2xl bg-white border border-emerald-200/80 p-6 sm:p-8 text-center shadow-xs">
+        <div className="w-14 h-14 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center mx-auto mb-4">
+          <CheckCircle2 className="w-7 h-7" />
         </div>
-        <h3 className="text-2xl font-bold text-gray-900 mb-2 font-montserrat">
-          Application Received!
+        <h3 className="text-xl font-bold text-slate-900 mb-2">
+          Ứng tuyển thành công!
         </h3>
-        <p className="text-gray-600 text-sm leading-relaxed mb-6 font-montserrat max-w-md mx-auto">
-          Thank you for applying for the{" "}
-          <span className="font-semibold text-gray-900">{positionTitle}</span>{" "}
-          role. Our People &amp; Culture team will review your profile and reach
-          out within 2-3 business days.
+        <p className="text-slate-600 text-xs sm:text-sm leading-relaxed mb-6 max-w-sm mx-auto">
+          Cảm ơn bạn đã nộp hồ sơ cho vị trí{' '}
+          <span className="font-semibold text-slate-900">{positionTitle}</span>.
+          Đội ngũ tuyển dụng sẽ xem xét hồ sơ và liên hệ với bạn trong vòng 2-3 ngày làm việc.
         </p>
         <button
           type="button"
           onClick={() => {
             setIsSubmitted(false);
             setFormData({
-              firstName: "",
-              lastName: "",
-              email: "",
-              phone: "",
-              message: "",
+              firstName: '',
+              lastName: '',
+              email: '',
+              phone: '',
+              message: '',
             });
             setSelectedFile(null);
           }}
-          className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-[#10E774] hover:bg-[#0ecb66] text-black font-semibold text-xs tracking-wider uppercase transition shadow-md"
+          className="inline-flex items-center justify-center px-5 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-medium text-xs transition"
         >
-          Submit Another Application
+          Nộp hồ sơ khác
         </button>
       </div>
     );
@@ -152,23 +149,27 @@ export default function JobApplicationForm({
 
   return (
     <div>
-      <p className="text-2xl sm:text-[26px] font-bold text-[#003D5B] mb-8 font-montserrat leading-snug">
-        You will love to work with us. <br className="hidden sm:inline" />
-        Please apply below:
-      </p>
+      <div className="mb-6">
+        <h3 className="text-xl sm:text-2xl font-bold text-slate-900 mb-1 leading-snug">
+          Ứng tuyển vị trí này
+        </h3>
+        <p className="text-xs text-slate-600 leading-relaxed">
+          Gửi thông tin và đính kèm CV của bạn để gia nhập đội ngũ The Human Inc
+        </p>
+      </div>
 
       {errorMsg && (
-        <div className="mb-6 p-4 rounded-xl bg-red-50 border border-red-200 flex items-center gap-3 text-red-700 text-xs font-medium">
+        <div className="mb-5 p-3.5 rounded-xl bg-red-50 border border-red-200 flex items-center gap-2.5 text-red-700 text-xs font-medium">
           <AlertCircle className="w-4 h-4 shrink-0" />
           <span>{errorMsg}</span>
         </div>
       )}
 
-      <form onSubmit={handleSubmit} className="space-y-6">
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
           <div>
-            <label className="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-2 font-montserrat">
-              First Name <span className="text-[#10E774]">*</span>
+            <label className="block text-xs font-semibold text-slate-700 mb-1">
+              Họ (First Name) <span className="text-red-500">*</span>
             </label>
             <input
               type="text"
@@ -176,14 +177,14 @@ export default function JobApplicationForm({
               required
               value={formData.firstName}
               onChange={handleInputChange}
-              placeholder="e.g. Alex"
-              className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-[#10E774] focus:ring-2 focus:ring-[#10E774]/20 outline-none transition text-sm text-gray-900 bg-gray-50/50"
+              placeholder="VD: Alex"
+              className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 focus:border-slate-900 focus:ring-2 focus:ring-slate-900/10 outline-none transition text-xs sm:text-sm text-slate-900 bg-white"
             />
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-2 font-montserrat">
-              Last Name <span className="text-[#10E774]">*</span>
+            <label className="block text-xs font-semibold text-slate-700 mb-1">
+              Tên (Last Name) <span className="text-red-500">*</span>
             </label>
             <input
               type="text"
@@ -191,16 +192,16 @@ export default function JobApplicationForm({
               required
               value={formData.lastName}
               onChange={handleInputChange}
-              placeholder="e.g. Nguyen"
-              className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-[#10E774] focus:ring-2 focus:ring-[#10E774]/20 outline-none transition text-sm text-gray-900 bg-gray-50/50"
+              placeholder="VD: Nguyễn"
+              className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 focus:border-slate-900 focus:ring-2 focus:ring-slate-900/10 outline-none transition text-xs sm:text-sm text-slate-900 bg-white"
             />
           </div>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
           <div>
-            <label className="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-2 font-montserrat">
-              Email Address <span className="text-[#10E774]">*</span>
+            <label className="block text-xs font-semibold text-slate-700 mb-1">
+              Địa chỉ Email <span className="text-red-500">*</span>
             </label>
             <input
               type="email"
@@ -209,13 +210,13 @@ export default function JobApplicationForm({
               value={formData.email}
               onChange={handleInputChange}
               placeholder="alex.nguyen@example.com"
-              className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-[#10E774] focus:ring-2 focus:ring-[#10E774]/20 outline-none transition text-sm text-gray-900 bg-gray-50/50"
+              className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 focus:border-slate-900 focus:ring-2 focus:ring-slate-900/10 outline-none transition text-xs sm:text-sm text-slate-900 bg-white"
             />
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-2 font-montserrat">
-              Phone Number <span className="text-[#10E774]">*</span>
+            <label className="block text-xs font-semibold text-slate-700 mb-1">
+              Số điện thoại <span className="text-red-500">*</span>
             </label>
             <input
               type="tel"
@@ -224,19 +225,19 @@ export default function JobApplicationForm({
               value={formData.phone}
               onChange={handleInputChange}
               placeholder="+84 90 123 4567"
-              className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-[#10E774] focus:ring-2 focus:ring-[#10E774]/20 outline-none transition text-sm text-gray-900 bg-gray-50/50"
+              className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 focus:border-slate-900 focus:ring-2 focus:ring-slate-900/10 outline-none transition text-xs sm:text-sm text-slate-900 bg-white"
             />
           </div>
         </div>
 
         <div>
-          <label className="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-2 font-montserrat">
-            Upload CV / Resume{" "}
-            <span className="text-gray-400 font-normal">
-              (PDF, DOC, DOCX up to 10MB)
+          <label className="block text-xs font-semibold text-slate-700 mb-1">
+            Tải lên CV / Resume <span className="text-red-500">*</span>
+            <span className="text-slate-400 font-normal ml-1">
+              (PDF, DOC, DOCX tối đa 15MB)
             </span>
           </label>
-          <div className="relative border-2 border-dashed border-gray-200 hover:border-[#10E774] rounded-2xl p-5 text-center transition cursor-pointer bg-gray-50/40">
+          <div className="relative border-2 border-dashed border-slate-200 hover:border-slate-400 rounded-2xl p-4 text-center transition cursor-pointer bg-white">
             <input
               type="file"
               accept=".pdf,.doc,.docx"
@@ -244,49 +245,49 @@ export default function JobApplicationForm({
               className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
             />
             <div className="flex flex-col items-center justify-center pointer-events-none">
-              <Upload className="w-6 h-6 text-gray-400 mb-2" />
-              <p className="text-xs font-semibold text-gray-800">
+              <Upload className="w-5 h-5 text-slate-400 mb-1.5" />
+              <p className="text-xs font-semibold text-slate-800">
                 {selectedFile
                   ? selectedFile.name
-                  : "Click or drag file to this area to upload"}
+                  : 'Bấm hoặc kéo thả tệp CV vào đây'}
               </p>
-              <p className="text-[11px] text-gray-500 mt-1">
+              <p className="text-[11px] text-slate-400 mt-0.5">
                 {selectedFile
                   ? `${(selectedFile.size / 1024 / 1024).toFixed(2)} MB`
-                  : "Support single upload"}
+                  : 'Hỗ trợ định dạng PDF, DOCX'}
               </p>
             </div>
           </div>
         </div>
 
         <div>
-          <label className="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-2 font-montserrat">
-            Cover Letter / Message
+          <label className="block text-xs font-semibold text-slate-700 mb-1">
+            Thư giới thiệu / Lời nhắn (Cover Letter)
           </label>
           <textarea
             name="message"
-            rows={4}
+            rows={3}
             value={formData.message}
             onChange={handleInputChange}
-            placeholder="Tell us about your background, relevant projects, or why you want to join E-GEAD..."
-            className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-[#10E774] focus:ring-2 focus:ring-[#10E774]/20 outline-none transition text-sm text-gray-900 bg-gray-50/50 resize-y"
+            placeholder="Giới thiệu ngắn gọn về kinh nghiệm, thế mạnh hoặc lý do bạn muốn ứng tuyển..."
+            className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 focus:border-slate-900 focus:ring-2 focus:ring-slate-900/10 outline-none transition text-xs sm:text-sm text-slate-900 bg-white resize-y font-normal"
           />
         </div>
 
         <button
           type="submit"
           disabled={isSubmitting}
-          className="w-full py-4 rounded-full bg-[#10E774] hover:bg-[#0ecb66] disabled:opacity-50 text-black font-semibold text-sm tracking-wider uppercase transition shadow-lg flex items-center justify-center gap-2 group cursor-pointer"
+          className="w-full py-3 px-6 rounded-xl bg-slate-900 hover:bg-slate-800 disabled:opacity-50 text-white font-medium text-sm transition shadow-sm flex items-center justify-center gap-2 cursor-pointer mt-2"
         >
           {isSubmitting ? (
             <>
               <Loader2 className="w-4 h-4 animate-spin" />
-              <span>Submitting Application...</span>
+              <span>Đang gửi hồ sơ...</span>
             </>
           ) : (
             <>
-              <span>Apply Now</span>
-              <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              <span>Nộp hồ sơ ứng tuyển</span>
+              <ArrowRight className="w-4 h-4" />
             </>
           )}
         </button>

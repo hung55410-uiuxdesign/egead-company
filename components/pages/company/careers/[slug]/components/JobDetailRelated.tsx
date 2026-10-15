@@ -1,67 +1,69 @@
-import Link from "next/link";
-import { ArrowUpRight, MapPin } from "lucide-react";
-import MotionSection, { MotionCard } from "@/components/MotionSection";
-import type { JobOpening } from "@/lib/careers";
+'use client';
 
-type Props = {
+import React from 'react';
+import Link from 'next/link';
+import { ArrowUpRight } from 'lucide-react';
+import { motion } from 'framer-motion';
+import type { JobOpening } from '@/lib/careers';
+
+interface JobDetailRelatedProps {
   relatedJobs: JobOpening[];
-};
+}
 
-export default function JobDetailRelated({ relatedJobs }: Props) {
+export default function JobDetailRelated({ relatedJobs }: JobDetailRelatedProps) {
   if (!relatedJobs || relatedJobs.length === 0) {
     return null;
   }
 
   return (
-    <MotionSection className="w-full px-6 sm:px-10 lg:px-14 xl:px-16 mb-24">
-      <div className="flex items-center justify-between mb-8">
-        <h2 className="text-2xl sm:text-3xl font-medium text-[#D4FAE6] font-montserrat">
-          Other Open Positions
+    <section className="w-full max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 mb-20">
+      <div className="flex items-center justify-between mb-8 pb-4 border-b border-slate-100">
+        <h2 className="text-2xl sm:text-3xl font-bold text-slate-900">
+          Các vị trí khác đang mở
         </h2>
         <Link
-          href="/careers#job"
-          className="text-xs sm:text-sm font-semibold text-[#10E774] hover:underline inline-flex items-center gap-1"
+          href="/careers#opportunities"
+          className="text-xs sm:text-sm font-medium text-slate-600 hover:text-slate-900 underline underline-offset-4 decoration-slate-300 hover:decoration-slate-900 transition inline-flex items-center gap-1"
         >
-          <span>View all openings</span>
+          <span>Xem tất cả vị trí</span>
           <ArrowUpRight className="w-4 h-4" />
         </Link>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
         {relatedJobs.map((r, idx) => (
-          <MotionCard
-            key={r.slug}
-            index={idx}
-            className="p-6 rounded-2xl bg-[#141718] border border-white/10 hover:border-[#10E774]/50 transition duration-300 flex flex-col justify-between shadow-xl group"
+          <motion.div
+            key={r.slug || idx}
+            initial={{ opacity: 0, y: 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.1 }}
+            transition={{ duration: 0.4, delay: idx * 0.05 }}
           >
-            <div>
-              <span className="text-[11px] font-semibold text-[#10E774] uppercase tracking-wider block mb-2 font-montserrat">
-                {r.department}
-              </span>
-              <h3 className="text-lg font-medium text-[#D4FAE6] group-hover:text-[#10E774] transition mb-3 font-montserrat leading-snug">
-                {r.position}
-              </h3>
-              <div className="flex items-center gap-1.5 text-xs text-gray-400">
-                <MapPin className="w-3.5 h-3.5 text-[#10E774]" />
-                <span>{r.location}</span>
+            <Link
+              href={`/careers/${r.slug}`}
+              className="group w-full h-full bg-white rounded-2xl sm:rounded-[20px] p-6 border border-slate-100 shadow-[0_2px_14px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_24px_rgba(0,0,0,0.08)] hover:border-slate-200 transition-all duration-200 flex flex-col justify-between gap-4 block"
+            >
+              <div className="space-y-2">
+                <span className="text-xs font-medium text-slate-500 block">
+                  {r.department} • {r.location}
+                </span>
+                <h3 className="text-base font-semibold text-slate-900 group-hover:text-slate-700 transition leading-snug">
+                  {r.position}
+                </h3>
               </div>
-            </div>
 
-            <div className="mt-6 pt-4 border-t border-white/10 flex items-center justify-between">
-              <span className="text-xs text-gray-400 font-light">
-                {r.jobType}
-              </span>
-              <Link
-                href={`/careers/${r.slug}`}
-                className="inline-flex items-center gap-1 text-xs font-semibold text-[#10E774] group-hover:underline"
-              >
-                <span>Details</span>
-                <ArrowUpRight className="w-3.5 h-3.5" />
-              </Link>
-            </div>
-          </MotionCard>
+              <div className="pt-3 border-t border-slate-100/80 flex items-center justify-between">
+                <span className="text-xs text-slate-500 font-normal">
+                  {r.jobType}
+                </span>
+                <span className="text-xs sm:text-sm font-medium text-slate-500 group-hover:text-slate-900 underline underline-offset-4 decoration-slate-300 group-hover:decoration-slate-900 transition shrink-0">
+                  Apply now
+                </span>
+              </div>
+            </Link>
+          </motion.div>
         ))}
       </div>
-    </MotionSection>
+    </section>
   );
 }

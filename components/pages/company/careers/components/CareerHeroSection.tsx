@@ -1,63 +1,55 @@
-import { ArrowDown } from 'lucide-react';
-import MotionSection, { MotionHero } from '@/components/MotionSection';
+'use client';
 
-export default function CareerHeroSection() {
+import React from 'react';
+import { motion } from 'framer-motion';
+import type { CareersHeroData } from '@/lib/services/careers-page-config.service';
+
+interface CareerHeroSectionProps {
+  config?: CareersHeroData;
+}
+
+const DEFAULT_TITLE =
+  'Join The Human Inc to\ndiscover new opportunities\ntogether in the future.';
+const DEFAULT_IMAGE = '/assets/careers/team-group.png';
+
+export default function CareerHeroSection({ config }: CareerHeroSectionProps) {
+  const title = config?.title || DEFAULT_TITLE;
+  const image = config?.image || DEFAULT_IMAGE;
+
   return (
-    <>
-      {/* 1. Hero Section: Kinetic Typography */}
-      <MotionHero className="w-full px-6 sm:px-10 lg:px-14 xl:px-16 mb-12 sm:mb-16">
-        <div className="w-full">
-          <p className="text-sm sm:text-base font-semibold uppercase tracking-widest text-[#6CE8C3] mb-4 font-montserrat">
-            Careers
-          </p>
-          <h1 className="text-4xl sm:text-6xl lg:text-[76px] xl:text-[84px] font-medium leading-[1.05] text-[#D4FAE6] font-montserrat tracking-tight mb-8">
-            BRING FORWARD THE <br />
-            <span className="bg-gradient-to-r from-[#6CE8C3] via-[#A8F7E2] to-[#E0FCF4] bg-clip-text text-transparent font-medium">
-              TRUE YOU.
-            </span>
-          </h1>
-        </div>
-      </MotionHero>
-
-      {/* 2. Sticky / Anchor Bar */}
-      <div className="w-full px-6 sm:px-10 lg:px-14 xl:px-16 mb-12 sm:mb-16">
-        <div className="flex flex-wrap items-center gap-6 sm:gap-10 pb-4 border-b border-white/10 text-sm font-medium font-montserrat">
-          <a
-            href="#at-sai"
-            className="flex items-center gap-2 text-gray-400 hover:text-[#10E774] transition group"
-          >
-            <ArrowDown className="w-3.5 h-3.5 text-[#10E774] transition-transform group-hover:translate-y-0.5" />
-            <span>Life At E-GEAD</span>
-          </a>
-          <a
-            href="#job"
-            className="flex items-center gap-2 text-gray-400 hover:text-[#10E774] transition group"
-          >
-            <ArrowDown className="w-3.5 h-3.5 text-[#10E774] transition-transform group-hover:translate-y-0.5" />
-            <span>Jobs Opening</span>
-          </a>
-        </div>
-      </div>
-
-      {/* 3. Hero Visual Media Banner */}
-      <MotionSection className="w-full px-6 sm:px-10 lg:px-14 xl:px-16 mb-24 sm:mb-32">
-        <div className="relative w-full h-[340px] sm:h-[480px] lg:h-[580px] rounded-[32px] sm:rounded-[48px] overflow-hidden shadow-2xl border border-white/10 bg-black group">
+    <section className="w-full pt-6 sm:pt-10 pb-14 sm:pb-20">
+      <div className="w-full max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
+        {/* Team Photo Banner - Full Width with soft bottom vignette */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+          className="relative w-full rounded-[24px] sm:rounded-[36px] overflow-hidden bg-white shadow-[0_4px_24px_rgba(0,0,0,0.06)] border border-slate-100"
+        >
           <img
-            src="/assets/2.jpg"
-            alt="Life at E-GEAD - Vibrant Global Team"
-            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-103"
+            src={image}
+            alt="The Human Inc Team"
+            className="w-full h-auto object-cover select-none block"
+            onError={(e) => {
+              (e.target as HTMLImageElement).src = '/assets/careers/hero-team.png';
+            }}
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0A0D0E] via-transparent to-black/30" />
-          <div className="absolute bottom-8 left-8 right-8 sm:bottom-12 sm:left-12 max-w-2xl">
-            <span className="px-3.5 py-1 rounded-full bg-[#10E774]/20 text-[#10E774] text-xs font-semibold uppercase tracking-wider backdrop-blur-md border border-[#10E774]/30 inline-block mb-3 font-montserrat">
-              Culture &amp; Collaboration
-            </span>
-            <p className="text-xl sm:text-2xl lg:text-3xl font-medium text-white font-montserrat leading-snug">
-              Passionate minds building the infrastructure of global intelligent commerce.
-            </p>
-          </div>
-        </div>
-      </MotionSection>
-    </>
+          {/* Soft bottom vignette fading cleanly into the page */}
+          <div className="absolute inset-x-0 bottom-0 h-24 sm:h-40 bg-gradient-to-t from-white via-white/60 to-transparent pointer-events-none" />
+        </motion.div>
+
+        {/* Hero Title */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+          className="text-center mt-10 sm:mt-14 max-w-4xl mx-auto"
+        >
+          <h1 className="text-3xl/[1.4] sm:text-4xl/[1.35] md:text-[42px]/[1.32] lg:text-[46px]/[1.3] font-bold text-slate-900 whitespace-pre-line">
+            {title}
+          </h1>
+        </motion.div>
+      </div>
+    </section>
   );
 }

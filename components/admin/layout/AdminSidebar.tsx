@@ -21,6 +21,7 @@ import {
   Mail,
   Building2,
   PanelBottom,
+  Compass,
 } from 'lucide-react';
 import { useSession, authClient } from '@/lib/auth-client';
 import { Badge, Button } from '@astryxdesign/core';
@@ -80,6 +81,12 @@ const PAGE_NAV_ITEMS = [
     label: 'Về E-GEAD (Company)',
     href: '/admin/company',
     icon: Building2,
+    exact: false,
+  },
+  {
+    label: 'Trang tuyển dụng (Careers)',
+    href: '/admin/careers-page',
+    icon: Compass,
     exact: false,
   },
 ];

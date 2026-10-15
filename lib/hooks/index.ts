@@ -14,3 +14,4 @@ export * from './useHomeSectionMutations';
 export * from './usePartnerMutations';
 export * from './useCompanySectionMutations';
 export * from './useFooterConfigMutations';
+export * from './useCareersPageConfigMutations';
