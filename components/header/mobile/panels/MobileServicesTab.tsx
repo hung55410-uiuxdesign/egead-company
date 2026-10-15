@@ -57,14 +57,16 @@ export default function MobileServicesTab({
                 className="group flex items-center justify-between text-sm font-semibold text-gray-800 hover:text-[#007A3D] transition"
               >
                 <div className="flex items-center gap-2.5">
-                  <img
-                    src={service.icon || '/assets/icon_strategy_design.svg'}
-                    alt={service.name}
-                    className="w-4 h-4 object-contain"
-                    onError={(e) => {
-                      (e.target as HTMLElement).style.opacity = '0.3';
-                    }}
-                  />
+                  {service.icon ? (
+                    <img
+                      src={service.icon}
+                      alt={service.name}
+                      className="w-4 h-4 object-contain"
+                      onError={(e) => {
+                        (e.target as HTMLElement).style.opacity = '0.3';
+                      }}
+                    />
+                  ) : null}
                   <span>{service.name}</span>
                 </div>
                 <ChevronRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
@@ -99,14 +101,16 @@ export default function MobileServicesTab({
                 className="group flex items-center justify-between text-sm font-semibold text-gray-800 hover:text-[#007A3D] transition"
               >
                 <div className="flex items-center gap-2.5">
-                  <img
-                    src={ind.icon || '/assets/icon_automotive.svg'}
-                    alt={ind.name}
-                    className="w-4 h-4 object-contain"
-                    onError={(e) => {
-                      (e.target as HTMLElement).style.opacity = '0.3';
-                    }}
-                  />
+                  {ind.icon ? (
+                    <img
+                      src={ind.icon}
+                      alt={ind.name}
+                      className="w-4 h-4 object-contain"
+                      onError={(e) => {
+                        (e.target as HTMLElement).style.opacity = '0.3';
+                      }}
+                    />
+                  ) : null}
                   <span>{ind.name}</span>
                 </div>
                 <ChevronRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />

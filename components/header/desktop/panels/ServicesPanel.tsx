@@ -56,16 +56,18 @@ export default function ServicesPanel({
                 onClick={onItemClick}
                 className="group flex items-center gap-3.5 py-1 text-[15px] font-semibold text-gray-800 hover:text-[#007A3D] transition duration-200"
               >
-                <span className="w-5 h-5 flex items-center justify-center shrink-0">
-                  <img
-                    src={service.icon || '/assets/icon_strategy_design.svg'}
-                    alt={service.name}
-                    className="w-5 h-5 object-contain transition-transform group-hover:scale-110"
-                    onError={(e) => {
-                      (e.target as HTMLElement).style.opacity = '0.3';
-                    }}
-                  />
-                </span>
+                {service.icon ? (
+                  <span className="w-5 h-5 flex items-center justify-center shrink-0">
+                    <img
+                      src={service.icon}
+                      alt={service.name}
+                      className="w-5 h-5 object-contain transition-transform group-hover:scale-110"
+                      onError={(e) => {
+                        (e.target as HTMLElement).style.opacity = '0.3';
+                      }}
+                    />
+                  </span>
+                ) : null}
                 <span className="group-hover:translate-x-0.5 transition-transform">
                   {service.name}
                 </span>
@@ -96,16 +98,18 @@ export default function ServicesPanel({
                 onClick={onItemClick}
                 className="group flex items-center gap-3.5 py-1 text-[15px] font-semibold text-gray-800 hover:text-[#007A3D] transition duration-200"
               >
-                <span className="w-5 h-5 flex items-center justify-center shrink-0">
-                  <img
-                    src={ind.icon || '/assets/icon_automotive.svg'}
-                    alt={ind.name}
-                    className="w-5 h-5 object-contain transition-transform group-hover:scale-110"
-                    onError={(e) => {
-                      (e.target as HTMLElement).style.opacity = '0.3';
-                    }}
-                  />
-                </span>
+                {ind.icon ? (
+                  <span className="w-5 h-5 flex items-center justify-center shrink-0">
+                    <img
+                      src={ind.icon}
+                      alt={ind.name}
+                      className="w-5 h-5 object-contain transition-transform group-hover:scale-110"
+                      onError={(e) => {
+                        (e.target as HTMLElement).style.opacity = '0.3';
+                      }}
+                    />
+                  </span>
+                ) : null}
                 <span className="group-hover:translate-x-0.5 transition-transform">
                   {ind.name}
                 </span>

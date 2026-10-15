@@ -158,7 +158,7 @@ export default function BlogEditorClient({
             </h2>
             <p className="text-slate-500 text-xs mt-0.5">
               {isEditing
-                ? `ID: ${initialPost?.id} — Cập nhật lần cuối: ${initialPost?.date}`
+                ? `Cập nhật lần cuối: ${initialPost?.date}`
                 : 'Điền thông tin và soạn thảo nội dung với Rich Editor để xuất bản lên website'}
             </p>
           </div>

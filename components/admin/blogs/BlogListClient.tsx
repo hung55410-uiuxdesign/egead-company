@@ -451,9 +451,6 @@ export default function BlogListClient({
                               >
                                 {post.title}
                               </Link>
-                              <p className="text-xs text-slate-500 line-clamp-1 mt-0.5">
-                                {post.excerpt || "Chưa có tóm tắt..."}
-                              </p>
                               <span className="text-[11px] text-slate-400 font-mono block mt-0.5 truncate">
                                 /articles/{post.slug}
                               </span>

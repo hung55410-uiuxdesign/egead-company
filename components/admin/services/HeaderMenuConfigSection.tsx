@@ -230,10 +230,13 @@ export default function HeaderMenuConfigSection({
       })
     );
   };
+  const handleClearServiceIcon = (index: number) => {
+    handleUpdateService(index, 'icon', '');
+  };
   const handleAddService = () => {
     setServices((prev) => [
       ...prev,
-      { name: 'Dịch vụ mới', href: '/services/all-services/dich-vu-moi', icon: '/assets/icon_strategy_design.svg' },
+      { name: 'Dịch vụ mới', href: '/services/all-services/dich-vu-moi', icon: '' },
     ]);
   };
   const handleRemoveService = (index: number) => {
@@ -277,10 +280,13 @@ export default function HeaderMenuConfigSection({
       })
     );
   };
+  const handleClearIndustryIcon = (index: number) => {
+    handleUpdateIndustry(index, 'icon', '');
+  };
   const handleAddIndustry = () => {
     setIndustries((prev) => [
       ...prev,
-      { name: 'Ngành nghề mới', href: '/services/all-services/nganh-nghe-moi', icon: '/assets/icon_automotive.svg' },
+      { name: 'Ngành nghề mới', href: '/services/all-services/nganh-nghe-moi', icon: '' },
     ]);
   };
   const handleRemoveIndustry = (index: number) => {
@@ -409,7 +415,7 @@ export default function HeaderMenuConfigSection({
       {/* Guide notice */}
       <div className="p-3.5 bg-slate-50 border border-slate-200/80 rounded-xl text-xs text-slate-600 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
         <span>
-          💡 <strong>Hướng dẫn tải icon:</strong> Bạn có thể bấm trực tiếp vào ô biểu tượng bên trái hoặc bấm nút <strong>Tải icon</strong> trên từng mục để chọn file ảnh/SVG từ máy tính.
+          💡 <strong>Hướng dẫn quản lý icon:</strong> Bạn có thể bấm trực tiếp vào ô biểu tượng bên trái hoặc bấm nút <strong>Tải icon</strong> trên từng mục để chọn file ảnh/SVG từ máy tính. Bấm nút <strong>Xóa icon</strong> nếu muốn gỡ biểu tượng của mục đó.
         </span>
       </div>
 
@@ -517,20 +523,28 @@ export default function HeaderMenuConfigSection({
                         }
                       }}
                     />
-                    <img
-                      src={item.icon || '/assets/icon_strategy_design.svg'}
-                      alt={item.name}
-                      className="max-h-full max-w-full object-contain transition-transform group-hover/preview:scale-105"
-                      onError={(e) => {
-                        (e.target as HTMLElement).style.opacity = '0.3';
-                      }}
-                    />
+                    {item.icon ? (
+                      <img
+                        src={item.icon}
+                        alt={item.name}
+                        className="max-h-full max-w-full object-contain transition-transform group-hover/preview:scale-105"
+                        onError={(e) => {
+                          (e.target as HTMLElement).style.opacity = '0.3';
+                        }}
+                      />
+                    ) : (
+                      <div className="flex flex-col items-center justify-center text-slate-300">
+                        <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                        </svg>
+                      </div>
+                    )}
                     <div className="absolute inset-0 bg-slate-900/80 opacity-0 group-hover/preview:opacity-100 flex items-center justify-center text-[10px] text-white font-medium transition-opacity backdrop-blur-[0.5px]">
-                      {uploadingTarget === `services-${index}` ? '...' : 'Đổi icon'}
+                      {uploadingTarget === `services-${index}` ? '...' : (item.icon ? 'Đổi icon' : 'Tải icon')}
                     </div>
                   </label>
                   <span className="text-[10px] text-slate-500 font-medium">
-                    {uploadingTarget === `services-${index}` ? 'Đang tải...' : 'Icon'}
+                    {uploadingTarget === `services-${index}` ? 'Đang tải...' : (item.icon ? 'Icon' : 'Chưa có')}
                   </span>
                 </div>
 
@@ -599,6 +613,16 @@ export default function HeaderMenuConfigSection({
                         {uploadingTarget === `services-${index}` ? 'Đang tải...' : 'Tải icon'}
                       </span>
                     </label>
+                    <Button
+                      type="button"
+                      label="Xóa icon"
+                      variant="secondary"
+                      size="sm"
+                      className="px-2.5 h-[29px] text-[11px] font-medium shrink-0 text-rose-600 hover:text-rose-700 hover:bg-rose-50 border-rose-200"
+                      onClick={() => handleClearServiceIcon(index)}
+                      isDisabled={!item.icon?.trim()}
+                      tooltip="Xóa icon của mục này"
+                    />
                   </div>
                 </div>
               </div>
@@ -702,20 +726,28 @@ export default function HeaderMenuConfigSection({
                         }
                       }}
                     />
-                    <img
-                      src={item.icon || '/assets/icon_automotive.svg'}
-                      alt={item.name}
-                      className="max-h-full max-w-full object-contain transition-transform group-hover/preview:scale-105"
-                      onError={(e) => {
-                        (e.target as HTMLElement).style.opacity = '0.3';
-                      }}
-                    />
+                    {item.icon ? (
+                      <img
+                        src={item.icon}
+                        alt={item.name}
+                        className="max-h-full max-w-full object-contain transition-transform group-hover/preview:scale-105"
+                        onError={(e) => {
+                          (e.target as HTMLElement).style.opacity = '0.3';
+                        }}
+                      />
+                    ) : (
+                      <div className="flex flex-col items-center justify-center text-slate-300">
+                        <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                        </svg>
+                      </div>
+                    )}
                     <div className="absolute inset-0 bg-slate-900/80 opacity-0 group-hover/preview:opacity-100 flex items-center justify-center text-[10px] text-white font-medium transition-opacity backdrop-blur-[0.5px]">
-                      {uploadingTarget === `industries-${index}` ? '...' : 'Đổi icon'}
+                      {uploadingTarget === `industries-${index}` ? '...' : (item.icon ? 'Đổi icon' : 'Tải icon')}
                     </div>
                   </label>
                   <span className="text-[10px] text-slate-500 font-medium">
-                    {uploadingTarget === `industries-${index}` ? 'Đang tải...' : 'Icon'}
+                    {uploadingTarget === `industries-${index}` ? 'Đang tải...' : (item.icon ? 'Icon' : 'Chưa có')}
                   </span>
                 </div>
 
@@ -784,6 +816,16 @@ export default function HeaderMenuConfigSection({
                         {uploadingTarget === `industries-${index}` ? 'Đang tải...' : 'Tải icon'}
                       </span>
                     </label>
+                    <Button
+                      type="button"
+                      label="Xóa icon"
+                      variant="secondary"
+                      size="sm"
+                      className="px-2.5 h-[29px] text-[11px] font-medium shrink-0 text-rose-600 hover:text-rose-700 hover:bg-rose-50 border-rose-200"
+                      onClick={() => handleClearIndustryIcon(index)}
+                      isDisabled={!item.icon?.trim()}
+                      tooltip="Xóa icon của mục này"
+                    />
                   </div>
                 </div>
               </div>
