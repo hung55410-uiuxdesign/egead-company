@@ -19,6 +19,7 @@ import TableCell from '@tiptap/extension-table-cell';
 import TableHeader from '@tiptap/extension-table-header';
 import Youtube from '@tiptap/extension-youtube';
 import { useUploadMedia } from '@/lib/hooks';
+import { TextInput } from '@astryxdesign/core';
 import {
   Bold,
   Italic,
@@ -1007,19 +1008,19 @@ export default function TipTapEditor({
       {linkModalOpen && (
         <div className="bg-emerald-50 border-b border-emerald-200 px-4 py-2.5 flex items-center gap-2">
           <LinkIcon className="w-4 h-4 text-emerald-700 shrink-0" />
-          <input
-            type="text"
-            value={linkUrl}
-            onChange={(e) => setLinkUrl(e.target.value)}
-            placeholder="Nhập đường dẫn URL (vd: https://egeadcompany.com hoặc /our-work)"
-            className="flex-1 bg-white border border-slate-300 rounded px-3 py-1.5 text-xs text-slate-800 focus:outline-none focus:border-emerald-600"
-            onKeyDown={(e) => {
-              if (e.key === 'Enter') {
-                e.preventDefault();
-                applyLink();
-              }
-            }}
-          />
+          <div className="flex-1">
+            <TextInput
+              label="Đường dẫn URL"
+              isLabelHidden
+              size="sm"
+              value={linkUrl}
+              onChange={(val) => setLinkUrl(val)}
+              placeholder="Nhập đường dẫn URL (vd: https://egeadcompany.com hoặc /our-work)"
+              onEnter={applyLink}
+              width="100%"
+              className='h-10 border'
+            />
+          </div>
           <button
             type="button"
             onClick={applyLink}
@@ -1093,23 +1094,23 @@ export default function TipTapEditor({
             {/* Option B: Direct URL / Presets */}
             <div className="bg-white p-3 rounded-lg border border-slate-200 flex flex-col justify-between space-y-2">
               <div className="flex items-center gap-2">
-                <input
-                  type="text"
-                  value={imageUrl}
-                  onChange={(e) => setImageUrl(e.target.value)}
-                  placeholder="Hoặc dán URL ảnh trực tiếp..."
-                  className="flex-1 bg-slate-50 border border-slate-300 rounded px-2.5 py-1.5 text-xs text-slate-800 focus:outline-none focus:border-emerald-600"
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter') {
-                      e.preventDefault();
-                      applyImage();
-                    }
-                  }}
-                />
+                <div className="flex-1">
+                  <TextInput
+                    label="URL ảnh trực tiếp"
+                    isLabelHidden
+                    size="sm"
+                    value={imageUrl}
+                    onChange={(val) => setImageUrl(val)}
+                    placeholder="Hoặc dán URL ảnh trực tiếp..."
+                    onEnter={applyImage}
+                    width="100%"
+                    className='h-10 border'
+                  />
+                </div>
                 <button
                   type="button"
                   onClick={applyImage}
-                  className="px-3 py-1.5 bg-slate-800 hover:bg-slate-900 text-white rounded text-xs font-semibold flex items-center"
+                  className="px-3 py-1.5 bg-slate-800 hover:bg-slate-900 text-white rounded text-xs font-semibold flex items-center shrink-0"
                 >
                   <span>Chèn</span>
                 </button>
@@ -1150,23 +1151,23 @@ export default function TipTapEditor({
       {/* YouTube Modal */}
       {youtubeModalOpen && (
         <div className="bg-red-50 border-b border-red-200 px-4 py-2.5 flex items-center gap-2">
-          <input
-            type="text"
-            value={youtubeUrl}
-            onChange={(e) => setYoutubeUrl(e.target.value)}
-            placeholder="Dán link video YouTube (vd: https://www.youtube.com/watch?v=... hoặc https://youtu.be/...)"
-            className="flex-1 bg-white border border-slate-300 rounded px-3 py-1.5 text-xs text-slate-800 focus:outline-none focus:border-red-500"
-            onKeyDown={(e) => {
-              if (e.key === 'Enter') {
-                e.preventDefault();
-                applyYoutube();
-              }
-            }}
-          />
+          <div className="flex-1">
+            <TextInput
+              label="Link video YouTube"
+              isLabelHidden
+              size="sm"
+              value={youtubeUrl}
+              onChange={(val) => setYoutubeUrl(val)}
+              placeholder="Dán link video YouTube (vd: https://www.youtube.com/watch?v=... hoặc https://youtu.be/...)"
+              onEnter={applyYoutube}
+              width="100%"
+              className='h-10 border'
+            />
+          </div>
           <button
             type="button"
             onClick={applyYoutube}
-            className="px-3 py-1.5 bg-red-600 hover:bg-red-700 text-white rounded text-xs font-semibold flex items-center"
+            className="px-3 py-1.5 bg-red-600 hover:bg-red-700 text-white rounded text-xs font-semibold flex items-center shrink-0"
           >
             <span>Nhúng video</span>
           </button>

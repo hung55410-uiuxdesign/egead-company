@@ -12,7 +12,7 @@ import {
   Camera,
   Layers,
 } from 'lucide-react';
-import { Button, Card, Badge, Field, Selector } from '@astryxdesign/core';
+import { Button, Card, Badge, Field, Selector, CheckboxInput, TextInput, TextArea } from '@astryxdesign/core';
 import { AdminTeamMember } from '@/lib/services/people.service';
 import { DEPARTMENTS, PEOPLE_STATUSES } from '@/lib/validations/people';
 import { useUploadMedia, useSavePersonMutation } from '@/lib/hooks';
@@ -202,40 +202,28 @@ export default function PeopleFormClient({
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {/* Name */}
-          <Field
+          <TextInput
             label="Họ và tên nhân sự"
-            inputID="people-name"
             isRequired
             description="Tên đầy đủ hiển thị trên thẻ nhân sự và sơ đồ"
-          >
-            <input
-              id="people-name"
-              type="text"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              placeholder="Ví dụ: Suhas Hiwale, Kenneth Kong..."
-              className="w-full px-3.5 py-2.5 bg-slate-50/60 border border-slate-200 rounded-xl text-xs sm:text-sm text-slate-900 focus:outline-none focus:bg-white focus:border-slate-800 focus:ring-1 focus:ring-slate-800 transition-colors"
-              required
-            />
-          </Field>
+            value={name}
+            onChange={setName}
+            placeholder="Ví dụ: Suhas Hiwale, Kenneth Kong..."
+            width="100%"
+            className='h-10 border'
+          />
 
           {/* Role */}
-          <Field
+          <TextInput
             label="Chức danh / Vai trò"
-            inputID="people-role"
             isRequired
             description="Chức vụ đảm nhiệm tại tập đoàn E-GEAD"
-          >
-            <input
-              id="people-role"
-              type="text"
-              value={role}
-              onChange={(e) => setRole(e.target.value)}
-              placeholder="Ví dụ: Chief Executive Officer, Head of AI..."
-              className="w-full px-3.5 py-2.5 bg-slate-50/60 border border-slate-200 rounded-xl text-xs sm:text-sm text-slate-900 focus:outline-none focus:bg-white focus:border-slate-800 focus:ring-1 focus:ring-slate-800 transition-colors"
-              required
-            />
-          </Field>
+            value={role}
+            onChange={setRole}
+            placeholder="Ví dụ: Chief Executive Officer, Head of AI..."
+            width="100%"
+            className='h-10 border'
+          />
 
           {/* Department */}
           <div>
@@ -251,37 +239,27 @@ export default function PeopleFormClient({
           </div>
 
           {/* Location */}
-          <Field
+          <TextInput
             label="Địa điểm làm việc"
-            inputID="people-location"
             isRequired
             description="Thành phố / Quốc gia hoặc trung tâm điều hành"
-          >
-            <input
-              id="people-location"
-              type="text"
-              value={location}
-              onChange={(e) => setLocation(e.target.value)}
-              placeholder="Ví dụ: Singapore / Global, Tokyo, Japan..."
-              className="w-full px-3.5 py-2.5 bg-slate-50/60 border border-slate-200 rounded-xl text-xs sm:text-sm text-slate-900 focus:outline-none focus:bg-white focus:border-slate-800 focus:ring-1 focus:ring-slate-800 transition-colors"
-              required
-            />
-          </Field>
+            value={location}
+            onChange={setLocation}
+            placeholder="Ví dụ: Singapore / Global, Tokyo, Japan..."
+            width="100%"
+            className='h-10 border'
+          />
 
           {/* Order */}
-          <Field
+          <TextInput
             label="Thứ tự sắp xếp"
-            inputID="people-order"
             description="Số thứ tự ưu tiên khi hiển thị trên danh sách (số nhỏ hơn đứng trước)"
-          >
-            <input
-              id="people-order"
-              type="number"
-              value={order}
-              onChange={(e) => setOrder(parseInt(e.target.value, 10) || 0)}
-              className="w-full px-3.5 py-2.5 bg-slate-50/60 border border-slate-200 rounded-xl text-xs sm:text-sm text-slate-900 focus:outline-none focus:bg-white focus:border-slate-800 focus:ring-1 focus:ring-slate-800 transition-colors"
-            />
-          </Field>
+            value={String(order)}
+            onChange={(val) => setOrder(parseInt(val, 10) || 0)}
+            placeholder="0"
+            width="100%"
+            className='h-10 border'
+          />
 
           {/* Status */}
           <div>
@@ -302,22 +280,14 @@ export default function PeopleFormClient({
 
         {/* Leadership Toggle */}
         <div className="pt-2">
-          <label className="flex items-start gap-3 p-3.5 rounded-xl border border-slate-200/90 bg-slate-50/60 hover:bg-slate-50 cursor-pointer transition-colors">
-            <input
-              type="checkbox"
-              checked={isLeader}
-              onChange={(e) => setIsLeader(e.target.checked)}
-              className="mt-0.5 w-4 h-4 rounded border-slate-300 text-purple-600 focus:ring-purple-500"
+          <div className="p-3.5 rounded-xl border border-slate-200/90 bg-slate-50/60">
+            <CheckboxInput
+              label="Nhân sự thuộc Ban Lãnh đạo Cấp cao (Leadership Team)"
+              description="Khi được đánh dấu là Lãnh đạo, nhân sự sẽ xuất hiện tại tab Lãnh đạo và có thể cấu hình sơ đồ các Squads cấp dưới tại màn hình Sơ đồ Tổ chức."
+              value={isLeader}
+              onChange={(checked) => setIsLeader(checked)}
             />
-            <div>
-              <div className="text-xs sm:text-sm font-bold text-slate-900">
-                Nhân sự thuộc Ban Lãnh đạo Cấp cao (Leadership Team)
-              </div>
-              <div className="text-xs text-slate-500 mt-0.5">
-                Khi được đánh dấu là Lãnh đạo, nhân sự sẽ xuất hiện tại tab Lãnh đạo và có thể cấu hình sơ đồ các Squads cấp dưới tại màn hình Sơ đồ Tổ chức.
-              </div>
-            </div>
-          </label>
+          </div>
         </div>
       </Card>
 
@@ -389,12 +359,14 @@ export default function PeopleFormClient({
 
               {/* URL Direct Input fallback */}
               <div className="pt-1">
-                <input
-                  type="text"
+                <TextInput
+                  label="URL ảnh đại diện"
+                  isLabelHidden
                   value={image}
-                  onChange={(e) => setImage(e.target.value)}
+                  onChange={setImage}
                   placeholder="Hoặc dán URL ảnh trực tiếp (Cloudinary / CDN)..."
-                  className="w-full px-3 py-1.5 bg-white border border-slate-200 rounded-lg text-xs text-slate-700 placeholder-slate-400 focus:outline-none focus:border-slate-800"
+                  width="100%"
+                  className='h-10 border'
                 />
               </div>
             </div>
@@ -403,38 +375,28 @@ export default function PeopleFormClient({
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {/* LinkedIn */}
-          <Field
+          <TextInput
             label="Đường dẫn LinkedIn"
-            inputID="people-linkedin"
             isOptional
             description="Liên kết tới hồ sơ LinkedIn cá nhân"
-          >
-            <input
-              id="people-linkedin"
-              type="url"
-              value={linkedin}
-              onChange={(e) => setLinkedin(e.target.value)}
-              placeholder="https://www.linkedin.com/in/..."
-              className="w-full px-3.5 py-2.5 bg-slate-50/60 border border-slate-200 rounded-xl text-xs sm:text-sm text-slate-900 focus:outline-none focus:bg-white focus:border-slate-800 focus:ring-1 focus:ring-slate-800 transition-colors"
-            />
-          </Field>
+            value={linkedin}
+            onChange={setLinkedin}
+            placeholder="https://www.linkedin.com/in/..."
+            width="100%"
+            className='h-10 border'
+          />
 
           {/* Quote */}
-          <Field
+          <TextInput
             label="Trích dẫn triết lý làm việc (Quote)"
-            inputID="people-quote"
             isOptional
             description="Câu nói đại diện hoặc thông điệp cốt lõi của nhân sự"
-          >
-            <input
-              id="people-quote"
-              type="text"
-              value={quote}
-              onChange={(e) => setQuote(e.target.value)}
-              placeholder="Ví dụ: No matter when or where, always bring your ‘A’ game..."
-              className="w-full px-3.5 py-2.5 bg-slate-50/60 border border-slate-200 rounded-xl text-xs sm:text-sm text-slate-900 focus:outline-none focus:bg-white focus:border-slate-800 focus:ring-1 focus:ring-slate-800 transition-colors"
-            />
-          </Field>
+            value={quote}
+            onChange={setQuote}
+            placeholder="Ví dụ: No matter when or where, always bring your ‘A’ game..."
+            width="100%"
+            className='h-10 border'
+          />
         </div>
 
         {/* Skills Tag Input */}
@@ -454,22 +416,17 @@ export default function PeopleFormClient({
 
         {/* Bio Textarea */}
         <div>
-          <Field
+          <TextArea
             label="Tiểu sử tóm tắt (Bio)"
-            inputID="people-bio"
             isRequired
             description="Mô tả quá trình công tác, năng lực và đóng góp chuyên môn"
-          >
-            <textarea
-              id="people-bio"
-              rows={4}
-              value={bio}
-              onChange={(e) => setBio(e.target.value)}
-              placeholder="Mô tả kinh nghiệm, năng lực nổi bật và vai trò thực tiễn..."
-              className="w-full px-3.5 py-2.5 bg-slate-50/60 border border-slate-200 rounded-xl text-xs sm:text-sm text-slate-900 focus:outline-none focus:bg-white focus:border-slate-800 focus:ring-1 focus:ring-slate-800 transition-colors"
-              required
-            />
-          </Field>
+            rows={4}
+            value={bio}
+            onChange={setBio}
+            placeholder="Mô tả kinh nghiệm, năng lực nổi bật và vai trò thực tiễn..."
+            width="100%"
+            className="border"
+          />
         </div>
       </Card>
 

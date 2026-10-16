@@ -10,6 +10,9 @@ import {
   EmptyState,
   Field,
   Pagination,
+  CheckboxInput,
+  TextInput,
+  TextArea,
 } from "@astryxdesign/core";
 import { CategoryItem, generateSlug } from "@/types/category";
 import { BlogPost } from "@/types/blog";
@@ -70,6 +73,9 @@ export default function CategoryManagerClient({
   const isAllSelected =
     paginatedCategories.length > 0 &&
     paginatedCategories.every((c) => selectedIds.includes(c.id));
+  const isPartiallySelected =
+    paginatedCategories.some((c) => selectedIds.includes(c.id)) &&
+    !isAllSelected;
 
   const handleToggleAll = () => {
     if (isAllSelected) {
@@ -198,8 +204,7 @@ export default function CategoryManagerClient({
   };
 
   // Name change handler
-  const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const val = e.target.value;
+  const handleNameChange = (val: string) => {
     setName(val);
     if (autoSlug) {
       setSlug(generateSlug(val));
@@ -207,9 +212,9 @@ export default function CategoryManagerClient({
   };
 
   // Slug change handler
-  const handleSlugChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleSlugChange = (val: string) => {
     setAutoSlug(false);
-    setSlug(e.target.value.toLowerCase().replace(/[^a-z0-9-]/g, ""));
+    setSlug(val.toLowerCase().replace(/[^a-z0-9-]/g, ""));
   };
 
   // Save handler (Create or Update)
@@ -383,17 +388,17 @@ export default function CategoryManagerClient({
         <div className="space-y-6">
           {/* Select all & counts row */}
           <div className="flex items-center justify-between px-1">
-            <label className="inline-flex items-center gap-2 text-xs font-medium text-slate-600 cursor-pointer hover:text-slate-900 select-none">
-              <input
-                type="checkbox"
-                checked={isAllSelected}
-                onChange={handleToggleAll}
-                className="w-4 h-4 rounded text-emerald-600 border-slate-300 focus:ring-emerald-500 cursor-pointer"
-              />
-              <span>
-                Chọn tất cả trên trang này ({paginatedCategories.length})
-              </span>
-            </label>
+            <CheckboxInput
+              label={`Chọn tất cả trên trang này (${paginatedCategories.length})`}
+              value={
+                isAllSelected
+                  ? true
+                  : isPartiallySelected
+                    ? "indeterminate"
+                    : false
+              }
+              onChange={handleToggleAll}
+            />
             {selectedIds.length > 0 && (
               <span className="text-xs text-slate-500">
                 Đã chọn {selectedIds.length} / {categories.length} chuyên mục
@@ -421,13 +426,15 @@ export default function CategoryManagerClient({
                     {/* Card Header */}
                     <div className="flex items-start justify-between gap-3 mb-2">
                       <div className="flex items-start gap-3 min-w-0">
-                        <input
-                          type="checkbox"
-                          checked={isChecked}
-                          onChange={() => handleToggleRow(cat.id)}
-                          className="mt-1 w-4 h-4 rounded text-emerald-600 border-slate-300 focus:ring-emerald-500 cursor-pointer shrink-0"
-                          aria-label={`Chọn chuyên mục ${cat.name}`}
-                        />
+                        <div className="mt-0.5 shrink-0">
+                          <CheckboxInput
+                            label={`Chọn chuyên mục ${cat.name}`}
+                            isLabelHidden
+                            size="sm"
+                            value={isChecked}
+                            onChange={() => handleToggleRow(cat.id)}
+                          />
+                        </div>
                         {cat.icon && (
                           <div className="w-9 h-9 rounded-xl bg-slate-50 border border-slate-200/80 p-1.5 shrink-0 flex items-center justify-center overflow-hidden">
                             <img
@@ -603,42 +610,26 @@ export default function CategoryManagerClient({
               )}
 
               {/* Tên chuyên mục */}
-              <div>
-                <Field
-                  label="Tên chuyên mục"
-                  inputID="category-name"
-                  isRequired
-                >
-                  <input
-                    id="category-name"
-                    type="text"
-                    required
-                    value={name}
-                    onChange={handleNameChange}
-                    placeholder="Ví dụ: Supply Chain & Logistics"
-                    className="w-full mt-1 px-3.5 py-2.5 rounded-xl border border-slate-200 text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-600 transition-all placeholder:text-slate-400"
-                  />
-                </Field>
-              </div>
+              <TextInput
+                label="Tên chuyên mục"
+                isRequired
+                value={name}
+                onChange={handleNameChange}
+                placeholder="Ví dụ: Supply Chain & Logistics"
+                width="100%"
+                className='h-10 border'
+              />
 
               {/* Slug */}
-              <div>
-                <Field
-                  label="Đường dẫn Slug"
-                  inputID="category-slug"
-                  isRequired
-                >
-                  <input
-                    id="category-slug"
-                    type="text"
-                    required
-                    value={slug}
-                    onChange={handleSlugChange}
-                    placeholder="supply-chain-logistics"
-                    className="w-full mt-1 px-3.5 py-2.5 rounded-xl border border-slate-200 font-mono text-slate-900 text-xs focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-600 transition-all placeholder:text-slate-400"
-                  />
-                </Field>
-              </div>
+              <TextInput
+                label="Đường dẫn Slug"
+                isRequired
+                value={slug}
+                onChange={handleSlugChange}
+                placeholder="supply-chain-logistics"
+                width="100%"
+                className='h-10 border'
+              />
 
               {/* Icon chuyên mục (Cloudinary) */}
               <div>
@@ -702,19 +693,15 @@ export default function CategoryManagerClient({
 
               {/* Mô tả */}
               <div>
-                <Field
+                <TextArea
                   label="Mô tả chuyên mục"
-                  inputID="category-desc"
-                >
-                  <textarea
-                    id="category-desc"
-                    rows={3}
-                    value={description}
-                    onChange={(e) => setDescription(e.target.value)}
-                    placeholder="Mô tả tóm tắt về phạm vi kiến thức của chuyên mục này..."
-                    className="w-full mt-1 px-3.5 py-2.5 rounded-xl border border-slate-200 text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-600 transition-all placeholder:text-slate-400 resize-none"
-                  />
-                </Field>
+                  rows={3}
+                  value={description}
+                  onChange={setDescription}
+                  placeholder="Mô tả tóm tắt về phạm vi kiến thức của chuyên mục này..."
+                  width="100%"
+                  className="border"
+                />
               </div>
 
               {/* Modal Actions */}
@@ -771,20 +758,16 @@ export default function CategoryManagerClient({
             {/* Modal Form */}
             <form onSubmit={handleBulkUpdateSubmit} className="p-6 space-y-4">
               <div>
-                <Field
+                <TextArea
                   label="Mô tả chuyên mục mới"
-                  inputID="bulk-category-desc"
                   description="Cập nhật mô tả đồng loạt cho các chuyên mục đã chọn"
-                >
-                  <textarea
-                    id="bulk-category-desc"
-                    rows={4}
-                    value={bulkDescription}
-                    onChange={(e) => setBulkDescription(e.target.value)}
-                    placeholder="Nhập nội dung mô tả mới cho các chuyên mục..."
-                    className="w-full mt-1 px-3.5 py-2.5 rounded-xl border border-slate-200 text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-600 transition-all placeholder:text-slate-400 resize-none"
-                  />
-                </Field>
+                  rows={4}
+                  value={bulkDescription}
+                  onChange={setBulkDescription}
+                  placeholder="Nhập nội dung mô tả mới cho các chuyên mục..."
+                  width="100%"
+                  className="border"
+                />
               </div>
 
               {/* Modal Actions */}

@@ -12,6 +12,8 @@ import {
   Selector,
   DropdownMenu,
   Pagination,
+  CheckboxInput,
+  TextInput,
 } from '@astryxdesign/core';
 import type {
   CaseStudyListItem,
@@ -191,6 +193,8 @@ export default function OurWorkListClient({
   const visibleIds = paginatedItems.map((item) => item.id);
   const isAllSelected =
     visibleIds.length > 0 && visibleIds.every((id) => selectedIds.includes(id));
+  const isPartiallySelected =
+    visibleIds.some((id) => selectedIds.includes(id)) && !isAllSelected;
 
   const handleToggleRow = (id: string) => {
     setSelectedIds((prev) =>
@@ -375,24 +379,17 @@ export default function OurWorkListClient({
       <Card variant="default" className="rounded-2xl p-4 sm:p-5 space-y-4">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-3">
           {/* Search box */}
-          <div className="md:col-span-6 relative">
-            <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
-            <input
-              type="text"
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
+          <div className="md:col-span-6">
+            <TextInput
+              label="Tìm kiếm dự án"
+              isLabelHidden
               placeholder="Tìm theo tên dự án, đối tác khách hàng, dịch vụ, ngành nghề..."
-              className="w-full pl-10 pr-9 py-2.5 bg-slate-50/60 border border-slate-200 rounded-xl text-xs sm:text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:bg-white focus:border-slate-800 focus:ring-1 focus:ring-slate-800 transition-colors"
+              value={search}
+              onChange={(val) => setSearch(val)}
+              hasClear
+              width="100%"
+              className='h-10 border'
             />
-            {search && (
-              <button
-                type="button"
-                onClick={() => setSearch('')}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 p-0.5 rounded-full hover:bg-slate-200/50"
-              >
-                <X className="w-3.5 h-3.5" />
-              </button>
-            )}
           </div>
 
           {/* Service filter */}
@@ -497,12 +494,17 @@ export default function OurWorkListClient({
                 <thead>
                   <tr className="bg-slate-50/80 border-b border-slate-200/80 text-slate-500 font-bold">
                     <th className="py-3.5 pl-4 sm:pl-6 pr-2 w-10">
-                      <input
-                        type="checkbox"
-                        checked={isAllSelected}
+                      <CheckboxInput
+                        label="Chọn tất cả dự án trong trang này"
+                        isLabelHidden
+                        value={
+                          isAllSelected
+                            ? true
+                            : isPartiallySelected
+                              ? 'indeterminate'
+                              : false
+                        }
                         onChange={handleToggleAll}
-                        className="w-4 h-4 rounded text-emerald-600 border-slate-300 focus:ring-emerald-500 cursor-pointer"
-                        title="Chọn tất cả dự án trong trang này"
                       />
                     </th>
                     <th className="py-3.5 px-3 w-16">Ảnh</th>
@@ -520,17 +522,17 @@ export default function OurWorkListClient({
                     return (
                       <tr
                         key={item.id}
-                        className={`hover:bg-slate-50/50 transition-colors ${
-                          isChecked ? 'bg-emerald-50/40' : ''
-                        }`}
+                        className={`hover:bg-slate-50/50 transition-colors ${isChecked ? 'bg-emerald-50/40' : ''
+                          }`}
                       >
                         {/* Checkbox */}
                         <td className="py-3.5 pl-4 sm:pl-6 pr-2">
-                          <input
-                            type="checkbox"
-                            checked={isChecked}
+                          <CheckboxInput
+                            label={`Chọn dự án ${item.title}`}
+                            isLabelHidden
+                            size="sm"
+                            value={isChecked}
                             onChange={() => handleToggleRow(item.id)}
-                            className="w-4 h-4 rounded text-emerald-600 border-slate-300 focus:ring-emerald-500 cursor-pointer"
                           />
                         </td>
 
@@ -551,123 +553,123 @@ export default function OurWorkListClient({
                           </div>
                         </td>
 
-                      {/* Title & Customer */}
-                      <td className="py-3.5 px-3">
-                        <div className="min-w-0 max-w-[240px] sm:max-w-xs">
-                          <Link
-                            href={`/admin/our-work/${item.id}`}
-                            className="font-bold text-slate-900 hover:text-emerald-700 transition-colors block truncate"
-                          >
-                            {item.title}
-                          </Link>
-                          <div className="text-xs text-slate-500 truncate">
-                            Khách hàng: <span className="font-medium text-slate-700">{item.customer}</span>
+                        {/* Title & Customer */}
+                        <td className="py-3.5 px-3">
+                          <div className="min-w-0 max-w-[240px] sm:max-w-xs">
+                            <Link
+                              href={`/admin/our-work/${item.id}`}
+                              className="font-bold text-slate-900 hover:text-emerald-700 transition-colors block truncate"
+                            >
+                              {item.title}
+                            </Link>
+                            <div className="text-xs text-slate-500 truncate">
+                              Khách hàng: <span className="font-medium text-slate-700">{item.customer}</span>
+                            </div>
+                            <div className="text-[11px] text-slate-400 font-mono truncate">
+                              /{item.slug}
+                            </div>
                           </div>
-                          <div className="text-[11px] text-slate-400 font-mono truncate">
-                            /{item.slug}
+                        </td>
+
+                        {/* Services & Industries */}
+                        <td className="py-3.5 px-3">
+                          <div className="flex flex-wrap gap-1 max-w-[200px]">
+                            {item.services?.slice(0, 2).map((srv, idx) => (
+                              <Badge
+                                key={idx}
+                                label={srv}
+                                variant="neutral"
+                                className="h-6 px-2 text-[11px]"
+                              />
+                            ))}
+                            {item.industries?.slice(0, 1).map((ind, idx) => (
+                              <Badge
+                                key={idx}
+                                label={ind}
+                                variant="blue"
+                                className="h-6 px-2 text-[11px]"
+                              />
+                            ))}
                           </div>
-                        </div>
-                      </td>
+                        </td>
 
-                      {/* Services & Industries */}
-                      <td className="py-3.5 px-3">
-                        <div className="flex flex-wrap gap-1 max-w-[200px]">
-                          {item.services?.slice(0, 2).map((srv, idx) => (
+                        {/* Highlight */}
+                        <td className="py-3.5 px-3 whitespace-nowrap">
+                          {item.highlight ? (
                             <Badge
-                              key={idx}
-                              label={srv}
-                              variant="neutral"
-                              className="h-6 px-2 text-[11px]"
+                              label={item.highlight}
+                              variant="warning"
+                              className="h-7 px-3 text-xs"
                             />
-                          ))}
-                          {item.industries?.slice(0, 1).map((ind, idx) => (
+                          ) : (
+                            <span className="text-slate-400 text-xs">-</span>
+                          )}
+                        </td>
+
+                        {/* Order */}
+                        <td className="py-3.5 px-3 text-center font-medium text-slate-700">
+                          {item.order}
+                        </td>
+
+                        {/* Status */}
+                        <td className="py-3.5 px-3 whitespace-nowrap">
+                          {item.status === 'published' ? (
                             <Badge
-                              key={idx}
-                              label={ind}
-                              variant="blue"
-                              className="h-6 px-2 text-[11px]"
+                              label="Đang hiển thị"
+                              variant="success"
+                              className="h-8 px-4"
                             />
-                          ))}
-                        </div>
-                      </td>
+                          ) : (
+                            <Badge
+                              label="Bản nháp"
+                              variant="warning"
+                              className="h-8 px-4"
+                            />
+                          )}
+                        </td>
 
-                      {/* Highlight */}
-                      <td className="py-3.5 px-3 whitespace-nowrap">
-                        {item.highlight ? (
-                          <Badge
-                            label={item.highlight}
-                            variant="warning"
-                            className="h-7 px-3 text-xs"
-                          />
-                        ) : (
-                          <span className="text-slate-400 text-xs">-</span>
-                        )}
-                      </td>
-
-                      {/* Order */}
-                      <td className="py-3.5 px-3 text-center font-medium text-slate-700">
-                        {item.order}
-                      </td>
-
-                      {/* Status */}
-                      <td className="py-3.5 px-3 whitespace-nowrap">
-                        {item.status === 'published' ? (
-                          <Badge
-                            label="Đang hiển thị"
-                            variant="success"
-                            className="h-8 px-4"
-                          />
-                        ) : (
-                          <Badge
-                            label="Bản nháp"
-                            variant="warning"
-                            className="h-8 px-4"
-                          />
-                        )}
-                      </td>
-
-                      {/* Actions */}
-                      <td className="py-3.5 px-4 sm:px-6 text-right whitespace-nowrap">
-                        <div className="flex items-center justify-end">
-                          <DropdownMenu
-                            button={{
-                              label: 'Thao tác',
-                              isIconOnly: true,
-                              icon: <MoreHorizontal className="w-4 h-4" />,
-                              size: 'sm',
-                              variant: 'ghost',
-                            }}
-                            placement="below"
-                            alignment="end"
-                            items={[
-                              {
-                                label: 'Chỉnh sửa nội dung sections',
-                                onClick: () =>
-                                  router.push(`/admin/our-work/${item.id}`),
-                              },
-                              {
-                                label: 'Xem trang chi tiết',
-                                onClick: () =>
-                                  window.open(
-                                    `/case-studies/${item.slug}`,
-                                    '_blank'
-                                  ),
-                              },
-                              {
-                                label: 'Xóa dự án',
-                                variant: 'destructive',
-                                isDisabled: isDeleting === item.id,
-                                onClick: () =>
-                                  handleDelete(item.id, item.title),
-                              },
-                            ]}
-                          />
-                        </div>
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
+                        {/* Actions */}
+                        <td className="py-3.5 px-4 sm:px-6 text-right whitespace-nowrap">
+                          <div className="flex items-center justify-end">
+                            <DropdownMenu
+                              button={{
+                                label: 'Thao tác',
+                                isIconOnly: true,
+                                icon: <MoreHorizontal className="w-4 h-4" />,
+                                size: 'sm',
+                                variant: 'ghost',
+                              }}
+                              placement="below"
+                              alignment="end"
+                              items={[
+                                {
+                                  label: 'Chỉnh sửa nội dung sections',
+                                  onClick: () =>
+                                    router.push(`/admin/our-work/${item.id}`),
+                                },
+                                {
+                                  label: 'Xem trang chi tiết',
+                                  onClick: () =>
+                                    window.open(
+                                      `/case-studies/${item.slug}`,
+                                      '_blank'
+                                    ),
+                                },
+                                {
+                                  label: 'Xóa dự án',
+                                  variant: 'destructive',
+                                  isDisabled: isDeleting === item.id,
+                                  onClick: () =>
+                                    handleDelete(item.id, item.title),
+                                },
+                              ]}
+                            />
+                          </div>
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
               </table>
             </div>
 

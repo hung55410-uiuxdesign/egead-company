@@ -17,7 +17,7 @@ import {
 } from 'lucide-react';
 import { CareerPost, JobStatus, JobType } from '@/types/career';
 import TipTapEditor from '@/components/admin/shared/TipTapEditor';
-import { Card, Button, Badge, Selector } from '@astryxdesign/core';
+import { Card, Button, Badge, Selector, CheckboxInput, TextInput, TextArea } from '@astryxdesign/core';
 import { useSaveJobMutation } from '@/lib/hooks';
 
 interface CareerEditorClientProps {
@@ -218,18 +218,15 @@ export default function CareerEditorClient({
         <div className="lg:col-span-2 space-y-6">
           {/* Basic Job Info Card */}
           <Card variant="default" className="rounded-2xl p-6 space-y-5">
-            <div>
-              <label className="block text-xs font-bold text-slate-700 mb-2">
-                Tiêu đề vị trí tuyển dụng <span className="text-red-500">*</span>
-              </label>
-              <input
-                type="text"
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
-                placeholder="VD: Senior Fullstack Engineer (Next.js & Node.js)..."
-                className="w-full px-4 py-3 bg-white border border-slate-200 rounded-xl text-slate-900 font-bold text-base placeholder-slate-400 focus:outline-none focus:border-slate-800 focus:ring-2 focus:ring-slate-800/10 transition-all"
-              />
-            </div>
+            <TextInput
+              label="Tiêu đề vị trí tuyển dụng"
+              isRequired
+              value={title}
+              onChange={setTitle}
+              placeholder="VD: Senior Fullstack Engineer (Next.js & Node.js)..."
+              width="100%"
+              className='h-10 border'
+            />
 
             {/* Slug input with auto generate */}
             <div>
@@ -244,31 +241,34 @@ export default function CareerEditorClient({
                   onClick={generateSlugFromTitle}
                 />
               </div>
-              <div className="flex items-center bg-white border border-slate-200 rounded-xl overflow-hidden focus-within:border-slate-800 focus-within:ring-2 focus-within:ring-slate-800/10 transition-all">
-                <span className="px-3.5 text-xs text-slate-500 font-mono select-none bg-slate-50 border-r border-slate-200 py-2.5 font-medium">
+              <div className="flex items-center gap-2">
+                <span className="px-3.5 py-2 text-xs text-slate-500 font-mono select-none bg-slate-50 border border-slate-200 rounded-lg">
                   /careers/
                 </span>
-                <input
-                  type="text"
-                  value={slug}
-                  onChange={(e) => setSlug(e.target.value)}
-                  placeholder="senior-fullstack-engineer-nextjs-nodejs"
-                  className="w-full py-2.5 px-3.5 bg-transparent text-xs font-mono text-slate-900 placeholder-slate-400 focus:outline-none"
-                />
+                <div className="flex-1">
+                  <TextInput
+                    label="Đường dẫn tĩnh (Slug)"
+                    isLabelHidden
+                    value={slug}
+                    onChange={setSlug}
+                    placeholder="senior-fullstack-engineer-nextjs-nodejs"
+                    width="100%"
+                    className='h-10 border'
+                  />
+                </div>
               </div>
             </div>
 
             {/* Excerpt */}
             <div>
-              <label className="block text-xs font-bold text-slate-700 mb-2">
-                Tóm tắt ngắn gọn vị trí (Excerpt)
-              </label>
-              <textarea
+              <TextArea
+                label="Tóm tắt ngắn gọn vị trí (Excerpt)"
                 rows={3}
                 value={excerpt}
-                onChange={(e) => setExcerpt(e.target.value)}
+                onChange={setExcerpt}
                 placeholder="Tóm tắt ngắn gọn mục tiêu công việc, hiển thị ở thẻ danh sách và meta SEO..."
-                className="w-full px-4 py-2.5 bg-white border border-slate-200 rounded-xl text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:border-slate-800 focus:ring-2 focus:ring-slate-800/10 transition-all resize-y leading-relaxed"
+                width="100%"
+                className="border"
               />
             </div>
           </Card>
@@ -390,20 +390,12 @@ export default function CareerEditorClient({
               />
             </div>
 
-            <div className="pt-2 border-t border-slate-100 flex items-center justify-between">
-              <div>
-                <span className="text-xs font-bold text-slate-800 block">
-                  Vị trí ưu tiên (HOT)
-                </span>
-                <span className="text-[11px] text-slate-500">
-                  Gắn nhãn HOT nổi bật trên website
-                </span>
-              </div>
-              <input
-                type="checkbox"
-                checked={featured}
-                onChange={(e) => setFeatured(e.target.checked)}
-                className="w-4 h-4 rounded text-emerald-600 focus:ring-emerald-500 cursor-pointer"
+            <div className="pt-2 border-t border-slate-100">
+              <CheckboxInput
+                label="Vị trí ưu tiên (HOT)"
+                description="Gắn nhãn HOT nổi bật trên website"
+                value={featured}
+                onChange={(checked) => setFeatured(checked)}
               />
             </div>
           </Card>
@@ -442,13 +434,17 @@ export default function CareerEditorClient({
               />
 
               {department === '__custom__' && (
-                <input
-                  type="text"
-                  value={customDepartment}
-                  onChange={(e) => setCustomDepartment(e.target.value)}
-                  placeholder="Nhập tên phòng ban..."
-                  className="w-full mt-2 px-3.5 py-2 bg-white border border-slate-200 rounded-xl text-xs text-slate-900 focus:outline-none focus:border-slate-800"
-                />
+                <div className="mt-2">
+                  <TextInput
+                    label="Tên phòng ban khác"
+                    isLabelHidden
+                    value={customDepartment}
+                    onChange={(val) => setCustomDepartment(val)}
+                    placeholder="Nhập tên phòng ban..."
+                    width="100%"
+                    className='h-10 border'
+                  />
+                </div>
               )}
             </div>
 
@@ -468,18 +464,14 @@ export default function CareerEditorClient({
               />
             </div>
 
-            <div>
-              <label className="block text-xs font-semibold text-slate-700 mb-1.5">
-                Địa điểm làm việc
-              </label>
-              <input
-                type="text"
-                value={location}
-                onChange={(e) => setLocation(e.target.value)}
-                placeholder="VD: Hà Nội (Hybrid), TP. HCM, On-site..."
-                className="w-full px-3.5 py-2.5 bg-white border border-slate-200 rounded-xl text-sm text-slate-900 focus:outline-none focus:border-slate-800 focus:ring-2 focus:ring-slate-800/10 transition-all"
-              />
-            </div>
+            <TextInput
+              label="Địa điểm làm việc"
+              value={location}
+              onChange={setLocation}
+              placeholder="VD: Hà Nội (Hybrid), TP. HCM, On-site..."
+              width="100%"
+              className='h-10 border'
+            />
           </Card>
 
           {/* Salary, Experience & Deadline */}
@@ -488,44 +480,32 @@ export default function CareerEditorClient({
               Mức lương &amp; Yêu cầu
             </h3>
 
-            <div>
-              <label className="block text-xs font-semibold text-slate-700 mb-1.5">
-                Mức lương dự kiến
-              </label>
-              <input
-                type="text"
-                value={salary}
-                onChange={(e) => setSalary(e.target.value)}
-                placeholder="VD: 25 - 40 Triệu VND, Thỏa thuận..."
-                className="w-full px-3.5 py-2.5 bg-white border border-slate-200 rounded-xl text-sm text-slate-900 focus:outline-none focus:border-slate-800 focus:ring-2 focus:ring-slate-800/10 transition-all font-medium"
-              />
-            </div>
+            <TextInput
+              label="Mức lương dự kiến"
+              value={salary}
+              onChange={setSalary}
+              placeholder="VD: 25 - 40 Triệu VND, Thỏa thuận..."
+              width="100%"
+              className='h-10 border'
+            />
 
-            <div>
-              <label className="block text-xs font-semibold text-slate-700 mb-1.5">
-                Kinh nghiệm yêu cầu
-              </label>
-              <input
-                type="text"
-                value={experience}
-                onChange={(e) => setExperience(e.target.value)}
-                placeholder="VD: 2+ năm kinh nghiệm, 3-5 năm..."
-                className="w-full px-3.5 py-2.5 bg-white border border-slate-200 rounded-xl text-sm text-slate-900 focus:outline-none focus:border-slate-800 focus:ring-2 focus:ring-slate-800/10 transition-all"
-              />
-            </div>
+            <TextInput
+              label="Kinh nghiệm yêu cầu"
+              value={experience}
+              onChange={setExperience}
+              placeholder="VD: 2+ năm kinh nghiệm, 3-5 năm..."
+              width="100%"
+              className='h-10 border'
+            />
 
-            <div>
-              <label className="block text-xs font-semibold text-slate-700 mb-1.5">
-                Số lượng tuyển dụng
-              </label>
-              <input
-                type="text"
-                value={quantity}
-                onChange={(e) => setQuantity(e.target.value)}
-                placeholder="VD: 02 nhân sự"
-                className="w-full px-3.5 py-2.5 bg-white border border-slate-200 rounded-xl text-sm text-slate-900 focus:outline-none focus:border-slate-800 focus:ring-2 focus:ring-slate-800/10 transition-all"
-              />
-            </div>
+            <TextInput
+              label="Số lượng tuyển dụng"
+              value={String(quantity)}
+              onChange={setQuantity}
+              placeholder="VD: 02 nhân sự"
+              width="100%"
+              className='h-10 border'
+            />
 
             <div>
               <label className="block text-xs font-semibold text-slate-700 mb-1.5">
@@ -539,18 +519,15 @@ export default function CareerEditorClient({
               />
             </div>
 
-            <div>
-              <label className="block text-xs font-semibold text-slate-700 mb-1.5">
-                Email nhận thông báo CV
-              </label>
-              <input
-                type="email"
-                value={contactEmail}
-                onChange={(e) => setContactEmail(e.target.value)}
-                placeholder="hr@egead.com"
-                className="w-full px-3.5 py-2.5 bg-white border border-slate-200 rounded-xl text-sm text-slate-900 focus:outline-none focus:border-slate-800 focus:ring-2 focus:ring-slate-800/10 transition-all"
-              />
-            </div>
+            <TextInput
+              type="email"
+              label="Email nhận thông báo CV"
+              value={contactEmail}
+              onChange={setContactEmail}
+              placeholder="hr@egead.com"
+              width="100%"
+              className='h-10 border'
+            />
           </Card>
         </div>
       </div>

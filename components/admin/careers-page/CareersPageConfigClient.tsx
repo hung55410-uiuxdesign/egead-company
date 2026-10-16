@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { Trash2 } from 'lucide-react';
-import { Button, Card, Badge, useToast } from '@astryxdesign/core';
+import { Button, Card, Badge, useToast, TextInput, Selector, TextArea } from '@astryxdesign/core';
 import {
   DEFAULT_CAREERS_PAGE_CONFIG,
   type CareersPageConfigData,
@@ -109,37 +109,39 @@ function ColumnIconPicker({
         {/* Picker and Uploader */}
         <div className="flex-1 min-w-0 space-y-2">
           {/* Preset Select */}
-          <select
+          <Selector
+            label="Chọn biểu tượng"
+            isLabelHidden
             value={
               PRESET_ICONS.some((p) => p.value === (icon || ''))
                 ? icon || ''
                 : 'custom'
             }
-            onChange={(e) => {
-              if (e.target.value !== 'custom') {
-                onIconChange(e.target.value);
+            onChange={(val) => {
+              if (val !== 'custom') {
+                onIconChange(val);
               }
             }}
-            className="w-full px-2.5 py-1.5 rounded-lg border border-slate-300 text-xs bg-white text-slate-800 font-normal focus:outline-none focus:ring-1 focus:ring-slate-900 truncate"
-          >
-            {PRESET_ICONS.map((p) => (
-              <option key={p.value} value={p.value}>
-                {p.label}
-              </option>
-            ))}
-            {!PRESET_ICONS.some((p) => p.value === (icon || '')) && icon && (
-              <option value="custom">Icon tùy chỉnh (URL / Upload)</option>
-            )}
-          </select>
+            options={[
+              ...PRESET_ICONS,
+              ...(!PRESET_ICONS.some((p) => p.value === (icon || '')) && icon
+                ? [{ value: 'custom', label: 'Icon tùy chỉnh (URL / Upload)' }]
+                : []),
+            ]}
+            width="100%"
+            className="h-10 border"
+          />
 
           {/* URL Input + Upload button */}
-          <div className="flex gap-1.5">
-            <input
-              type="text"
+          <div className="flex gap-1.5 items-center">
+            <TextInput
+              label="URL icon"
+              isLabelHidden
               value={icon || ''}
-              onChange={(e) => onIconChange(e.target.value)}
+              onChange={onIconChange}
               placeholder="URL icon hoặc tên Lucide..."
-              className="flex-1 min-w-0 px-2.5 py-1 text-[11px] rounded-lg border border-slate-200 bg-white focus:outline-none focus:ring-1 focus:ring-slate-900 font-normal"
+              width="100%"
+              className='h-10 border'
             />
             <label className="cursor-pointer shrink-0">
               <input
@@ -493,11 +495,10 @@ export default function CareersPageConfigClient({
         <button
           type="button"
           onClick={() => handleTabChange('hero')}
-          className={`px-4 py-2.5 text-sm font-medium transition-colors border-b-2 whitespace-nowrap ${
-            activeTab === 'hero'
+          className={`px-4 py-2.5 text-sm font-medium transition-colors border-b-2 whitespace-nowrap ${activeTab === 'hero'
               ? 'border-slate-900 text-slate-900 font-semibold'
               : 'border-transparent text-slate-500 hover:text-slate-900'
-          }`}
+            }`}
         >
           Hero Banner
         </button>
@@ -505,11 +506,10 @@ export default function CareersPageConfigClient({
         <button
           type="button"
           onClick={() => handleTabChange('about')}
-          className={`px-4 py-2.5 text-sm font-medium transition-colors border-b-2 whitespace-nowrap ${
-            activeTab === 'about'
+          className={`px-4 py-2.5 text-sm font-medium transition-colors border-b-2 whitespace-nowrap ${activeTab === 'about'
               ? 'border-slate-900 text-slate-900 font-semibold'
               : 'border-transparent text-slate-500 hover:text-slate-900'
-          }`}
+            }`}
         >
           Giới thiệu văn hóa (About)
         </button>
@@ -517,11 +517,10 @@ export default function CareersPageConfigClient({
         <button
           type="button"
           onClick={() => handleTabChange('whyChooseUs')}
-          className={`px-4 py-2.5 text-sm font-medium transition-colors border-b-2 whitespace-nowrap ${
-            activeTab === 'whyChooseUs'
+          className={`px-4 py-2.5 text-sm font-medium transition-colors border-b-2 whitespace-nowrap ${activeTab === 'whyChooseUs'
               ? 'border-slate-900 text-slate-900 font-semibold'
               : 'border-transparent text-slate-500 hover:text-slate-900'
-          }`}
+            }`}
         >
           Lợi ích (Why Choose Us)
         </button>
@@ -529,11 +528,10 @@ export default function CareersPageConfigClient({
         <button
           type="button"
           onClick={() => handleTabChange('offices')}
-          className={`px-4 py-2.5 text-sm font-medium transition-colors border-b-2 whitespace-nowrap ${
-            activeTab === 'offices'
+          className={`px-4 py-2.5 text-sm font-medium transition-colors border-b-2 whitespace-nowrap ${activeTab === 'offices'
               ? 'border-slate-900 text-slate-900 font-semibold'
               : 'border-transparent text-slate-500 hover:text-slate-900'
-          }`}
+            }`}
         >
           Văn phòng toàn cầu ({config.offices.length})
         </button>
@@ -541,11 +539,10 @@ export default function CareersPageConfigClient({
         <button
           type="button"
           onClick={() => handleTabChange('json')}
-          className={`px-4 py-2.5 text-sm font-medium transition-colors border-b-2 whitespace-nowrap ${
-            activeTab === 'json'
+          className={`px-4 py-2.5 text-sm font-medium transition-colors border-b-2 whitespace-nowrap ${activeTab === 'json'
               ? 'border-slate-900 text-slate-900 font-semibold'
               : 'border-transparent text-slate-500 hover:text-slate-900'
-          }`}
+            }`}
         >
           Dữ liệu JSON
         </button>
@@ -567,24 +564,21 @@ export default function CareersPageConfigClient({
 
           <div className="space-y-5">
             <div>
-              <label className="block text-xs font-bold text-slate-700 mb-1.5">
-                Tiêu đề chính (Hero Title)
-              </label>
-              <textarea
+              <TextArea
+                label="Tiêu đề chính (Hero Title)"
+                description="Có thể nhấn Enter để chia dòng tiêu đề theo ý muốn"
                 rows={3}
                 value={config.hero.title}
-                onChange={(e) =>
+                onChange={(val) =>
                   setConfig((prev) => ({
                     ...prev,
-                    hero: { ...prev.hero, title: e.target.value },
+                    hero: { ...prev.hero, title: val },
                   }))
                 }
-                className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-slate-900 font-normal"
+                width="100%"
+                className="border"
                 placeholder="Join The Human Inc to..."
               />
-              <span className="text-[11px] text-slate-400 mt-1 block">
-                Có thể nhấn Enter để chia dòng tiêu đề theo ý muốn
-              </span>
             </div>
 
             <div className="space-y-3">
@@ -592,17 +586,19 @@ export default function CareersPageConfigClient({
                 Đường dẫn ảnh tập thể (Hero Image URL)
               </label>
               <div className="flex gap-2">
-                <input
-                  type="text"
+                <TextInput
+                  label="Đường dẫn ảnh tập thể"
+                  isLabelHidden
                   value={config.hero.image}
-                  onChange={(e) =>
+                  onChange={(val) =>
                     setConfig((prev) => ({
                       ...prev,
-                      hero: { ...prev.hero, image: e.target.value },
+                      hero: { ...prev.hero, image: val },
                     }))
                   }
-                  className="flex-1 px-3.5 py-2 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-slate-900 font-normal"
                   placeholder="/assets/careers/team-group.png"
+                  width="100%"
+                  className='h-10 border'
                 />
                 <label className="cursor-pointer">
                   <input
@@ -654,77 +650,72 @@ export default function CareersPageConfigClient({
             {/* Left form inputs */}
             <div className="space-y-4">
               <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1.5">
-                  Nhãn chuyên mục (Subtitle)
-                </label>
-                <input
-                  type="text"
+                <TextInput
+                  label="Nhãn chuyên mục (Subtitle)"
                   value={config.about.subtitle}
-                  onChange={(e) =>
+                  onChange={(val) =>
                     setConfig((prev) => ({
                       ...prev,
-                      about: { ...prev.about, subtitle: e.target.value },
+                      about: { ...prev.about, subtitle: val },
                     }))
                   }
-                  className="w-full px-3.5 py-2 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-slate-900 font-normal"
                   placeholder="About The Human Inc"
+                  width="100%"
+                  className='h-10 border'
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1.5">
-                  Tiêu đề chính (Title)
-                </label>
-                <textarea
+                <TextArea
+                  label="Tiêu đề chính (Title)"
                   rows={2}
                   value={config.about.title}
-                  onChange={(e) =>
+                  onChange={(val) =>
                     setConfig((prev) => ({
                       ...prev,
-                      about: { ...prev.about, title: e.target.value },
+                      about: { ...prev.about, title: val },
                     }))
                   }
-                  className="w-full px-3.5 py-2 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-slate-900 font-normal"
+                  width="100%"
+                  className="border"
                   placeholder="Find your passion at The Human Inc"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1.5">
-                  Đoạn mô tả 1
-                </label>
-                <textarea
+                <TextArea
+                  label="Đoạn mô tả 1"
                   rows={3}
                   value={config.about.paragraphs[0] || ''}
-                  onChange={(e) => {
+                  onChange={(val) => {
                     const nextParas = [...config.about.paragraphs];
-                    nextParas[0] = e.target.value;
+                    nextParas[0] = val;
                     setConfig((prev) => ({
                       ...prev,
                       about: { ...prev.about, paragraphs: nextParas },
                     }));
                   }}
-                  className="w-full px-3.5 py-2 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-slate-900 font-normal"
+                  width="100%"
+                  className="border"
                   placeholder="At The Human Inc, we aim to create..."
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1.5">
-                  Đoạn mô tả 2
-                </label>
-                <textarea
+                <TextArea
+                  label="Đoạn mô tả 2"
                   rows={3}
                   value={config.about.paragraphs[1] || ''}
-                  onChange={(e) => {
+                  onChange={(val) => {
                     const nextParas = [...config.about.paragraphs];
-                    nextParas[1] = e.target.value;
+                    nextParas[1] = val;
                     setConfig((prev) => ({
                       ...prev,
                       about: { ...prev.about, paragraphs: nextParas },
                     }));
                   }}
-                  className="w-full px-3.5 py-2 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-slate-900 font-normal"
+                  width="100%"
+                  className="border"
                   placeholder="Join us and you will become part of..."
                 />
               </div>
@@ -737,17 +728,19 @@ export default function CareersPageConfigClient({
                   Ảnh văn hóa / sinh hoạt (Culture Spotlight Image)
                 </label>
                 <div className="flex gap-2">
-                  <input
-                    type="text"
+                  <TextInput
+                    label="Ảnh văn hóa / sinh hoạt"
+                    isLabelHidden
                     value={config.about.image}
-                    onChange={(e) =>
+                    onChange={(val) =>
                       setConfig((prev) => ({
                         ...prev,
-                        about: { ...prev.about, image: e.target.value },
+                        about: { ...prev.about, image: val },
                       }))
                     }
-                    className="flex-1 px-3.5 py-2 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-slate-900 font-normal"
                     placeholder="/assets/careers/culture-spotlight.png"
+                    width="100%"
+                    className='h-10 border'
                   />
                   <label className="cursor-pointer">
                     <input
@@ -791,24 +784,22 @@ export default function CareersPageConfigClient({
             <h2 className="text-base font-bold text-slate-900">
               Tiêu Đề Khối Lợi Ích
             </h2>
-            <div>
-              <label className="block text-xs font-bold text-slate-700 mb-1.5">
-                Tiêu đề khối
-              </label>
-              <input
-                type="text"
+            <div className="max-w-lg">
+              <TextInput
+                label="Tiêu đề khối"
                 value={config.whyChooseUs.title}
-                onChange={(e) =>
+                onChange={(val) =>
                   setConfig((prev) => ({
                     ...prev,
                     whyChooseUs: {
                       ...prev.whyChooseUs,
-                      title: e.target.value,
+                      title: val,
                     },
                   }))
                 }
-                className="w-full max-w-lg px-3.5 py-2 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-slate-900 font-normal"
                 placeholder="Why choose us?"
+                width="100%"
+                className='h-10 border'
               />
             </div>
           </Card>
@@ -852,25 +843,23 @@ export default function CareersPageConfigClient({
               />
 
               <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1.5">
-                  Tiêu đề cột
-                </label>
-                <input
-                  type="text"
+                <TextInput
+                  label="Tiêu đề cột"
                   value={config.whyChooseUs.benefits.title}
-                  onChange={(e) =>
+                  onChange={(val) =>
                     setConfig((prev) => ({
                       ...prev,
                       whyChooseUs: {
                         ...prev.whyChooseUs,
                         benefits: {
                           ...prev.whyChooseUs.benefits,
-                          title: e.target.value,
+                          title: val,
                         },
                       },
                     }))
                   }
-                  className="w-full px-3 py-2 rounded-lg border border-slate-300 text-sm bg-white font-normal"
+                  width="100%"
+                  className='h-10 border'
                 />
               </div>
 
@@ -880,13 +869,15 @@ export default function CareersPageConfigClient({
                 </label>
                 {config.whyChooseUs.benefits.items.map((item, idx) => (
                   <div key={idx} className="flex items-center gap-2">
-                    <input
-                      type="text"
+                    <TextInput
+                      label={`Quyền lợi ${idx + 1}`}
+                      isLabelHidden
                       value={item}
-                      onChange={(e) =>
-                        handleBenefitItemChange('benefits', idx, e.target.value)
+                      onChange={(val) =>
+                        handleBenefitItemChange('benefits', idx, val)
                       }
-                      className="flex-1 px-3 py-1.5 rounded-lg border border-slate-300 text-xs bg-white font-normal"
+                      width="100%"
+                      className='h-10 border'
                     />
                     <button
                       type="button"
@@ -938,25 +929,23 @@ export default function CareersPageConfigClient({
               />
 
               <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1.5">
-                  Tiêu đề cột
-                </label>
-                <input
-                  type="text"
+                <TextInput
+                  label="Tiêu đề cột"
                   value={config.whyChooseUs.learning.title}
-                  onChange={(e) =>
+                  onChange={(val) =>
                     setConfig((prev) => ({
                       ...prev,
                       whyChooseUs: {
                         ...prev.whyChooseUs,
                         learning: {
                           ...prev.whyChooseUs.learning,
-                          title: e.target.value,
+                          title: val,
                         },
                       },
                     }))
                   }
-                  className="w-full px-3 py-2 rounded-lg border border-slate-300 text-sm bg-white font-normal"
+                  width="100%"
+                  className='h-10 border'
                 />
               </div>
 
@@ -966,13 +955,15 @@ export default function CareersPageConfigClient({
                 </label>
                 {config.whyChooseUs.learning.items.map((item, idx) => (
                   <div key={idx} className="flex items-center gap-2">
-                    <input
-                      type="text"
+                    <TextInput
+                      label={`Quyền lợi ${idx + 1}`}
+                      isLabelHidden
                       value={item}
-                      onChange={(e) =>
-                        handleBenefitItemChange('learning', idx, e.target.value)
+                      onChange={(val) =>
+                        handleBenefitItemChange('learning', idx, val)
                       }
-                      className="flex-1 px-3 py-1.5 rounded-lg border border-slate-300 text-xs bg-white font-normal"
+                      width="100%"
+                      className='h-10 border'
                     />
                     <button
                       type="button"
@@ -1024,25 +1015,23 @@ export default function CareersPageConfigClient({
               />
 
               <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1.5">
-                  Tiêu đề cột
-                </label>
-                <input
-                  type="text"
+                <TextInput
+                  label="Tiêu đề cột"
                   value={config.whyChooseUs.environment.title}
-                  onChange={(e) =>
+                  onChange={(val) =>
                     setConfig((prev) => ({
                       ...prev,
                       whyChooseUs: {
                         ...prev.whyChooseUs,
                         environment: {
                           ...prev.whyChooseUs.environment,
-                          title: e.target.value,
+                          title: val,
                         },
                       },
                     }))
                   }
-                  className="w-full px-3 py-2 rounded-lg border border-slate-300 text-sm bg-white font-normal"
+                  width="100%"
+                  className='h-10 border'
                 />
               </div>
 
@@ -1052,13 +1041,15 @@ export default function CareersPageConfigClient({
                 </label>
                 {config.whyChooseUs.environment.items.map((item, idx) => (
                   <div key={idx} className="flex items-center gap-2">
-                    <input
-                      type="text"
+                    <TextInput
+                      label={`Quyền lợi ${idx + 1}`}
+                      isLabelHidden
                       value={item}
-                      onChange={(e) =>
-                        handleBenefitItemChange('environment', idx, e.target.value)
+                      onChange={(val) =>
+                        handleBenefitItemChange('environment', idx, val)
                       }
-                      className="flex-1 px-3 py-1.5 rounded-lg border border-slate-300 text-xs bg-white font-normal"
+                      width="100%"
+                      className='h-10 border'
                     />
                     <button
                       type="button"
@@ -1121,34 +1112,32 @@ export default function CareersPageConfigClient({
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold text-slate-700 mb-1.5">
-                      Quốc gia / Biểu tượng cờ
-                    </label>
-                    <select
+                    <Selector
+                      label="Quốc gia / Biểu tượng cờ"
                       value={office.country}
-                      onChange={(e) =>
-                        handleOfficeChange(office.id, 'country', e.target.value)
+                      onChange={(val) =>
+                        handleOfficeChange(office.id, 'country', val)
                       }
-                      className="w-full px-3 py-2 rounded-lg border border-slate-300 text-xs bg-white font-normal"
-                    >
-                      <option value="singapore">Singapore</option>
-                      <option value="hongkong">HongKong</option>
-                      <option value="vietnam">Việt Nam</option>
-                    </select>
+                      options={[
+                        { value: 'singapore', label: 'Singapore' },
+                        { value: 'hongkong', label: 'HongKong' },
+                        { value: 'vietnam', label: 'Việt Nam' },
+                      ]}
+                      width="100%"
+                      className="h-10 border"
+                    />
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold text-slate-700 mb-1.5">
-                      Tên văn phòng / Thành phố
-                    </label>
-                    <input
-                      type="text"
+                    <TextInput
+                      label="Tên văn phòng / Thành phố"
                       value={office.city}
-                      onChange={(e) =>
-                        handleOfficeChange(office.id, 'city', e.target.value)
+                      onChange={(val) =>
+                        handleOfficeChange(office.id, 'city', val)
                       }
-                      className="w-full px-3 py-1.5 rounded-lg border border-slate-300 text-xs bg-white font-normal"
                       placeholder="Singapore"
+                      width="100%"
+                      className='h-10 border'
                     />
                   </div>
 
@@ -1168,18 +1157,20 @@ export default function CareersPageConfigClient({
 
                     {office.addressLines.map((line, lIdx) => (
                       <div key={lIdx} className="flex items-center gap-1.5">
-                        <input
-                          type="text"
+                        <TextInput
+                          label={`Dòng địa chỉ ${lIdx + 1}`}
+                          isLabelHidden
                           value={line}
-                          onChange={(e) =>
+                          onChange={(val) =>
                             handleOfficeAddressLineChange(
                               office.id,
                               lIdx,
-                              e.target.value
+                              val
                             )
                           }
-                          className="flex-1 px-2.5 py-1 rounded-md border border-slate-300 text-xs bg-white font-normal"
                           placeholder={`Dòng địa chỉ ${lIdx + 1}`}
+                          width="100%"
+                          className='h-10 border'
                         />
                         <button
                           type="button"

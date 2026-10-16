@@ -2,7 +2,7 @@
 
 import React, { useState, KeyboardEvent } from 'react';
 import { X, Plus } from 'lucide-react';
-import { Badge, Button } from '@astryxdesign/core';
+import { Badge, Button, TextInput } from '@astryxdesign/core';
 
 interface SkillTagInputProps {
   skills: string[];
@@ -51,15 +51,20 @@ export default function SkillTagInput({
     <div className="space-y-2.5">
       {/* Input container */}
       <div className="flex items-center gap-2">
-        <input
-          type="text"
-          value={inputValue}
-          disabled={disabled}
-          onChange={(e) => setInputValue(e.target.value)}
-          onKeyDown={handleKeyDown}
-          placeholder={placeholder}
-          className="flex-1 px-3.5 py-2.5 bg-slate-50/60 border border-slate-200 rounded-xl text-xs sm:text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:bg-white focus:border-slate-800 focus:ring-1 focus:ring-slate-800 transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
-        />
+        <div className="flex-1">
+          <TextInput
+            label="Kỹ năng"
+            isLabelHidden
+            value={inputValue}
+            isDisabled={disabled}
+            onChange={setInputValue}
+            onKeyDown={handleKeyDown}
+            onEnter={() => addSkill(inputValue)}
+            placeholder={placeholder}
+            width="100%"
+            className='h-10 border'
+          />
+        </div>
         <Button
           label="Thêm"
           variant="secondary"

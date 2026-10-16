@@ -7,6 +7,7 @@ import {
   Badge,
   Selector,
   useToast,
+  TextArea,
 } from '@astryxdesign/core';
 import { BlogCategory } from '@/types/blog';
 import {
@@ -150,11 +151,7 @@ export default function AIBlogImportModal({
               <h3 className="text-lg font-bold text-slate-900">
                 Thêm nhanh bài viết từ AI
               </h3>
-              <Badge label="Markdown & Frontmatter" variant="neutral" className="h-6 px-2.5 text-xs" />
             </div>
-            <p className="text-xs text-slate-500 mt-1">
-              Dán văn bản được AI (ChatGPT, Claude, Gemini) tạo theo cấu trúc chuẩn để tự động điền form hoặc lưu ngay
-            </p>
           </div>
           <Button
             label="Đóng"
@@ -167,12 +164,11 @@ export default function AIBlogImportModal({
         {/* Scrollable Content Body */}
         <div className="p-6 overflow-y-auto space-y-5 flex-1">
           {/* Template Selection Box */}
-          <div className="bg-slate-50 border border-slate-200/90 rounded-2xl p-4 sm:p-5 space-y-3.5">
+          <div className="bg-slate-50 border border-slate-200/90 rounded-2xl p-4 sm:p-5 space-y-2">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
               <label className="text-xs font-bold text-slate-800">
                 Chọn mẫu chủ đề &amp; định dạng bài viết:
               </label>
-              <Badge label={activeTemplate.badge} variant="neutral" className="h-6 px-2.5 text-xs w-fit" />
             </div>
 
             <Selector
@@ -187,19 +183,19 @@ export default function AIBlogImportModal({
             />
 
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-1">
-              <p className="text-xs text-slate-600 font-medium">
+              <p className="text-sm text-slate-900">
                 {activeTemplate.description}
               </p>
 
               <div className="flex items-center gap-2 shrink-0">
                 <Button
-                  label="Sao chép Prompt mẫu"
+                  label="Sao chép"
                   variant="secondary"
                   onClick={handleCopyPrompt}
                   className="h-9 px-3.5 text-xs"
                 />
                 <Button
-                  label="Dán dữ liệu mẫu"
+                  label="Dán dữ liệu"
                   variant="secondary"
                   onClick={handleLoadSample}
                   className="h-9 px-3.5 text-xs"
@@ -225,15 +221,15 @@ export default function AIBlogImportModal({
 
           {/* Main Input Textarea */}
           <div>
-            <label className="block text-xs font-bold text-slate-700 mb-2">
-              Nội dung văn bản từ AI
-            </label>
-            <textarea
+            <TextArea
+              label="Nội dung bài viết AI (Markdown / JSON)"
+              isLabelHidden
               rows={8}
               value={rawText}
-              onChange={(e) => setRawText(e.target.value)}
+              onChange={setRawText}
               placeholder="Dán toàn bộ văn bản bắt đầu từ khối --- hoặc mã Markdown / JSON vào đây..."
-              className="w-full p-4 bg-slate-50/60 border border-slate-200 rounded-xl text-xs sm:text-sm font-mono text-slate-900 placeholder-slate-400 focus:outline-none focus:bg-white focus:border-slate-800 focus:ring-1 focus:ring-slate-800 transition-all leading-relaxed"
+              width="100%"
+              className="border font-mono text-xs sm:text-sm"
             />
           </div>
 
@@ -316,7 +312,7 @@ export default function AIBlogImportModal({
 
             {onSaveDirectly && (
               <Button
-                label={isSavingDirectly ? 'Đang lưu bài viết...' : 'Lưu nháp vào hệ thống ngay'}
+                label={isSavingDirectly ? 'Đang lưu bài viết...' : 'Lưu bản nháp'}
                 variant="primary"
                 isDisabled={!parsedData || isSavingDirectly}
                 isLoading={isSavingDirectly}

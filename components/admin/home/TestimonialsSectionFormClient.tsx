@@ -2,7 +2,7 @@
 
 import React, { useState, FormEvent } from 'react';
 import { useRouter } from 'next/navigation';
-import { Button, Card, Badge, Field } from '@astryxdesign/core';
+import { Button, Card, Badge, Field, Switch, TextInput, TextArea } from '@astryxdesign/core';
 import type {
   HomeSectionModel,
   TestimonialItem,
@@ -298,58 +298,38 @@ export default function TestimonialsSectionFormClient({
         </div>
 
         {/* Trạng thái kích hoạt */}
-        <div className="p-4 rounded-xl bg-slate-50/80 border border-slate-200 flex items-center justify-between">
-          <div>
-            <label className="text-sm font-semibold text-slate-900 block cursor-pointer">
-              Trạng thái hiển thị trên website
-            </label>
-            <p className="text-xs text-slate-500 mt-0.5">
-              Khi tắt, khối đánh giá khách hàng sẽ tạm ẩn hoàn toàn khỏi trang chủ
-            </p>
-          </div>
-          <label className="relative inline-flex items-center cursor-pointer">
-            <input
-              type="checkbox"
-              checked={isActive}
-              onChange={(e) => setIsActive(e.target.checked)}
-              className="sr-only peer"
-            />
-            <div className="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-emerald-600"></div>
-          </label>
+        <div className="p-4 rounded-xl bg-slate-50/80 border border-slate-200">
+          <Switch
+            label="Trạng thái hiển thị trên website"
+            description="Khi tắt, khối đánh giá khách hàng sẽ tạm ẩn hoàn toàn khỏi trang chủ"
+            labelPosition="start"
+            labelSpacing="spread"
+            width="100%"
+            value={isActive}
+            onChange={(checked) => setIsActive(checked)}
+          />
         </div>
 
         {/* Tiêu đề & Phụ đề */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <Field
+          <TextInput
             label="Tiêu đề phụ (Subtitle)"
-            inputID="section-subtitle"
-            description="Dòng chữ nhỏ màu xanh nhạt phía trên tiêu đề chính"
-          >
-            <input
-              id="section-subtitle"
-              type="text"
-              value={subtitle}
-              onChange={(e) => setSubtitle(e.target.value)}
-              placeholder="Testimonials"
-              className="w-full px-3.5 py-2.5 bg-white border border-slate-200 rounded-xl text-xs sm:text-sm text-slate-900 focus:outline-none focus:border-slate-800 transition-colors"
-            />
-          </Field>
+            value={subtitle}
+            onChange={(val) => setSubtitle(val)}
+            placeholder="Testimonials"
+            width="100%"
+            className='h-10 border'
+          />
 
-          <Field
-            label="Tiêu đề chính (Main Title) *"
-            inputID="section-title"
-            description="Dòng tiêu đề lớn của section đánh giá"
-          >
-            <input
-              id="section-title"
-              type="text"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              placeholder="Voices of Our Sellers"
-              className="w-full px-3.5 py-2.5 bg-white border border-slate-200 rounded-xl text-xs sm:text-sm text-slate-900 focus:outline-none focus:border-slate-800 transition-colors"
-              required
-            />
-          </Field>
+          <TextInput
+            label="Tiêu đề chính (Main Title)"
+            isRequired
+            value={title}
+            onChange={(val) => setTitle(val)}
+            placeholder="Voices of Our Sellers"
+            width="100%"
+            className='h-10 border'
+          />
         </div>
 
         {/* Ảnh xếp hạng sao (Rating stars image) */}
@@ -369,13 +349,14 @@ export default function TestimonialsSectionFormClient({
               </div>
 
               <div className="flex-1 space-y-2">
-                <input
-                  id="rating-stars-image"
-                  type="text"
+                <TextInput
+                  label="Ảnh đánh giá sao"
+                  isLabelHidden
                   value={ratingImage}
-                  onChange={(e) => setRatingImage(e.target.value)}
+                  onChange={(val) => setRatingImage(val)}
                   placeholder="/images/star.png"
-                  className="w-full px-3 py-1.5 text-xs font-mono bg-white border border-slate-200 rounded-lg text-slate-800 focus:outline-none focus:border-slate-800"
+                  width="100%"
+                  className='h-10 border'
                 />
 
                 <label className="cursor-pointer inline-block">
@@ -427,11 +408,10 @@ export default function TestimonialsSectionFormClient({
               key={item.id || idx}
               type="button"
               onClick={() => setPreviewIndex(idx)}
-              className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors shrink-0 ${
-                previewIndex === idx
+              className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors shrink-0 ${previewIndex === idx
                   ? 'bg-slate-900 text-white shadow-xs'
                   : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
-              }`}
+                }`}
             >
               #{idx + 1}: {item.name || 'Đối tác'}
             </button>
@@ -537,11 +517,10 @@ export default function TestimonialsSectionFormClient({
           {items.map((item, index) => (
             <div
               key={item.id || index}
-              className={`p-4 sm:p-5 rounded-2xl border transition-all ${
-                previewIndex === index
+              className={`p-4 sm:p-5 rounded-2xl border transition-all ${previewIndex === index
                   ? 'border-slate-800 bg-slate-50/50 shadow-sm'
                   : 'border-slate-200 bg-white hover:border-slate-300'
-              }`}
+                }`}
             >
               {/* Item Card Header */}
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-slate-200/80">
@@ -598,61 +577,45 @@ export default function TestimonialsSectionFormClient({
               {/* Item Card Body */}
               <div className="pt-4 space-y-4">
                 {/* Trích dẫn (Quote) */}
-                <Field
-                  label="Nội dung lời chứng thực (Quote) *"
-                  inputID={`quote-${index}`}
+                <TextArea
+                  label="Nội dung lời chứng thực (Quote)"
+                  isRequired
                   description="Đoạn văn chia sẻ cảm nhận và kết quả đạt được khi hợp tác cùng E-GEAD"
-                >
-                  <textarea
-                    id={`quote-${index}`}
-                    rows={3}
-                    value={item.quote}
-                    onChange={(e) =>
-                      handleUpdateItem(index, 'quote', e.target.value)
-                    }
-                    placeholder="Nhập nội dung trích dẫn đánh giá..."
-                    className="w-full px-3.5 py-2.5 bg-white border border-slate-200 rounded-xl text-xs sm:text-sm text-slate-900 focus:outline-none focus:border-slate-800 transition-colors resize-y"
-                    required
-                  />
-                </Field>
+                  rows={3}
+                  value={item.quote}
+                  onChange={(val) =>
+                    handleUpdateItem(index, 'quote', val)
+                  }
+                  placeholder="Nhập nội dung trích dẫn đánh giá..."
+                  width="100%"
+                  className="border"
+                />
 
                 {/* Tên & Chức vụ */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <Field
-                    label="Tên người đánh giá *"
-                    inputID={`name-${index}`}
-                    description="Họ tên hoặc bí danh của đối tác"
-                  >
-                    <input
-                      id={`name-${index}`}
-                      type="text"
-                      value={item.name}
-                      onChange={(e) =>
-                        handleUpdateItem(index, 'name', e.target.value)
-                      }
-                      placeholder="Marcus Vance"
-                      className="w-full px-3.5 py-2.5 bg-white border border-slate-200 rounded-xl text-xs sm:text-sm text-slate-900 focus:outline-none focus:border-slate-800 transition-colors"
-                      required
-                    />
-                  </Field>
+                  <TextInput
+                    label="Tên người đánh giá"
+                    isRequired
+                    value={item.name}
+                    onChange={(val) =>
+                      handleUpdateItem(index, 'name', val)
+                    }
+                    placeholder="Marcus Vance"
+                    width="100%"
+                    className='h-10 border'
+                  />
 
-                  <Field
-                    label="Chức danh & Thương hiệu *"
-                    inputID={`subtitle-${index}`}
-                    description="Ví dụ: Head of Supply Chain, UrbanVibe"
-                  >
-                    <input
-                      id={`subtitle-${index}`}
-                      type="text"
-                      value={item.subtitle}
-                      onChange={(e) =>
-                        handleUpdateItem(index, 'subtitle', e.target.value)
-                      }
-                      placeholder="Head of Supply Chain, UrbanVibe"
-                      className="w-full px-3.5 py-2.5 bg-white border border-slate-200 rounded-xl text-xs sm:text-sm text-slate-900 focus:outline-none focus:border-slate-800 transition-colors"
-                      required
-                    />
-                  </Field>
+                  <TextInput
+                    label="Chức danh & Thương hiệu"
+                    isRequired
+                    value={item.subtitle}
+                    onChange={(val) =>
+                      handleUpdateItem(index, 'subtitle', val)
+                    }
+                    placeholder="Head of Supply Chain, UrbanVibe"
+                    width="100%"
+                    className='h-10 border'
+                  />
                 </div>
 
                 {/* Ảnh đại diện (Avatar) & Logo thương hiệu (Partner Logo) */}
@@ -673,14 +636,16 @@ export default function TestimonialsSectionFormClient({
                       </div>
 
                       <div className="flex-1 space-y-1.5">
-                        <input
-                          type="text"
+                        <TextInput
+                          label="Ảnh đại diện tác giả"
+                          isLabelHidden
                           value={item.avatar}
-                          onChange={(e) =>
-                            handleUpdateItem(index, 'avatar', e.target.value)
+                          onChange={(val) =>
+                            handleUpdateItem(index, 'avatar', val)
                           }
                           placeholder="/assets/avatar_marcus.jpg"
-                          className="w-full px-2.5 py-1 text-xs font-mono bg-white border border-slate-200 rounded-lg text-slate-800 focus:outline-none focus:border-slate-800"
+                          width="100%"
+                          className='h-10 border'
                         />
 
                         <label className="cursor-pointer inline-block">
@@ -702,7 +667,7 @@ export default function TestimonialsSectionFormClient({
                           />
                           <span className="inline-flex items-center justify-center px-2.5 py-1 rounded-md border border-slate-300 bg-white hover:bg-slate-100 text-[11px] font-medium text-slate-700 transition-colors shadow-2xs">
                             {uploadingTarget?.type === 'avatar' &&
-                            uploadingTarget?.index === index
+                              uploadingTarget?.index === index
                               ? 'Đang tải...'
                               : 'Tải ảnh avatar'}
                           </span>
@@ -727,14 +692,16 @@ export default function TestimonialsSectionFormClient({
                       </div>
 
                       <div className="flex-1 space-y-1.5">
-                        <input
-                          type="text"
+                        <TextInput
+                          label="Logo thương hiệu đối tác"
+                          isLabelHidden
                           value={item.partnerLogo}
-                          onChange={(e) =>
-                            handleUpdateItem(index, 'partnerLogo', e.target.value)
+                          onChange={(val) =>
+                            handleUpdateItem(index, 'partnerLogo', val)
                           }
                           placeholder="/assets/partners-short/01.svg"
-                          className="w-full px-2.5 py-1 text-xs font-mono bg-white border border-slate-200 rounded-lg text-slate-800 focus:outline-none focus:border-slate-800"
+                          width="100%"
+                          className='h-10 border'
                         />
 
                         <label className="cursor-pointer inline-block">
@@ -756,7 +723,7 @@ export default function TestimonialsSectionFormClient({
                           />
                           <span className="inline-flex items-center justify-center px-2.5 py-1 rounded-md border border-slate-300 bg-white hover:bg-slate-100 text-[11px] font-medium text-slate-700 transition-colors shadow-2xs">
                             {uploadingTarget?.type === 'partnerLogo' &&
-                            uploadingTarget?.index === index
+                              uploadingTarget?.index === index
                               ? 'Đang tải...'
                               : 'Tải logo đối tác'}
                           </span>

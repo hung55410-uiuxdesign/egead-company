@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Button, Badge, Selector } from '@astryxdesign/core';
+import { Button, Badge, Selector, TextInput } from '@astryxdesign/core';
 
 interface PartnerBulkEditModalProps {
   isOpen: boolean;
@@ -86,19 +86,19 @@ export default function PartnerBulkEditModal({
         {/* Modal Body */}
         <form onSubmit={handleSubmit} className="p-6 space-y-5">
           {/* Trạng thái hiển thị */}
-          <div>
-            <label className="block text-xs font-semibold text-slate-700 mb-1.5">
-              Trạng thái hiển thị mới
-            </label>
-            <select
+          <div className="space-y-1">
+            <Selector
+              label="Trạng thái hiển thị mới"
+              className="h-10 border"
               value={status}
-              onChange={(e) => setStatus(e.target.value as any)}
-              className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-800 focus:bg-white focus:border-emerald-500 focus:outline-hidden"
-            >
-              <option value="">-- Giữ nguyên trạng thái hiện tại --</option>
-              <option value="published">Đang hiển thị công khai (published)</option>
-              <option value="draft">Bản nháp lưu tạm (draft)</option>
-            </select>
+              onChange={(val) => setStatus(val as any)}
+              options={[
+                { value: '', label: '-- Giữ nguyên trạng thái hiện tại --' },
+                { value: 'published', label: 'Đang hiển thị công khai (published)' },
+                { value: 'draft', label: 'Bản nháp lưu tạm (draft)' },
+              ]}
+              width="100%"
+            />
             <p className="text-[11px] text-slate-400 mt-1">
               Chọn trạng thái mới nếu muốn cập nhật đồng loạt cho các đối tác đã chọn
             </p>
@@ -106,27 +106,29 @@ export default function PartnerBulkEditModal({
 
           {/* Huy hiệu chứng nhận (Badge) */}
           <div>
-            <label className="block text-xs font-semibold text-slate-700 mb-1.5">
-              Huy hiệu chứng nhận (Badge)
-            </label>
-            <select
+            <Selector
+              label="Huy hiệu chứng nhận (Badge)"
+              className="h-10 border"
               value={badgeAction}
-              onChange={(e) => setBadgeAction(e.target.value as any)}
-              className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-800 focus:bg-white focus:border-emerald-500 focus:outline-hidden"
-            >
-              <option value="keep">-- Giữ nguyên huy hiệu hiện tại --</option>
-              <option value="set">Đặt huy hiệu mới cho tất cả đối tác đã chọn</option>
-              <option value="clear">Xóa bỏ huy hiệu (để trống)</option>
-            </select>
+              onChange={(val) => setBadgeAction(val as any)}
+              options={[
+                { value: 'keep', label: '-- Giữ nguyên huy hiệu hiện tại --' },
+                { value: 'set', label: 'Đặt huy hiệu mới cho tất cả đối tác đã chọn' },
+                { value: 'clear', label: 'Xóa bỏ huy hiệu (để trống)' },
+              ]}
+              width="100%"
+            />
 
             {badgeAction === 'set' && (
               <div className="mt-2.5">
-                <input
-                  type="text"
+                <TextInput
+                  label="Huy hiệu mới"
+                  isLabelHidden
                   value={customBadge}
-                  onChange={(e) => setCustomBadge(e.target.value)}
+                  onChange={(val) => setCustomBadge(val)}
                   placeholder="Ví dụ: Official Verified Partner, Certified Partner..."
-                  className="w-full px-3 py-2 bg-white border border-slate-300 rounded-xl text-xs text-slate-900 focus:border-emerald-500 focus:outline-hidden"
+                  width="100%"
+                  className='h-10 border'
                 />
               </div>
             )}

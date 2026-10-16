@@ -3,7 +3,7 @@
 import React, { useState, FormEvent } from 'react';
 import { useRouter } from 'next/navigation';
 import { Trash2 } from 'lucide-react';
-import { Button, Card, Badge } from '@astryxdesign/core';
+import { Button, Card, Badge, TextInput } from '@astryxdesign/core';
 import type {
   HomeSectionModel,
   HeaderMenuItem,
@@ -34,62 +34,62 @@ export default function HeaderMenuConfigSection({
       Array.isArray(unwrappedData.services)
         ? unwrappedData.services
         : [
-            {
-              name: 'Strategy & Design',
-              href: '/services/all-services/strategy-design',
-              icon: '/assets/icon_strategy_design.svg',
-            },
-            {
-              name: 'Data & Analytics',
-              href: '/services/all-services/data-analytics',
-              icon: '/assets/icon_data_analytics.svg',
-            },
-            {
-              name: 'Enterprise Technology',
-              href: '/services/all-services/enterprise-technology',
-              icon: '/assets/icon_enterprise_tech.svg',
-            },
-            {
-              name: 'Commerce & CX Operations',
-              href: '/services/all-services/commerce-cx--operations',
-              icon: '/assets/icon_commerce_cx.svg',
-            },
-          ],
+          {
+            name: 'Strategy & Design',
+            href: '/services/all-services/strategy-design',
+            icon: '/assets/icon_strategy_design.svg',
+          },
+          {
+            name: 'Data & Analytics',
+            href: '/services/all-services/data-analytics',
+            icon: '/assets/icon_data_analytics.svg',
+          },
+          {
+            name: 'Enterprise Technology',
+            href: '/services/all-services/enterprise-technology',
+            icon: '/assets/icon_enterprise_tech.svg',
+          },
+          {
+            name: 'Commerce & CX Operations',
+            href: '/services/all-services/commerce-cx--operations',
+            icon: '/assets/icon_commerce_cx.svg',
+          },
+        ],
     industries:
       Array.isArray(unwrappedData.industries)
         ? unwrappedData.industries
         : [
-            {
-              name: 'Automotive',
-              href: '/services/all-services/automotive',
-              icon: '/assets/icon_automotive.svg',
-            },
-            {
-              name: 'Banking & Insurance',
-              href: '/services/all-services/banking-insurance',
-              icon: '/assets/icon_banking.svg',
-            },
-            {
-              name: 'Chemicals',
-              href: '/services/all-services/chemicals',
-              icon: '/assets/icon_chemicals.svg',
-            },
-            {
-              name: 'Consumer Goods',
-              href: '/services/all-services/consumer-goods',
-              icon: '/assets/icon_consumergoods.svg',
-            },
-            {
-              name: 'Fashion & Lifestyle',
-              href: '/services/all-services/fashion',
-              icon: '/assets/icon_fashion.svg',
-            },
-            {
-              name: 'Health & Science',
-              href: '/services/all-services/health-science',
-              icon: '/assets/icon_science.svg',
-            },
-          ],
+          {
+            name: 'Automotive',
+            href: '/services/all-services/automotive',
+            icon: '/assets/icon_automotive.svg',
+          },
+          {
+            name: 'Banking & Insurance',
+            href: '/services/all-services/banking-insurance',
+            icon: '/assets/icon_banking.svg',
+          },
+          {
+            name: 'Chemicals',
+            href: '/services/all-services/chemicals',
+            icon: '/assets/icon_chemicals.svg',
+          },
+          {
+            name: 'Consumer Goods',
+            href: '/services/all-services/consumer-goods',
+            icon: '/assets/icon_consumergoods.svg',
+          },
+          {
+            name: 'Fashion & Lifestyle',
+            href: '/services/all-services/fashion',
+            icon: '/assets/icon_fashion.svg',
+          },
+          {
+            name: 'Health & Science',
+            href: '/services/all-services/health-science',
+            icon: '/assets/icon_science.svg',
+          },
+        ],
     partners:
       Array.isArray(unwrappedData.partners)
         ? unwrappedData.partners
@@ -419,33 +419,30 @@ export default function HeaderMenuConfigSection({
         <button
           type="button"
           onClick={() => setActiveColumn('services')}
-          className={`px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all ${
-            activeColumn === 'services'
+          className={`px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all ${activeColumn === 'services'
               ? 'bg-white text-slate-900 shadow-xs'
               : 'text-slate-600 hover:text-slate-900'
-          }`}
+            }`}
         >
           Cột 1: Our Services ({services.length})
         </button>
         <button
           type="button"
           onClick={() => setActiveColumn('industries')}
-          className={`px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all ${
-            activeColumn === 'industries'
+          className={`px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all ${activeColumn === 'industries'
               ? 'bg-white text-slate-900 shadow-xs'
               : 'text-slate-600 hover:text-slate-900'
-          }`}
+            }`}
         >
           Cột 2: Industries ({industries.length})
         </button>
         <button
           type="button"
           onClick={() => setActiveColumn('partners')}
-          className={`px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all ${
-            activeColumn === 'partners'
+          className={`px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all ${activeColumn === 'partners'
               ? 'bg-white text-slate-900 shadow-xs'
               : 'text-slate-600 hover:text-slate-900'
-          }`}
+            }`}
         >
           Cột 3: Partners ({partners.length})
         </button>
@@ -546,12 +543,14 @@ export default function HeaderMenuConfigSection({
                 {/* Form fields */}
                 <div className="flex-1 min-w-0 space-y-2">
                   <div className="flex items-center justify-between gap-2">
-                    <input
-                      type="text"
+                    <TextInput
+                      label="Tên dịch vụ"
+                      isLabelHidden
                       value={item.name}
-                      onChange={(e) => handleUpdateServiceName(index, e.target.value)}
+                      onChange={(val) => handleUpdateServiceName(index, val)}
                       placeholder="Tên dịch vụ (ví dụ: Strategy & Design)"
-                      className="flex-1 px-3 py-1.5 text-xs font-bold bg-white border border-slate-200 rounded-lg text-slate-900 focus:outline-none focus:border-slate-800"
+                      width="100%"
+                      className='h-10 border'
                     />
                     <button
                       type="button"
@@ -564,12 +563,14 @@ export default function HeaderMenuConfigSection({
                   </div>
 
                   <div className="flex items-center gap-1.5">
-                    <input
-                      type="text"
+                    <TextInput
+                      label="Đường dẫn dịch vụ"
+                      isLabelHidden
                       value={item.href}
-                      onChange={(e) => handleUpdateService(index, 'href', e.target.value)}
+                      onChange={(val) => handleUpdateService(index, 'href', val)}
                       placeholder="Đường dẫn (ví dụ: /services/all-services/strategy-design)"
-                      className="flex-1 min-w-0 px-3 py-1.5 text-[11px] font-mono bg-white border border-slate-200 rounded-lg text-slate-600 focus:outline-none focus:border-slate-800"
+                      width="100%"
+                      className='h-10 border'
                     />
                     <Button
                       type="button"
@@ -583,12 +584,14 @@ export default function HeaderMenuConfigSection({
                   </div>
 
                   <div className="flex items-center gap-2">
-                    <input
-                      type="text"
+                    <TextInput
+                      label="URL Icon dịch vụ"
+                      isLabelHidden
                       value={item.icon || ''}
-                      onChange={(e) => handleUpdateService(index, 'icon', e.target.value)}
+                      onChange={(val) => handleUpdateService(index, 'icon', val)}
                       placeholder="URL Icon (/assets/icon_...)"
-                      className="flex-1 min-w-0 px-3 py-1.5 text-[11px] font-mono bg-white border border-slate-200 rounded-lg text-slate-600 focus:outline-none focus:border-slate-800"
+                      width="100%"
+                      className='h-10 border'
                     />
                     <label className="cursor-pointer shrink-0">
                       <input
@@ -626,30 +629,22 @@ export default function HeaderMenuConfigSection({
 
           {/* Button CTA for Column 1 */}
           <div className="pt-4 border-t border-slate-100 grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div className="space-y-1">
-              <label className="block text-xs font-semibold text-slate-700">
-                Nhãn nút xem thêm cột 1
-              </label>
-              <input
-                type="text"
-                value={allServicesText}
-                onChange={(e) => setAllServicesText(e.target.value)}
-                placeholder="All Our Services"
-                className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-xs font-semibold text-slate-900"
-              />
-            </div>
-            <div className="space-y-1">
-              <label className="block text-xs font-semibold text-slate-700">
-                Đường dẫn nút xem thêm cột 1
-              </label>
-              <input
-                type="text"
-                value={allServicesHref}
-                onChange={(e) => setAllServicesHref(e.target.value)}
-                placeholder="/services/all-services"
-                className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-xs font-mono text-slate-900"
-              />
-            </div>
+            <TextInput
+              label="Nhãn nút xem thêm cột 1"
+              value={allServicesText}
+              onChange={(val) => setAllServicesText(val)}
+              placeholder="All Our Services"
+              width="100%"
+              className='h-10 border'
+            />
+            <TextInput
+              label="Đường dẫn nút xem thêm cột 1"
+              value={allServicesHref}
+              onChange={(val) => setAllServicesHref(val)}
+              placeholder="/services/all-services"
+              width="100%"
+              className='h-10 border'
+            />
           </div>
         </div>
       )}
@@ -749,12 +744,14 @@ export default function HeaderMenuConfigSection({
                 {/* Form fields */}
                 <div className="flex-1 min-w-0 space-y-2">
                   <div className="flex items-center justify-between gap-2">
-                    <input
-                      type="text"
+                    <TextInput
+                      label="Tên ngành nghề"
+                      isLabelHidden
                       value={item.name}
-                      onChange={(e) => handleUpdateIndustryName(index, e.target.value)}
+                      onChange={(val) => handleUpdateIndustryName(index, val)}
                       placeholder="Tên ngành nghề (ví dụ: Automotive)"
-                      className="flex-1 px-3 py-1.5 text-xs font-bold bg-white border border-slate-200 rounded-lg text-slate-900 focus:outline-none focus:border-slate-800"
+                      width="100%"
+                      className='h-10 border'
                     />
                     <button
                       type="button"
@@ -767,12 +764,14 @@ export default function HeaderMenuConfigSection({
                   </div>
 
                   <div className="flex items-center gap-1.5">
-                    <input
-                      type="text"
+                    <TextInput
+                      label="Đường dẫn ngành nghề"
+                      isLabelHidden
                       value={item.href}
-                      onChange={(e) => handleUpdateIndustry(index, 'href', e.target.value)}
+                      onChange={(val) => handleUpdateIndustry(index, 'href', val)}
                       placeholder="Đường dẫn (ví dụ: /services/all-services/automotive)"
-                      className="flex-1 min-w-0 px-3 py-1.5 text-[11px] font-mono bg-white border border-slate-200 rounded-lg text-slate-600 focus:outline-none focus:border-slate-800"
+                      width="100%"
+                      className='h-10 border'
                     />
                     <Button
                       type="button"
@@ -786,12 +785,14 @@ export default function HeaderMenuConfigSection({
                   </div>
 
                   <div className="flex items-center gap-2">
-                    <input
-                      type="text"
+                    <TextInput
+                      label="URL Icon ngành nghề"
+                      isLabelHidden
                       value={item.icon || ''}
-                      onChange={(e) => handleUpdateIndustry(index, 'icon', e.target.value)}
+                      onChange={(val) => handleUpdateIndustry(index, 'icon', val)}
                       placeholder="URL Icon (/assets/icon_...)"
-                      className="flex-1 min-w-0 px-3 py-1.5 text-[11px] font-mono bg-white border border-slate-200 rounded-lg text-slate-600 focus:outline-none focus:border-slate-800"
+                      width="100%"
+                      className='h-10 border'
                     />
                     <label className="cursor-pointer shrink-0">
                       <input
@@ -829,30 +830,22 @@ export default function HeaderMenuConfigSection({
 
           {/* Button CTA for Column 2 */}
           <div className="pt-4 border-t border-slate-100 grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div className="space-y-1">
-              <label className="block text-xs font-semibold text-slate-700">
-                Nhãn nút xem thêm cột 2
-              </label>
-              <input
-                type="text"
-                value={allIndustriesText}
-                onChange={(e) => setAllIndustriesText(e.target.value)}
-                placeholder="All Industries"
-                className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-xs font-semibold text-slate-900"
-              />
-            </div>
-            <div className="space-y-1">
-              <label className="block text-xs font-semibold text-slate-700">
-                Đường dẫn nút xem thêm cột 2
-              </label>
-              <input
-                type="text"
-                value={allIndustriesHref}
-                onChange={(e) => setAllIndustriesHref(e.target.value)}
-                placeholder="/services/all-services"
-                className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-xs font-mono text-slate-900"
-              />
-            </div>
+            <TextInput
+              label="Nhãn nút xem thêm cột 2"
+              value={allIndustriesText}
+              onChange={(val) => setAllIndustriesText(val)}
+              placeholder="All Industries"
+              width="100%"
+              className='h-10 border'
+            />
+            <TextInput
+              label="Đường dẫn nút xem thêm cột 2"
+              value={allIndustriesHref}
+              onChange={(val) => setAllIndustriesHref(val)}
+              placeholder="/services/all-services"
+              width="100%"
+              className='h-10 border'
+            />
           </div>
         </div>
       )}
@@ -910,20 +903,24 @@ export default function HeaderMenuConfigSection({
                 className="p-3.5 bg-slate-50/80 border border-slate-200 rounded-xl flex items-center gap-3 relative group"
               >
                 <div className="flex-1 min-w-0 space-y-1.5">
-                  <input
-                    type="text"
+                  <TextInput
+                    label="Tên đối tác"
+                    isLabelHidden
                     value={item.name}
-                    onChange={(e) => handleUpdatePartnerName(index, e.target.value)}
+                    onChange={(val) => handleUpdatePartnerName(index, val)}
                     placeholder="Tên đối tác (ví dụ: SAP, Shopify Plus...)"
-                    className="w-full px-2.5 py-1 text-xs font-bold bg-white border border-slate-200 rounded-lg text-slate-900 focus:outline-none focus:border-slate-800"
+                    width="100%"
+                    className='h-10 border'
                   />
                   <div className="flex items-center gap-1.5">
-                    <input
-                      type="text"
+                    <TextInput
+                      label="Đường dẫn đối tác"
+                      isLabelHidden
                       value={item.href}
-                      onChange={(e) => handleUpdatePartner(index, 'href', e.target.value)}
+                      onChange={(val) => handleUpdatePartner(index, 'href', val)}
                       placeholder="/partners/..."
-                      className="flex-1 min-w-0 px-2.5 py-1 text-[11px] font-mono bg-white border border-slate-200 rounded-lg text-slate-600 focus:outline-none focus:border-slate-800"
+                      width="100%"
+                      className='h-10 border'
                     />
                     <Button
                       type="button"
@@ -951,30 +948,22 @@ export default function HeaderMenuConfigSection({
 
           {/* Button CTA for Column 3 */}
           <div className="pt-4 border-t border-slate-100 grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div className="space-y-1">
-              <label className="block text-xs font-semibold text-slate-700">
-                Nhãn nút xem thêm cột 3
-              </label>
-              <input
-                type="text"
-                value={allPartnersText}
-                onChange={(e) => setAllPartnersText(e.target.value)}
-                placeholder="All Partners"
-                className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-xs font-semibold text-slate-900"
-              />
-            </div>
-            <div className="space-y-1">
-              <label className="block text-xs font-semibold text-slate-700">
-                Đường dẫn nút xem thêm cột 3
-              </label>
-              <input
-                type="text"
-                value={allPartnersHref}
-                onChange={(e) => setAllPartnersHref(e.target.value)}
-                placeholder="/partners"
-                className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-xs font-mono text-slate-900"
-              />
-            </div>
+            <TextInput
+              label="Nhãn nút xem thêm cột 3"
+              value={allPartnersText}
+              onChange={(val) => setAllPartnersText(val)}
+              placeholder="All Partners"
+              width="100%"
+              className='h-10 border'
+            />
+            <TextInput
+              label="Đường dẫn nút xem thêm cột 3"
+              value={allPartnersHref}
+              onChange={(val) => setAllPartnersHref(val)}
+              placeholder="/partners"
+              width="100%"
+              className='h-10 border'
+            />
           </div>
         </div>
       )}

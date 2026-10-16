@@ -3,7 +3,7 @@
 import React, { useState, FormEvent } from 'react';
 import { useRouter } from 'next/navigation';
 import { X, Trash2, Plus, Upload, MoveUp, MoveDown } from 'lucide-react';
-import { Button, Card, Badge } from '@astryxdesign/core';
+import { Button, Card, Badge, CheckboxInput, TextInput, TextArea } from '@astryxdesign/core';
 import type {
   HomeSectionModel,
   CapabilityItem,
@@ -56,35 +56,35 @@ export default function ServicesSectionFormClient({
     initialData.items && initialData.items.length > 0
       ? initialData.items
       : [
-          {
-            num: '01',
-            title: 'US Fulfillment & Logistics',
-            desc: 'Fast production turnaround, reliable order processing, and full TikTok Shop US compliance for seamless cross-border delivery.',
-            icon: '/assets/home-icon__1_.svg',
-            href: '/speedx',
-          },
-          {
-            num: '02',
-            title: 'Multi-Channel Commerce',
-            desc: 'End-to-end store operations and product listings across leading global platforms: TikTok Shop, Etsy, eBay, and Amazon.',
-            icon: '/assets/home-icon__2_.svg',
-            href: '/smartcommerce',
-          },
-          {
-            num: '03',
-            title: 'Digital Growth Marketing',
-            desc: 'High-converting performance marketing powered by TikTok Ads, organic TikTok channels, and Google Ads to scale international sales.',
-            icon: '/assets/home-icon__3_.svg',
-            href: '/services/all-services',
-          },
-          {
-            num: '04',
-            title: 'Shopify Stores & Smart Tools',
-            desc: 'Optimized D2C Shopify storefronts integrated with dedicated internal tools for automated order tracking, listing, and daily operations.',
-            icon: '/assets/home-icon__4_.svg',
-            href: '/services/all-services',
-          },
-        ]
+        {
+          num: '01',
+          title: 'US Fulfillment & Logistics',
+          desc: 'Fast production turnaround, reliable order processing, and full TikTok Shop US compliance for seamless cross-border delivery.',
+          icon: '/assets/home-icon__1_.svg',
+          href: '/speedx',
+        },
+        {
+          num: '02',
+          title: 'Multi-Channel Commerce',
+          desc: 'End-to-end store operations and product listings across leading global platforms: TikTok Shop, Etsy, eBay, and Amazon.',
+          icon: '/assets/home-icon__2_.svg',
+          href: '/smartcommerce',
+        },
+        {
+          num: '03',
+          title: 'Digital Growth Marketing',
+          desc: 'High-converting performance marketing powered by TikTok Ads, organic TikTok channels, and Google Ads to scale international sales.',
+          icon: '/assets/home-icon__3_.svg',
+          href: '/services/all-services',
+        },
+        {
+          num: '04',
+          title: 'Shopify Stores & Smart Tools',
+          desc: 'Optimized D2C Shopify storefronts integrated with dedicated internal tools for automated order tracking, listing, and daily operations.',
+          icon: '/assets/home-icon__4_.svg',
+          href: '/services/all-services',
+        },
+      ]
   );
 
   // TanStack Query Mutation
@@ -277,72 +277,52 @@ export default function ServicesSectionFormClient({
             </p>
           </div>
 
-          <label className="flex items-center gap-2 cursor-pointer text-xs font-semibold text-slate-700">
-            <input
-              type="checkbox"
-              checked={isActive}
-              onChange={(e) => setIsActive(e.target.checked)}
-              className="w-4 h-4 rounded text-emerald-600 border-slate-300 focus:ring-emerald-500"
-            />
-            <span>Hiển thị section này trên trang chủ</span>
-          </label>
+          <CheckboxInput
+            label="Hiển thị section này trên trang chủ"
+            value={isActive}
+            onChange={(checked) => setIsActive(checked)}
+          />
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-          <div className="space-y-1.5">
-            <label className="block text-xs font-semibold text-slate-700">
-              Phụ đề nhỏ (Subtitle)
-            </label>
-            <input
-              type="text"
-              value={subtitle}
-              onChange={(e) => setSubtitle(e.target.value)}
-              placeholder="Our Capabilities"
-              className="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500"
-            />
-          </div>
+          <TextInput
+            label="Phụ đề nhỏ (Subtitle)"
+            value={subtitle}
+            onChange={(val) => setSubtitle(val)}
+            placeholder="Our Capabilities"
+            width="100%"
+            className='h-10 border'
+          />
 
-          <div className="space-y-1.5">
-            <label className="block text-xs font-semibold text-slate-700">
-              Tiêu đề lớn (Heading) *
-            </label>
-            <input
-              type="text"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              placeholder="End-to-End E-Commerce Growth Ecosystem."
-              className="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 text-sm text-slate-900 font-semibold focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500"
-              required
-            />
-          </div>
+          <TextInput
+            label="Tiêu đề lớn (Heading)"
+            isRequired
+            value={title}
+            onChange={(val) => setTitle(val)}
+            placeholder="End-to-End E-Commerce Growth Ecosystem."
+            width="100%"
+            className='h-10 border'
+          />
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-          <div className="space-y-1.5">
-            <label className="block text-xs font-semibold text-slate-700">
-              Nút hành động: Nhãn nút (Button Text)
-            </label>
-            <input
-              type="text"
-              value={buttonText}
-              onChange={(e) => setButtonText(e.target.value)}
-              placeholder="Explore All Capabilities"
-              className="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500"
-            />
-          </div>
+          <TextInput
+            label="Nút hành động: Nhãn nút (Button Text)"
+            value={buttonText}
+            onChange={(val) => setButtonText(val)}
+            placeholder="Explore All Capabilities"
+            width="100%"
+            className='h-10 border'
+          />
 
-          <div className="space-y-1.5">
-            <label className="block text-xs font-semibold text-slate-700">
-              Nút hành động: Đường dẫn liên kết (Button Link)
-            </label>
-            <input
-              type="text"
-              value={buttonHref}
-              onChange={(e) => setButtonHref(e.target.value)}
-              placeholder="/services/all-services"
-              className="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500"
-            />
-          </div>
+          <TextInput
+            label="Nút hành động: Đường dẫn liên kết (Button Link)"
+            value={buttonHref}
+            onChange={(val) => setButtonHref(val)}
+            placeholder="/services/all-services"
+            width="100%"
+            className='h-10 border'
+          />
         </div>
 
         <div className="space-y-1.5">
@@ -350,12 +330,14 @@ export default function ServicesSectionFormClient({
             Đường dẫn ảnh nền khối (Background Image)
           </label>
           <div className="flex items-center gap-3">
-            <input
-              type="text"
+            <TextInput
+              label="Ảnh nền khối"
+              isLabelHidden
               value={backgroundImage}
-              onChange={(e) => setBackgroundImage(e.target.value)}
+              onChange={(val) => setBackgroundImage(val)}
               placeholder="/assets/bg_services.jpg"
-              className="flex-1 px-3.5 py-2.5 rounded-lg border border-slate-300 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500"
+              width="100%"
+              className='h-10 border'
             />
             <label className="cursor-pointer shrink-0">
               <input
@@ -455,49 +437,43 @@ export default function ServicesSectionFormClient({
               {/* Card Body */}
               <div className="grid grid-cols-1 md:grid-cols-12 gap-4">
                 {/* Num & Title */}
-                <div className="md:col-span-2 space-y-1">
-                  <label className="block text-xs font-semibold text-slate-700">
-                    Số thứ tự
-                  </label>
-                  <input
-                    type="text"
+                <div className="md:col-span-2">
+                  <TextInput
+                    label="Số thứ tự"
                     value={item.num}
-                    onChange={(e) =>
-                      handleUpdateItem(index, 'num', e.target.value)
+                    onChange={(val) =>
+                      handleUpdateItem(index, 'num', val)
                     }
                     placeholder="01"
-                    className="w-full px-3 py-2 rounded-lg border border-slate-300 text-sm font-semibold text-slate-900 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500"
+                    width="100%"
+                    className='h-10 border'
                   />
                 </div>
 
-                <div className="md:col-span-5 space-y-1">
-                  <label className="block text-xs font-semibold text-slate-700">
-                    Tiêu đề thẻ dịch vụ *
-                  </label>
-                  <input
-                    type="text"
+                <div className="md:col-span-5">
+                  <TextInput
+                    label="Tiêu đề thẻ dịch vụ"
+                    isRequired
                     value={item.title}
-                    onChange={(e) =>
-                      handleUpdateItem(index, 'title', e.target.value)
+                    onChange={(val) =>
+                      handleUpdateItem(index, 'title', val)
                     }
                     placeholder="US Fulfillment & Logistics"
-                    className="w-full px-3 py-2 rounded-lg border border-slate-300 text-sm font-semibold text-slate-900 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500"
-                    required
+                    width="100%"
+                    className='h-10 border'
                   />
                 </div>
 
-                <div className="md:col-span-5 space-y-1">
-                  <label className="block text-xs font-semibold text-slate-700">
-                    Đường dẫn liên kết (Link)
-                  </label>
-                  <input
-                    type="text"
+                <div className="md:col-span-5">
+                  <TextInput
+                    label="Đường dẫn liên kết (Link)"
                     value={item.href}
-                    onChange={(e) =>
-                      handleUpdateItem(index, 'href', e.target.value)
+                    onChange={(val) =>
+                      handleUpdateItem(index, 'href', val)
                     }
                     placeholder="/speedx"
-                    className="w-full px-3 py-2 rounded-lg border border-slate-300 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500"
+                    width="100%"
+                    className='h-10 border'
                   />
                 </div>
 
@@ -524,14 +500,16 @@ export default function ServicesSectionFormClient({
                       )}
                     </div>
 
-                    <input
-                      type="text"
+                    <TextInput
+                      label="Icon SVG / Ảnh biểu tượng"
+                      isLabelHidden
                       value={item.icon}
-                      onChange={(e) =>
-                        handleUpdateItem(index, 'icon', e.target.value)
+                      onChange={(val) =>
+                        handleUpdateItem(index, 'icon', val)
                       }
                       placeholder="/assets/home-icon__1_.svg"
-                      className="flex-1 px-3 py-2 rounded-lg border border-slate-300 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500"
+                      width="100%"
+                      className='h-10 border'
                     />
 
                     <label className="cursor-pointer shrink-0">
@@ -559,19 +537,18 @@ export default function ServicesSectionFormClient({
                 </div>
 
                 {/* Description */}
-                <div className="md:col-span-12 space-y-1">
-                  <label className="block text-xs font-semibold text-slate-700">
-                    Nội dung mô tả (Content) *
-                  </label>
-                  <textarea
+                <div className="md:col-span-12">
+                  <TextArea
+                    label="Nội dung mô tả (Content)"
+                    isRequired
                     rows={3}
                     value={item.desc}
-                    onChange={(e) =>
-                      handleUpdateItem(index, 'desc', e.target.value)
+                    onChange={(val) =>
+                      handleUpdateItem(index, 'desc', val)
                     }
                     placeholder="Fast production turnaround, reliable order processing, and full TikTok Shop US compliance for seamless cross-border delivery."
-                    className="w-full px-3 py-2.5 rounded-lg border border-slate-300 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500"
-                    required
+                    width="100%"
+                    className="border"
                   />
                 </div>
               </div>

@@ -14,6 +14,8 @@ import {
   Selector,
   DropdownMenu,
   Pagination,
+  CheckboxInput,
+  TextInput,
 } from "@astryxdesign/core";
 import { useCareerMutations } from "@/lib/hooks";
 
@@ -113,6 +115,12 @@ export default function CareerListClient({
   const paginatedJobs = filteredJobs.slice(startIndex, startIndex + pageSize);
 
   // Checkbox handlers
+  const isAllSelected =
+    paginatedJobs.length > 0 &&
+    paginatedJobs.every((j) => selectedIds.includes(j.id));
+  const isPartiallySelected =
+    paginatedJobs.some((j) => selectedIds.includes(j.id)) && !isAllSelected;
+
   const handleToggleRow = (id: string) => {
     setSelectedIds((prev) =>
       prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id],
@@ -183,9 +191,6 @@ export default function CareerListClient({
     }
   };
 
-  const isAllSelected =
-    paginatedJobs.length > 0 &&
-    paginatedJobs.every((j) => selectedIds.includes(j.id));
 
   const getStatusBadge = (status: CareerPost["status"]) => {
     switch (status) {
@@ -300,24 +305,17 @@ export default function CareerListClient({
       <Card variant="default" className="rounded-2xl p-4 sm:p-5 space-y-4">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-3">
           {/* Search box */}
-          <div className="md:col-span-6 relative">
-            <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
-            <input
-              type="text"
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
+          <div className="md:col-span-6">
+            <TextInput
+              label="Tìm kiếm tin tuyển dụng"
+              isLabelHidden
               placeholder="Tìm kiếm vị trí tuyển dụng, phòng ban, địa điểm, từ khóa..."
-              className="w-full pl-10 pr-9 py-2.5 bg-slate-50/60 border border-slate-200 rounded-xl text-xs sm:text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:bg-white focus:border-slate-800 focus:ring-1 focus:ring-slate-800 transition-colors"
+              value={search}
+              onChange={(val) => setSearch(val)}
+              hasClear
+              width="100%"
+              className='h-10 border'
             />
-            {search && (
-              <button
-                type="button"
-                onClick={() => setSearch("")}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 p-0.5 rounded-full hover:bg-slate-200/50"
-              >
-                <X className="w-3.5 h-3.5" />
-              </button>
-            )}
           </div>
 
           {/* Status filter */}
@@ -445,12 +443,17 @@ export default function CareerListClient({
               <thead>
                 <tr className="border-b border-slate-200/80 bg-slate-50/80 text-xs font-bold text-slate-600">
                   <th className="py-3.5 pl-4 sm:pl-6 pr-2 w-10">
-                    <input
-                      type="checkbox"
-                      checked={isAllSelected}
+                    <CheckboxInput
+                      label="Chọn tất cả tin tuyển dụng"
+                      isLabelHidden
+                      value={
+                        isAllSelected
+                          ? true
+                          : isPartiallySelected
+                            ? "indeterminate"
+                            : false
+                      }
                       onChange={handleToggleAll}
-                      className="w-4 h-4 rounded text-emerald-600 border-slate-300 focus:ring-emerald-500 cursor-pointer"
-                      title="Chọn tất cả tin tuyển dụng"
                     />
                   </th>
                   <th className="py-3.5 px-3">Vị trí tuyển dụng</th>
@@ -473,11 +476,12 @@ export default function CareerListClient({
                     >
                       {/* Checkbox */}
                       <td className="py-4 pl-4 sm:pl-6 pr-2">
-                        <input
-                          type="checkbox"
-                          checked={isChecked}
+                        <CheckboxInput
+                          label={`Chọn tin tuyển dụng ${job.title}`}
+                          isLabelHidden
+                          size="sm"
+                          value={isChecked}
                           onChange={() => handleToggleRow(job.id)}
-                          className="w-4 h-4 rounded text-emerald-600 border-slate-300 focus:ring-emerald-500 cursor-pointer"
                         />
                       </td>
 

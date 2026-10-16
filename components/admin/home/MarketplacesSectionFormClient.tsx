@@ -3,7 +3,7 @@
 import React, { useState, FormEvent } from 'react';
 import { useRouter } from 'next/navigation';
 import { X, Trash2, ArrowUp, ArrowDown } from 'lucide-react';
-import { Button, Card, Badge, Field } from '@astryxdesign/core';
+import { Button, Card, Badge, Field, CheckboxInput, TextInput, TextArea } from '@astryxdesign/core';
 import type {
   HomeSectionModel,
   PartnerLogo,
@@ -57,14 +57,14 @@ export default function MarketplacesSectionFormClient({
   // Heading & Text Fields
   const [title, setTitle] = useState(
     section.title ||
-      "Operating Across the World's Leading Marketplaces & Platforms"
+    "Operating Across the World's Leading Marketplaces & Platforms"
   );
   const [subtitle, setSubtitle] = useState(
     section.subtitle || 'LEADING PLATFORMS & MARKETPLACES'
   );
   const [description, setDescription] = useState(
     section.description ||
-      'EGEAD drives cross-border e-commerce growth across major global platforms, including TikTok Shop, Shopify, Etsy, and eBay. Combining data-driven marketing via TikTok & Google Ads with streamlined fulfillment and dedicated operating tools, we help products reach international consumers efficiently.'
+    'EGEAD drives cross-border e-commerce growth across major global platforms, including TikTok Shop, Shopify, Etsy, and eBay. Combining data-driven marketing via TikTok & Google Ads with streamlined fulfillment and dedicated operating tools, we help products reach international consumers efficiently.'
   );
   const [isActive, setIsActive] = useState<boolean>(section.isActive ?? true);
 
@@ -384,67 +384,46 @@ export default function MarketplacesSectionFormClient({
             </p>
           </div>
 
-          <label className="flex items-center gap-2 cursor-pointer text-xs font-semibold text-slate-700">
-            <input
-              type="checkbox"
-              checked={isActive}
-              onChange={(e) => setIsActive(e.target.checked)}
-              className="w-4 h-4 rounded text-emerald-600 border-slate-300 focus:ring-emerald-500"
-            />
-            <span>Hiển thị section này trên trang chủ</span>
-          </label>
+          <CheckboxInput
+            label="Hiển thị section này trên trang chủ"
+            value={isActive}
+            onChange={(checked) => setIsActive(checked)}
+          />
         </div>
 
         <div className="grid grid-cols-1 gap-4">
           {/* Subtitle */}
-          <Field
+          <TextInput
             label="Phụ đề nhỏ (Subtitle)"
-            inputID="section-subtitle"
-            description="Nhãn danh mục nhỏ xuất hiện trên tiêu đề chính"
-          >
-            <input
-              id="section-subtitle"
-              type="text"
-              value={subtitle}
-              onChange={(e) => setSubtitle(e.target.value)}
-              placeholder="LEADING PLATFORMS & MARKETPLACES"
-              className="w-full px-3.5 py-2.5 bg-slate-50/60 border border-slate-200 rounded-xl text-xs sm:text-sm text-slate-900 focus:outline-none focus:bg-white focus:border-slate-800 focus:ring-1 focus:ring-slate-800 transition-colors"
-            />
-          </Field>
+            value={subtitle}
+            onChange={(val) => setSubtitle(val)}
+            placeholder="LEADING PLATFORMS & MARKETPLACES"
+            width="100%"
+            className='h-10 border'
+          />
 
           {/* Heading */}
-          <Field
+          <TextInput
             label="Tiêu đề chính (Heading)"
-            inputID="section-title"
             isRequired
-            description="Dòng chữ tiêu đề lớn của section"
-          >
-            <input
-              id="section-title"
-              type="text"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              placeholder="Operating Across the World's Leading Marketplaces & Platforms"
-              className="w-full px-3.5 py-2.5 bg-slate-50/60 border border-slate-200 rounded-xl text-xs sm:text-sm text-slate-900 focus:outline-none focus:bg-white focus:border-slate-800 focus:ring-1 focus:ring-slate-800 transition-colors"
-              required
-            />
-          </Field>
+            value={title}
+            onChange={(val) => setTitle(val)}
+            placeholder="Operating Across the World's Leading Marketplaces & Platforms"
+            width="100%"
+            className='h-10 border'
+          />
 
           {/* Description */}
-          <Field
+          <TextArea
             label="Đoạn văn mô tả (Description / Body text)"
-            inputID="section-description"
             description="Đoạn văn chi tiết về việc kết nối và mở rộng quy mô trên các sàn thương mại điện tử"
-          >
-            <textarea
-              id="section-description"
-              rows={4}
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-              placeholder="EGEAD drives cross-border e-commerce growth across major global platforms..."
-              className="w-full px-3.5 py-2.5 bg-slate-50/60 border border-slate-200 rounded-xl text-xs sm:text-sm text-slate-900 focus:outline-none focus:bg-white focus:border-slate-800 focus:ring-1 focus:ring-slate-800 transition-colors resize-y"
-            />
-          </Field>
+            rows={4}
+            value={description}
+            onChange={setDescription}
+            placeholder="EGEAD drives cross-border e-commerce growth across major global platforms..."
+            width="100%"
+            className="border"
+          />
         </div>
       </Card>
 
@@ -525,11 +504,10 @@ export default function MarketplacesSectionFormClient({
                   type="button"
                   onClick={() => handleMoveRowUp(rowIndex)}
                   disabled={rowIndex === 0}
-                  className={`p-1.5 rounded-lg border border-slate-200 transition-colors ${
-                    rowIndex === 0
+                  className={`p-1.5 rounded-lg border border-slate-200 transition-colors ${rowIndex === 0
                       ? 'text-slate-300 border-slate-100 cursor-not-allowed'
                       : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
-                  }`}
+                    }`}
                   title="Di chuyển hàng lên trên"
                 >
                   <ArrowUp className="w-4 h-4" />
@@ -540,11 +518,10 @@ export default function MarketplacesSectionFormClient({
                   type="button"
                   onClick={() => handleMoveRowDown(rowIndex)}
                   disabled={rowIndex === rows.length - 1}
-                  className={`p-1.5 rounded-lg border border-slate-200 transition-colors ${
-                    rowIndex === rows.length - 1
+                  className={`p-1.5 rounded-lg border border-slate-200 transition-colors ${rowIndex === rows.length - 1
                       ? 'text-slate-300 border-slate-100 cursor-not-allowed'
                       : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
-                  }`}
+                    }`}
                   title="Di chuyển hàng xuống dưới"
                 >
                   <ArrowDown className="w-4 h-4" />
@@ -555,11 +532,10 @@ export default function MarketplacesSectionFormClient({
                   type="button"
                   onClick={() => handleRemoveRow(rowIndex)}
                   disabled={rows.length <= 1}
-                  className={`p-1.5 rounded-lg border border-slate-200 transition-colors ${
-                    rows.length <= 1
+                  className={`p-1.5 rounded-lg border border-slate-200 transition-colors ${rows.length <= 1
                       ? 'text-slate-300 border-slate-100 cursor-not-allowed'
                       : 'text-slate-500 hover:text-rose-600 hover:bg-rose-50 border-slate-200'
-                  }`}
+                    }`}
                   title="Xóa cả hàng này"
                 >
                   <Trash2 className="w-4 h-4" />
@@ -644,9 +620,8 @@ export default function MarketplacesSectionFormClient({
                         <img
                           src={partner.src}
                           alt={partner.name}
-                          className={`max-h-full max-w-full object-contain group-hover/preview:opacity-30 transition-opacity ${
-                            shouldInvert ? 'invert' : ''
-                          }`}
+                          className={`max-h-full max-w-full object-contain group-hover/preview:opacity-30 transition-opacity ${shouldInvert ? 'invert' : ''
+                            }`}
                           onError={(e) => {
                             (e.target as HTMLElement).style.opacity = '0.3';
                           }}
@@ -658,34 +633,38 @@ export default function MarketplacesSectionFormClient({
 
                       {/* Edit Inputs */}
                       <div className="flex-1 min-w-0 space-y-1.5">
-                        <input
-                          type="text"
+                        <TextInput
+                          label="Tên đối tác / sàn"
+                          isLabelHidden
                           value={partner.name}
-                          onChange={(e) =>
+                          onChange={(val) =>
                             handleUpdateLogo(
                               rowIndex,
                               logoIndex,
                               'name',
-                              e.target.value
+                              val
                             )
                           }
                           placeholder="Tên đối tác / sàn"
-                          className="w-full px-2.5 py-1 text-xs font-bold bg-white border border-slate-200 rounded-lg text-slate-900 focus:outline-none focus:border-slate-800"
+                          width="100%"
+                          className='h-10 border'
                         />
                         <div className="flex items-center gap-1.5">
-                          <input
-                            type="text"
+                          <TextInput
+                            label="URL Logo"
+                            isLabelHidden
                             value={partner.src}
-                            onChange={(e) =>
+                            onChange={(val) =>
                               handleUpdateLogo(
                                 rowIndex,
                                 logoIndex,
                                 'src',
-                                e.target.value
+                                val
                               )
                             }
                             placeholder="/assets/partners/01.svg"
-                            className="flex-1 min-w-0 px-2.5 py-1 text-[11px] font-mono bg-white border border-slate-200 rounded-lg text-slate-600 focus:outline-none focus:border-slate-800"
+                            width="100%"
+                            className='h-10 border'
                           />
                           <label className="cursor-pointer shrink-0">
                             <input
@@ -714,11 +693,10 @@ export default function MarketplacesSectionFormClient({
                           <button
                             type="button"
                             onClick={() => handleToggleInvert(rowIndex, logoIndex)}
-                            className={`shrink-0 px-2 py-1 rounded-md border text-[11px] font-medium transition-colors ${
-                              shouldInvert
+                            className={`shrink-0 px-2 py-1 rounded-md border text-[11px] font-medium transition-colors ${shouldInvert
                                 ? 'bg-amber-50 text-amber-800 border-amber-300'
                                 : 'bg-white text-slate-600 border-slate-200 hover:bg-slate-100'
-                            }`}
+                              }`}
                             title={
                               shouldInvert
                                 ? 'Đang bật đảo màu (đen thành trắng). Bấm nếu logo của bạn vốn đã màu trắng.'

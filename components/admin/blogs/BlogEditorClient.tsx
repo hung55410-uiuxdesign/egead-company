@@ -9,7 +9,7 @@ import {
 } from 'lucide-react';
 import { BlogPost, BlogCategory, PostStatus } from '@/types/blog';
 import TipTapEditor from '@/components/admin/shared/TipTapEditor';
-import { Card, Button, Badge, Selector, IconButton, useToast } from '@astryxdesign/core';
+import { Card, Button, Badge, Selector, IconButton, useToast, TextInput, TextArea } from '@astryxdesign/core';
 import { useSaveBlogMutation, useUploadMedia } from '@/lib/hooks';
 import AIBlogImportModal from './AIBlogImportModal';
 import { ParsedBlogPost } from '@/lib/utils/aiBlogParser';
@@ -198,18 +198,15 @@ export default function BlogEditorClient({
         <div className="lg:col-span-2 space-y-6">
           {/* Basic Info */}
           <Card variant="default" className="rounded-2xl p-6 space-y-5">
-            <div>
-              <label className="block text-xs font-bold text-slate-700 mb-2">
-                Tiêu đề bài viết <span className="text-red-500">*</span>
-              </label>
-              <input
-                type="text"
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
-                placeholder="VD: The 2026 Global E-Commerce Playbook..."
-                className="w-full px-4 py-3 bg-white border border-slate-200 rounded-xl text-slate-900 font-bold text-base placeholder-slate-400 focus:outline-none focus:border-slate-800 focus:ring-2 focus:ring-slate-800/10 transition-all"
-              />
-            </div>
+            <TextInput
+              label="Tiêu đề bài viết"
+              isRequired
+              value={title}
+              onChange={setTitle}
+              placeholder="VD: The 2026 Global E-Commerce Playbook..."
+              width="100%"
+              className='h-10 border'
+            />
 
             {/* Slug input with auto button */}
             <div className='w-full'>
@@ -219,17 +216,19 @@ export default function BlogEditorClient({
                 </label>
               </div>
 
-              <div className="w-full flex flex-row items-center mt-2 gap-4">
-                <div className="flex items-center w-full bg-white border border-slate-200 rounded-xl overflow-hidden focus-within:border-slate-800 focus-within:ring-2 focus-within:ring-slate-800/10 transition-all">
-                  <span className="px-3.5 text-xs text-slate-500 font-mono select-none bg-slate-50 border-r border-slate-200 py-2.5 font-medium">
-                    /articles/
-                  </span>
-                  <input
-                    type="text"
+              <div className="w-full flex flex-row items-center gap-2">
+                <span className="px-3.5 py-2 text-xs text-slate-500 font-mono select-none bg-slate-50 border border-slate-200 rounded-lg">
+                  /articles/
+                </span>
+                <div className="flex-1">
+                  <TextInput
+                    label="Đường dẫn tĩnh (Slug)"
+                    isLabelHidden
                     value={slug}
-                    onChange={(e) => setSlug(e.target.value)}
+                    onChange={setSlug}
                     placeholder="expanding-cross-border-ecommerce-playbook"
-                    className="w-full py-2.5 px-3.5 bg-transparent text-xs font-mono text-slate-900 placeholder-slate-400 focus:outline-none"
+                    width="100%"
+                    className='h-10 border'
                   />
                 </div>
                 <Button
@@ -242,30 +241,25 @@ export default function BlogEditorClient({
             </div>
 
             {/* Subtitle */}
-            <div>
-              <label className="block text-xs font-bold text-slate-700 mb-2">
-                Phụ đề / Thông điệp nổi bật
-              </label>
-              <input
-                type="text"
-                value={subtitle}
-                onChange={(e) => setSubtitle(e.target.value)}
-                placeholder="VD: Strategic execution for cross-border retailers targeting Western markets"
-                className="w-full px-4 py-2.5 bg-white border border-slate-200 rounded-xl text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:border-slate-800 focus:ring-2 focus:ring-slate-800/10 transition-all"
-              />
-            </div>
+            <TextInput
+              label="Phụ đề / Thông điệp nổi bật"
+              value={subtitle}
+              onChange={setSubtitle}
+              placeholder="VD: Strategic execution for cross-border retailers targeting Western markets"
+              width="100%"
+              className='h-10 border'
+            />
 
             {/* Excerpt */}
             <div>
-              <label className="block text-xs font-bold text-slate-700 mb-2">
-                Tóm tắt ngắn (Excerpt)
-              </label>
-              <textarea
+              <TextArea
+                label="Tóm tắt ngắn (Excerpt)"
                 rows={3}
                 value={excerpt}
-                onChange={(e) => setExcerpt(e.target.value)}
+                onChange={setExcerpt}
                 placeholder="Tóm tắt ngắn gọn nội dung bài viết hiển thị ở danh sách bài và SEO meta..."
-                className="w-full px-4 py-2.5 bg-white border border-slate-200 rounded-xl text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:border-slate-800 focus:ring-2 focus:ring-slate-800/10 transition-all resize-y leading-relaxed"
+                width="100%"
+                className="border"
               />
             </div>
           </Card>
@@ -311,15 +305,13 @@ export default function BlogEditorClient({
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-slate-700 mb-1.5">
-                Ước tính thời gian đọc
-              </label>
-              <input
-                type="text"
+              <TextInput
+                label="Ước tính thời gian đọc"
                 value={readTime}
-                onChange={(e) => setReadTime(e.target.value)}
+                onChange={setReadTime}
                 placeholder="5 mins read"
-                className="w-full px-3.5 py-2.5 bg-white border border-slate-200 rounded-xl text-sm text-slate-900 focus:outline-none focus:border-slate-800 focus:ring-2 focus:ring-slate-800/10 transition-all"
+                width="100%"
+                className='h-10 border'
               />
               <p className="text-[11px] text-slate-500 mt-1">
                 Tự động tính theo tốc độ đọc của người xem khi gõ nội dung.
@@ -352,18 +344,14 @@ export default function BlogEditorClient({
               />
             </div>
 
-            <div>
-              <label className="block text-xs font-semibold text-slate-700 mb-1.5">
-                Thẻ hiển thị (Tag badge)
-              </label>
-              <input
-                type="text"
-                value={tag}
-                onChange={(e) => setTag(e.target.value)}
-                placeholder="VD: Market Expansion, Technology & WMS..."
-                className="w-full px-3.5 py-2.5 bg-white border border-slate-200 rounded-xl text-sm text-slate-900 focus:outline-none focus:border-slate-800 focus:ring-2 focus:ring-slate-800/10 transition-all"
-              />
-            </div>
+            <TextInput
+              label="Thẻ hiển thị (Tag badge)"
+              value={tag}
+              onChange={setTag}
+              placeholder="VD: Market Expansion, Technology & WMS..."
+              width="100%"
+              className='h-10 border'
+            />
           </Card>
 
           {/* Hero Cover Image with Cloudinary Upload */}
@@ -419,18 +407,14 @@ export default function BlogEditorClient({
               )}
             </div>
 
-            <div>
-              <label className="block text-xs font-semibold text-slate-700 mb-1.5">
-                Đường dẫn hình ảnh (URL)
-              </label>
-              <input
-                type="text"
-                value={heroImage}
-                onChange={(e) => setHeroImage(e.target.value)}
-                placeholder="/assets/case_brother.jpg hoặc https://res.cloudinary.com/..."
-                className="w-full px-3.5 py-2.5 bg-white border border-slate-200 rounded-xl text-xs font-mono text-slate-900 focus:outline-none focus:border-slate-800 focus:ring-2 focus:ring-slate-800/10 transition-all"
-              />
-            </div>
+            <TextInput
+              label="Đường dẫn hình ảnh (URL)"
+              value={heroImage}
+              onChange={setHeroImage}
+              placeholder="/assets/case_brother.jpg hoặc https://res.cloudinary.com/..."
+              width="100%"
+              className='h-10 border'
+            />
 
             {/* Image Preview thumbnail */}
             {heroImage && (
@@ -461,31 +445,23 @@ export default function BlogEditorClient({
               Tác giả bài viết
             </h3>
 
-            <div>
-              <label className="block text-xs font-semibold text-slate-700 mb-1.5">
-                Tên tác giả
-              </label>
-              <input
-                type="text"
-                value={authorName}
-                onChange={(e) => setAuthorName(e.target.value)}
-                placeholder="E-GEAD Research Team"
-                className="w-full h-10 px-3.5 py-2.5 bg-white border border-slate-200 rounded-xl text-sm text-slate-900 focus:outline-none focus:border-slate-800 focus:ring-2 focus:ring-slate-800/10 transition-all"
-              />
-            </div>
+            <TextInput
+              label="Tên tác giả"
+              value={authorName}
+              onChange={setAuthorName}
+              placeholder="E-GEAD Research Team"
+              width="100%"
+              className='h-10 border'
+            />
 
-            <div>
-              <label className="block text-xs font-semibold text-slate-700 mb-1.5">
-                Chức danh / Vai trò
-              </label>
-              <input
-                type="text"
-                value={authorRole}
-                onChange={(e) => setAuthorRole(e.target.value)}
-                placeholder="Global Commerce Strategist"
-                className="w-full h-10 px-3.5 py-2.5 bg-white border border-slate-200 rounded-xl text-sm text-slate-900 focus:outline-none focus:border-slate-800 focus:ring-2 focus:ring-slate-800/10 transition-all"
-              />
-            </div>
+            <TextInput
+              label="Chức danh / Vai trò"
+              value={authorRole}
+              onChange={setAuthorRole}
+              placeholder="Global Commerce Strategist"
+              width="100%"
+              className='h-10 border'
+            />
           </Card>
         </div>
       </div>

@@ -3,7 +3,7 @@
 import React, { useState, FormEvent } from 'react';
 import { useRouter } from 'next/navigation';
 import { X, Upload, Eye } from 'lucide-react';
-import { Button, Card, Badge, Field } from '@astryxdesign/core';
+import { Button, Card, Badge, Field, CheckboxInput, TextInput, TextArea } from '@astryxdesign/core';
 import type {
   HomeSectionModel,
   SmartCXSectionData,
@@ -260,33 +260,22 @@ export default function SmartCXSectionFormClient({
             </p>
           </div>
 
-          <label className="flex items-center gap-2 cursor-pointer text-xs font-semibold text-slate-700">
-            <input
-              type="checkbox"
-              checked={isActive}
-              onChange={(e) => setIsActive(e.target.checked)}
-              className="w-4 h-4 rounded text-emerald-600 border-slate-300 focus:ring-emerald-500"
-            />
-            <span>Hiển thị section này trên trang chủ</span>
-          </label>
+          <CheckboxInput
+            label="Hiển thị section này trên trang chủ"
+            value={isActive}
+            onChange={(checked) => setIsActive(checked)}
+          />
         </div>
 
-        <Field
+        <TextInput
           label="Tiêu đề chính (Heading)"
-          inputID="section-title"
           isRequired
-          description="Tiêu đề lớn xuất hiện trên đầu khối Bento Grid"
-        >
-          <input
-            id="section-title"
-            type="text"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            placeholder="Why brands ship with Egead"
-            className="w-full px-3.5 py-2.5 bg-slate-50/60 border border-slate-200 rounded-xl text-xs sm:text-sm text-slate-900 focus:outline-none focus:bg-white focus:border-slate-800 focus:ring-1 focus:ring-slate-800 transition-colors"
-            required
-          />
-        </Field>
+          value={title}
+          onChange={(val) => setTitle(val)}
+          placeholder="Why brands ship with Egead"
+          width="100%"
+          className='h-10 border'
+        />
       </Card>
 
       {/* =========================================================================
@@ -345,23 +334,27 @@ export default function SmartCXSectionFormClient({
               </label>
 
               <div className="flex-1 min-w-0 space-y-2">
-                <input
-                  type="text"
+                <TextInput
+                  label="URL ảnh sản phẩm"
+                  isLabelHidden
                   value={photo1.image}
-                  onChange={(e) =>
-                    setPhoto1((prev) => ({ ...prev, image: e.target.value }))
+                  onChange={(val) =>
+                    setPhoto1((prev) => ({ ...prev, image: val }))
                   }
                   placeholder="/assets/success_apparel.jpg"
-                  className="w-full px-2.5 py-1.5 text-xs font-mono bg-white border border-slate-200 rounded-lg text-slate-700 focus:outline-none focus:border-slate-800"
+                  width="100%"
+                  className='h-10 border'
                 />
-                <input
-                  type="text"
+                <TextInput
+                  label="Alt ảnh sản phẩm"
+                  isLabelHidden
                   value={photo1.alt}
-                  onChange={(e) =>
-                    setPhoto1((prev) => ({ ...prev, alt: e.target.value }))
+                  onChange={(val) =>
+                    setPhoto1((prev) => ({ ...prev, alt: val }))
                   }
                   placeholder="Mô tả alt ảnh..."
-                  className="w-full px-2.5 py-1.5 text-xs bg-white border border-slate-200 rounded-lg text-slate-700 focus:outline-none focus:border-slate-800"
+                  width="100%"
+                  className='h-10 border'
                 />
                 <label className="cursor-pointer inline-block">
                   <input
@@ -396,63 +389,52 @@ export default function SmartCXSectionFormClient({
 
             <div className="space-y-2">
               <div className="grid grid-cols-2 gap-2">
-                <div>
-                  <label className="block text-[11px] font-semibold text-slate-600 mb-1">
-                    Huy hiệu thương hiệu
-                  </label>
-                  <input
-                    type="text"
-                    value={stat1.brand}
-                    onChange={(e) =>
-                      setStat1((prev) => ({ ...prev, brand: e.target.value }))
-                    }
-                    placeholder="URBANVIBE"
-                    className="w-full px-2.5 py-1.5 text-xs font-mono font-bold bg-white border border-slate-200 rounded-lg text-slate-900 focus:outline-none focus:border-slate-800"
-                  />
-                </div>
-                <div>
-                  <label className="block text-[11px] font-semibold text-slate-600 mb-1">
-                    Số liệu lớn
-                  </label>
-                  <input
-                    type="text"
-                    value={stat1.value}
-                    onChange={(e) =>
-                      setStat1((prev) => ({ ...prev, value: e.target.value }))
-                    }
-                    placeholder="<24H"
-                    className="w-full px-2.5 py-1.5 text-xs font-bold bg-white border border-slate-200 rounded-lg text-slate-900 focus:outline-none focus:border-slate-800"
-                  />
-                </div>
-              </div>
-
-              <div>
-                <label className="block text-[11px] font-semibold text-slate-600 mb-1">
-                  Khẩu hiệu / Thành tích (hỗ trợ xuống dòng)
-                </label>
-                <textarea
-                  rows={2}
-                  value={stat1.tagline}
-                  onChange={(e) =>
-                    setStat1((prev) => ({ ...prev, tagline: e.target.value }))
+                <TextInput
+                  label="Huy hiệu thương hiệu"
+                  value={stat1.brand}
+                  onChange={(val) =>
+                    setStat1((prev) => ({ ...prev, brand: val }))
                   }
-                  placeholder="URBANVIBE&#10;ACHIEVED SUB-24H DISPATCH&#10;ON TIKTOK SHOP US"
-                  className="w-full px-2.5 py-1.5 text-xs font-mono bg-white border border-slate-200 rounded-lg text-slate-700 focus:outline-none focus:border-slate-800 resize-none"
+                  placeholder="URBANVIBE"
+                  width="100%"
+                  className='h-10 border'
+                />
+                <TextInput
+                  label="Số liệu lớn"
+                  value={stat1.value}
+                  onChange={(val) =>
+                    setStat1((prev) => ({ ...prev, value: val }))
+                  }
+                  placeholder="<24H"
+                  width="100%"
+                  className='h-10 border'
                 />
               </div>
 
               <div>
-                <label className="block text-[11px] font-semibold text-slate-600 mb-1">
-                  Nhãn giải thích chỉ số
-                </label>
-                <input
-                  type="text"
+                <TextArea
+                  label="Khẩu hiệu / Thành tích (hỗ trợ xuống dòng)"
+                  rows={2}
+                  value={stat1.tagline}
+                  onChange={(val) =>
+                    setStat1((prev) => ({ ...prev, tagline: val }))
+                  }
+                  placeholder="URBANVIBE&#10;ACHIEVED SUB-24H DISPATCH&#10;ON TIKTOK SHOP US"
+                  width="100%"
+                  className="border font-mono text-xs"
+                />
+              </div>
+
+              <div>
+                <TextInput
+                  label="Nhãn giải thích chỉ số"
                   value={stat1.label}
-                  onChange={(e) =>
-                    setStat1((prev) => ({ ...prev, label: e.target.value }))
+                  onChange={(val) =>
+                    setStat1((prev) => ({ ...prev, label: val }))
                   }
                   placeholder="Average Production SLA"
-                  className="w-full px-2.5 py-1.5 text-xs bg-white border border-slate-200 rounded-lg text-slate-700 focus:outline-none focus:border-slate-800"
+                  width="100%"
+                  className='h-10 border'
                 />
               </div>
             </div>
@@ -505,35 +487,27 @@ export default function SmartCXSectionFormClient({
           </label>
 
           <div className="flex-1 w-full space-y-2.5">
-            <div>
-              <label className="block text-xs font-semibold text-slate-700 mb-1">
-                Đường dẫn hình ảnh (URL / Asset Path)
-              </label>
-              <input
-                type="text"
-                value={widePhoto.image}
-                onChange={(e) =>
-                  setWidePhoto((prev) => ({ ...prev, image: e.target.value }))
-                }
-                placeholder="/assets/success_warehouse.jpg"
-                className="w-full px-3 py-1.5 text-xs font-mono bg-white border border-slate-200 rounded-lg text-slate-800 focus:outline-none focus:border-slate-800"
-              />
-            </div>
+            <TextInput
+              label="Đường dẫn hình ảnh (URL / Asset Path)"
+              value={widePhoto.image}
+              onChange={(val) =>
+                setWidePhoto((prev) => ({ ...prev, image: val }))
+              }
+              placeholder="/assets/success_warehouse.jpg"
+              width="100%"
+              className='h-10 border'
+            />
 
-            <div>
-              <label className="block text-xs font-semibold text-slate-700 mb-1">
-                Mô tả hình ảnh (Alt text)
-              </label>
-              <input
-                type="text"
-                value={widePhoto.alt}
-                onChange={(e) =>
-                  setWidePhoto((prev) => ({ ...prev, alt: e.target.value }))
-                }
-                placeholder="E-GEAD high-speed automated robotics fulfillment facility"
-                className="w-full px-3 py-1.5 text-xs bg-white border border-slate-200 rounded-lg text-slate-800 focus:outline-none focus:border-slate-800"
-              />
-            </div>
+            <TextInput
+              label="Mô tả hình ảnh (Alt text)"
+              value={widePhoto.alt}
+              onChange={(val) =>
+                setWidePhoto((prev) => ({ ...prev, alt: val }))
+              }
+              placeholder="E-GEAD high-speed automated robotics fulfillment facility"
+              width="100%"
+              className='h-10 border'
+            />
 
             <label className="cursor-pointer inline-block">
               <input
@@ -574,68 +548,52 @@ export default function SmartCXSectionFormClient({
         </div>
 
         <div className="p-4 rounded-xl bg-slate-50/80 border border-slate-200 space-y-3.5">
-          <Field
+          <TextArea
             label="Nội dung lời chứng thực (Quote)"
-            inputID="quote-content"
             description="Đoạn văn trích dẫn phản hồi về dịch vụ và hiệu quả thực tế"
-          >
-            <textarea
-              id="quote-content"
-              rows={3}
-              value={quote.quote}
-              onChange={(e) =>
-                setQuote((prev) => ({ ...prev, quote: e.target.value }))
-              }
-              placeholder="“Egead eliminated our fulfillment delays entirely...”"
-              className="w-full px-3.5 py-2.5 bg-white border border-slate-200 rounded-xl text-xs sm:text-sm text-slate-900 focus:outline-none focus:border-slate-800 transition-colors resize-y"
-            />
-          </Field>
+            rows={3}
+            value={quote.quote}
+            onChange={(val) =>
+              setQuote((prev) => ({ ...prev, quote: val }))
+            }
+            placeholder="“Egead eliminated our fulfillment delays entirely...”"
+            width="100%"
+            className="border"
+          />
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-            <div>
-              <label className="block text-xs font-semibold text-slate-700 mb-1">
-                Tên người phát biểu
-              </label>
-              <input
-                type="text"
-                value={quote.author}
-                onChange={(e) =>
-                  setQuote((prev) => ({ ...prev, author: e.target.value }))
-                }
-                placeholder="MARCUS VANCE"
-                className="w-full px-3 py-1.5 text-xs font-mono font-bold bg-white border border-slate-200 rounded-lg text-slate-900 focus:outline-none focus:border-slate-800"
-              />
-            </div>
+            <TextInput
+              label="Tên người phát biểu"
+              value={quote.author}
+              onChange={(val) =>
+                setQuote((prev) => ({ ...prev, author: val }))
+              }
+              placeholder="MARCUS VANCE"
+              width="100%"
+              className='h-10 border'
+            />
 
-            <div>
-              <label className="block text-xs font-semibold text-slate-700 mb-1">
-                Chức danh / Vai trò
-              </label>
-              <input
-                type="text"
-                value={quote.role}
-                onChange={(e) =>
-                  setQuote((prev) => ({ ...prev, role: e.target.value }))
-                }
-                placeholder="HEAD OF GLOBAL SUPPLY CHAIN & OPERATIONS"
-                className="w-full px-3 py-1.5 text-xs font-mono bg-white border border-slate-200 rounded-lg text-slate-700 focus:outline-none focus:border-slate-800"
-              />
-            </div>
+            <TextInput
+              label="Chức danh / Vai trò"
+              value={quote.role}
+              onChange={(val) =>
+                setQuote((prev) => ({ ...prev, role: val }))
+              }
+              placeholder="HEAD OF GLOBAL SUPPLY CHAIN & OPERATIONS"
+              width="100%"
+              className='h-10 border'
+            />
 
-            <div>
-              <label className="block text-xs font-semibold text-slate-700 mb-1">
-                Tên thương hiệu
-              </label>
-              <input
-                type="text"
-                value={quote.brand}
-                onChange={(e) =>
-                  setQuote((prev) => ({ ...prev, brand: e.target.value }))
-                }
-                placeholder="URBANVIBE"
-                className="w-full px-3 py-1.5 text-xs font-mono font-bold bg-white border border-slate-200 rounded-lg text-slate-900 focus:outline-none focus:border-slate-800"
-              />
-            </div>
+            <TextInput
+              label="Tên thương hiệu"
+              value={quote.brand}
+              onChange={(val) =>
+                setQuote((prev) => ({ ...prev, brand: val }))
+              }
+              placeholder="URBANVIBE"
+              width="100%"
+              className='h-10 border'
+            />
           </div>
         </div>
       </Card>
@@ -695,23 +653,27 @@ export default function SmartCXSectionFormClient({
               </label>
 
               <div className="flex-1 min-w-0 space-y-2">
-                <input
-                  type="text"
+                <TextInput
+                  label="URL ảnh thiết bị"
+                  isLabelHidden
                   value={photo2.image}
-                  onChange={(e) =>
-                    setPhoto2((prev) => ({ ...prev, image: e.target.value }))
+                  onChange={(val) =>
+                    setPhoto2((prev) => ({ ...prev, image: val }))
                   }
                   placeholder="/assets/success_scanner.jpg"
-                  className="w-full px-2.5 py-1.5 text-xs font-mono bg-white border border-slate-200 rounded-lg text-slate-700 focus:outline-none focus:border-slate-800"
+                  width="100%"
+                  className='h-10 border'
                 />
-                <input
-                  type="text"
+                <TextInput
+                  label="Alt ảnh thiết bị"
+                  isLabelHidden
                   value={photo2.alt}
-                  onChange={(e) =>
-                    setPhoto2((prev) => ({ ...prev, alt: e.target.value }))
+                  onChange={(val) =>
+                    setPhoto2((prev) => ({ ...prev, alt: val }))
                   }
                   placeholder="Mô tả alt ảnh..."
-                  className="w-full px-2.5 py-1.5 text-xs bg-white border border-slate-200 rounded-lg text-slate-700 focus:outline-none focus:border-slate-800"
+                  width="100%"
+                  className='h-10 border'
                 />
                 <label className="cursor-pointer inline-block">
                   <input
@@ -746,63 +708,52 @@ export default function SmartCXSectionFormClient({
 
             <div className="space-y-2">
               <div className="grid grid-cols-2 gap-2">
-                <div>
-                  <label className="block text-[11px] font-semibold text-slate-600 mb-1">
-                    Huy hiệu thương hiệu
-                  </label>
-                  <input
-                    type="text"
-                    value={stat2.brand}
-                    onChange={(e) =>
-                      setStat2((prev) => ({ ...prev, brand: e.target.value }))
-                    }
-                    placeholder="HOMECRAFT"
-                    className="w-full px-2.5 py-1.5 text-xs font-mono font-bold bg-white border border-slate-200 rounded-lg text-slate-900 focus:outline-none focus:border-slate-800"
-                  />
-                </div>
-                <div>
-                  <label className="block text-[11px] font-semibold text-slate-600 mb-1">
-                    Số liệu lớn
-                  </label>
-                  <input
-                    type="text"
-                    value={stat2.value}
-                    onChange={(e) =>
-                      setStat2((prev) => ({ ...prev, value: e.target.value }))
-                    }
-                    placeholder="99.9%"
-                    className="w-full px-2.5 py-1.5 text-xs font-bold bg-white border border-slate-200 rounded-lg text-slate-900 focus:outline-none focus:border-slate-800"
-                  />
-                </div>
-              </div>
-
-              <div>
-                <label className="block text-[11px] font-semibold text-slate-600 mb-1">
-                  Khẩu hiệu / Thành tích (hỗ trợ xuống dòng)
-                </label>
-                <textarea
-                  rows={2}
-                  value={stat2.tagline}
-                  onChange={(e) =>
-                    setStat2((prev) => ({ ...prev, tagline: e.target.value }))
+                <TextInput
+                  label="Huy hiệu thương hiệu"
+                  value={stat2.brand}
+                  onChange={(val) =>
+                    setStat2((prev) => ({ ...prev, brand: val }))
                   }
-                  placeholder="HOMECRAFT&#10;ELIMINATED OVERSELLING &amp;&#10;CUT MANUAL OPS BY 85%"
-                  className="w-full px-2.5 py-1.5 text-xs font-mono bg-white border border-slate-200 rounded-lg text-slate-700 focus:outline-none focus:border-slate-800 resize-none"
+                  placeholder="HOMECRAFT"
+                  width="100%"
+                  className='h-10 border'
+                />
+                <TextInput
+                  label="Số liệu lớn"
+                  value={stat2.value}
+                  onChange={(val) =>
+                    setStat2((prev) => ({ ...prev, value: val }))
+                  }
+                  placeholder="99.9%"
+                  width="100%"
+                  className='h-10 border'
                 />
               </div>
 
               <div>
-                <label className="block text-[11px] font-semibold text-slate-600 mb-1">
-                  Nhãn giải thích chỉ số
-                </label>
-                <input
-                  type="text"
+                <TextArea
+                  label="Khẩu hiệu / Thành tích (hỗ trợ xuống dòng)"
+                  rows={2}
+                  value={stat2.tagline}
+                  onChange={(val) =>
+                    setStat2((prev) => ({ ...prev, tagline: val }))
+                  }
+                  placeholder="HOMECRAFT&#10;ELIMINATED OVERSELLING &amp;&#10;CUT MANUAL OPS BY 85%"
+                  width="100%"
+                  className="border font-mono text-xs"
+                />
+              </div>
+
+              <div>
+                <TextInput
+                  label="Nhãn giải thích chỉ số"
                   value={stat2.label}
-                  onChange={(e) =>
-                    setStat2((prev) => ({ ...prev, label: e.target.value }))
+                  onChange={(val) =>
+                    setStat2((prev) => ({ ...prev, label: val }))
                   }
                   placeholder="WMS Barcode Scan Accuracy"
-                  className="w-full px-2.5 py-1.5 text-xs bg-white border border-slate-200 rounded-lg text-slate-700 focus:outline-none focus:border-slate-800"
+                  width="100%"
+                  className='h-10 border'
                 />
               </div>
             </div>
@@ -824,35 +775,23 @@ export default function SmartCXSectionFormClient({
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <Field
+          <TextInput
             label="Nhãn nút (Button Text)"
-            inputID="cta-text"
-            description="Dòng chữ hiển thị trên nút bấm"
-          >
-            <input
-              id="cta-text"
-              type="text"
-              value={ctaText}
-              onChange={(e) => setCtaText(e.target.value)}
-              placeholder="Read Customer Stories"
-              className="w-full px-3.5 py-2.5 bg-slate-50/60 border border-slate-200 rounded-xl text-xs sm:text-sm text-slate-900 focus:outline-none focus:bg-white focus:border-slate-800 transition-colors"
-            />
-          </Field>
+            value={ctaText}
+            onChange={(val) => setCtaText(val)}
+            placeholder="Read Customer Stories"
+            width="100%"
+            className='h-10 border'
+          />
 
-          <Field
+          <TextInput
             label="Đường dẫn liên kết (Button Href)"
-            inputID="cta-href"
-            description="Trang đích khi người dùng nhấp vào nút"
-          >
-            <input
-              id="cta-href"
-              type="text"
-              value={ctaHref}
-              onChange={(e) => setCtaHref(e.target.value)}
-              placeholder="/our-work"
-              className="w-full px-3.5 py-2.5 bg-slate-50/60 border border-slate-200 rounded-xl text-xs sm:text-sm font-mono text-slate-900 focus:outline-none focus:bg-white focus:border-slate-800 transition-colors"
-            />
-          </Field>
+            value={ctaHref}
+            onChange={(val) => setCtaHref(val)}
+            placeholder="/our-work"
+            width="100%"
+            className='h-10 border'
+          />
         </div>
       </Card>
 

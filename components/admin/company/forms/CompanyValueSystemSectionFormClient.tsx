@@ -18,7 +18,7 @@ export default function CompanyValueSystemSectionFormClient({
 
   const [title, setTitle] = useState(
     section.title ||
-      'We believe in building transformative experiences to empower individuals, businesses and communities.'
+    'We believe in building transformative experiences to empower individuals, businesses and communities.'
   );
   const [subtitle, setSubtitle] = useState(section.subtitle || 'Value System');
   const [isActive, setIsActive] = useState<boolean>(section.isActive ?? true);
@@ -28,28 +28,28 @@ export default function CompanyValueSystemSectionFormClient({
     rawData.items && rawData.items.length > 0
       ? rawData.items
       : [
-          {
-            number: '01',
-            icon: '/assets/icon1.png',
-            title: 'Outperforming expectations.',
-            description:
-              'Our rigorous Project Excellence Assurance methodology (PEA) and sub-24h US fulfillment ensure order delivery within committed timelines, maintaining flawless marketplace SLA metrics.',
-          },
-          {
-            number: '02',
-            icon: '/assets/Icon_2.svg',
-            title: 'Breaking new grounds.',
-            description:
-              'Our relentless focus leveraging AI address normalization, multi-channel catalog orchestration, and barcode WMS builds the fastest, most reliable path to market.',
-          },
-          {
-            number: '03',
-            icon: '/assets/Icon_3.svg',
-            title: 'Giving back.',
-            description:
-              'Our focus is on building an exemplary engineering culture in Buon Ma Thuot that emphasizes diversity, software talent development, and transparent equal opportunity empowerment.',
-          },
-        ]
+        {
+          number: '01',
+          icon: '/assets/icon1.png',
+          title: 'Outperforming expectations.',
+          description:
+            'Our rigorous Project Excellence Assurance methodology (PEA) and sub-24h US fulfillment ensure order delivery within committed timelines, maintaining flawless marketplace SLA metrics.',
+        },
+        {
+          number: '02',
+          icon: '/assets/Icon_2.svg',
+          title: 'Breaking new grounds.',
+          description:
+            'Our relentless focus leveraging AI address normalization, multi-channel catalog orchestration, and barcode WMS builds the fastest, most reliable path to market.',
+        },
+        {
+          number: '03',
+          icon: '/assets/Icon_3.svg',
+          title: 'Giving back.',
+          description:
+            'Our focus is on building an exemplary engineering culture in Buon Ma Thuot that emphasizes diversity, software talent development, and transparent equal opportunity empowerment.',
+        },
+      ]
   );
 
   const [uploadingTargetIndex, setUploadingTargetIndex] = useState<number | null>(null);
@@ -251,12 +251,14 @@ export default function CompanyValueSystemSectionFormClient({
                 <div className="flex items-center justify-between border-b border-slate-200/80 pb-2.5">
                   <div className="flex items-center gap-2">
                     <span className="text-xs font-bold text-slate-500 font-mono">Thứ tự:</span>
-                    <input
-                      type="text"
-                      value={item.number}
-                      onChange={(e) => handleUpdateItem(idx, 'number', e.target.value)}
+                    <TextInput
+                      label="Thứ tự"
+                      isLabelHidden
+                      value={item.number || ''}
+                      onChange={(val) => handleUpdateItem(idx, 'number', val)}
                       placeholder="01"
-                      className="w-12 px-2 py-0.5 text-xs font-bold bg-white border border-slate-200 rounded text-center text-slate-900"
+                      width="64px"
+                      className='h-10 border'
                     />
                   </div>
 
@@ -300,12 +302,14 @@ export default function CompanyValueSystemSectionFormClient({
                     )}
                   </div>
                   <div className="flex-1 min-w-0 space-y-1.5">
-                    <input
-                      type="text"
-                      value={item.icon}
-                      onChange={(e) => handleUpdateItem(idx, 'icon', e.target.value)}
+                    <TextInput
+                      label="URL Icon"
+                      isLabelHidden
+                      value={item.icon || ''}
+                      onChange={(val) => handleUpdateItem(idx, 'icon', val)}
                       placeholder="URL Icon..."
-                      className="w-full px-2.5 py-1 text-[11px] font-mono bg-white border border-slate-200 rounded-lg text-slate-900 focus:outline-none"
+                      width="100%"
+                      className='h-10 border'
                     />
                     <div className="flex items-center gap-2">
                       <label className="cursor-pointer shrink-0">

@@ -12,7 +12,7 @@ import {
   MoreHorizontal,
 } from 'lucide-react';
 import { JobApplication, ApplicationStatus, CareerPost } from '@/types/career';
-import { Button, Badge, Card, EmptyState, Selector, DropdownMenu, Pagination } from '@astryxdesign/core';
+import { Button, Badge, Card, EmptyState, Selector, DropdownMenu, Pagination, TextInput, TextArea } from '@astryxdesign/core';
 import { useCareerApplicationMutations } from '@/lib/hooks';
 
 interface CareerApplicationsClientProps {
@@ -296,24 +296,17 @@ export default function CareerApplicationsClient({
       <Card variant="default" className="rounded-2xl p-4 sm:p-5 space-y-4">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-3">
           {/* Search */}
-          <div className="md:col-span-6 relative">
-            <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
-            <input
-              type="text"
+          <div className="md:col-span-6">
+            <TextInput
+              label="Tìm kiếm ứng viên"
+              isLabelHidden
               value={search}
-              onChange={(e) => setSearch(e.target.value)}
+              onChange={setSearch}
               placeholder="Tìm theo tên ứng viên, email, số điện thoại, vị trí..."
-              className="w-full pl-10 pr-9 py-2.5 bg-slate-50/60 border border-slate-200 rounded-xl text-xs sm:text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:bg-white focus:border-slate-800 focus:ring-1 focus:ring-slate-800 transition-colors"
+              hasClear
+              width="100%"
+              className='h-10 border'
             />
-            {search && (
-              <button
-                type="button"
-                onClick={() => setSearch('')}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 p-0.5 rounded-full hover:bg-slate-200/50"
-              >
-                <X className="w-3.5 h-3.5" />
-              </button>
-            )}
           </div>
 
           {/* Job Filter */}
@@ -678,18 +671,15 @@ export default function CareerApplicationsClient({
                 />
               </div>
 
-              <div>
-                <label className="block text-xs font-bold text-slate-800 mb-1.5">
-                  Ghi chú nội bộ bộ phận HR / Tuyển dụng:
-                </label>
-                <textarea
-                  rows={3}
-                  value={editingNotes}
-                  onChange={(e) => setEditingNotes(e.target.value)}
-                  placeholder="Ghi lại nhận xét phỏng vấn, điểm mạnh/yếu, mức offer đề xuất..."
-                  className="w-full px-3.5 py-2.5 bg-white border border-slate-200 rounded-xl text-xs text-slate-900 focus:outline-none focus:border-slate-800"
-                />
-              </div>
+              <TextArea
+                label="Ghi chú nội bộ bộ phận HR / Tuyển dụng"
+                rows={3}
+                value={editingNotes}
+                onChange={setEditingNotes}
+                placeholder="Ghi lại nhận xét phỏng vấn, điểm mạnh/yếu, mức offer đề xuất..."
+                width="100%"
+                className="border"
+              />
 
               <div className="flex items-center justify-between pt-2">
                 <Button

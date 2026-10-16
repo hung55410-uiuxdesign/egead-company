@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { X, Plus, Trash2 } from 'lucide-react';
-import { Button, Badge, Card, Field, FieldLabel } from '@astryxdesign/core';
+import { Button, Badge, Card, Field, FieldLabel, TextInput, Selector, TextArea } from '@astryxdesign/core';
 import type { PartnerItemModel } from '@/lib/services/partner-item.service';
 import type { SavePartnerVariables } from '@/lib/hooks';
 
@@ -439,11 +439,10 @@ export default function PartnerFormModal({
               key={tab.key}
               type="button"
               onClick={() => setActiveTab(tab.key as TabKey)}
-              className={`px-3 py-2 text-xs font-semibold rounded-t-lg transition-colors border-b-2 whitespace-nowrap ${
-                activeTab === tab.key
+              className={`px-3 py-2 text-xs font-semibold rounded-t-lg transition-colors border-b-2 whitespace-nowrap ${activeTab === tab.key
                   ? 'border-emerald-600 text-emerald-800 bg-white shadow-xs'
                   : 'border-transparent text-slate-600 hover:text-slate-900'
-              }`}
+                }`}
             >
               {tab.label}
             </button>
@@ -456,156 +455,117 @@ export default function PartnerFormModal({
           {activeTab === 'hero' && (
             <div className="space-y-4">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="space-y-1">
-                  <label className="block text-xs font-semibold text-slate-700">
-                    Tên đối tác *
-                  </label>
-                  <input
-                    type="text"
-                    required
-                    value={name}
-                    onChange={(e) => handleNameChange(e.target.value)}
-                    placeholder="ví dụ: Shopify Plus, SAP, Stripe"
-                    className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm text-slate-900 focus:bg-white focus:border-emerald-500 focus:outline-hidden"
-                  />
-                </div>
+                <TextInput
+                  label="Tên đối tác"
+                  isRequired
+                  value={name}
+                  onChange={(val) => handleNameChange(val)}
+                  placeholder="ví dụ: Shopify Plus, SAP, Stripe"
+                  width="100%"
+                  className='h-10 border'
+                />
 
-                <div className="space-y-1">
-                  <label className="block text-xs font-semibold text-slate-700">
-                    Slug đường dẫn *
-                  </label>
-                  <input
-                    type="text"
-                    required
-                    value={slug}
-                    onChange={(e) => setSlug(e.target.value)}
-                    placeholder="ví dụ: shopify-plus"
-                    className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm font-mono text-slate-900 focus:bg-white focus:border-emerald-500 focus:outline-hidden"
-                  />
-                </div>
+                <TextInput
+                  label="Slug đường dẫn"
+                  isRequired
+                  value={slug}
+                  onChange={(val) => setSlug(val)}
+                  placeholder="ví dụ: shopify-plus"
+                  width="100%"
+                  className='h-10 border'
+                />
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                <div className="space-y-1 sm:col-span-2">
-                  <label className="block text-xs font-semibold text-slate-700">
-                    Huy hiệu chứng nhận (Badge)
-                  </label>
-                  <input
-                    type="text"
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 items-end">
+                <div className="sm:col-span-2">
+                  <TextInput
+                    label="Huy hiệu chứng nhận (Badge)"
                     value={badge}
-                    onChange={(e) => setBadge(e.target.value)}
+                    onChange={(val) => setBadge(val)}
                     placeholder="ví dụ: Qualified SAP Gold Partner"
-                    className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm text-slate-900 focus:bg-white focus:border-emerald-500 focus:outline-hidden"
+                    width="100%"
+                    className='h-10 border'
                   />
                 </div>
 
-                <div className="space-y-1">
-                  <label className="block text-xs font-semibold text-slate-700">
-                    Trạng thái hiển thị
-                  </label>
-                  <select
-                    value={status}
-                    onChange={(e) => setStatus(e.target.value as any)}
-                    className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm text-slate-900 focus:bg-white focus:border-emerald-500 focus:outline-hidden"
-                  >
-                    <option value="published">Đang hiển thị</option>
-                    <option value="draft">Bản nháp</option>
-                  </select>
-                </div>
-              </div>
-
-              <div className="space-y-1">
-                <label className="block text-xs font-semibold text-slate-700">
-                  Tiêu đề Hero Headline
-                </label>
-                <input
-                  type="text"
-                  value={headline}
-                  onChange={(e) => setHeadline(e.target.value)}
-                  placeholder="ví dụ: Unlock enterprise operational excellence."
-                  className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm text-slate-900 focus:bg-white focus:border-emerald-500 focus:outline-hidden"
+                <Selector
+                  label="Trạng thái hiển thị"
+                  className="h-10 border"
+                  value={status}
+                  onChange={(val) => setStatus(val as any)}
+                  options={[
+                    { value: 'published', label: 'Đang hiển thị' },
+                    { value: 'draft', label: 'Bản nháp' },
+                  ]}
+                  width="100%"
                 />
               </div>
 
-              <div className="space-y-1">
-                <label className="block text-xs font-semibold text-slate-700">
-                  Mô tả giới thiệu Hero
-                </label>
-                <textarea
-                  rows={3}
-                  value={description}
-                  onChange={(e) => setDescription(e.target.value)}
-                  placeholder="Mô tả tóm tắt giải pháp đối tác mang lại cho doanh nghiệp..."
-                  className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm text-slate-900 focus:bg-white focus:border-emerald-500 focus:outline-hidden"
-                />
-              </div>
+              <TextInput
+                label="Tiêu đề Hero Headline"
+                value={headline}
+                onChange={(val) => setHeadline(val)}
+                placeholder="ví dụ: Unlock enterprise operational excellence."
+                width="100%"
+                className='h-10 border'
+              />
+
+              <TextArea
+                label="Mô tả giới thiệu Hero"
+                rows={3}
+                value={description}
+                onChange={(val) => setDescription(val)}
+                placeholder="Mô tả tóm tắt giải pháp đối tác mang lại cho doanh nghiệp..."
+                width="100%"
+                className="border"
+              />
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="space-y-1">
-                  <label className="block text-xs font-semibold text-slate-700">
-                    URL hình ảnh Banner Hero
-                  </label>
-                  <input
-                    type="text"
-                    value={bannerImage}
-                    onChange={(e) => setBannerImage(e.target.value)}
-                    placeholder="URL ảnh banner hero (không bị crop)"
-                    className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm text-slate-900 focus:bg-white focus:border-emerald-500 focus:outline-hidden"
-                  />
-                </div>
+                <TextInput
+                  label="URL hình ảnh Banner Hero"
+                  value={bannerImage}
+                  onChange={(val) => setBannerImage(val)}
+                  placeholder="URL ảnh banner hero (không bị crop)"
+                  width="100%"
+                  className='h-10 border'
+                />
 
-                <div className="space-y-1">
-                  <label className="block text-xs font-semibold text-slate-700">
-                    URL ảnh Fallback (khi banner lỗi)
-                  </label>
-                  <input
-                    type="text"
-                    value={bannerFallback}
-                    onChange={(e) => setBannerFallback(e.target.value)}
-                    placeholder="URL logo fallback"
-                    className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm text-slate-900 focus:bg-white focus:border-emerald-500 focus:outline-hidden"
-                  />
-                </div>
+                <TextInput
+                  label="URL ảnh Fallback (khi banner lỗi)"
+                  value={bannerFallback}
+                  onChange={(val) => setBannerFallback(val)}
+                  placeholder="URL logo fallback"
+                  width="100%"
+                  className='h-10 border'
+                />
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                <div className="space-y-1">
-                  <label className="block text-xs font-semibold text-slate-700">
-                    Chữ nút Hero CTA
-                  </label>
-                  <input
-                    type="text"
-                    value={ctaText}
-                    onChange={(e) => setCtaText(e.target.value)}
-                    placeholder="Schedule demo"
-                    className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm text-slate-900 focus:bg-white focus:border-emerald-500 focus:outline-hidden"
-                  />
-                </div>
+                <TextInput
+                  label="Chữ nút Hero CTA"
+                  value={ctaText}
+                  onChange={(val) => setCtaText(val)}
+                  placeholder="Schedule demo"
+                  width="100%"
+                  className='h-10 border'
+                />
 
-                <div className="space-y-1">
-                  <label className="block text-xs font-semibold text-slate-700">
-                    Đường dẫn nút Hero CTA
-                  </label>
-                  <input
-                    type="text"
-                    value={ctaHref}
-                    onChange={(e) => setCtaHref(e.target.value)}
-                    placeholder="/contact-us?subject=demo"
-                    className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm font-mono text-slate-900 focus:bg-white focus:border-emerald-500 focus:outline-hidden"
-                  />
-                </div>
+                <TextInput
+                  label="Đường dẫn nút Hero CTA"
+                  value={ctaHref}
+                  onChange={(val) => setCtaHref(val)}
+                  placeholder="/contact-us?subject=demo"
+                  width="100%"
+                  className='h-10 border'
+                />
 
-                <div className="space-y-1">
-                  <label className="block text-xs font-semibold text-slate-700">
-                    Thứ tự sắp xếp
-                  </label>
-                  <input
-                    type="number"
-                    value={order}
-                    onChange={(e) => setOrder(Number(e.target.value))}
-                    className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm text-slate-900 focus:bg-white focus:border-emerald-500 focus:outline-hidden"
-                  />
-                </div>
+                <TextInput
+                  label="Thứ tự sắp xếp"
+                  value={String(order ?? 0)}
+                  onChange={(val) => setOrder(Number(val) || 0)}
+                  width="100%"
+                  className='h-10 border'
+                />
               </div>
             </div>
           )}
@@ -614,31 +574,22 @@ export default function PartnerFormModal({
           {activeTab === 'advantages' && (
             <div className="space-y-4">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="space-y-1">
-                  <label className="block text-xs font-semibold text-slate-700">
-                    Phụ đề Section Lợi thế
-                  </label>
-                  <input
-                    type="text"
-                    value={advantagesSubtitle}
-                    onChange={(e) => setAdvantagesSubtitle(e.target.value)}
-                    placeholder="E-GEAD advantages"
-                    className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm text-slate-900 focus:bg-white focus:border-emerald-500 focus:outline-hidden"
-                  />
-                </div>
-
-                <div className="space-y-1">
-                  <label className="block text-xs font-semibold text-slate-700">
-                    Tiêu đề chính Section Lợi thế
-                  </label>
-                  <input
-                    type="text"
-                    value={advantagesHeadline}
-                    onChange={(e) => setAdvantagesHeadline(e.target.value)}
-                    placeholder="Qualified SAP Gold Partner Specializing in..."
-                    className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm text-slate-900 focus:bg-white focus:border-emerald-500 focus:outline-hidden"
-                  />
-                </div>
+                <TextInput
+                  label="Phụ đề Section Lợi thế"
+                  value={advantagesSubtitle}
+                  onChange={(val) => setAdvantagesSubtitle(val)}
+                  placeholder="E-GEAD advantages"
+                  width="100%"
+                  className='h-10 border'
+                />
+                <TextInput
+                  label="Tiêu đề chính Section Lợi thế"
+                  value={advantagesHeadline}
+                  onChange={(val) => setAdvantagesHeadline(val)}
+                  placeholder="Qualified SAP Gold Partner Specializing in..."
+                  width="100%"
+                  className='h-10 border'
+                />
               </div>
 
               <div className="pt-2">
@@ -685,44 +636,49 @@ export default function PartnerFormModal({
                         </button>
                       </div>
                       <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
-                        <input
-                          type="text"
+                        <TextInput
+                          label="Chỉ số"
+                          isLabelHidden
                           value={item.metric}
-                          onChange={(e) => {
-                            const val = e.target.value;
+                          onChange={(val) => {
                             setAdvantagesItems((prev) =>
                               prev.map((it, i) => (i === idx ? { ...it, metric: val } : it))
                             );
                           }}
                           placeholder="Chỉ số (ví dụ: 10+ years)"
-                          className="px-3 py-1.5 bg-white border border-slate-200 rounded-lg text-xs text-slate-900"
+                          width="100%"
+                          className='h-10 border'
                         />
-                        <select
+                        <Selector
+                          label="Icon chỉ số"
+                          isLabelHidden
+                          className="h-10 border"
                           value={item.iconName || 'years'}
-                          onChange={(e) => {
-                            const val = e.target.value;
+                          onChange={(val) => {
                             setAdvantagesItems((prev) =>
                               prev.map((it, i) => (i === idx ? { ...it, iconName: val } : it))
                             );
                           }}
-                          className="px-3 py-1.5 bg-white border border-slate-200 rounded-lg text-xs text-slate-900"
-                        >
-                          <option value="years">Icon Số năm (years)</option>
-                          <option value="delivery">Icon Dự án thành công (delivery)</option>
-                          <option value="engineers">Icon Chuyên gia/Kỹ sư (engineers)</option>
-                          <option value="support">Icon Hỗ trợ 24/7 (support)</option>
-                        </select>
-                        <input
-                          type="text"
+                          options={[
+                            { value: 'years', label: 'Icon Số năm (years)' },
+                            { value: 'delivery', label: 'Icon Dự án thành công (delivery)' },
+                            { value: 'engineers', label: 'Icon Chuyên gia/Kỹ sư (engineers)' },
+                            { value: 'support', label: 'Icon Hỗ trợ 24/7 (support)' },
+                          ]}
+                          width="100%"
+                        />
+                        <TextInput
+                          label="Mô tả chỉ số"
+                          isLabelHidden
                           value={item.description}
-                          onChange={(e) => {
-                            const val = e.target.value;
+                          onChange={(val) => {
                             setAdvantagesItems((prev) =>
                               prev.map((it, i) => (i === idx ? { ...it, description: val } : it))
                             );
                           }}
                           placeholder="Mô tả ngắn gọn chỉ số..."
-                          className="px-3 py-1.5 bg-white border border-slate-200 rounded-lg text-xs text-slate-900"
+                          width="100%"
+                          className='h-10 border'
                         />
                       </div>
                     </div>
@@ -736,31 +692,22 @@ export default function PartnerFormModal({
           {activeTab === 'expertise' && (
             <div className="space-y-4">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="space-y-1">
-                  <label className="block text-xs font-semibold text-slate-700">
-                    Phụ đề Năng lực kỹ thuật
-                  </label>
-                  <input
-                    type="text"
-                    value={expertiseSubtitle}
-                    onChange={(e) => setExpertiseSubtitle(e.target.value)}
-                    placeholder="Our expertise"
-                    className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm text-slate-900 focus:bg-white focus:border-emerald-500 focus:outline-hidden"
-                  />
-                </div>
-
-                <div className="space-y-1">
-                  <label className="block text-xs font-semibold text-slate-700">
-                    Tiêu đề chính Năng lực kỹ thuật
-                  </label>
-                  <input
-                    type="text"
-                    value={expertiseHeadline}
-                    onChange={(e) => setExpertiseHeadline(e.target.value)}
-                    placeholder="We are fluent in"
-                    className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm text-slate-900 focus:bg-white focus:border-emerald-500 focus:outline-hidden"
-                  />
-                </div>
+                <TextInput
+                  label="Phụ đề Năng lực kỹ thuật"
+                  value={expertiseSubtitle}
+                  onChange={(val) => setExpertiseSubtitle(val)}
+                  placeholder="Our expertise"
+                  width="100%"
+                  className='h-10 border'
+                />
+                <TextInput
+                  label="Tiêu đề chính Năng lực kỹ thuật"
+                  value={expertiseHeadline}
+                  onChange={(val) => setExpertiseHeadline(val)}
+                  placeholder="We are fluent in"
+                  width="100%"
+                  className='h-10 border'
+                />
               </div>
 
               <div className="pt-2">
@@ -812,49 +759,48 @@ export default function PartnerFormModal({
                       </div>
 
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                        <input
-                          type="text"
+                        <TextInput
+                          label="Tiêu đề khối năng lực"
+                          isLabelHidden
                           value={item.title}
-                          onChange={(e) => {
-                            const val = e.target.value;
+                          onChange={(val) => {
                             setExpertiseItems((prev) =>
                               prev.map((it, i) => (i === idx ? { ...it, title: val } : it))
                             );
                           }}
                           placeholder="Tiêu đề khối năng lực..."
-                          className="px-3 py-1.5 bg-white border border-slate-200 rounded-lg text-xs text-slate-900 font-semibold"
+                          width="100%"
+                          className='h-10 border'
                         />
-                        <input
-                          type="text"
+                        <TextInput
+                          label="URL ảnh minh họa"
+                          isLabelHidden
                           value={item.image}
-                          onChange={(e) => {
-                            const val = e.target.value;
+                          onChange={(val) => {
                             setExpertiseItems((prev) =>
                               prev.map((it, i) => (i === idx ? { ...it, image: val } : it))
                             );
                           }}
                           placeholder="URL ảnh minh họa năng lực..."
-                          className="px-3 py-1.5 bg-white border border-slate-200 rounded-lg text-xs text-slate-900"
+                          width="100%"
+                          className='h-10 border'
                         />
                       </div>
 
-                      <div className="space-y-1">
-                        <label className="block text-[11px] text-slate-500">
-                          Nội dung chi tiết (Mỗi dòng một đoạn văn)
-                        </label>
-                        <textarea
-                          rows={3}
-                          value={Array.isArray(item.paragraphs) ? item.paragraphs.join('\n') : ''}
-                          onChange={(e) => {
-                            const lines = e.target.value.split('\n');
-                            setExpertiseItems((prev) =>
-                              prev.map((it, i) => (i === idx ? { ...it, paragraphs: lines } : it))
-                            );
-                          }}
-                          placeholder="Nhập các đoạn văn mô tả..."
-                          className="w-full px-3 py-1.5 bg-white border border-slate-200 rounded-lg text-xs text-slate-900"
-                        />
-                      </div>
+                      <TextArea
+                        label="Nội dung chi tiết (Mỗi dòng một đoạn văn)"
+                        rows={3}
+                        value={Array.isArray(item.paragraphs) ? item.paragraphs.join('\n') : ''}
+                        onChange={(val) => {
+                          const lines = val.split('\n');
+                          setExpertiseItems((prev) =>
+                            prev.map((it, i) => (i === idx ? { ...it, paragraphs: lines } : it))
+                          );
+                        }}
+                        placeholder="Nhập các đoạn văn mô tả..."
+                        width="100%"
+                        className="border"
+                      />
                     </div>
                   ))}
                 </div>
@@ -866,44 +812,35 @@ export default function PartnerFormModal({
           {activeTab === 'why' && (
             <div className="space-y-4">
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                <div className="space-y-1">
-                  <label className="block text-xs font-semibold text-slate-700">
-                    Tiền tố tiêu đề
-                  </label>
-                  <input
-                    type="text"
-                    value={whyTitlePrefix}
-                    onChange={(e) => setWhyTitlePrefix(e.target.value)}
-                    placeholder={`Why ${name}`}
-                    className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm text-slate-900"
-                  />
-                </div>
-                <div className="space-y-1 sm:col-span-2">
-                  <label className="block text-xs font-semibold text-slate-700">
-                    Tiêu đề chính Why
-                  </label>
-                  <input
-                    type="text"
+                <TextInput
+                  label="Tiền tố tiêu đề"
+                  value={whyTitlePrefix}
+                  onChange={(val) => setWhyTitlePrefix(val)}
+                  placeholder={`Why ${name}`}
+                  width="100%"
+                  className='h-10 border'
+                />
+                <div className="sm:col-span-2">
+                  <TextInput
+                    label="Tiêu đề chính Why"
                     value={whyHeadline}
-                    onChange={(e) => setWhyHeadline(e.target.value)}
+                    onChange={(val) => setWhyHeadline(val)}
                     placeholder="Join +404,000 enterprise businesses who trust..."
-                    className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm text-slate-900"
+                    width="100%"
+                    className='h-10 border'
                   />
                 </div>
               </div>
 
-              <div className="space-y-1">
-                <label className="block text-xs font-semibold text-slate-700">
-                  Mô tả tóm tắt
-                </label>
-                <textarea
-                  rows={2}
-                  value={whyDescription}
-                  onChange={(e) => setWhyDescription(e.target.value)}
-                  placeholder="Mô tả lý do doanh nghiệp lựa chọn đối tác này..."
-                  className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm text-slate-900"
-                />
-              </div>
+              <TextArea
+                label="Mô tả tóm tắt"
+                rows={2}
+                value={whyDescription}
+                onChange={(val) => setWhyDescription(val)}
+                placeholder="Mô tả lý do doanh nghiệp lựa chọn đối tác này..."
+                width="100%"
+                className="border"
+              />
 
               <div className="pt-2">
                 <div className="flex items-center justify-between mb-3">
@@ -945,29 +882,32 @@ export default function PartnerFormModal({
                           <Trash2 className="w-4 h-4" />
                         </button>
                       </div>
-                      <input
-                        type="text"
+                      <TextInput
+                        label="Tiêu đề trụ cột"
+                        isLabelHidden
                         value={item.title}
-                        onChange={(e) => {
-                          const val = e.target.value;
+                        onChange={(val) => {
                           setWhyItems((prev) =>
                             prev.map((it, i) => (i === idx ? { ...it, title: val } : it))
                           );
                         }}
                         placeholder="Tiêu đề trụ cột..."
-                        className="w-full px-3 py-1.5 bg-white border border-slate-200 rounded-lg text-xs font-semibold text-slate-900"
+                        width="100%"
+                        className='h-10 border'
                       />
-                      <textarea
+                      <TextArea
+                        label="Nội dung giải thích chi tiết"
+                        isLabelHidden
                         rows={2}
                         value={item.content}
-                        onChange={(e) => {
-                          const val = e.target.value;
+                        onChange={(val) => {
                           setWhyItems((prev) =>
                             prev.map((it, i) => (i === idx ? { ...it, content: val } : it))
                           );
                         }}
                         placeholder="Nội dung giải thích chi tiết..."
-                        className="w-full px-3 py-1.5 bg-white border border-slate-200 rounded-lg text-xs text-slate-900"
+                        width="100%"
+                        className="border"
                       />
                     </div>
                   ))}
@@ -980,30 +920,22 @@ export default function PartnerFormModal({
           {activeTab === 'cases' && (
             <div className="space-y-4">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="space-y-1">
-                  <label className="block text-xs font-semibold text-slate-700">
-                    Phụ đề Case Studies
-                  </label>
-                  <input
-                    type="text"
-                    value={casesSubtitle}
-                    onChange={(e) => setCasesSubtitle(e.target.value)}
-                    placeholder="Proven outcomes"
-                    className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm text-slate-900"
-                  />
-                </div>
-                <div className="space-y-1">
-                  <label className="block text-xs font-semibold text-slate-700">
-                    Tiêu đề chính Case Studies
-                  </label>
-                  <input
-                    type="text"
-                    value={casesHeadline}
-                    onChange={(e) => setCasesHeadline(e.target.value)}
-                    placeholder="Read our cases"
-                    className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm text-slate-900"
-                  />
-                </div>
+                <TextInput
+                  label="Phụ đề Case Studies"
+                  value={casesSubtitle}
+                  onChange={(val) => setCasesSubtitle(val)}
+                  placeholder="Proven outcomes"
+                  width="100%"
+                  className='h-10 border'
+                />
+                <TextInput
+                  label="Tiêu đề chính Case Studies"
+                  value={casesHeadline}
+                  onChange={(val) => setCasesHeadline(val)}
+                  placeholder="Read our cases"
+                  width="100%"
+                  className='h-10 border'
+                />
               </div>
 
               <div className="pt-2">
@@ -1051,70 +983,76 @@ export default function PartnerFormModal({
                       </div>
 
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                        <input
-                          type="text"
+                        <TextInput
+                          label="Tiêu đề case study"
+                          isLabelHidden
                           value={item.title}
-                          onChange={(e) => {
-                            const val = e.target.value;
+                          onChange={(val) => {
                             setCasesItems((prev) =>
                               prev.map((it, i) => (i === idx ? { ...it, title: val } : it))
                             );
                           }}
                           placeholder="Tiêu đề case study..."
-                          className="px-3 py-1.5 bg-white border border-slate-200 rounded-lg text-xs font-semibold text-slate-900"
+                          width="100%"
+                          className='h-10 border'
                         />
-                        <input
-                          type="text"
+                        <TextInput
+                          label="Tên khách hàng"
+                          isLabelHidden
                           value={item.customer}
-                          onChange={(e) => {
-                            const val = e.target.value;
+                          onChange={(val) => {
                             setCasesItems((prev) =>
                               prev.map((it, i) => (i === idx ? { ...it, customer: val } : it))
                             );
                           }}
                           placeholder="Tên khách hàng / tổ chức..."
-                          className="px-3 py-1.5 bg-white border border-slate-200 rounded-lg text-xs text-slate-900"
+                          width="100%"
+                          className='h-10 border'
                         />
                       </div>
 
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                        <input
-                          type="text"
+                        <TextInput
+                          label="Slug bài viết"
+                          isLabelHidden
                           value={item.slug}
-                          onChange={(e) => {
-                            const val = e.target.value;
+                          onChange={(val) => {
                             setCasesItems((prev) =>
                               prev.map((it, i) => (i === idx ? { ...it, slug: val } : it))
                             );
                           }}
                           placeholder="Slug bài viết (ví dụ: lumina-home-shopify-google-shopping)"
-                          className="px-3 py-1.5 bg-white border border-slate-200 rounded-lg text-xs font-mono text-slate-900"
+                          width="100%"
+                          className='h-10 border'
                         />
-                        <input
-                          type="text"
+                        <TextInput
+                          label="URL ảnh đại diện"
+                          isLabelHidden
                           value={item.image}
-                          onChange={(e) => {
-                            const val = e.target.value;
+                          onChange={(val) => {
                             setCasesItems((prev) =>
                               prev.map((it, i) => (i === idx ? { ...it, image: val } : it))
                             );
                           }}
                           placeholder="URL ảnh đại diện case study..."
-                          className="px-3 py-1.5 bg-white border border-slate-200 rounded-lg text-xs text-slate-900"
+                          width="100%"
+                          className='h-10 border'
                         />
                       </div>
 
-                      <input
-                        type="text"
+                      <TextInput
+                        label="Tags phân loại"
+                        isLabelHidden
                         value={Array.isArray(item.tags) ? item.tags.join(', ') : ''}
-                        onChange={(e) => {
-                          const tags = e.target.value.split(',').map((t) => t.trim()).filter(Boolean);
+                        onChange={(val) => {
+                          const tags = val.split(',').map((t) => t.trim()).filter(Boolean);
                           setCasesItems((prev) =>
                             prev.map((it, i) => (i === idx ? { ...it, tags } : it))
                           );
                         }}
                         placeholder="Tags phân loại (phân cách bằng dấu phẩy: Technology, Headless, Omnichannel)"
-                        className="w-full px-3 py-1.5 bg-white border border-slate-200 rounded-lg text-xs text-slate-900"
+                        width="100%"
+                        className='h-10 border'
                       />
                     </div>
                   ))}
@@ -1127,82 +1065,59 @@ export default function PartnerFormModal({
           {activeTab === 'cta' && (
             <div className="space-y-4">
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                <div className="space-y-1">
-                  <label className="block text-xs font-semibold text-slate-700">
-                    CTA Tiêu đề phần 1
-                  </label>
-                  <input
-                    type="text"
-                    value={ctaHeadingPart1}
-                    onChange={(e) => setCtaHeadingPart1(e.target.value)}
-                    placeholder="Unleash your "
-                    className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm text-slate-900"
-                  />
-                </div>
-                <div className="space-y-1">
-                  <label className="block text-xs font-semibold text-slate-700">
-                    CTA Chữ nổi bật (Gradient)
-                  </label>
-                  <input
-                    type="text"
-                    value={ctaHighlight}
-                    onChange={(e) => setCtaHighlight(e.target.value)}
-                    placeholder="growth potential"
-                    className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm text-emerald-800 font-bold"
-                  />
-                </div>
-                <div className="space-y-1">
-                  <label className="block text-xs font-semibold text-slate-700">
-                    CTA Tiêu đề phần 2
-                  </label>
-                  <input
-                    type="text"
-                    value={ctaHeadingPart2}
-                    onChange={(e) => setCtaHeadingPart2(e.target.value)}
-                    placeholder={` with ${name} now.`}
-                    className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm text-slate-900"
-                  />
-                </div>
-              </div>
-
-              <div className="space-y-1">
-                <label className="block text-xs font-semibold text-slate-700">
-                  Mô tả kêu gọi hành động (CTA)
-                </label>
-                <textarea
-                  rows={2}
-                  value={ctaDescription}
-                  onChange={(e) => setCtaDescription(e.target.value)}
-                  placeholder="Connect with our certified team to explore bespoke architectures..."
-                  className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm text-slate-900"
+                <TextInput
+                  label="CTA Tiêu đề phần 1"
+                  value={ctaHeadingPart1}
+                  onChange={(val) => setCtaHeadingPart1(val)}
+                  placeholder="Unleash your "
+                  width="100%"
+                  className='h-10 border'
+                />
+                <TextInput
+                  label="CTA Chữ nổi bật (Gradient)"
+                  value={ctaHighlight}
+                  onChange={(val) => setCtaHighlight(val)}
+                  placeholder="growth potential"
+                  width="100%"
+                  className='h-10 border'
+                />
+                <TextInput
+                  label="CTA Tiêu đề phần 2"
+                  value={ctaHeadingPart2}
+                  onChange={(val) => setCtaHeadingPart2(val)}
+                  placeholder={` with ${name} now.`}
+                  width="100%"
+                  className='h-10 border'
                 />
               </div>
 
+              <TextArea
+                label="Mô tả kêu gọi hành động (CTA)"
+                rows={2}
+                value={ctaDescription}
+                onChange={(val) => setCtaDescription(val)}
+                placeholder="Connect with our certified team to explore bespoke architectures..."
+                width="100%"
+                className="border"
+              />
+
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="space-y-1">
-                  <label className="block text-xs font-semibold text-slate-700">
-                    Chữ trên nút CTA
-                  </label>
-                  <input
-                    type="text"
-                    value={ctaButtonText}
-                    onChange={(e) => setCtaButtonText(e.target.value)}
-                    placeholder="Let's talk"
-                    className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm text-slate-900"
-                  />
-                </div>
-                <div className="space-y-1">
-                  <label className="block text-xs font-semibold text-slate-700">
-                    Đường dẫn nút CTA
-                  </label>
-                  <input
-                    type="text"
-                    value={ctaButtonHref}
-                    onChange={(e) => setCtaButtonHref(e.target.value)}
-                    placeholder="/contact-us?subject=partner-consultation"
-                    className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm font-mono text-slate-900"
-                  />
-                </div>
+                <TextInput
+                  label="Chữ trên nút CTA"
+                  value={ctaButtonText}
+                  onChange={(val) => setCtaButtonText(val)}
+                  placeholder="Let's talk"
+                  width="100%"
+                  className='h-10 border'
+                />
+                <TextInput
+                  label="Đường dẫn nút CTA"
+                  value={ctaButtonHref}
+                  onChange={(val) => setCtaButtonHref(val)}
+                  placeholder="/contact-us?subject=partner-consultation"
+                  width="100%"
+                  className='h-10 border'
+                />
               </div>
 
               <div className="pt-4 border-t border-slate-200 space-y-4">
@@ -1210,31 +1125,24 @@ export default function PartnerFormModal({
                   Cấu hình SEO &amp; Thẻ Meta
                 </div>
 
-                <div className="space-y-1">
-                  <label className="block text-xs font-semibold text-slate-700">
-                    SEO Meta Title
-                  </label>
-                  <input
-                    type="text"
-                    value={metaTitle}
-                    onChange={(e) => setMetaTitle(e.target.value)}
-                    placeholder={`${name} Partner Solutions & Enterprise Commerce | E-GEAD`}
-                    className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm text-slate-900"
-                  />
-                </div>
+                <TextInput
+                  label="SEO Meta Title"
+                  value={metaTitle}
+                  onChange={(val) => setMetaTitle(val)}
+                  placeholder={`${name} Partner Solutions & Enterprise Commerce | E-GEAD`}
+                  width="100%"
+                  className='h-10 border'
+                />
 
-                <div className="space-y-1">
-                  <label className="block text-xs font-semibold text-slate-700">
-                    SEO Meta Description
-                  </label>
-                  <textarea
-                    rows={2}
-                    value={metaDescription}
-                    onChange={(e) => setMetaDescription(e.target.value)}
-                    placeholder="Mô tả SEO xuất hiện trên Google Search..."
-                    className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm text-slate-900"
-                  />
-                </div>
+                <TextArea
+                  label="SEO Meta Description"
+                  rows={2}
+                  value={metaDescription}
+                  onChange={(val) => setMetaDescription(val)}
+                  placeholder="Mô tả SEO xuất hiện trên Google Search..."
+                  width="100%"
+                  className="border"
+                />
               </div>
             </div>
           )}

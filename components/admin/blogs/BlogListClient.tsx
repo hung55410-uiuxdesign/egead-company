@@ -20,6 +20,7 @@ import {
   Pagination,
   useToast,
   CheckboxInput,
+  TextInput,
 } from "@astryxdesign/core";
 import { useBlogMutations, useSaveBlogMutation } from "@/lib/hooks";
 import AIBlogImportModal from "./AIBlogImportModal";
@@ -264,24 +265,17 @@ export default function BlogListClient({
       <Card variant="default" className="rounded-2xl p-4 sm:p-5 space-y-4">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-3">
           {/* Search box */}
-          <div className="md:col-span-6 relative">
-            <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
-            <input
-              type="text"
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
+          <div className="md:col-span-6">
+            <TextInput
+              label="Tìm kiếm bài viết"
+              isLabelHidden
               placeholder="Tìm kiếm theo tiêu đề bài viết, tóm tắt, slug..."
-              className="w-full pl-10 pr-9 py-2.5 h-10 bg-slate-50/60 border border-slate-200 rounded-xl text-xs sm:text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:bg-white focus:border-slate-800 focus:ring-1 focus:ring-slate-800 transition-colors"
+              value={search}
+              onChange={(val) => setSearch(val)}
+              hasClear
+              width="100%"
+              className='h-10 border'
             />
-            {search && (
-              <button
-                type="button"
-                onClick={() => setSearch("")}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 p-0.5 rounded-full hover:bg-slate-200/50"
-              >
-                <X className="w-3.5 h-3.5" />
-              </button>
-            )}
           </div>
 
           {/* Status filter */}

@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { X } from 'lucide-react';
-import { Card, Field } from '@astryxdesign/core';
+import { Card, TextInput, TextArea } from '@astryxdesign/core';
 import { useHierarchyStore } from './useHierarchyStore';
 
 export default function StrategicScopeCard() {
@@ -39,35 +39,26 @@ export default function StrategicScopeCard() {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <Field
+        <TextInput
           label="Phạm vi phòng ban (Department Scope)"
-          inputID="canvas-scope"
           isRequired
-        >
-          <input
-            id="canvas-scope"
-            type="text"
-            value={departmentScope}
-            onChange={(e) => setDepartmentScope(e.target.value)}
-            placeholder="Ví dụ: Global Digital Strategy, Cross-Border Logistics..."
-            className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs sm:text-sm text-slate-900 focus:outline-none focus:border-slate-800"
-          />
-        </Field>
+          value={departmentScope}
+          onChange={setDepartmentScope}
+          placeholder="Ví dụ: Global Digital Strategy, Cross-Border Logistics..."
+          width="100%"
+          className='h-10 border'
+        />
 
-        <Field
+        <TextArea
           label="Tổng quan chiến lược (Overview)"
-          inputID="canvas-overview"
           isRequired
-        >
-          <textarea
-            id="canvas-overview"
-            rows={2}
-            value={overview}
-            onChange={(e) => setOverview(e.target.value)}
-            placeholder="Tuyên ngôn sứ mệnh và định hướng điều hành..."
-            className="w-full px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs sm:text-sm text-slate-900 focus:outline-none focus:border-slate-800"
-          />
-        </Field>
+          rows={2}
+          value={overview}
+          onChange={setOverview}
+          placeholder="Tuyên ngôn sứ mệnh và định hướng điều hành..."
+          width="100%"
+          className="border"
+        />
       </div>
     </Card>
   );

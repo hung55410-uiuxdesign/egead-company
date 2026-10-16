@@ -4,7 +4,7 @@ import React, { useState, ChangeEvent, FormEvent } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { X, Plus, Trash2, ExternalLink } from 'lucide-react';
-import { Button, Card, Badge, Field, Selector } from '@astryxdesign/core';
+import { Button, Card, Badge, Field, Selector, TextInput, TextArea } from '@astryxdesign/core';
 import type { CaseStudyDetailModel } from '@/lib/services/casestudy.service';
 import { useUploadMedia, useCaseStudyMutations } from '@/lib/hooks';
 
@@ -105,17 +105,17 @@ export default function OurWorkFormClient({
     Array.isArray(initialData?.taskItems) && initialData.taskItems.length > 0
       ? initialData.taskItems
       : [
-          {
-            taskTitle: '01. Research & Analysis',
-            description:
-              'Phân tích hiện trạng, khảo sát hành vi người dùng và xác định các điểm nghẽn chính.',
-          },
-          {
-            taskTitle: '02. System Architecture & UI/UX',
-            description:
-              'Xây dựng kiến trúc hệ thống hiện đại, tối ưu luồng trải nghiệm khách hàng và thiết kế wireframes.',
-          },
-        ]
+        {
+          taskTitle: '01. Research & Analysis',
+          description:
+            'Phân tích hiện trạng, khảo sát hành vi người dùng và xác định các điểm nghẽn chính.',
+        },
+        {
+          taskTitle: '02. System Architecture & UI/UX',
+          description:
+            'Xây dựng kiến trúc hệ thống hiện đại, tối ưu luồng trải nghiệm khách hàng và thiết kế wireframes.',
+        },
+      ]
   );
 
   // Section 4: Next Case Study
@@ -351,8 +351,8 @@ export default function OurWorkFormClient({
               isSaving
                 ? 'Đang lưu dự án...'
                 : mode === 'create'
-                ? 'Xuất bản dự án mới'
-                : 'Lưu thay đổi các section'
+                  ? 'Xuất bản dự án mới'
+                  : 'Lưu thay đổi các section'
             }
             variant="primary"
             type="submit"
@@ -391,118 +391,89 @@ export default function OurWorkFormClient({
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {/* Title */}
-          <Field
+          <TextInput
             label="Tiêu đề dự án"
-            inputID="casestudy-title"
             isRequired
             description="Tên chiến dịch hoặc dự án triển khai"
-          >
-            <input
-              id="casestudy-title"
-              type="text"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              placeholder="Ví dụ: Homecraft Studio E-commerce Transformation"
-              className="w-full px-3.5 py-2.5 bg-slate-50/60 border border-slate-200 rounded-xl text-xs sm:text-sm text-slate-900 focus:outline-none focus:bg-white focus:border-slate-800 focus:ring-1 focus:ring-slate-800 transition-colors"
-              required
-            />
-          </Field>
+            value={title}
+            onChange={setTitle}
+            placeholder="Ví dụ: Homecraft Studio E-commerce Transformation"
+            width="100%"
+            className='h-10 border'
+          />
 
           {/* Customer */}
-          <Field
+          <TextInput
             label="Khách hàng / Đối tác"
-            inputID="casestudy-customer"
             isRequired
             description="Thương hiệu hoặc doanh nghiệp triển khai"
-          >
-            <input
-              id="casestudy-customer"
-              type="text"
-              value={customer}
-              onChange={(e) => setCustomer(e.target.value)}
-              placeholder="Ví dụ: Homecraft Studio, Nike, Toyota..."
-              className="w-full px-3.5 py-2.5 bg-slate-50/60 border border-slate-200 rounded-xl text-xs sm:text-sm text-slate-900 focus:outline-none focus:bg-white focus:border-slate-800 focus:ring-1 focus:ring-slate-800 transition-colors"
-              required
-            />
-          </Field>
+            value={customer}
+            onChange={setCustomer}
+            placeholder="Ví dụ: Homecraft Studio, Nike, Toyota..."
+            width="100%"
+            className='h-10 border'
+          />
 
           {/* Slug */}
           <div className="md:col-span-2">
-            <Field
-              label="Đường dẫn tĩnh (Slug)"
-              inputID="casestudy-slug"
-              isRequired
-              description="Đường dẫn URL chi tiết (VD: /case-studies/homecraft-studio)"
-            >
-              <div className="flex gap-2">
-                <input
-                  id="casestudy-slug"
-                  type="text"
+            <div className="flex items-end gap-2">
+              <div className="flex-1">
+                <TextInput
+                  label="Đường dẫn tĩnh (Slug)"
+                  isRequired
+                  description="Đường dẫn URL chi tiết (VD: /case-studies/homecraft-studio)"
                   value={slug}
-                  onChange={(e) => setSlug(e.target.value)}
+                  onChange={setSlug}
                   placeholder="homecraft-studio"
-                  className="w-full px-3.5 py-2.5 bg-slate-50/60 border border-slate-200 rounded-xl text-xs sm:text-sm text-slate-900 font-mono focus:outline-none focus:bg-white focus:border-slate-800 focus:ring-1 focus:ring-slate-800 transition-colors"
-                  required
-                />
-                <Button
-                  type="button"
-                  label="Tạo tự động từ tiêu đề"
-                  variant="secondary"
-                  className="px-4 h-10 shrink-0"
-                  onClick={handleGenerateSlug}
+                  width="100%"
+                  className='h-10 border'
                 />
               </div>
-            </Field>
+              <Button
+                type="button"
+                label="Tạo tự động từ tiêu đề"
+                variant="secondary"
+                className="px-4 h-10 shrink-0 mb-1"
+                onClick={handleGenerateSlug}
+              />
+            </div>
           </div>
 
           {/* Description */}
           <div className="md:col-span-2">
-            <Field
+            <TextArea
               label="Mô tả tóm tắt"
-              inputID="casestudy-desc"
               description="Đoạn văn ngắn giới thiệu về kết quả và phạm vi dự án (hiển thị trên thẻ card)"
-            >
-              <textarea
-                id="casestudy-desc"
-                rows={3}
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-                placeholder="Nhập mô tả tóm tắt dự án..."
-                className="w-full px-3.5 py-2.5 bg-slate-50/60 border border-slate-200 rounded-xl text-xs sm:text-sm text-slate-900 focus:outline-none focus:bg-white focus:border-slate-800 focus:ring-1 focus:ring-slate-800 transition-colors resize-y"
-              />
-            </Field>
+              rows={3}
+              value={description}
+              onChange={setDescription}
+              placeholder="Nhập mô tả tóm tắt dự án..."
+              width="100%"
+              className="border"
+            />
           </div>
 
           {/* Highlight Badge */}
-          <Field
+          <TextInput
             label="Điểm nhấn kết quả (Highlight)"
-            inputID="casestudy-highlight"
             description="Chỉ số tăng trưởng hoặc kết quả then chốt (hiển thị badge nổi bật)"
-          >
-            <input
-              id="casestudy-highlight"
-              type="text"
-              value={highlight}
-              onChange={(e) => setHighlight(e.target.value)}
-              placeholder="Ví dụ: +180% Revenue, 50K+ Monthly Users..."
-              className="w-full px-3.5 py-2.5 bg-slate-50/60 border border-slate-200 rounded-xl text-xs sm:text-sm text-slate-900 focus:outline-none focus:bg-white focus:border-slate-800 focus:ring-1 focus:ring-slate-800 transition-colors"
-            />
-          </Field>
+            value={highlight}
+            onChange={setHighlight}
+            placeholder="Ví dụ: +180% Revenue, 50K+ Monthly Users..."
+            width="100%"
+            className='h-10 border'
+          />
 
           {/* Order */}
-          <Field
+          <TextInput
             label="Thứ tự hiển thị"
-            inputID="casestudy-order"
             description="Số thứ tự ưu tiên (số nhỏ hơn đứng trước)"
-          >
-            <input
-              id="casestudy-order"
-              type="number"
-              value={order}
-              onChange={(e) => setOrder(parseInt(e.target.value, 10) || 0)}
-              className="w-full px-3.5 py-2.5 bg-slate-50/60 border border-slate-200 rounded-xl text-xs sm:text-sm text-slate-900 focus:outline-none focus:bg-white focus:border-slate-800 focus:ring-1 focus:ring-slate-800 transition-colors"
-            />
-          </Field>
+            value={String(order)}
+            onChange={(val) => setOrder(parseInt(val, 10) || 0)}
+            placeholder="0"
+            width="100%"
+            className='h-10 border'
+          />
 
           {/* Status */}
           <div className="md:col-span-2">
@@ -521,39 +492,35 @@ export default function OurWorkFormClient({
 
           {/* Card Image */}
           <div className="md:col-span-2 space-y-2">
-            <Field
-              label="Ảnh thẻ đại diện (Thumbnail)"
-              inputID="casestudy-image"
-              isRequired
-              description="Ảnh đại diện hiển thị trên trang danh sách /our-work"
-            >
-              <div className="flex flex-col sm:flex-row gap-3">
-                <input
-                  id="casestudy-image"
-                  type="text"
+            <div className="flex items-end gap-3">
+              <div className="flex-1">
+                <TextInput
+                  label="Ảnh thẻ đại diện (Thumbnail)"
+                  isRequired
+                  description="Ảnh đại diện hiển thị trên trang danh sách /our-work"
                   value={image}
-                  onChange={(e) => setImage(e.target.value)}
+                  onChange={setImage}
                   placeholder="https://... hoặc tải ảnh lên"
-                  className="w-full px-3.5 py-2.5 bg-slate-50/60 border border-slate-200 rounded-xl text-xs sm:text-sm text-slate-900 focus:outline-none focus:bg-white focus:border-slate-800 focus:ring-1 focus:ring-slate-800 transition-colors"
-                  required
+                  width="100%"
+                  className='h-10 border'
                 />
-                <label className="cursor-pointer shrink-0">
-                  <span className="inline-flex items-center justify-center px-4 h-10 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-xs sm:text-sm font-medium text-slate-700 transition-colors">
-                    {isUploadingMain ? 'Đang tải lên...' : 'Tải ảnh từ máy tính'}
-                  </span>
-                  <input
-                    type="file"
-                    accept="image/*"
-                    className="hidden"
-                    disabled={isUploadingMain}
-                    onChange={(e) => {
-                      const file = e.target.files?.[0];
-                      if (file) uploadMainImage(file);
-                    }}
-                  />
-                </label>
               </div>
-            </Field>
+              <label className="cursor-pointer shrink-0 mb-1">
+                <span className="inline-flex items-center justify-center px-4 h-10 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-xs sm:text-sm font-medium text-slate-700 transition-colors">
+                  {isUploadingMain ? 'Đang tải lên...' : 'Tải ảnh từ máy tính'}
+                </span>
+                <input
+                  type="file"
+                  accept="image/*"
+                  className="hidden"
+                  disabled={isUploadingMain}
+                  onChange={(e) => {
+                    const file = e.target.files?.[0];
+                    if (file) uploadMainImage(file);
+                  }}
+                />
+              </label>
+            </div>
 
             {image && (
               <div className="relative w-40 h-28 rounded-xl overflow-hidden border border-slate-200 bg-slate-50">
@@ -585,11 +552,10 @@ export default function OurWorkFormClient({
                     key={srv}
                     type="button"
                     onClick={() => handleToggleService(srv)}
-                    className={`px-3 py-1.5 rounded-lg text-xs font-medium border transition-colors ${
-                      isSelected
+                    className={`px-3 py-1.5 rounded-lg text-xs font-medium border transition-colors ${isSelected
                         ? 'bg-slate-900 text-white border-slate-900'
                         : 'bg-slate-50 text-slate-600 border-slate-200 hover:bg-slate-100'
-                    }`}
+                      }`}
                   >
                     {srv}
                   </button>
@@ -614,11 +580,10 @@ export default function OurWorkFormClient({
                     key={ind}
                     type="button"
                     onClick={() => handleToggleIndustry(ind)}
-                    className={`px-3 py-1.5 rounded-lg text-xs font-medium border transition-colors ${
-                      isSelected
+                    className={`px-3 py-1.5 rounded-lg text-xs font-medium border transition-colors ${isSelected
                         ? 'bg-blue-600 text-white border-blue-600'
                         : 'bg-slate-50 text-slate-600 border-slate-200 hover:bg-slate-100'
-                    }`}
+                      }`}
                   >
                     {ind}
                   </button>
@@ -650,25 +615,24 @@ export default function OurWorkFormClient({
               </span>
             ))}
           </div>
-          <div className="flex gap-2 max-w-md">
-            <input
-              type="text"
-              value={tagInput}
-              onChange={(e) => setTagInput(e.target.value)}
-              onKeyDown={(e) => {
-                if (e.key === 'Enter') {
-                  e.preventDefault();
-                  handleAddTag();
-                }
-              }}
-              placeholder="Thêm nhãn tag mới (VD: Next.js, Mobile App)..."
-              className="w-full px-3.5 py-2 bg-slate-50/60 border border-slate-200 rounded-xl text-xs text-slate-900 focus:outline-none focus:bg-white focus:border-slate-800 transition-colors"
-            />
+          <div className="flex items-center gap-2 max-w-md">
+            <div className="flex-1">
+              <TextInput
+                label="Thêm nhãn tag mới"
+                isLabelHidden
+                value={tagInput}
+                onChange={setTagInput}
+                onEnter={handleAddTag}
+                placeholder="Thêm nhãn tag mới (VD: Next.js, Mobile App)..."
+                width="100%"
+                className='h-10 border'
+              />
+            </div>
             <Button
               type="button"
               label="Thêm nhãn"
               variant="secondary"
-              className="px-3 h-9 shrink-0"
+              className="px-3 h-10 shrink-0"
               onClick={handleAddTag}
             />
           </div>
@@ -690,37 +654,34 @@ export default function OurWorkFormClient({
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="md:col-span-2 space-y-2">
-            <Field
-              label="Ảnh Hero Banner"
-              inputID="casestudy-banner"
-              description="Ảnh banner kích thước lớn (khuyến nghị 1920x1080px hoặc 16:9)"
-            >
-              <div className="flex flex-col sm:flex-row gap-3">
-                <input
-                  id="casestudy-banner"
-                  type="text"
+            <div className="flex items-end gap-3">
+              <div className="flex-1">
+                <TextInput
+                  label="Ảnh Hero Banner"
+                  description="Ảnh banner kích thước lớn (khuyến nghị 1920x1080px hoặc 16:9)"
                   value={bannerImage}
-                  onChange={(e) => setBannerImage(e.target.value)}
+                  onChange={setBannerImage}
                   placeholder="https://... hoặc tải ảnh lên"
-                  className="w-full px-3.5 py-2.5 bg-slate-50/60 border border-slate-200 rounded-xl text-xs sm:text-sm text-slate-900 focus:outline-none focus:bg-white focus:border-slate-800 focus:ring-1 focus:ring-slate-800 transition-colors"
+                  width="100%"
+                  className='h-10 border'
                 />
-                <label className="cursor-pointer shrink-0">
-                  <span className="inline-flex items-center justify-center px-4 h-10 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-xs sm:text-sm font-medium text-slate-700 transition-colors">
-                    {isUploadingBanner ? 'Đang tải lên...' : 'Tải banner lên'}
-                  </span>
-                  <input
-                    type="file"
-                    accept="image/*"
-                    className="hidden"
-                    disabled={isUploadingBanner}
-                    onChange={(e) => {
-                      const file = e.target.files?.[0];
-                      if (file) uploadBannerFile(file);
-                    }}
-                  />
-                </label>
               </div>
-            </Field>
+              <label className="cursor-pointer shrink-0 mb-1">
+                <span className="inline-flex items-center justify-center px-4 h-10 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-xs sm:text-sm font-medium text-slate-700 transition-colors">
+                  {isUploadingBanner ? 'Đang tải lên...' : 'Tải banner lên'}
+                </span>
+                <input
+                  type="file"
+                  accept="image/*"
+                  className="hidden"
+                  disabled={isUploadingBanner}
+                  onChange={(e) => {
+                    const file = e.target.files?.[0];
+                    if (file) uploadBannerFile(file);
+                  }}
+                />
+              </label>
+            </div>
 
             {bannerImage && (
               <div className="relative w-full h-44 rounded-xl overflow-hidden border border-slate-200 bg-slate-50">
@@ -734,20 +695,15 @@ export default function OurWorkFormClient({
           </div>
 
           <div className="md:col-span-2">
-            <Field
+            <TextInput
               label="Link Video Banner (Tùy chọn)"
-              inputID="casestudy-banner-video"
               description="Đường dẫn video MP4 hoặc Youtube nhúng (nếu có video minh họa sản phẩm)"
-            >
-              <input
-                id="casestudy-banner-video"
-                type="text"
-                value={bannerVideo}
-                onChange={(e) => setBannerVideo(e.target.value)}
-                placeholder="https://... (mp4 hoặc video stream)"
-                className="w-full px-3.5 py-2.5 bg-slate-50/60 border border-slate-200 rounded-xl text-xs sm:text-sm text-slate-900 focus:outline-none focus:bg-white focus:border-slate-800 focus:ring-1 focus:ring-slate-800 transition-colors"
-              />
-            </Field>
+              value={bannerVideo}
+              onChange={setBannerVideo}
+              placeholder="https://... (mp4 hoặc video stream)"
+              width="100%"
+              className='h-10 border'
+            />
           </div>
         </div>
       </Card>
@@ -766,85 +722,68 @@ export default function OurWorkFormClient({
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <Field
+          <TextInput
             label="Phụ đề Section (Subtitle)"
-            inputID="overview-subtitle"
             description="Nhãn danh mục nhỏ phía trên tiêu đề"
-          >
-            <input
-              id="overview-subtitle"
-              type="text"
-              value={overviewSubtitle}
-              onChange={(e) => setOverviewSubtitle(e.target.value)}
-              placeholder="OVERVIEW"
-              className="w-full px-3.5 py-2.5 bg-slate-50/60 border border-slate-200 rounded-xl text-xs sm:text-sm text-slate-900 focus:outline-none focus:bg-white focus:border-slate-800 focus:ring-1 focus:ring-slate-800 transition-colors"
-            />
-          </Field>
+            value={overviewSubtitle}
+            onChange={setOverviewSubtitle}
+            placeholder="OVERVIEW"
+            width="100%"
+            className='h-10 border'
+          />
 
-          <Field
+          <TextInput
             label="Tiêu đề chính Section (Title)"
-            inputID="overview-title"
             description="Tiêu đề làm nổi bật thông điệp phần tổng quan"
-          >
-            <input
-              id="overview-title"
-              type="text"
-              value={overviewTitle}
-              onChange={(e) => setOverviewTitle(e.target.value)}
-              placeholder="Ví dụ: Modernizing Interior Craftsmanship for the Digital Era"
-              className="w-full px-3.5 py-2.5 bg-slate-50/60 border border-slate-200 rounded-xl text-xs sm:text-sm text-slate-900 focus:outline-none focus:bg-white focus:border-slate-800 focus:ring-1 focus:ring-slate-800 transition-colors"
-            />
-          </Field>
+            value={overviewTitle}
+            onChange={setOverviewTitle}
+            placeholder="Ví dụ: Modernizing Interior Craftsmanship for the Digital Era"
+            width="100%"
+            className='h-10 border'
+          />
 
           <div className="md:col-span-2">
-            <Field
+            <TextArea
               label="Nội dung tổng quan (Description)"
-              inputID="overview-desc"
               description="Đoạn văn chi tiết giới thiệu về dự án và tầm nhìn"
-            >
-              <textarea
-                id="overview-desc"
-                rows={4}
-                value={overviewDescription}
-                onChange={(e) => setOverviewDescription(e.target.value)}
-                placeholder="Nhập nội dung tổng quan dự án..."
-                className="w-full px-3.5 py-2.5 bg-slate-50/60 border border-slate-200 rounded-xl text-xs sm:text-sm text-slate-900 focus:outline-none focus:bg-white focus:border-slate-800 focus:ring-1 focus:ring-slate-800 transition-colors resize-y"
-              />
-            </Field>
+              rows={4}
+              value={overviewDescription}
+              onChange={setOverviewDescription}
+              placeholder="Nhập nội dung tổng quan dự án..."
+              width="100%"
+              className="border"
+            />
           </div>
 
           <div className="md:col-span-2 space-y-2">
-            <Field
-              label="Ảnh minh họa Overview (Tùy chọn)"
-              inputID="overview-image"
-              description="Ảnh thiết kế hoặc mockup giới thiệu tổng quan"
-            >
-              <div className="flex flex-col sm:flex-row gap-3">
-                <input
-                  id="overview-image"
-                  type="text"
+            <div className="flex items-end gap-3">
+              <div className="flex-1">
+                <TextInput
+                  label="Ảnh minh họa Overview (Tùy chọn)"
+                  description="Ảnh thiết kế hoặc mockup giới thiệu tổng quan"
                   value={overviewImage}
-                  onChange={(e) => setOverviewImage(e.target.value)}
+                  onChange={setOverviewImage}
                   placeholder="https://... hoặc tải ảnh lên"
-                  className="w-full px-3.5 py-2.5 bg-slate-50/60 border border-slate-200 rounded-xl text-xs sm:text-sm text-slate-900 focus:outline-none focus:bg-white focus:border-slate-800 focus:ring-1 focus:ring-slate-800 transition-colors"
+                  width="100%"
+                  className='h-10 border'
                 />
-                <label className="cursor-pointer shrink-0">
-                  <span className="inline-flex items-center justify-center px-4 h-10 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-xs sm:text-sm font-medium text-slate-700 transition-colors">
-                    {isUploadingOverview ? 'Đang tải lên...' : 'Tải ảnh lên'}
-                  </span>
-                  <input
-                    type="file"
-                    accept="image/*"
-                    className="hidden"
-                    disabled={isUploadingOverview}
-                    onChange={(e) => {
-                      const file = e.target.files?.[0];
-                      if (file) uploadOverviewFile(file);
-                    }}
-                  />
-                </label>
               </div>
-            </Field>
+              <label className="cursor-pointer shrink-0 mb-1">
+                <span className="inline-flex items-center justify-center px-4 h-10 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-xs sm:text-sm font-medium text-slate-700 transition-colors">
+                  {isUploadingOverview ? 'Đang tải lên...' : 'Tải ảnh lên'}
+                </span>
+                <input
+                  type="file"
+                  accept="image/*"
+                  className="hidden"
+                  disabled={isUploadingOverview}
+                  onChange={(e) => {
+                    const file = e.target.files?.[0];
+                    if (file) uploadOverviewFile(file);
+                  }}
+                />
+              </label>
+            </div>
 
             {overviewImage && (
               <div className="relative w-48 h-32 rounded-xl overflow-hidden border border-slate-200 bg-slate-50">
@@ -878,35 +817,26 @@ export default function OurWorkFormClient({
             <div className="text-xs font-bold text-rose-700">
               Khối Thách thức (The Challenge)
             </div>
-            <Field
+            <TextInput
               label="Tiêu đề thách thức"
-              inputID="challenge-title"
               description="Tiêu đề cho khối khó khăn / bài toán"
-            >
-              <input
-                id="challenge-title"
-                type="text"
-                value={challengeTitle}
-                onChange={(e) => setChallengeTitle(e.target.value)}
-                placeholder="The Challenge"
-                className="w-full px-3.5 py-2.5 bg-white border border-slate-200 rounded-xl text-xs sm:text-sm text-slate-900 focus:outline-none focus:border-slate-800 transition-colors"
-              />
-            </Field>
+              value={challengeTitle}
+              onChange={setChallengeTitle}
+              placeholder="The Challenge"
+              width="100%"
+              className='h-10 border'
+            />
 
-            <Field
-              label="Nội dung bài toán &amp; thách thức"
-              inputID="challenge-content"
+            <TextArea
+              label="Nội dung bài toán & thách thức"
               description="Mô tả các vấn đề nghẽn, hiệu suất kém hoặc trải nghiệm chưa tốt"
-            >
-              <textarea
-                id="challenge-content"
-                rows={6}
-                value={challengeContent}
-                onChange={(e) => setChallengeContent(e.target.value)}
-                placeholder="Trình bày những khó khăn khách hàng đối mặt..."
-                className="w-full px-3.5 py-2.5 bg-white border border-slate-200 rounded-xl text-xs sm:text-sm text-slate-900 focus:outline-none focus:border-slate-800 transition-colors resize-y"
-              />
-            </Field>
+              rows={6}
+              value={challengeContent}
+              onChange={setChallengeContent}
+              placeholder="Trình bày những khó khăn khách hàng đối mặt..."
+              width="100%"
+              className="border"
+            />
           </div>
 
           {/* Solution Box */}
@@ -914,35 +844,26 @@ export default function OurWorkFormClient({
             <div className="text-xs font-bold text-emerald-700">
               Khối Giải pháp (The Solution)
             </div>
-            <Field
+            <TextInput
               label="Tiêu đề giải pháp"
-              inputID="solution-title"
               description="Tiêu đề cho khối giải pháp"
-            >
-              <input
-                id="solution-title"
-                type="text"
-                value={solutionTitle}
-                onChange={(e) => setSolutionTitle(e.target.value)}
-                placeholder="The Solution"
-                className="w-full px-3.5 py-2.5 bg-white border border-slate-200 rounded-xl text-xs sm:text-sm text-slate-900 focus:outline-none focus:border-slate-800 transition-colors"
-              />
-            </Field>
+              value={solutionTitle}
+              onChange={setSolutionTitle}
+              placeholder="The Solution"
+              width="100%"
+              className='h-10 border'
+            />
 
-            <Field
-              label="Nội dung giải pháp &amp; công nghệ áp dụng"
-              inputID="solution-content"
+            <TextArea
+              label="Nội dung giải pháp & công nghệ áp dụng"
               description="Mô tả kiến trúc, công nghệ và cách tiếp cận đột phá của E-GEAD"
-            >
-              <textarea
-                id="solution-content"
-                rows={6}
-                value={solutionContent}
-                onChange={(e) => setSolutionContent(e.target.value)}
-                placeholder="Trình bày phương án giải quyết và kết quả đạt được..."
-                className="w-full px-3.5 py-2.5 bg-white border border-slate-200 rounded-xl text-xs sm:text-sm text-slate-900 focus:outline-none focus:border-slate-800 transition-colors resize-y"
-              />
-            </Field>
+              rows={6}
+              value={solutionContent}
+              onChange={setSolutionContent}
+              placeholder="Trình bày phương án giải quyết và kết quả đạt được..."
+              width="100%"
+              className="border"
+            />
           </div>
         </div>
       </Card>
@@ -961,35 +882,25 @@ export default function OurWorkFormClient({
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <Field
+          <TextInput
             label="Phụ đề Section (Subtitle)"
-            inputID="task-subtitle"
             description="Nhãn danh mục nhỏ"
-          >
-            <input
-              id="task-subtitle"
-              type="text"
-              value={taskSubtitle}
-              onChange={(e) => setTaskSubtitle(e.target.value)}
-              placeholder="TASK"
-              className="w-full px-3.5 py-2.5 bg-slate-50/60 border border-slate-200 rounded-xl text-xs sm:text-sm text-slate-900 focus:outline-none focus:bg-white focus:border-slate-800 transition-colors"
-            />
-          </Field>
+            value={taskSubtitle}
+            onChange={setTaskSubtitle}
+            placeholder="TASK"
+            width="100%"
+            className='h-10 border'
+          />
 
-          <Field
+          <TextInput
             label="Tiêu đề chính Section (Title)"
-            inputID="task-title"
             description="Tiêu đề phần nhiệm vụ"
-          >
-            <input
-              id="task-title"
-              type="text"
-              value={taskTitle}
-              onChange={(e) => setTaskTitle(e.target.value)}
-              placeholder="Tasks of The Project"
-              className="w-full px-3.5 py-2.5 bg-slate-50/60 border border-slate-200 rounded-xl text-xs sm:text-sm text-slate-900 focus:outline-none focus:bg-white focus:border-slate-800 transition-colors"
-            />
-          </Field>
+            value={taskTitle}
+            onChange={setTaskTitle}
+            placeholder="Tasks of The Project"
+            width="100%"
+            className='h-10 border'
+          />
         </div>
 
         {/* Task Images List */}
@@ -1020,19 +931,24 @@ export default function OurWorkFormClient({
             </label>
           </div>
 
-          <div className="flex gap-2">
-            <input
-              type="text"
-              value={taskImageInput}
-              onChange={(e) => setTaskImageInput(e.target.value)}
-              placeholder="Nhập đường dẫn URL ảnh và nhấn Thêm..."
-              className="w-full px-3.5 py-2 bg-slate-50/60 border border-slate-200 rounded-xl text-xs text-slate-900 focus:outline-none focus:bg-white focus:border-slate-800 transition-colors"
-            />
+          <div className="flex items-center gap-2">
+            <div className="flex-1">
+              <TextInput
+                label="Thêm URL ảnh nhiệm vụ"
+                isLabelHidden
+                value={taskImageInput}
+                onChange={setTaskImageInput}
+                onEnter={handleAddTaskImageUrl}
+                placeholder="Nhập đường dẫn URL ảnh và nhấn Thêm..."
+                width="100%"
+                className='h-10 border'
+              />
+            </div>
             <Button
               type="button"
               label="Thêm URL ảnh"
               variant="secondary"
-              className="px-3 h-9 shrink-0"
+              className="px-3 h-10 shrink-0"
               onClick={handleAddTaskImageUrl}
             />
           </div>
@@ -1107,29 +1023,30 @@ export default function OurWorkFormClient({
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
                   <div className="md:col-span-1">
-                    <input
-                      type="text"
+                    <TextInput
+                      label="Tiêu đề công việc"
+                      isLabelHidden
                       value={item.taskTitle}
-                      onChange={(e) =>
-                        handleUpdateTaskItem(index, 'taskTitle', e.target.value)
+                      onChange={(val) =>
+                        handleUpdateTaskItem(index, 'taskTitle', val)
                       }
                       placeholder="01. Tiêu đề công việc"
-                      className="w-full px-3 py-2 bg-white border border-slate-200 rounded-lg text-xs font-semibold text-slate-900 focus:outline-none focus:border-slate-800"
+                      width="100%"
+                      className='h-10 border'
                     />
                   </div>
                   <div className="md:col-span-2">
-                    <textarea
+                    <TextArea
+                      label="Mô tả công việc"
+                      isLabelHidden
                       rows={2}
                       value={item.description}
-                      onChange={(e) =>
-                        handleUpdateTaskItem(
-                          index,
-                          'description',
-                          e.target.value
-                        )
+                      onChange={(val) =>
+                        handleUpdateTaskItem(index, 'description', val)
                       }
                       placeholder="Mô tả công việc và giải pháp đạt được..."
-                      className="w-full px-3 py-2 bg-white border border-slate-200 rounded-lg text-xs text-slate-900 focus:outline-none focus:border-slate-800 resize-y"
+                      width="100%"
+                      className="border"
                     />
                   </div>
                 </div>
@@ -1153,50 +1070,35 @@ export default function OurWorkFormClient({
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <Field
+          <TextInput
             label="Slug dự án kế tiếp"
-            inputID="next-slug"
             description="Slug của dự án sẽ chuyển đến"
-          >
-            <input
-              id="next-slug"
-              type="text"
-              value={nextStudySlug}
-              onChange={(e) => setNextStudySlug(e.target.value)}
-              placeholder="Ví dụ: eco-clean-revolution"
-              className="w-full px-3.5 py-2.5 bg-slate-50/60 border border-slate-200 rounded-xl text-xs sm:text-sm text-slate-900 font-mono focus:outline-none focus:bg-white focus:border-slate-800 transition-colors"
-            />
-          </Field>
+            value={nextStudySlug}
+            onChange={setNextStudySlug}
+            placeholder="Ví dụ: eco-clean-revolution"
+            width="100%"
+            className='h-10 border'
+          />
 
-          <Field
+          <TextInput
             label="Tiêu đề dự án kế tiếp"
-            inputID="next-title"
             description="Tên dự án hiển thị"
-          >
-            <input
-              id="next-title"
-              type="text"
-              value={nextStudyTitle}
-              onChange={(e) => setNextStudyTitle(e.target.value)}
-              placeholder="Ví dụ: EcoClean Green Mobility"
-              className="w-full px-3.5 py-2.5 bg-slate-50/60 border border-slate-200 rounded-xl text-xs sm:text-sm text-slate-900 focus:outline-none focus:bg-white focus:border-slate-800 transition-colors"
-            />
-          </Field>
+            value={nextStudyTitle}
+            onChange={setNextStudyTitle}
+            placeholder="Ví dụ: EcoClean Green Mobility"
+            width="100%"
+            className='h-10 border'
+          />
 
-          <Field
+          <TextInput
             label="Khách hàng dự án kế tiếp"
-            inputID="next-customer"
             description="Tên thương hiệu khách hàng"
-          >
-            <input
-              id="next-customer"
-              type="text"
-              value={nextStudyCustomer}
-              onChange={(e) => setNextStudyCustomer(e.target.value)}
-              placeholder="Ví dụ: EcoClean Global"
-              className="w-full px-3.5 py-2.5 bg-slate-50/60 border border-slate-200 rounded-xl text-xs sm:text-sm text-slate-900 focus:outline-none focus:bg-white focus:border-slate-800 transition-colors"
-            />
-          </Field>
+            value={nextStudyCustomer}
+            onChange={setNextStudyCustomer}
+            placeholder="Ví dụ: EcoClean Global"
+            width="100%"
+            className='h-10 border'
+          />
         </div>
       </Card>
 
@@ -1223,8 +1125,8 @@ export default function OurWorkFormClient({
               isSaving
                 ? 'Đang lưu dự án...'
                 : mode === 'create'
-                ? 'Xuất bản dự án mới'
-                : 'Lưu thay đổi các section'
+                  ? 'Xuất bản dự án mới'
+                  : 'Lưu thay đổi các section'
             }
             variant="primary"
             type="submit"

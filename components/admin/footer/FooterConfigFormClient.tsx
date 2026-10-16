@@ -19,7 +19,7 @@ import {
   FileJson,
   Download,
 } from 'lucide-react';
-import { Button, Card, Badge, Field, useToast } from '@astryxdesign/core';
+import { Button, Card, Badge, Field, useToast, CheckboxInput, TextInput, TextArea } from '@astryxdesign/core';
 import type { HomeSectionModel } from '@/lib/services/home-section.service';
 import {
   DEFAULT_FOOTER_CONFIG,
@@ -523,55 +523,50 @@ export default function FooterConfigFormClient({
         <button
           type="button"
           onClick={() => handleTabChange('topbar')}
-          className={`px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all ${
-            activeTab === 'topbar'
+          className={`px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all ${activeTab === 'topbar'
               ? 'bg-white text-slate-900 shadow-xs'
               : 'text-slate-600 hover:text-slate-900'
-          }`}
+            }`}
         >
           Logo & Mạng xã hội ({config.topBar.socialLinks.length})
         </button>
         <button
           type="button"
           onClick={() => handleTabChange('navigation')}
-          className={`px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all ${
-            activeTab === 'navigation'
+          className={`px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all ${activeTab === 'navigation'
               ? 'bg-white text-slate-900 shadow-xs'
               : 'text-slate-600 hover:text-slate-900'
-          }`}
+            }`}
         >
           Cột liên kết điều hướng ({config.navColumns.length})
         </button>
         <button
           type="button"
           onClick={() => handleTabChange('newsletter')}
-          className={`px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all ${
-            activeTab === 'newsletter'
+          className={`px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all ${activeTab === 'newsletter'
               ? 'bg-white text-slate-900 shadow-xs'
               : 'text-slate-600 hover:text-slate-900'
-          }`}
+            }`}
         >
           Bản tin & Chứng nhận
         </button>
         <button
           type="button"
           onClick={() => handleTabChange('worldclocks')}
-          className={`px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all ${
-            activeTab === 'worldclocks'
+          className={`px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all ${activeTab === 'worldclocks'
               ? 'bg-white text-slate-900 shadow-xs'
               : 'text-slate-600 hover:text-slate-900'
-          }`}
+            }`}
         >
           Múi giờ & Bản quyền ({config.timezones.length})
         </button>
         <button
           type="button"
           onClick={() => handleTabChange('json')}
-          className={`px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all ${
-            activeTab === 'json'
+          className={`px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all ${activeTab === 'json'
               ? 'bg-white text-purple-700 shadow-xs font-bold'
               : 'text-slate-600 hover:text-slate-900'
-          }`}
+            }`}
         >
           Dữ liệu JSON
         </button>
@@ -599,13 +594,15 @@ export default function FooterConfigFormClient({
                   <label className="block text-xs font-bold text-slate-700 mb-1.5">
                     Đường dẫn ảnh Logo (URL)
                   </label>
-                  <div className="flex gap-2">
-                    <input
-                      type="text"
+                  <div className="flex gap-2 items-center">
+                    <TextInput
+                      label="Đường dẫn ảnh Logo"
+                      isLabelHidden
                       value={config.topBar.logoUrl}
-                      onChange={(e) => handleUpdateTopBar('logoUrl', e.target.value)}
+                      onChange={(val) => handleUpdateTopBar('logoUrl', val)}
                       placeholder="/assets/logo/logo-color.png"
-                      className="flex-1 bg-white border border-slate-200 rounded-xl px-4 py-2.5 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500"
+                      width="100%"
+                      className='h-10 border'
                     />
                     <label className="shrink-0 cursor-pointer">
                       <input
@@ -625,44 +622,32 @@ export default function FooterConfigFormClient({
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-xs font-bold text-slate-700 mb-1.5">
-                      Văn bản thay thế (Alt text)
-                    </label>
-                    <input
-                      type="text"
-                      value={config.topBar.logoAlt}
-                      onChange={(e) => handleUpdateTopBar('logoAlt', e.target.value)}
-                      className="w-full bg-white border border-slate-200 rounded-xl px-4 py-2.5 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-xs font-bold text-slate-700 mb-1.5">
-                      Đường dẫn khi click (Href)
-                    </label>
-                    <input
-                      type="text"
-                      value={config.topBar.logoHref}
-                      onChange={(e) => handleUpdateTopBar('logoHref', e.target.value)}
-                      className="w-full bg-white border border-slate-200 rounded-xl px-4 py-2.5 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500"
-                    />
-                  </div>
-                </div>
-
-                <div>
-                  <label className="block text-xs font-bold text-slate-700 mb-1.5">
-                    Tiêu đề khối mạng xã hội (Callout title)
-                  </label>
-                  <input
-                    type="text"
-                    value={config.topBar.networkTitle}
-                    onChange={(e) =>
-                      handleUpdateTopBar('networkTitle', e.target.value)
-                    }
-                    placeholder="JOIN OUR NETWORK"
-                    className="w-full bg-white border border-slate-200 rounded-xl px-4 py-2.5 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500"
+                  <TextInput
+                    label="Văn bản thay thế (Alt text)"
+                    value={config.topBar.logoAlt}
+                    onChange={(val) => handleUpdateTopBar('logoAlt', val)}
+                    width="100%"
+                    className='h-10 border'
+                  />
+                  <TextInput
+                    label="Đường dẫn khi click (Href)"
+                    value={config.topBar.logoHref}
+                    onChange={(val) => handleUpdateTopBar('logoHref', val)}
+                    width="100%"
+                    className='h-10 border'
                   />
                 </div>
+
+                <TextInput
+                  label="Tiêu đề khối mạng xã hội (Callout title)"
+                  value={config.topBar.networkTitle}
+                  onChange={(val) =>
+                    handleUpdateTopBar('networkTitle', val)
+                  }
+                  placeholder="JOIN OUR NETWORK"
+                  width="100%"
+                  className='h-10 border'
+                />
               </div>
 
               {/* Logo Preview */}
@@ -723,38 +708,40 @@ export default function FooterConfigFormClient({
                     />
                   </div>
 
-                  <div className="flex-1 grid grid-cols-1 sm:grid-cols-3 gap-3">
-                    <div>
-                      <input
-                        type="text"
-                        value={item.name}
-                        onChange={(e) =>
-                          handleUpdateSocialLink(index, 'name', e.target.value)
-                        }
-                        placeholder="Tên kênh (e.g. Facebook)"
-                        className="w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-xs font-semibold text-slate-800 focus:outline-none focus:border-emerald-500"
-                      />
-                    </div>
-                    <div className="sm:col-span-1">
-                      <input
-                        type="text"
-                        value={item.href}
-                        onChange={(e) =>
-                          handleUpdateSocialLink(index, 'href', e.target.value)
-                        }
-                        placeholder="https://..."
-                        className="w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-xs text-slate-800 focus:outline-none focus:border-emerald-500"
-                      />
-                    </div>
-                    <div className="flex gap-2">
-                      <input
-                        type="text"
+                  <div className="flex-1 grid grid-cols-1 sm:grid-cols-3 gap-3 items-center">
+                    <TextInput
+                      label="Tên kênh"
+                      isLabelHidden
+                      value={item.name}
+                      onChange={(val) =>
+                        handleUpdateSocialLink(index, 'name', val)
+                      }
+                      placeholder="Tên kênh (e.g. Facebook)"
+                      width="100%"
+                      className='h-10 border'
+                    />
+                    <TextInput
+                      label="Đường dẫn mạng xã hội"
+                      isLabelHidden
+                      value={item.href}
+                      onChange={(val) =>
+                        handleUpdateSocialLink(index, 'href', val)
+                      }
+                      placeholder="https://..."
+                      width="100%"
+                      className='h-10 border'
+                    />
+                    <div className="flex gap-2 items-center">
+                      <TextInput
+                        label="URL Icon"
+                        isLabelHidden
                         value={item.icon}
-                        onChange={(e) =>
-                          handleUpdateSocialLink(index, 'icon', e.target.value)
+                        onChange={(val) =>
+                          handleUpdateSocialLink(index, 'icon', val)
                         }
                         placeholder="/assets/Facebook_Black.svg"
-                        className="flex-1 bg-white border border-slate-200 rounded-lg px-3 py-2 text-xs text-slate-800 focus:outline-none focus:border-emerald-500"
+                        width="100%"
+                        className='h-10 border'
                       />
                       <label className="shrink-0 cursor-pointer">
                         <input
@@ -845,17 +832,15 @@ export default function FooterConfigFormClient({
                 <div className="space-y-4">
                   <div className="flex items-center justify-between gap-2 pb-3 border-b border-slate-100">
                     <div className="flex-1">
-                      <label className="block text-[11px] font-bold text-slate-500 mb-1">
-                        Tiêu đề cột #{colIndex + 1}
-                      </label>
-                      <input
-                        type="text"
+                      <TextInput
+                        label={`Tiêu đề cột #${colIndex + 1}`}
                         value={col.title}
-                        onChange={(e) =>
-                          handleUpdateColumnTitle(colIndex, e.target.value)
+                        onChange={(val) =>
+                          handleUpdateColumnTitle(colIndex, val)
                         }
                         placeholder="Tiêu đề cột..."
-                        className="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-sm font-bold text-slate-900 focus:outline-none focus:bg-white focus:border-emerald-500"
+                        width="100%"
+                        className='h-10 border'
                       />
                     </div>
                     {config.navColumns.length > 1 && (
@@ -919,33 +904,37 @@ export default function FooterConfigFormClient({
                         </div>
 
                         <div className="space-y-1.5">
-                          <input
-                            type="text"
+                          <TextInput
+                            label="Nhãn liên kết"
+                            isLabelHidden
                             value={link.label}
-                            onChange={(e) =>
+                            onChange={(val) =>
                               handleUpdateLinkInColumn(
                                 colIndex,
                                 linkIndex,
                                 'label',
-                                e.target.value
+                                val
                               )
                             }
                             placeholder="Nhãn liên kết (Label)"
-                            className="w-full bg-white border border-slate-200 rounded-lg px-2.5 py-1.5 text-xs font-semibold text-slate-800 focus:outline-none focus:border-emerald-500"
+                            width="100%"
+                            className='h-10 border'
                           />
-                          <input
-                            type="text"
+                          <TextInput
+                            label="Đường dẫn liên kết"
+                            isLabelHidden
                             value={link.href}
-                            onChange={(e) =>
+                            onChange={(val) =>
                               handleUpdateLinkInColumn(
                                 colIndex,
                                 linkIndex,
                                 'href',
-                                e.target.value
+                                val
                               )
                             }
                             placeholder="Đường dẫn (URL /slug)"
-                            className="w-full bg-white border border-slate-200 rounded-lg px-2.5 py-1.5 text-xs text-slate-700 focus:outline-none focus:border-emerald-500"
+                            width="100%"
+                            className='h-10 border'
                           />
                         </div>
                       </div>
@@ -986,80 +975,61 @@ export default function FooterConfigFormClient({
             </div>
 
             <div className="space-y-4">
-              <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1.5">
-                  Tiêu đề khối (Title)
-                </label>
-                <input
-                  type="text"
-                  value={config.newsletter.title}
-                  onChange={(e) =>
-                    handleUpdateNewsletter('title', e.target.value)
-                  }
-                  placeholder="Newsletter"
-                  className="w-full bg-white border border-slate-200 rounded-xl px-4 py-2.5 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500"
-                />
-              </div>
+              <TextInput
+                label="Tiêu đề khối (Title)"
+                value={config.newsletter.title}
+                onChange={(val) =>
+                  handleUpdateNewsletter('title', val)
+                }
+                placeholder="Newsletter"
+                width="100%"
+                className='h-10 border'
+              />
 
-              <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1.5">
-                  Placeholder ô nhập email
-                </label>
-                <input
-                  type="text"
-                  value={config.newsletter.placeholder}
-                  onChange={(e) =>
-                    handleUpdateNewsletter('placeholder', e.target.value)
-                  }
-                  placeholder="name@youremail.com"
-                  className="w-full bg-white border border-slate-200 rounded-xl px-4 py-2.5 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500"
-                />
-              </div>
+              <TextInput
+                label="Placeholder ô nhập email"
+                value={config.newsletter.placeholder}
+                onChange={(val) =>
+                  handleUpdateNewsletter('placeholder', val)
+                }
+                placeholder="name@youremail.com"
+                width="100%"
+                className='h-10 border'
+              />
 
-              <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1.5">
-                  Lời dẫn bảo mật / Điều khoản (Disclaimer text)
-                </label>
-                <textarea
-                  rows={3}
-                  value={config.newsletter.disclaimerText}
-                  onChange={(e) =>
-                    handleUpdateNewsletter('disclaimerText', e.target.value)
-                  }
-                  placeholder="This site is protected by reCAPTCHA and the Google Privacy Policy and Terms of Service apply."
-                  className="w-full bg-white border border-slate-200 rounded-xl px-4 py-2.5 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 resize-none leading-relaxed"
-                />
-              </div>
+              <TextArea
+                label="Lời dẫn bảo mật / Điều khoản (Disclaimer text)"
+                rows={3}
+                value={config.newsletter.disclaimerText}
+                onChange={(val) =>
+                  handleUpdateNewsletter('disclaimerText', val)
+                }
+                placeholder="This site is protected by reCAPTCHA and the Google Privacy Policy and Terms of Service apply."
+                width="100%"
+                className="border"
+              />
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-xs font-bold text-slate-700 mb-1.5">
-                    Link Chính sách bảo mật
-                  </label>
-                  <input
-                    type="text"
-                    value={config.newsletter.privacyPolicyHref}
-                    onChange={(e) =>
-                      handleUpdateNewsletter('privacyPolicyHref', e.target.value)
-                    }
-                    placeholder="https://policies.google.com/privacy?hl=en"
-                    className="w-full bg-white border border-slate-200 rounded-xl px-4 py-2 text-xs text-slate-800 focus:outline-none focus:border-emerald-500"
-                  />
-                </div>
-                <div>
-                  <label className="block text-xs font-bold text-slate-700 mb-1.5">
-                    Link Điều khoản dịch vụ
-                  </label>
-                  <input
-                    type="text"
-                    value={config.newsletter.termsHref}
-                    onChange={(e) =>
-                      handleUpdateNewsletter('termsHref', e.target.value)
-                    }
-                    placeholder="https://policies.google.com/terms?hl=en"
-                    className="w-full bg-white border border-slate-200 rounded-xl px-4 py-2 text-xs text-slate-800 focus:outline-none focus:border-emerald-500"
-                  />
-                </div>
+                <TextInput
+                  label="Link Chính sách bảo mật"
+                  value={config.newsletter.privacyPolicyHref}
+                  onChange={(val) =>
+                    handleUpdateNewsletter('privacyPolicyHref', val)
+                  }
+                  placeholder="https://policies.google.com/privacy?hl=en"
+                  width="100%"
+                  className='h-10 border'
+                />
+                <TextInput
+                  label="Link Điều khoản dịch vụ"
+                  value={config.newsletter.termsHref}
+                  onChange={(val) =>
+                    handleUpdateNewsletter('termsHref', val)
+                  }
+                  placeholder="https://policies.google.com/terms?hl=en"
+                  width="100%"
+                  className='h-10 border'
+                />
               </div>
             </div>
           </Card>
@@ -1100,15 +1070,17 @@ export default function FooterConfigFormClient({
                 <label className="block text-xs font-bold text-slate-700 mb-1.5">
                   Đường dẫn ảnh Huy hiệu (URL)
                 </label>
-                <div className="flex gap-2">
-                  <input
-                    type="text"
+                <div className="flex gap-2 items-center">
+                  <TextInput
+                    label="Đường dẫn ảnh Huy hiệu"
+                    isLabelHidden
                     value={config.certification.badgeImage}
-                    onChange={(e) =>
-                      handleUpdateCertification('badgeImage', e.target.value)
+                    onChange={(val) =>
+                      handleUpdateCertification('badgeImage', val)
                     }
                     placeholder="/assets/Badges_SOC.svg (để trống nếu muốn xóa bỏ)"
-                    className="flex-1 bg-white border border-slate-200 rounded-xl px-4 py-2.5 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500"
+                    width="100%"
+                    className='h-10 border'
                   />
                   <label className="shrink-0 cursor-pointer">
                     <input
@@ -1136,35 +1108,27 @@ export default function FooterConfigFormClient({
                 </div>
               </div>
 
-              <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1.5">
-                  Văn bản thay thế (Alt text)
-                </label>
-                <input
-                  type="text"
-                  value={config.certification.badgeAlt}
-                  onChange={(e) =>
-                    handleUpdateCertification('badgeAlt', e.target.value)
-                  }
-                  placeholder="Badges SOC"
-                  className="w-full bg-white border border-slate-200 rounded-xl px-4 py-2.5 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500"
-                />
-              </div>
+              <TextInput
+                label="Văn bản thay thế (Alt text)"
+                value={config.certification.badgeAlt}
+                onChange={(val) =>
+                  handleUpdateCertification('badgeAlt', val)
+                }
+                placeholder="Badges SOC"
+                width="100%"
+                className='h-10 border'
+              />
 
-              <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1.5">
-                  Đường dẫn liên kết khi bấm vào (tùy chọn)
-                </label>
-                <input
-                  type="text"
-                  value={config.certification.badgeHref || ''}
-                  onChange={(e) =>
-                    handleUpdateCertification('badgeHref', e.target.value)
-                  }
-                  placeholder="https://..."
-                  className="w-full bg-white border border-slate-200 rounded-xl px-4 py-2.5 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500"
-                />
-              </div>
+              <TextInput
+                label="Đường dẫn liên kết khi bấm vào (tùy chọn)"
+                value={config.certification.badgeHref || ''}
+                onChange={(val) =>
+                  handleUpdateCertification('badgeHref', val)
+                }
+                placeholder="https://..."
+                width="100%"
+                className='h-10 border'
+              />
 
               {/* Badge Preview */}
               <div className="bg-slate-50 border border-slate-200/80 rounded-2xl p-6 flex flex-col items-center justify-center min-h-[140px]">
@@ -1254,11 +1218,10 @@ export default function FooterConfigFormClient({
                       type="button"
                       disabled={alreadyAdded}
                       onClick={() => handleAddTimezone(preset)}
-                      className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition border ${
-                        alreadyAdded
+                      className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition border ${alreadyAdded
                           ? 'bg-slate-200 text-slate-400 border-slate-200 cursor-not-allowed'
                           : 'bg-white hover:bg-emerald-50 text-slate-700 hover:text-emerald-700 border-slate-200 hover:border-emerald-300'
-                      }`}
+                        }`}
                     >
                       {preset.name} ({preset.tz.split('/')[1]?.replace('_', ' ')})
                     </button>
@@ -1295,34 +1258,26 @@ export default function FooterConfigFormClient({
                     </div>
 
                     <div className="flex-1 grid grid-cols-1 sm:grid-cols-2 gap-3">
-                      <div>
-                        <label className="block text-[11px] font-bold text-slate-500 mb-1">
-                          Tên hiển thị
-                        </label>
-                        <input
-                          type="text"
-                          value={loc.name}
-                          onChange={(e) =>
-                            handleUpdateTimezone(index, 'name', e.target.value)
-                          }
-                          placeholder="Vietnam (HQ)"
-                          className="w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-xs font-semibold text-slate-800 focus:outline-none focus:border-emerald-500"
-                        />
-                      </div>
-                      <div>
-                        <label className="block text-[11px] font-bold text-slate-500 mb-1">
-                          Mã IANA Timezone
-                        </label>
-                        <input
-                          type="text"
-                          value={loc.tz}
-                          onChange={(e) =>
-                            handleUpdateTimezone(index, 'tz', e.target.value)
-                          }
-                          placeholder="Asia/Ho_Chi_Minh"
-                          className="w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-xs text-slate-800 focus:outline-none focus:border-emerald-500 font-mono"
-                        />
-                      </div>
+                      <TextInput
+                        label="Tên hiển thị"
+                        value={loc.name}
+                        onChange={(val) =>
+                          handleUpdateTimezone(index, 'name', val)
+                        }
+                        placeholder="Vietnam (HQ)"
+                        width="100%"
+                        className='h-10 border'
+                      />
+                      <TextInput
+                        label="Mã IANA Timezone"
+                        value={loc.tz}
+                        onChange={(val) =>
+                          handleUpdateTimezone(index, 'tz', val)
+                        }
+                        placeholder="Asia/Ho_Chi_Minh"
+                        width="100%"
+                        className='h-10 border'
+                      />
                     </div>
 
                     <div className="flex items-center gap-1 shrink-0 justify-end">
@@ -1371,60 +1326,40 @@ export default function FooterConfigFormClient({
             </div>
 
             <div className="space-y-4">
-              <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1.5">
-                  Dòng chữ Bản quyền (Copyright)
-                </label>
-                <input
-                  type="text"
-                  value={config.bottomBar.copyright}
-                  onChange={(e) =>
-                    handleUpdateBottomBar('copyright', e.target.value)
-                  }
-                  placeholder="© 2026 E-Gead Company. All rights reserved."
-                  className="w-full bg-white border border-slate-200 rounded-xl px-4 py-2.5 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500"
-                />
-              </div>
+              <TextInput
+                label="Dòng chữ Bản quyền (Copyright)"
+                value={config.bottomBar.copyright}
+                onChange={(val) =>
+                  handleUpdateBottomBar('copyright', val)
+                }
+                placeholder="© 2026 E-Gead Company. All rights reserved."
+                width="100%"
+                className='h-10 border'
+              />
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
-                <div className="p-4 rounded-xl border border-slate-200 bg-slate-50 flex items-center justify-between">
-                  <div>
-                    <span className="text-xs font-bold text-slate-800 block">
-                      Bộ chọn ngôn ngữ
-                    </span>
-                    <span className="text-[11px] text-slate-500">
-                      Hiển thị dropdown chọn ngôn ngữ góc dưới bên trái
-                    </span>
-                  </div>
-                  <input
-                    type="checkbox"
-                    checked={config.bottomBar.showLanguageSelector}
-                    onChange={(e) =>
+                <div className="p-4 rounded-xl border border-slate-200 bg-slate-50">
+                  <CheckboxInput
+                    label="Bộ chọn ngôn ngữ"
+                    description="Hiển thị dropdown chọn ngôn ngữ góc dưới bên trái"
+                    value={config.bottomBar.showLanguageSelector}
+                    onChange={(checked) =>
                       handleUpdateBottomBar(
                         'showLanguageSelector',
-                        e.target.checked
+                        checked
                       )
                     }
-                    className="w-5 h-5 accent-emerald-600 rounded cursor-pointer"
                   />
                 </div>
 
-                <div className="p-4 rounded-xl border border-slate-200 bg-slate-50 flex items-center justify-between">
-                  <div>
-                    <span className="text-xs font-bold text-slate-800 block">
-                      Nút cuộn lên đầu trang (Back to top)
-                    </span>
-                    <span className="text-[11px] text-slate-500">
-                      Hiển thị nút mũi tên cuộn lên đầu trang ở giữa thanh đáy
-                    </span>
-                  </div>
-                  <input
-                    type="checkbox"
-                    checked={config.bottomBar.showBackToTop}
-                    onChange={(e) =>
-                      handleUpdateBottomBar('showBackToTop', e.target.checked)
+                <div className="p-4 rounded-xl border border-slate-200 bg-slate-50">
+                  <CheckboxInput
+                    label="Nút cuộn lên đầu trang (Back to top)"
+                    description="Hiển thị nút mũi tên cuộn lên đầu trang ở giữa thanh đáy"
+                    value={config.bottomBar.showBackToTop}
+                    onChange={(checked) =>
+                      handleUpdateBottomBar('showBackToTop', checked)
                     }
-                    className="w-5 h-5 accent-emerald-600 rounded cursor-pointer"
                   />
                 </div>
               </div>
@@ -1531,17 +1466,11 @@ export default function FooterConfigFormClient({
           ========================================================================= */}
       <div className="sticky bottom-6 z-20 bg-white/95 backdrop-blur-md border border-slate-200/90 rounded-2xl p-4 shadow-lg flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div className="flex items-center gap-3">
-          <label className="flex items-center gap-2 cursor-pointer select-none">
-            <input
-              type="checkbox"
-              checked={isActive}
-              onChange={(e) => setIsActive(e.target.checked)}
-              className="w-4 h-4 accent-emerald-600 rounded cursor-pointer"
-            />
-            <span className="text-xs font-bold text-slate-800">
-              Kích hoạt hiển thị Chân trang (Footer) trên toàn bộ website
-            </span>
-          </label>
+          <CheckboxInput
+            label="Kích hoạt hiển thị Chân trang (Footer) trên toàn bộ website"
+            value={isActive}
+            onChange={(checked) => setIsActive(checked)}
+          />
         </div>
 
         <div className="flex items-center gap-3">

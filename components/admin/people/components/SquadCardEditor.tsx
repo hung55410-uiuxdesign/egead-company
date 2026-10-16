@@ -10,7 +10,7 @@ import {
   UserCheck,
   ChevronRight,
 } from 'lucide-react';
-import { Button, Card, Badge, Field, Selector } from '@astryxdesign/core';
+import { Button, Card, Badge, Field, Selector, TextInput, TextArea } from '@astryxdesign/core';
 import { AdminTeamMember } from '@/lib/services/people.service';
 import type { ChildNode, SubChildNode } from '@/components/pages/company/people/leaderTeamData';
 
@@ -203,37 +203,26 @@ export default function SquadCardEditor({
         <div className="p-5 sm:p-6 space-y-6">
           {/* Section 1: Squad Identity */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <Field
+            <TextInput
               label="Tên Squad"
-              inputID={`squad-${squadIndex}-name`}
               isRequired
               description="Ví dụ: AI & Machine Learning Squad, Cross-Border Architecture..."
-            >
-              <input
-                id={`squad-${squadIndex}-name`}
-                type="text"
-                value={squad.squadName}
-                onChange={(e) => updateField('squadName', e.target.value)}
-                placeholder="Nhập tên Squad..."
-                className="w-full px-3.5 py-2.5 bg-slate-50/60 border border-slate-200 rounded-xl text-xs sm:text-sm text-slate-900 focus:outline-none focus:bg-white focus:border-slate-800 focus:ring-1 focus:ring-slate-800 transition-colors"
-                required
-              />
-            </Field>
+              value={squad.squadName}
+              onChange={(val) => updateField('squadName', val)}
+              placeholder="Nhập tên Squad..."
+              width="100%"
+              className='h-10 border'
+            />
 
-            <Field
+            <TextInput
               label="Trọng tâm nghiệp vụ (Squad Focus)"
-              inputID={`squad-${squadIndex}-focus`}
               description="Mô tả tóm tắt nhiệm vụ chính mà squad này giải quyết"
-            >
-              <input
-                id={`squad-${squadIndex}-focus`}
-                type="text"
-                value={squad.squadFocus}
-                onChange={(e) => updateField('squadFocus', e.target.value)}
-                placeholder="Ví dụ: Phát triển thuật toán gợi ý và tối ưu hóa chuyển đổi..."
-                className="w-full px-3.5 py-2.5 bg-slate-50/60 border border-slate-200 rounded-xl text-xs sm:text-sm text-slate-900 focus:outline-none focus:bg-white focus:border-slate-800 focus:ring-1 focus:ring-slate-800 transition-colors"
-              />
-            </Field>
+              value={squad.squadFocus}
+              onChange={(val) => updateField('squadFocus', val)}
+              placeholder="Ví dụ: Phát triển thuật toán gợi ý và tối ưu hóa chuyển đổi..."
+              width="100%"
+              className='h-10 border'
+            />
           </div>
 
           {/* Section 2: Squad Lead */}
@@ -261,36 +250,27 @@ export default function SquadCardEditor({
                 ]}
               />
 
-              <Field
+              <TextInput
                 label="Nhãn cấp bậc (Level Tag)"
-                inputID={`squad-${squadIndex}-tag`}
                 description="Tùy chỉnh nhãn cấp bậc hiển thị trên sơ đồ"
-              >
-                <input
-                  id={`squad-${squadIndex}-tag`}
-                  type="text"
-                  value={squad.levelTag}
-                  onChange={(e) => updateField('levelTag', e.target.value)}
-                  placeholder="Ví dụ: Trưởng nhóm phụ trách / Squad Lead"
-                  className="w-full px-3.5 py-2.5 bg-white border border-slate-200 rounded-xl text-xs sm:text-sm text-slate-900 focus:outline-none focus:border-purple-600 focus:ring-1 focus:ring-purple-600 transition-colors"
-                />
-              </Field>
+                value={squad.levelTag}
+                onChange={(val) => updateField('levelTag', val)}
+                placeholder="Ví dụ: Trưởng nhóm phụ trách / Squad Lead"
+                width="100%"
+                className='h-10 border'
+              />
             </div>
 
-            <Field
+            <TextArea
               label="Trách nhiệm trọng tâm của Squad Lead"
-              inputID={`squad-${squadIndex}-lead-resp`}
               description="Nhiệm vụ trực tiếp và vai trò dẫn dắt của trưởng nhóm"
-            >
-              <textarea
-                id={`squad-${squadIndex}-lead-resp`}
-                rows={2}
-                value={squad.responsibility}
-                onChange={(e) => updateField('responsibility', e.target.value)}
-                placeholder="Mô tả vai trò dẫn dắt của trưởng nhóm trong squad..."
-                className="w-full px-3.5 py-2 bg-white border border-slate-200 rounded-xl text-xs sm:text-sm text-slate-900 focus:outline-none focus:border-purple-600 focus:ring-1 focus:ring-purple-600 transition-colors"
-              />
-            </Field>
+              rows={2}
+              value={squad.responsibility}
+              onChange={(val) => updateField('responsibility', val)}
+              placeholder="Mô tả vai trò dẫn dắt của trưởng nhóm trong squad..."
+              width="100%"
+              className="border"
+            />
           </div>
 
           {/* Section 3: Sub-members */}
@@ -371,14 +351,16 @@ export default function SquadCardEditor({
 
                     {/* Responsibility Input */}
                     <div className="flex-1 min-w-0">
-                      <input
-                        type="text"
+                      <TextInput
+                        label="Phân công nhiệm vụ"
+                        isLabelHidden
                         value={sub.responsibility}
-                        onChange={(e) =>
-                          handleUpdateSubResponsibility(subIdx, e.target.value)
+                        onChange={(val) =>
+                          handleUpdateSubResponsibility(subIdx, val)
                         }
                         placeholder="Phân công nhiệm vụ cụ thể cho thành viên này trong squad..."
-                        className="w-full px-3 py-1.5 bg-white border border-slate-200 rounded-lg text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:border-slate-800"
+                        width="100%"
+                        className='h-10 border'
                       />
                     </div>
 

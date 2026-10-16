@@ -28,21 +28,21 @@ export default function CompanyCaseStudiesSectionFormClient({
     rawData.clients && rawData.clients.length > 0
       ? rawData.clients
       : [
-          { name: 'HRS', src: '/assets/logo_hrs.svg' },
-          { name: 'Kashiwagi', src: '/assets/logo_kashiwagi.svg' },
-          { name: 'Suntory', src: '/assets/logo_suntory.svg' },
-          { name: 'Manulife', src: '/assets/logo_manulife.svg' },
-          { name: 'Jim Thompson', src: '/assets/logo_jimthompson.svg' },
-          { name: 'TCI', src: '/assets/logo_tci.svg' },
-          { name: 'Toyota', src: '/assets/logo_toyota.svg' },
-          { name: 'Brother', src: '/assets/logo_brother.svg' },
-          { name: 'Beauty Garage', src: '/assets/logo_beautygarage.svg' },
-          { name: 'Weir', src: '/assets/logo_weir.svg' },
-          { name: 'Saitex', src: '/assets/logo_saitex.svg' },
-          { name: 'Dinner Ladies', src: '/assets/logo_dinnerladies.svg' },
-          { name: 'Edwin', src: '/assets/logo_edwin.svg' },
-          { name: 'Beisia', src: '/assets/logo_beisia.svg' },
-        ]
+        { name: 'HRS', src: '/assets/logo_hrs.svg' },
+        { name: 'Kashiwagi', src: '/assets/logo_kashiwagi.svg' },
+        { name: 'Suntory', src: '/assets/logo_suntory.svg' },
+        { name: 'Manulife', src: '/assets/logo_manulife.svg' },
+        { name: 'Jim Thompson', src: '/assets/logo_jimthompson.svg' },
+        { name: 'TCI', src: '/assets/logo_tci.svg' },
+        { name: 'Toyota', src: '/assets/logo_toyota.svg' },
+        { name: 'Brother', src: '/assets/logo_brother.svg' },
+        { name: 'Beauty Garage', src: '/assets/logo_beautygarage.svg' },
+        { name: 'Weir', src: '/assets/logo_weir.svg' },
+        { name: 'Saitex', src: '/assets/logo_saitex.svg' },
+        { name: 'Dinner Ladies', src: '/assets/logo_dinnerladies.svg' },
+        { name: 'Edwin', src: '/assets/logo_edwin.svg' },
+        { name: 'Beisia', src: '/assets/logo_beisia.svg' },
+      ]
   );
 
   // Row 2: Services
@@ -54,17 +54,17 @@ export default function CompanyCaseStudiesSectionFormClient({
     rawData.servicePartners && rawData.servicePartners.length > 0
       ? rawData.servicePartners
       : [
-          { name: 'SAP Silver', src: '/assets/logo_sapsilver.svg' },
-          { name: 'Klaviyo', src: '/assets/logo_klaviyo.svg' },
-          { name: 'Emarsys', src: '/assets/logo_emarsys.svg' },
-          { name: 'Sitecore', src: '/assets/logo_Sitecore.png' },
-          { name: 'Stripe', src: '/assets/logo_stripe.svg' },
-          { name: 'Qualtrics', src: '/assets/logo_qualtrics.svg' },
-          { name: 'Magento', src: '/assets/logo_magento.svg' },
-          { name: 'Shopify', src: '/assets/logo_shopify.svg' },
-          { name: 'Salesforce', src: '/assets/logo_salesforce.svg' },
-          { name: 'CommerceTools', src: '/assets/logo_commercetools.svg' },
-        ]
+        { name: 'SAP Silver', src: '/assets/logo_sapsilver.svg' },
+        { name: 'Klaviyo', src: '/assets/logo_klaviyo.svg' },
+        { name: 'Emarsys', src: '/assets/logo_emarsys.svg' },
+        { name: 'Sitecore', src: '/assets/logo_Sitecore.png' },
+        { name: 'Stripe', src: '/assets/logo_stripe.svg' },
+        { name: 'Qualtrics', src: '/assets/logo_qualtrics.svg' },
+        { name: 'Magento', src: '/assets/logo_magento.svg' },
+        { name: 'Shopify', src: '/assets/logo_shopify.svg' },
+        { name: 'Salesforce', src: '/assets/logo_salesforce.svg' },
+        { name: 'CommerceTools', src: '/assets/logo_commercetools.svg' },
+      ]
   );
 
   const [activeTab, setActiveTab] = useState<'clients' | 'services'>('clients');
@@ -199,18 +199,16 @@ export default function CompanyCaseStudiesSectionFormClient({
         <button
           type="button"
           onClick={() => setActiveTab('clients')}
-          className={`px-4 py-2 rounded-lg text-xs font-semibold transition-all ${
-            activeTab === 'clients' ? 'bg-white text-slate-900 shadow-xs' : 'text-slate-600 hover:text-slate-900'
-          }`}
+          className={`px-4 py-2 rounded-lg text-xs font-semibold transition-all ${activeTab === 'clients' ? 'bg-white text-slate-900 shadow-xs' : 'text-slate-600 hover:text-slate-900'
+            }`}
         >
           Hàng 1: Khách hàng ({clients.length})
         </button>
         <button
           type="button"
           onClick={() => setActiveTab('services')}
-          className={`px-4 py-2 rounded-lg text-xs font-semibold transition-all ${
-            activeTab === 'services' ? 'bg-white text-slate-900 shadow-xs' : 'text-slate-600 hover:text-slate-900'
-          }`}
+          className={`px-4 py-2 rounded-lg text-xs font-semibold transition-all ${activeTab === 'services' ? 'bg-white text-slate-900 shadow-xs' : 'text-slate-600 hover:text-slate-900'
+            }`}
         >
           Hàng 2: Đối tác công nghệ ({servicePartners.length})
         </button>
@@ -280,28 +278,32 @@ export default function CompanyCaseStudiesSectionFormClient({
 
                   {/* Form */}
                   <div className="flex-1 min-w-0 space-y-1.5">
-                    <input
-                      type="text"
+                    <TextInput
+                      label="Tên khách hàng"
+                      isLabelHidden
                       value={client.name}
-                      onChange={(e) =>
+                      onChange={(val) =>
                         setClients((prev) =>
-                          prev.map((c, i) => (i === idx ? { ...c, name: e.target.value } : c))
+                          prev.map((c, i) => (i === idx ? { ...c, name: val } : c))
                         )
                       }
                       placeholder="Tên khách hàng"
-                      className="w-full px-2.5 py-1 text-xs font-bold bg-white border border-slate-200 rounded-lg text-slate-900 focus:outline-none"
+                      width="100%"
+                      className='h-10 border'
                     />
                     <div className="flex items-center gap-1.5">
-                      <input
-                        type="text"
+                      <TextInput
+                        label="URL Logo"
+                        isLabelHidden
                         value={client.src}
-                        onChange={(e) =>
+                        onChange={(val) =>
                           setClients((prev) =>
-                            prev.map((c, i) => (i === idx ? { ...c, src: e.target.value } : c))
+                            prev.map((c, i) => (i === idx ? { ...c, src: val } : c))
                           )
                         }
                         placeholder="/assets/logo_..."
-                        className="flex-1 min-w-0 px-2 py-0.5 text-[10px] font-mono bg-white border border-slate-200 rounded text-slate-600 focus:outline-none"
+                        width="100%"
+                        className='h-10 border'
                       />
                       <label className="cursor-pointer shrink-0">
                         <input
@@ -403,28 +405,32 @@ export default function CompanyCaseStudiesSectionFormClient({
 
                   {/* Form */}
                   <div className="flex-1 min-w-0 space-y-1.5">
-                    <input
-                      type="text"
+                    <TextInput
+                      label="Tên đối tác"
+                      isLabelHidden
                       value={partner.name}
-                      onChange={(e) =>
+                      onChange={(val) =>
                         setServicePartners((prev) =>
-                          prev.map((s, i) => (i === idx ? { ...s, name: e.target.value } : s))
+                          prev.map((s, i) => (i === idx ? { ...s, name: val } : s))
                         )
                       }
                       placeholder="Tên đối tác"
-                      className="w-full px-2.5 py-1 text-xs font-bold bg-white border border-slate-200 rounded-lg text-slate-900 focus:outline-none"
+                      width="100%"
+                      className='h-10 border'
                     />
                     <div className="flex items-center gap-1.5">
-                      <input
-                        type="text"
+                      <TextInput
+                        label="URL Logo"
+                        isLabelHidden
                         value={partner.src}
-                        onChange={(e) =>
+                        onChange={(val) =>
                           setServicePartners((prev) =>
-                            prev.map((s, i) => (i === idx ? { ...s, src: e.target.value } : s))
+                            prev.map((s, i) => (i === idx ? { ...s, src: val } : s))
                           )
                         }
                         placeholder="/assets/logo_..."
-                        className="flex-1 min-w-0 px-2 py-0.5 text-[10px] font-mono bg-white border border-slate-200 rounded text-slate-600 focus:outline-none"
+                        width="100%"
+                        className='h-10 border'
                       />
                       <label className="cursor-pointer shrink-0">
                         <input

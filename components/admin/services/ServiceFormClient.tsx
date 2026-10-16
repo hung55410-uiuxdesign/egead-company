@@ -3,7 +3,7 @@
 import React, { useState, FormEvent } from 'react';
 import { useRouter } from 'next/navigation';
 import { X, Trash2 } from 'lucide-react';
-import { Button, Card, Badge, Field, Selector } from '@astryxdesign/core';
+import { Button, Card, Badge, Field, Selector, TextInput, TextArea } from '@astryxdesign/core';
 import type {
   ServiceItemDetailModel,
   ServicePrinciple,
@@ -48,9 +48,9 @@ export default function ServiceFormClient({
     initialData?.overviewParagraphs && initialData.overviewParagraphs.length > 0
       ? initialData.overviewParagraphs
       : [
-          'Chuyển đổi số đang định hình lại toàn bộ chuỗi giá trị, tạo ra những cơ hội đột phá về năng suất và trải nghiệm khách hàng.',
-          'Chúng tôi kết hợp kiến trúc công nghệ doanh nghiệp vững chắc với năng lực thực thi nhanh chóng để mang lại giá trị thương mại bền vững.',
-        ]
+        'Chuyển đổi số đang định hình lại toàn bộ chuỗi giá trị, tạo ra những cơ hội đột phá về năng suất và trải nghiệm khách hàng.',
+        'Chúng tôi kết hợp kiến trúc công nghệ doanh nghiệp vững chắc với năng lực thực thi nhanh chóng để mang lại giá trị thương mại bền vững.',
+      ]
   );
 
   // Visual Banner Section
@@ -64,23 +64,23 @@ export default function ServiceFormClient({
   );
   const [approachIntro, setApproachIntro] = useState(
     initialData?.approachIntro ||
-      'Phương pháp tiếp cận của chúng tôi tập trung vào các nguyên tắc nền tảng sau:'
+    'Phương pháp tiếp cận của chúng tôi tập trung vào các nguyên tắc nền tảng sau:'
   );
   const [principles, setPrinciples] = useState<ServicePrinciple[]>(
     Array.isArray(initialData?.principles) && initialData.principles.length > 0
       ? initialData.principles
       : [
-          {
-            title: 'Giải pháp may đo theo bài toán cốt lõi',
-            description:
-              'Thiết kế kiến trúc riêng biệt giải quyết trúng các điểm nghẽn vận hành và kinh doanh của doanh nghiệp.',
-          },
-          {
-            title: 'Quyết định dựa trên dữ liệu thời gian thực',
-            description:
-              'Hệ thống telemetry đồng bộ chỉ số bán hàng, tồn kho và biên lợi nhuận ròng để ra quyết định chính xác.',
-          },
-        ]
+        {
+          title: 'Giải pháp may đo theo bài toán cốt lõi',
+          description:
+            'Thiết kế kiến trúc riêng biệt giải quyết trúng các điểm nghẽn vận hành và kinh doanh của doanh nghiệp.',
+        },
+        {
+          title: 'Quyết định dựa trên dữ liệu thời gian thực',
+          description:
+            'Hệ thống telemetry đồng bộ chỉ số bán hàng, tồn kho và biên lợi nhuận ròng để ra quyết định chính xác.',
+        },
+      ]
   );
 
   // TanStack Query Mutations
@@ -258,8 +258,8 @@ export default function ServiceFormClient({
               isSaving
                 ? 'Đang lưu dữ liệu...'
                 : mode === 'create'
-                ? 'Xuất bản dịch vụ mới'
-                : 'Lưu thay đổi các section'
+                  ? 'Xuất bản dịch vụ mới'
+                  : 'Lưu thay đổi các section'
             }
             variant="primary"
             type="submit"
@@ -298,22 +298,16 @@ export default function ServiceFormClient({
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {/* Title */}
-          <Field
+          <TextInput
             label="Tên dịch vụ / ngành nghề"
-            inputID="service-title"
             isRequired
             description="Tên hiển thị trên menu và tiêu đề lớn của trang"
-          >
-            <input
-              id="service-title"
-              type="text"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              placeholder="Ví dụ: Strategy & Design, Automotive..."
-              className="w-full px-3.5 py-2.5 bg-slate-50/60 border border-slate-200 rounded-xl text-xs sm:text-sm text-slate-900 focus:outline-none focus:bg-white focus:border-slate-800 focus:ring-1 focus:ring-slate-800 transition-colors"
-              required
-            />
-          </Field>
+            value={title}
+            onChange={setTitle}
+            placeholder="Ví dụ: Strategy & Design, Automotive..."
+            width="100%"
+            className='h-10 border'
+          />
 
           {/* Category */}
           <div>
@@ -332,47 +326,39 @@ export default function ServiceFormClient({
 
           {/* Slug */}
           <div className="md:col-span-2">
-            <Field
-              label="Đường dẫn tĩnh (Slug)"
-              inputID="service-slug"
-              isRequired
-              description="URL hiển thị (VD: /services/all-services/strategy-design)"
-            >
-              <div className="flex gap-2">
-                <input
-                  id="service-slug"
-                  type="text"
+            <div className="flex items-end gap-2">
+              <div className="flex-1">
+                <TextInput
+                  label="Đường dẫn tĩnh (Slug)"
+                  isRequired
+                  description="URL hiển thị (VD: /services/all-services/strategy-design)"
                   value={slug}
-                  onChange={(e) => setSlug(e.target.value)}
+                  onChange={setSlug}
                   placeholder="strategy-design"
-                  className="w-full px-3.5 py-2.5 bg-slate-50/60 border border-slate-200 rounded-xl text-xs sm:text-sm text-slate-900 font-mono focus:outline-none focus:bg-white focus:border-slate-800 focus:ring-1 focus:ring-slate-800 transition-colors"
-                  required
-                />
-                <Button
-                  type="button"
-                  label="Tạo tự động từ tên"
-                  variant="secondary"
-                  className="px-4 h-10 shrink-0"
-                  onClick={handleGenerateSlug}
+                  width="100%"
+                  className='h-10 border'
                 />
               </div>
-            </Field>
+              <Button
+                type="button"
+                label="Tạo tự động từ tên"
+                variant="secondary"
+                className="px-4 h-10 shrink-0 mb-1"
+                onClick={handleGenerateSlug}
+              />
+            </div>
           </div>
 
           {/* Order */}
-          <Field
+          <TextInput
             label="Thứ tự hiển thị"
-            inputID="service-order"
             description="Số thứ tự ưu tiên hiển thị trên menu và danh sách (số nhỏ hơn đứng trước)"
-          >
-            <input
-              id="service-order"
-              type="number"
-              value={order}
-              onChange={(e) => setOrder(parseInt(e.target.value, 10) || 0)}
-              className="w-full px-3.5 py-2.5 bg-slate-50/60 border border-slate-200 rounded-xl text-xs sm:text-sm text-slate-900 focus:outline-none focus:bg-white focus:border-slate-800 focus:ring-1 focus:ring-slate-800 transition-colors"
-            />
-          </Field>
+            value={String(order)}
+            onChange={(val) => setOrder(parseInt(val, 10) || 0)}
+            placeholder="0"
+            width="100%"
+            className='h-10 border'
+          />
 
           {/* Status */}
           <div>
@@ -407,73 +393,61 @@ export default function ServiceFormClient({
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {/* Tagline */}
           <div className="md:col-span-2">
-            <Field
+            <TextInput
               label="Khẩu hiệu định vị (Tagline)"
-              inputID="service-tagline"
               description="Khẩu hiệu ngắn gọn xuất hiện ngay dưới tên dịch vụ"
-            >
-              <input
-                id="service-tagline"
-                type="text"
-                value={tagline}
-                onChange={(e) => setTagline(e.target.value)}
-                placeholder="Ví dụ: Enterprise Commerce Architecture & User Experience"
-                className="w-full px-3.5 py-2.5 bg-slate-50/60 border border-slate-200 rounded-xl text-xs sm:text-sm text-slate-900 focus:outline-none focus:bg-white focus:border-slate-800 focus:ring-1 focus:ring-slate-800 transition-colors"
-              />
-            </Field>
+              value={tagline}
+              onChange={setTagline}
+              placeholder="Ví dụ: Enterprise Commerce Architecture & User Experience"
+              width="100%"
+              className='h-10 border'
+            />
           </div>
 
           {/* Subtitle */}
           <div className="md:col-span-2">
-            <Field
+            <TextArea
               label="Đoạn văn mở đầu (Subtitle)"
-              inputID="service-subtitle"
               description="Tuyên ngôn giá trị hoặc lời dẫn giải thích sứ mệnh của dịch vụ"
-            >
-              <textarea
-                id="service-subtitle"
-                rows={3}
-                value={subtitle}
-                onChange={(e) => setSubtitle(e.target.value)}
-                placeholder="Ví dụ: Turn market opportunities into actionable commerce strategies and compelling experiences..."
-                className="w-full px-3.5 py-2.5 bg-slate-50/60 border border-slate-200 rounded-xl text-xs sm:text-sm text-slate-900 focus:outline-none focus:bg-white focus:border-slate-800 focus:ring-1 focus:ring-slate-800 transition-colors resize-y"
-              />
-            </Field>
+              rows={3}
+              value={subtitle}
+              onChange={(val) => setSubtitle(val)}
+              placeholder="Ví dụ: Turn market opportunities into actionable commerce strategies and compelling experiences..."
+              width="100%"
+              className="border"
+            />
           </div>
 
           {/* Hero Image */}
           <div className="md:col-span-2 space-y-2">
-            <Field
-              label="Ảnh Hero Section"
-              inputID="service-hero-image"
-              description="Ảnh nền toàn cảnh mở đầu trang chi tiết"
-            >
-              <div className="flex flex-col sm:flex-row gap-3">
-                <input
-                  id="service-hero-image"
-                  type="text"
+            <div className="flex items-end gap-3">
+              <div className="flex-1">
+                <TextInput
+                  label="Ảnh Hero Section"
+                  description="Ảnh nền toàn cảnh mở đầu trang chi tiết"
                   value={heroImage}
-                  onChange={(e) => setHeroImage(e.target.value)}
+                  onChange={setHeroImage}
                   placeholder="https://... hoặc tải ảnh lên"
-                  className="w-full px-3.5 py-2.5 bg-slate-50/60 border border-slate-200 rounded-xl text-xs sm:text-sm text-slate-900 focus:outline-none focus:bg-white focus:border-slate-800 focus:ring-1 focus:ring-slate-800 transition-colors"
+                  width="100%"
+                  className='h-10 border'
                 />
-                <label className="cursor-pointer shrink-0">
-                  <span className="inline-flex items-center justify-center px-4 h-10 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-xs sm:text-sm font-medium text-slate-700 transition-colors">
-                    {isUploadingHero ? 'Đang tải lên...' : 'Tải ảnh lên'}
-                  </span>
-                  <input
-                    type="file"
-                    accept="image/*"
-                    className="hidden"
-                    disabled={isUploadingHero}
-                    onChange={(e) => {
-                      const file = e.target.files?.[0];
-                      if (file) uploadHeroFile(file);
-                    }}
-                  />
-                </label>
               </div>
-            </Field>
+              <label className="cursor-pointer shrink-0 mb-1">
+                <span className="inline-flex items-center justify-center px-4 h-10 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-xs sm:text-sm font-medium text-slate-700 transition-colors">
+                  {isUploadingHero ? 'Đang tải lên...' : 'Tải ảnh lên'}
+                </span>
+                <input
+                  type="file"
+                  accept="image/*"
+                  className="hidden"
+                  disabled={isUploadingHero}
+                  onChange={(e) => {
+                    const file = e.target.files?.[0];
+                    if (file) uploadHeroFile(file);
+                  }}
+                />
+              </label>
+            </div>
 
             {heroImage && (
               <div className="relative w-full h-40 rounded-xl overflow-hidden border border-slate-200 bg-slate-50">
@@ -503,37 +477,27 @@ export default function ServiceFormClient({
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="md:col-span-2">
-            <Field
+            <TextInput
               label="Phụ đề nhỏ Overview"
-              inputID="overview-subtitle"
               description="Lời mở đầu ngắn phía trên tiêu đề chính"
-            >
-              <input
-                id="overview-subtitle"
-                type="text"
-                value={overviewSubTitle}
-                onChange={(e) => setOverviewSubTitle(e.target.value)}
-                placeholder="Ví dụ: Great commerce starts with great strategy..."
-                className="w-full px-3.5 py-2.5 bg-slate-50/60 border border-slate-200 rounded-xl text-xs sm:text-sm text-slate-900 focus:outline-none focus:bg-white focus:border-slate-800 transition-colors"
-              />
-            </Field>
+              value={overviewSubTitle}
+              onChange={setOverviewSubTitle}
+              placeholder="Ví dụ: Great commerce starts with great strategy..."
+              width="100%"
+              className='h-10 border'
+            />
           </div>
 
           <div className="md:col-span-2">
-            <Field
+            <TextInput
               label="Tiêu đề chính Overview Heading"
-              inputID="overview-heading"
               description="Tiêu đề làm nổi bật thông điệp chính của khối tổng quan"
-            >
-              <input
-                id="overview-heading"
-                type="text"
-                value={overviewHeading}
-                onChange={(e) => setOverviewHeading(e.target.value)}
-                placeholder="Ví dụ: Turn Market Opportunities into Actionable Commerce Strategies."
-                className="w-full px-3.5 py-2.5 bg-slate-50/60 border border-slate-200 rounded-xl text-xs sm:text-sm text-slate-900 focus:outline-none focus:bg-white focus:border-slate-800 transition-colors"
-              />
-            </Field>
+              value={overviewHeading}
+              onChange={setOverviewHeading}
+              placeholder="Ví dụ: Turn Market Opportunities into Actionable Commerce Strategies."
+              width="100%"
+              className='h-10 border'
+            />
           </div>
         </div>
 
@@ -578,12 +542,15 @@ export default function ServiceFormClient({
                     </button>
                   )}
                 </div>
-                <textarea
+                <TextArea
+                  label={`Đoạn văn ${index + 1}`}
+                  isLabelHidden
                   rows={3}
                   value={paragraph}
-                  onChange={(e) => handleUpdateParagraph(index, e.target.value)}
+                  onChange={(val) => handleUpdateParagraph(index, val)}
                   placeholder="Nhập nội dung đoạn văn..."
-                  className="w-full px-3 py-2 bg-white border border-slate-200 rounded-lg text-xs text-slate-900 focus:outline-none focus:border-slate-800 resize-y"
+                  width="100%"
+                  className="border"
                 />
               </div>
             ))}
@@ -605,37 +572,34 @@ export default function ServiceFormClient({
         </div>
 
         <div className="space-y-2">
-          <Field
-            label="Ảnh Visual Banner"
-            inputID="service-middle-image"
-            description="Ảnh chất lượng cao (khuyến nghị tỷ lệ 16:9 hoặc ảnh ngang)"
-          >
-            <div className="flex flex-col sm:flex-row gap-3">
-              <input
-                id="service-middle-image"
-                type="text"
+          <div className="flex items-end gap-3">
+            <div className="flex-1">
+              <TextInput
+                label="Ảnh Visual Banner"
+                description="Ảnh chất lượng cao (khuyến nghị tỷ lệ 16:9 hoặc ảnh ngang)"
                 value={middleImage}
-                onChange={(e) => setMiddleImage(e.target.value)}
+                onChange={setMiddleImage}
                 placeholder="https://... hoặc tải ảnh lên"
-                className="w-full px-3.5 py-2.5 bg-slate-50/60 border border-slate-200 rounded-xl text-xs sm:text-sm text-slate-900 focus:outline-none focus:bg-white focus:border-slate-800 transition-colors"
+                width="100%"
+                className='h-10 border'
               />
-              <label className="cursor-pointer shrink-0">
-                <span className="inline-flex items-center justify-center px-4 h-10 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-xs sm:text-sm font-medium text-slate-700 transition-colors">
-                  {isUploadingMiddle ? 'Đang tải lên...' : 'Tải banner lên'}
-                </span>
-                <input
-                  type="file"
-                  accept="image/*"
-                  className="hidden"
-                  disabled={isUploadingMiddle}
-                  onChange={(e) => {
-                    const file = e.target.files?.[0];
-                    if (file) uploadMiddleFile(file);
-                  }}
-                />
-              </label>
             </div>
-          </Field>
+            <label className="cursor-pointer shrink-0 mb-1">
+              <span className="inline-flex items-center justify-center px-4 h-10 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-xs sm:text-sm font-medium text-slate-700 transition-colors">
+                {isUploadingMiddle ? 'Đang tải lên...' : 'Tải banner lên'}
+              </span>
+              <input
+                type="file"
+                accept="image/*"
+                className="hidden"
+                disabled={isUploadingMiddle}
+                onChange={(e) => {
+                  const file = e.target.files?.[0];
+                  if (file) uploadMiddleFile(file);
+                }}
+              />
+            </label>
+          </div>
 
           {middleImage && (
             <div className="relative w-full h-44 rounded-xl overflow-hidden border border-slate-200 bg-slate-50">
@@ -663,35 +627,25 @@ export default function ServiceFormClient({
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <Field
+          <TextInput
             label="Tiêu đề phần tiếp cận (Heading)"
-            inputID="approach-heading"
             description="Mặc định: Our approach"
-          >
-            <input
-              id="approach-heading"
-              type="text"
-              value={approachHeading}
-              onChange={(e) => setApproachHeading(e.target.value)}
-              placeholder="Our approach"
-              className="w-full px-3.5 py-2.5 bg-slate-50/60 border border-slate-200 rounded-xl text-xs sm:text-sm text-slate-900 focus:outline-none focus:bg-white focus:border-slate-800 transition-colors"
-            />
-          </Field>
+            value={approachHeading}
+            onChange={setApproachHeading}
+            placeholder="Our approach"
+            width="100%"
+            className='h-10 border'
+          />
 
-          <Field
+          <TextInput
             label="Lời dẫn mở đầu (Intro)"
-            inputID="approach-intro"
             description="Đoạn văn ngắn dẫn dắt vào danh sách các năng lực"
-          >
-            <input
-              id="approach-intro"
-              type="text"
-              value={approachIntro}
-              onChange={(e) => setApproachIntro(e.target.value)}
-              placeholder="We combine rigorous commercial modeling with world-class design..."
-              className="w-full px-3.5 py-2.5 bg-slate-50/60 border border-slate-200 rounded-xl text-xs sm:text-sm text-slate-900 focus:outline-none focus:bg-white focus:border-slate-800 transition-colors"
-            />
-          </Field>
+            value={approachIntro}
+            onChange={setApproachIntro}
+            placeholder="We combine rigorous commercial modeling with world-class design..."
+            width="100%"
+            className='h-10 border'
+          />
         </div>
 
         {/* Dynamic Principles List */}
@@ -738,29 +692,30 @@ export default function ServiceFormClient({
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
                   <div className="md:col-span-1">
-                    <input
-                      type="text"
+                    <TextInput
+                      label="Tên năng lực / nguyên tắc"
+                      isLabelHidden
                       value={principle.title}
-                      onChange={(e) =>
-                        handleUpdatePrinciple(index, 'title', e.target.value)
+                      onChange={(val) =>
+                        handleUpdatePrinciple(index, 'title', val)
                       }
                       placeholder="Tên năng lực / nguyên tắc"
-                      className="w-full px-3 py-2 bg-white border border-slate-200 rounded-lg text-xs font-semibold text-slate-900 focus:outline-none focus:border-slate-800"
+                      width="100%"
+                      className='h-10 border'
                     />
                   </div>
                   <div className="md:col-span-2">
-                    <textarea
+                    <TextArea
+                      label="Mô tả nguyên tắc"
+                      isLabelHidden
                       rows={2}
                       value={principle.description}
-                      onChange={(e) =>
-                        handleUpdatePrinciple(
-                          index,
-                          'description',
-                          e.target.value
-                        )
+                      onChange={(val) =>
+                        handleUpdatePrinciple(index, 'description', val)
                       }
                       placeholder="Mô tả phương thức giải quyết và cam kết đầu ra..."
-                      className="w-full px-3 py-2 bg-white border border-slate-200 rounded-lg text-xs text-slate-900 focus:outline-none focus:border-slate-800 resize-y"
+                      width="100%"
+                      className="border"
                     />
                   </div>
                 </div>
@@ -793,8 +748,8 @@ export default function ServiceFormClient({
               isSaving
                 ? 'Đang lưu dữ liệu...'
                 : mode === 'create'
-                ? 'Xuất bản dịch vụ mới'
-                : 'Lưu thay đổi các section'
+                  ? 'Xuất bản dịch vụ mới'
+                  : 'Lưu thay đổi các section'
             }
             variant="primary"
             type="submit"

@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { X } from 'lucide-react';
-import { Button, Badge, Field, Selector } from '@astryxdesign/core';
+import { Button, Badge, Field, Selector, TextInput, TextArea } from '@astryxdesign/core';
 import { AdminTeamMember } from '@/lib/services/people.service';
 import type { ChildNode, SubChildNode } from '@/components/pages/company/people/leaderTeamData';
 
@@ -178,71 +178,51 @@ export default function NodeEditModal({
           {/* Squad Lead specific fields */}
           {target.type === 'squadLead' && (
             <>
-              <Field
+              <TextInput
                 label="Tên Squad (Branch Name)"
-                inputID="modal-squad-name"
                 isRequired
                 description="Ví dụ: Development, Marketing, AI Architecture..."
-              >
-                <input
-                  id="modal-squad-name"
-                  type="text"
-                  value={squadName}
-                  onChange={(e) => setSquadName(e.target.value)}
-                  placeholder="Nhập tên Squad..."
-                  className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs sm:text-sm text-slate-900 focus:outline-none focus:border-slate-800"
-                  required
-                />
-              </Field>
+                value={squadName}
+                onChange={setSquadName}
+                placeholder="Nhập tên Squad..."
+                width="100%"
+                className='h-10 border'
+              />
 
-              <Field
+              <TextInput
                 label="Trọng tâm nghiệp vụ (Squad Focus)"
-                inputID="modal-squad-focus"
                 description="Mô tả nhiệm vụ cốt lõi của nhánh này"
-              >
-                <input
-                  id="modal-squad-focus"
-                  type="text"
-                  value={squadFocus}
-                  onChange={(e) => setSquadFocus(e.target.value)}
-                  placeholder="Ví dụ: Kiến trúc hệ thống headless, hạ tầng đa kênh..."
-                  className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs sm:text-sm text-slate-900 focus:outline-none focus:border-slate-800"
-                />
-              </Field>
+                value={squadFocus}
+                onChange={setSquadFocus}
+                placeholder="Ví dụ: Kiến trúc hệ thống headless, hạ tầng đa kênh..."
+                width="100%"
+                className='h-10 border'
+              />
 
-              <Field
+              <TextInput
                 label="Nhãn cấp bậc (Level Tag)"
-                inputID="modal-level-tag"
                 description="Nhãn hiển thị bên dưới tên chức danh"
-              >
-                <input
-                  id="modal-level-tag"
-                  type="text"
-                  value={levelTag}
-                  onChange={(e) => setLevelTag(e.target.value)}
-                  placeholder="Ví dụ: Trưởng nhóm phụ trách / Squad Lead"
-                  className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs sm:text-sm text-slate-900 focus:outline-none focus:border-slate-800"
-                />
-              </Field>
+                value={levelTag}
+                onChange={setLevelTag}
+                placeholder="Ví dụ: Trưởng nhóm phụ trách / Squad Lead"
+                width="100%"
+                className='h-10 border'
+              />
             </>
           )}
 
           {/* Responsibility field for leads and sub-members */}
           {(target.type === 'squadLead' || target.type === 'subMember') && (
-            <Field
+            <TextArea
               label="Phân công nhiệm vụ cụ thể (Responsibility)"
-              inputID="modal-responsibility"
               description="Nhiệm vụ trực tiếp và trọng trách được giao"
-            >
-              <textarea
-                id="modal-responsibility"
-                rows={3}
-                value={responsibility}
-                onChange={(e) => setResponsibility(e.target.value)}
-                placeholder="Mô tả phân công công việc cụ thể..."
-                className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs sm:text-sm text-slate-900 focus:outline-none focus:border-slate-800"
-              />
-            </Field>
+              rows={3}
+              value={responsibility}
+              onChange={setResponsibility}
+              placeholder="Mô tả phân công công việc cụ thể..."
+              width="100%"
+              className="border"
+            />
           )}
         </div>
 

@@ -9,7 +9,7 @@ import {
   Copy,
 } from 'lucide-react';
 import { CareerPost } from '@/types/career';
-import { Card, Button, Badge, Selector } from '@astryxdesign/core';
+import { Card, Button, Badge, Selector, TextInput, TextArea } from '@astryxdesign/core';
 import { useSubmitApplicationMutation } from '@/lib/hooks';
 
 interface CareerFormPreviewClientProps {
@@ -236,58 +236,49 @@ fetch('/api/admin/careers/applications', {
 
           {/* Grid 2 cols: Full Name & Email */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div>
-              <label className="block text-xs font-bold text-slate-700 mb-2">
-                Họ và tên ứng viên <span className="text-red-500">*</span>
-              </label>
-              <input
-                type="text"
-                value={fullName}
-                onChange={(e) => setFullName(e.target.value)}
-                placeholder="VD: Nguyễn Hoàng Nam"
-                className="w-full px-4 py-2.5 bg-slate-50/60 border border-slate-200 rounded-xl text-slate-900 text-sm focus:outline-none focus:bg-white focus:border-slate-800 transition-colors"
-              />
-            </div>
+            <TextInput
+              label="Họ và tên ứng viên"
+              isRequired
+              value={fullName}
+              onChange={setFullName}
+              placeholder="VD: Nguyễn Hoàng Nam"
+              width="100%"
+              className='h-10 border'
+            />
 
-            <div>
-              <label className="block text-xs font-bold text-slate-700 mb-2">
-                Địa chỉ email <span className="text-red-500">*</span>
-              </label>
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="VD: hoangnam.nguyen@gmail.com"
-                className="w-full px-4 py-2.5 bg-slate-50/60 border border-slate-200 rounded-xl text-slate-900 text-sm focus:outline-none focus:bg-white focus:border-slate-800 transition-colors"
-              />
-            </div>
+            <TextInput
+              type="email"
+              label="Địa chỉ email"
+              isRequired
+              value={email}
+              onChange={setEmail}
+              placeholder="VD: hoangnam.nguyen@gmail.com"
+              width="100%"
+              className='h-10 border'
+            />
           </div>
 
           {/* Grid 2 cols: Phone & CV Link */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div>
-              <label className="block text-xs font-bold text-slate-700 mb-2">
-                Số điện thoại liên hệ <span className="text-red-500">*</span>
-              </label>
-              <input
-                type="tel"
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
-                placeholder="VD: 0912 345 678"
-                className="w-full px-4 py-2.5 bg-slate-50/60 border border-slate-200 rounded-xl text-slate-900 text-sm focus:outline-none focus:bg-white focus:border-slate-800 transition-colors"
-              />
-            </div>
+            <TextInput
+              label="Số điện thoại liên hệ"
+              isRequired
+              value={phone}
+              onChange={setPhone}
+              placeholder="VD: 0912 345 678"
+              width="100%"
+              className='h-10 border'
+            />
 
             <div>
-              <label className="block text-xs font-bold text-slate-700 mb-2">
-                Đường dẫn CV / Hồ sơ ứng tuyển <span className="text-red-500">*</span>
-              </label>
-              <input
-                type="url"
+              <TextInput
+                label="Đường dẫn CV / Hồ sơ ứng tuyển"
+                isRequired
                 value={cvUrl}
-                onChange={(e) => setCvUrl(e.target.value)}
+                onChange={setCvUrl}
                 placeholder="https://drive.google.com/file/d/your-cv/view"
-                className="w-full px-4 py-2.5 bg-slate-50/60 border border-slate-200 rounded-xl text-slate-900 text-sm focus:outline-none focus:bg-white focus:border-slate-800 transition-colors"
+                width="100%"
+                className='h-10 border'
               />
               <p className="text-xs text-slate-400 mt-1">
                 Hỗ trợ link Google Drive, Dropbox, LinkedIn hoặc link tệp PDF trực tuyến.
@@ -297,31 +288,24 @@ fetch('/api/admin/careers/applications', {
 
           {/* Grid 3 cols: Portfolio, Expected Salary, Start date */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            <div>
-              <label className="block text-xs font-semibold text-slate-700 mb-1.5">
-                Portfolio / LinkedIn / GitHub
-              </label>
-              <input
-                type="url"
-                value={portfolioUrl}
-                onChange={(e) => setPortfolioUrl(e.target.value)}
-                placeholder="https://github.com/username"
-                className="w-full px-3.5 py-2.5 bg-slate-50/60 border border-slate-200 rounded-xl text-slate-900 text-xs focus:outline-none focus:bg-white focus:border-slate-800 transition-colors"
-              />
-            </div>
+            <TextInput
+              label="Portfolio / LinkedIn / GitHub"
+              value={portfolioUrl}
+              onChange={setPortfolioUrl}
+              placeholder="https://github.com/username"
+              width="100%"
+              className='h-10 border'
+            />
 
-            <div>
-              <label className="block text-xs font-semibold text-slate-700 mb-1.5">
-                Mức lương mong muốn
-              </label>
-              <input
-                type="text"
-                value={expectedSalary}
-                onChange={(e) => setExpectedSalary(e.target.value)}
-                placeholder="VD: 35.000.000 VND"
-                className="w-full px-3.5 py-2.5 bg-slate-50/60 border border-slate-200 rounded-xl text-slate-900 text-xs focus:outline-none focus:bg-white focus:border-slate-800 transition-colors"
-              />
-            </div>
+            <TextInput
+              label="Mức lương mong muốn"
+              value={expectedSalary}
+              onChange={setExpectedSalary}
+              placeholder="VD: 35.000.000 VND"
+              width="100%"
+              className='h-10 border'
+            />
+
 
             <div>
               <label className="block text-xs font-semibold text-slate-700 mb-1.5">
@@ -338,15 +322,14 @@ fetch('/api/admin/careers/applications', {
 
           {/* Cover Letter */}
           <div>
-            <label className="block text-xs font-bold text-slate-700 mb-2">
-              Giới thiệu bản thân &amp; Lý do ứng tuyển
-            </label>
-            <textarea
+            <TextArea
+              label="Giới thiệu bản thân & Lý do ứng tuyển"
               rows={4}
               value={coverLetter}
-              onChange={(e) => setCoverLetter(e.target.value)}
+              onChange={setCoverLetter}
               placeholder="Chia sẻ ngắn gọn về kinh nghiệm, thế mạnh nổi bật và mục tiêu nghề nghiệp của bạn tại E-GEAD..."
-              className="w-full px-4 py-3 bg-slate-50/60 border border-slate-200 rounded-xl text-slate-900 text-sm focus:outline-none focus:bg-white focus:border-slate-800 transition-colors resize-y leading-relaxed"
+              width="100%"
+              className="border"
             />
           </div>
 

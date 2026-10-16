@@ -14,6 +14,8 @@ import {
   EmptyState,
   Selector,
   Pagination,
+  TextInput,
+  TextArea,
 } from '@astryxdesign/core';
 import { useContactInquiryMutations } from '@/lib/hooks';
 
@@ -212,16 +214,14 @@ export default function ContactInquiriesClient({
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3.5">
         <div
           onClick={() => setStatusFilter('all')}
-          className={`cursor-pointer rounded-2xl p-4 border transition-all ${
-            statusFilter === 'all'
+          className={`cursor-pointer rounded-2xl p-4 border transition-all ${statusFilter === 'all'
               ? 'bg-slate-900 text-white border-slate-900 shadow-md'
               : 'bg-white text-slate-800 border-slate-200 hover:border-slate-300'
-          }`}
+            }`}
         >
           <span
-            className={`text-xs font-bold block ${
-              statusFilter === 'all' ? 'text-slate-300' : 'text-slate-500'
-            }`}
+            className={`text-xs font-bold block ${statusFilter === 'all' ? 'text-slate-300' : 'text-slate-500'
+              }`}
           >
             Tất cả yêu cầu
           </span>
@@ -232,16 +232,14 @@ export default function ContactInquiriesClient({
 
         <div
           onClick={() => setStatusFilter('new')}
-          className={`cursor-pointer rounded-2xl p-4 border transition-all ${
-            statusFilter === 'new'
+          className={`cursor-pointer rounded-2xl p-4 border transition-all ${statusFilter === 'new'
               ? 'bg-blue-600 text-white border-blue-600 shadow-md'
               : 'bg-white text-slate-800 border-slate-200 hover:border-slate-300'
-          }`}
+            }`}
         >
           <span
-            className={`text-xs font-bold block ${
-              statusFilter === 'new' ? 'text-blue-100' : 'text-slate-500'
-            }`}
+            className={`text-xs font-bold block ${statusFilter === 'new' ? 'text-blue-100' : 'text-slate-500'
+              }`}
           >
             Mới nhận
           </span>
@@ -252,16 +250,14 @@ export default function ContactInquiriesClient({
 
         <div
           onClick={() => setStatusFilter('contacted')}
-          className={`cursor-pointer rounded-2xl p-4 border transition-all ${
-            statusFilter === 'contacted'
+          className={`cursor-pointer rounded-2xl p-4 border transition-all ${statusFilter === 'contacted'
               ? 'bg-amber-600 text-white border-amber-600 shadow-md'
               : 'bg-white text-slate-800 border-slate-200 hover:border-slate-300'
-          }`}
+            }`}
         >
           <span
-            className={`text-xs font-bold block ${
-              statusFilter === 'contacted' ? 'text-amber-100' : 'text-slate-500'
-            }`}
+            className={`text-xs font-bold block ${statusFilter === 'contacted' ? 'text-amber-100' : 'text-slate-500'
+              }`}
           >
             Đã liên hệ
           </span>
@@ -272,16 +268,14 @@ export default function ContactInquiriesClient({
 
         <div
           onClick={() => setStatusFilter('resolved')}
-          className={`cursor-pointer rounded-2xl p-4 border transition-all ${
-            statusFilter === 'resolved'
+          className={`cursor-pointer rounded-2xl p-4 border transition-all ${statusFilter === 'resolved'
               ? 'bg-emerald-600 text-white border-emerald-600 shadow-md'
               : 'bg-white text-slate-800 border-slate-200 hover:border-slate-300'
-          }`}
+            }`}
         >
           <span
-            className={`text-xs font-bold block ${
-              statusFilter === 'resolved' ? 'text-emerald-100' : 'text-slate-500'
-            }`}
+            className={`text-xs font-bold block ${statusFilter === 'resolved' ? 'text-emerald-100' : 'text-slate-500'
+              }`}
           >
             Đã xử lý
           </span>
@@ -292,16 +286,14 @@ export default function ContactInquiriesClient({
 
         <div
           onClick={() => setStatusFilter('archived')}
-          className={`cursor-pointer rounded-2xl p-4 border transition-all ${
-            statusFilter === 'archived'
+          className={`cursor-pointer rounded-2xl p-4 border transition-all ${statusFilter === 'archived'
               ? 'bg-slate-700 text-white border-slate-700 shadow-md'
               : 'bg-white text-slate-800 border-slate-200 hover:border-slate-300'
-          }`}
+            }`}
         >
           <span
-            className={`text-xs font-bold block ${
-              statusFilter === 'archived' ? 'text-slate-300' : 'text-slate-500'
-            }`}
+            className={`text-xs font-bold block ${statusFilter === 'archived' ? 'text-slate-300' : 'text-slate-500'
+              }`}
           >
             Lưu trữ
           </span>
@@ -314,29 +306,29 @@ export default function ContactInquiriesClient({
       {/* Search & Filter Toolbar */}
       <Card variant="default" className="p-4 sm:p-5 rounded-2xl">
         <div className="grid grid-cols-1 sm:grid-cols-12 gap-3.5 items-center">
-          <div className="sm:col-span-6 relative">
-            <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
-            <input
-              type="text"
-              placeholder="Tìm theo tên khách hàng, email, công ty, nội dung..."
+          <div className="sm:col-span-6">
+            <TextInput
+              label="Tìm kiếm liên hệ"
+              isLabelHidden
               value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              className="w-full pl-9 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs sm:text-sm text-slate-800 placeholder:text-slate-400 focus:outline-none focus:border-slate-800"
+              onChange={setSearch}
+              placeholder="Tìm theo tên khách hàng, email, công ty, nội dung..."
+              hasClear
+              width="100%"
+              className='h-10 border'
             />
           </div>
 
           <div className="sm:col-span-4">
-            <select
+            <Selector
+              label="Lọc theo khu vực"
+              isLabelHidden
               value={regionFilter}
-              onChange={(e) => setRegionFilter(e.target.value)}
-              className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs sm:text-sm text-slate-800 focus:outline-none focus:border-slate-800 cursor-pointer"
-            >
-              {REGION_OPTIONS.map((opt) => (
-                <option key={opt.value} value={opt.value}>
-                  {opt.label}
-                </option>
-              ))}
-            </select>
+              onChange={(val) => setRegionFilter(val)}
+              options={REGION_OPTIONS}
+              width="100%"
+              className="h-10 border"
+            />
           </div>
 
           <div className="sm:col-span-2 flex justify-end">
@@ -596,18 +588,15 @@ export default function ContactInquiriesClient({
                 />
               </div>
 
-              <div>
-                <label className="block text-xs font-bold text-slate-800 mb-1.5">
-                  Ghi chú nội bộ:
-                </label>
-                <textarea
-                  rows={3}
-                  value={editingNotes}
-                  onChange={(e) => setEditingNotes(e.target.value)}
-                  placeholder="Ghi chú về tiến độ trao đổi, giải pháp tư vấn, nhu cầu ngân sách của khách hàng..."
-                  className="w-full px-3.5 py-2.5 bg-white border border-slate-200 rounded-xl text-xs text-slate-900 focus:outline-none focus:border-slate-800"
-                />
-              </div>
+              <TextArea
+                label="Ghi chú nội bộ"
+                rows={3}
+                value={editingNotes}
+                onChange={setEditingNotes}
+                placeholder="Ghi chú về tiến độ trao đổi, giải pháp tư vấn, nhu cầu ngân sách của khách hàng..."
+                width="100%"
+                className="border"
+              />
 
               <div className="flex items-center justify-between pt-2">
                 <Button

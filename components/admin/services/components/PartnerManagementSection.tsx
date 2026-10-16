@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { Search, X, ExternalLink, Trash2 } from 'lucide-react';
-import { Button, Badge, Card, EmptyState } from '@astryxdesign/core';
+import { Button, Badge, Card, EmptyState, CheckboxInput, TextInput, Selector } from '@astryxdesign/core';
 import type { PartnerItemModel, PartnerItemStats } from '@/lib/services/partner-item.service';
 import type { HomeSectionModel } from '@/lib/services/home-section.service';
 import { usePartnerMutations } from '@/lib/hooks';
@@ -205,6 +205,8 @@ export default function PartnerManagementSection({
   const isAllSelected =
     filteredPartners.length > 0 &&
     filteredPartners.every((p) => selectedIds.includes(p.id));
+  const isPartiallySelected =
+    filteredPartners.some((p) => selectedIds.includes(p.id)) && !isAllSelected;
 
   const handleToggleSelectAll = () => {
     if (isAllSelected) {
@@ -371,47 +373,50 @@ export default function PartnerManagementSection({
         <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
           <div className="flex flex-1 flex-wrap items-center gap-3">
             {/* Search Input */}
-            <div className="relative flex-1 min-w-[200px] max-w-md">
-              <input
-                type="text"
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
+            <div className="flex-1 min-w-[200px] max-w-md">
+              <TextInput
+                label="Tìm kiếm đối tác"
+                isLabelHidden
                 placeholder="Tìm theo tên đối tác, slug, tiêu đề..."
-                className="w-full pl-9 pr-8 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs sm:text-sm text-slate-900 focus:bg-white focus:border-emerald-500 focus:outline-hidden"
+                value={search}
+                onChange={(val) => setSearch(val)}
+                hasClear
+                width="100%"
+                className='h-10 border'
               />
-              <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
-              {search && (
-                <button
-                  type="button"
-                  onClick={() => setSearch('')}
-                  className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 p-0.5"
-                >
-                  <X className="w-3.5 h-3.5" />
-                </button>
-              )}
             </div>
 
             {/* Menu Header Filter */}
-            <select
-              value={menuFilter}
-              onChange={(e) => setMenuFilter(e.target.value as any)}
-              className="px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs sm:text-sm text-slate-700 focus:bg-white focus:border-emerald-500 focus:outline-hidden"
-            >
-              <option value="all">Tất cả nguồn</option>
-              <option value="in_menu">Trong Menu Header (Cột 3)</option>
-              <option value="outside_menu">Ngoài Menu Header</option>
-            </select>
+            <div className="w-56">
+              <Selector
+                label="Lọc theo nguồn"
+                isLabelHidden
+                className="h-10 border"
+                value={menuFilter}
+                onChange={(val) => setMenuFilter(val as any)}
+                options={[
+                  { value: 'all', label: 'Tất cả nguồn' },
+                  { value: 'in_menu', label: 'Trong Menu Header (Cột 3)' },
+                  { value: 'outside_menu', label: 'Ngoài Menu Header' },
+                ]}
+              />
+            </div>
 
             {/* Status Filter */}
-            <select
-              value={statusFilter}
-              onChange={(e) => setStatusFilter(e.target.value as any)}
-              className="px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs sm:text-sm text-slate-700 focus:bg-white focus:border-emerald-500 focus:outline-hidden"
-            >
-              <option value="all">Tất cả trạng thái</option>
-              <option value="published">Đang hiển thị</option>
-              <option value="draft">Bản nháp</option>
-            </select>
+            <div className="w-48">
+              <Selector
+                label="Lọc theo trạng thái"
+                isLabelHidden
+                className="h-10 border"
+                value={statusFilter}
+                onChange={(val) => setStatusFilter(val as any)}
+                options={[
+                  { value: 'all', label: 'Tất cả trạng thái' },
+                  { value: 'published', label: 'Đang hiển thị' },
+                  { value: 'draft', label: 'Bản nháp' },
+                ]}
+              />
+            </div>
           </div>
 
           <div className="flex items-center gap-2">
@@ -502,12 +507,17 @@ export default function PartnerManagementSection({
               <thead>
                 <tr className="border-b border-slate-200/80 bg-slate-50/70 text-slate-600 font-semibold text-xs">
                   <th className="py-3 px-3 w-10 text-center">
-                    <input
-                      type="checkbox"
-                      checked={isAllSelected}
+                    <CheckboxInput
+                      label="Chọn tất cả đối tác trong danh sách"
+                      isLabelHidden
+                      value={
+                        isAllSelected
+                          ? true
+                          : isPartiallySelected
+                            ? 'indeterminate'
+                            : false
+                      }
                       onChange={handleToggleSelectAll}
-                      className="w-4 h-4 rounded text-emerald-600 border-slate-300 focus:ring-emerald-500 cursor-pointer"
-                      title="Chọn tất cả đối tác trong danh sách"
                     />
                   </th>
                   <th className="py-3 px-3 w-12 text-center">STT</th>
@@ -527,16 +537,16 @@ export default function PartnerManagementSection({
                   return (
                     <tr
                       key={partner.id}
-                      className={`hover:bg-slate-50/60 transition-colors group ${
-                        isChecked ? 'bg-emerald-50/40' : ''
-                      }`}
+                      className={`hover:bg-slate-50/60 transition-colors group ${isChecked ? 'bg-emerald-50/40' : ''
+                        }`}
                     >
                       <td className="py-3.5 px-3 text-center">
-                        <input
-                          type="checkbox"
-                          checked={isChecked}
+                        <CheckboxInput
+                          label={`Chọn đối tác ${partner.name}`}
+                          isLabelHidden
+                          size="sm"
+                          value={isChecked}
                           onChange={() => handleToggleSelect(partner.id)}
-                          className="w-4 h-4 rounded text-emerald-600 border-slate-300 focus:ring-emerald-500 cursor-pointer"
                         />
                       </td>
                       <td className="py-3.5 px-3 text-center text-slate-400 font-mono text-xs">
@@ -606,38 +616,38 @@ export default function PartnerManagementSection({
                         )}
                       </td>
 
-                    {/* Actions */}
-                    <td className="py-3.5 px-4 text-right">
-                      <div className="flex items-center justify-end gap-1">
-                        <Button
-                          label="Sửa"
-                          variant="secondary"
-                          onClick={() => handleOpenEdit(partner)}
-                          className="h-8 px-2.5 text-xs"
-                        />
-                        <Link
-                          href={`/partners/${partner.slug}`}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="p-1.5 text-slate-500 hover:text-slate-900 rounded-md hover:bg-slate-100 transition-colors"
-                          title="Xem trang ngoài"
-                        >
-                          <ExternalLink className="w-4 h-4" />
-                        </Link>
-                        <button
-                          type="button"
-                          onClick={() => handleDelete(partner)}
-                          disabled={isDeleting}
-                          className="p-1.5 text-red-500 hover:text-red-700 rounded-md hover:bg-red-50 transition-colors"
-                          title="Xóa đối tác"
-                        >
-                          <Trash2 className="w-4 h-4" />
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                );
-              })}
+                      {/* Actions */}
+                      <td className="py-3.5 px-4 text-right">
+                        <div className="flex items-center justify-end gap-1">
+                          <Button
+                            label="Sửa"
+                            variant="secondary"
+                            onClick={() => handleOpenEdit(partner)}
+                            className="h-8 px-2.5 text-xs"
+                          />
+                          <Link
+                            href={`/partners/${partner.slug}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="p-1.5 text-slate-500 hover:text-slate-900 rounded-md hover:bg-slate-100 transition-colors"
+                            title="Xem trang ngoài"
+                          >
+                            <ExternalLink className="w-4 h-4" />
+                          </Link>
+                          <button
+                            type="button"
+                            onClick={() => handleDelete(partner)}
+                            disabled={isDeleting}
+                            className="p-1.5 text-red-500 hover:text-red-700 rounded-md hover:bg-red-50 transition-colors"
+                            title="Xóa đối tác"
+                          >
+                            <Trash2 className="w-4 h-4" />
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
           </div>
