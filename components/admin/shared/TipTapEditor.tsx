@@ -241,7 +241,7 @@ export default function TipTapEditor({
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  // Upload content image hook with Astryx toast
+  // Upload content media hook (Image / Video) with Astryx toast
   const {
     uploadFile: handleFileUpload,
     isUploading: isUploadingImage,
@@ -249,9 +249,25 @@ export default function TipTapEditor({
     reset: resetUploadImage,
   } = useUploadMedia({
     defaultFolder: 'egead_cms/content',
-    successMessage: 'Tải và chèn ảnh vào bài viết thành công!',
+    successMessage: 'Tải và chèn tệp vào bài viết thành công!',
     onSuccess: (data) => {
-      editor?.chain().focus().setImage({ src: data.url }).run();
+      const isVideo =
+        data.resourceType === 'video' ||
+        data.url.endsWith('.mp4') ||
+        data.url.endsWith('.webm') ||
+        data.url.includes('/video/');
+
+      if (isVideo) {
+        editor
+          ?.chain()
+          .focus()
+          .insertContent(
+            `<div class="my-4 w-full max-w-3xl mx-auto rounded-xl overflow-hidden border border-slate-200"><video controls playsinline class="w-full aspect-video object-contain bg-black" src="${data.url}"></video></div><p></p>`
+          )
+          .run();
+      } else {
+        editor?.chain().focus().setImage({ src: data.url }).run();
+      }
       setImageUrl('');
       setImageModalOpen(false);
     },
@@ -1047,12 +1063,12 @@ export default function TipTapEditor({
         </div>
       )}
 
-      {/* Image Insertion Modal with Cloudinary Upload */}
+      {/* Image / Video Insertion Modal with Cloudinary Upload */}
       {imageModalOpen && (
         <div className="bg-emerald-50 border-b border-emerald-200 px-4 py-3 space-y-3">
           <div className="flex items-center justify-between">
             <span className="text-xs font-bold text-emerald-900">
-              Chèn hình ảnh vào bài viết
+              Chèn hình ảnh hoặc video ngắn vào bài viết
             </span>
             <button
               type="button"
@@ -1073,11 +1089,11 @@ export default function TipTapEditor({
                 {isUploadingImage ? (
                   <span>Đang tải lên Cloudinary...</span>
                 ) : (
-                  <span>Tải ảnh từ máy tính (Cloudinary)</span>
+                  <span>Tải ảnh / video từ máy tính (Cloudinary)</span>
                 )}
                 <input
                   type="file"
-                  accept="image/jpeg,image/png,image/webp,image/gif,image/svg+xml,image/avif"
+                  accept="image/jpeg,image/png,image/webp,image/gif,image/svg+xml,image/avif,video/mp4,video/webm,video/quicktime"
                   disabled={isUploadingImage}
                   onChange={(e) => {
                     const file = e.target.files?.[0];
@@ -1087,7 +1103,7 @@ export default function TipTapEditor({
                 />
               </label>
               <span className="text-[10px] text-slate-500 mt-1.5">
-                Tự động lưu trữ trên Cloudinary &amp; chèn tức thì vào vị trí con trỏ
+                Hỗ trợ ảnh (JPG, PNG, WebP) và video (MP4, WebM dưới 50MB)
               </span>
             </div>
 

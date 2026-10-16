@@ -165,6 +165,14 @@ export default function OurWorkFormClient({
       onSuccess: (data) => setTaskImages((prev) => [...prev, data.url]),
     });
 
+  // Cloudinary Upload for Banner Video
+  const { uploadFile: uploadBannerVideoFile, isUploading: isUploadingBannerVideo } =
+    useUploadMedia({
+      defaultFolder: 'egead_cms/casestudies/videos',
+      successMessage: 'Tải video banner thành công!',
+      onSuccess: (data) => setBannerVideo(data.url),
+    });
+
   // Generate slug helper
   const handleGenerateSlug = () => {
     if (!title.trim()) return;
@@ -694,16 +702,72 @@ export default function OurWorkFormClient({
             )}
           </div>
 
-          <div className="md:col-span-2">
-            <TextInput
-              label="Link Video Banner (Tùy chọn)"
-              description="Đường dẫn video MP4 hoặc Youtube nhúng (nếu có video minh họa sản phẩm)"
-              value={bannerVideo}
-              onChange={setBannerVideo}
-              placeholder="https://... (mp4 hoặc video stream)"
-              width="100%"
-              className='h-10 border'
-            />
+          <div className="md:col-span-2 space-y-2">
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-end gap-3">
+              <div className="flex-1">
+                <TextInput
+                  label="Link Video Banner (Tùy chọn)"
+                  description="Đường dẫn video MP4 hoặc Youtube nhúng (tải tệp video từ máy tính hoặc dán link)"
+                  value={bannerVideo}
+                  onChange={setBannerVideo}
+                  placeholder="https://... (mp4, webm hoặc link youtube)"
+                  width="100%"
+                  className="h-10 border"
+                />
+              </div>
+              <label className="cursor-pointer shrink-0 mb-1">
+                <span className="inline-flex items-center justify-center px-4 h-10 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-xs sm:text-sm font-medium text-slate-700 transition-colors">
+                  {isUploadingBannerVideo ? 'Đang tải video...' : 'Tải video từ máy tính'}
+                </span>
+                <input
+                  type="file"
+                  accept="video/mp4,video/webm,video/quicktime"
+                  className="hidden"
+                  disabled={isUploadingBannerVideo}
+                  onChange={(e) => {
+                    const file = e.target.files?.[0];
+                    if (file) uploadBannerVideoFile(file);
+                  }}
+                />
+              </label>
+            </div>
+
+            {bannerVideo && (
+              <div className="relative w-full max-w-xl rounded-xl overflow-hidden border border-slate-200 bg-slate-950 p-2 space-y-2">
+                <div className="flex items-center justify-between px-2 pt-1">
+                  <span className="text-xs font-medium text-slate-300">
+                    Xem trước video banner
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => setBannerVideo('')}
+                    className="text-xs text-rose-400 hover:text-rose-300 underline"
+                  >
+                    Xóa video
+                  </button>
+                </div>
+                {bannerVideo.includes('youtube.com') || bannerVideo.includes('youtu.be') ? (
+                  <div className="aspect-video w-full rounded-lg overflow-hidden">
+                    <iframe
+                      src={
+                        bannerVideo.includes('watch?v=')
+                          ? bannerVideo.replace('watch?v=', 'embed/')
+                          : bannerVideo.replace('youtu.be/', 'www.youtube.com/embed/')
+                      }
+                      className="w-full h-full border-0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                    />
+                  </div>
+                ) : (
+                  <video
+                    src={bannerVideo}
+                    controls
+                    className="w-full max-h-56 rounded-lg object-contain bg-black"
+                  />
+                )}
+              </div>
+            )}
           </div>
         </div>
       </Card>

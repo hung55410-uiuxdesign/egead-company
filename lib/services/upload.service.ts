@@ -18,6 +18,8 @@ export interface UploadResult {
   width?: number;
   height?: number;
   bytes?: number;
+  resourceType?: 'image' | 'video' | 'raw' | string;
+  duration?: number;
 }
 
 export interface UploadOptions {
@@ -34,8 +36,12 @@ export interface FileValidation {
   error?: string;
 }
 
-const MAX_IMAGE_SIZE_BYTES = 10 * 1024 * 1024; // 10MB
-const ALLOWED_MIME_TYPES = [
+export interface MediaValidation extends FileValidation {
+  mediaType?: 'image' | 'video';
+}
+
+export const MAX_IMAGE_SIZE_BYTES = 10 * 1024 * 1024; // 10MB
+export const ALLOWED_MIME_TYPES = [
   'image/jpeg',
   'image/png',
   'image/webp',
@@ -44,14 +50,72 @@ const ALLOWED_MIME_TYPES = [
   'image/avif',
 ];
 
-const MAX_DOCUMENT_SIZE_BYTES = 15 * 1024 * 1024; // 15MB
-const ALLOWED_DOCUMENT_MIME_TYPES = [
+export const MAX_VIDEO_SIZE_BYTES = 50 * 1024 * 1024; // 50MB
+export const ALLOWED_VIDEO_MIME_TYPES = [
+  'video/mp4',
+  'video/webm',
+  'video/quicktime',
+  'video/x-msvideo',
+  'video/mpeg',
+  'video/ogg',
+];
+export const ALLOWED_VIDEO_EXTENSIONS = ['.mp4', '.webm', '.mov', '.avi', '.mpeg', '.ogv'];
+
+export const MAX_DOCUMENT_SIZE_BYTES = 15 * 1024 * 1024; // 15MB
+export const ALLOWED_DOCUMENT_MIME_TYPES = [
   'application/pdf',
   'application/msword',
   'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
   'application/octet-stream',
 ];
-const ALLOWED_DOCUMENT_EXTENSIONS = ['.pdf', '.doc', '.docx'];
+export const ALLOWED_DOCUMENT_EXTENSIONS = ['.pdf', '.doc', '.docx'];
+
+/**
+ * Validates a media file (Image or Video) by size, MIME type and extension
+ */
+export function validateMediaFile(file: {
+  size: number;
+  type?: string;
+  name?: string;
+}): MediaValidation {
+  const mimeType = (file.type || '').toLowerCase();
+  const ext = file.name ? '.' + file.name.split('.').pop()?.toLowerCase() : '';
+
+  const isVideo =
+    ALLOWED_VIDEO_MIME_TYPES.includes(mimeType) ||
+    (ext ? ALLOWED_VIDEO_EXTENSIONS.includes(ext) : false);
+
+  const isImage =
+    ALLOWED_MIME_TYPES.includes(mimeType) ||
+    ['.jpg', '.jpeg', '.png', '.webp', '.gif', '.svg', '.avif'].includes(ext);
+
+  if (isVideo) {
+    if (file.size > MAX_VIDEO_SIZE_BYTES) {
+      const sizeMb = (file.size / (1024 * 1024)).toFixed(1);
+      return {
+        valid: false,
+        error: `Kích thước video (${sizeMb}MB) vượt quá giới hạn tối đa cho phép là 50MB.`,
+      };
+    }
+    return { valid: true, mediaType: 'video' };
+  }
+
+  if (isImage) {
+    if (file.size > MAX_IMAGE_SIZE_BYTES) {
+      const sizeMb = (file.size / (1024 * 1024)).toFixed(1);
+      return {
+        valid: false,
+        error: `Kích thước ảnh (${sizeMb}MB) vượt quá giới hạn tối đa cho phép là 10MB.`,
+      };
+    }
+    return { valid: true, mediaType: 'image' };
+  }
+
+  return {
+    valid: false,
+    error: `Định dạng tệp "${file.type || file.name || 'unknown'}" không được hỗ trợ. Vui lòng chọn ảnh (JPG, PNG, WebP, GIF, SVG, AVIF) hoặc video (MP4, WebM, MOV).`,
+  };
+}
 
 /**
  * Validates an image file by size and mime type
@@ -106,24 +170,25 @@ export function validateDocumentFile(file: {
 }
 
 /**
- * Uploads an image buffer directly to Cloudinary
+ * Uploads a media buffer (Image or Video) to Cloudinary
  */
-export async function uploadImageBuffer(
+export async function uploadMediaBuffer(
   buffer: Buffer,
-  options?: UploadOptions
+  options?: UploadOptions & { resourceType?: 'image' | 'video' | 'auto' }
 ): Promise<UploadResult> {
-  const folder = options?.folder || 'egead_cms/blogs';
+  const folder = options?.folder || 'egead_cms/media';
+  const resourceType = options?.resourceType || 'auto';
 
   return new Promise((resolve, reject) => {
     const uploadStream = cloudinary.uploader.upload_stream(
       {
         folder,
-        resource_type: 'image',
-        tags: options?.tags || ['egead-cms', 'blog'],
+        resource_type: resourceType,
+        tags: options?.tags || ['egead-cms', 'media'],
       },
       (error: UploadApiErrorResponse | undefined, result: UploadApiResponse | undefined) => {
         if (error || !result) {
-          reject(new Error(error?.message || 'Không thể tải ảnh lên Cloudinary'));
+          reject(new Error(error?.message || 'Không thể tải tệp lên Cloudinary'));
         } else {
           resolve({
             url: result.url,
@@ -133,12 +198,28 @@ export async function uploadImageBuffer(
             width: result.width,
             height: result.height,
             bytes: result.bytes,
+            resourceType: result.resource_type,
+            duration: (result as { duration?: number }).duration,
           });
         }
       }
     );
 
     uploadStream.end(buffer);
+  });
+}
+
+/**
+ * Uploads an image buffer directly to Cloudinary (backward compatible wrapper)
+ */
+export async function uploadImageBuffer(
+  buffer: Buffer,
+  options?: UploadOptions
+): Promise<UploadResult> {
+  return uploadMediaBuffer(buffer, {
+    ...options,
+    folder: options?.folder || 'egead_cms/blogs',
+    resourceType: 'image',
   });
 }
 

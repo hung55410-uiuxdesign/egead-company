@@ -16,6 +16,8 @@ export interface UploadMediaResponse {
   width?: number;
   height?: number;
   bytes?: number;
+  resourceType?: 'image' | 'video' | string;
+  duration?: number;
   error?: string;
 }
 
@@ -24,7 +26,7 @@ export interface UseUploadMediaOptions {
   defaultFolder?: string;
   /** Bật/tắt hiển thị toast tự động qua Astryx useToast (mặc định: true) */
   showToast?: boolean;
-  /** Thông điệp toast khi upload thành công (mặc định: 'Tải ảnh lên thành công!') */
+  /** Thông điệp toast khi upload thành công (mặc định: tự động theo ảnh/video) */
   successMessage?: string;
   /** Hàm kiểm tra file trước khi tải (trả về chuỗi thông báo lỗi hoặc null nếu hợp lệ) */
   validate?: (file: File) => string | null | undefined;
@@ -35,7 +37,7 @@ export interface UseUploadMediaOptions {
 }
 
 /**
- * Hook upload hình ảnh / tệp lên Cloudinary qua API route `/api/admin/upload`
+ * Hook upload hình ảnh / video lên Cloudinary qua API route `/api/admin/upload`
  * Tích hợp TanStack Query và thông báo Astryx Toast
  */
 export function useUploadMedia(options?: UseUploadMediaOptions) {
@@ -52,7 +54,7 @@ export function useUploadMedia(options?: UseUploadMediaOptions) {
         }
       }
 
-      const targetFolder = folder || options?.defaultFolder || 'egead_cms/blogs';
+      const targetFolder = folder || options?.defaultFolder || 'egead_cms/media';
       const formData = new FormData();
       formData.append('file', file);
       formData.append('folder', targetFolder);
@@ -65,15 +67,22 @@ export function useUploadMedia(options?: UseUploadMediaOptions) {
       const data = (await res.json()) as UploadMediaResponse;
 
       if (!res.ok || !data.success || !data.url) {
-        throw new Error(data.error || 'Tải ảnh lên máy chủ thất bại');
+        throw new Error(data.error || 'Tải tệp lên máy chủ thất bại');
       }
 
       return data;
     },
     onSuccess: (data, variables) => {
       if (showToast) {
+        const isVideo =
+          data.resourceType === 'video' ||
+          data.url.endsWith('.mp4') ||
+          data.url.endsWith('.webm') ||
+          data.url.includes('/video/');
+        const defaultMsg = isVideo ? 'Tải video lên thành công!' : 'Tải tệp đa phương tiện thành công!';
+
         toast({
-          body: options?.successMessage || 'Tải ảnh lên thành công!',
+          body: options?.successMessage || defaultMsg,
           type: 'info',
           isAutoHide: true,
           autoHideDuration: 3000,
@@ -84,7 +93,7 @@ export function useUploadMedia(options?: UseUploadMediaOptions) {
     onError: (error: Error, variables) => {
       if (showToast) {
         toast({
-          body: error.message || 'Lỗi kết nối khi tải ảnh lên Cloudinary',
+          body: error.message || 'Lỗi kết nối khi tải tệp lên Cloudinary',
           type: 'error',
           isAutoHide: true,
           autoHideDuration: 4000,
