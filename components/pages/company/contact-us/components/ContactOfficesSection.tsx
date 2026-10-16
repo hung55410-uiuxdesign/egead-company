@@ -49,7 +49,7 @@ export default function ContactOfficesSection() {
             viewport={{ once: true }}
             className="text-sm sm:text-base font-normal text-[#D4FAE6] mb-3 font-montserrat"
           >
-            Our Office
+            Our Offices
           </motion.p>
           <motion.h2
             initial={{ opacity: 0, y: 20 }}

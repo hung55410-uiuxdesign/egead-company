@@ -20,4 +20,14 @@ export const OFFICES_DATA: OfficeItem[] = [
     email: 'contact@egead-company.com',
     timezone: 'Asia/Ho_Chi_Minh',
   },
+  {
+    id: 'vietnam-hanoi',
+    country: 'Vietnam',
+    city: 'Hanoi',
+    company: 'E-GEAD Company Limited',
+    address: '157 Cầu Diễn, Phúc Diễn, Hà Nội',
+    phone: '+84 (0) 90 541 4410',
+    email: 'contact@egead-company.com',
+    timezone: 'Asia/Ho_Chi_Minh',
+  },
 ];
