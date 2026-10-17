@@ -2,6 +2,7 @@ import { describe, test, expect } from 'bun:test';
 import {
   validateImageFile,
   validateDocumentFile,
+  validateMediaFile,
   uploadImageBuffer,
   uploadDocumentBuffer,
   uploadBase64OrUrl,
@@ -97,6 +98,52 @@ describe('Upload Service Unit Tests', () => {
     });
   });
 
+  describe('validateMediaFile (Image & Video)', () => {
+    test('accepts video up to 100MB', () => {
+      const validVideo = {
+        name: 'intro.mp4',
+        type: 'video/mp4',
+        size: 95 * 1024 * 1024, // 95MB
+      };
+      const result = validateMediaFile(validVideo);
+      expect(result.valid).toBe(true);
+      expect(result.mediaType).toBe('video');
+    });
+
+    test('rejects video larger than 100MB', () => {
+      const oversizedVideo = {
+        name: 'huge.mp4',
+        type: 'video/mp4',
+        size: 105 * 1024 * 1024, // 105MB
+      };
+      const result = validateMediaFile(oversizedVideo);
+      expect(result.valid).toBe(false);
+      expect(result.error).toContain('100MB');
+    });
+
+    test('accepts image up to 10MB', () => {
+      const validImage = {
+        name: 'banner.webp',
+        type: 'image/webp',
+        size: 8 * 1024 * 1024, // 8MB
+      };
+      const result = validateMediaFile(validImage);
+      expect(result.valid).toBe(true);
+      expect(result.mediaType).toBe('image');
+    });
+
+    test('rejects image larger than 10MB', () => {
+      const oversizedImage = {
+        name: 'banner.png',
+        type: 'image/png',
+        size: 12 * 1024 * 1024, // 12MB
+      };
+      const result = validateMediaFile(oversizedImage);
+      expect(result.valid).toBe(false);
+      expect(result.error).toContain('10MB');
+    });
+  });
+
   describe('Service API contract', () => {
     test('exports expected upload and management functions', () => {
       expect(typeof uploadImageBuffer).toBe('function');
@@ -105,6 +152,7 @@ describe('Upload Service Unit Tests', () => {
       expect(typeof deleteCloudinaryImage).toBe('function');
       expect(typeof validateImageFile).toBe('function');
       expect(typeof validateDocumentFile).toBe('function');
+      expect(typeof validateMediaFile).toBe('function');
     });
   });
 });

@@ -5,6 +5,7 @@ import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 import type { BlogPost } from "@/types/blog";
+import { getMediaThumbnailUrl } from "@/lib/utils/media";
 
 type Props = {
   categoryKey: string;
@@ -172,7 +173,7 @@ export default function InsightsCategoryView({
                   >
                     <div className="relative aspect-square w-full rounded-[20px] overflow-hidden bg-gray-100 mb-5 shadow-sm">
                       <img
-                        src={post.heroImage}
+                        src={getMediaThumbnailUrl(post.heroImage)}
                         alt={post.title}
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                       />

@@ -50,7 +50,7 @@ export const ALLOWED_MIME_TYPES = [
   'image/avif',
 ];
 
-export const MAX_VIDEO_SIZE_BYTES = 50 * 1024 * 1024; // 50MB
+export const MAX_VIDEO_SIZE_BYTES = 100 * 1024 * 1024; // 100MB
 export const ALLOWED_VIDEO_MIME_TYPES = [
   'video/mp4',
   'video/webm',
@@ -94,7 +94,7 @@ export function validateMediaFile(file: {
       const sizeMb = (file.size / (1024 * 1024)).toFixed(1);
       return {
         valid: false,
-        error: `Kích thước video (${sizeMb}MB) vượt quá giới hạn tối đa cho phép là 50MB.`,
+        error: `Kích thước video (${sizeMb}MB) vượt quá giới hạn tối đa cho phép là 100MB.`,
       };
     }
     return { valid: true, mediaType: 'video' };

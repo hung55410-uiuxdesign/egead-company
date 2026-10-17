@@ -3,6 +3,7 @@
 import Link from "next/link";
 import MotionSection from "@/components/MotionSection";
 import type { BlogPost } from "@/types/blog";
+import { getMediaThumbnailUrl } from "@/lib/utils/media";
 
 type Props = {
   featured: BlogPost[];
@@ -30,7 +31,7 @@ export default function InsightsFeaturedSection({ featured }: Props) {
             {/* Image: Square/4:3 aspect ratio, rounded-[20px] */}
             <div className="relative aspect-[16/10] sm:aspect-square lg:aspect-[16/10] w-full rounded-[20px] overflow-hidden bg-white/5 mb-5 shadow-lg">
               <img
-                src={item.heroImage}
+                src={getMediaThumbnailUrl(item.heroImage)}
                 alt={item.title}
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
               />

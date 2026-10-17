@@ -13,6 +13,7 @@ import { Card, Button, Badge, Selector, IconButton, useToast, TextInput, TextAre
 import { useSaveBlogMutation, useUploadMedia } from '@/lib/hooks';
 import AIBlogImportModal from './AIBlogImportModal';
 import { ParsedBlogPost } from '@/lib/utils/aiBlogParser';
+import { getYouTubeEmbedInfo, isDirectVideoUrl, getMediaType } from '@/lib/utils/media';
 
 interface BlogEditorClientProps {
   initialPost?: BlogPost | null;
@@ -56,6 +57,7 @@ export default function BlogEditorClient({
     initialPost?.status || 'published'
   );
   const [isAIModalOpen, setIsAIModalOpen] = useState(false);
+  const [uploadFileType, setUploadFileType] = useState<'image' | 'video'>('image');
 
   const {
     uploadFile: handleHeroFileUpload,
@@ -63,11 +65,30 @@ export default function BlogEditorClient({
     error: uploadHeroError,
   } = useUploadMedia({
     defaultFolder: 'egead_cms/covers',
-    successMessage: 'Tải ảnh bìa lên Cloudinary thành công!',
+    validate: (file: File) => {
+      const isVideo = file.type.startsWith('video/') || /\.(mp4|webm|mov|ogg|ogv|mkv|avi)$/i.test(file.name);
+      if (isVideo && file.size > 100 * 1024 * 1024) {
+        const mb = (file.size / (1024 * 1024)).toFixed(1);
+        return `Kích thước video (${mb}MB) vượt quá giới hạn tối đa cho phép là 100MB.`;
+      }
+      if (!isVideo && file.size > 10 * 1024 * 1024) {
+        const mb = (file.size / (1024 * 1024)).toFixed(1);
+        return `Kích thước ảnh (${mb}MB) vượt quá giới hạn tối đa cho phép là 10MB.`;
+      }
+      return null;
+    },
+    successMessage: uploadFileType === 'video' ? 'Tải video lên Cloudinary thành công!' : 'Tải ảnh lên Cloudinary thành công!',
     onSuccess: (data) => {
       setHeroImage(data.url);
     },
   });
+
+  const handleSelectHeroFile = (file?: File) => {
+    if (!file) return;
+    const isVideo = file.type.startsWith('video/') || /\.(mp4|webm|mov|ogg|ogv|mkv|avi)$/i.test(file.name);
+    setUploadFileType(isVideo ? 'video' : 'image');
+    handleHeroFileUpload(file, isVideo ? 'egead_cms/videos' : 'egead_cms/covers');
+  };
 
   const generateSlugFromTitle = () => {
     if (!title) return;
@@ -205,7 +226,7 @@ export default function BlogEditorClient({
               onChange={setTitle}
               placeholder="VD: The 2026 Global E-Commerce Playbook..."
               width="100%"
-              className='h-10 border'
+              className='h-10 border px-3 text-sm text-gray-900 font-medium'
             />
 
             {/* Slug input with auto button */}
@@ -217,18 +238,18 @@ export default function BlogEditorClient({
               </div>
 
               <div className="w-full flex flex-row items-center gap-2">
-                <span className="px-3.5 py-2 text-xs text-slate-500 font-mono select-none bg-slate-50 border border-slate-200 rounded-lg">
+                <span className="px-3.5 py-2 h-10 flex items-center justify-center text-sm font-medium text-white bg-gray-900 rounded-xl">
                   /articles/
                 </span>
                 <div className="flex-1">
                   <TextInput
-                    label="Đường dẫn tĩnh (Slug)"
+                    label="Đường dẫn"
                     isLabelHidden
                     value={slug}
                     onChange={setSlug}
                     placeholder="expanding-cross-border-ecommerce-playbook"
                     width="100%"
-                    className='h-10 border'
+                    className='h-10 border px-3 text-sm text-gray-900 font-medium'
                   />
                 </div>
                 <Button
@@ -242,24 +263,24 @@ export default function BlogEditorClient({
 
             {/* Subtitle */}
             <TextInput
-              label="Phụ đề / Thông điệp nổi bật"
+              label="Thông điệp nổi bật"
               value={subtitle}
               onChange={setSubtitle}
               placeholder="VD: Strategic execution for cross-border retailers targeting Western markets"
               width="100%"
-              className='h-10 border'
+              className='h-10 border px-3 text-sm text-gray-900 font-medium'
             />
 
             {/* Excerpt */}
             <div>
               <TextArea
-                label="Tóm tắt ngắn (Excerpt)"
+                label="Mô tả ngắn"
                 rows={3}
                 value={excerpt}
                 onChange={setExcerpt}
                 placeholder="Tóm tắt ngắn gọn nội dung bài viết hiển thị ở danh sách bài và SEO meta..."
                 width="100%"
-                className="border"
+                className="border p-3 text-sm text-gray-900 font-medium"
               />
             </div>
           </Card>
@@ -268,9 +289,8 @@ export default function BlogEditorClient({
           <div className="space-y-2">
             <div className="flex items-center justify-between">
               <label className="block text-xs font-bold text-slate-700">
-                Nội dung chi tiết bài viết (Trình soạn thảo Editor) <span className="text-red-500">*</span>
+                Nội dung chi tiết bài viết <span className="text-red-500">*</span>
               </label>
-              <Badge label="TipTap Rich Text Active" variant="success" className='h-8 px-4' />
             </div>
 
             <TipTapEditor
@@ -311,11 +331,8 @@ export default function BlogEditorClient({
                 onChange={setReadTime}
                 placeholder="5 mins read"
                 width="100%"
-                className='h-10 border'
+                className='h-10 border px-3 text-sm text-gray-900 font-medium'
               />
-              <p className="text-[11px] text-slate-500 mt-1">
-                Tự động tính theo tốc độ đọc của người xem khi gõ nội dung.
-              </p>
             </div>
           </Card>
 
@@ -345,44 +362,48 @@ export default function BlogEditorClient({
             </div>
 
             <TextInput
-              label="Thẻ hiển thị (Tag badge)"
+              label="Thẻ hiển thị"
               value={tag}
               onChange={setTag}
               placeholder="VD: Market Expansion, Technology & WMS..."
               width="100%"
-              className='h-10 border'
+              className='h-10 border px-3 text-sm text-gray-900 font-medium'
             />
           </Card>
 
-          {/* Hero Cover Image with Cloudinary Upload */}
+          {/* Hero Cover Media (Image / Video / YouTube) with Cloudinary Upload */}
           <Card variant="default" className="rounded-2xl p-6 space-y-4">
             <div className="flex items-center justify-between border-b border-slate-100 pb-3">
               <h3 className="text-xs font-bold text-slate-800">
-                Hình ảnh tiêu đề (Hero Cover)
+                Hình ảnh hoặc video tiêu đề
               </h3>
-              <Badge label="Cloudinary CDN" variant="info" className='h-8 px-4' />
+              <Badge label="Tối đa 100MB video / 10MB ảnh" variant="neutral" />
             </div>
 
-            {/* Cloudinary Drag-Drop / Upload Box */}
-            <div>
-              <label className="block text-xs font-semibold text-slate-700 mb-1.5">
-                Tải ảnh bìa lên Cloudinary
+            <div className="space-y-3">
+              <label className="block text-xs font-semibold text-slate-700">
+                Tải tệp đa phương tiện lên Cloudinary
               </label>
+
+              {/* Main Upload Dropzone */}
               <label className="relative flex flex-col items-center justify-center p-5 border border-dashed border-gray-200 hover:border-gray-800 hover:bg-gray-50/30 rounded-2xl cursor-pointer transition-all bg-slate-50/50 group">
                 <input
                   type="file"
-                  accept="image/jpeg,image/png,image/webp,image/gif,image/svg+xml,image/avif"
+                  accept="image/jpeg,image/png,image/webp,image/gif,image/svg+xml,image/avif,video/mp4,video/webm,video/quicktime"
                   disabled={isUploadingHero}
                   onChange={(e) => {
                     const file = e.target.files?.[0];
-                    if (file) handleHeroFileUpload(file);
+                    if (file) handleSelectHeroFile(file);
+                    e.target.value = '';
                   }}
                   className="sr-only"
                 />
                 {isUploadingHero ? (
-                  <div className="flex flex-col items-center gap-2 text-emerald-700 py-1">
+                  <div className="flex flex-col items-center gap-2 text-emerald-700 py-2">
                     <Loader2 className="w-6 h-6 animate-spin text-emerald-600" />
-                    <span className="text-xs font-semibold">Đang tải ảnh lên Cloudinary...</span>
+                    <span className="text-xs font-semibold">
+                      Đang tải {uploadFileType === 'video' ? 'video' : 'ảnh'} lên Cloudinary...
+                    </span>
                   </div>
                 ) : (
                   <div className="flex flex-col items-center gap-2 text-center">
@@ -390,17 +411,54 @@ export default function BlogEditorClient({
                       <UploadCloud className="w-5 h-5" />
                     </div>
                     <span className="text-sm font-semibold text-gray-800">
-                      Bấm để chọn ảnh từ máy tính
+                      Bấm để chọn tệp từ máy tính
                     </span>
                     <span className="text-xs text-gray-700">
-                      JPG, PNG, WebP tối đa 10MB • CDN tối ưu hóa tự động
+                      Ảnh (JPG, PNG, WebP tối đa 10MB) hoặc Video (MP4, WebM, MOV tối đa 100MB)
                     </span>
                   </div>
                 )}
               </label>
 
+              {/* Quick upload buttons */}
+              <div className="flex flex-wrap items-center gap-2 pt-1">
+                <label className="cursor-pointer">
+                  <input
+                    type="file"
+                    accept="image/jpeg,image/png,image/webp,image/gif,image/svg+xml,image/avif"
+                    disabled={isUploadingHero}
+                    onChange={(e) => {
+                      const file = e.target.files?.[0];
+                      if (file) handleSelectHeroFile(file);
+                      e.target.value = '';
+                    }}
+                    className="sr-only"
+                  />
+                  <span className="inline-flex items-center px-3 py-1.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-xs font-medium text-slate-700 transition-colors">
+                    Tải ảnh từ máy tính (tối đa 10MB)
+                  </span>
+                </label>
+
+                <label className="cursor-pointer">
+                  <input
+                    type="file"
+                    accept="video/mp4,video/webm,video/quicktime"
+                    disabled={isUploadingHero}
+                    onChange={(e) => {
+                      const file = e.target.files?.[0];
+                      if (file) handleSelectHeroFile(file);
+                      e.target.value = '';
+                    }}
+                    className="sr-only"
+                  />
+                  <span className="inline-flex items-center px-3 py-1.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-xs font-medium text-slate-700 transition-colors">
+                    Tải video từ máy tính (tối đa 100MB)
+                  </span>
+                </label>
+              </div>
+
               {uploadHeroError && (
-                <p className="text-xs text-red-600 font-semibold bg-red-50 p-2.5 rounded-xl border border-red-200 mt-2 flex items-center gap-1.5">
+                <p className="text-xs text-red-600 font-semibold bg-red-50 p-2.5 rounded-xl border border-red-200 flex items-center gap-1.5">
                   <AlertCircle className="w-4 h-4 shrink-0 text-red-600" />
                   <span>{uploadHeroError}</span>
                 </p>
@@ -408,33 +466,83 @@ export default function BlogEditorClient({
             </div>
 
             <TextInput
-              label="Đường dẫn hình ảnh (URL)"
+              label="Đường dẫn đa phương tiện hoặc link YouTube"
               value={heroImage}
               onChange={setHeroImage}
-              placeholder="/assets/case_brother.jpg hoặc https://res.cloudinary.com/..."
+              placeholder="VD: /assets/case_brother.jpg hoặc https://www.youtube.com/watch?v=... hoặc video.mp4"
               width="100%"
-              className='h-10 border'
+              className="h-10 border px-3 text-sm text-gray-900 font-medium"
             />
 
-            {/* Image Preview thumbnail */}
+            {/* Media Preview (YouTube, Video or Image) */}
             {heroImage && (
-              <div className="space-y-1.5 mt-2">
+              <div className="space-y-2 mt-2">
                 <div className="flex items-center justify-between text-xs">
-                  <span className="text-gray-700 font-medium">Xem trước ảnh bìa:</span>
-                  {heroImage.includes('cloudinary.com') && (
-                    <span className="text-emerald-700 font-semibold">
-                      Lưu trữ trên Cloudinary CDN
-                    </span>
-                  )}
+                  <div className="flex items-center gap-2">
+                    <span className="text-gray-700 font-medium">Xem trước:</span>
+                    {getYouTubeEmbedInfo(heroImage) ? (
+                      <Badge label="Video YouTube" variant="error" />
+                    ) : isDirectVideoUrl(heroImage) ? (
+                      <Badge label="Video MP4 / WebM" variant="warning" />
+                    ) : (
+                      <Badge label="Hình ảnh" variant="success" />
+                    )}
+                    {heroImage.includes('cloudinary.com') && (
+                      <Badge label="Cloudinary CDN" variant="neutral" />
+                    )}
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => setHeroImage('')}
+                    className="text-xs text-rose-500 hover:text-rose-700 transition-colors font-medium"
+                  >
+                    Xóa phương tiện
+                  </button>
                 </div>
-                <div className="rounded-xl overflow-hidden border border-slate-200/80 bg-slate-100 aspect-video relative">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={heroImage}
-                    alt="Hero Preview"
-                    className="w-full h-full object-cover"
-                  />
-                </div>
+
+                {/* Preview frame based on media type */}
+                {(() => {
+                  const ytEmbed = getYouTubeEmbedInfo(heroImage);
+                  const isDirectVideo = isDirectVideoUrl(heroImage);
+
+                  if (ytEmbed) {
+                    return (
+                      <div className="rounded-xl overflow-hidden border border-slate-200/80 bg-black aspect-video relative shadow-inner">
+                        <iframe
+                          src={ytEmbed.previewUrl}
+                          title="YouTube Video Preview"
+                          className="w-full h-full border-0 absolute inset-0"
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                          allowFullScreen
+                        />
+                      </div>
+                    );
+                  }
+
+                  if (isDirectVideo) {
+                    return (
+                      <div className="rounded-xl overflow-hidden border border-slate-200/80 bg-black aspect-video relative flex items-center justify-center shadow-inner">
+                        <video
+                          src={heroImage}
+                          controls
+                          playsInline
+                          className="w-full h-full max-h-64 object-contain bg-black rounded-xl"
+                        />
+                      </div>
+                    );
+                  }
+
+                  return (
+                    <div className="rounded-xl overflow-hidden border border-slate-200/80 bg-slate-100 aspect-video relative shadow-inner">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src={heroImage}
+                        alt="Hero Preview"
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                  );
+                })()}
               </div>
             )}
           </Card>

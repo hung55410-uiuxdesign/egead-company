@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { getPostBySlug, getAllPosts } from "@/lib/blogs";
 import { ArticleDetailView } from "@/components/pages/insights/articles/[slug]";
+import { getMediaThumbnailUrl } from "@/lib/utils/media";
 
 export const dynamic = "force-dynamic";
 
@@ -25,7 +26,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     openGraph: {
       title: post.title,
       description: post.excerpt || post.subtitle || post.title,
-      images: post.heroImage ? [{ url: post.heroImage }] : undefined,
+      images: post.heroImage ? [{ url: getMediaThumbnailUrl(post.heroImage) }] : undefined,
     },
   };
 }

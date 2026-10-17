@@ -3,6 +3,7 @@
 import Link from "next/link";
 import MotionSection from "@/components/MotionSection";
 import type { InsightsHubData } from "@/lib/services/blog.service";
+import { getMediaThumbnailUrl } from "@/lib/utils/media";
 
 type Props = {
   sections: InsightsHubData["sections"];
@@ -69,7 +70,7 @@ export default function InsightsCategorySections({ sections }: Props) {
                   {/* Square Image with rounded-[20px] */}
                   <div className="relative aspect-square w-full rounded-[20px] overflow-hidden bg-gray-100 mb-5 shadow-sm">
                     <img
-                      src={item.heroImage}
+                      src={getMediaThumbnailUrl(item.heroImage)}
                       alt={item.title}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     />

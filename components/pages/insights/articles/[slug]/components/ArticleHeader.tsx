@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import type { BlogPost } from '@/types/blog';
+import { getYouTubeEmbedInfo, isDirectVideoUrl, getMediaThumbnailUrl } from '@/lib/utils/media';
 
 type Props = {
   post: BlogPost;
@@ -16,6 +17,10 @@ export default function ArticleHeader({
   backLink,
   backLabel,
 }: Props) {
+  const ytEmbed = getYouTubeEmbedInfo(post.heroImage);
+  const isDirectVideo = isDirectVideoUrl(post.heroImage);
+  const nextArticleThumbnail = nextArticle ? getMediaThumbnailUrl(nextArticle.heroImage) : '';
+
   return (
     <div className="w-full bg-black text-white pt-28 sm:pt-36 pb-12 sm:pb-16 px-6 sm:px-10 lg:px-14 xl:px-16">
       <div className="max-w-7xl mx-auto">
@@ -58,15 +63,39 @@ export default function ArticleHeader({
           </span>
         </div>
 
-        {/* Banner Image & Next Article Row */}
+        {/* Banner Media & Next Article Row */}
         <div className="flex flex-col lg:flex-row items-stretch gap-8 lg:gap-12 mt-6">
-          {/* Main Banner Image (Wide aspect ratio, rounded-[20px]) */}
-          <div className="flex-1 relative aspect-[16/8] sm:aspect-[21/9] lg:aspect-[16/7] w-full rounded-[20px] overflow-hidden bg-white/5 shadow-2xl">
-            <img
-              src={post.heroImage}
-              alt={post.title}
-              className="w-full h-full object-cover rounded-[20px]"
-            />
+          {/* Main Banner Media (YouTube / Video / Image) */}
+          <div className="flex-1 relative aspect-[16/8] sm:aspect-[21/9] lg:aspect-[16/7] w-full rounded-[20px] overflow-hidden bg-black/60 shadow-2xl">
+            {ytEmbed ? (
+              <iframe
+                src={ytEmbed.embedUrl}
+                title={post.title}
+                className="w-full h-full border-0 absolute inset-0 rounded-[20px]"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+              />
+            ) : isDirectVideo ? (
+              <video
+                controls
+                autoPlay
+                loop
+                muted
+                playsInline
+                className="w-full h-full object-cover rounded-[20px]"
+              >
+                <source
+                  src={post.heroImage}
+                  type={post.heroImage.endsWith('.webm') ? 'video/webm' : 'video/mp4'}
+                />
+              </video>
+            ) : (
+              <img
+                src={post.heroImage}
+                alt={post.title}
+                className="w-full h-full object-cover rounded-[20px]"
+              />
+            )}
           </div>
 
           {/* Next Article Sidebar (Desktop) */}
@@ -81,7 +110,7 @@ export default function ArticleHeader({
               >
                 <div className="w-[220px] h-[145px] rounded-[18px] overflow-hidden bg-white/10 shadow-md">
                   <img
-                    src={nextArticle.heroImage}
+                    src={nextArticleThumbnail}
                     alt={nextArticle.title}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 rounded-[18px]"
                   />

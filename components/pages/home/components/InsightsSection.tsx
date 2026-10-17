@@ -6,6 +6,7 @@ import { motion, AnimatePresence, type Variants } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useLatestArticlesQuery } from "@/lib/hooks";
 import { getOptimizedImageUrl } from "@/lib/utils/image";
+import { getMediaThumbnailUrl } from "@/lib/utils/media";
 import type { BlogPost } from "@/types/blog";
 
 export type ArticleItem = {
@@ -45,7 +46,7 @@ function formatPostToArticleItem(post: any): ArticleItem {
     author: authorName,
     date: displayDate || "Recently",
     readTime: post.readTime || "5 MIN",
-    image: post.heroImage || post.image || "/assets/case_brother.jpg",
+    image: getMediaThumbnailUrl(post.heroImage) || post.image || "/assets/case_brother.jpg",
     tag: post.tag || post.categoryName || post.category || "Insights",
   };
 }

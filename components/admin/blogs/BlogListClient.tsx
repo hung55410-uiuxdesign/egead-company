@@ -23,6 +23,7 @@ import {
   TextInput,
 } from "@astryxdesign/core";
 import { useBlogMutations, useSaveBlogMutation } from "@/lib/hooks";
+import { getMediaThumbnailUrl } from "@/lib/utils/media";
 import AIBlogImportModal from "./AIBlogImportModal";
 import { ParsedBlogPost } from "@/lib/utils/aiBlogParser";
 
@@ -428,7 +429,7 @@ export default function BlogListClient({
                               <div className="w-12 h-12 rounded-lg overflow-hidden border border-slate-200 bg-slate-100 shrink-0 hidden sm:block">
                                 {/* eslint-disable-next-line @next/next/no-img-element */}
                                 <img
-                                  src={post.heroImage}
+                                  src={getMediaThumbnailUrl(post.heroImage)}
                                   alt={post.title}
                                   className="w-full h-full object-cover"
                                 />
