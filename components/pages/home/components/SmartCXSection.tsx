@@ -104,15 +104,15 @@ export default function SmartCXSection({
             >
               <div className="flex items-start gap-3 sm:gap-4">
                 <motion.div
-                  whileHover={{ scale: 1.08 }}
-                  className="border border-white/40 px-2 py-0.5 inline-flex items-center shrink-0 rounded-sm group-hover:border-[#6CE8C3]"
+                  whileHover={{ scale: 1.05 }}
+                  className="border border-[#6CE8C3]/70 bg-[#6CE8C3]/10 px-2.5 py-1 inline-flex items-center shrink-0 rounded group-hover:border-[#6CE8C3]"
                 >
-                  <span className="text-[11px] sm:text-xs font-bold tracking-widest text-white group-hover:text-[#6CE8C3] font-mono transition-colors">
+                  <span className="text-xs sm:text-sm font-bold tracking-wider text-[#6CE8C3] font-mono transition-colors">
                     {stat1.brand}
                   </span>
                 </motion.div>
-                <div className="w-[1px] h-10 bg-white/20 shrink-0" />
-                <p className="text-[10px] sm:text-[11px] font-mono uppercase tracking-wider text-[#b3b3b3] leading-[1.45] whitespace-pre-line">
+                <div className="self-stretch w-[1px] min-h-[44px] bg-white/20 shrink-0" />
+                <p className="text-base sm:text-base lg:text-lg font-mono uppercase tracking-wider text-[#d1d5db] group-hover:text-white leading-snug whitespace-pre-line transition-colors">
                   {stat1.tagline}
                 </p>
               </div>
@@ -215,15 +215,15 @@ export default function SmartCXSection({
             >
               <div className="flex items-start gap-3 sm:gap-4">
                 <motion.div
-                  whileHover={{ scale: 1.08 }}
-                  className="border border-white/40 px-2 py-0.5 inline-flex items-center shrink-0 rounded-sm group-hover:border-[#6CE8C3]"
+                  whileHover={{ scale: 1.05 }}
+                  className="border border-[#6CE8C3]/70 bg-[#6CE8C3]/10 px-2.5 py-1 inline-flex items-center shrink-0 rounded group-hover:border-[#6CE8C3]"
                 >
-                  <span className="text-[11px] sm:text-xs font-bold tracking-widest text-white group-hover:text-[#6CE8C3] font-mono transition-colors">
+                  <span className="text-xs sm:text-sm font-bold tracking-wider text-[#6CE8C3] font-mono transition-colors">
                     {stat2.brand}
                   </span>
                 </motion.div>
-                <div className="w-[1px] h-10 bg-white/20 shrink-0" />
-                <p className="text-[10px] sm:text-[11px] font-mono uppercase tracking-wider text-[#b3b3b3] leading-[1.45] whitespace-pre-line">
+                <div className="self-stretch w-[1px] min-h-[44px] bg-white/20 shrink-0" />
+                <p className="text-base sm:text-base lg:text-lg font-mono uppercase tracking-wider text-[#d1d5db] group-hover:text-white leading-snug whitespace-pre-line transition-colors">
                   {stat2.tagline}
                 </p>
               </div>
