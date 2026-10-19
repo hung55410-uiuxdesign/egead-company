@@ -13,6 +13,7 @@ import {
   useUploadMedia,
   useUpdateCareersPageConfigMutation,
 } from '@/lib/hooks';
+import { getYouTubeEmbedInfo } from '@/lib/utils/media';
 import { RenderColumnIcon } from '@/components/pages/company/careers/components/CareerWhyChooseUsSection';
 
 function DefaultBenefitsSvg() {
@@ -165,7 +166,7 @@ interface CareersPageConfigClientProps {
   initialConfig: CareersPageConfigData;
 }
 
-type TabType = 'hero' | 'about' | 'whyChooseUs' | 'offices' | 'json';
+type TabType = 'hero' | 'about' | 'video' | 'whyChooseUs' | 'offices' | 'json';
 
 export default function CareersPageConfigClient({
   initialConfig,
@@ -230,6 +231,32 @@ export default function CareersPageConfigClient({
     const file = e.target.files?.[0];
     if (file) {
       uploadAboutImage({ file, folder: 'careers' });
+    }
+  };
+
+  // Video Upload Hook and Handler
+  const { uploadFile: uploadVideoFile, isUploading: isUploadingVideo } =
+    useUploadMedia({
+      defaultFolder: 'careers/videos',
+      showToast: true,
+      successMessage: 'Tải video thành công!',
+      onSuccess: (res) => {
+        if (res?.url) {
+          setConfig((prev) => ({
+            ...prev,
+            video: {
+              ...(prev.video || {}),
+              videoUrl: res.url,
+            },
+          }));
+        }
+      },
+    });
+
+  const handleVideoFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      uploadVideoFile(file);
     }
   };
 
@@ -516,6 +543,20 @@ export default function CareersPageConfigClient({
 
         <button
           type="button"
+          onClick={() => handleTabChange('video')}
+          className={`px-4 py-2.5 text-sm font-medium transition-colors border-b-2 whitespace-nowrap ${activeTab === 'video'
+              ? 'border-slate-900 text-slate-900 font-semibold'
+              : 'border-transparent text-slate-500 hover:text-slate-900'
+            }`}
+        >
+          Video giới thiệu (Ở giữa)
+          {config.video?.videoUrl ? (
+            <span className="ml-1.5 inline-block w-2 h-2 rounded-full bg-emerald-500" />
+          ) : null}
+        </button>
+
+        <button
+          type="button"
           onClick={() => handleTabChange('whyChooseUs')}
           className={`px-4 py-2.5 text-sm font-medium transition-colors border-b-2 whitespace-nowrap ${activeTab === 'whyChooseUs'
               ? 'border-slate-900 text-slate-900 font-semibold'
@@ -768,6 +809,163 @@ export default function CareersPageConfigClient({
                       className="w-full h-auto object-cover max-h-80"
                     />
                   </div>
+                </div>
+              )}
+            </div>
+          </div>
+        </Card>
+      )}
+
+      {/* =========================================================================
+          TAB VIDEO: VIDEO GIỚI THIỆU (Ở GIỮA)
+          ========================================================================= */}
+      {activeTab === 'video' && (
+        <Card className="p-6 bg-white rounded-2xl border border-slate-200 space-y-6">
+          <div className="space-y-1">
+            <h2 className="text-base font-bold text-slate-900">
+              Video giới thiệu / văn hóa (Nằm ở giữa trang)
+            </h2>
+            <p className="text-xs text-slate-500">
+              Video này sẽ xuất hiện ở giữa danh sách việc làm và khối Why choose us. Nếu không gắn video (để trống hoặc bấm Xóa), client sẽ tự động ẩn đi hoàn toàn.
+            </p>
+          </div>
+
+          <div className="space-y-5">
+            {/* Input Video URL + Upload Video File */}
+            <div className="space-y-3">
+              <label className="block text-xs font-bold text-slate-700 mb-1.5">
+                Đường dẫn Video (Link YouTube hoặc video tải lên)
+              </label>
+              <div className="flex flex-col sm:flex-row gap-2.5">
+                <div className="flex-1">
+                  <TextInput
+                    label="Đường dẫn Video"
+                    isLabelHidden
+                    value={config.video?.videoUrl || ''}
+                    onChange={(val) =>
+                      setConfig((prev) => ({
+                        ...prev,
+                        video: {
+                          ...(prev.video || {}),
+                          videoUrl: val,
+                        },
+                      }))
+                    }
+                    placeholder="Dán link YouTube (vd: https://www.youtube.com/watch?v=... hoặc https://youtu.be/...) hoặc link video MP4/WebM"
+                    width="100%"
+                    className="h-10 border"
+                  />
+                </div>
+                <label className="cursor-pointer shrink-0">
+                  <input
+                    type="file"
+                    accept="video/mp4,video/webm,video/quicktime"
+                    onChange={handleVideoFileChange}
+                    disabled={isUploadingVideo}
+                    className="hidden"
+                  />
+                  <span className="inline-flex items-center justify-center px-4 h-10 rounded-xl bg-slate-900 text-white text-xs sm:text-sm font-medium hover:bg-slate-800 transition">
+                    {isUploadingVideo ? 'Đang tải video...' : 'Tải video từ máy tính'}
+                  </span>
+                </label>
+              </div>
+              <p className="text-[11px] text-slate-400">
+                Hỗ trợ dán link video YouTube thông thường, Shorts, hoặc tải trực tiếp tệp video MP4/WebM lên hệ thống Cloudinary.
+              </p>
+            </div>
+
+            {/* Optional Title & Subtitle */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2 border-t border-slate-100">
+              <div>
+                <TextInput
+                  label="Tiêu đề video (Tùy chọn)"
+                  value={config.video?.title || ''}
+                  onChange={(val) =>
+                    setConfig((prev) => ({
+                      ...prev,
+                      video: {
+                        ...(prev.video || {}),
+                        title: val,
+                      },
+                    }))
+                  }
+                  placeholder="Ví dụ: Một ngày làm việc tại E-GEAD"
+                  width="100%"
+                  className="h-10 border"
+                />
+              </div>
+
+              <div>
+                <TextInput
+                  label="Phụ đề / Tag nhỏ (Tùy chọn)"
+                  value={config.video?.subtitle || ''}
+                  onChange={(val) =>
+                    setConfig((prev) => ({
+                      ...prev,
+                      video: {
+                        ...(prev.video || {}),
+                        subtitle: val,
+                      },
+                    }))
+                  }
+                  placeholder="Ví dụ: Văn hóa doanh nghiệp"
+                  width="100%"
+                  className="h-10 border"
+                />
+              </div>
+            </div>
+
+            {/* Preview Box */}
+            <div className="pt-2">
+              {config.video?.videoUrl ? (
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-semibold text-slate-700">
+                      Xem trước video:
+                    </span>
+                    <button
+                      type="button"
+                      onClick={() =>
+                        setConfig((prev) => ({
+                          ...prev,
+                          video: {
+                            ...(prev.video || {}),
+                            videoUrl: '',
+                          },
+                        }))
+                      }
+                      className="text-xs font-medium text-rose-600 hover:text-rose-700 hover:underline"
+                    >
+                      Xóa video
+                    </button>
+                  </div>
+
+                  <div className="relative w-full max-w-3xl rounded-2xl overflow-hidden bg-slate-950 aspect-video border border-slate-200">
+                    {getYouTubeEmbedInfo(config.video.videoUrl) ? (
+                      <iframe
+                        src={getYouTubeEmbedInfo(config.video.videoUrl)?.previewUrl}
+                        title="Xem trước video YouTube"
+                        className="w-full h-full border-0 absolute inset-0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowFullScreen
+                      />
+                    ) : (
+                      <video
+                        src={config.video.videoUrl}
+                        controls
+                        className="w-full h-full object-contain"
+                      />
+                    )}
+                  </div>
+                </div>
+              ) : (
+                <div className="p-6 rounded-2xl border border-dashed border-slate-200 bg-slate-50/60 text-center space-y-1">
+                  <p className="text-sm font-medium text-slate-600">
+                    Chưa gắn video nào
+                  </p>
+                  <p className="text-xs text-slate-400">
+                    Section video ở giữa trang tuyển dụng hiện đang được ẩn ở ngoài Client. Gắn link YouTube hoặc tải file video lên để kích hoạt hiển thị.
+                  </p>
                 </div>
               )}
             </div>

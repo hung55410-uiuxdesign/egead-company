@@ -33,9 +33,16 @@ export interface CareersOfficeItem {
   addressLines: string[];
 }
 
+export interface CareersVideoData {
+  videoUrl?: string;
+  title?: string;
+  subtitle?: string;
+}
+
 export interface CareersPageConfigData {
   hero: CareersHeroData;
   about: CareersAboutData;
+  video?: CareersVideoData;
   whyChooseUs: CareersWhyChooseUsData;
   offices: CareersOfficeItem[];
 }
@@ -55,6 +62,11 @@ export const DEFAULT_CAREERS_PAGE_CONFIG: CareersPageConfigData = {
       'Join us and you will become part of a passionate team, creating products with profound global impact.',
     ],
     image: '/assets/careers/culture-spotlight.png',
+  },
+  video: {
+    videoUrl: '',
+    title: '',
+    subtitle: '',
   },
   whyChooseUs: {
     title: 'Why choose us?',
@@ -148,6 +160,11 @@ export function normalizeCareersPageConfig(
         ? data.about.paragraphs
         : DEFAULT_CAREERS_PAGE_CONFIG.about.paragraphs,
       image: data.about?.image?.trim() || DEFAULT_CAREERS_PAGE_CONFIG.about.image,
+    },
+    video: {
+      videoUrl: data.video?.videoUrl?.trim() || '',
+      title: data.video?.title?.trim() || '',
+      subtitle: data.video?.subtitle?.trim() || '',
     },
     whyChooseUs: {
       title: data.whyChooseUs?.title?.trim() || DEFAULT_CAREERS_PAGE_CONFIG.whyChooseUs.title,

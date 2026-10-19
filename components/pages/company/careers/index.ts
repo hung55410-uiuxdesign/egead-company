@@ -2,6 +2,7 @@ export { default as CareersView } from "./CareersView";
 export { default as CareerHeroSection } from "./components/CareerHeroSection";
 export { default as CareerAboutSection } from "./components/CareerAboutSection";
 export { default as CareerOpportunitiesSection } from "./components/CareerOpportunitiesSection";
+export { default as CareerVideoSection } from "./components/CareerVideoSection";
 export { default as CareerWhyChooseUsSection } from "./components/CareerWhyChooseUsSection";
 export { default as CareerOfficesSection } from "./components/CareerOfficesSection";
 export { default as CareerLifeSection } from "./components/CareerLifeSection";

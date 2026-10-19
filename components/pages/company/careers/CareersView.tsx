@@ -6,6 +6,7 @@ import type { CareersPageConfigData } from '@/lib/services/careers-page-config.s
 import CareerHeroSection from './components/CareerHeroSection';
 import CareerAboutSection from './components/CareerAboutSection';
 import CareerOpportunitiesSection from './components/CareerOpportunitiesSection';
+import CareerVideoSection from './components/CareerVideoSection';
 import CareerWhyChooseUsSection from './components/CareerWhyChooseUsSection';
 import CareerOfficesSection from './components/CareerOfficesSection';
 
@@ -33,6 +34,11 @@ export default function CareersView({ jobs, config }: CareersViewProps) {
 
         {/* 3. Career Opportunities (2-column job cards) */}
         <CareerOpportunitiesSection jobs={jobs} />
+
+        {/* Video giới thiệu ở giữa (Hiển thị nếu admin cấu hình video, ẩn nếu không gắn) */}
+        {config?.video?.videoUrl && (
+          <CareerVideoSection config={config.video} />
+        )}
 
         {/* 4. Why Choose Us? (Warm cream card with benefits) */}
         <CareerWhyChooseUsSection config={config?.whyChooseUs} />
