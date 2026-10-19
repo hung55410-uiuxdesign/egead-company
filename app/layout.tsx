@@ -19,12 +19,19 @@ export const metadata: Metadata = {
   title: 'E-GEAD — Automate Operations, Scale Global Sales',
   description: 'Unify order management across every channel, automate multi-marketplace workflows, and synchronize inventory in real time — cutting costs while accelerating revenue growth.',
   icons: {
-    icon: 'https://egeadcompany.com/images/egead/logo.png',
+    icon: [
+      { url: '/assets/logo/logo-color.png', type: 'image/png' },
+      { url: '/favicon.ico' },
+    ],
+    shortcut: ['/assets/logo/logo-color.png'],
+    apple: [
+      { url: '/assets/logo/logo-color.png', type: 'image/png' },
+    ],
   },
   openGraph: {
     title: 'E-GEAD — Automate Operations, Scale Global Sales',
     description: 'Unify order management across every channel, automate multi-marketplace workflows, and synchronize inventory in real time — cutting costs while accelerating revenue growth.',
-    images: ['https://egeadcompany.com/images/egead/logo.png'],
+    images: ['/assets/logo/logo-color.png'],
     siteName: 'E-GEAD',
   },
 };
@@ -41,6 +48,11 @@ export default function RootLayout({
       suppressHydrationWarning
       data-scroll-behavior="smooth"
     >
+      <head>
+        <link rel="icon" href="/assets/logo/logo-color.png" type="image/png" />
+        <link rel="shortcut icon" href="/assets/logo/logo-color.png" type="image/png" />
+        <link rel="apple-touch-icon" href="/assets/logo/logo-color.png" />
+      </head>
       <body className="bg-[#0A0D0E] text-white min-h-screen flex flex-col font-sans selection:bg-[#10E774] selection:text-black">
         {children}
       </body>

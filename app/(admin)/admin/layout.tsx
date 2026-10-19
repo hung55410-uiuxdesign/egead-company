@@ -7,6 +7,16 @@ import { AstryxProviders } from '@/components/admin/providers/AstryxProvider';
 export const metadata: Metadata = {
   title: 'E-GEAD Admin Portal — Quản lý nội dung & Blog CMS',
   description: 'Hệ thống quản trị và đăng bài viết blog hiện đại chuẩn SaaS cho E-GEAD.',
+  icons: {
+    icon: [
+      { url: '/assets/logo/logo-color.png', type: 'image/png' },
+      { url: '/favicon.ico' },
+    ],
+    shortcut: ['/assets/logo/logo-color.png'],
+    apple: [
+      { url: '/assets/logo/logo-color.png', type: 'image/png' },
+    ],
+  },
   robots: {
     index: false,
     follow: false,
