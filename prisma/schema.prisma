@@ -385,3 +385,60 @@ model PartnerItem {
 
 
 
+// -------------------------------------------------------------
+// E-GEAD Career & Recruitment Models
+// -------------------------------------------------------------
+
+model CareerJob {
+  id                String   @id @default(cuid())
+  slug              String   @unique
+  title             String
+  department        String   @default("General")
+  location          String   @default("Hanoi")
+  type              String   @default("Full-time")
+  experience        String   @default("Not required")
+  salary            String   @default("Negotiable")
+  quantity          String   @default("01")
+  deadline          String   @default("2026-12-31")
+  excerpt           String   @default("") @db.Text
+  description       String   @default("") @db.Text
+  requirements      String   @default("") @db.Text
+  benefits          String   @default("") @db.Text
+  content           String?  @default("") @db.Text
+  contactEmail      String   @default("hr@egead.com")
+  status            String   @default("published") // 'published' | 'draft' | 'closed'
+  featured          Boolean  @default(false)
+  views             Int      @default(0)
+  applicationsCount Int      @default(0)
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  @@index([slug])
+  @@index([status])
+  @@index([department])
+  @@map("career_job")
+}
+
+model CareerApplication {
+  id              String   @id @default(cuid())
+  jobId           String   @default("general")
+  jobTitle        String   @default("General Application")
+  fullName        String
+  email           String
+  phone           String
+  cvUrl           String   @db.Text
+  portfolioUrl    String?
+  expectedSalary  String?
+  experienceYears String?
+  startDate       String?
+  coverLetter     String?  @db.Text
+  status          String   @default("pending") // 'pending' | 'reviewing' | 'interview' | 'offered' | 'rejected'
+  notes           String?  @db.Text
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@index([jobId])
+  @@index([status])
+  @@index([email])
+  @@map("career_application")
+}

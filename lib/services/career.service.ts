@@ -1,5 +1,5 @@
-import fs from 'fs/promises';
-import path from 'path';
+import { Prisma } from '@prisma/client';
+import { prisma } from '@/lib/prisma';
 import {
   CareerPost,
   JobApplication,
@@ -10,63 +10,151 @@ import {
 import initialJobs from '@/data/careers.json';
 import initialApplications from '@/data/career_applications.json';
 
-const CAREERS_FILE_PATH = path.join(process.cwd(), 'data', 'careers.json');
-const APPLICATIONS_FILE_PATH = path.join(
-  process.cwd(),
-  'data',
-  'career_applications.json'
-);
+let isSeeded = false;
 
 /**
- * Read jobs from storage with fallback
+ * Maps a Prisma CareerJob record to CareerPost
  */
-async function readJobs(): Promise<CareerPost[]> {
+function mapJobRecord(record: any): CareerPost {
+  return {
+    id: record.id,
+    slug: record.slug,
+    title: record.title,
+    department: record.department || 'General',
+    location: record.location || 'Hanoi',
+    type: record.type || 'Full-time',
+    experience: record.experience || 'Not required',
+    salary: record.salary || 'Negotiable',
+    quantity: record.quantity || '01',
+    deadline: record.deadline || '2026-12-31',
+    excerpt: record.excerpt || '',
+    description: record.description || '',
+    requirements: record.requirements || '',
+    benefits: record.benefits || '',
+    content: record.content || '',
+    contactEmail: record.contactEmail || 'hr@egead.com',
+    status: (record.status as JobStatus) || 'published',
+    featured: Boolean(record.featured),
+    views: Number(record.views || 0),
+    applicationsCount: Number(record.applicationsCount || 0),
+    createdAt:
+      record.createdAt instanceof Date
+        ? record.createdAt.toISOString()
+        : new Date(record.createdAt || Date.now()).toISOString(),
+    updatedAt:
+      record.updatedAt instanceof Date
+        ? record.updatedAt.toISOString()
+        : new Date(record.updatedAt || Date.now()).toISOString(),
+  };
+}
+
+/**
+ * Maps a Prisma CareerApplication record to JobApplication
+ */
+function mapApplicationRecord(record: any): JobApplication {
+  return {
+    id: record.id,
+    jobId: record.jobId || 'general',
+    jobTitle: record.jobTitle || 'General Application',
+    fullName: record.fullName,
+    email: record.email,
+    phone: record.phone,
+    cvUrl: record.cvUrl,
+    portfolioUrl: record.portfolioUrl || undefined,
+    expectedSalary: record.expectedSalary || undefined,
+    experienceYears: record.experienceYears || undefined,
+    startDate: record.startDate || undefined,
+    coverLetter: record.coverLetter || undefined,
+    status: (record.status as ApplicationStatus) || 'pending',
+    notes: record.notes || undefined,
+    createdAt:
+      record.createdAt instanceof Date
+        ? record.createdAt.toISOString()
+        : new Date(record.createdAt || Date.now()).toISOString(),
+    updatedAt:
+      record.updatedAt instanceof Date
+        ? record.updatedAt.toISOString()
+        : new Date(record.updatedAt || Date.now()).toISOString(),
+  };
+}
+
+/**
+ * Ensure initial JSON data is seeded into PostgreSQL if tables are empty.
+ * Strictly preserves 100% of existing DB records (update: {}).
+ */
+async function ensureCareerDataSeeded(): Promise<void> {
+  if (isSeeded) return;
   try {
-    const content = await fs.readFile(CAREERS_FILE_PATH, 'utf-8');
-    const jobs: CareerPost[] = JSON.parse(content);
-    return jobs.sort(
-      (a, b) =>
-        new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-    );
-  } catch {
-    return initialJobs as CareerPost[];
+    const jobCount = await prisma.careerJob.count();
+    if (jobCount === 0 && Array.isArray(initialJobs) && initialJobs.length > 0) {
+      for (const job of initialJobs as CareerPost[]) {
+        await prisma.careerJob.upsert({
+          where: { slug: job.slug },
+          update: {},
+          create: {
+            id: job.id,
+            slug: job.slug,
+            title: job.title,
+            department: job.department || 'General',
+            location: job.location || 'Hanoi',
+            type: String(job.type || 'Full-time'),
+            experience: job.experience || 'Not required',
+            salary: job.salary || 'Negotiable',
+            quantity: String(job.quantity || '01'),
+            deadline: job.deadline || '2026-12-31',
+            excerpt: job.excerpt || '',
+            description: job.description || '',
+            requirements: job.requirements || '',
+            benefits: job.benefits || '',
+            content: job.content || '',
+            contactEmail: job.contactEmail || 'hr@egead.com',
+            status: job.status || 'published',
+            featured: Boolean(job.featured),
+            views: Number(job.views || 0),
+            applicationsCount: Number(job.applicationsCount || 0),
+            createdAt: job.createdAt ? new Date(job.createdAt) : new Date(),
+            updatedAt: job.updatedAt ? new Date(job.updatedAt) : new Date(),
+          },
+        });
+      }
+    }
+
+    const appCount = await prisma.careerApplication.count();
+    if (
+      appCount === 0 &&
+      Array.isArray(initialApplications) &&
+      initialApplications.length > 0
+    ) {
+      for (const app of initialApplications as JobApplication[]) {
+        await prisma.careerApplication.upsert({
+          where: { id: app.id },
+          update: {},
+          create: {
+            id: app.id,
+            jobId: app.jobId || 'general',
+            jobTitle: app.jobTitle || 'General Application',
+            fullName: app.fullName,
+            email: app.email,
+            phone: app.phone,
+            cvUrl: app.cvUrl,
+            portfolioUrl: app.portfolioUrl || null,
+            expectedSalary: app.expectedSalary || null,
+            experienceYears: app.experienceYears || null,
+            startDate: app.startDate || null,
+            coverLetter: app.coverLetter || null,
+            status: app.status || 'pending',
+            notes: app.notes || null,
+            createdAt: app.createdAt ? new Date(app.createdAt) : new Date(),
+            updatedAt: app.updatedAt ? new Date(app.updatedAt) : new Date(),
+          },
+        });
+      }
+    }
+
+    isSeeded = true;
+  } catch (error) {
+    console.warn('[career.service] Initial seed check warning:', error);
   }
-}
-
-/**
- * Write jobs to storage
- */
-async function writeJobs(jobs: CareerPost[]): Promise<void> {
-  await fs.writeFile(CAREERS_FILE_PATH, JSON.stringify(jobs, null, 2), 'utf-8');
-}
-
-/**
- * Read applications from storage with fallback
- */
-async function readApplications(): Promise<JobApplication[]> {
-  try {
-    const content = await fs.readFile(APPLICATIONS_FILE_PATH, 'utf-8');
-    const applications: JobApplication[] = JSON.parse(content);
-    return applications.sort(
-      (a, b) =>
-        new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-    );
-  } catch {
-    return initialApplications as JobApplication[];
-  }
-}
-
-/**
- * Write applications to storage
- */
-async function writeApplications(
-  applications: JobApplication[]
-): Promise<void> {
-  await fs.writeFile(
-    APPLICATIONS_FILE_PATH,
-    JSON.stringify(applications, null, 2),
-    'utf-8'
-  );
 }
 
 /**
@@ -90,49 +178,61 @@ export async function getAllJobs(filter?: {
   department?: string;
   search?: string;
 }): Promise<CareerPost[]> {
-  let jobs = await readJobs();
+  await ensureCareerDataSeeded();
+
+  const where: Prisma.CareerJobWhereInput = {};
 
   if (filter?.status && filter.status !== 'all') {
-    jobs = jobs.filter((job) => job.status === filter.status);
+    where.status = filter.status;
   }
 
   if (filter?.department && filter.department !== 'all') {
-    jobs = jobs.filter((job) => job.department === filter.department);
+    where.department = filter.department;
   }
 
-  if (filter?.search) {
-    const q = filter.search.toLowerCase().trim();
-    jobs = jobs.filter(
-      (job) =>
-        job.title.toLowerCase().includes(q) ||
-        job.department.toLowerCase().includes(q) ||
-        job.location.toLowerCase().includes(q) ||
-        job.excerpt.toLowerCase().includes(q) ||
-        job.slug.toLowerCase().includes(q)
-    );
+  if (filter?.search && filter.search.trim()) {
+    const q = filter.search.trim();
+    where.OR = [
+      { title: { contains: q, mode: 'insensitive' } },
+      { department: { contains: q, mode: 'insensitive' } },
+      { location: { contains: q, mode: 'insensitive' } },
+      { excerpt: { contains: q, mode: 'insensitive' } },
+      { slug: { contains: q, mode: 'insensitive' } },
+    ];
   }
 
-  return jobs;
+  const records = await prisma.careerJob.findMany({
+    where,
+    orderBy: { createdAt: 'desc' },
+  });
+
+  return records.map(mapJobRecord);
 }
 
 /**
  * Get single career post by ID
  */
 export async function getJobById(id: string): Promise<CareerPost | null> {
-  const jobs = await readJobs();
-  return jobs.find((j) => j.id === id) || null;
+  await ensureCareerDataSeeded();
+  const record = await prisma.careerJob.findUnique({
+    where: { id },
+  });
+  return record ? mapJobRecord(record) : null;
 }
 
 /**
  * Get single career post by slug
  */
 export async function getJobBySlug(slug: string): Promise<CareerPost | null> {
-  const jobs = await readJobs();
-  return jobs.find((j) => j.slug === slug) || null;
+  await ensureCareerDataSeeded();
+  const record = await prisma.careerJob.findUnique({
+    where: { slug },
+  });
+  return record ? mapJobRecord(record) : null;
 }
 
 /**
- * Create or update a career posting
+ * Create or update a career posting in PostgreSQL
  */
 export async function saveJob(
   jobData: Partial<CareerPost> & { title: string }
@@ -141,52 +241,96 @@ export async function saveJob(
     throw new Error('Tiêu đề tin tuyển dụng không được để trống.');
   }
 
-  const jobs = await readJobs();
-  const now = new Date().toISOString();
-  const slug = jobData.slug?.trim() || generateSlug(jobData.title);
+  await ensureCareerDataSeeded();
 
-  let saved: CareerPost;
+  const baseSlug =
+    jobData.slug?.trim() || generateSlug(jobData.title) || `job-${Date.now()}`;
 
   if (jobData.id) {
-    const index = jobs.findIndex((j) => j.id === jobData.id);
-    if (index === -1) {
+    const existing = await prisma.careerJob.findUnique({
+      where: { id: jobData.id },
+    });
+
+    if (!existing) {
       throw new Error(`Không tìm thấy tin tuyển dụng với mã: ${jobData.id}`);
     }
 
-    saved = {
-      ...jobs[index],
-      ...jobData,
-      title: jobData.title.trim(),
-      slug,
-      department: jobData.department?.trim() || jobs[index].department || 'General',
-      location: jobData.location?.trim() || jobs[index].location || 'Hanoi',
-      type: jobData.type || jobs[index].type || 'Full-time',
-      experience: jobData.experience?.trim() || jobs[index].experience || 'Not required',
-      salary: jobData.salary?.trim() || jobs[index].salary || 'Negotiable',
-      quantity: jobData.quantity || jobs[index].quantity || '01',
-      deadline: jobData.deadline || jobs[index].deadline || '2026-12-31',
-      excerpt: jobData.excerpt?.trim() || jobs[index].excerpt || '',
-      description: jobData.description || jobs[index].description || '',
-      requirements: jobData.requirements || jobs[index].requirements || '',
-      benefits: jobData.benefits || jobs[index].benefits || '',
-      contactEmail: jobData.contactEmail?.trim() || jobs[index].contactEmail || 'hr@egead.com',
-      status: (jobData.status as JobStatus) || jobs[index].status || 'published',
-      featured: Boolean(jobData.featured),
-      updatedAt: now,
-    };
+    // Ensure slug uniqueness if changed
+    let finalSlug = baseSlug;
+    if (finalSlug !== existing.slug) {
+      const slugConflict = await prisma.careerJob.findUnique({
+        where: { slug: finalSlug },
+      });
+      if (slugConflict && slugConflict.id !== existing.id) {
+        finalSlug = `${finalSlug}-${Date.now().toString().slice(-4)}`;
+      }
+    }
 
-    jobs[index] = saved;
-  } else {
-    saved = {
+    const updated = await prisma.careerJob.update({
+      where: { id: jobData.id },
+      data: {
+        title: jobData.title.trim(),
+        slug: finalSlug,
+        department:
+          jobData.department?.trim() || existing.department || 'General',
+        location: jobData.location?.trim() || existing.location || 'Hanoi',
+        type: String(jobData.type || existing.type || 'Full-time'),
+        experience:
+          jobData.experience?.trim() || existing.experience || 'Not required',
+        salary: jobData.salary?.trim() || existing.salary || 'Negotiable',
+        quantity: String(jobData.quantity ?? existing.quantity ?? '01'),
+        deadline: jobData.deadline || existing.deadline || '2026-12-31',
+        excerpt:
+          jobData.excerpt !== undefined
+            ? jobData.excerpt.trim()
+            : existing.excerpt,
+        description:
+          jobData.description !== undefined
+            ? jobData.description
+            : existing.description,
+        requirements:
+          jobData.requirements !== undefined
+            ? jobData.requirements
+            : existing.requirements,
+        benefits:
+          jobData.benefits !== undefined ? jobData.benefits : existing.benefits,
+        content:
+          jobData.content !== undefined ? jobData.content : existing.content,
+        contactEmail:
+          jobData.contactEmail?.trim() ||
+          existing.contactEmail ||
+          'hr@egead.com',
+        status: (jobData.status as JobStatus) || existing.status || 'published',
+        featured:
+          jobData.featured !== undefined
+            ? Boolean(jobData.featured)
+            : existing.featured,
+      },
+    });
+
+    return mapJobRecord(updated);
+  }
+
+  // Creating a new job posting: ensure slug does not collide
+  let finalSlug = baseSlug;
+  const slugConflict = await prisma.careerJob.findUnique({
+    where: { slug: finalSlug },
+  });
+  if (slugConflict) {
+    finalSlug = `${finalSlug}-${Date.now().toString().slice(-4)}`;
+  }
+
+  const created = await prisma.careerJob.create({
+    data: {
       id: `job-${Date.now()}`,
       title: jobData.title.trim(),
-      slug,
+      slug: finalSlug,
       department: jobData.department?.trim() || 'General',
       location: jobData.location?.trim() || 'Hanoi',
-      type: jobData.type || 'Full-time',
+      type: String(jobData.type || 'Full-time'),
       experience: jobData.experience?.trim() || 'Not required',
       salary: jobData.salary?.trim() || 'Negotiable',
-      quantity: jobData.quantity || '01',
+      quantity: String(jobData.quantity || '01'),
       deadline: jobData.deadline || '2026-12-31',
       excerpt: jobData.excerpt?.trim() || '',
       description: jobData.description || '',
@@ -198,35 +342,35 @@ export async function saveJob(
       featured: Boolean(jobData.featured),
       views: 0,
       applicationsCount: 0,
-      createdAt: now,
-      updatedAt: now,
-    };
+    },
+  });
 
-    jobs.unshift(saved);
-  }
-
-  await writeJobs(jobs);
-  return saved;
+  return mapJobRecord(created);
 }
 
 /**
  * Delete a career posting
  */
 export async function deleteJob(id: string): Promise<boolean> {
-  const jobs = await readJobs();
-  const filtered = jobs.filter((j) => j.id !== id);
-  if (filtered.length === jobs.length) {
+  await ensureCareerDataSeeded();
+  try {
+    await prisma.careerJob.delete({
+      where: { id },
+    });
+    return true;
+  } catch {
     return false;
   }
-  await writeJobs(filtered);
-  return true;
 }
 
 /**
  * Get distinct department list
  */
 export async function getDepartments(): Promise<string[]> {
-  const jobs = await readJobs();
+  await ensureCareerDataSeeded();
+  const jobs = await prisma.careerJob.findMany({
+    select: { department: true },
+  });
   const deptSet = new Set<string>();
   jobs.forEach((j) => {
     if (j.department?.trim()) {
@@ -244,28 +388,34 @@ export async function getAllApplications(filter?: {
   status?: string;
   search?: string;
 }): Promise<JobApplication[]> {
-  let applications = await readApplications();
+  await ensureCareerDataSeeded();
+
+  const where: Prisma.CareerApplicationWhereInput = {};
 
   if (filter?.jobId && filter.jobId !== 'all') {
-    applications = applications.filter((app) => app.jobId === filter.jobId);
+    where.jobId = filter.jobId;
   }
 
   if (filter?.status && filter.status !== 'all') {
-    applications = applications.filter((app) => app.status === filter.status);
+    where.status = filter.status;
   }
 
-  if (filter?.search) {
-    const q = filter.search.toLowerCase().trim();
-    applications = applications.filter(
-      (app) =>
-        app.fullName.toLowerCase().includes(q) ||
-        app.email.toLowerCase().includes(q) ||
-        app.phone.toLowerCase().includes(q) ||
-        app.jobTitle.toLowerCase().includes(q)
-    );
+  if (filter?.search && filter.search.trim()) {
+    const q = filter.search.trim();
+    where.OR = [
+      { fullName: { contains: q, mode: 'insensitive' } },
+      { email: { contains: q, mode: 'insensitive' } },
+      { phone: { contains: q, mode: 'insensitive' } },
+      { jobTitle: { contains: q, mode: 'insensitive' } },
+    ];
   }
 
-  return applications;
+  const records = await prisma.careerApplication.findMany({
+    where,
+    orderBy: { createdAt: 'desc' },
+  });
+
+  return records.map(mapApplicationRecord);
 }
 
 /**
@@ -274,8 +424,11 @@ export async function getAllApplications(filter?: {
 export async function getApplicationById(
   id: string
 ): Promise<JobApplication | null> {
-  const applications = await readApplications();
-  return applications.find((a) => a.id === id) || null;
+  await ensureCareerDataSeeded();
+  const record = await prisma.careerApplication.findUnique({
+    where: { id },
+  });
+  return record ? mapApplicationRecord(record) : null;
 }
 
 /**
@@ -299,10 +452,8 @@ export async function submitApplication(
     throw new Error('Vui lòng cung cấp link CV hoặc tải tệp đính kèm.');
   }
 
-  const applications = await readApplications();
-  const now = new Date().toISOString();
+  await ensureCareerDataSeeded();
 
-  // Find job title if jobId is provided and jobTitle is empty
   let jobTitle = data.jobTitle?.trim() || 'General Application';
   if (data.jobId && data.jobId !== 'general') {
     const targetJob = await getJobById(data.jobId);
@@ -311,40 +462,40 @@ export async function submitApplication(
     }
   }
 
-  const newApp: JobApplication = {
-    id: `app-${Date.now()}`,
-    jobId: data.jobId || 'general',
-    jobTitle,
-    fullName: data.fullName.trim(),
-    email: data.email.trim(),
-    phone: data.phone.trim(),
-    cvUrl: data.cvUrl.trim(),
-    portfolioUrl: data.portfolioUrl?.trim() || undefined,
-    expectedSalary: data.expectedSalary?.trim() || undefined,
-    experienceYears: data.experienceYears?.trim() || undefined,
-    startDate: data.startDate?.trim() || undefined,
-    coverLetter: data.coverLetter?.trim() || undefined,
-    status: data.status || 'pending',
-    notes: data.notes?.trim() || undefined,
-    createdAt: now,
-    updatedAt: now,
-  };
-
-  applications.unshift(newApp);
-  await writeApplications(applications);
+  const created = await prisma.careerApplication.create({
+    data: {
+      id: `app-${Date.now()}`,
+      jobId: data.jobId || 'general',
+      jobTitle,
+      fullName: data.fullName.trim(),
+      email: data.email.trim(),
+      phone: data.phone.trim(),
+      cvUrl: data.cvUrl.trim(),
+      portfolioUrl: data.portfolioUrl?.trim() || null,
+      expectedSalary: data.expectedSalary?.trim() || null,
+      experienceYears: data.experienceYears?.trim() || null,
+      startDate: data.startDate?.trim() || null,
+      coverLetter: data.coverLetter?.trim() || null,
+      status: data.status || 'pending',
+      notes: data.notes?.trim() || null,
+    },
+  });
 
   // Increment application count on the job posting if found
   if (data.jobId && data.jobId !== 'general') {
-    const jobs = await readJobs();
-    const jobIndex = jobs.findIndex((j) => j.id === data.jobId);
-    if (jobIndex !== -1) {
-      jobs[jobIndex].applicationsCount =
-        (jobs[jobIndex].applicationsCount || 0) + 1;
-      await writeJobs(jobs);
+    try {
+      await prisma.careerJob.update({
+        where: { id: data.jobId },
+        data: {
+          applicationsCount: { increment: 1 },
+        },
+      });
+    } catch {
+      // Ignore if jobId does not exist in career_job table
     }
   }
 
-  return newApp;
+  return mapApplicationRecord(created);
 }
 
 /**
@@ -355,44 +506,58 @@ export async function updateApplicationStatus(
   status: ApplicationStatus,
   notes?: string
 ): Promise<JobApplication> {
-  const applications = await readApplications();
-  const index = applications.findIndex((a) => a.id === id);
-  if (index === -1) {
+  await ensureCareerDataSeeded();
+
+  const existing = await prisma.careerApplication.findUnique({
+    where: { id },
+  });
+  if (!existing) {
     throw new Error(`Không tìm thấy hồ sơ với mã: ${id}`);
   }
 
-  const updated: JobApplication = {
-    ...applications[index],
-    status,
-    notes: notes !== undefined ? notes : applications[index].notes,
-    updatedAt: new Date().toISOString(),
-  };
+  const updated = await prisma.careerApplication.update({
+    where: { id },
+    data: {
+      status,
+      ...(notes !== undefined ? { notes } : {}),
+    },
+  });
 
-  applications[index] = updated;
-  await writeApplications(applications);
-  return updated;
+  return mapApplicationRecord(updated);
 }
 
 /**
  * Delete an application
  */
 export async function deleteApplication(id: string): Promise<boolean> {
-  const applications = await readApplications();
-  const target = applications.find((a) => a.id === id);
+  await ensureCareerDataSeeded();
+
+  const target = await prisma.careerApplication.findUnique({
+    where: { id },
+  });
   if (!target) {
     return false;
   }
 
-  const filtered = applications.filter((a) => a.id !== id);
-  await writeApplications(filtered);
+  await prisma.careerApplication.delete({
+    where: { id },
+  });
 
-  // Decrement applications count on the job
   if (target.jobId && target.jobId !== 'general') {
-    const jobs = await readJobs();
-    const jobIndex = jobs.findIndex((j) => j.id === target.jobId);
-    if (jobIndex !== -1 && jobs[jobIndex].applicationsCount > 0) {
-      jobs[jobIndex].applicationsCount -= 1;
-      await writeJobs(jobs);
+    try {
+      const job = await prisma.careerJob.findUnique({
+        where: { id: target.jobId },
+      });
+      if (job && job.applicationsCount > 0) {
+        await prisma.careerJob.update({
+          where: { id: target.jobId },
+          data: {
+            applicationsCount: { decrement: 1 },
+          },
+        });
+      }
+    } catch {
+      // Ignore if job no longer exists
     }
   }
 
@@ -403,19 +568,31 @@ export async function deleteApplication(id: string): Promise<boolean> {
  * Get comprehensive career & recruitment statistics
  */
 export async function getCareerStats(): Promise<CareerStats> {
-  const [jobs, applications] = await Promise.all([
-    readJobs(),
-    readApplications(),
+  await ensureCareerDataSeeded();
+
+  const [
+    totalJobs,
+    activeJobs,
+    draftJobs,
+    closedJobs,
+    totalApplications,
+    pendingApplications,
+  ] = await Promise.all([
+    prisma.careerJob.count(),
+    prisma.careerJob.count({ where: { status: 'published' } }),
+    prisma.careerJob.count({ where: { status: 'draft' } }),
+    prisma.careerJob.count({ where: { status: 'closed' } }),
+    prisma.careerApplication.count(),
+    prisma.careerApplication.count({ where: { status: 'pending' } }),
   ]);
 
   return {
-    totalJobs: jobs.length,
-    activeJobs: jobs.filter((j) => j.status === 'published').length,
-    draftJobs: jobs.filter((j) => j.status === 'draft').length,
-    closedJobs: jobs.filter((j) => j.status === 'closed').length,
-    totalApplications: applications.length,
-    pendingApplications: applications.filter((a) => a.status === 'pending')
-      .length,
+    totalJobs,
+    activeJobs,
+    draftJobs,
+    closedJobs,
+    totalApplications,
+    pendingApplications,
   };
 }
 
@@ -424,12 +601,12 @@ export async function getCareerStats(): Promise<CareerStats> {
  */
 export async function bulkDeleteJobs(ids: string[]): Promise<number> {
   if (ids.length === 0) return 0;
-  const jobs = await readJobs();
-  const idSet = new Set(ids);
-  const remaining = jobs.filter((j) => !idSet.has(j.id));
-  const count = jobs.length - remaining.length;
-  await writeJobs(remaining);
-  return count;
+  await ensureCareerDataSeeded();
+
+  const result = await prisma.careerJob.deleteMany({
+    where: { id: { in: ids } },
+  });
+  return result.count;
 }
 
 /**
@@ -440,22 +617,15 @@ export async function bulkUpdateJobs(
   data: { status?: JobStatus; department?: string }
 ): Promise<number> {
   if (ids.length === 0) return 0;
-  const jobs = await readJobs();
-  const idSet = new Set(ids);
-  let count = 0;
-  const updated = jobs.map((job) => {
-    if (idSet.has(job.id)) {
-      count++;
-      return {
-        ...job,
-        ...(data.status ? { status: data.status } : {}),
-        ...(data.department ? { department: data.department } : {}),
-        updatedAt: new Date().toISOString(),
-      };
-    }
-    return job;
-  });
-  await writeJobs(updated);
-  return count;
-}
+  await ensureCareerDataSeeded();
 
+  const updateData: Prisma.CareerJobUpdateManyMutationInput = {};
+  if (data.status) updateData.status = data.status;
+  if (data.department) updateData.department = data.department;
+
+  const result = await prisma.careerJob.updateMany({
+    where: { id: { in: ids } },
+    data: updateData,
+  });
+  return result.count;
+}

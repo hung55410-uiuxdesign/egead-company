@@ -22,7 +22,9 @@ if (
   !globalForPrisma.prisma ||
   globalForPrisma.activeUrl !== targetUrl ||
   !('partnerItem' in (globalForPrisma.prisma as object)) ||
-  !('companySection' in (globalForPrisma.prisma as object))
+  !('companySection' in (globalForPrisma.prisma as object)) ||
+  !('careerJob' in (globalForPrisma.prisma as object)) ||
+  !('careerApplication' in (globalForPrisma.prisma as object))
 ) {
   if (globalForPrisma.prisma) {
     try {

@@ -1,5 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { revalidatePath } from 'next/cache';
 import { getAllJobs, saveJob } from '@/lib/careers';
+
+export const dynamic = 'force-dynamic';
 
 export async function GET(request: NextRequest) {
   try {
@@ -30,6 +33,11 @@ export async function POST(request: NextRequest) {
     }
 
     const saved = await saveJob(body);
+
+    revalidatePath('/careers');
+    revalidatePath(`/careers/${saved.slug}`);
+    revalidatePath('/admin/careers');
+
     return NextResponse.json({ success: true, data: saved }, { status: 201 });
   } catch (error) {
     return NextResponse.json(

@@ -16,12 +16,12 @@
     "benefits": "<ul><li>Competitive salary based on capability + quarterly performance bonus.</li><li>Comprehensive health insurance and annual medical checkups.</li><li>Dynamic international work environment with modern equipment (MacBook Pro).</li></ul>",
     "content": "",
     "contactEmail": "hr@egead.com",
-    "status": "published",
+    "status": "draft",
     "featured": false,
     "views": 0,
     "applicationsCount": 2,
     "createdAt": "2026-10-08T10:13:02.387Z",
-    "updatedAt": "2026-10-08T10:13:02.387Z"
+    "updatedAt": "2026-11-02T07:44:39.009Z"
   },
   {
     "id": "job-4",
@@ -44,7 +44,7 @@
     "views": 95,
     "applicationsCount": 0,
     "createdAt": "2026-10-06T10:00:00.000Z",
-    "updatedAt": "2026-10-06T10:00:00.000Z"
+    "updatedAt": "2026-11-02T07:44:39.009Z"
   },
   {
     "id": "job-3",
@@ -62,12 +62,12 @@
     "requirements": "<ul><li>Bachelor's degree in Logistics, Supply Chain Management, International Trade, or equivalent.</li><li>At least 2 years of experience in international logistics or e-commerce fulfillment operations.</li><li>Proficiency in Excel and modern ERP/WMS systems.</li><li>Strong negotiation skills, rapid problem-solving, and resilience during peak holiday seasons (Q4).</li></ul>",
     "benefits": "<ul><li>Competitive salary based on capability ($800 - $1,200 USD).</li><li>Full health insurance coverage and statutory benefits.</li><li>13th-month salary bonus + supply chain performance incentives.</li><li>Dynamic, professional work culture adhering to global operational standards.</li></ul>",
     "contactEmail": "hr@egead.com",
-    "status": "published",
+    "status": "draft",
     "featured": false,
     "views": 210,
     "applicationsCount": 0,
     "createdAt": "2026-10-05T14:15:00.000Z",
-    "updatedAt": "2026-10-05T14:15:00.000Z"
+    "updatedAt": "2026-11-02T07:44:39.009Z"
   },
   {
     "id": "job-2",
@@ -85,12 +85,12 @@
     "requirements": "<ul><li>At least 2 years of proven experience managing Amazon US or TikTok Shop US stores.</li><li>Thorough grasp of US marketplace policies, search algorithms, and fulfillment protocols.</li><li>Strong quantitative skills, data analytics proficiency, and customer escalation management.</li><li>Fluent English communication and writing skills (equivalent to IELTS 6.5+).</li></ul>",
     "benefits": "<ul><li>Attractive base salary + performance commission (Average total income: $1,800 - $2,500+).</li><li>Access to substantial product testing budgets and proprietary US fulfillment networks.</li><li>Annual company retreats, team-building events, and holiday bonuses.</li><li>Vibrant, innovative international environment encouraging new ideas and testing.</li></ul>",
     "contactEmail": "careers@egead.com",
-    "status": "published",
+    "status": "draft",
     "featured": true,
     "views": 520,
     "applicationsCount": 1,
     "createdAt": "2026-10-03T09:30:00.000Z",
-    "updatedAt": "2026-10-03T09:30:00.000Z"
+    "updatedAt": "2026-11-02T07:44:39.009Z"
   },
   {
     "id": "job-1",
@@ -108,11 +108,11 @@
     "requirements": "<ul><li>At least 4 years of in-depth experience with TypeScript, React/Next.js, and Node.js.</li><li>Proficiency in RESTful APIs, WebSocket protocols, and microservices/event-driven architectures.</li><li>Hands-on experience optimizing relational databases (PostgreSQL) and NoSQL/Redis caches.</li><li>Excellent problem-solving mindset, proactive initiative, and strong ownership.</li><li>Prior experience in E-Commerce, Logistics WMS, or Cross-Border platforms is strongly preferred.</li></ul>",
     "benefits": "<ul><li>Competitive compensation: $1,500 - $2,500 USD + quarterly performance bonuses.</li><li>Flexible hybrid work arrangement with high-spec equipment (latest MacBook Pro M-series).</li><li>Premium private health insurance for employee and dependents.</li><li>Travel, training, and exchange opportunities with international tech partners in the US.</li><li>Bi-annual performance and salary reviews with clear Technical Lead career pathways.</li></ul>",
     "contactEmail": "hr@egead.com",
-    "status": "published",
+    "status": "draft",
     "featured": true,
     "views": 340,
     "applicationsCount": 2,
     "createdAt": "2026-10-01T08:00:00.000Z",
-    "updatedAt": "2026-10-01T08:00:00.000Z"
+    "updatedAt": "2026-11-02T07:44:39.009Z"
   }
 ]

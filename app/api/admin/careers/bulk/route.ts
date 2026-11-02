@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { revalidatePath } from 'next/cache';
 import { requireAdmin } from '@/lib/admin-auth';
 import { bulkDeleteJobs, bulkUpdateJobs } from '@/lib/services/career.service';
 import { JobStatus } from '@/types/career';
@@ -29,6 +30,8 @@ export async function POST(request: NextRequest) {
 
     if (action === 'delete') {
       const count = await bulkDeleteJobs(ids);
+      revalidatePath('/careers');
+      revalidatePath('/admin/careers');
       return NextResponse.json({
         success: true,
         message: `Đã xóa thành công ${count} tin tuyển dụng`,
@@ -45,6 +48,8 @@ export async function POST(request: NextRequest) {
       }
 
       const count = await bulkUpdateJobs(ids, data);
+      revalidatePath('/careers');
+      revalidatePath('/admin/careers');
       return NextResponse.json({
         success: true,
         message: `Đã cập nhật thành công ${count} tin tuyển dụng`,

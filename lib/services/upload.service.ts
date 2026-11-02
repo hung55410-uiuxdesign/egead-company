@@ -262,7 +262,7 @@ export async function deleteCloudinaryImage(publicId: string): Promise<boolean> 
 }
 
 /**
- * Uploads a document (PDF, DOC, DOCX) buffer to Cloudinary or falls back to local storage
+ * Uploads a document (PDF, DOC, DOCX) buffer to Cloudinary with optional local cache
  */
 export async function uploadDocumentBuffer(
   buffer: Buffer,
@@ -274,15 +274,23 @@ export async function uploadDocumentBuffer(
   const baseName = path.basename(originalFilename, ext).replace(/[^a-zA-Z0-9-_]/g, '_');
   const safeFilename = `${Date.now()}-${baseName}${ext}`;
 
-  // 1. Always save locally to ensure 100% reliable direct serving & preview without 401
-  const uploadDir = path.join(process.cwd(), 'public', 'uploads', 'cv');
-  await fs.mkdir(uploadDir, { recursive: true });
-  const localFilePath = path.join(uploadDir, safeFilename);
-  await fs.writeFile(localFilePath, buffer);
-  const publicUrl = `/uploads/cv/${safeFilename}`;
+  let localPublicUrl: string | null = null;
 
-  // 2. Also attempt upload to Cloudinary as cloud backup if credentials exist
+  // 1. Try saving locally when filesystem is writable (development mode)
+  try {
+    const uploadDir = path.join(process.cwd(), 'public', 'uploads', 'cv');
+    await fs.mkdir(uploadDir, { recursive: true });
+    const localFilePath = path.join(uploadDir, safeFilename);
+    await fs.writeFile(localFilePath, buffer);
+    localPublicUrl = `/uploads/cv/${safeFilename}`;
+  } catch {
+    // On serverless (e.g. Vercel), filesystem is read-only (EROFS) — skip local write
+  }
+
+  // 2. Upload to Cloudinary if credentials exist
   let cloudPublicId = `local-cv-${safeFilename}`;
+  let cloudSecureUrl: string | null = null;
+
   if (process.env.CLOUDINARY_API_KEY && process.env.CLOUDINARY_API_SECRET) {
     try {
       await new Promise<void>((resolve, reject) => {
@@ -290,8 +298,9 @@ export async function uploadDocumentBuffer(
           {
             folder,
             resource_type: 'raw',
+            public_id: safeFilename,
             use_filename: true,
-            unique_filename: true,
+            unique_filename: false,
             tags: options?.tags || ['egead-cms', 'cv', 'application'],
           },
           (error: UploadApiErrorResponse | undefined, result: UploadApiResponse | undefined) => {
@@ -299,6 +308,7 @@ export async function uploadDocumentBuffer(
               reject(new Error(error?.message || 'Lỗi tải lên Cloudinary'));
             } else {
               cloudPublicId = result.public_id;
+              cloudSecureUrl = result.secure_url;
               resolve();
             }
           }
@@ -310,12 +320,16 @@ export async function uploadDocumentBuffer(
     }
   }
 
+  const finalUrl = cloudSecureUrl || localPublicUrl;
+  if (!finalUrl) {
+    throw new Error('Không thể lưu tệp CV (vui lòng kiểm tra cấu hình Cloudinary trên server).');
+  }
+
   return {
-    url: publicUrl,
-    secureUrl: publicUrl,
+    url: finalUrl,
+    secureUrl: finalUrl,
     publicId: cloudPublicId,
     format: ext.replace('.', ''),
     bytes: buffer.length,
   };
 }
-
