@@ -1,5 +1,3 @@
-import fs from 'fs/promises';
-import path from 'path';
 import { prisma } from '@/lib/prisma';
 import { CategoryInput, categorySchema } from '@/lib/validations/category';
 import { CategoryItem, generateSlug, getCategoryHref } from '@/types/category';
@@ -41,7 +39,7 @@ export async function seedCategoriesFromPosts(): Promise<CategoryItem[]> {
       const slug = generateSlug(name);
       const cat = await prisma.category.upsert({
         where: { slug },
-        update: { name },
+        update: {},
         create: {
           name,
           slug,
@@ -441,31 +439,7 @@ export async function deleteCategory(id: string): Promise<boolean> {
     },
   });
 
-  // 2. Also unlink in fallback blogs.json if it exists
-  try {
-    const blogsFilePath = path.join(process.cwd(), 'data', 'blogs.json');
-    const blogsContent = await fs.readFile(blogsFilePath, 'utf-8');
-    const blogs = JSON.parse(blogsContent);
-    let blogsChanged = false;
-    const updatedBlogs = blogs.map((b: { category?: string; tag?: string }) => {
-      if (b.category === current.name || b.tag === current.name) {
-        blogsChanged = true;
-        return {
-          ...b,
-          category: b.category === current.name ? 'Chưa phân loại' : b.category,
-          tag: b.tag === current.name ? 'Chưa phân loại' : b.tag,
-        };
-      }
-      return b;
-    });
-    if (blogsChanged) {
-      await fs.writeFile(blogsFilePath, JSON.stringify(updatedBlogs, null, 2), 'utf-8');
-    }
-  } catch {
-    // Ignore fallback errors
-  }
-
-  // 3. Delete category from database
+  // 2. Delete category from database
   await prisma.category.delete({
     where: { id },
   });
@@ -502,31 +476,7 @@ export async function bulkDeleteCategories(ids: string[]): Promise<number> {
     },
   });
 
-  // 3. Also unlink in fallback blogs.json if it exists
-  try {
-    const blogsFilePath = path.join(process.cwd(), 'data', 'blogs.json');
-    const blogsContent = await fs.readFile(blogsFilePath, 'utf-8');
-    const blogs = JSON.parse(blogsContent);
-    let blogsChanged = false;
-    const updatedBlogs = blogs.map((b: { category?: string; tag?: string }) => {
-      if (names.includes(b.category || '') || names.includes(b.tag || '')) {
-        blogsChanged = true;
-        return {
-          ...b,
-          category: names.includes(b.category || '') ? 'Chưa phân loại' : b.category,
-          tag: names.includes(b.tag || '') ? 'Chưa phân loại' : b.tag,
-        };
-      }
-      return b;
-    });
-    if (blogsChanged) {
-      await fs.writeFile(blogsFilePath, JSON.stringify(updatedBlogs, null, 2), 'utf-8');
-    }
-  } catch {
-    // Ignore fallback errors
-  }
-
-  // 4. Delete categories from database
+  // 3. Delete categories from database
   const result = await prisma.category.deleteMany({
     where: { id: { in: ids } },
   });
@@ -583,4 +533,3 @@ export async function bulkUpdateCategories(
     throw err;
   }
 }
-

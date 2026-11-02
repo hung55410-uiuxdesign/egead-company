@@ -161,10 +161,20 @@ export async function getPartnerItemStats(): Promise<PartnerItemStats> {
 export async function createPartnerItem(
   data: Prisma.PartnerItemCreateInput
 ): Promise<PartnerItemModel> {
+  const baseSlug = data.slug.trim().toLowerCase() || `partner-${Date.now()}`;
+  let finalSlug = baseSlug;
+  const existing = await prisma.partnerItem.findUnique({
+    where: { slug: finalSlug },
+    select: { id: true },
+  });
+  if (existing) {
+    finalSlug = `${baseSlug}-${Date.now().toString().slice(-4)}`;
+  }
+
   const item = await prisma.partnerItem.create({
     data: {
       ...data,
-      slug: data.slug.trim().toLowerCase(),
+      slug: finalSlug,
     },
   });
   return item;
@@ -177,13 +187,23 @@ export async function updatePartnerItem(
   id: string,
   data: Prisma.PartnerItemUpdateInput
 ): Promise<PartnerItemModel> {
-  if (data.slug && typeof data.slug === 'string') {
-    data.slug = data.slug.trim().toLowerCase();
+  const updateData = { ...data };
+  if (updateData.slug && typeof updateData.slug === 'string') {
+    const baseSlug = updateData.slug.trim().toLowerCase();
+    const conflict = await prisma.partnerItem.findUnique({
+      where: { slug: baseSlug },
+      select: { id: true },
+    });
+    if (conflict && conflict.id !== id) {
+      updateData.slug = `${baseSlug}-${Date.now().toString().slice(-4)}`;
+    } else {
+      updateData.slug = baseSlug;
+    }
   }
 
   const item = await prisma.partnerItem.update({
     where: { id },
-    data,
+    data: updateData,
   });
   return item;
 }
@@ -241,11 +261,7 @@ export async function syncPartnersFromHeaderMenu(
 
       const partner = await prisma.partnerItem.upsert({
         where: { slug },
-        update: {
-          name: p.name,
-          order: index,
-          status: 'published',
-        },
+        update: {},
         create: {
           slug,
           name: p.name || defaultData.name,
@@ -333,5 +349,3 @@ export async function bulkUpdatePartnerItems(
   });
   return res.count;
 }
-
-

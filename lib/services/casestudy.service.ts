@@ -165,9 +165,20 @@ export async function createCaseStudy(data: {
   nextStudyTitle?: string | null;
   nextStudyCustomer?: string | null;
 }): Promise<CaseStudyDetailModel> {
+  const baseSlug = data.slug?.trim() || `case-study-${Date.now()}`;
+  let finalSlug = baseSlug;
+  const existing = await prisma.caseStudy.findUnique({
+    where: { slug: finalSlug },
+    select: { id: true },
+  });
+  if (existing) {
+    finalSlug = `${baseSlug}-${Date.now().toString().slice(-4)}`;
+  }
+
   const item = await prisma.caseStudy.create({
     data: {
       ...data,
+      slug: finalSlug,
       order: data.order ?? 0,
       status: data.status || 'published',
       taskImages: data.taskImages || [],
@@ -214,9 +225,23 @@ export async function updateCaseStudy(
     nextStudyCustomer?: string | null;
   }>
 ): Promise<CaseStudyDetailModel> {
+  const updateData = { ...data };
+  if (updateData.slug) {
+    const baseSlug = updateData.slug.trim();
+    const conflict = await prisma.caseStudy.findUnique({
+      where: { slug: baseSlug },
+      select: { id: true },
+    });
+    if (conflict && conflict.id !== id) {
+      updateData.slug = `${baseSlug}-${Date.now().toString().slice(-4)}`;
+    } else {
+      updateData.slug = baseSlug;
+    }
+  }
+
   const item = await prisma.caseStudy.update({
     where: { id },
-    data,
+    data: updateData,
   });
   return item;
 }

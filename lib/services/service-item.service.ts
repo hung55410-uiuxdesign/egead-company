@@ -154,9 +154,20 @@ export async function createServiceItem(data: {
   order?: number;
   status?: string;
 }): Promise<ServiceItemDetailModel> {
+  const baseSlug = data.slug?.trim() || `service-${Date.now()}`;
+  let finalSlug = baseSlug;
+  const existing = await prisma.serviceItem.findUnique({
+    where: { slug: finalSlug },
+    select: { id: true },
+  });
+  if (existing) {
+    finalSlug = `${baseSlug}-${Date.now().toString().slice(-4)}`;
+  }
+
   const item = await prisma.serviceItem.create({
     data: {
       ...data,
+      slug: finalSlug,
       category: data.category || 'service',
       order: data.order ?? 0,
       status: data.status || 'published',
@@ -191,6 +202,18 @@ export async function updateServiceItem(
   }>
 ): Promise<ServiceItemDetailModel> {
   const updateData: any = { ...data };
+  if (updateData.slug) {
+    const baseSlug = updateData.slug.trim();
+    const conflict = await prisma.serviceItem.findUnique({
+      where: { slug: baseSlug },
+      select: { id: true },
+    });
+    if (conflict && conflict.id !== id) {
+      updateData.slug = `${baseSlug}-${Date.now().toString().slice(-4)}`;
+    } else {
+      updateData.slug = baseSlug;
+    }
+  }
   if (data.principles !== undefined) {
     updateData.principles = data.principles as unknown as Prisma.InputJsonValue;
   }

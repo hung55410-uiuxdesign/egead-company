@@ -525,7 +525,7 @@ export async function getPostById(id: string): Promise<BlogPost | null> {
 }
 
 /**
- * Save or update a blog post.
+ * Save or update a blog post in PostgreSQL.
  */
 export async function savePost(
   postData: Partial<BlogPost> & { title: string }
@@ -534,15 +534,16 @@ export async function savePost(
     ? postData.content.map((p) => (p.startsWith('<') ? p : `<p>${p}</p>`)).join('')
     : postData.content || '';
 
-  const slug =
-    postData.slug ||
+  const baseSlug =
+    postData.slug?.trim() ||
     postData.title
       .toLowerCase()
       .normalize('NFD')
       .replace(/[\u0300-\u036f]/g, '')
       .replace(/[đĐ]/g, 'd')
       .replace(/[^a-z0-9]+/g, '-')
-      .replace(/(^-|-$)/g, '');
+      .replace(/(^-|-$)/g, '') ||
+    `post-${Date.now()}`;
 
   const date =
     postData.date ||
@@ -552,165 +553,155 @@ export async function savePost(
       year: 'numeric',
     });
 
-  try {
-    let resolvedCategoryId = postData.categoryId || null;
-    if (!resolvedCategoryId && postData.category) {
-      try {
-        const cat = await prisma.category.findFirst({
-          where: {
-            OR: [
-              { name: { equals: postData.category, mode: 'insensitive' } },
-              { slug: { equals: postData.category.toLowerCase().replace(/\s+/g, '-'), mode: 'insensitive' } },
-            ],
-          },
-        });
-        if (cat) {
-          resolvedCategoryId = cat.id;
-        }
-      } catch {
-        // Ignore
+  let resolvedCategoryId = postData.categoryId || null;
+  if (!resolvedCategoryId && postData.category) {
+    try {
+      const cat = await prisma.category.findFirst({
+        where: {
+          OR: [
+            { name: { equals: postData.category, mode: 'insensitive' } },
+            { slug: { equals: postData.category.toLowerCase().replace(/\s+/g, '-'), mode: 'insensitive' } },
+          ],
+        },
+      });
+      if (cat) {
+        resolvedCategoryId = cat.id;
       }
+    } catch {
+      // Ignore
     }
+  }
 
-    if (postData.id) {
-      const updated = await prisma.post.update({
-        where: { id: postData.id },
-        data: {
-          title: postData.title,
-          subtitle: postData.subtitle,
-          slug,
-          tag: postData.tag || 'General',
-          categoryName: postData.category || 'General',
-          categoryId: resolvedCategoryId,
-          date,
-          readTime: postData.readTime || '5 mins read',
-          heroImage: postData.heroImage || '/assets/case_brother.jpg',
-          excerpt: postData.excerpt || '',
-          content: contentString,
-          authorName: postData.author?.name || 'E-GEAD Team',
-          authorRole: postData.author?.role || 'Editor',
-          authorAvatar: postData.author?.avatar,
-          status: postData.status || 'draft',
-          views: postData.views,
-          featured: postData.featured,
-        },
-      });
-
-      return {
-        id: updated.id,
-        slug: updated.slug,
-        title: updated.title,
-        subtitle: updated.subtitle || undefined,
-        tag: updated.tag,
-        category: updated.categoryName,
-        categoryId: updated.categoryId || resolvedCategoryId || undefined,
-        date: updated.date,
-        readTime: updated.readTime,
-        heroImage: updated.heroImage,
-        excerpt: updated.excerpt,
-        content: updated.content,
-        author: {
-          name: updated.authorName,
-          role: updated.authorRole || undefined,
-          avatar: updated.authorAvatar || undefined,
-        },
-        status: (updated.status as PostStatus) || 'draft',
-        views: updated.views,
-        featured: updated.featured,
-        createdAt: updated.createdAt.toISOString(),
-        updatedAt: updated.updatedAt.toISOString(),
-      };
-    } else {
-      const created = await prisma.post.create({
-        data: {
-          title: postData.title,
-          subtitle: postData.subtitle,
-          slug,
-          tag: postData.tag || 'General',
-          categoryName: postData.category || 'General',
-          categoryId: resolvedCategoryId,
-          date,
-          readTime: postData.readTime || '5 mins read',
-          heroImage: postData.heroImage || '/assets/case_brother.jpg',
-          excerpt: postData.excerpt || '',
-          content: contentString,
-          authorName: postData.author?.name || 'E-GEAD Team',
-          authorRole: postData.author?.role || 'Editor',
-          authorAvatar: postData.author?.avatar,
-          status: postData.status || 'draft',
-          views: postData.views || 0,
-          featured: postData.featured || false,
-        },
-      });
-
-      return {
-        id: created.id,
-        slug: created.slug,
-        title: created.title,
-        subtitle: created.subtitle || undefined,
-        tag: created.tag,
-        category: created.categoryName,
-        categoryId: created.categoryId || resolvedCategoryId || undefined,
-        date: created.date,
-        readTime: created.readTime,
-        heroImage: created.heroImage,
-        excerpt: created.excerpt,
-        content: created.content,
-        author: {
-          name: created.authorName,
-          role: created.authorRole || undefined,
-          avatar: created.authorAvatar || undefined,
-        },
-        status: (created.status as PostStatus) || 'draft',
-        views: created.views,
-        featured: created.featured,
-        createdAt: created.createdAt.toISOString(),
-        updatedAt: created.updatedAt.toISOString(),
-      };
+  // Ensure slug uniqueness against other posts
+  let slug = baseSlug;
+  try {
+    const existingBySlug = await prisma.post.findUnique({
+      where: { slug },
+      select: { id: true },
+    });
+    if (existingBySlug && existingBySlug.id !== postData.id) {
+      slug = `${baseSlug}-${Date.now().toString().slice(-4)}`;
     }
-  } catch (error) {
-    console.warn('[blog.service] Prisma save failed, saving to JSON fallback:', error);
-    // JSON file fallback
-    const posts = await getFallbackPosts();
-    const now = new Date().toISOString();
-    let saved: BlogPost;
+  } catch {
+    // Ignore
+  }
 
-    if (postData.id) {
-      const idx = posts.findIndex((p) => p.id === postData.id);
-      if (idx === -1) throw new Error(`Post with id "${postData.id}" not found`);
-      saved = {
-        ...posts[idx],
-        ...postData,
-        content: contentString,
-        updatedAt: now,
-      };
-      posts[idx] = saved;
-    } else {
-      saved = {
-        id: `post-${Date.now()}`,
-        slug,
+  if (postData.id) {
+    const updated = await prisma.post.upsert({
+      where: { id: postData.id },
+      update: {
         title: postData.title,
         subtitle: postData.subtitle,
+        slug,
         tag: postData.tag || 'General',
-        category: postData.category || 'General',
+        categoryName: postData.category || 'General',
+        categoryId: resolvedCategoryId,
         date,
         readTime: postData.readTime || '5 mins read',
         heroImage: postData.heroImage || '/assets/case_brother.jpg',
         excerpt: postData.excerpt || '',
         content: contentString,
-        author: postData.author || { name: 'E-GEAD Team', role: 'Editor' },
+        authorName: postData.author?.name || 'E-GEAD Team',
+        authorRole: postData.author?.role || 'Editor',
+        authorAvatar: postData.author?.avatar,
+        status: postData.status || 'draft',
+        views: postData.views,
+        featured: postData.featured,
+      },
+      create: {
+        id: postData.id,
+        title: postData.title,
+        subtitle: postData.subtitle,
+        slug,
+        tag: postData.tag || 'General',
+        categoryName: postData.category || 'General',
+        categoryId: resolvedCategoryId,
+        date,
+        readTime: postData.readTime || '5 mins read',
+        heroImage: postData.heroImage || '/assets/case_brother.jpg',
+        excerpt: postData.excerpt || '',
+        content: contentString,
+        authorName: postData.author?.name || 'E-GEAD Team',
+        authorRole: postData.author?.role || 'Editor',
+        authorAvatar: postData.author?.avatar,
         status: postData.status || 'draft',
         views: postData.views || 0,
         featured: postData.featured || false,
-        createdAt: now,
-        updatedAt: now,
-      };
-      posts.unshift(saved);
-    }
+      },
+    });
 
-    await fs.writeFile(BLOGS_FILE_PATH, JSON.stringify(posts, null, 2), 'utf-8');
-    return saved;
+    return {
+      id: updated.id,
+      slug: updated.slug,
+      title: updated.title,
+      subtitle: updated.subtitle || undefined,
+      tag: updated.tag,
+      category: updated.categoryName,
+      categoryId: updated.categoryId || resolvedCategoryId || undefined,
+      date: updated.date,
+      readTime: updated.readTime,
+      heroImage: updated.heroImage,
+      excerpt: updated.excerpt,
+      content: updated.content,
+      author: {
+        name: updated.authorName,
+        role: updated.authorRole || undefined,
+        avatar: updated.authorAvatar || undefined,
+      },
+      status: (updated.status as PostStatus) || 'draft',
+      views: updated.views,
+      featured: updated.featured,
+      createdAt: updated.createdAt.toISOString(),
+      updatedAt: updated.updatedAt.toISOString(),
+    };
   }
+
+  const created = await prisma.post.create({
+    data: {
+      title: postData.title,
+      subtitle: postData.subtitle,
+      slug,
+      tag: postData.tag || 'General',
+      categoryName: postData.category || 'General',
+      categoryId: resolvedCategoryId,
+      date,
+      readTime: postData.readTime || '5 mins read',
+      heroImage: postData.heroImage || '/assets/case_brother.jpg',
+      excerpt: postData.excerpt || '',
+      content: contentString,
+      authorName: postData.author?.name || 'E-GEAD Team',
+      authorRole: postData.author?.role || 'Editor',
+      authorAvatar: postData.author?.avatar,
+      status: postData.status || 'draft',
+      views: postData.views || 0,
+      featured: postData.featured || false,
+    },
+  });
+
+  return {
+    id: created.id,
+    slug: created.slug,
+    title: created.title,
+    subtitle: created.subtitle || undefined,
+    tag: created.tag,
+    category: created.categoryName,
+    categoryId: created.categoryId || resolvedCategoryId || undefined,
+    date: created.date,
+    readTime: created.readTime,
+    heroImage: created.heroImage,
+    excerpt: created.excerpt,
+    content: created.content,
+    author: {
+      name: created.authorName,
+      role: created.authorRole || undefined,
+      avatar: created.authorAvatar || undefined,
+    },
+    status: (created.status as PostStatus) || 'draft',
+    views: created.views,
+    featured: created.featured,
+    createdAt: created.createdAt.toISOString(),
+    updatedAt: created.updatedAt.toISOString(),
+  };
 }
 
 /**
@@ -720,13 +711,8 @@ export async function deletePost(id: string): Promise<boolean> {
   try {
     await prisma.post.delete({ where: { id } });
     return true;
-  } catch (error) {
-    console.warn('[blog.service] Prisma delete failed, falling back to JSON:', error);
-    const posts = await getFallbackPosts();
-    const filtered = posts.filter((p) => p.id !== id);
-    if (filtered.length === posts.length) return false;
-    await fs.writeFile(BLOGS_FILE_PATH, JSON.stringify(filtered, null, 2), 'utf-8');
-    return true;
+  } catch {
+    return false;
   }
 }
 
@@ -865,32 +851,10 @@ export async function seedDatabaseFromJSON(): Promise<BlogPost[]> {
  */
 export async function bulkDeletePosts(ids: string[]): Promise<number> {
   if (ids.length === 0) return 0;
-  let count = 0;
-  try {
-    const res = await prisma.post.deleteMany({
-      where: { id: { in: ids } },
-    });
-    count = res.count;
-  } catch (error) {
-    console.warn('[blog.service] Prisma bulk delete failed:', error);
-  }
-
-  // Always sync with fallback JSON file
-  try {
-    const posts = await getFallbackPosts();
-    const idSet = new Set(ids);
-    const remaining = posts.filter((p) => !idSet.has(p.id));
-    if (remaining.length !== posts.length) {
-      if (count === 0) {
-        count = posts.length - remaining.length;
-      }
-      await fs.writeFile(BLOGS_FILE_PATH, JSON.stringify(remaining, null, 2), 'utf-8');
-    }
-  } catch (error) {
-    console.warn('[blog.service] JSON sync failed in bulk delete:', error);
-  }
-
-  return count;
+  const res = await prisma.post.deleteMany({
+    where: { id: { in: ids } },
+  });
+  return res.count;
 }
 
 /**
@@ -908,41 +872,10 @@ export async function bulkUpdatePosts(
     updateData.tag = data.category;
   }
 
-  let count = 0;
-  try {
-    const res = await prisma.post.updateMany({
-      where: { id: { in: ids } },
-      data: updateData,
-    });
-    count = res.count;
-  } catch (error) {
-    console.warn('[blog.service] Prisma bulk update failed:', error);
-  }
+  const res = await prisma.post.updateMany({
+    where: { id: { in: ids } },
+    data: updateData,
+  });
 
-  // Always sync with fallback JSON file
-  try {
-    const posts = await getFallbackPosts();
-    const idSet = new Set(ids);
-    let jsonCount = 0;
-    const updated = posts.map((p) => {
-      if (idSet.has(p.id)) {
-        jsonCount++;
-        return {
-          ...p,
-          ...(data.status ? { status: data.status } : {}),
-          ...(data.category ? { category: data.category, tag: data.category } : {}),
-          updatedAt: new Date().toISOString(),
-        };
-      }
-      return p;
-    });
-    if (jsonCount > 0) {
-      if (count === 0) count = jsonCount;
-      await fs.writeFile(BLOGS_FILE_PATH, JSON.stringify(updated, null, 2), 'utf-8');
-    }
-  } catch (error) {
-    console.warn('[blog.service] JSON sync failed in bulk update:', error);
-  }
-
-  return count;
+  return res.count;
 }
