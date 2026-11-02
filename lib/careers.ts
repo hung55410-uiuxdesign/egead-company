@@ -23,6 +23,9 @@ export interface JobOpening {
   quantity?: string | number;
   deadline?: string;
   createdAt?: string;
+  descriptionHtml?: string;
+  requirementsHtml?: string;
+  benefitsHtml?: string;
   responsibilities?: string[];
   qualifications?: string[];
   preferredSkills?: string[];
@@ -67,6 +70,9 @@ export function toJobOpening(post: CareerPost): JobOpening {
     quantity: post.quantity,
     deadline: post.deadline,
     createdAt: post.createdAt,
+    descriptionHtml: post.description || '',
+    requirementsHtml: post.requirements || '',
+    benefitsHtml: post.benefits || '',
     responsibilities: parseList(post.description),
     qualifications: parseList(post.requirements),
     benefits: parseList(post.benefits),

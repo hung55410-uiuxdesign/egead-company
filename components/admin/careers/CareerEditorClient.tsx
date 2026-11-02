@@ -56,16 +56,13 @@ export default function CareerEditorClient({
   );
   const [excerpt, setExcerpt] = useState(initialJob?.excerpt || '');
   const [description, setDescription] = useState(
-    initialJob?.description ||
-    '<p>Mô tả chi tiết các trách nhiệm chính của vị trí...</p><ul><li>Nhiệm vụ 1: Thực thi và tối ưu hóa hệ thống.</li><li>Nhiệm vụ 2: Phối hợp cùng các phòng ban liên quan.</li></ul>'
+    initialJob?.description || ''
   );
   const [requirements, setRequirements] = useState(
-    initialJob?.requirements ||
-    '<ul><li>Tối thiểu 2 năm kinh nghiệm thực chiến ở vị trí tương đương.</li><li>Thành thạo kỹ năng chuyên môn và có tư duy giải quyết vấn đề tốt.</li><li>Kỹ năng giao tiếp và làm việc nhóm hiệu quả.</li></ul>'
+    initialJob?.requirements || ''
   );
   const [benefits, setBenefits] = useState(
-    initialJob?.benefits ||
-    '<ul><li>Mức lương cạnh tranh theo năng lực + Thưởng hiệu suất hàng quý.</li><li>Đóng bảo hiểm đầy đủ (BHXH, BHYT) theo quy định và bảo hiểm sức khỏe nâng cao.</li><li>Môi trường quốc tế, năng động, trang thiết bị làm việc hiện đại.</li></ul>'
+    initialJob?.benefits || ''
   );
   const [contactEmail, setContactEmail] = useState(
     initialJob?.contactEmail || 'hr@egead.com'
