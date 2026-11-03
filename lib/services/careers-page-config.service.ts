@@ -30,7 +30,11 @@ export interface CareersOfficeItem {
   id: string;
   country: string; // 'singapore' | 'hongkong' | 'vietnam' | string
   city: string;
+  company?: string;
   addressLines: string[];
+  phone?: string;
+  email?: string;
+  timezone?: string;
 }
 
 export interface CareersVideoData {
@@ -104,33 +108,30 @@ export const DEFAULT_CAREERS_PAGE_CONFIG: CareersPageConfigData = {
   },
   offices: [
     {
-      id: 'office-sg',
-      country: 'singapore',
-      city: 'Singapore',
+      id: 'vn-bmt',
+      country: 'vietnam',
+      city: 'Viet Nam - Buon Ma Thuat',
+      company: 'E-GEAD Company Limited',
       addressLines: [
-        '1 Sophia road #05-12 Peace center',
-        'Singapore 228149',
+        'CS1: 217/9 Ngo Quyen, Buon Ma Thuat',
+        'Dak Lak',
       ],
+      phone: '077 613 9999',
+      email: 'contact@egeadcompany.com',
+      timezone: 'Asia/Ho_Chi_Minh',
     },
     {
-      id: 'office-hk',
-      country: 'hongkong',
-      city: 'HongKong',
-      addressLines: [
-        'Unit 1402B 14/F, The Belgian Bank Building,',
-        'NOS. 721-725 Nathan road, Mongkok,',
-        'Kowloon, HongKong.',
-      ],
-    },
-    {
-      id: 'office-vn',
+      id: 'vn-hn',
       country: 'vietnam',
       city: 'Viet Nam - Ha Noi',
+      company: 'E-GEAD Company Limited',
       addressLines: [
-        '2nd floor, Comatce building, 61 Nguy Nhu',
-        'Kon Tum, Nhan Chinh ward, Thanh Xuan',
-        'district, Hanoi city',
+        'CS2: 157 Cau Dien, Phuc Dien',
+        'Ha Noi',
       ],
+      phone: '077 613 9999',
+      email: 'contact@egeadcompany.com',
+      timezone: 'Asia/Ho_Chi_Minh',
     },
   ],
 };
@@ -193,9 +194,29 @@ export function normalizeCareersPageConfig(
     offices: Array.isArray(data.offices) && data.offices.length > 0
       ? data.offices.map((o: any, idx: number) => ({
           id: o.id || `office-${idx + 1}`,
-          country: o.country || 'singapore',
+          country: o.country || 'vietnam',
           city: o.city || 'Office Location',
+          company:
+            typeof o.company === 'string' && o.company.trim() !== ''
+              ? o.company.trim()
+              : 'E-GEAD Company Limited',
           addressLines: Array.isArray(o.addressLines) ? o.addressLines : [],
+          phone:
+            typeof o.phone === 'string'
+              ? o.phone.trim()
+              : '077 613 9999',
+          email:
+            typeof o.email === 'string'
+              ? o.email.trim()
+              : 'contact@egeadcompany.com',
+          timezone:
+            typeof o.timezone === 'string' && o.timezone.trim() !== ''
+              ? o.timezone.trim()
+              : o.country === 'singapore'
+              ? 'Asia/Singapore'
+              : o.country === 'hongkong'
+              ? 'Asia/Hong_Kong'
+              : 'Asia/Ho_Chi_Minh',
         }))
       : DEFAULT_CAREERS_PAGE_CONFIG.offices,
   };

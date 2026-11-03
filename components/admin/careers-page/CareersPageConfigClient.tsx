@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useState } from 'react';
-import Link from 'next/link';
 import { Trash2 } from 'lucide-react';
 import { Button, Card, Badge, useToast, TextInput, Selector, TextArea } from '@astryxdesign/core';
 import {
@@ -349,7 +348,11 @@ export default function CareersPageConfigClient({
       id: `office-${Date.now()}`,
       country: 'vietnam',
       city: 'Văn phòng mới',
+      company: 'E-GEAD Company Limited',
       addressLines: ['Địa chỉ dòng 1', 'Địa chỉ dòng 2'],
+      phone: '077 613 9999',
+      email: 'contact@egeadcompany.com',
+      timezone: 'Asia/Ho_Chi_Minh',
     };
     setConfig((prev) => ({
       ...prev,
@@ -492,7 +495,7 @@ export default function CareersPageConfigClient({
             />
           </div>
           <p className="text-slate-500 text-xs sm:text-sm mt-1">
-            Quản lý toàn bộ nội dung Hero Banner, Giới thiệu văn hóa, Lợi ích và Văn phòng toàn cầu trên trang /careers
+            Quản lý toàn bộ nội dung Hero Banner, Giới thiệu văn hóa, Lợi ích và Văn phòng toàn cầu trên trang /careers và /contact-us
           </p>
         </div>
 
@@ -1275,7 +1278,7 @@ export default function CareersPageConfigClient({
                 Danh Sách Văn Phòng Toàn Cầu
               </h2>
               <p className="text-xs text-slate-500">
-                Quản lý các địa điểm văn phòng hiển thị ở phần chân trang tuyển dụng
+                Quản lý thông tin địa chỉ, số điện thoại (TEL) và email hiển thị đồng bộ trên trang Tuyển dụng (/careers) và trang Liên hệ (/contact-us)
               </p>
             </div>
 
@@ -1287,7 +1290,7 @@ export default function CareersPageConfigClient({
             />
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {config.offices.map((office, oIdx) => (
               <div
                 key={office.id || oIdx}
@@ -1333,7 +1336,61 @@ export default function CareersPageConfigClient({
                       onChange={(val) =>
                         handleOfficeChange(office.id, 'city', val)
                       }
-                      placeholder="Singapore"
+                      placeholder="Viet Nam - Buon Ma Thuat"
+                      width="100%"
+                      className='h-10 border'
+                    />
+                  </div>
+
+                  <div>
+                    <TextInput
+                      label="Tên pháp nhân / Công ty"
+                      value={office.company ?? 'E-GEAD Company Limited'}
+                      onChange={(val) =>
+                        handleOfficeChange(office.id, 'company', val)
+                      }
+                      placeholder="E-GEAD Company Limited"
+                      width="100%"
+                      className='h-10 border'
+                    />
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                      <TextInput
+                        label="Số điện thoại (TEL)"
+                        value={office.phone ?? '077 613 9999'}
+                        onChange={(val) =>
+                          handleOfficeChange(office.id, 'phone', val)
+                        }
+                        placeholder="077 613 9999"
+                        width="100%"
+                        className='h-10 border'
+                      />
+                    </div>
+
+                    <div>
+                      <TextInput
+                        label="Múi giờ (Timezone)"
+                        value={office.timezone ?? 'Asia/Ho_Chi_Minh'}
+                        onChange={(val) =>
+                          handleOfficeChange(office.id, 'timezone', val)
+                        }
+                        placeholder="Asia/Ho_Chi_Minh"
+                        width="100%"
+                        className='h-10 border'
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <TextInput
+                      label="Email liên hệ (EMAIL)"
+                      value={office.email ?? 'contact@egeadcompany.com'}
+                      onChange={(val) =>
+                        handleOfficeChange(office.id, 'email', val)
+                      }
+                      placeholder="contact@egeadcompany.com"
                       width="100%"
                       className='h-10 border'
                     />

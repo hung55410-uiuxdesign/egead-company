@@ -98,33 +98,28 @@ function GenericFlag() {
 
 const DEFAULT_OFFICES: CareersOfficeItem[] = [
   {
-    id: 'office-sg',
-    country: 'singapore',
-    city: 'Singapore',
+    id: 'vn-bmt',
+    country: 'vietnam',
+    city: 'Viet Nam - Buon Ma Thuat',
+    company: 'E-GEAD Company Limited',
     addressLines: [
-      '1 Sophia road #05-12 Peace center',
-      'Singapore 228149',
+      'CS1: 217/9 Ngo Quyen, Buon Ma Thuat',
+      'Dak Lak',
     ],
+    phone: '077 613 9999',
+    email: 'contact@egeadcompany.com',
   },
   {
-    id: 'office-hk',
-    country: 'hongkong',
-    city: 'HongKong',
-    addressLines: [
-      'Unit 1402B 14/F, The Belgian Bank Building,',
-      'NOS. 721-725 Nathan road, Mongkok,',
-      'Kowloon, HongKong.',
-    ],
-  },
-  {
-    id: 'office-vn',
+    id: 'vn-hn',
     country: 'vietnam',
     city: 'Viet Nam - Ha Noi',
+    company: 'E-GEAD Company Limited',
     addressLines: [
-      '2nd floor, Comatce building, 61 Nguy Nhu',
-      'Kon Tum, Nhan Chinh ward, Thanh Xuan',
-      'district, Hanoi city',
+      'CS2: 157 Cau Dien, Phuc Dien',
+      'Ha Noi',
     ],
+    phone: '077 613 9999',
+    email: 'contact@egeadcompany.com',
   },
 ];
 
@@ -160,10 +155,32 @@ export default function CareerOfficesSection({
                 <h3 className="text-base sm:text-lg font-bold text-slate-900 leading-snug">
                   {office.city}
                 </h3>
-                <div className="text-xs sm:text-[13px] text-slate-600 leading-relaxed font-normal">
+                <div className="text-xs sm:text-[13px] text-slate-600 leading-relaxed font-normal space-y-0.5">
                   {office.addressLines.map((line, lIdx) => (
                     <p key={lIdx}>{line}</p>
                   ))}
+                  {office.phone && (
+                    <p className="pt-1 text-slate-700">
+                      <span className="font-semibold text-slate-800">TEL:</span>{' '}
+                      <a
+                        href={`tel:${office.phone.replace(/\s+/g, '')}`}
+                        className="hover:text-emerald-600 transition-colors"
+                      >
+                        {office.phone}
+                      </a>
+                    </p>
+                  )}
+                  {office.email && (
+                    <p className="text-slate-700">
+                      <span className="font-semibold text-slate-800">EMAIL:</span>{' '}
+                      <a
+                        href={`mailto:${office.email}`}
+                        className="hover:text-emerald-600 transition-colors"
+                      >
+                        {office.email}
+                      </a>
+                    </p>
+                  )}
                 </div>
               </div>
             </motion.div>

@@ -29,6 +29,7 @@ export async function PUT(request: NextRequest) {
     const updated = await updateCareersPageConfig(body.data || body);
 
     revalidatePath('/careers');
+    revalidatePath('/contact-us');
     revalidatePath('/admin/careers-page');
     revalidatePath('/', 'layout');
 
