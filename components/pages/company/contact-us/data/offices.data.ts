@@ -16,8 +16,8 @@ export const OFFICES_DATA: OfficeItem[] = [
     city: 'Buon Ma Thuot',
     company: 'E-GEAD Company Limited',
     address: '217/9 Ngo Quyen Street, Tan An Ward, Buon Ma Thuot City, Dak Lak Province, Vietnam',
-    phone: '+84 (0) 90 541 4410',
-    email: 'contact@egead-company.com',
+    phone: '077 613 9999',
+    email: 'contact@egeadcompany.com',
     timezone: 'Asia/Ho_Chi_Minh',
   },
   {
@@ -26,8 +26,8 @@ export const OFFICES_DATA: OfficeItem[] = [
     city: 'Hanoi',
     company: 'E-GEAD Company Limited',
     address: '157 Cầu Diễn, Phúc Diễn, Hà Nội',
-    phone: '+84 (0) 90 541 4410',
-    email: 'contact@egead-company.com',
+    phone: '077 613 9999',
+    email: 'contact@egeadcompany.com',
     timezone: 'Asia/Ho_Chi_Minh',
   },
 ];

@@ -304,13 +304,13 @@ export default function ContactFormSection() {
                 Or email us at
               </span>
               <a
-                href="mailto:contact@egead-company.com"
+                href="mailto:contact@egeadcompany.com"
                 className="inline-flex items-center gap-3 text-lg sm:text-2xl font-bold text-slate-900 hover:text-emerald-600 transition-colors group"
               >
                 <div className="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-slate-800 group-hover:bg-emerald-50 group-hover:text-emerald-600 transition-colors">
                   <Mail className="w-5 h-5" />
                 </div>
-                <span>contact@egead-company.com</span>
+                <span>contact@egeadcompany.com</span>
               </a>
             </div>
           </div>
