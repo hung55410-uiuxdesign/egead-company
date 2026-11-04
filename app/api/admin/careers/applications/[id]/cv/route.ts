@@ -13,6 +13,16 @@ cloudinary.config({
 
 export const dynamic = 'force-dynamic';
 
+function getMimeType(formatOrExt: string): string {
+  const f = formatOrExt.toLowerCase().replace(/^\./, '');
+  if (f === 'pdf') return 'application/pdf';
+  if (f === 'docx') {
+    return 'application/vnd.openxmlformats-officedocument.wordprocessingml.document';
+  }
+  if (f === 'doc') return 'application/msword';
+  return 'application/octet-stream';
+}
+
 export async function GET(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
@@ -45,6 +55,34 @@ export async function GET(
       .replace(/[^a-zA-Z0-9_-]/g, '_');
 
     const cvUrl = application.cvUrl.trim();
+    const disposition = isDownload ? 'attachment' : 'inline';
+
+    // 0. Case: Base64 Data URI (fallback storage in DB)
+    if (cvUrl.startsWith('data:')) {
+      const match = cvUrl.match(/^data:([^;]+);base64,(.+)$/);
+      if (match) {
+        const mimeType = match[1];
+        const base64Data = match[2];
+        const buffer = Buffer.from(base64Data, 'base64');
+        const ext =
+          mimeType === 'application/pdf'
+            ? '.pdf'
+            : mimeType.includes('wordprocessingml')
+            ? '.docx'
+            : mimeType === 'application/msword'
+            ? '.doc'
+            : '.pdf';
+        const filename = `CV_${safeName}_${safeJob}${ext}`;
+
+        return new Response(new Uint8Array(buffer), {
+          headers: {
+            'Content-Type': mimeType,
+            'Content-Disposition': `${disposition}; filename="${encodeURIComponent(filename)}"`,
+            'Cache-Control': 'private, max-age=3600',
+          },
+        });
+      }
+    }
 
     // 1. Case: Local file in /uploads/
     if (cvUrl.startsWith('/uploads/')) {
@@ -52,23 +90,14 @@ export async function GET(
       try {
         const fileBuffer = await fs.readFile(localFilePath);
         const ext = path.extname(localFilePath).toLowerCase() || '.pdf';
-        const contentType =
-          ext === '.pdf'
-            ? 'application/pdf'
-            : ext === '.docx'
-            ? 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
-            : ext === '.doc'
-            ? 'application/msword'
-            : 'application/octet-stream';
-
+        const contentType = getMimeType(ext);
         const filename = `CV_${safeName}_${safeJob}${ext}`;
-        const disposition = isDownload ? 'attachment' : 'inline';
 
-        return new Response(fileBuffer, {
+        return new Response(new Uint8Array(fileBuffer), {
           headers: {
             'Content-Type': contentType,
             'Content-Disposition': `${disposition}; filename="${encodeURIComponent(filename)}"`,
-            'Cache-Control': 'public, max-age=3600',
+            'Cache-Control': 'private, max-age=3600',
           },
         });
       } catch (err) {
@@ -76,86 +105,121 @@ export async function GET(
       }
     }
 
-    // 2. Case: Cloudinary URL
+    // 2. Case: Cloudinary URL (supports both /raw/upload/ and /image/upload/)
     if (cvUrl.includes('cloudinary.com')) {
-      const urlMatch = cvUrl.match(/\/upload\/(?:v\d+\/)?(.+?)\.([a-zA-Z0-9]+)$/);
-      const publicId = urlMatch ? urlMatch[1] : null;
-      const format = urlMatch ? urlMatch[2].toLowerCase() : 'pdf';
-      const baseFilename = publicId ? path.basename(publicId) : 'file';
-      const cachePath = path.join(process.cwd(), 'public', 'uploads', 'cv', `${baseFilename}.${format}`);
+      const uploadPathMatch = cvUrl.match(
+        /\/(image|raw|video)\/upload\/(?:v\d+\/)?(.+)$/
+      );
+      const detectedResourceType = uploadPathMatch ? uploadPathMatch[1] : 'raw';
+      const fullPathAfterVersion = uploadPathMatch
+        ? decodeURIComponent(uploadPathMatch[2])
+        : null;
 
-      // Check if already cached locally
-      try {
-        const cachedBuffer = await fs.readFile(cachePath);
-        const disposition = isDownload ? 'attachment' : 'inline';
-        const contentType = format === 'pdf' ? 'application/pdf' : 'application/octet-stream';
-        const filename = `CV_${safeName}_${safeJob}.${format}`;
+      if (fullPathAfterVersion) {
+        const extMatch = fullPathAfterVersion.match(/\.([a-zA-Z0-9]+)$/);
+        const format = extMatch ? extMatch[1].toLowerCase() : 'pdf';
+        const publicIdWithoutExt = extMatch
+          ? fullPathAfterVersion.slice(0, -extMatch[0].length)
+          : fullPathAfterVersion;
+        const publicIdWithExt = fullPathAfterVersion;
 
-        return new Response(cachedBuffer, {
-          headers: {
-            'Content-Type': contentType,
-            'Content-Disposition': `${disposition}; filename="${encodeURIComponent(filename)}"`,
-            'Cache-Control': 'public, max-age=3600',
-          },
-        });
-      } catch {
-        // Cache miss, proceed to fetch
-      }
-
-      if (publicId) {
-        // 1. Try private download URL with Cloudinary API
-        const privateDownloadUrl = cloudinary.utils.private_download_url(
-          publicId,
-          format,
-          { resource_type: 'image', type: 'upload' }
+        const baseFilename = path.basename(publicIdWithoutExt) || 'file';
+        const cachePath = path.join(
+          process.cwd(),
+          'public',
+          'uploads',
+          'cv',
+          `${baseFilename}.${format}`
         );
 
-        // 2. Try signed delivery URL
-        const signedUrl = cloudinary.url(`${publicId}.${format}`, {
-          resource_type: 'image',
-          secure: true,
-          sign_url: true,
-          type: 'upload',
-        });
-
-        // 3. Try with API authorization header
-        const authHeader =
-          'Basic ' +
-          Buffer.from(
-            `${process.env.CLOUDINARY_API_KEY}:${process.env.CLOUDINARY_API_SECRET}`
-          ).toString('base64');
-
-        let fetchRes = await fetch(privateDownloadUrl);
-        if (!fetchRes.ok) {
-          fetchRes = await fetch(signedUrl);
-        }
-        if (!fetchRes.ok) {
-          fetchRes = await fetch(cvUrl, {
-            headers: { Authorization: authHeader },
-          });
-        }
-
-        if (fetchRes.ok) {
-          const arrayBuffer = await fetchRes.arrayBuffer();
-          const buffer = Buffer.from(arrayBuffer);
-
-          // Cache on disk for sub-millisecond future loads
-          try {
-            await fs.mkdir(path.dirname(cachePath), { recursive: true });
-            await fs.writeFile(cachePath, buffer);
-          } catch (cacheErr) {
-            console.warn('Cache write failed:', cacheErr);
-          }
-
-          const disposition = isDownload ? 'attachment' : 'inline';
-          const contentType = format === 'pdf' ? 'application/pdf' : 'application/octet-stream';
+        // Check if already cached locally
+        try {
+          const cachedBuffer = await fs.readFile(cachePath);
+          const contentType = getMimeType(format);
           const filename = `CV_${safeName}_${safeJob}.${format}`;
 
-          return new Response(buffer, {
+          return new Response(new Uint8Array(cachedBuffer), {
             headers: {
               'Content-Type': contentType,
               'Content-Disposition': `${disposition}; filename="${encodeURIComponent(filename)}"`,
-              'Cache-Control': 'public, max-age=3600',
+              'Cache-Control': 'private, max-age=3600',
+            },
+          });
+        } catch {
+          // Cache miss, proceed to fetch via Cloudinary Private Download API
+        }
+
+        // Build candidate private download URLs (bypasses "Customer is marked as untrusted" CDN block)
+        const candidateUrls: string[] = [];
+
+        if (detectedResourceType === 'raw') {
+          candidateUrls.push(
+            cloudinary.utils.private_download_url(publicIdWithExt, '', {
+              resource_type: 'raw',
+              type: 'upload',
+            }),
+            cloudinary.utils.private_download_url(publicIdWithoutExt, format, {
+              resource_type: 'raw',
+              type: 'upload',
+            }),
+            cloudinary.utils.private_download_url(publicIdWithoutExt, format, {
+              resource_type: 'image',
+              type: 'upload',
+            })
+          );
+        } else {
+          candidateUrls.push(
+            cloudinary.utils.private_download_url(publicIdWithoutExt, format, {
+              resource_type: 'image',
+              type: 'upload',
+            }),
+            cloudinary.utils.private_download_url(publicIdWithExt, '', {
+              resource_type: 'raw',
+              type: 'upload',
+            }),
+            cloudinary.url(`${publicIdWithoutExt}.${format}`, {
+              resource_type: 'image',
+              secure: true,
+              sign_url: true,
+              type: 'upload',
+            })
+          );
+        }
+
+        let fetchedBuffer: Buffer | null = null;
+
+        for (const candidateUrl of candidateUrls) {
+          try {
+            const res = await fetch(candidateUrl);
+            if (res.ok) {
+              const arrayBuffer = await res.arrayBuffer();
+              if (arrayBuffer.byteLength > 0) {
+                fetchedBuffer = Buffer.from(arrayBuffer);
+                break;
+              }
+            }
+          } catch {
+            // Try next candidate
+          }
+        }
+
+        if (fetchedBuffer) {
+          // Optional local disk cache when filesystem is writable
+          try {
+            await fs.mkdir(path.dirname(cachePath), { recursive: true });
+            await fs.writeFile(cachePath, fetchedBuffer);
+          } catch {
+            // Read-only filesystem on Vercel serverless — safe to ignore
+          }
+
+          const contentType = getMimeType(format);
+          const filename = `CV_${safeName}_${safeJob}.${format}`;
+
+          return new Response(new Uint8Array(fetchedBuffer), {
+            headers: {
+              'Content-Type': contentType,
+              'Content-Disposition': `${disposition}; filename="${encodeURIComponent(filename)}"`,
+              'Cache-Control': 'private, max-age=3600',
             },
           });
         }

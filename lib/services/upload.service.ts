@@ -320,10 +320,17 @@ export async function uploadDocumentBuffer(
     }
   }
 
-  const finalUrl = cloudSecureUrl || localPublicUrl;
-  if (!finalUrl) {
-    throw new Error('Không thể lưu tệp CV (vui lòng kiểm tra cấu hình Cloudinary trên server).');
-  }
+  const mimeType =
+    ext === '.pdf'
+      ? 'application/pdf'
+      : ext === '.docx'
+      ? 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+      : ext === '.doc'
+      ? 'application/msword'
+      : 'application/pdf';
+
+  const fallbackDataUri = `data:${mimeType};base64,${buffer.toString('base64')}`;
+  const finalUrl = cloudSecureUrl || localPublicUrl || fallbackDataUri;
 
   return {
     url: finalUrl,
