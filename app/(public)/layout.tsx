@@ -3,6 +3,7 @@ import Header from '@/components/header';
 import Footer from '@/components/footer';
 import SmoothScroll from '@/components/SmoothScroll';
 import QueryProvider from '@/components/providers/QueryProvider';
+import PublicLayoutClient from '@/components/layout/PublicLayoutClient';
 import { getCategoriesWithCount } from '@/lib/services/category.service';
 import { getHomeSectionByKey } from '@/lib/services/home-section.service';
 import { getFooterConfig } from '@/lib/services/footer-config.service';
@@ -21,12 +22,17 @@ export default async function PublicLayout({
   return (
     <QueryProvider>
       <SmoothScroll>
-        <Header
-          initialCategories={categories}
-          initialServicesMenu={headerServicesSection?.data || null}
-        />
-        <main className="flex-grow">{children}</main>
-        <Footer initialConfig={footerConfig} />
+        <PublicLayoutClient
+          header={
+            <Header
+              initialCategories={categories}
+              initialServicesMenu={headerServicesSection?.data || null}
+            />
+          }
+          footer={<Footer initialConfig={footerConfig} />}
+        >
+          {children}
+        </PublicLayoutClient>
       </SmoothScroll>
     </QueryProvider>
   );
