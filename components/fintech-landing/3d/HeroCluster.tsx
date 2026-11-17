@@ -13,10 +13,10 @@ interface HeroClusterProps {
 
 export default function HeroCluster({ progress }: HeroClusterProps) {
   const groupRef = useRef<THREE.Group>(null);
-  const { scene } = useGLTF('/models/01_hero_crystal_cluster.glb');
+  const { scene } = useGLTF('/models/hero_cube_cluster.glb');
   const clonedScene = useMemo(() => scene.clone(true), [scene]);
 
-  // Extract all 27 HeroCubes and record initial positions
+  // Extract all 27 Cubes (Cube_01..27) and record initial positions
   const cubes = useMemo(() => {
     const list: {
       obj: THREE.Object3D;
@@ -27,7 +27,7 @@ export default function HeroCluster({ progress }: HeroClusterProps) {
     }[] = [];
 
     clonedScene.traverse((child) => {
-      if (child.name.startsWith('HeroCube_')) {
+      if (child.name.startsWith('Cube_')) {
         const initialPos = child.position.clone();
         const initialRot = child.rotation.clone();
         const dir = initialPos.lengthSq() > 0.01 

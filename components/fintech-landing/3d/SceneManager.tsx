@@ -7,6 +7,7 @@ import * as THREE from 'three';
 import HeroCluster from './HeroCluster';
 import WarpTunnel from './WarpTunnel';
 import SettlementGrid from './SettlementGrid';
+import DigitalMatrixWall from './DigitalMatrixWall';
 import EclipsePortal from './EclipsePortal';
 
 interface SceneManagerProps {
@@ -21,7 +22,6 @@ export default function SceneManager({ progress }: SceneManagerProps) {
   const targetFov = useRef(45);
 
   useFrame((_state, delta) => {
-    // Smooth damping (lerp) of scroll progress for 60fps responsiveness
     currentProgressRef.current = THREE.MathUtils.lerp(
       currentProgressRef.current,
       progress,
@@ -64,7 +64,7 @@ export default function SceneManager({ progress }: SceneManagerProps) {
       targetLookAt.current.set(0, THREE.MathUtils.lerp(0, 0.2, t), 0);
       targetFov.current = 45;
     }
-    // 6. [82% - 91%] MPC Data Matrix: Top-down orthographic view
+    // 6. [82% - 91%] MPC Data Matrix: Top-down orthographic view of digital matrix wall
     else if (p < 0.91) {
       targetCameraPos.current.set(0, 0, 8.5);
       targetLookAt.current.set(0, 0, 0);
@@ -77,7 +77,6 @@ export default function SceneManager({ progress }: SceneManagerProps) {
       targetFov.current = 45;
     }
 
-    // Apply smoothed camera transformations
     camera.position.lerp(targetCameraPos.current, Math.min(1, delta * 4));
     const perspCam = camera as THREE.PerspectiveCamera;
     if (perspCam.fov !== undefined) {
@@ -123,10 +122,11 @@ export default function SceneManager({ progress }: SceneManagerProps) {
       <directionalLight position={[-10, -10, -5]} intensity={1.2} color="#1d4ed8" />
       <pointLight position={[0, 0, 4]} intensity={4.0} color="#60a5fa" distance={16} />
 
-      {/* 4 Dedicated Blender 3D Models (NO Primitive Meshes) */}
+      {/* 5 Dedicated Blender 3D Models (NO Three.js Primitives) */}
       <HeroCluster progress={currentProgressRef.current} />
       <WarpTunnel progress={currentProgressRef.current} />
       <SettlementGrid progress={currentProgressRef.current} />
+      <DigitalMatrixWall progress={currentProgressRef.current} />
       <EclipsePortal progress={currentProgressRef.current} />
     </>
   );

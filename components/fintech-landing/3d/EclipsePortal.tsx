@@ -13,7 +13,7 @@ interface EclipsePortalProps {
 
 export default function EclipsePortal({ progress }: EclipsePortalProps) {
   const groupRef = useRef<THREE.Group>(null);
-  const { scene } = useGLTF('/models/04_eclipse_portal_ring.glb');
+  const { scene } = useGLTF('/models/eclipse_portal_ring.glb');
   const clonedScene = useMemo(() => scene.clone(true), [scene]);
 
   // Find sub-elements

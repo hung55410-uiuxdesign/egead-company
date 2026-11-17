@@ -13,7 +13,7 @@ interface WarpTunnelProps {
 
 export default function WarpTunnel({ progress }: WarpTunnelProps) {
   const groupRef = useRef<THREE.Group>(null);
-  const { scene } = useGLTF('/models/02_warp_hex_crystals.glb');
+  const { scene } = useGLTF('/models/warp_tunnel_shards.glb');
   const clonedScene = useMemo(() => scene.clone(true), [scene]);
 
   // Extract shards and needles
@@ -36,7 +36,7 @@ export default function WarpTunnel({ progress }: WarpTunnelProps) {
     }[] = [];
 
     clonedScene.traverse((child) => {
-      if (child.name.startsWith('WarpShard_')) {
+      if (child.name.startsWith('HexShard_')) {
         shardList.push({
           obj: child,
           baseX: child.position.x,
@@ -49,7 +49,7 @@ export default function WarpTunnel({ progress }: WarpTunnelProps) {
             (Math.random() - 0.5) * 2.5
           ),
         });
-      } else if (child.name.startsWith('StreakNeedle_')) {
+      } else if (child.name.startsWith('TunnelNeedle_')) {
         needleList.push({
           obj: child,
           baseX: child.position.x,
@@ -78,8 +78,7 @@ export default function WarpTunnel({ progress }: WarpTunnelProps) {
     const intensity = Math.sin(warpT * Math.PI);
 
     // Animate hex crystal shards streaming along Z towards and past camera
-    elements.shardList.forEach(({ obj, baseX, baseY, baseZ, speed, rotSpeed }, idx) => {
-      // Loop Z from -30 to +15
+    elements.shardList.forEach(({ obj, baseX, baseY, speed, rotSpeed }, idx) => {
       const offset = (state.clock.elapsedTime * speed * (1.0 + intensity * 2.5) + idx * 8) % 45;
       const currentZ = -30 + offset;
 
@@ -103,7 +102,6 @@ export default function WarpTunnel({ progress }: WarpTunnelProps) {
       obj.position.y = baseY;
       obj.position.z = currentZ;
 
-      // Elongate streak based on warp intensity
       const stretchZ = 1.0 + intensity * 2.5;
       obj.scale.set(1.0, 1.0, stretchZ);
     });
