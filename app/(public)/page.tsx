@@ -1,10 +1,7 @@
-import LandingPage from '@/components/fintech-landing/LandingPage';
-
-export const metadata = {
-  title: 'TDA — Transforming Digital Asset Solutions',
-  description: 'Interactive 3D institutional digital asset solutions, trading terminal, and MPC settlement infrastructure.',
-};
-
 export default function HomePage() {
-  return <LandingPage />;
+  return (
+    <div className="flex min-h-[70vh] items-center justify-center">
+      <span className="text-2xl font-medium text-slate-400">Home</span>
+    </div>
+  );
 }
