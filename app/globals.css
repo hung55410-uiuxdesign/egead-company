@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -5,6 +7,17 @@
 :root {
   --font-rubik: 'Montserrat', sans-serif;
   --font-montserrat: 'Montserrat', sans-serif;
+  --font-serif-italic: 'Instrument Serif', Georgia, serif;
+  --font-sans-geo: 'Plus Jakarta Sans', var(--font-montserrat), sans-serif;
+}
+
+.font-editorial-italic {
+  font-family: var(--font-serif-italic);
+  font-style: italic;
+}
+
+.font-sans-geo {
+  font-family: var(--font-sans-geo);
 }
 
 html:not([data-theme="light"]) {
