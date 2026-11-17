@@ -29,9 +29,10 @@ export default function SettlementGrid({ progress }: SettlementGridProps) {
     const glowingIndices = new Set([7, 11, 12, 13, 14, 18]);
 
     clonedScene.traverse((child) => {
-      if (child.name.startsWith('Top_LED_Cap_') && (child as THREE.Mesh).isMesh) {
+      const isTopPlate = (child.name.startsWith('TopLEDPlate_') || child.name.startsWith('Top_LED_Cap_')) && (child as THREE.Mesh).isMesh;
+      if (isTopPlate) {
         const mesh = child as THREE.Mesh;
-        const num = parseInt(child.name.replace('Top_LED_Cap_', ''), 10);
+        const num = parseInt(child.name.replace('TopLEDPlate_', '').replace('Top_LED_Cap_', ''), 10);
         const col = (num - 1) % 5;
         const row = Math.floor((num - 1) / 5);
         const isCross = glowingIndices.has(num);

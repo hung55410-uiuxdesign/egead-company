@@ -16,14 +16,14 @@ function getSectionOpacity(progress: number, start: number, end: number, fadeDis
 
 export default function ContentTimeline({ progress }: ContentTimelineProps) {
   // Choreography across 700vh
-  const op1 = getSectionOpacity(progress, 0.0, 0.17, 0.03);
-  const op2 = getSectionOpacity(progress, 0.19, 0.34, 0.03);
-  const op3 = getSectionOpacity(progress, 0.36, 0.50, 0.03);
-  const op4 = getSectionOpacity(progress, 0.52, 0.65, 0.03);
-  const op5 = getSectionOpacity(progress, 0.67, 0.81, 0.03);
-  const op6A = getSectionOpacity(progress, 0.82, 0.86, 0.02);
-  const op6B = getSectionOpacity(progress, 0.86, 0.91, 0.02);
-  const op7 = getSectionOpacity(progress, 0.92, 1.0, 0.025);
+  const op1 = getSectionOpacity(progress, 0.0, 0.15, 0.025);
+  const op2 = getSectionOpacity(progress, 0.17, 0.29, 0.03);
+  const op3 = getSectionOpacity(progress, 0.31, 0.47, 0.03);
+  const op4 = getSectionOpacity(progress, 0.49, 0.61, 0.03);
+  const op5 = getSectionOpacity(progress, 0.63, 0.77, 0.03);
+  const op6A = getSectionOpacity(progress, 0.79, 0.84, 0.02);
+  const op6B = getSectionOpacity(progress, 0.84, 0.90, 0.02);
+  const op7 = getSectionOpacity(progress, 0.91, 1.0, 0.025);
 
   return (
     <div className="relative w-full h-[700vh] pointer-events-none font-sans-geo">

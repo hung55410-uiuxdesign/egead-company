@@ -23,12 +23,12 @@ export default function SceneCanvas({ progress }: SceneCanvasProps) {
       >
         <Suspense fallback={null}>
           <SceneManager progress={progress} />
-          {/* Post-Processing Bloom Pass for Blender Emissive Materials */}
+          {/* Post-Processing Bloom Pass for Authentic Blender Emissive Materials */}
           <EffectComposer multisampling={0} enableNormalPass={false}>
             <Bloom
               mipmapBlur
-              luminanceThreshold={1.0}
-              intensity={1.4}
+              luminanceThreshold={0.9}
+              intensity={1.5}
             />
           </EffectComposer>
         </Suspense>

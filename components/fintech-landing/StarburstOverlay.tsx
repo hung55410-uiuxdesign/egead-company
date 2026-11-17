@@ -7,15 +7,15 @@ interface StarburstOverlayProps {
 }
 
 export default function StarburstOverlay({ progress }: StarburstOverlayProps) {
-  // Active window around 26% (0.20 to 0.32)
-  if (progress < 0.20 || progress > 0.32) return null;
+  // Active window around 15% - 30% (peaking at 23%)
+  if (progress < 0.16 || progress > 0.30) return null;
 
-  const dist = Math.abs(progress - 0.26);
-  const maxDist = 0.06;
-  const intensity = Math.pow(Math.max(0, 1 - dist / maxDist), 2.2);
+  const dist = Math.abs(progress - 0.23);
+  const maxDist = 0.07;
+  const intensity = Math.pow(Math.max(0, 1 - dist / maxDist), 2.0);
 
   // Horizontal sweep across viewport as scroll advances
-  const sweepPercent = 50 + (progress - 0.26) * 250;
+  const sweepPercent = 50 + (progress - 0.23) * 240;
 
   return (
     <div

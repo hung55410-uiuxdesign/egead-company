@@ -29,43 +29,43 @@ export default function SceneManager({ progress }: SceneManagerProps) {
     );
     const p = currentProgressRef.current;
 
-    // 1. [0% - 18%] Hero: Hero crystal cluster
-    if (p < 0.18) {
+    // 1. [0% - 15%] Hero: Hero crystal cluster
+    if (p < 0.15) {
       targetCameraPos.current.set(0, 0, 7.5);
       targetLookAt.current.set(0, 0, 0);
       targetFov.current = 45;
     }
-    // 2. [18% - 35%] Starburst Transition: Camera pushes forward
-    else if (p < 0.35) {
-      const t = (p - 0.18) / 0.17;
+    // 2. [15% - 30%] Starburst Transition: Camera pushes forward
+    else if (p < 0.30) {
+      const t = (p - 0.15) / 0.15;
       targetCameraPos.current.set(0, 0, THREE.MathUtils.lerp(7.5, 4.0, t));
       targetLookAt.current.set(0, 0, 0);
       targetFov.current = 45;
     }
-    // 3. [35% - 52%] Warp Tunnel: High-speed dolly and FOV expansion (45 -> 85)
-    else if (p < 0.52) {
-      const t = (p - 0.35) / 0.17;
+    // 3. [30% - 48%] Warp Tunnel: High-speed dolly and FOV expansion (45 -> 85)
+    else if (p < 0.48) {
+      const t = (p - 0.30) / 0.18;
       targetCameraPos.current.set(0, 0, THREE.MathUtils.lerp(4.0, 1.6, t));
       targetLookAt.current.set(0, 0, -20);
       const warpCurve = Math.sin(t * Math.PI);
       targetFov.current = 45 + warpCurve * 40;
     }
-    // 4. [52% - 66%] Trading Terminal: Settle down into calm view
-    else if (p < 0.66) {
-      const t = (p - 0.52) / 0.14;
+    // 4. [48% - 62%] Trading Terminal: Settle down into calm view
+    else if (p < 0.62) {
+      const t = (p - 0.48) / 0.14;
       targetCameraPos.current.set(0, THREE.MathUtils.lerp(0, -0.5, t), THREE.MathUtils.lerp(1.6, 6.8, t));
       targetLookAt.current.set(0, 0, 0);
       targetFov.current = THREE.MathUtils.lerp(85, 46, Math.min(1, t * 2));
     }
-    // 5. [66% - 82%] Isometric Platform: Platform rises at isometric angle
-    else if (p < 0.82) {
-      const t = (p - 0.66) / 0.16;
+    // 5. [62% - 78%] Isometric Platform: Platform rises at isometric angle
+    else if (p < 0.78) {
+      const t = (p - 0.62) / 0.16;
       targetCameraPos.current.set(0, THREE.MathUtils.lerp(-0.5, 1.2, t), 6.2);
       targetLookAt.current.set(0, THREE.MathUtils.lerp(0, 0.2, t), 0);
       targetFov.current = 45;
     }
-    // 6. [82% - 91%] MPC Data Matrix: Top-down orthographic view of digital matrix wall
-    else if (p < 0.91) {
+    // 6. [78% - 90%] MPC Data Matrix: Top-down orthographic view of digital matrix wall
+    else if (p < 0.90) {
       targetCameraPos.current.set(0, 0, 8.5);
       targetLookAt.current.set(0, 0, 0);
       targetFov.current = 48;
