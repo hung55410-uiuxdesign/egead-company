@@ -16,7 +16,7 @@ export default function JobDetailRelated({ relatedJobs }: JobDetailRelatedProps)
   }
 
   return (
-    <section className="w-full max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 mb-20">
+    <section className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 mb-20">
       <div className="flex items-center justify-between mb-8 pb-4 border-b border-slate-100">
         <h2 className="text-2xl sm:text-3xl font-bold text-slate-900">
           Các vị trí khác đang mở

@@ -65,7 +65,7 @@ export default function JobDetailContent({ job }: JobDetailContentProps) {
     descLower.startsWith('<p><strong>1.');
 
   return (
-    <section className="w-full max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 mb-16 sm:mb-24">
+    <section className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 mb-16 sm:mb-24">
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
         {/* Left Column: Job Description & Specifications */}
         <div className="lg:col-span-7 space-y-8">

@@ -1,6 +1,18 @@
 import type { Metadata } from 'next';
-import { Montserrat, Open_Sans } from 'next/font/google';
+import { Geist, Geist_Mono, Montserrat, Open_Sans } from 'next/font/google';
 import './globals.css';
+
+const geistSans = Geist({
+  subsets: ['latin', 'vietnamese'],
+  variable: '--font-geist-sans',
+  display: 'swap',
+});
+
+const geistMono = Geist_Mono({
+  subsets: ['latin', 'vietnamese'],
+  variable: '--font-geist-mono',
+  display: 'swap',
+});
 
 const montserrat = Montserrat({
   subsets: ['latin', 'vietnamese'],
@@ -44,7 +56,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${montserrat.variable} ${openSans.variable} dark`}
+      className={`${geistSans.variable} ${geistMono.variable} ${montserrat.variable} ${openSans.variable} dark`}
       suppressHydrationWarning
       data-scroll-behavior="smooth"
     >

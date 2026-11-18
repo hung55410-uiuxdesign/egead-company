@@ -27,7 +27,7 @@ export default function JobDetailHeader({
       initial={{ opacity: 0, y: 16 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-      className="w-full max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 mb-10 sm:mb-14"
+      className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 mb-10 sm:mb-14"
     >
       <Link
         href="/careers"

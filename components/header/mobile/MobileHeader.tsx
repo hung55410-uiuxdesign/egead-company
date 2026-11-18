@@ -13,7 +13,7 @@ export default function MobileHeader({ onClose }: MobileHeaderProps) {
     <div className="flex items-center justify-between border-b border-gray-100 pb-6 mb-8">
       <Link href="/" onClick={onClose} className="flex items-center">
         <img
-          src="https://egeadcompany.com/images/egead/logo.png"
+          src="/assets/logo/logo-color.png"
           alt="E-GEAD Company"
           className="h-8 sm:h-9 w-auto"
         />

@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     title: 'Our People | E-GEAD & Global Commerce Leadership',
     description:
       'Meet the leaders, architects, and specialists behind E-GEAD and our global digital commerce ecosystem.',
-    images: ['https://egeadcompany.com/images/egead/logo.png'],
+    images: ['/assets/logo/logo-color.png'],
   },
 };
 

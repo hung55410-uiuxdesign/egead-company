@@ -5,7 +5,20 @@ export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
 
-    const { firstName, lastName, company, email, phone, region, message } = body;
+    const { company, email, phone, region, message } = body;
+    let firstName = body.firstName;
+    let lastName = body.lastName;
+
+    if ((!firstName || !lastName) && body.name) {
+      const parts = String(body.name).trim().split(/\s+/);
+      if (parts.length > 1) {
+        firstName = parts[0];
+        lastName = parts.slice(1).join(' ');
+      } else {
+        firstName = parts[0] || 'Client';
+        lastName = parts[0] || 'Client';
+      }
+    }
 
     const finalMessage =
       message && typeof message === 'string' && message.trim()

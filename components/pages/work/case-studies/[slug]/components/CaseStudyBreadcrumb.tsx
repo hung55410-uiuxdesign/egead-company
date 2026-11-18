@@ -8,7 +8,7 @@ export default function CaseStudyBreadcrumb() {
   return (
     <MotionDiv
       delay={0.05}
-      className="pt-4 sm:pt-6 pb-2 px-6 md:px-16 max-w-[1440px] mx-auto"
+      className="pt-4 sm:pt-6 pb-2 px-6 md:px-16 max-w-7xl mx-auto"
     >
       <Link
         href="/our-work"

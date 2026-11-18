@@ -139,7 +139,7 @@ export default function CareerOfficesSection({
 
   return (
     <section className="w-full pt-8 pb-20 sm:pb-28 bg-white" id="offices">
-      <div className="w-full max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
+      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12">
           {displayOffices.map((office, idx) => (
             <motion.div

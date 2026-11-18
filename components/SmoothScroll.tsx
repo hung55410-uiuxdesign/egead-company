@@ -9,6 +9,9 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
   const lenisRef = useRef<Lenis | null>(null);
 
   useEffect(() => {
+    // If on home page (VI or EN), do not initialize external Lenis so Puture's native Lenis has full control
+    if (pathname === '/' || pathname === '/en' || pathname === '/en/') return;
+
     // Initialize Lenis smooth inertial scrolling
     const lenis = new Lenis({
       duration: 1.2,

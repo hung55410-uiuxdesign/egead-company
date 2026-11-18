@@ -228,7 +228,7 @@ export default function CareerOpportunitiesSection({
 
   return (
     <section className="w-full py-16 sm:py-24" id="opportunities">
-      <div className="w-full max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
+      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
         {/* Section Heading */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}

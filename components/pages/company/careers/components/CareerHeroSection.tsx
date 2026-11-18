@@ -18,7 +18,7 @@ export default function CareerHeroSection({ config }: CareerHeroSectionProps) {
 
   return (
     <section className="w-full pt-6 sm:pt-10 pb-14 sm:pb-20">
-      <div className="w-full max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
+      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
         {/* Team Photo Banner - Full Width with soft bottom vignette */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}

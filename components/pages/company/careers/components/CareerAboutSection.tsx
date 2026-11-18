@@ -27,7 +27,7 @@ export default function CareerAboutSection({ config }: CareerAboutSectionProps) 
 
   return (
     <section className="w-full py-12 sm:py-20 lg:py-28" id="about">
-      <div className="w-full max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
+      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
         <div className="relative flex flex-col lg:flex-row items-center gap-8 lg:gap-0">
           {/* Left Column: Text Content Card overlapping onto the image */}
           <motion.div
