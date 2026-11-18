@@ -10,8 +10,12 @@ type Props = {
 export const dynamic = "force-dynamic";
 
 export async function generateStaticParams() {
-  const jobs = await getPublicJobOpenings();
-  return jobs.map((j) => ({ slug: j.slug }));
+  try {
+    const jobs = await getPublicJobOpenings();
+    return jobs.map((j) => ({ slug: j.slug }));
+  } catch {
+    return [];
+  }
 }
 
 export async function generateMetadata(props: Props): Promise<Metadata> {

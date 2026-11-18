@@ -12,15 +12,15 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
     // If on home page (VI or EN), do not initialize external Lenis so Puture's native Lenis has full control
     if (pathname === '/' || pathname === '/en' || pathname === '/en/') return;
 
-    // Initialize Lenis smooth inertial scrolling
+    // Initialize Lenis smooth inertial scrolling (snappy & responsive)
     const lenis = new Lenis({
-      duration: 1.2,
+      duration: 0.8,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       orientation: 'vertical',
       gestureOrientation: 'vertical',
       smoothWheel: true,
-      wheelMultiplier: 0.9,
-      touchMultiplier: 1.5,
+      wheelMultiplier: 1.65,
+      touchMultiplier: 1.9,
     });
 
     lenisRef.current = lenis;

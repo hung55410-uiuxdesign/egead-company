@@ -71,7 +71,7 @@ function findNearestStopIndex(stops: ScrollStop[], scrollY: number): number {
   return bestIdx;
 }
 
-function scrollToPosition(targetY: number, duration = 1.1) {
+function scrollToPosition(targetY: number, duration = 0.72) {
   const win = typeof window !== 'undefined' ? (window as any) : null;
   const lenis = win?.__egeadLenis;
   if (lenis && typeof lenis.scrollTo === 'function') {
@@ -202,14 +202,14 @@ function ScrollNavigationDock() {
     lastNavTimeRef.current = now;
     setTotalStops(stops.length);
     setActiveIndex(nextIdx);
-    scrollToPosition(stops[nextIdx].y, 1.1);
+    scrollToPosition(stops[nextIdx].y, 0.72);
   }, []);
 
   const handleScrollTop = useCallback(() => {
     targetIdxRef.current = 0;
     lastNavTimeRef.current = Date.now();
     setActiveIndex(0);
-    scrollToPosition(0, 1.2);
+    scrollToPosition(0, 0.8);
   }, []);
 
   const isFirst = activeIndex <= 0 && isAtTop;
@@ -412,7 +412,7 @@ export default function EGEADLanding() {
         // Dynamically inject Puture entry script module
         const script = document.createElement('script');
         script.type = 'module';
-        script.src = '/assets/main-v25.js?v=36';
+        script.src = '/assets/main-v25.js?v=37';
         script.id = 'puture-main-bundle';
         script.crossOrigin = 'anonymous';
         document.body.appendChild(script);
@@ -528,6 +528,12 @@ export default function EGEADLanding() {
           width: 100% !important;
           height: 100lvh !important;
           z-index: 0 !important;
+        }
+
+        /* Tighten inter-scene dead scroll gaps (was 80vh) for brisker chapter pacing */
+        .puture-landing-page .scene,
+        .puture-landing-page .scene-gap {
+          margin-bottom: 30vh !important;
         }
 
         .puture-landing-page .site-header {

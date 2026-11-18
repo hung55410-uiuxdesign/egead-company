@@ -14,7 +14,7 @@ export default async function PublicLayout({
   children: React.ReactNode;
 }) {
   const [categories, headerServicesSection, footerConfig] = await Promise.all([
-    getCategoriesWithCount(),
+    getCategoriesWithCount().catch(() => []),
     getHomeSectionByKey('header-services-menu').catch(() => null),
     getFooterConfig().catch(() => null),
   ]);
