@@ -3,9 +3,8 @@
 import { Fragment, useEffect, useRef, useState } from "react";
 import { useReducedMotion } from "framer-motion";
 import { FadeUp } from "@/components/ui/FadeUp";
+import HeroOrbCanvas from "./HeroOrbCanvas";
 
-const HERO_VIDEO =
-  "https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260514_135830_bb6491d1-9b66-4aec-9722-13b4dfe3fb46.mp4";
 const HERO_FONT_CSS =
   "https://db.onlinewebfonts.com/c/e66905e07608167a84e6ad52f638c3c6?family=Helvetica+Now+Var";
 
@@ -18,10 +17,9 @@ const WORD_DELAY_STEP = 0.08;
 export default function HeroBanner() {
   const reduceMotion = useReducedMotion();
   const sectionRef = useRef<HTMLElement>(null);
-  const videoRef = useRef<HTMLVideoElement>(null);
   const [inView, setInView] = useState(true);
 
-  // The video is fixed to the viewport, so it is only shown (and decoded) while the hero is on screen.
+  // The backdrop is fixed to the viewport, so it is only shown (and animated) while the hero is on screen.
   // Otherwise it would sit on top of any later section that does not paint its own background.
   useEffect(() => {
     const section = sectionRef.current;
@@ -33,42 +31,12 @@ export default function HeroBanner() {
     return () => observer.disconnect();
   }, []);
 
-  useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return;
-    if (reduceMotion || !inView) {
-      video.pause();
-      return;
-    }
-    video.play().catch(() => {});
-  }, [reduceMotion, inView]);
-
   return (
     <>
       {/* React 19 hoists this into <head>; the font only applies inside the hero below. */}
       <link rel="stylesheet" href={HERO_FONT_CSS} precedence="hero-font" />
 
-      <video
-        ref={videoRef}
-        autoPlay
-        muted
-        loop
-        playsInline
-        aria-hidden="true"
-        tabIndex={-1}
-        src={HERO_VIDEO}
-        style={{
-          position: "fixed",
-          top: 0,
-          left: 0,
-          width: "100%",
-          height: "100vh",
-          objectFit: "cover",
-          zIndex: 0,
-          visibility: inView ? "visible" : "hidden",
-          pointerEvents: "none",
-        }}
-      />
+      <HeroOrbCanvas active={inView} reducedMotion={reduceMotion} />
 
       <section
         ref={sectionRef}
