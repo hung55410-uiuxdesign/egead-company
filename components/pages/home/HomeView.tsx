@@ -57,13 +57,8 @@ export default function HomeView({
   return (
     <div className="w-full overflow-hidden">
       {/* 1. Hero Section */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-      >
-        <HeroBanner />
-      </motion.div>
+      {/* No transform on this wrapper: the hero's background video is position: fixed. */}
+      <HeroBanner />
 
       {/* 2. Services Section */}
       <motion.div
