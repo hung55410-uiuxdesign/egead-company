@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { ChevronRight } from 'lucide-react';
 import NavArrowIcon from '../../ui/NavArrowIcon';
 import type { HeaderServicesMenuData } from '@/lib/services/home-section.service';
+import { useT } from '@/components/providers/LocaleProvider';
 
 interface MobileServicesTabProps {
   onClose: () => void;
@@ -15,6 +16,7 @@ export default function MobileServicesTab({
   onClose,
   servicesMenu,
 }: MobileServicesTabProps) {
+  const t = useT();
   const servicesList = servicesMenu?.services || [];
   const industriesList = servicesMenu?.industries || [];
   const partnersList = servicesMenu?.partners || [];
@@ -42,7 +44,7 @@ export default function MobileServicesTab({
       {/* Column 1: Our Services */}
       <div>
         <h3 className="text-xs font-bold text-gray-500 mb-4">
-          Our Services
+          {t.servicesPage.operations}
         </h3>
         <ul className="space-y-3.5 mb-6">
           {servicesList.map((service) => (
@@ -86,7 +88,7 @@ export default function MobileServicesTab({
       {/* Column 2: Industries */}
       <div>
         <h3 className="text-xs font-bold text-gray-500 mb-4">
-          Industries
+          {t.servicesPage.products}
         </h3>
         <ul className="space-y-3.5 mb-6">
           {industriesList.map((ind) => (

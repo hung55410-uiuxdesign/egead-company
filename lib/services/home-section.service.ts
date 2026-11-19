@@ -74,11 +74,19 @@ export interface TestimonialsSectionData {
 
 export interface HeaderMenuItem {
   name: string;
+  /** Optional Vietnamese label (shown on the /vi site; falls back to `name`). */
+  nameVi?: string;
   href: string;
   icon?: string;
 }
 
 export interface HeaderServicesMenuData {
+  servicesTitle?: string;
+  industriesTitle?: string;
+  partnersTitle?: string;
+  servicesTitleVi?: string;
+  industriesTitleVi?: string;
+  partnersTitleVi?: string;
   services: HeaderMenuItem[];
   industries: HeaderMenuItem[];
   partners: HeaderMenuItem[];
@@ -88,6 +96,9 @@ export interface HeaderServicesMenuData {
   allIndustriesHref?: string;
   allPartnersText?: string;
   allPartnersHref?: string;
+  allServicesTextVi?: string;
+  allIndustriesTextVi?: string;
+  allPartnersTextVi?: string;
 }
 
 export interface HomeSectionModel {

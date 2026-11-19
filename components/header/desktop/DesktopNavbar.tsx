@@ -7,6 +7,8 @@ import { Menu } from 'lucide-react';
 import { NAV_ITEMS } from '../config/nav-items';
 import NavItemLink from './NavItemLink';
 import NavCtaButton from '../ui/NavCtaButton';
+import LanguageDropdown from './LanguageDropdown';
+import { useLocalizeHref, useT } from '@/components/providers/LocaleProvider';
 
 interface DesktopNavbarProps {
   activeDropdown: string | null;
@@ -21,10 +23,13 @@ export default function DesktopNavbar({
   onMouseLeave,
   onOpenMobileMenu,
 }: DesktopNavbarProps) {
+  const t = useT();
+  const lh = useLocalizeHref();
+
   return (
     <div className="relative w-full px-6 sm:px-10 lg:px-14 xl:px-16 flex items-center justify-between">
       {/* Logo with micro hover & ambient glowing light aura */}
-      <Link href="/" className="group relative flex items-center shrink-0 transition-opacity">
+      <Link href={lh('/')} className="group relative flex items-center shrink-0 transition-opacity">
         {/* Vùng sáng mờ ảo xuất phát từ góc trên bên trái & tỏa rộng chuyển động dịu nhẹ */}
         <div
           aria-hidden="true"
@@ -115,6 +120,9 @@ export default function DesktopNavbar({
 
       {/* Right Header Controls */}
       <div className="flex items-center gap-4 sm:gap-5">
+        {/* Language switcher (EN / VI) */}
+        <LanguageDropdown />
+
         {/* CTA Button */}
         <NavCtaButton />
 
@@ -124,7 +132,7 @@ export default function DesktopNavbar({
           onClick={onOpenMobileMenu}
           whileHover={{ scale: 1.08 }}
           whileTap={{ scale: 0.92 }}
-          aria-label="Open Navigation Menu"
+          aria-label={t.common.openMenu}
           className="lg:hidden w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 border border-white/15 flex items-center justify-center transition backdrop-blur-md text-white cursor-pointer"
         >
           <Menu className="w-5 h-5" />

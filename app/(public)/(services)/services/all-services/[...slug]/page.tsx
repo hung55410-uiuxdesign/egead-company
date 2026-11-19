@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { getExactServiceData, ServiceDetailItem } from '@/data/services-data';
-import { getServiceItemBySlug } from '@/lib/services/service-item.service';
+import { getServiceItemBySlug, getServiceItems } from '@/lib/services/service-item.service';
 import { ServiceDetailView } from '@/components/pages/services/services/all-services/[...slug]';
 import { getOptimizedImageUrl } from '@/lib/utils/image';
 
@@ -30,7 +30,7 @@ async function getMergedServiceItem(slugOrPath: string[]): Promise<ServiceDetail
         subtitle: dbItem.subtitle,
         overviewSubTitle: dbItem.overviewSubTitle || '',
         heroImage: getOptimizedImageUrl(dbItem.heroImage, { width: 1600 }) || '/images/services/strategy_design.jpg',
-        middleImage: getOptimizedImageUrl(dbItem.middleImage, { width: 1600 }) || '/images/services/Btm_Automotive.jpg',
+        middleImage: getOptimizedImageUrl(dbItem.middleImage, { width: 1600 }) || '',
         overviewHeading: dbItem.overviewHeading || '',
         overviewParagraphs: dbItem.overviewParagraphs || [],
         approachHeading: dbItem.approachHeading || 'Our approach',
@@ -92,6 +92,11 @@ export default async function ServiceDetailPage({ params }: Props) {
     notFound();
   }
 
-  return <ServiceDetailView service={service} />;
+  const published = await getServiceItems({ status: 'published' }).catch(() => []);
+  const relatedItems = published
+    .filter((item) => item.slug !== service.slug)
+    .map((item) => ({ slug: item.slug, name: item.title, desc: item.tagline }));
+
+  return <ServiceDetailView service={service} relatedItems={relatedItems} />;
 }
 

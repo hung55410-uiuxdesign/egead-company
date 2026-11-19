@@ -2,11 +2,13 @@ import { Prisma } from '@prisma/client';
 import { prisma } from '@/lib/prisma';
 import {
   CareerPost,
+  CareerSibling,
   JobApplication,
   CareerStats,
   JobStatus,
   ApplicationStatus,
 } from '@/types/career';
+import { normalizeLocale, DEFAULT_LOCALE, type Locale } from '@/lib/i18n/config';
 import initialJobs from '@/data/careers.json';
 import initialApplications from '@/data/career_applications.json';
 
@@ -37,6 +39,8 @@ function mapJobRecord(record: any): CareerPost {
     featured: Boolean(record.featured),
     views: Number(record.views || 0),
     applicationsCount: Number(record.applicationsCount || 0),
+    locale: normalizeLocale(record.locale),
+    groupId: record.groupId || undefined,
     createdAt:
       record.createdAt instanceof Date
         ? record.createdAt.toISOString()
@@ -171,16 +175,49 @@ export function generateSlug(title: string): string {
 }
 
 /**
+ * Collapse translations of the same job (same groupId) into one entry,
+ * preferring the version written in `locale`. Order of first appearance is kept.
+ */
+export function dedupeJobsByLocale(jobs: CareerPost[], locale: Locale): CareerPost[] {
+  const order: string[] = [];
+  const best = new Map<string, CareerPost>();
+  for (const j of jobs) {
+    const key = j.groupId || j.id;
+    const current = best.get(key);
+    if (!current) {
+      order.push(key);
+      best.set(key, j);
+    } else if (current.locale !== locale && j.locale === locale) {
+      best.set(key, j);
+    }
+  }
+  return order.map((key) => best.get(key)!);
+}
+
+/**
  * Get all career postings with optional filtering
  */
 export async function getAllJobs(filter?: {
   status?: string;
   department?: string;
   search?: string;
+  /** Public site language: jobs that exist in both languages collapse to ONE (this language). */
+  locale?: Locale;
+  /** Exact language filter (admin). */
+  language?: Locale;
 }): Promise<CareerPost[]> {
+  if (filter?.locale) {
+    const { locale, ...rest } = filter;
+    return dedupeJobsByLocale(await getAllJobs(rest), locale);
+  }
+
   await ensureCareerDataSeeded();
 
   const where: Prisma.CareerJobWhereInput = {};
+
+  if (filter?.language) {
+    where.locale = filter.language;
+  }
 
   if (filter?.status && filter.status !== 'all') {
     where.status = filter.status;
@@ -246,6 +283,8 @@ export async function saveJob(
   const baseSlug =
     jobData.slug?.trim() || generateSlug(jobData.title) || `job-${Date.now()}`;
 
+  const requestedLocale = jobData.locale ? normalizeLocale(jobData.locale) : undefined;
+
   if (jobData.id) {
     const existing = await prisma.careerJob.findUnique({
       where: { id: jobData.id },
@@ -253,6 +292,23 @@ export async function saveJob(
 
     if (!existing) {
       throw new Error(`Không tìm thấy tin tuyển dụng với mã: ${jobData.id}`);
+    }
+
+    // A translation group may hold only one job per language.
+    if (requestedLocale && requestedLocale !== existing.locale && existing.groupId) {
+      const clash = await prisma.careerJob.findFirst({
+        where: {
+          groupId: existing.groupId,
+          locale: requestedLocale,
+          NOT: { id: existing.id },
+        },
+        select: { id: true },
+      });
+      if (clash) {
+        throw new Error(
+          `Tin tuyển dụng này đã có phiên bản ${requestedLocale === 'vi' ? 'tiếng Việt' : 'tiếng Anh'}, không thể đổi ngôn ngữ trùng.`
+        );
+      }
     }
 
     // Ensure slug uniqueness if changed
@@ -305,6 +361,7 @@ export async function saveJob(
           jobData.featured !== undefined
             ? Boolean(jobData.featured)
             : existing.featured,
+        locale: requestedLocale,
       },
     });
 
@@ -342,6 +399,104 @@ export async function saveJob(
       featured: Boolean(jobData.featured),
       views: 0,
       applicationsCount: 0,
+      locale: requestedLocale || DEFAULT_LOCALE,
+      groupId: jobData.groupId || null,
+    },
+  });
+
+  return mapJobRecord(created);
+}
+
+/**
+ * Other-language versions of a job (same groupId), including the job itself.
+ */
+export async function getJobSiblings(
+  job: Pick<CareerPost, 'id' | 'groupId'>,
+  options?: { publishedOnly?: boolean }
+): Promise<CareerSibling[]> {
+  if (!job.groupId) return [];
+  try {
+    const rows = await prisma.careerJob.findMany({
+      where: {
+        groupId: job.groupId,
+        ...(options?.publishedOnly ? { status: 'published' } : {}),
+      },
+      select: { id: true, slug: true, title: true, locale: true, status: true },
+      orderBy: { createdAt: 'asc' },
+    });
+    return rows.map((r) => ({
+      id: r.id,
+      slug: r.slug,
+      title: r.title,
+      locale: normalizeLocale(r.locale),
+      status: (r.status as JobStatus) || 'draft',
+    }));
+  } catch (error) {
+    console.warn('[career.service] getJobSiblings failed:', error);
+    return [];
+  }
+}
+
+/**
+ * Create the other-language version of an existing job as a DRAFT copy
+ * (same fields, to be translated by the editor). Both jobs share a groupId.
+ */
+export async function createJobTranslation(
+  sourceId: string,
+  targetLocale: Locale
+): Promise<CareerPost> {
+  const source = await prisma.careerJob.findUnique({ where: { id: sourceId } });
+  if (!source) {
+    throw new Error('Không tìm thấy tin tuyển dụng gốc.');
+  }
+  if (normalizeLocale(source.locale) === targetLocale) {
+    throw new Error('Tin tuyển dụng này đã ở ngôn ngữ được chọn.');
+  }
+
+  const groupId = source.groupId || source.id;
+
+  const existing = await prisma.careerJob.findFirst({
+    where: { groupId, locale: targetLocale },
+    select: { id: true },
+  });
+  if (existing) {
+    throw new Error(
+      `Tin tuyển dụng đã có phiên bản ${targetLocale === 'vi' ? 'tiếng Việt' : 'tiếng Anh'}.`
+    );
+  }
+
+  if (!source.groupId) {
+    await prisma.careerJob.update({ where: { id: source.id }, data: { groupId } });
+  }
+
+  let slug = `${source.slug}-${targetLocale}`;
+  const clash = await prisma.careerJob.findUnique({ where: { slug }, select: { id: true } });
+  if (clash) slug = `${slug}-${Date.now().toString().slice(-4)}`;
+
+  const created = await prisma.careerJob.create({
+    data: {
+      id: `job-${Date.now()}`,
+      slug,
+      title: source.title,
+      department: source.department,
+      location: source.location,
+      type: source.type,
+      experience: source.experience,
+      salary: source.salary,
+      quantity: source.quantity,
+      deadline: source.deadline,
+      excerpt: source.excerpt,
+      description: source.description,
+      requirements: source.requirements,
+      benefits: source.benefits,
+      content: source.content,
+      contactEmail: source.contactEmail,
+      status: 'draft',
+      featured: false,
+      views: 0,
+      applicationsCount: 0,
+      locale: targetLocale,
+      groupId,
     },
   });
 

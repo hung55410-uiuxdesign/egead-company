@@ -139,13 +139,12 @@ export default function ServiceDetailHero({ service }: Props) {
           animate={{ opacity: 1, y: 0, scale: 1 }}
           transition={{ duration: 0.9, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
         >
-          <div className="service-detail__header-img relative rounded-[20px] overflow-hidden border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.6)] h-full min-h-[380px] sm:min-h-[460px] lg:min-h-[480px] group">
+          <div className="service-detail__header-img relative flex h-full min-h-[380px] items-center justify-center sm:min-h-[460px] lg:min-h-[480px] group">
             <img
               src={service.heroImage}
               alt={`${service.title} Digital Transformation`}
-              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+              className="h-full max-h-[560px] w-full object-contain drop-shadow-[0_30px_40px_rgba(0,0,0,0.45)] transition-transform duration-700 group-hover:scale-105"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
           </div>
         </motion.div>
       </div>

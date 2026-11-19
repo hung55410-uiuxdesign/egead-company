@@ -32,14 +32,15 @@ export const heroVariants: Variants = {
 
 interface MotionSectionProps extends HTMLMotionProps<'section'> {
   delay?: number;
-  threshold?: number;
+  /** Share of the element that must be visible before it animates in. 'some' = any part, so very tall sections still reveal. */
+  threshold?: number | 'some' | 'all';
 }
 
 export default function MotionSection({
   children,
   className = '',
   delay = 0,
-  threshold = 0.1,
+  threshold = 'some',
   ...props
 }: MotionSectionProps) {
   return (
@@ -61,9 +62,9 @@ export function MotionDiv({
   children,
   className = '',
   delay = 0,
-  threshold = 0.1,
+  threshold = 'some',
   ...props
-}: HTMLMotionProps<'div'> & { delay?: number; threshold?: number }) {
+}: HTMLMotionProps<'div'> & { delay?: number; threshold?: number | 'some' | 'all' }) {
   return (
     <motion.div
       initial="hidden"

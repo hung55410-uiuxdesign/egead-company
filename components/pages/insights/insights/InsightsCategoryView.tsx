@@ -1,5 +1,7 @@
 "use client";
 
+import { useLocalizeHref } from "@/components/providers/LocaleProvider";
+
 import { useState, useMemo } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
@@ -21,6 +23,7 @@ export default function InsightsCategoryView({
   categoryIcon,
   posts,
 }: Props) {
+  const lh = useLocalizeHref();
   const [selectedTopic, setSelectedTopic] = useState<string>("All");
   const [selectedSort, setSelectedSort] = useState<
     "newest" | "oldest" | "title"
@@ -66,7 +69,7 @@ export default function InsightsCategoryView({
       <div className="w-full bg-black text-white pt-28 sm:pt-36 pb-12 px-6 sm:px-10 lg:px-14 xl:px-16">
         <div className="mb-6">
           <Link
-            href="/insights"
+            href={lh('/insights')}
             className="inline-flex items-center gap-2 text-white/90 hover:text-white text-xs font-medium font-montserrat transition"
           >
             <svg
@@ -168,7 +171,7 @@ export default function InsightsCategoryView({
                   transition={{ duration: 0.3, delay: idx * 0.03 }}
                 >
                   <Link
-                    href={`/articles/${post.slug}`}
+                    href={lh(`/articles/${post.slug}`)}
                     className="group flex flex-col h-full cursor-pointer"
                   >
                     <div className="relative aspect-square w-full rounded-[20px] overflow-hidden bg-gray-100 mb-5 shadow-sm">

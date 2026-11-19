@@ -3,6 +3,7 @@
  * Re-exports the Career & Applications Service and provides compatibility helpers
  */
 import { getAllJobs as getAllCareerPosts, getJobBySlug as getCareerPostBySlug } from '@/lib/services/career.service';
+import type { Locale } from '@/lib/i18n/config';
 import type { CareerPost } from '@/types/career';
 
 export * from '@/lib/services/career.service';
@@ -23,6 +24,8 @@ export interface JobOpening {
   quantity?: string | number;
   deadline?: string;
   createdAt?: string;
+  locale?: Locale;
+  groupId?: string;
   descriptionHtml?: string;
   requirementsHtml?: string;
   benefitsHtml?: string;
@@ -70,6 +73,8 @@ export function toJobOpening(post: CareerPost): JobOpening {
     quantity: post.quantity,
     deadline: post.deadline,
     createdAt: post.createdAt,
+    locale: post.locale,
+    groupId: post.groupId,
     descriptionHtml: post.description || '',
     requirementsHtml: post.requirements || '',
     benefitsHtml: post.benefits || '',
@@ -79,8 +84,8 @@ export function toJobOpening(post: CareerPost): JobOpening {
   };
 }
 
-export async function getPublicJobOpenings(): Promise<JobOpening[]> {
-  const posts = await getAllCareerPosts({ status: 'published' });
+export async function getPublicJobOpenings(locale?: Locale): Promise<JobOpening[]> {
+  const posts = await getAllCareerPosts({ status: 'published', locale });
   return posts.map(toJobOpening);
 }
 

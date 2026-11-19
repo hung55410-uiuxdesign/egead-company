@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { AllServicesView } from '@/components/pages/services/services/all-services';
 import { getServiceItems } from '@/lib/services/service-item.service';
+import { getHomeSectionByKey } from '@/lib/services/home-section.service';
 
 export const dynamic = 'force-dynamic';
 
@@ -19,7 +20,15 @@ export const metadata: Metadata = {
 };
 
 export default async function AllServicesPage() {
-  const serviceItems = await getServiceItems({ status: 'published' }).catch(() => []);
-  return <AllServicesView serviceItems={serviceItems} />;
+  const [serviceItems, marketplacesSection] = await Promise.all([
+    getServiceItems({ status: 'published' }).catch(() => []),
+    getHomeSectionByKey('marketplaces-partners').catch(() => null),
+  ]);
+  return (
+    <AllServicesView
+      serviceItems={serviceItems}
+      marketplacesSection={marketplacesSection}
+    />
+  );
 }
 

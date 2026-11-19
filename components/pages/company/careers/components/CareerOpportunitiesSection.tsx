@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Search, X, RotateCcw, ChevronDown, ArrowUpRight } from 'lucide-react';
 import type { JobOpening } from '@/lib/careers';
+import { useLocalizeHref } from '@/components/providers/LocaleProvider';
 
 interface CareerOpportunitiesSectionProps {
   jobs?: JobOpening[];
@@ -104,6 +105,7 @@ function matchDepartment(jobDept?: string, filterDept?: string): boolean {
 export default function CareerOpportunitiesSection({
   jobs = [],
 }: CareerOpportunitiesSectionProps) {
+  const lh = useLocalizeHref();
   // Bộ lọc states
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedDepartment, setSelectedDepartment] = useState('all');
@@ -458,7 +460,7 @@ export default function CareerOpportunitiesSection({
                   transition={{ duration: 0.35, delay: Math.min(idx * 0.03, 0.2) }}
                 >
                   <Link
-                    href={`/careers/${job.slug}`}
+                    href={lh(`/careers/${job.slug}`)}
                     className="group w-full bg-white rounded-2xl sm:rounded-[20px] p-5 sm:p-6 border border-slate-200/70 shadow-[0_2px_14px_rgba(0,0,0,0.03)] hover:shadow-[0_8px_26px_rgba(0,0,0,0.08)] hover:border-slate-300 transition-all duration-200 flex flex-col justify-between gap-4 block"
                   >
                     {/* Phần tiêu đề và nút Apply */}

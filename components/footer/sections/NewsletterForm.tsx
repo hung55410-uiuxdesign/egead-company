@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { useNewsletter } from '../hooks/useNewsletter';
+import { useT } from '@/components/providers/LocaleProvider';
 import type { FooterNewsletterData } from '@/lib/services/footer-config.service';
 
 interface NewsletterFormProps {
@@ -9,9 +10,10 @@ interface NewsletterFormProps {
 }
 
 export default function NewsletterForm({ newsletter }: NewsletterFormProps) {
+  const t = useT();
   const { email, setEmail, handleSubscribe } = useNewsletter();
 
-  const title = newsletter?.title || 'Newsletter';
+  const title = newsletter?.title || t.footer.newsletter;
   const placeholder = newsletter?.placeholder || 'name@youremail.com';
   const privacyPolicyHref =
     newsletter?.privacyPolicyHref || 'https://policies.google.com/privacy?hl=en';
@@ -35,7 +37,7 @@ export default function NewsletterForm({ newsletter }: NewsletterFormProps) {
         />
         <button
           type="submit"
-          aria-label="Subscribe"
+          aria-label={t.footer.subscribe}
           className="absolute right-1.5 top-1.5 bottom-1.5 w-10 h-10 rounded-full bg-[#10E774] hover:bg-[#0ecb66] text-black flex items-center justify-center transition cursor-pointer"
         >
           <svg width="14" height="12" viewBox="0 0 14 12" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -52,25 +54,25 @@ export default function NewsletterForm({ newsletter }: NewsletterFormProps) {
           <span>{newsletter.disclaimerText}</span>
         ) : (
           <>
-            This site is protected by reCAPTCHA and the{' '}
+            {t.footer.recaptchaPrefix}{' '}
             <a
               target="_blank"
               rel="noopener noreferrer"
               href={privacyPolicyHref}
               className="underline hover:text-black"
             >
-              Google Privacy Policy
+              {t.footer.privacyPolicy}
             </a>{' '}
-            and{' '}
+            {t.footer.and}{' '}
             <a
               target="_blank"
               rel="noopener noreferrer"
               href={termsHref}
               className="underline hover:text-black"
             >
-              Terms of Service
-            </a>{' '}
-            apply.
+              {t.footer.terms}
+            </a>
+            {t.footer.recaptchaSuffix}
           </>
         )}
       </p>

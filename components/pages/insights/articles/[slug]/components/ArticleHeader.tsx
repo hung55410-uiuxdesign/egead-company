@@ -1,7 +1,9 @@
 'use client';
 
 import Link from 'next/link';
-import type { BlogPost } from '@/types/blog';
+import type { BlogPost, BlogSibling } from '@/types/blog';
+import ArticleLanguageToggle from './ArticleLanguageToggle';
+import { useLocalizeHref, useT } from '@/components/providers/LocaleProvider';
 import { getYouTubeEmbedInfo, isDirectVideoUrl, getMediaThumbnailUrl } from '@/lib/utils/media';
 
 type Props = {
@@ -9,6 +11,7 @@ type Props = {
   nextArticle: BlogPost | null;
   backLink: string;
   backLabel: string;
+  siblings?: BlogSibling[];
 }
 
 export default function ArticleHeader({
@@ -16,7 +19,10 @@ export default function ArticleHeader({
   nextArticle,
   backLink,
   backLabel,
+  siblings = [],
 }: Props) {
+  const t = useT();
+  const lh = useLocalizeHref();
   const ytEmbed = getYouTubeEmbedInfo(post.heroImage);
   const isDirectVideo = isDirectVideoUrl(post.heroImage);
   const nextArticleThumbnail = nextArticle ? getMediaThumbnailUrl(nextArticle.heroImage) : '';
@@ -27,7 +33,7 @@ export default function ArticleHeader({
         {/* Top Back Link */}
         <div className="mb-6">
           <Link
-            href={backLink}
+            href={lh(backLink)}
             className="inline-flex items-center gap-2 text-[#b3b3b3] hover:text-white text-xs font-medium font-montserrat transition"
           >
             <svg
@@ -51,6 +57,9 @@ export default function ArticleHeader({
         <h1 className="text-3xl sm:text-4xl lg:text-[42px] font-medium text-white font-montserrat leading-tight mb-4 max-w-5xl">
           {post.title}
         </h1>
+
+        {/* Language toggle (only when this article exists in EN and VI) */}
+        <ArticleLanguageToggle post={post} siblings={siblings} />
 
         {/* Time & Meta Row */}
         <div className="flex items-center gap-4 sm:gap-5 text-xs text-[#b3b3b3] font-montserrat mb-8">
@@ -102,10 +111,10 @@ export default function ArticleHeader({
           {nextArticle && (
             <div className="hidden lg:flex flex-col justify-end w-[220px] shrink-0">
               <span className="text-[12px] font-medium tracking-[1.89px] uppercase text-white font-montserrat block mb-3">
-                NEXT BLOG ARTICLE
+                {t.article.nextArticle}
               </span>
               <Link
-                href={`/articles/${nextArticle.slug}`}
+                href={lh(`/articles/${nextArticle.slug}`)}
                 className="group flex flex-col gap-2.5"
               >
                 <div className="w-[220px] h-[145px] rounded-[18px] overflow-hidden bg-white/10 shadow-md">

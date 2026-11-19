@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { Share2, Facebook, Linkedin, Twitter } from 'lucide-react';
 import JobApplicationForm from './JobApplicationForm';
 import type { JobOpening } from '@/lib/careers';
+import { useT } from '@/components/providers/LocaleProvider';
 
 interface JobDetailContentProps {
   job: JobOpening;
@@ -25,6 +26,7 @@ function hasMeaningfulHtml(html?: string): boolean {
 }
 
 export default function JobDetailContent({ job }: JobDetailContentProps) {
+  const t = useT();
   const [shareUrl, setShareUrl] = useState(
     `https://egeadcompany.com/careers/${job.slug}`
   );
@@ -83,7 +85,7 @@ export default function JobDetailContent({ job }: JobDetailContentProps) {
             <div className="space-y-4">
               {!descHasOwnHeading && (
                 <h2 className="text-xl sm:text-2xl font-bold text-slate-900">
-                  Mô tả công việc (Job Description)
+                  {t.careers.jobDescription}
                 </h2>
               )}
               <div
@@ -96,7 +98,7 @@ export default function JobDetailContent({ job }: JobDetailContentProps) {
             job.responsibilities.length > 0 && (
               <div className="space-y-4">
                 <h3 className="text-lg sm:text-xl font-bold text-slate-900">
-                  Mô tả công việc (Job Description)
+                  {t.careers.jobDescription}
                 </h3>
                 <ul className="space-y-2.5">
                   {job.responsibilities.map((r, idx) => (
@@ -118,7 +120,7 @@ export default function JobDetailContent({ job }: JobDetailContentProps) {
             <div className="space-y-4">
               {!/^<(h[1-4]|ol)/i.test(reqHtml) && (
                 <h3 className="text-lg sm:text-xl font-bold text-slate-900">
-                  Yêu cầu ứng viên (Qualifications)
+                  {t.careers.qualifications}
                 </h3>
               )}
               <div
@@ -132,7 +134,7 @@ export default function JobDetailContent({ job }: JobDetailContentProps) {
           {job.preferredSkills && job.preferredSkills.length > 0 && (
             <div className="space-y-4">
               <h3 className="text-lg sm:text-xl font-bold text-slate-900">
-                Kỹ năng ưu tiên (Preferred Skills)
+                {t.careers.preferredSkills}
               </h3>
               <ul className="space-y-2.5">
                 {job.preferredSkills.map((p, idx) => (
@@ -153,7 +155,7 @@ export default function JobDetailContent({ job }: JobDetailContentProps) {
             <div className="space-y-4">
               {!/^<(h[1-4]|ol)/i.test(benHtml) && (
                 <h3 className="text-lg sm:text-xl font-bold text-slate-900">
-                  Quyền lợi &amp; Đãi ngộ (Benefits)
+                  {t.careers.benefits}
                 </h3>
               )}
               <div
@@ -167,7 +169,7 @@ export default function JobDetailContent({ job }: JobDetailContentProps) {
           <div className="pt-6 border-t border-slate-200/80 flex items-center gap-4 text-xs font-semibold text-slate-600">
             <span className="flex items-center gap-1.5">
               <Share2 className="w-4 h-4 text-slate-400" />
-              Chia sẻ cơ hội này:
+              {t.careers.shareThis}
             </span>
             <div className="flex items-center gap-2">
               <a

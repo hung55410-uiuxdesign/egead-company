@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { ChevronDown } from 'lucide-react';
 import type { NavItem } from '../types';
+import { useLocalizeHref, useT } from '@/components/providers/LocaleProvider';
 
 interface NavItemLinkProps {
   item: NavItem;
@@ -19,6 +20,10 @@ export default function NavItemLink({
   onMouseEnter,
   onMouseLeave,
 }: NavItemLinkProps) {
+  const t = useT();
+  const lh = useLocalizeHref();
+  const label = (t.nav as Record<string, string>)[item.id] ?? item.label;
+
   return (
     <div
       className="relative py-2"
@@ -26,12 +31,12 @@ export default function NavItemLink({
       onMouseLeave={onMouseLeave}
     >
       <Link
-        href={item.href}
+        href={lh(item.href)}
         className={`flex items-center gap-1.5 text-[13.5px] xl:text-[14px] font-medium transition duration-200 relative ${
           isActive ? 'text-white font-semibold' : 'text-white/85 hover:text-white'
         }`}
       >
-        <span>{item.label}</span>
+        <span>{label}</span>
         {item.hasDropdown && (
           <motion.span
             animate={{ rotate: isActive ? 180 : 0 }}

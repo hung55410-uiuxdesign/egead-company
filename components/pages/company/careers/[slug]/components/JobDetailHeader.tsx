@@ -4,6 +4,10 @@ import React from 'react';
 import Link from 'next/link';
 import { ArrowLeft } from 'lucide-react';
 import { motion } from 'framer-motion';
+import type { JobOpening } from '@/lib/careers';
+import type { CareerSibling } from '@/types/career';
+import JobLanguageToggle from './JobLanguageToggle';
+import { useLocalizeHref, useT } from '@/components/providers/LocaleProvider';
 
 type Props = {
   position: string;
@@ -12,6 +16,8 @@ type Props = {
   jobType: string;
   salary?: string;
   experience?: string;
+  job?: JobOpening;
+  siblings?: CareerSibling[];
 };
 
 export default function JobDetailHeader({
@@ -21,7 +27,11 @@ export default function JobDetailHeader({
   jobType,
   salary,
   experience,
+  job,
+  siblings = [],
 }: Props) {
+  const t = useT();
+  const lh = useLocalizeHref();
   return (
     <motion.div
       initial={{ opacity: 0, y: 16 }}
@@ -30,12 +40,14 @@ export default function JobDetailHeader({
       className="w-full max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 mb-10 sm:mb-14"
     >
       <Link
-        href="/careers"
+        href={lh('/careers')}
         className="inline-flex items-center gap-2 text-sm text-slate-500 hover:text-slate-900 transition mb-6 group font-medium"
       >
         <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
-        <span>Back to careers</span>
+        <span>{t.careers.backToCareers}</span>
       </Link>
+
+      {job && <JobLanguageToggle job={job} siblings={siblings} />}
 
       <h1 className="text-3xl sm:text-4xl lg:text-[44px] font-bold text-slate-900 leading-[1.2] mb-5">
         {position}

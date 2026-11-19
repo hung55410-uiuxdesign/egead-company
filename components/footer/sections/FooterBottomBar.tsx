@@ -3,6 +3,7 @@
 import React from 'react';
 import FooterLanguageDropdown from '../ui/FooterLanguageDropdown';
 import BackToTopButton from '../ui/BackToTopButton';
+import { useT } from '@/components/providers/LocaleProvider';
 import type { FooterBottomBarData } from '@/lib/services/footer-config.service';
 
 interface FooterBottomBarProps {
@@ -10,8 +11,9 @@ interface FooterBottomBarProps {
 }
 
 export default function FooterBottomBar({ bottomBar }: FooterBottomBarProps) {
+  const t = useT();
   const copyright =
-    bottomBar?.copyright || '© 2026 E-Gead Company. All rights reserved.';
+    bottomBar?.copyright || t.footer.copyright;
   const showLanguage = bottomBar?.showLanguageSelector ?? true;
   const showBackToTop = bottomBar?.showBackToTop ?? true;
 

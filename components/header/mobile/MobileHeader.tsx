@@ -3,15 +3,20 @@
 import React from 'react';
 import Link from 'next/link';
 import { X, ArrowUpRight } from 'lucide-react';
+import MobileLanguageSwitch from './MobileLanguageSwitch';
+import { useLocalizeHref, useT } from '@/components/providers/LocaleProvider';
 
 interface MobileHeaderProps {
   onClose: () => void;
 }
 
 export default function MobileHeader({ onClose }: MobileHeaderProps) {
+  const t = useT();
+  const lh = useLocalizeHref();
+
   return (
     <div className="flex items-center justify-between border-b border-gray-100 pb-6 mb-8">
-      <Link href="/" onClick={onClose} className="flex items-center">
+      <Link href={lh('/')} onClick={onClose} className="flex items-center">
         <img
           src="https://egeadcompany.com/images/egead/logo.png"
           alt="E-GEAD Company"
@@ -19,19 +24,20 @@ export default function MobileHeader({ onClose }: MobileHeaderProps) {
         />
       </Link>
 
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-3 sm:gap-4">
+        <MobileLanguageSwitch />
         <Link
-          href="/contact-us"
+          href={lh('/contact-us')}
           onClick={onClose}
           className="hidden sm:inline-flex items-center gap-2 bg-[#10E774] hover:bg-[#0ecb66] text-black font-semibold text-sm px-6 py-2.5 rounded-full transition"
         >
-          <span>Get Free Consultation</span>
+          <span>{t.common.getConsultation}</span>
           <ArrowUpRight className="w-4 h-4" />
         </Link>
         <button
           type="button"
           onClick={onClose}
-          aria-label="Close menu"
+          aria-label={t.common.closeMenu}
           className="w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center hover:bg-gray-100 transition text-black cursor-pointer"
         >
           <X className="w-5 h-5" />

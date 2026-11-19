@@ -118,12 +118,16 @@ model Post {
   status       String    @default("draft") // "draft" | "published" | "archived"
   views        Int       @default(0)
   featured     Boolean   @default(false)
+  // Language of this version ("en" | "vi"). Translations of one article share a groupId.
+  locale       String    @default("en")
+  groupId      String?
   createdAt    DateTime  @default(now())
   updatedAt    DateTime  @updatedAt
 
   @@index([slug])
   @@index([status])
   @@index([categoryId])
+  @@index([groupId])
   @@map("post")
 }
 
@@ -410,12 +414,16 @@ model CareerJob {
   featured          Boolean  @default(false)
   views             Int      @default(0)
   applicationsCount Int      @default(0)
+  // Language of this version ("en" | "vi"). Translations of one job share a groupId.
+  locale            String   @default("en")
+  groupId           String?
   createdAt         DateTime @default(now())
   updatedAt         DateTime @updatedAt
 
   @@index([slug])
   @@index([status])
   @@index([department])
+  @@index([groupId])
   @@map("career_job")
 }
 

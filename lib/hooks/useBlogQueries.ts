@@ -4,6 +4,8 @@ import { useQuery } from '@tanstack/react-query';
 import type { BlogPost } from '@/types/blog';
 
 export interface UseArticlesQueryOptions {
+  /** Site language: posts available in both languages are collapsed to this one. */
+  locale?: 'en' | 'vi';
   limit?: number;
   category?: string;
   tag?: string;
@@ -21,9 +23,10 @@ export function useLatestArticlesQuery(options?: UseArticlesQueryOptions) {
   const category = options?.category;
   const tag = options?.tag;
   const search = options?.search;
+  const locale = options?.locale;
 
   return useQuery({
-    queryKey: [...ARTICLES_QUERY_KEY, 'latest', { limit, category, tag, search }],
+    queryKey: [...ARTICLES_QUERY_KEY, 'latest', { limit, category, tag, search, locale }],
     queryFn: async () => {
       const params = new URLSearchParams();
       params.set('status', 'published');
@@ -31,6 +34,7 @@ export function useLatestArticlesQuery(options?: UseArticlesQueryOptions) {
       if (category) params.set('category', category);
       if (tag) params.set('tag', tag);
       if (search) params.set('search', search);
+      if (locale) params.set('locale', locale);
 
       const res = await fetch(`/api/articles?${params.toString()}`);
       if (!res.ok) throw new Error('Không thể tải danh sách bài viết');

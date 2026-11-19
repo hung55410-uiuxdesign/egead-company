@@ -3,16 +3,26 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import MotionSection from '@/components/MotionSection';
+import { useT } from '@/components/providers/LocaleProvider';
 import type { ServiceItemListItem } from '@/lib/services/service-item.service';
 import { getOptimizedImageUrl } from '@/lib/utils/image';
 import { servicePillars } from '../data/service-pillars.data';
+
+const PAGE_SIZE = 6;
 
 interface ServicePillarsSectionProps {
   serviceItems?: ServiceItemListItem[];
 }
 
 export default function ServicePillarsSection({ serviceItems }: ServicePillarsSectionProps) {
-  const [activeTab, setActiveTab] = useState<'all' | 'service' | 'industry'>('all');
+  const t = useT();
+  const [activeTab, setActiveTabState] = useState<'all' | 'service' | 'industry'>('all');
+  const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
+
+  const setActiveTab = (tab: 'all' | 'service' | 'industry') => {
+    setActiveTabState(tab);
+    setVisibleCount(PAGE_SIZE);
+  };
 
   const hasDbItems = Array.isArray(serviceItems) && serviceItems.length > 0;
 
@@ -20,9 +30,11 @@ export default function ServicePillarsSection({ serviceItems }: ServicePillarsSe
   const servicesCount = serviceItems?.filter((s) => s.category === 'service').length || 0;
   const industriesCount = serviceItems?.filter((s) => s.category === 'industry').length || 0;
 
-  const displayDbItems = hasDbItems
+  const filteredDbItems = hasDbItems
     ? serviceItems.filter((s) => (activeTab === 'all' ? true : s.category === activeTab))
     : [];
+  const displayDbItems = filteredDbItems.slice(0, visibleCount);
+  const remainingCount = filteredDbItems.length - displayDbItems.length;
 
   return (
     <MotionSection
@@ -56,7 +68,7 @@ export default function ServicePillarsSection({ serviceItems }: ServicePillarsSe
                 : 'bg-[#141718] text-[#b3b3b3] hover:text-white border border-white/10 hover:border-white/20'
             }`}
           >
-            Tất cả danh mục ({totalCount})
+            {t.servicesPage.all} ({totalCount})
           </button>
           <button
             type="button"
@@ -67,7 +79,7 @@ export default function ServicePillarsSection({ serviceItems }: ServicePillarsSe
                 : 'bg-[#141718] text-[#b3b3b3] hover:text-white border border-white/10 hover:border-white/20'
             }`}
           >
-            Trụ cột dịch vụ ({servicesCount})
+            {t.servicesPage.operations} ({servicesCount})
           </button>
           <button
             type="button"
@@ -78,7 +90,7 @@ export default function ServicePillarsSection({ serviceItems }: ServicePillarsSe
                 : 'bg-[#141718] text-[#b3b3b3] hover:text-white border border-white/10 hover:border-white/20'
             }`}
           >
-            Ngành nghề chuyên sâu ({industriesCount})
+            {t.servicesPage.products} ({industriesCount})
           </button>
         </div>
       )}
@@ -97,11 +109,11 @@ export default function ServicePillarsSection({ serviceItems }: ServicePillarsSe
                 >
                   <div className="flex flex-col lg:flex-row items-start gap-8 lg:gap-12">
                     {/* Left: Thumbnail Visual */}
-                    <div className="w-24 h-24 sm:w-32 sm:h-32 lg:w-44 lg:h-44 shrink-0 flex items-center justify-center p-2 rounded-2xl bg-[#181a24] border border-white/5 overflow-hidden">
+                    <div className="w-24 h-24 sm:w-32 sm:h-32 lg:w-44 lg:h-44 shrink-0 flex items-center justify-center">
                       <img
                         src={iconImg}
                         alt={item.title}
-                        className="w-full h-full object-cover rounded-xl filter drop-shadow-md group-hover:scale-105 transition-transform duration-500"
+                        className="w-full h-full object-contain drop-shadow-[0_12px_18px_rgba(0,0,0,0.45)] group-hover:scale-105 transition-transform duration-500"
                       />
                     </div>
 
@@ -112,7 +124,7 @@ export default function ServicePillarsSection({ serviceItems }: ServicePillarsSe
                           {String(item.order || idx + 1).padStart(2, '0')}
                         </p>
                         <span className="text-xs px-3 py-1 rounded-full bg-[#1A2022] text-[#5EFC8D] border border-[#5EFC8D]/20 font-montserrat">
-                          {item.category === 'industry' ? 'Ngành nghề chuyên sâu' : 'Dịch vụ trụ cột'}
+                          {item.category === 'industry' ? t.servicesPage.categoryProducts : t.servicesPage.categoryOperations}
                         </span>
                       </div>
 
@@ -169,7 +181,7 @@ export default function ServicePillarsSection({ serviceItems }: ServicePillarsSe
                           >
                             <path d="M15.125 10.875L10.625 15.375L9.56 14.31L12.2525 11.625H3.875V2.625H5.375V10.125H12.2525L9.56 7.44L10.625 6.375L15.125 10.875Z" />
                           </svg>
-                          <span>Xem giải pháp chi tiết</span>
+                          <span>{t.servicesPage.viewDetails}</span>
                         </Link>
                       </div>
                     </div>
@@ -259,6 +271,21 @@ export default function ServicePillarsSection({ serviceItems }: ServicePillarsSe
               </div>
             ))}
       </div>
+
+      {hasDbItems && remainingCount > 0 && (
+        <div className="mt-12 sm:mt-16 flex flex-col items-center gap-3">
+          <button
+            type="button"
+            onClick={() => setVisibleCount((c) => c + PAGE_SIZE)}
+            className="px-8 py-3 rounded-full bg-[#141718] text-white text-sm font-medium font-montserrat border border-white/15 hover:border-[#10E774]/60 hover:text-[#10E774] transition-all duration-200"
+          >
+            {t.common.showMore} ({remainingCount})
+          </button>
+          <p className="text-xs text-[#8C8C8C] font-montserrat">
+            {displayDbItems.length} / {filteredDbItems.length}
+          </p>
+        </div>
+      )}
     </MotionSection>
   );
 }

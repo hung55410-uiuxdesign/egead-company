@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation';
 import { getPostById, getCategories } from '@/lib/blogs';
+import { getPostSiblings } from '@/lib/services/blog.service';
 import { BlogEditorClient } from '@/components/admin/blogs';
 
 export const dynamic = 'force-dynamic';
@@ -16,7 +17,16 @@ export default async function EditBlogPage({ params }: PageProps) {
     notFound();
   }
 
-  const categories = await getCategories();
+  const [categories, siblings] = await Promise.all([
+    getCategories(),
+    getPostSiblings(post),
+  ]);
 
-  return <BlogEditorClient initialPost={post} categories={categories} />;
+  return (
+    <BlogEditorClient
+      initialPost={post}
+      categories={categories}
+      siblings={siblings}
+    />
+  );
 }

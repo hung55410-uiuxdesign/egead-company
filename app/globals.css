@@ -1443,3 +1443,36 @@ b, strong {
   margin: 1.5rem 0;
 }
 
+/* ==========================================================================
+   ANIMATED GRID BACKGROUND (components/background/GridBackground.tsx)
+   The canvas is fixed behind <main data-grid-bg>; full-width sections that paint the
+   same dark colour as the body must not cover it.
+   ========================================================================== */
+main[data-grid-bg] section.bg-\[\#0A0D0E\],
+main[data-grid-bg] section.bg-\[\#0a0d0e\],
+main[data-grid-bg] section.bg-\[\#040A0D\],
+main[data-grid-bg] section.bg-\[\#040a0d\],
+main[data-grid-bg] section.bg-\[\#0D1011\],
+main[data-grid-bg] section.bg-\[\#0d1011\],
+main[data-grid-bg] section.bg-\[\#000000\],
+main[data-grid-bg] .ourwork,
+main[data-grid-bg] .ourwork__detail,
+main[data-grid-bg] [data-grid-see-through] {
+  background-color: transparent !important;
+}
+
+/* Logo marquees: fade the edges with a mask (works on any background) and leave vertical room
+   so hover glows (drop-shadow) are not clipped by the overflow-hidden track. */
+.marquee-fade {
+  padding-block: 1.75rem;
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
+  mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
+}
+
+/* Carousels: fade the left/right edges with a mask instead of a solid-colour gradient overlay. */
+@media (min-width: 1024px) {
+  .edge-fade-x {
+    -webkit-mask-image: linear-gradient(to right, transparent, #000 5rem, #000 calc(100% - 5rem), transparent);
+    mask-image: linear-gradient(to right, transparent, #000 5rem, #000 calc(100% - 5rem), transparent);
+  }
+}

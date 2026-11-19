@@ -145,9 +145,7 @@ export default function CaseStudiesSection({
         </div>
 
         {/* Marquee Track */}
-        <div className="relative w-full overflow-hidden">
-          <div className="pointer-events-none absolute inset-y-0 left-0 w-24 sm:w-44 bg-gradient-to-r from-[#0D1011] via-[#0D1011]/80 to-transparent z-10" />
-          <div className="pointer-events-none absolute inset-y-0 right-0 w-24 sm:w-44 bg-gradient-to-l from-[#0D1011] via-[#0D1011]/80 to-transparent z-10" />
+        <div className="relative w-full overflow-hidden marquee-fade">
 
           <div
             className="flex w-max pause-hover items-center gap-12 sm:gap-16 lg:gap-20 py-4"
@@ -193,10 +191,7 @@ export default function CaseStudiesSection({
         </div>
 
         {/* Marquee Track for SmartPrice & Loyalty Partners */}
-        <div className="relative w-full overflow-hidden">
-          {/* Subtle Left & Right Edge Gradients */}
-          <div className="pointer-events-none absolute inset-y-0 left-0 w-24 sm:w-44 bg-gradient-to-r from-[#000000] via-[#000000]/80 to-transparent z-10" />
-          <div className="pointer-events-none absolute inset-y-0 right-0 w-24 sm:w-44 bg-gradient-to-l from-[#000000] via-[#000000]/80 to-transparent z-10" />
+        <div className="relative w-full overflow-hidden marquee-fade">
 
           <div
             className="flex w-max pause-hover items-center gap-14 sm:gap-18 lg:gap-24 py-6"
@@ -266,10 +261,7 @@ export default function CaseStudiesSection({
           </div>
 
           {/* Marquee Track for Clients */}
-          <div className="relative w-full overflow-hidden">
-            {/* Edge Gradients */}
-            <div className="pointer-events-none absolute inset-y-0 left-0 w-24 sm:w-48 bg-gradient-to-r from-[#0A0D0E] via-[#0A0D0E]/80 to-transparent z-10" />
-            <div className="pointer-events-none absolute inset-y-0 right-0 w-24 sm:w-48 bg-gradient-to-l from-[#0A0D0E] via-[#0A0D0E]/80 to-transparent z-10" />
+          <div className="relative w-full overflow-hidden marquee-fade">
 
             <div
               className="flex w-max pause-hover items-center gap-12 sm:gap-16 lg:gap-20 py-4 sm:py-6"
@@ -318,10 +310,7 @@ export default function CaseStudiesSection({
           </div>
 
           {/* Marquee Track for Services */}
-          <div className="relative w-full overflow-hidden">
-            {/* Edge Gradients */}
-            <div className="pointer-events-none absolute inset-y-0 left-0 w-24 sm:w-48 bg-gradient-to-r from-[#0A0D0E] via-[#0A0D0E]/80 to-transparent z-10" />
-            <div className="pointer-events-none absolute inset-y-0 right-0 w-24 sm:w-48 bg-gradient-to-l from-[#0A0D0E] via-[#0A0D0E]/80 to-transparent z-10" />
+          <div className="relative w-full overflow-hidden marquee-fade">
 
             <div
               className="flex w-max pause-hover items-center gap-12 sm:gap-16 lg:gap-20 py-4 sm:py-6"
@@ -408,10 +397,7 @@ export default function CaseStudiesSection({
           const animDuration = 55 + (rowIndex % 3) * 5;
 
           return (
-            <div key={`row-${rowIndex}`} className="relative w-full overflow-hidden">
-              {/* Subtle Left & Right Edge Gradients */}
-              <div className="pointer-events-none absolute inset-y-0 left-0 w-24 sm:w-44 bg-gradient-to-r from-[#0A0D0E] via-[#0A0D0E]/80 to-transparent z-10" />
-              <div className="pointer-events-none absolute inset-y-0 right-0 w-24 sm:w-44 bg-gradient-to-l from-[#0A0D0E] via-[#0A0D0E]/80 to-transparent z-10" />
+            <div key={`row-${rowIndex}`} className="relative w-full overflow-hidden marquee-fade">
 
               <div
                 className="flex w-max pause-hover items-center gap-8 sm:gap-12 lg:gap-16"

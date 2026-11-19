@@ -11,6 +11,37 @@ import type {
 } from '@/lib/services/home-section.service';
 import { useUploadMedia, useUpdateHomeSectionMutation } from '@/lib/hooks';
 
+const svc = (name: string, slug: string): HeaderMenuItem => ({
+  name,
+  href: `/services/all-services/${slug}`,
+});
+
+// Mẫu nội dung (tiếng Anh) theo yêu cầu: nhóm "Cấu trúc công ty & ngành nghề".
+// Chỉ điền vào form, không tự lưu; admin bấm "Lưu cấu hình Menu" để áp dụng.
+const PRESET_MENU = {
+  servicesTitle: 'Operations Services',
+  industriesTitle: 'Products & Development',
+  services: [
+    svc('eBay Customer Service', 'customer-service-ebay'),
+    svc('Etsy Customer Service', 'customer-service-etsy'),
+    svc('Auto Listing & Google Data Sync', 'auto-listing-google-sync'),
+    svc('AI Image Automation', 'ai-image-automation'),
+    svc('AI Auto-Posting & Follow Automation', 'ai-auto-posting'),
+    svc('Google Ads Optimization', 'google-ads-optimization'),
+    svc('TikTok Shop US Listing Optimization & Automation', 'tiktok-shop-us'),
+  ] as HeaderMenuItem[],
+  industries: [
+    svc('POD & Dropship Business Websites', 'pod-dropship-websites'),
+    svc('Platforms & Related Apps', 'platforms-apps'),
+    svc('Multi-platform POD Marketplace', 'pod-marketplace'),
+    svc('App Development & Custom Features', 'app-development'),
+    svc('Casual Games & Game Design', 'casual-games'),
+    svc('Designer', 'designer'),
+  ] as HeaderMenuItem[],
+  allServicesText: 'All Services',
+  allIndustriesText: 'All Products',
+};
+
 interface HeaderMenuConfigSectionProps {
   initialSection?: HomeSectionModel | null;
   onSwitchToPartners?: () => void;
@@ -105,6 +136,10 @@ export default function HeaderMenuConfigSection({
   const [services, setServices] = useState<HeaderMenuItem[]>(menuConfig.services || []);
   const [industries, setIndustries] = useState<HeaderMenuItem[]>(menuConfig.industries || []);
   const [partners, setPartners] = useState<HeaderMenuItem[]>(menuConfig.partners || []);
+
+  const [servicesTitle, setServicesTitle] = useState(menuConfig.servicesTitle || 'Our Services');
+  const [industriesTitle, setIndustriesTitle] = useState(menuConfig.industriesTitle || 'Industries');
+  const [partnersTitle, setPartnersTitle] = useState(menuConfig.partnersTitle || 'Partners');
 
   const [allServicesText, setAllServicesText] = useState(menuConfig.allServicesText || 'All Our Services');
   const [allServicesHref, setAllServicesHref] = useState(menuConfig.allServicesHref || '/services/all-services');
@@ -335,6 +370,20 @@ export default function HeaderMenuConfigSection({
     setPartners((prev) => prev.filter((_, i) => i !== index));
   };
 
+  const handleApplyPreset = () => {
+    const ok = window.confirm(
+      'Điền mẫu nội dung mới (7 dịch vụ + 6 sản phẩm) vào cột 1 và cột 2? Nội dung hiện tại của hai cột này trong form sẽ bị thay thế. Dữ liệu chỉ được lưu khi bạn bấm "Lưu cấu hình Menu".'
+    );
+    if (!ok) return;
+    setServicesTitle(PRESET_MENU.servicesTitle);
+    setIndustriesTitle(PRESET_MENU.industriesTitle);
+    setServices(PRESET_MENU.services.map((item) => ({ ...item })));
+    setIndustries(PRESET_MENU.industries.map((item) => ({ ...item })));
+    setAllServicesText(PRESET_MENU.allServicesText);
+    setAllIndustriesText(PRESET_MENU.allIndustriesText);
+    setActiveColumn('services');
+  };
+
   const handleSave = async (e: FormEvent) => {
     e.preventDefault();
 
@@ -344,9 +393,12 @@ export default function HeaderMenuConfigSection({
         title: 'Our Services Mega Menu',
         subtitle: 'Menu điều hướng Header',
         description:
-          'Cấu hình 3 cột danh sách hiển thị trên thanh Menu dropdown Our Services: Services, Industries và Partners.',
+          'Cấu hình 3 cột danh sách hiển thị trên thanh Menu dropdown Services & Solutions (tiêu đề cột, danh sách mục và nút xem thêm).',
         isActive: true,
         data: {
+          servicesTitle: servicesTitle.trim(),
+          industriesTitle: industriesTitle.trim(),
+          partnersTitle: partnersTitle.trim(),
           services,
           industries,
           partners,
@@ -392,11 +444,19 @@ export default function HeaderMenuConfigSection({
             />
           </div>
           <p className="text-slate-500 text-xs sm:text-sm mt-1">
-            Quản lý trực tiếp 3 cột danh mục xuất hiện khi người dùng rê chuột vào mục &quot;Our Services&quot; trên thanh Menu Header
+            Quản lý trực tiếp 3 cột danh mục xuất hiện khi người dùng rê chuột vào mục &quot;Services &amp; Solutions&quot; trên thanh Menu Header
           </p>
         </div>
 
         <div className="flex items-center gap-2.5">
+          <Button
+            label="Điền mẫu nội dung mới"
+            variant="secondary"
+            className="px-4 h-10"
+            isDisabled={isSaving || isUploading}
+            onClick={handleApplyPreset}
+            tooltip="Điền sẵn 7 dịch vụ + 6 sản phẩm theo yêu cầu vào cột 1 và cột 2 (chưa lưu)"
+          />
           <Button
             label={isSaving ? 'Đang lưu...' : 'Lưu cấu hình Menu'}
             variant="primary"
@@ -424,7 +484,7 @@ export default function HeaderMenuConfigSection({
               : 'text-slate-600 hover:text-slate-900'
             }`}
         >
-          Cột 1: Our Services ({services.length})
+          Cột 1: {servicesTitle || 'Our Services'} ({services.length})
         </button>
         <button
           type="button"
@@ -434,7 +494,7 @@ export default function HeaderMenuConfigSection({
               : 'text-slate-600 hover:text-slate-900'
             }`}
         >
-          Cột 2: Industries ({industries.length})
+          Cột 2: {industriesTitle || 'Industries'} ({industries.length})
         </button>
         <button
           type="button"
@@ -444,7 +504,7 @@ export default function HeaderMenuConfigSection({
               : 'text-slate-600 hover:text-slate-900'
             }`}
         >
-          Cột 3: Partners ({partners.length})
+          Cột 3: {partnersTitle || 'Partners'} ({partners.length})
         </button>
       </div>
 
@@ -628,7 +688,15 @@ export default function HeaderMenuConfigSection({
           </div>
 
           {/* Button CTA for Column 1 */}
-          <div className="pt-4 border-t border-slate-100 grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="pt-4 border-t border-slate-100 grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <TextInput
+              label="Tiêu đề cột 1"
+              value={servicesTitle}
+              onChange={(val) => setServicesTitle(val)}
+              placeholder="Operations Services"
+              width="100%"
+              className='h-10 border'
+            />
             <TextInput
               label="Nhãn nút xem thêm cột 1"
               value={allServicesText}
@@ -829,7 +897,15 @@ export default function HeaderMenuConfigSection({
           </div>
 
           {/* Button CTA for Column 2 */}
-          <div className="pt-4 border-t border-slate-100 grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="pt-4 border-t border-slate-100 grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <TextInput
+              label="Tiêu đề cột 2"
+              value={industriesTitle}
+              onChange={(val) => setIndustriesTitle(val)}
+              placeholder="Products & Development"
+              width="100%"
+              className='h-10 border'
+            />
             <TextInput
               label="Nhãn nút xem thêm cột 2"
               value={allIndustriesText}
@@ -947,7 +1023,15 @@ export default function HeaderMenuConfigSection({
           </div>
 
           {/* Button CTA for Column 3 */}
-          <div className="pt-4 border-t border-slate-100 grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="pt-4 border-t border-slate-100 grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <TextInput
+              label="Tiêu đề cột 3"
+              value={partnersTitle}
+              onChange={(val) => setPartnersTitle(val)}
+              placeholder="Partners"
+              width="100%"
+              className='h-10 border'
+            />
             <TextInput
               label="Nhãn nút xem thêm cột 3"
               value={allPartnersText}

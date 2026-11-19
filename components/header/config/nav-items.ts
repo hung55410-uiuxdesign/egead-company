@@ -11,9 +11,9 @@ import type {
 } from '../types';
 
 export const NAV_ITEMS: NavItem[] = [
-  { id: 'work', label: 'Our Work', href: '/our-work' },
-  { id: 'services', label: 'Our Services', href: '/services/all-services', hasDropdown: true },
-  { id: 'insights', label: 'Insights', href: '/insights', hasDropdown: true },
+  { id: 'services', label: 'Services & Solutions', href: '/services/all-services', hasDropdown: true },
+  { id: 'insights', label: 'Activities', href: '/insights', hasDropdown: true },
+  { id: 'careers', label: 'Careers', href: '/careers' },
   { id: 'company', label: 'Company', href: '/company', hasDropdown: true },
 ];
 
@@ -97,11 +97,13 @@ export const PARTNER_ITEMS: PartnerItem[] = [
 
 export const COMPANY_ITEMS_COL1: CompanyItem[] = [
   {
+    key: 'about',
     name: 'About us',
     href: '/company',
     icon: '/assets/icon_about_us.svg',
   },
   {
+    key: 'offices',
     name: 'Our Offices',
     href: '/contact-us',
     icon: '/assets/icon_offices.svg',
@@ -111,15 +113,17 @@ export const COMPANY_ITEMS_COL1: CompanyItem[] = [
 
 export const COMPANY_ITEMS_COL2: CompanyItem[] = [
   {
-    name: 'Careers',
-    href: '/careers',
-    icon: '/assets/icon_career.svg',
+    key: 'work',
+    name: 'Our Work',
+    href: '/our-work',
+    icon: '/assets/icon_strategy_design.svg',
     hasArrow: true,
   },
 ];
 
 export const COMPANY_ITEMS_COL3: CompanyItem[] = [
   {
+    key: 'people',
     name: 'Our People',
     href: '/people',
     icon: '/assets/icon_people.svg',
@@ -179,6 +183,5 @@ export const MOBILE_PRODUCT_CARDS: MobileProductCard[] = [
 
 export const AVAILABLE_LANGUAGES: { code: LanguageCode; label: string }[] = [
   { code: 'EN', label: 'English (EN)' },
-  { code: 'JA', label: 'Japanese (JA)' },
-  { code: 'VI', label: 'Vietnamese (VI)' },
+  { code: 'VI', label: 'Tiếng Việt (VI)' },
 ];

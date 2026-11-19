@@ -7,6 +7,7 @@ import ContactBlock from '@/components/ContactBlock';
 import CaseStudiesSection from '@/components/CaseStudiesSection';
 import { MotionDiv } from '@/components/MotionSection';
 import type { ServiceItemListItem } from '@/lib/services/service-item.service';
+import type { HomeSectionModel } from '@/lib/services/home-section.service';
 import {
   AllServicesHero,
   AllServicesVisualBanner,
@@ -21,9 +22,18 @@ import {
 
 interface AllServicesViewProps {
   serviceItems?: ServiceItemListItem[];
+  /** Same "marketplaces-partners" section that feeds the home page marquee. */
+  marketplacesSection?: HomeSectionModel | null;
 }
 
-export default function AllServicesView({ serviceItems }: AllServicesViewProps) {
+export default function AllServicesView({
+  serviceItems,
+  marketplacesSection,
+}: AllServicesViewProps) {
+  const rows = marketplacesSection?.data?.rows;
+  const row1 = marketplacesSection?.data?.row1Partners;
+  const row2 = marketplacesSection?.data?.row2Partners;
+
   return (
     <div className="flex flex-col w-full bg-[#0A0D0E] min-h-screen text-[#B3B3B3]">
       <AllServicesHero />
@@ -32,8 +42,12 @@ export default function AllServicesView({ serviceItems }: AllServicesViewProps) 
       <IntegratedAdvantageQuote />
       <ProvenResultsSection />
       <CaseStudiesSection
-        variant="services"
         id="clients-partnerships"
+        title={marketplacesSection?.title || undefined}
+        description={marketplacesSection?.description || undefined}
+        rows={rows && rows.length > 0 ? rows : undefined}
+        row1Partners={row1 && row1.length > 0 ? row1 : undefined}
+        row2Partners={row2 && row2.length > 0 ? row2 : undefined}
       />
       <WorkflowTimeline
         id="workflow-pipeline"

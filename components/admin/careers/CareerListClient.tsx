@@ -37,6 +37,7 @@ export default function CareerListClient({
     "all" | "published" | "draft" | "closed"
   >("all");
   const [departmentFilter, setDepartmentFilter] = useState<string>("all");
+  const [languageFilter, setLanguageFilter] = useState<"all" | "en" | "vi">("all");
   const [isDeleting, setIsDeleting] = useState<string | null>(null);
 
   // Selection & Bulk Actions State
@@ -90,7 +91,7 @@ export default function CareerListClient({
   // Reset page when search or filters change
   React.useEffect(() => {
     setCurrentPage(1);
-  }, [search, statusFilter, departmentFilter]);
+  }, [search, statusFilter, departmentFilter, languageFilter]);
 
   const filteredJobs = jobs.filter((job) => {
     const matchesSearch =
@@ -105,7 +106,10 @@ export default function CareerListClient({
     const matchesDepartment =
       departmentFilter === "all" || job.department === departmentFilter;
 
-    return matchesSearch && matchesStatus && matchesDepartment;
+    const matchesLanguage =
+      languageFilter === "all" || (job.locale || "en") === languageFilter;
+
+    return matchesSearch && matchesStatus && matchesDepartment && matchesLanguage;
   });
 
   const totalItems = filteredJobs.length;
@@ -305,7 +309,7 @@ export default function CareerListClient({
       <Card variant="default" className="rounded-2xl p-4 sm:p-5 space-y-4">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-3">
           {/* Search box */}
-          <div className="md:col-span-6">
+          <div className="md:col-span-3">
             <TextInput
               label="Tìm kiếm tin tuyển dụng"
               isLabelHidden
@@ -315,6 +319,22 @@ export default function CareerListClient({
               hasClear
               width="100%"
               className='h-10 border'
+            />
+          </div>
+
+          {/* Language filter */}
+          <div className="md:col-span-3">
+            <Selector
+              label="Lọc theo ngôn ngữ"
+              className="h-10 border"
+              isLabelHidden
+              value={languageFilter}
+              onChange={(val) => setLanguageFilter(val as "all" | "en" | "vi")}
+              options={[
+                { value: "all", label: "Tất cả ngôn ngữ" },
+                { value: "en", label: "Tiếng Anh (EN)" },
+                { value: "vi", label: "Tiếng Việt (VI)" },
+              ]}
             />
           </div>
 
@@ -496,8 +516,13 @@ export default function CareerListClient({
                           </Link>
                           <div className="flex items-center gap-2 mt-1">
                             <span className="text-xs text-slate-400 font-mono">
-                              /{job.slug}
+                              {(job.locale || "en") === "vi" ? "/vi" : ""}/careers/{job.slug}
                             </span>
+                            <Badge
+                              label={(job.locale || "en") === "vi" ? "VI" : "EN"}
+                              variant={(job.locale || "en") === "vi" ? "warning" : "neutral"}
+                              className='h-8 px-4'
+                            />
                             {job.featured && (
                               <Badge label="Nổi bật" variant="warning" className='h-8 px-4' />
                             )}
@@ -588,7 +613,10 @@ export default function CareerListClient({
                               {
                                 label: "Xem trên website",
                                 onClick: () =>
-                                  window.open(`/careers/${job.slug}`, "_blank"),
+                                  window.open(
+                                    `${(job.locale || "en") === "vi" ? "/vi" : ""}/careers/${job.slug}`,
+                                    "_blank",
+                                  ),
                               },
                               {
                                 label: "Xóa tin tuyển dụng",

@@ -35,7 +35,10 @@ export async function GET(
     }
 
     // Fetch related articles (same category or tag, excluding current post)
-    const allPosts = await getAllPosts({ status: 'published' });
+    const allPosts = await getAllPosts({
+      status: 'published',
+      locale: post.locale || 'en',
+    });
     const otherPosts = allPosts.filter(
       (p) => p.slug !== slug && p.id !== post.id
     );

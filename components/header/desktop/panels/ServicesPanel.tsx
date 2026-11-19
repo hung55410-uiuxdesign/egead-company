@@ -4,6 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 import NavArrowIcon from '../../ui/NavArrowIcon';
 import type { HeaderServicesMenuData } from '@/lib/services/home-section.service';
+import { useT } from '@/components/providers/LocaleProvider';
 
 interface ServicesPanelProps {
   onItemClick: () => void;
@@ -14,6 +15,7 @@ export default function ServicesPanel({
   onItemClick,
   servicesMenu,
 }: ServicesPanelProps) {
+  const t = useT();
   const servicesList = servicesMenu?.services || [];
   const industriesList = servicesMenu?.industries || [];
   const partnersList = servicesMenu?.partners || [];
@@ -42,7 +44,7 @@ export default function ServicesPanel({
         {/* Column 1: Our Services */}
         <div>
           <h3 className="text-base sm:text-[17px] font-bold text-gray-900 mb-6 font-montserrat">
-            Our Services
+            {t.servicesPage.operations}
           </h3>
           <div className="space-y-4 mb-8">
             {servicesList.map((service) => (
@@ -84,7 +86,7 @@ export default function ServicesPanel({
         {/* Column 2: Industries */}
         <div>
           <h3 className="text-base sm:text-[17px] font-bold text-gray-900 mb-6 font-montserrat">
-            Industries
+            {t.servicesPage.products}
           </h3>
           <div className="space-y-4 mb-8">
             {industriesList.map((ind) => (

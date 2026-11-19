@@ -10,19 +10,22 @@ import ServiceDetailCta from "./components/ServiceDetailCta";
 
 type Props = {
   service: ServiceDetailItem;
+  relatedItems?: { slug: string; name: string; desc: string }[];
 };
 
-export default function ServiceDetailView({ service }: Props) {
+export default function ServiceDetailView({ service, relatedItems }: Props) {
   return (
     <div className="service-detail industries w-full bg-[#0A0D0E] text-white select-none">
       <ServiceDetailHero service={service} />
       <ServiceDetailOverview service={service} />
-      <ServiceDetailVisualBanner
-        imageSrc={service.middleImage}
-        title={service.title}
-      />
+      {service.middleImage ? (
+        <ServiceDetailVisualBanner
+          imageSrc={service.middleImage}
+          title={service.title}
+        />
+      ) : null}
       <ServiceDetailApproach service={service} />
-      <ServiceDetailOtherIndustries currentSlug={service.slug} />
+      <ServiceDetailOtherIndustries currentSlug={service.slug} items={relatedItems} />
       <ServiceDetailCta />
     </div>
   );

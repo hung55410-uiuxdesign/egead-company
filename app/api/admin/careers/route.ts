@@ -10,8 +10,11 @@ export async function GET(request: NextRequest) {
     const status = searchParams.get('status') || undefined;
     const department = searchParams.get('department') || undefined;
     const search = searchParams.get('search') || undefined;
+    const languageParam = searchParams.get('language');
+    const language =
+      languageParam === 'en' || languageParam === 'vi' ? languageParam : undefined;
 
-    const jobs = await getAllJobs({ status, department, search });
+    const jobs = await getAllJobs({ status, department, search, language });
     return NextResponse.json({ success: true, data: jobs });
   } catch (error) {
     return NextResponse.json(

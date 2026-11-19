@@ -1,0 +1,415 @@
+[
+  {
+    "title": "eBay Customer Service",
+    "slug": "customer-service-ebay",
+    "category": "service",
+    "tagline": "Customer support and listing automation for eBay sellers",
+    "subtitle": "We handle buyer messages and keep your eBay listings accurate and competitive, using auto listing and outsourced automatic listing adjustment.",
+    "heroImage": "/assets/insight_omnichannel.jpg",
+    "middleImage": null,
+    "overviewSubTitle": "OPERATIONS SERVICES",
+    "overviewHeading": "Support and listings, handled around the clock",
+    "overviewParagraphs": [
+      "Our team answers buyer questions, manages cases and returns, and protects your account health so you can focus on sourcing and growth.",
+      "Alongside support, we configure automatic listing and outsource the ongoing adjustment of your listings, so titles, prices and stock stay current without manual work."
+    ],
+    "approachHeading": "Our approach",
+    "approachIntro": "A simple, repeatable workflow that keeps every store responsive and every listing up to date.",
+    "principles": [
+      {
+        "title": "Responsive buyer support",
+        "description": "Consistent, brand-aligned replies to messages, cases and returns, following eBay service standards."
+      },
+      {
+        "title": "Auto listing",
+        "description": "Listings are created and published automatically from your product data."
+      },
+      {
+        "title": "Automatic listing adjustment",
+        "description": "We outsource and automate the ongoing tuning of titles, pricing and inventory across your listings."
+      }
+    ],
+    "order": 1,
+    "status": "published"
+  },
+  {
+    "title": "Etsy Customer Service",
+    "slug": "customer-service-etsy",
+    "category": "service",
+    "tagline": "Customer support for Etsy sellers",
+    "subtitle": "Content for this service is coming soon.",
+    "heroImage": "/assets/insight_brand_ip.jpg",
+    "middleImage": null,
+    "overviewSubTitle": null,
+    "overviewHeading": null,
+    "overviewParagraphs": [],
+    "approachHeading": null,
+    "approachIntro": null,
+    "principles": [],
+    "order": 2,
+    "status": "published"
+  },
+  {
+    "title": "Auto Listing & Google Data Sync",
+    "slug": "auto-listing-google-sync",
+    "category": "service",
+    "tagline": "Configure automatic listing and keep your data in sync with Google",
+    "subtitle": "We set up automatic listing pipelines and synchronize product data with Google so your catalog stays consistent and ready for Google Shopping.",
+    "heroImage": "/assets/insight_wms_cloud.jpg",
+    "middleImage": null,
+    "overviewSubTitle": "OPERATIONS SERVICES",
+    "overviewHeading": "One product feed, listed everywhere it matters",
+    "overviewParagraphs": [
+      "We connect your product data to automated listing workflows, removing repetitive manual uploads.",
+      "The same data is synchronized with Google so prices, availability and attributes match across your channels."
+    ],
+    "approachHeading": "Our approach",
+    "approachIntro": "Configuration, validation and monitoring, delivered end to end.",
+    "principles": [
+      {
+        "title": "Automated listing flows",
+        "description": "Rules and templates that create and update listings without manual entry."
+      },
+      {
+        "title": "Google data synchronization",
+        "description": "Product data is kept consistent with Google across updates."
+      },
+      {
+        "title": "Monitoring and fixes",
+        "description": "Errors and mismatches are detected and corrected before they affect performance."
+      }
+    ],
+    "order": 3,
+    "status": "published"
+  },
+  {
+    "title": "AI Image Automation",
+    "slug": "ai-image-automation",
+    "category": "service",
+    "tagline": "Automated product imagery powered by AI",
+    "subtitle": "We configure AI workflows that generate and prepare product images at scale, ready for your listings.",
+    "heroImage": "/assets/insight_ai_analytics.jpg",
+    "middleImage": null,
+    "overviewSubTitle": "OPERATIONS SERVICES",
+    "overviewHeading": "Product imagery without the production bottleneck",
+    "overviewParagraphs": [
+      "AI image automation turns product data and base artwork into consistent listing images, mockups and variations.",
+      "We configure the workflow once and run it continuously, so new products get images quickly."
+    ],
+    "approachHeading": "Our approach",
+    "approachIntro": "From brief to batch output, with quality checks along the way.",
+    "principles": [
+      {
+        "title": "Configured workflows",
+        "description": "Prompts, templates and settings tailored to your catalog and style."
+      },
+      {
+        "title": "Consistent output",
+        "description": "Images follow the same visual rules across products and channels."
+      },
+      {
+        "title": "Review and refinement",
+        "description": "Results are checked and adjusted so what goes live meets your standard."
+      }
+    ],
+    "order": 4,
+    "status": "published"
+  },
+  {
+    "title": "AI Auto-Posting & Follow Automation",
+    "slug": "ai-auto-posting",
+    "category": "service",
+    "tagline": "Automated posting and follow workflows run by AI",
+    "subtitle": "We configure AI-driven automation that publishes content and manages follow activity on a schedule.",
+    "heroImage": "/assets/insight_o2o.jpg",
+    "middleImage": null,
+    "overviewSubTitle": "OPERATIONS SERVICES",
+    "overviewHeading": "Stay active on every channel, automatically",
+    "overviewParagraphs": [
+      "Scheduled posting and automated follow routines keep your accounts active without daily manual work.",
+      "AI assists with content variations so posts stay fresh while following your guidelines."
+    ],
+    "approachHeading": "Our approach",
+    "approachIntro": "Setup, scheduling and monitoring in one managed service.",
+    "principles": [
+      {
+        "title": "Auto-posting",
+        "description": "Content is scheduled and published automatically across your accounts."
+      },
+      {
+        "title": "Follow automation",
+        "description": "Follow routines are configured and run within platform rules."
+      },
+      {
+        "title": "Oversight",
+        "description": "We monitor activity and adjust settings to keep accounts healthy."
+      }
+    ],
+    "order": 5,
+    "status": "published"
+  },
+  {
+    "title": "Google Ads Optimization",
+    "slug": "google-ads-optimization",
+    "category": "service",
+    "tagline": "Optimize Google Ads campaigns for better return",
+    "subtitle": "We review, restructure and continuously tune your Google Ads campaigns to improve efficiency and results.",
+    "heroImage": "/assets/insight_tiktok.jpg",
+    "middleImage": null,
+    "overviewSubTitle": "OPERATIONS SERVICES",
+    "overviewHeading": "Spend smarter on Google",
+    "overviewParagraphs": [
+      "We audit account structure, targeting and feeds, then apply improvements campaign by campaign.",
+      "Ongoing optimization keeps budgets focused on the products and queries that perform."
+    ],
+    "approachHeading": "Our approach",
+    "approachIntro": "Measure, adjust and repeat.",
+    "principles": [
+      {
+        "title": "Account and feed review",
+        "description": "A clear picture of what is working and what is wasting budget."
+      },
+      {
+        "title": "Campaign optimization",
+        "description": "Bids, structure and targeting adjusted based on performance data."
+      },
+      {
+        "title": "Regular reporting",
+        "description": "Straightforward updates on results and next steps."
+      }
+    ],
+    "order": 6,
+    "status": "published"
+  },
+  {
+    "title": "TikTok Shop US Listing Optimization & Automation",
+    "slug": "tiktok-shop-us",
+    "category": "service",
+    "tagline": "Optimize and automate your TikTok Shop US listings",
+    "subtitle": "We improve listing quality on TikTok Shop US and automate repetitive listing tasks to help you scale.",
+    "heroImage": "/assets/insight_dtf_tech.jpg",
+    "middleImage": null,
+    "overviewSubTitle": "OPERATIONS SERVICES",
+    "overviewHeading": "Listings built for TikTok Shop US",
+    "overviewParagraphs": [
+      "Listings are optimized for how TikTok Shop US shoppers search and buy.",
+      "Automation handles repetitive listing work so your team can add products faster."
+    ],
+    "approachHeading": "Our approach",
+    "approachIntro": "Optimization and automation working together.",
+    "principles": [
+      {
+        "title": "Listing optimization",
+        "description": "Titles, descriptions and attributes refined for the platform."
+      },
+      {
+        "title": "Listing automation",
+        "description": "Bulk creation and updates through automated workflows."
+      },
+      {
+        "title": "Compliance awareness",
+        "description": "Listings are prepared with platform requirements in mind."
+      }
+    ],
+    "order": 7,
+    "status": "published"
+  },
+  {
+    "title": "POD & Dropship Business Websites",
+    "slug": "pod-dropship-websites",
+    "category": "industry",
+    "tagline": "Websites built for POD and Dropship businesses",
+    "subtitle": "We design and develop storefronts and websites tailored to print-on-demand and dropshipping businesses.",
+    "heroImage": "/assets/solution_smartcommerce.png",
+    "middleImage": null,
+    "overviewSubTitle": "PRODUCTS & DEVELOPMENT",
+    "overviewHeading": "Your store, built for how POD and Dropship work",
+    "overviewParagraphs": [
+      "From product pages to checkout, we build websites that fit your catalog, brand and fulfillment flow.",
+      "Sites are developed to be fast, maintainable and ready to connect with your operations."
+    ],
+    "approachHeading": "Our approach",
+    "approachIntro": "Design, development and launch with a team that understands the model.",
+    "principles": [
+      {
+        "title": "Tailored design",
+        "description": "A look and structure that match your brand and products."
+      },
+      {
+        "title": "Operations-ready",
+        "description": "Built to connect with your listing, order and fulfillment workflows."
+      },
+      {
+        "title": "Maintainable",
+        "description": "Clean implementation that is easy to extend as you grow."
+      }
+    ],
+    "order": 8,
+    "status": "published"
+  },
+  {
+    "title": "Platforms & Related Apps",
+    "slug": "platforms-apps",
+    "category": "industry",
+    "tagline": "Platforms and the applications around them",
+    "subtitle": "We build platform solutions and the related apps that extend them.",
+    "heroImage": "/assets/smartcx-2.png",
+    "middleImage": null,
+    "overviewSubTitle": "PRODUCTS & DEVELOPMENT",
+    "overviewHeading": "The platform, and everything that plugs into it",
+    "overviewParagraphs": [
+      "We develop platforms and companion applications that support your business processes.",
+      "Each solution is designed to fit the platform it extends and the people who use it."
+    ],
+    "approachHeading": "Our approach",
+    "approachIntro": "Scoped, built and supported as one coherent product.",
+    "principles": [
+      {
+        "title": "Platform development",
+        "description": "Core platform features designed around your use case."
+      },
+      {
+        "title": "Related apps",
+        "description": "Companion applications that extend and connect the platform."
+      },
+      {
+        "title": "Long-term support",
+        "description": "Updates and improvements as requirements evolve."
+      }
+    ],
+    "order": 9,
+    "status": "published"
+  },
+  {
+    "title": "Multi-platform POD Marketplace",
+    "slug": "pod-marketplace",
+    "category": "industry",
+    "tagline": "A POD marketplace that works across platforms",
+    "subtitle": "We build marketplace solutions for print-on-demand that operate across multiple platforms.",
+    "heroImage": "/assets/insight_supply_chain.jpg",
+    "middleImage": null,
+    "overviewSubTitle": "PRODUCTS & DEVELOPMENT",
+    "overviewHeading": "One POD marketplace, many platforms",
+    "overviewParagraphs": [
+      "A multi-platform marketplace lets you offer products and manage orders across channels from a single system.",
+      "We design the experience for both sellers and buyers, and connect it to production and fulfillment."
+    ],
+    "approachHeading": "Our approach",
+    "approachIntro": "From concept to a marketplace that runs.",
+    "principles": [
+      {
+        "title": "Multi-platform reach",
+        "description": "Products and orders managed across several platforms."
+      },
+      {
+        "title": "Seller and buyer experience",
+        "description": "Clear flows for listing, ordering and tracking."
+      },
+      {
+        "title": "Production-ready",
+        "description": "Connected to your POD production and fulfillment process."
+      }
+    ],
+    "order": 10,
+    "status": "published"
+  },
+  {
+    "title": "App Development & Custom Features",
+    "slug": "app-development",
+    "category": "industry",
+    "tagline": "Custom apps and features built for your business",
+    "subtitle": "We create apps and develop custom features to match how your business works.",
+    "heroImage": "/assets/banner111.png",
+    "middleImage": null,
+    "overviewSubTitle": "PRODUCTS & DEVELOPMENT",
+    "overviewHeading": "Built around your requirements",
+    "overviewParagraphs": [
+      "Whether it is a new app or a custom feature for an existing one, we build to your specification.",
+      "We work in small iterations so you can see progress and adjust along the way."
+    ],
+    "approachHeading": "Our approach",
+    "approachIntro": "Requirements, design, development and release.",
+    "principles": [
+      {
+        "title": "Custom features",
+        "description": "Functionality added to existing apps to fit your workflow."
+      },
+      {
+        "title": "New app development",
+        "description": "Apps designed and built from scratch."
+      },
+      {
+        "title": "Iterative delivery",
+        "description": "Regular releases and feedback to stay on target."
+      }
+    ],
+    "order": 11,
+    "status": "published"
+  },
+  {
+    "title": "Casual Games & Game Design",
+    "slug": "casual-games",
+    "category": "industry",
+    "tagline": "Casual game development and game design",
+    "subtitle": "We create casual games across genres and handle the game design behind them.",
+    "heroImage": "/assets/banner18.png",
+    "middleImage": null,
+    "overviewSubTitle": "PRODUCTS & DEVELOPMENT",
+    "overviewHeading": "Games that are easy to pick up and fun to replay",
+    "overviewParagraphs": [
+      "We build casual games in a range of genres, from concept and mechanics to a finished product.",
+      "Our design work covers gameplay, visuals and the details that make a game feel polished."
+    ],
+    "approachHeading": "Our approach",
+    "approachIntro": "Concept, design, development and polish.",
+    "principles": [
+      {
+        "title": "Multiple genres",
+        "description": "Casual game types to suit your audience."
+      },
+      {
+        "title": "Game design",
+        "description": "Mechanics, progression and visual design."
+      },
+      {
+        "title": "Polish",
+        "description": "Testing and refinement before release."
+      }
+    ],
+    "order": 12,
+    "status": "published"
+  },
+  {
+    "title": "Designer",
+    "slug": "designer",
+    "category": "industry",
+    "tagline": "Design services for your products and brand",
+    "subtitle": "Our designers support your products, store and marketing with consistent, high-quality design.",
+    "heroImage": "/assets/insight_brand_ip.jpg",
+    "middleImage": null,
+    "overviewSubTitle": "PRODUCTS & DEVELOPMENT",
+    "overviewHeading": "Design that supports every part of the business",
+    "overviewParagraphs": [
+      "Our designers create artwork and visuals for your products, stores and campaigns.",
+      "Work follows your brand so everything you publish looks consistent."
+    ],
+    "approachHeading": "Our approach",
+    "approachIntro": "Brief, design, review and delivery.",
+    "principles": [
+      {
+        "title": "Product and artwork design",
+        "description": "Designs ready for production and listing."
+      },
+      {
+        "title": "Brand consistency",
+        "description": "Visuals aligned with your brand guidelines."
+      },
+      {
+        "title": "Flexible capacity",
+        "description": "Support that scales with your workload."
+      }
+    ],
+    "order": 13,
+    "status": "published"
+  }
+]

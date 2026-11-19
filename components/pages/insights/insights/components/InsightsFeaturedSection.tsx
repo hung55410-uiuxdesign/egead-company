@@ -1,5 +1,7 @@
 "use client";
 
+import { useLocalizeHref } from "@/components/providers/LocaleProvider";
+
 import Link from "next/link";
 import MotionSection from "@/components/MotionSection";
 import type { BlogPost } from "@/types/blog";
@@ -10,6 +12,7 @@ type Props = {
 };
 
 export default function InsightsFeaturedSection({ featured }: Props) {
+  const lh = useLocalizeHref();
   return (
     <MotionSection
       id="featured-insight"
@@ -25,7 +28,7 @@ export default function InsightsFeaturedSection({ featured }: Props) {
         {featured.map((item) => (
           <Link
             key={item.id || item.slug}
-            href={`/articles/${item.slug}`}
+            href={lh(`/articles/${item.slug}`)}
             className="group flex flex-col cursor-pointer"
           >
             {/* Image: Square/4:3 aspect ratio, rounded-[20px] */}

@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getPaginatedPosts, getInsightsHubData, PostFilter } from '@/lib/services/blog.service';
+import { isLocale } from '@/lib/i18n/config';
 
 export const dynamic = 'force-dynamic';
 
@@ -12,10 +13,13 @@ export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
 
+    const localeParam = searchParams.get('locale');
+    const locale = isLocale(localeParam) ? localeParam : undefined;
+
     // 1. Hub view for overview page
     const view = searchParams.get('view');
     if (view === 'hub') {
-      const hubData = await getInsightsHubData();
+      const hubData = await getInsightsHubData(locale);
       return NextResponse.json({
         success: true,
         data: hubData,
@@ -46,6 +50,7 @@ export async function GET(request: NextRequest) {
       tag,
       search,
       featured,
+      locale,
       sort,
       page: isNaN(pageParam) ? 1 : pageParam,
       limit: isNaN(limitParam) ? 9 : limitParam,

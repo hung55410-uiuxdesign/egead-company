@@ -1,6 +1,6 @@
 import React from 'react';
 import { notFound } from 'next/navigation';
-import { getJobById, getDepartments } from '@/lib/careers';
+import { getJobById, getDepartments, getJobSiblings } from '@/lib/careers';
 import { CareerEditorClient } from '@/components/admin/careers';
 
 export const dynamic = 'force-dynamic';
@@ -20,5 +20,13 @@ export default async function AdminEditCareerPage({
     notFound();
   }
 
-  return <CareerEditorClient initialJob={job} departments={departments} />;
+  const siblings = await getJobSiblings(job);
+
+  return (
+    <CareerEditorClient
+      initialJob={job}
+      departments={departments}
+      siblings={siblings}
+    />
+  );
 }

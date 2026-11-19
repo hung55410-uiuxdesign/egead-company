@@ -34,6 +34,8 @@ export interface PartnerItem {
 }
 
 export interface CompanyItem {
+  /** Key into the i18n dictionary (dict.company[key]) */
+  key: 'about' | 'offices' | 'work' | 'people';
   name: string;
   href: string;
   icon: string;

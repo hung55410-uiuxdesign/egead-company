@@ -1,3 +1,5 @@
+import type { Locale } from '@/lib/i18n/config';
+
 export type JobStatus = 'published' | 'draft' | 'closed';
 
 export type JobType =
@@ -28,8 +30,20 @@ export interface CareerPost {
   featured: boolean;
   views: number;
   applicationsCount: number;
+  /** Language of this version: 'en' (default) or 'vi' */
+  locale?: Locale;
+  /** Versions that are translations of each other share a groupId */
+  groupId?: string;
   createdAt: string;
   updatedAt: string;
+}
+
+export interface CareerSibling {
+  id: string;
+  slug: string;
+  title: string;
+  locale: Locale;
+  status: JobStatus;
 }
 
 export type ApplicationStatus =

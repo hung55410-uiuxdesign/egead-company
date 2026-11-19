@@ -15,19 +15,28 @@ import {
   FileInput,
   FileText,
 } from 'lucide-react';
-import { CareerPost, JobStatus, JobType } from '@/types/career';
+import { CareerPost, CareerSibling, JobStatus, JobType } from '@/types/career';
+import type { Locale } from '@/lib/i18n/config';
 import TipTapEditor from '@/components/admin/shared/TipTapEditor';
 import { Card, Button, Badge, Selector, CheckboxInput, TextInput, TextArea } from '@astryxdesign/core';
-import { useSaveJobMutation } from '@/lib/hooks';
+import { useSaveJobMutation, useCreateJobTranslationMutation } from '@/lib/hooks';
 
 interface CareerEditorClientProps {
   initialJob?: CareerPost | null;
   departments: string[];
+  /** Các phiên bản ngôn ngữ của cùng tin tuyển dụng (gồm cả tin hiện tại) */
+  siblings?: CareerSibling[];
 }
+
+const LANGUAGE_NAME: Record<Locale, string> = {
+  en: 'Tiếng Anh (EN)',
+  vi: 'Tiếng Việt (VI)',
+};
 
 export default function CareerEditorClient({
   initialJob,
   departments,
+  siblings = [],
 }: CareerEditorClientProps) {
   const router = useRouter();
   const isEditing = Boolean(initialJob?.id);
@@ -76,6 +85,8 @@ export default function CareerEditorClient({
 
   const [activeTab, setActiveTab] = useState<'desc' | 'req' | 'ben'>('desc');
   const saveJobMutation = useSaveJobMutation();
+  const translationMutation = useCreateJobTranslationMutation();
+  const [language, setLanguage] = useState<Locale>(initialJob?.locale || 'en');
   const isSubmitting = saveJobMutation.isPending;
 
   const generateSlugFromTitle = () => {
@@ -147,6 +158,7 @@ export default function CareerEditorClient({
       contactEmail: contactEmail.trim(),
       status: submitStatus,
       featured,
+      locale: language,
     };
 
     try {
@@ -367,11 +379,81 @@ export default function CareerEditorClient({
 
         {/* Right Column: Key Attributes & Settings */}
         <div className="space-y-6">
+          {/* Language versions */}
+          {isEditing && (
+            <Card variant="default" className="rounded-2xl p-6 space-y-4">
+              <h3 className="text-xs font-bold text-slate-800 border-b border-slate-100 pb-3">
+                Phiên bản ngôn ngữ
+              </h3>
+
+              <ul className="space-y-2.5">
+                {(['en', 'vi'] as Locale[]).map((code) => {
+                  const isCurrent = (initialJob?.locale || 'en') === code;
+                  const version = isCurrent
+                    ? null
+                    : siblings.find((sib) => sib.locale === code);
+                  return (
+                    <li
+                      key={code}
+                      className="flex items-center justify-between gap-3 text-sm"
+                    >
+                      <span className="font-semibold text-slate-800">
+                        {LANGUAGE_NAME[code]}
+                      </span>
+                      {isCurrent ? (
+                        <Badge label="Đang chỉnh sửa" variant="success" className="h-7 px-3" />
+                      ) : version ? (
+                        <Link
+                          href={`/admin/careers/${version.id}`}
+                          className="text-emerald-700 hover:underline font-medium"
+                        >
+                          {version.status === 'published' ? 'Mở bản đang tuyển' : 'Mở bản nháp'}
+                        </Link>
+                      ) : (
+                        <Button
+                          label={code === 'en' ? 'Tạo bản tiếng Anh' : 'Tạo bản tiếng Việt'}
+                          variant="secondary"
+                          isDisabled={translationMutation.isPending || isSubmitting}
+                          isLoading={translationMutation.isPending}
+                          onClick={() =>
+                            translationMutation.mutate({ id: initialJob!.id, locale: code })
+                          }
+                          className="h-9 px-3"
+                        />
+                      )}
+                    </li>
+                  );
+                })}
+              </ul>
+              <p className="text-[11px] text-slate-500 leading-relaxed">
+                Bản mới được tạo dưới dạng bản nháp (sao chép nội dung hiện tại) để bạn dịch rồi
+                xuất bản. Hãy lưu tin này trước khi tạo bản dịch.
+              </p>
+            </Card>
+          )}
+
           {/* Status & Priority */}
           <Card variant="default" className="rounded-2xl p-6 space-y-4">
             <h3 className="text-xs font-bold text-slate-800 border-b border-slate-100 pb-3">
               Trạng thái &amp; Hiển thị
             </h3>
+
+            <div>
+              <Selector
+                label="Ngôn ngữ tin tuyển dụng"
+                value={language}
+                onChange={(val) => setLanguage(val as Locale)}
+                options={[
+                  { value: 'en', label: LANGUAGE_NAME.en },
+                  { value: 'vi', label: LANGUAGE_NAME.vi },
+                ]}
+                className='h-10 border'
+              />
+              <p className="text-[11px] text-slate-500 mt-1.5 leading-relaxed">
+                Nếu chỉ có một ngôn ngữ, tin hiển thị ở cả hai phiên bản website. Nếu có đủ hai
+                ngôn ngữ, website chọn bản theo ngôn ngữ đang dùng và trong tin có nút chuyển EN/VI.
+              </p>
+            </div>
 
             <div>
               <Selector

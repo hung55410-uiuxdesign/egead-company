@@ -2,6 +2,7 @@
 
 import React from 'react';
 import type { JobOpening } from '@/lib/careers';
+import type { CareerSibling } from '@/types/career';
 import {
   JobDetailHeader,
   JobDetailContent,
@@ -11,11 +12,19 @@ import {
 interface JobDetailViewProps {
   job: JobOpening;
   relatedJobs: JobOpening[];
+  siblings?: CareerSibling[];
 }
 
-export default function JobDetailView({ job, relatedJobs }: JobDetailViewProps) {
+export default function JobDetailView({
+  job,
+  relatedJobs,
+  siblings = [],
+}: JobDetailViewProps) {
   return (
-    <div className="w-full bg-white text-slate-900 min-h-screen relative selection:bg-slate-900 selection:text-white">
+    <div
+      lang={job.locale || 'en'}
+      className="w-full bg-white text-slate-900 min-h-screen relative selection:bg-slate-900 selection:text-white"
+    >
       {/* Top subtle dark gradient shield so fixed white header navigation remains crisp before scrolling */}
       <div
         aria-hidden="true"
@@ -31,6 +40,8 @@ export default function JobDetailView({ job, relatedJobs }: JobDetailViewProps) 
           jobType={job.jobType}
           salary={job.salary}
           experience={job.experience}
+          job={job}
+          siblings={siblings}
         />
         <JobDetailContent job={job} />
         <JobDetailRelated relatedJobs={relatedJobs} />

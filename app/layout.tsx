@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { Montserrat, Open_Sans } from 'next/font/google';
+import { getLocale } from '@/lib/i18n/server';
 import './globals.css';
 
 const montserrat = Montserrat({
@@ -36,14 +37,16 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const locale = await getLocale();
+
   return (
     <html
-      lang="en"
+      lang={locale}
       className={`${montserrat.variable} ${openSans.variable} dark`}
       suppressHydrationWarning
       data-scroll-behavior="smooth"

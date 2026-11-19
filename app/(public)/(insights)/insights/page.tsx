@@ -4,6 +4,7 @@ import { MotionDiv } from '@/components/MotionSection';
 import { getAllPosts, getInsightsHubData } from '@/lib/blogs';
 import { getCategoriesWithCount } from '@/lib/services/category.service';
 import { getCategoryHref } from '@/types/category';
+import { getLocale } from '@/lib/i18n/server';
 import {
   InsightsHubView,
   InsightsCategoryView,
@@ -59,6 +60,7 @@ interface InsightsPageProps {
 export default async function InsightsPage(props: InsightsPageProps) {
   const searchParams = props.searchParams ? await props.searchParams : undefined;
   const currentCategory = searchParams?.category?.toLowerCase();
+  const locale = await getLocale();
 
   // 1. Specific Category View (/webinars, /blog, /announcements, etc.)
   if (currentCategory) {
@@ -85,6 +87,7 @@ export default async function InsightsPage(props: InsightsPageProps) {
       const categoryPosts = await getAllPosts({
         status: 'published',
         category: currentCategory,
+        locale,
       });
 
       return (
@@ -106,6 +109,6 @@ export default async function InsightsPage(props: InsightsPageProps) {
   }
 
   // 2. Hub Overview View (/insights)
-  const hubData = await getInsightsHubData();
+  const hubData = await getInsightsHubData(locale);
   return <InsightsHubView hubData={hubData} />;
 }

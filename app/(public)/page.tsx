@@ -1,10 +1,10 @@
 import { HomeView } from '@/components/pages/home';
 import { getHomeSectionByKey } from '@/lib/services/home-section.service';
 import { getAllPosts } from '@/lib/blogs';
-
-export const revalidate = 60;
+import { getLocale } from '@/lib/i18n/server';
 
 export default async function HomePage() {
+  const locale = await getLocale();
   const [
     marketplacesSection,
     servicesSection,
@@ -16,7 +16,7 @@ export default async function HomePage() {
     getHomeSectionByKey('services-capabilities').catch(() => null),
     getHomeSectionByKey('why-brands-ship').catch(() => null),
     getHomeSectionByKey('testimonials').catch(() => null),
-    getAllPosts({ status: 'published', limit: 10 }).catch(() => []),
+    getAllPosts({ status: 'published', limit: 10, locale }).catch(() => []),
   ]);
 
   return (

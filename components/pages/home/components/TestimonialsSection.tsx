@@ -298,9 +298,7 @@ export default function TestimonialsSection({
         </motion.div>
       </div>
 
-      <div className="relative w-full px-6 sm:px-10 lg:px-14 xl:px-16 min-h-[480px] sm:min-h-[540px] lg:min-h-[580px] flex items-center justify-center overflow-hidden">
-        <div className="hidden lg:block absolute left-0 top-0 bottom-0 w-16 xl:w-24 bg-gradient-to-r from-[#0A0D0E] to-transparent pointer-events-none z-30" />
-        <div className="hidden lg:block absolute right-0 top-0 bottom-0 w-16 xl:w-24 bg-gradient-to-l from-[#0A0D0E] to-transparent pointer-events-none z-30" />
+      <div className="relative w-full px-6 sm:px-10 lg:px-14 xl:px-16 min-h-[480px] sm:min-h-[540px] lg:min-h-[580px] flex items-center justify-center overflow-hidden edge-fade-x">
 
         {/* LEFT SLIDE */}
         <div

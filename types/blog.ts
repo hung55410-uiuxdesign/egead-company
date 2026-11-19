@@ -1,3 +1,5 @@
+import type { Locale } from '@/lib/i18n/config';
+
 export type PostStatus = 'published' | 'draft' | 'archived';
 
 export interface Author {
@@ -23,8 +25,20 @@ export interface BlogPost {
   status: PostStatus;
   views?: number;
   featured?: boolean;
+  /** Language of this version: 'en' (default) or 'vi' */
+  locale?: Locale;
+  /** Posts that are translations of each other share a groupId */
+  groupId?: string;
   createdAt: string;
   updatedAt: string;
+}
+
+export interface BlogSibling {
+  id: string;
+  slug: string;
+  title: string;
+  locale: Locale;
+  status: PostStatus;
 }
 
 export interface BlogCategory {

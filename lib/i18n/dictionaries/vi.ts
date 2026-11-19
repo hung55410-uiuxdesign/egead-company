@@ -1,0 +1,125 @@
+import type { Dictionary } from './en';
+
+const vi: Dictionary = {
+  nav: {
+    services: 'Dịch vụ & Giải pháp',
+    insights: 'Hoạt động',
+    careers: 'Tuyển dụng',
+    company: 'Công ty',
+  },
+  common: {
+    showMore: 'Xem thêm',
+    letsTalk: 'Liên hệ ngay',
+    getConsultation: 'Nhận tư vấn miễn phí',
+    openMenu: 'Mở menu điều hướng',
+    closeMenu: 'Đóng menu',
+    language: 'Ngôn ngữ',
+    selectLanguage: 'Chọn ngôn ngữ',
+  },
+  servicesMenu: {
+    services: 'Dịch vụ của chúng tôi',
+    industries: 'Lĩnh vực',
+    partners: 'Đối tác',
+    allServices: 'Tất cả dịch vụ',
+    allIndustries: 'Tất cả lĩnh vực',
+    allPartners: 'Tất cả đối tác',
+  },
+  activities: {
+    title: 'Hoạt động',
+    all: 'Tất cả hoạt động',
+  },
+  company: {
+    title: 'Công ty',
+    about: 'Về chúng tôi',
+    offices: 'Văn phòng',
+    work: 'Dự án tiêu biểu',
+    people: 'Đội ngũ',
+  },
+  promo: {
+    tag: 'Sản xuất POD tại Mỹ',
+    title: 'Giao hàng dưới 24 giờ, trọn gói từ $6',
+    body: 'Sản xuất trọn quy trình với công nghệ in khổ lớn 23 inch, tuân thủ 100% quy định TikTok Shop US và độ chính xác mã vạch theo thời gian thực.',
+    cta: 'Yêu cầu báo giá POD',
+  },
+  footer: {
+    language: 'Ngôn ngữ',
+    backToTop: 'Lên đầu trang',
+    subscribe: 'Đăng ký',
+    joinNetwork: 'KẾT NỐI VỚI CHÚNG TÔI',
+    newsletter: 'Bản tin',
+    recaptchaPrefix: 'Trang này được bảo vệ bởi reCAPTCHA và áp dụng',
+    privacyPolicy: 'Chính sách quyền riêng tư của Google',
+    and: 'và',
+    terms: 'Điều khoản dịch vụ',
+    recaptchaSuffix: '.',
+    copyright: '© 2026 E-Gead Company. Bảo lưu mọi quyền.',
+    offices: {
+      title: 'Văn phòng',
+      address: 'Địa chỉ',
+      hours: 'Thời gian làm việc',
+      items: [
+        {
+          name: 'VP Buôn Ma Thuột',
+          address: '217/9 Ngô Quyền, P. Tân An, Tỉnh Đắk Lắk',
+          hours: [
+            'T2 – T7',
+            'Sáng: 8h – 11h30',
+            'Chiều: 14h – 17h30',
+            'Riêng chiều T7: 14h – 16h30',
+          ],
+        },
+        {
+          name: 'VP Hà Nội',
+          address: 'Số 47 Liền kề 11B, Khu đô thị Mỗ Lao, Hà Nội',
+          hours: [
+            'T2 – T7',
+            'Sáng: 8h – 12h',
+            'Chiều: 13h30 – 17h30',
+            'Nghỉ thứ 7 cách tuần',
+          ],
+        },
+        {
+          name: 'VP Sài Gòn',
+          address: '54B đường 18, phường Hiệp Bình, TP.HCM',
+          hours: [
+            'T2 – T7',
+            'Sáng: 8h30 – 12h00',
+            'Chiều: 13h30 – 17h30',
+            'Riêng chiều T7: 13h30 – 16h30',
+          ],
+        },
+      ],
+    },
+  },
+  servicesPage: {
+    all: 'Tất cả',
+    operations: 'Dịch vụ vận hành',
+    products: 'Sản phẩm & phát triển',
+    viewDetails: 'Xem chi tiết',
+    categoryOperations: 'Dịch vụ vận hành',
+    categoryProducts: 'Sản phẩm & phát triển',
+  },
+  article: {
+    backToInsights: 'Quay lại Hoạt động',
+    backToWebinars: 'Quay lại Webinar',
+    backToBlog: 'Quay lại Blog',
+    backToAnnouncements: 'Quay lại Thông báo',
+    backToWhitePapers: 'Quay lại Báo cáo chuyên sâu',
+    nextArticle: 'BÀI VIẾT TIẾP THEO',
+    readThisIn: 'Đọc bài viết bằng',
+  },
+  careers: {
+    backToCareers: 'Quay lại tuyển dụng',
+    relatedTitle: 'Các vị trí khác đang mở',
+    viewAllPositions: 'Xem tất cả vị trí',
+    applyNow: 'Ứng tuyển ngay',
+    jobDescription: 'Mô tả công việc',
+    qualifications: 'Yêu cầu ứng viên',
+    preferredSkills: 'Kỹ năng ưu tiên',
+    benefits: 'Quyền lợi & Đãi ngộ',
+    shareThis: 'Chia sẻ cơ hội này:',
+    viewThisIn: 'Xem vị trí này bằng',
+  },
+};
+
+export default vi;

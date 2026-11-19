@@ -5,6 +5,7 @@ import Link from "next/link";
 import { motion, AnimatePresence, type Variants } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useLatestArticlesQuery } from "@/lib/hooks";
+import { useLocale, useLocalizeHref } from "@/components/providers/LocaleProvider";
 import { getOptimizedImageUrl } from "@/lib/utils/image";
 import { getMediaThumbnailUrl } from "@/lib/utils/media";
 import type { BlogPost } from "@/types/blog";
@@ -94,12 +95,15 @@ export default function InsightsSection({
   tagline = "Insights",
   title = "Our latest news.",
 }: InsightsSectionProps = {}) {
+  const locale = useLocale();
+  const lh = useLocalizeHref();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [direction, setDirection] = useState(1);
 
   // TanStack Query: Fetch latest published articles with SSR initialData
   const { data: postsData } = useLatestArticlesQuery({
     limit: 10,
+    locale,
     initialData: initialArticles,
   });
 
@@ -240,7 +244,7 @@ export default function InsightsSection({
             transition={{ type: "spring", stiffness: 400, damping: 17 }}
           >
             <Link
-              href="/insights"
+              href={lh('/insights')}
               className="group inline-flex items-center gap-2 px-6 sm:px-7 py-2.5 sm:py-3 rounded-full border border-white/20 hover:border-[#5EFC8D] hover:text-[#5EFC8D] hover:bg-white/5 text-[#D4FAE6] font-medium text-sm transition duration-300 shrink-0 font-montserrat shadow-sm"
             >
               <svg
@@ -294,7 +298,7 @@ export default function InsightsSection({
                     className="h-full"
                   >
                     <Link
-                      href={`/articles/${article.slug}`}
+                      href={lh(`/articles/${article.slug}`)}
                       className="group flex flex-col h-full transition-all duration-300"
                     >
                       <div className="relative w-full h-[280px] sm:h-[340px] lg:h-[380px] xl:h-[420px] overflow-hidden bg-[#181d1f] rounded-xl border border-white/10 group-hover:border-[#5EFC8D]/50 transition-colors shadow-lg">
@@ -343,7 +347,7 @@ export default function InsightsSection({
                   className="h-full"
                 >
                   <Link
-                    href={`/articles/${article.slug}`}
+                    href={lh(`/articles/${article.slug}`)}
                     className="group flex flex-col h-full transition-all duration-300"
                   >
                     <div className="relative w-full h-[180px] sm:h-[200px] lg:h-[200px] xl:h-[220px] overflow-hidden bg-[#181d1f] rounded-xl border border-white/10 group-hover:border-[#5EFC8D]/50 transition-colors shadow-lg">

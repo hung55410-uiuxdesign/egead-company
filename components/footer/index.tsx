@@ -4,6 +4,7 @@ import React from 'react';
 import FooterTopBar from './sections/FooterTopBar';
 import FooterNavColumns from './sections/FooterNavColumns';
 import NewsletterForm from './sections/NewsletterForm';
+import OfficeLocations from './sections/OfficeLocations';
 import WorldClocksBar from './sections/WorldClocksBar';
 import CertificationBadges from './sections/CertificationBadges';
 import FooterBottomBar from './sections/FooterBottomBar';
@@ -35,6 +36,9 @@ export default function Footer({ initialConfig }: FooterProps) {
           <FooterNavColumns columns={config?.navColumns} />
           <NewsletterForm newsletter={config?.newsletter} />
         </div>
+
+        {/* Offices: addresses & working hours */}
+        <OfficeLocations />
 
         {/* Live World Clocks Bar */}
         <WorldClocksBar timezones={config?.timezones} />

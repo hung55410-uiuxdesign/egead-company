@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
+import { useLocalizeHref, useT } from '@/components/providers/LocaleProvider';
 
 export type MobileTabKey = 'services' | 'insights' | 'company';
 
@@ -16,6 +17,9 @@ export default function MobileTabs({
   onTabChange,
   onClose,
 }: MobileTabsProps) {
+  const t = useT();
+  const lh = useLocalizeHref();
+
   return (
     <div className="flex flex-wrap gap-3 sm:gap-6 border-b border-gray-100 pb-4 mb-8 text-sm sm:text-base font-semibold">
       <button
@@ -27,16 +31,8 @@ export default function MobileTabs({
             : 'border-transparent text-gray-500 hover:text-black'
         }`}
       >
-        Our Services
+        {t.nav.services}
       </button>
-
-      <Link
-        href="/our-work"
-        onClick={onClose}
-        className="pb-2 border-b-2 border-transparent text-gray-500 hover:text-black transition"
-      >
-        Our Work
-      </Link>
 
       <button
         type="button"
@@ -47,8 +43,16 @@ export default function MobileTabs({
             : 'border-transparent text-gray-500 hover:text-black'
         }`}
       >
-        Insights
+        {t.nav.insights}
       </button>
+
+      <Link
+        href={lh('/careers')}
+        onClick={onClose}
+        className="pb-2 border-b-2 border-transparent text-gray-500 hover:text-black transition"
+      >
+        {t.nav.careers}
+      </Link>
 
       <button
         type="button"
@@ -59,7 +63,7 @@ export default function MobileTabs({
             : 'border-transparent text-gray-500 hover:text-black'
         }`}
       >
-        Company
+        {t.nav.company}
       </button>
     </div>
   );

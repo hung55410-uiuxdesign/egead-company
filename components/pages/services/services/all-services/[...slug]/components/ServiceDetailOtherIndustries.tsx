@@ -4,8 +4,12 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { ALL_INDUSTRIES, type ServiceDetailItem } from "@/data/services-data";
 
+export type RelatedServiceItem = { slug: string; name: string; desc: string };
+
 type Props = {
   currentSlug: string;
+  /** Published services from the DB. Falls back to the static industry list when omitted. */
+  items?: RelatedServiceItem[];
 };
 
 const SaiArrow = ({
@@ -26,10 +30,13 @@ const SaiArrow = ({
   </svg>
 );
 
-export default function ServiceDetailOtherIndustries({ currentSlug }: Props) {
-  const otherIndustries = ALL_INDUSTRIES.filter(
-    (ind) => ind.slug !== currentSlug,
-  );
+export default function ServiceDetailOtherIndustries({ currentSlug, items }: Props) {
+  const otherIndustries: RelatedServiceItem[] = (
+    items && items.length > 0
+      ? items
+      : ALL_INDUSTRIES.map((ind) => ({ slug: ind.slug, name: ind.name, desc: ind.desc }))
+  ).filter((ind) => ind.slug !== currentSlug);
+  const hasDbItems = Boolean(items && items.length > 0);
 
   return (
     <section
@@ -43,7 +50,7 @@ export default function ServiceDetailOtherIndustries({ currentSlug }: Props) {
         viewport={{ once: true, amount: 0.3 }}
         transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
       >
-        Other industries
+        {hasDbItems ? 'Explore more services' : 'Other industries'}
       </motion.p>
 
       <div className="service-block__list space-y-5 sm:space-y-6">

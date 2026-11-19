@@ -5,12 +5,16 @@ import Link from 'next/link';
 import { ArrowUpRight } from 'lucide-react';
 import { motion } from 'framer-motion';
 import type { JobOpening } from '@/lib/careers';
+import { useLocalizeHref, useT } from '@/components/providers/LocaleProvider';
 
 interface JobDetailRelatedProps {
   relatedJobs: JobOpening[];
 }
 
 export default function JobDetailRelated({ relatedJobs }: JobDetailRelatedProps) {
+  const t = useT();
+  const lh = useLocalizeHref();
+
   if (!relatedJobs || relatedJobs.length === 0) {
     return null;
   }
@@ -19,13 +23,13 @@ export default function JobDetailRelated({ relatedJobs }: JobDetailRelatedProps)
     <section className="w-full max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 mb-20">
       <div className="flex items-center justify-between mb-8 pb-4 border-b border-slate-100">
         <h2 className="text-2xl sm:text-3xl font-bold text-slate-900">
-          Các vị trí khác đang mở
+          {t.careers.relatedTitle}
         </h2>
         <Link
-          href="/careers#opportunities"
+          href={lh('/careers#opportunities')}
           className="text-xs sm:text-sm font-medium text-slate-600 hover:text-slate-900 underline underline-offset-4 decoration-slate-300 hover:decoration-slate-900 transition inline-flex items-center gap-1"
         >
-          <span>Xem tất cả vị trí</span>
+          <span>{t.careers.viewAllPositions}</span>
           <ArrowUpRight className="w-4 h-4" />
         </Link>
       </div>
@@ -40,7 +44,7 @@ export default function JobDetailRelated({ relatedJobs }: JobDetailRelatedProps)
             transition={{ duration: 0.4, delay: idx * 0.05 }}
           >
             <Link
-              href={`/careers/${r.slug}`}
+              href={lh(`/careers/${r.slug}`)}
               className="group w-full h-full bg-white rounded-2xl sm:rounded-[20px] p-6 border border-slate-100 shadow-[0_2px_14px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_24px_rgba(0,0,0,0.08)] hover:border-slate-200 transition-all duration-200 flex flex-col justify-between gap-4 block"
             >
               <div className="space-y-2">
@@ -57,7 +61,7 @@ export default function JobDetailRelated({ relatedJobs }: JobDetailRelatedProps)
                   {r.jobType}
                 </span>
                 <span className="text-xs sm:text-sm font-medium text-slate-500 group-hover:text-slate-900 underline underline-offset-4 decoration-slate-300 group-hover:decoration-slate-900 transition shrink-0">
-                  Apply now
+                  {t.careers.applyNow}
                 </span>
               </div>
             </Link>

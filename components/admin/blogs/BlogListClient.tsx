@@ -44,6 +44,7 @@ export default function BlogListClient({
     "all" | "published" | "draft"
   >("all");
   const [categoryFilter, setCategoryFilter] = useState<string>("all");
+  const [languageFilter, setLanguageFilter] = useState<"all" | "en" | "vi">("all");
   const [isDeleting, setIsDeleting] = useState<string | null>(null);
 
   // Selection & Bulk Actions State
@@ -139,7 +140,7 @@ export default function BlogListClient({
   // Reset page when search or filters change
   React.useEffect(() => {
     setCurrentPage(1);
-  }, [search, statusFilter, categoryFilter]);
+  }, [search, statusFilter, categoryFilter, languageFilter]);
 
   const filteredPosts = posts.filter((post) => {
     const matchesSearch =
@@ -155,7 +156,10 @@ export default function BlogListClient({
       post.tag === categoryFilter ||
       post.category === categoryFilter;
 
-    return matchesSearch && matchesStatus && matchesCategory;
+    const matchesLanguage =
+      languageFilter === "all" || (post.locale || "en") === languageFilter;
+
+    return matchesSearch && matchesStatus && matchesCategory && matchesLanguage;
   });
 
   const totalItems = filteredPosts.length;
@@ -266,7 +270,7 @@ export default function BlogListClient({
       <Card variant="default" className="rounded-2xl p-4 sm:p-5 space-y-4">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-3">
           {/* Search box */}
-          <div className="md:col-span-6">
+          <div className="md:col-span-3">
             <TextInput
               label="Tìm kiếm bài viết"
               isLabelHidden
@@ -276,6 +280,22 @@ export default function BlogListClient({
               hasClear
               width="100%"
               className='h-10 border'
+            />
+          </div>
+
+          {/* Language filter */}
+          <div className="md:col-span-3">
+            <Selector
+              label="Lọc theo ngôn ngữ"
+              className="h-10 border"
+              isLabelHidden
+              value={languageFilter}
+              onChange={(val) => setLanguageFilter(val as "all" | "en" | "vi")}
+              options={[
+                { value: "all", label: "Tất cả ngôn ngữ" },
+                { value: "en", label: "Tiếng Anh (EN)" },
+                { value: "vi", label: "Tiếng Việt (VI)" },
+              ]}
             />
           </div>
 
@@ -395,6 +415,7 @@ export default function BlogListClient({
                       />
                     </th>
                     <th className="py-3.5 px-3">Bài viết</th>
+                    <th className="py-3.5 px-4">Ngôn ngữ</th>
                     <th className="py-3.5 px-4">Chuyên mục</th>
                     <th className="py-3.5 px-4">Trạng thái</th>
                     <th className="py-3.5 px-4">Lượt xem</th>
@@ -447,10 +468,19 @@ export default function BlogListClient({
                                 {post.title}
                               </Link>
                               <span className="text-[11px] text-slate-400 font-mono block mt-0.5 truncate">
-                                /articles/{post.slug}
+                                {(post.locale || "en") === "vi" ? "/vi" : ""}/articles/{post.slug}
                               </span>
                             </div>
                           </div>
+                        </td>
+
+                        {/* Language */}
+                        <td className="py-4 px-4 whitespace-nowrap">
+                          <Badge
+                            label={(post.locale || "en") === "vi" ? "VI" : "EN"}
+                            variant={(post.locale || "en") === "vi" ? "warning" : "neutral"}
+                            className="h-8 px-4"
+                          />
                         </td>
 
                         {/* Category */}

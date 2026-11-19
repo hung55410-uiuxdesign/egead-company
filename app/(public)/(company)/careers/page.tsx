@@ -1,6 +1,7 @@
 import { getPublicJobOpenings } from "@/lib/careers";
 import { getCareersPageConfig } from "@/lib/services/careers-page-config.service";
 import { CareersView } from "@/components/pages/company/careers";
+import { getLocale } from "@/lib/i18n/server";
 
 export const dynamic = "force-dynamic";
 
@@ -16,8 +17,9 @@ export const metadata = {
 };
 
 export default async function CareerPage() {
+  const locale = await getLocale();
   const [jobs, config] = await Promise.all([
-    getPublicJobOpenings(),
+    getPublicJobOpenings(locale),
     getCareersPageConfig(),
   ]);
 

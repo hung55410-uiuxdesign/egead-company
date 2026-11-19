@@ -2,8 +2,9 @@ import fs from 'fs/promises';
 import path from 'path';
 import { Prisma } from '@prisma/client';
 import { prisma } from '@/lib/prisma';
-import { BlogPost, BlogStats, BlogCategory, PostStatus } from '@/types/blog';
-export type { BlogPost, BlogStats, BlogCategory, PostStatus } from '@/types/blog';
+import { BlogPost, BlogStats, BlogCategory, BlogSibling, PostStatus } from '@/types/blog';
+import { normalizeLocale, DEFAULT_LOCALE, type Locale } from '@/lib/i18n/config';
+export type { BlogPost, BlogStats, BlogCategory, BlogSibling, PostStatus } from '@/types/blog';
 import { CategoryItem, getCategoryHref } from '@/types/category';
 import { getCategoriesWithCount } from './category.service';
 import initialBlogs from '@/data/blogs.json';
@@ -47,6 +48,13 @@ export interface PostFilter {
   limit?: number;
   skip?: number;
   sort?: 'newest' | 'oldest' | 'popular';
+  /**
+   * Public site language. When set, posts that exist in both languages are collapsed
+   * to ONE card (the version in this language); single-language posts always appear.
+   */
+  locale?: Locale;
+  /** Exact language filter (admin): only posts written in this language. */
+  language?: Locale;
 }
 
 export interface PaginatedPostsResult {
@@ -66,6 +74,10 @@ function buildPostWhereInput(filter?: PostFilter): Prisma.PostWhereInput {
 
   if (filter?.featured !== undefined) {
     where.featured = filter.featured;
+  }
+
+  if (filter?.language) {
+    where.locale = filter.language;
   }
 
   if (filter?.tag && filter.tag !== 'all') {
@@ -112,9 +124,37 @@ function buildPostWhereInput(filter?: PostFilter): Prisma.PostWhereInput {
 }
 
 /**
+ * Collapse translations of the same article (same groupId) into one entry,
+ * preferring the version written in `locale`. Order of first appearance is kept.
+ */
+export function dedupeByLocale(posts: BlogPost[], locale: Locale): BlogPost[] {
+  const order: string[] = [];
+  const best = new Map<string, BlogPost>();
+  for (const p of posts) {
+    const key = p.groupId || p.id;
+    const current = best.get(key);
+    if (!current) {
+      order.push(key);
+      best.set(key, p);
+    } else if (current.locale !== locale && p.locale === locale) {
+      best.set(key, p);
+    }
+  }
+  return order.map((key) => best.get(key)!);
+}
+
+/**
  * Get all blog posts from Prisma with optional filters.
  */
 export async function getAllPosts(filter?: PostFilter): Promise<BlogPost[]> {
+  if (filter?.locale) {
+    const { locale, limit, skip, ...rest } = filter;
+    const all = await getAllPosts(rest);
+    const collapsed = dedupeByLocale(all, locale);
+    const start = skip || 0;
+    return limit ? collapsed.slice(start, start + limit) : collapsed.slice(start);
+  }
+
   try {
     const where = buildPostWhereInput(filter);
 
@@ -161,6 +201,8 @@ export async function getAllPosts(filter?: PostFilter): Promise<BlogPost[]> {
       status: (p.status as PostStatus) || 'draft',
       views: p.views,
       featured: p.featured,
+      locale: normalizeLocale(p.locale),
+      groupId: p.groupId || undefined,
       createdAt: p.createdAt.toISOString(),
       updatedAt: p.updatedAt.toISOString(),
     }));
@@ -228,6 +270,18 @@ export async function getPaginatedPosts(
   const limit = Math.max(1, filter?.limit || 9);
   const skip = (page - 1) * limit;
 
+  if (filter?.locale) {
+    const { page: _page, limit: _limit, skip: _skip, ...rest } = filter;
+    const all = await getAllPosts(rest);
+    return {
+      posts: all.slice(skip, skip + limit),
+      total: all.length,
+      page,
+      limit,
+      totalPages: Math.ceil(all.length / limit) || 1,
+    };
+  }
+
   try {
     const where = buildPostWhereInput(filter);
 
@@ -272,6 +326,8 @@ export async function getPaginatedPosts(
       status: (p.status as PostStatus) || 'draft',
       views: p.views,
       featured: p.featured,
+      locale: normalizeLocale(p.locale),
+      groupId: p.groupId || undefined,
       createdAt: p.createdAt.toISOString(),
       updatedAt: p.updatedAt.toISOString(),
     }));
@@ -321,9 +377,9 @@ export interface InsightsHubData {
 /**
  * Get aggregated data for the public Insights Hub page
  */
-export async function getInsightsHubData(): Promise<InsightsHubData> {
+export async function getInsightsHubData(locale?: Locale): Promise<InsightsHubData> {
   const [allPosts, categories] = await Promise.all([
-    getAllPosts({ status: 'published' }),
+    getAllPosts({ status: 'published', locale }),
     getCategoriesWithCount(),
   ]);
 
@@ -466,6 +522,8 @@ export async function getPostBySlug(slug: string): Promise<BlogPost | null> {
         status: (post.status as PostStatus) || 'draft',
         views: post.views,
         featured: post.featured,
+        locale: normalizeLocale(post.locale),
+        groupId: post.groupId || undefined,
         createdAt: post.createdAt.toISOString(),
         updatedAt: post.updatedAt.toISOString(),
       };
@@ -512,6 +570,8 @@ export async function getPostById(id: string): Promise<BlogPost | null> {
         status: (post.status as PostStatus) || 'draft',
         views: post.views,
         featured: post.featured,
+        locale: normalizeLocale(post.locale),
+        groupId: post.groupId || undefined,
         createdAt: post.createdAt.toISOString(),
         updatedAt: post.updatedAt.toISOString(),
       };
@@ -586,7 +646,30 @@ export async function savePost(
     // Ignore
   }
 
+  const requestedLocale = postData.locale ? normalizeLocale(postData.locale) : undefined;
+
   if (postData.id) {
+    // A translation group may hold only one post per language.
+    const current = await prisma.post.findUnique({
+      where: { id: postData.id },
+      select: { locale: true, groupId: true },
+    });
+    if (current && requestedLocale && requestedLocale !== current.locale && current.groupId) {
+      const clash = await prisma.post.findFirst({
+        where: {
+          groupId: current.groupId,
+          locale: requestedLocale,
+          NOT: { id: postData.id },
+        },
+        select: { id: true },
+      });
+      if (clash) {
+        throw new Error(
+          `Nhóm bài viết này đã có phiên bản ${requestedLocale === 'vi' ? 'tiếng Việt' : 'tiếng Anh'}, không thể đổi ngôn ngữ trùng.`
+        );
+      }
+    }
+
     const updated = await prisma.post.upsert({
       where: { id: postData.id },
       update: {
@@ -607,6 +690,7 @@ export async function savePost(
         status: postData.status || 'draft',
         views: postData.views,
         featured: postData.featured,
+        locale: requestedLocale,
       },
       create: {
         id: postData.id,
@@ -627,6 +711,8 @@ export async function savePost(
         status: postData.status || 'draft',
         views: postData.views || 0,
         featured: postData.featured || false,
+        locale: requestedLocale || DEFAULT_LOCALE,
+        groupId: postData.groupId || null,
       },
     });
 
@@ -651,6 +737,8 @@ export async function savePost(
       status: (updated.status as PostStatus) || 'draft',
       views: updated.views,
       featured: updated.featured,
+      locale: normalizeLocale(updated.locale),
+      groupId: updated.groupId || undefined,
       createdAt: updated.createdAt.toISOString(),
       updatedAt: updated.updatedAt.toISOString(),
     };
@@ -675,6 +763,8 @@ export async function savePost(
       status: postData.status || 'draft',
       views: postData.views || 0,
       featured: postData.featured || false,
+      locale: requestedLocale || DEFAULT_LOCALE,
+      groupId: postData.groupId || null,
     },
   });
 
@@ -699,6 +789,124 @@ export async function savePost(
     status: (created.status as PostStatus) || 'draft',
     views: created.views,
     featured: created.featured,
+    locale: normalizeLocale(created.locale),
+    groupId: created.groupId || undefined,
+    createdAt: created.createdAt.toISOString(),
+    updatedAt: created.updatedAt.toISOString(),
+  };
+}
+
+/**
+ * Other-language versions of a post (same groupId), including the post itself.
+ * `publishedOnly` is used on the public site so drafts are never linked.
+ */
+export async function getPostSiblings(
+  post: Pick<BlogPost, 'id' | 'groupId'>,
+  options?: { publishedOnly?: boolean }
+): Promise<BlogSibling[]> {
+  if (!post.groupId) return [];
+  try {
+    const rows = await prisma.post.findMany({
+      where: {
+        groupId: post.groupId,
+        ...(options?.publishedOnly ? { status: 'published' } : {}),
+      },
+      select: { id: true, slug: true, title: true, locale: true, status: true },
+      orderBy: { createdAt: 'asc' },
+    });
+    return rows.map((r) => ({
+      id: r.id,
+      slug: r.slug,
+      title: r.title,
+      locale: normalizeLocale(r.locale),
+      status: (r.status as PostStatus) || 'draft',
+    }));
+  } catch (error) {
+    console.warn('[blog.service] getPostSiblings failed:', error);
+    return [];
+  }
+}
+
+/**
+ * Create the other-language version of an existing post as a DRAFT copy
+ * (same content, to be translated by the editor). Both posts get a shared groupId.
+ */
+export async function createPostTranslation(
+  sourceId: string,
+  targetLocale: Locale
+): Promise<BlogPost> {
+  const source = await prisma.post.findUnique({ where: { id: sourceId } });
+  if (!source) {
+    throw new Error('Không tìm thấy bài viết gốc.');
+  }
+  if (normalizeLocale(source.locale) === targetLocale) {
+    throw new Error('Bài viết này đã ở ngôn ngữ được chọn.');
+  }
+
+  const groupId = source.groupId || source.id;
+
+  const existing = await prisma.post.findFirst({
+    where: { groupId, locale: targetLocale },
+    select: { id: true },
+  });
+  if (existing) {
+    throw new Error(
+      `Bài viết đã có phiên bản ${targetLocale === 'vi' ? 'tiếng Việt' : 'tiếng Anh'}.`
+    );
+  }
+
+  if (!source.groupId) {
+    await prisma.post.update({ where: { id: source.id }, data: { groupId } });
+  }
+
+  const suffix = targetLocale;
+  let slug = `${source.slug}-${suffix}`;
+  const clash = await prisma.post.findUnique({ where: { slug }, select: { id: true } });
+  if (clash) slug = `${slug}-${Date.now().toString().slice(-4)}`;
+
+  const created = await prisma.post.create({
+    data: {
+      title: source.title,
+      subtitle: source.subtitle,
+      slug,
+      tag: source.tag,
+      categoryName: source.categoryName,
+      categoryId: source.categoryId,
+      date: source.date,
+      readTime: source.readTime,
+      heroImage: source.heroImage,
+      excerpt: source.excerpt,
+      content: source.content,
+      authorName: source.authorName,
+      authorRole: source.authorRole,
+      authorAvatar: source.authorAvatar,
+      authorId: source.authorId,
+      status: 'draft',
+      views: 0,
+      featured: false,
+      locale: targetLocale,
+      groupId,
+    },
+  });
+
+  return {
+    id: created.id,
+    slug: created.slug,
+    title: created.title,
+    subtitle: created.subtitle || undefined,
+    tag: created.tag,
+    category: created.categoryName,
+    categoryId: created.categoryId || undefined,
+    date: created.date,
+    readTime: created.readTime,
+    heroImage: created.heroImage,
+    excerpt: created.excerpt,
+    content: created.content,
+    status: 'draft',
+    views: 0,
+    featured: false,
+    locale: targetLocale,
+    groupId,
     createdAt: created.createdAt.toISOString(),
     updatedAt: created.updatedAt.toISOString(),
   };
@@ -837,6 +1045,8 @@ export async function seedDatabaseFromJSON(): Promise<BlogPost[]> {
       status: (p.status as PostStatus) || 'draft',
       views: p.views,
       featured: p.featured,
+      locale: normalizeLocale(p.locale),
+      groupId: p.groupId || undefined,
       createdAt: p.createdAt.toISOString(),
       updatedAt: p.updatedAt.toISOString(),
     }));

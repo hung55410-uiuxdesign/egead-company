@@ -1,5 +1,7 @@
 "use client";
 
+import { useLocalizeHref } from "@/components/providers/LocaleProvider";
+
 import Link from "next/link";
 import MotionSection from "@/components/MotionSection";
 import type { InsightsHubData } from "@/lib/services/blog.service";
@@ -10,6 +12,7 @@ type Props = {
 };
 
 export default function InsightsCategorySections({ sections }: Props) {
+  const lh = useLocalizeHref();
   return (
     <div className="w-full bg-white text-black py-16 sm:py-24">
       {sections.map((sec, sIdx) => (
@@ -38,7 +41,7 @@ export default function InsightsCategorySections({ sections }: Props) {
             </div>
 
             <Link
-              href={sec.link}
+              href={lh(sec.link)}
               className="group inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-[#1c1e24] hover:bg-black hover:text-white text-xs font-semibold text-[#1c1e24] transition duration-200 shadow-sm font-montserrat"
             >
               <svg
@@ -64,7 +67,7 @@ export default function InsightsCategorySections({ sections }: Props) {
               {sec.posts.map((item) => (
                 <Link
                   key={item.id || item.slug}
-                  href={`/articles/${item.slug}`}
+                  href={lh(`/articles/${item.slug}`)}
                   className="group flex flex-col h-full cursor-pointer"
                 >
                   {/* Square Image with rounded-[20px] */}
@@ -110,7 +113,7 @@ export default function InsightsCategorySections({ sections }: Props) {
           {sec.posts.length > 0 && (
             <div className="mt-8 flex sm:hidden justify-center">
               <Link
-                href={sec.link}
+                href={lh(sec.link)}
                 className="inline-flex items-center justify-center w-full py-3 rounded-full border border-black text-xs font-semibold text-black hover:bg-black hover:text-white transition font-montserrat"
               >
                 <span>View All {sec.category.name}</span>

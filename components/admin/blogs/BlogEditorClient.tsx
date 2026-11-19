@@ -7,10 +7,12 @@ import {
   UploadCloud,
   Loader2,
 } from 'lucide-react';
-import { BlogPost, BlogCategory, PostStatus } from '@/types/blog';
+import Link from 'next/link';
+import { BlogPost, BlogCategory, BlogSibling, PostStatus } from '@/types/blog';
+import type { Locale } from '@/lib/i18n/config';
 import TipTapEditor from '@/components/admin/shared/TipTapEditor';
 import { Card, Button, Badge, Selector, IconButton, useToast, TextInput, TextArea } from '@astryxdesign/core';
-import { useSaveBlogMutation, useUploadMedia } from '@/lib/hooks';
+import { useSaveBlogMutation, useCreateBlogTranslationMutation, useUploadMedia } from '@/lib/hooks';
 import AIBlogImportModal from './AIBlogImportModal';
 import { ParsedBlogPost } from '@/lib/utils/aiBlogParser';
 import { getYouTubeEmbedInfo, isDirectVideoUrl, getMediaType } from '@/lib/utils/media';
@@ -18,15 +20,24 @@ import { getYouTubeEmbedInfo, isDirectVideoUrl, getMediaType } from '@/lib/utils
 interface BlogEditorClientProps {
   initialPost?: BlogPost | null;
   categories: BlogCategory[];
+  /** Các phiên bản ngôn ngữ của cùng bài viết (gồm cả bài hiện tại) */
+  siblings?: BlogSibling[];
 }
+
+const LANGUAGE_NAME: Record<Locale, string> = {
+  en: 'Tiếng Anh (EN)',
+  vi: 'Tiếng Việt (VI)',
+};
 
 export default function BlogEditorClient({
   initialPost,
   categories,
+  siblings = [],
 }: BlogEditorClientProps) {
   const isEditing = Boolean(initialPost?.id);
   const toast = useToast();
   const saveBlogMutation = useSaveBlogMutation();
+  const translationMutation = useCreateBlogTranslationMutation();
   const isSubmitting = saveBlogMutation.isPending;
 
   // Initialize HTML content from string or legacy array
@@ -56,6 +67,7 @@ export default function BlogEditorClient({
   const [status, setStatus] = useState<PostStatus>(
     initialPost?.status || 'published'
   );
+  const [language, setLanguage] = useState<Locale>(initialPost?.locale || 'en');
   const [isAIModalOpen, setIsAIModalOpen] = useState(false);
   const [uploadFileType, setUploadFileType] = useState<'image' | 'video'>('image');
 
@@ -157,6 +169,7 @@ export default function BlogEditorClient({
         role: authorRole.trim(),
       },
       status: submitStatus,
+      locale: language,
     };
 
     saveBlogMutation.mutate(payload);
@@ -305,11 +318,81 @@ export default function BlogEditorClient({
 
         {/* Right Column: Settings, Metadata, Cover Image */}
         <div className="space-y-6">
+          {/* Language versions */}
+          {isEditing && (
+            <Card variant="default" className="rounded-2xl p-6 space-y-4">
+              <h3 className="text-xs font-bold text-slate-800 border-b border-slate-100 pb-3">
+                <span>Phiên bản ngôn ngữ</span>
+              </h3>
+
+              <ul className="space-y-2.5">
+                {(['en', 'vi'] as Locale[]).map((code) => {
+                  const isCurrent = (initialPost?.locale || 'en') === code;
+                  const version = isCurrent
+                    ? null
+                    : siblings.find((sib) => sib.locale === code);
+                  return (
+                    <li
+                      key={code}
+                      className="flex items-center justify-between gap-3 text-sm"
+                    >
+                      <span className="font-semibold text-slate-800">
+                        {LANGUAGE_NAME[code]}
+                      </span>
+                      {isCurrent ? (
+                        <Badge label="Đang chỉnh sửa" variant="success" className="h-7 px-3" />
+                      ) : version ? (
+                        <Link
+                          href={`/admin/blogs/${version.id}`}
+                          className="text-emerald-700 hover:underline font-medium"
+                        >
+                          {version.status === 'published' ? 'Mở bản đã xuất bản' : 'Mở bản nháp'}
+                        </Link>
+                      ) : (
+                        <Button
+                          label={code === 'en' ? 'Tạo bản tiếng Anh' : 'Tạo bản tiếng Việt'}
+                          variant="secondary"
+                          isDisabled={translationMutation.isPending || isSubmitting}
+                          isLoading={translationMutation.isPending}
+                          onClick={() =>
+                            translationMutation.mutate({ id: initialPost!.id, locale: code })
+                          }
+                          className="h-9 px-3"
+                        />
+                      )}
+                    </li>
+                  );
+                })}
+              </ul>
+              <p className="text-[11px] text-slate-500 leading-relaxed">
+                Bản mới được tạo dưới dạng bản nháp (sao chép nội dung hiện tại) để bạn dịch rồi
+                xuất bản. Hãy lưu bài này trước khi tạo bản dịch.
+              </p>
+            </Card>
+          )}
+
           {/* Publishing Settings */}
           <Card variant="default" className="rounded-2xl p-6 space-y-4">
             <h3 className="text-xs font-bold text-slate-800 border-b border-slate-100 pb-3 flex items-center justify-between">
               <span>Trạng thái &amp; Xuất bản</span>
             </h3>
+
+            <div>
+              <Selector
+                label="Ngôn ngữ bài viết"
+                value={language}
+                onChange={(val) => setLanguage(val as Locale)}
+                options={[
+                  { value: 'en', label: LANGUAGE_NAME.en },
+                  { value: 'vi', label: LANGUAGE_NAME.vi },
+                ]}
+                className='h-10 border'
+              />
+              <p className="text-[11px] text-slate-500 mt-1.5 leading-relaxed">
+                Nếu chỉ có một ngôn ngữ, bài hiển thị ở cả hai phiên bản website. Nếu có đủ hai
+                ngôn ngữ, website chọn bản theo ngôn ngữ đang dùng và trong bài có nút chuyển EN/VI.
+              </p>
+            </div>
 
             <div>
               <Selector

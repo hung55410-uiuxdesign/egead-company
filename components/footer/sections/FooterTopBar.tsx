@@ -3,6 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { SOCIAL_LINKS } from '../config/social-links';
+import { useLocalizeHref, useT } from '@/components/providers/LocaleProvider';
 import type { FooterTopBarData } from '@/lib/services/footer-config.service';
 
 interface FooterTopBarProps {
@@ -10,10 +11,12 @@ interface FooterTopBarProps {
 }
 
 export default function FooterTopBar({ topBar }: FooterTopBarProps) {
+  const t = useT();
+  const lh = useLocalizeHref();
   const logoUrl = topBar?.logoUrl || '/assets/logo/logo-color.png';
   const logoAlt = topBar?.logoAlt || 'E-GEAD Company';
   const logoHref = topBar?.logoHref || '/';
-  const networkTitle = topBar?.networkTitle ?? 'JOIN OUR NETWORK';
+  const networkTitle = topBar?.networkTitle ?? t.footer.joinNetwork;
   const socialLinks =
     topBar?.socialLinks && topBar.socialLinks.length > 0
       ? topBar.socialLinks
@@ -21,7 +24,7 @@ export default function FooterTopBar({ topBar }: FooterTopBarProps) {
 
   return (
     <div className="flex flex-col md:flex-row md:items-center justify-between gap-8 pb-12 border-b border-gray-100">
-      <Link href={logoHref} className="inline-block transition-opacity hover:opacity-90">
+      <Link href={lh(logoHref)} className="inline-block transition-opacity hover:opacity-90">
         <img
           src={logoUrl}
           alt={logoAlt}

@@ -1,13 +1,15 @@
 'use client';
 
 import React, { useState } from 'react';
-
-const LANGUAGES = ['EN', 'JA', 'VI'] as const;
-type LanguageCode = (typeof LANGUAGES)[number];
+import { LOCALES, LOCALE_LABELS } from '@/lib/i18n/config';
+import { useLocale, useT } from '@/components/providers/LocaleProvider';
+import { useSwitchLocale } from '@/components/i18n/useSwitchLocale';
 
 export default function FooterLanguageDropdown() {
   const [langOpen, setLangOpen] = useState(false);
-  const [lang, setLang] = useState<LanguageCode>('EN');
+  const locale = useLocale();
+  const t = useT();
+  const switchLocale = useSwitchLocale();
 
   return (
     <div className="relative">
@@ -22,25 +24,27 @@ export default function FooterLanguageDropdown() {
             fill="black"
           />
         </svg>
-        <span>Language: {lang}</span>
+        <span>{t.footer.language}: {LOCALE_LABELS[locale].short}</span>
         <svg width="12" height="13" viewBox="0 0 12 13" fill="none">
           <path d="M10 6.42578L9.295 5.72078L6.5 8.51078V2.42578H5.5V8.51078L2.71 5.71578L2 6.42578L6 10.4258L10 6.42578Z" fill="black" />
         </svg>
       </button>
 
       {langOpen && (
-        <div className="absolute left-0 bottom-full mb-2 w-28 rounded-xl bg-white border border-gray-200 shadow-xl p-1 z-50">
-          {LANGUAGES.map((l) => (
+        <div className="absolute left-0 bottom-full mb-2 w-32 rounded-xl bg-white border border-gray-200 shadow-xl p-1 z-50">
+          {LOCALES.map((l) => (
             <button
               key={l}
               type="button"
               onClick={() => {
-                setLang(l);
                 setLangOpen(false);
+                switchLocale(l);
               }}
-              className="w-full text-left px-3 py-1.5 rounded-lg hover:bg-gray-100 font-semibold text-xs cursor-pointer"
+              className={`w-full text-left px-3 py-1.5 rounded-lg hover:bg-gray-100 font-semibold text-xs cursor-pointer ${
+                l === locale ? 'text-[#007A3D]' : ''
+              }`}
             >
-              {l}
+              {LOCALE_LABELS[l].full}
             </button>
           ))}
         </div>

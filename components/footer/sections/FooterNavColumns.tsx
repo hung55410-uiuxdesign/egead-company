@@ -4,12 +4,14 @@ import React from 'react';
 import Link from 'next/link';
 import { FOOTER_NAV_COLUMNS } from '../config/footer-links';
 import type { FooterNavColumn } from '../types';
+import { useLocalizeHref } from '@/components/providers/LocaleProvider';
 
 interface FooterNavColumnsProps {
   columns?: FooterNavColumn[];
 }
 
 export default function FooterNavColumns({ columns }: FooterNavColumnsProps) {
+  const lh = useLocalizeHref();
   const displayColumns =
     columns && columns.length > 0 ? columns : FOOTER_NAV_COLUMNS;
 
@@ -24,7 +26,7 @@ export default function FooterNavColumns({ columns }: FooterNavColumnsProps) {
             {col.links.map((link) => (
               <li key={link.label}>
                 <Link
-                  href={link.href}
+                  href={lh(link.href)}
                   className="hover:text-black hover:underline transition"
                 >
                   {link.label}

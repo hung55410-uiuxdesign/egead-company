@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { ChevronRight } from 'lucide-react';
 import { getCategoryHref, type CategoryItem } from '@/types/category';
 import NavArrowIcon from '../../ui/NavArrowIcon';
+import { useLocalizeHref, useT } from '@/components/providers/LocaleProvider';
 
 interface MobileInsightsTabProps {
   categories: CategoryItem[];
@@ -15,10 +16,13 @@ export default function MobileInsightsTab({
   categories,
   onClose,
 }: MobileInsightsTabProps) {
+  const t = useT();
+  const lh = useLocalizeHref();
+
   return (
     <div>
-      <h3 className="text-xs font-bold text-gray-400 mb-5 uppercase tracking-wider">
-        Insights
+      <h3 className="text-xs font-bold text-gray-400 mb-5">
+        {t.activities.title}
       </h3>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         {categories.map((cat) => {
@@ -26,7 +30,7 @@ export default function MobileInsightsTab({
           return (
             <Link
               key={cat.id || cat.slug}
-              href={href}
+              href={lh(href)}
               onClick={onClose}
               className="group flex items-center justify-between p-4 rounded-2xl bg-gray-50 hover:bg-gray-100 transition border border-gray-100"
             >
@@ -50,12 +54,12 @@ export default function MobileInsightsTab({
 
       <div className="mt-8 pt-4 border-t border-gray-100">
         <Link
-          href="/insights"
+          href={lh('/insights')}
           onClick={onClose}
           className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-gray-300 hover:border-black text-sm font-semibold text-gray-800 transition"
         >
           <NavArrowIcon size={14} />
-          <span>All Insights</span>
+          <span>{t.activities.all}</span>
         </Link>
       </div>
     </div>

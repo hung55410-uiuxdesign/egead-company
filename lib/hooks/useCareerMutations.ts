@@ -4,6 +4,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import { useToast } from '@astryxdesign/core';
 import type { CareerPost, JobStatus } from '@/types/career';
+import type { Locale } from '@/lib/i18n/config';
 
 export type JobPosting = CareerPost;
 
@@ -118,6 +119,65 @@ export function useSaveJobMutation(options?: {
           type: 'error',
           isAutoHide: true,
           autoHideDuration: 4000,
+        });
+      }
+      options?.onError?.(error);
+    },
+  });
+}
+
+export interface CreateJobTranslationVariables {
+  id: string;
+  locale: Locale;
+}
+
+/**
+ * Hook mutation tạo phiên bản ngôn ngữ khác (bản nháp sao chép) của tin tuyển dụng
+ */
+export function useCreateJobTranslationMutation(options?: {
+  showToast?: boolean;
+  onSuccess?: (job: JobPosting) => void;
+  onError?: (error: Error) => void;
+}) {
+  const queryClient = useQueryClient();
+  const router = useRouter();
+  const toast = useToast();
+  const showToast = options?.showToast ?? true;
+
+  return useMutation({
+    mutationFn: async ({ id, locale }: CreateJobTranslationVariables) => {
+      const res = await fetch(`/api/admin/careers/${id}/translate`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ locale }),
+      });
+      const result = await res.json();
+      if (!res.ok || !result.success) {
+        throw new Error(result.error || 'Không thể tạo phiên bản ngôn ngữ mới');
+      }
+      return result.data as JobPosting;
+    },
+    onSuccess: (job) => {
+      if (showToast) {
+        toast({
+          body: 'Đã tạo bản nháp phiên bản mới. Hãy dịch nội dung rồi xuất bản.',
+          type: 'info',
+          isAutoHide: true,
+          autoHideDuration: 4000,
+        });
+      }
+      queryClient.invalidateQueries({ queryKey: CAREERS_QUERY_KEY });
+      router.push(`/admin/careers/${job.id}`);
+      router.refresh();
+      options?.onSuccess?.(job);
+    },
+    onError: (error: Error) => {
+      if (showToast) {
+        toast({
+          body: error.message || 'Không thể tạo phiên bản ngôn ngữ mới',
+          type: 'error',
+          isAutoHide: true,
+          autoHideDuration: 5000,
         });
       }
       options?.onError?.(error);

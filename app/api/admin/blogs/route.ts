@@ -7,11 +7,16 @@ export async function GET(request: NextRequest) {
     const status = searchParams.get('status');
     const search = searchParams.get('search')?.toLowerCase();
     const tag = searchParams.get('tag');
+    const language = searchParams.get('language');
 
     let posts = await getAllPosts();
 
     if (status && status !== 'all') {
       posts = posts.filter((p) => p.status === status);
+    }
+
+    if (language === 'en' || language === 'vi') {
+      posts = posts.filter((p) => (p.locale || 'en') === language);
     }
 
     if (tag && tag !== 'all') {
