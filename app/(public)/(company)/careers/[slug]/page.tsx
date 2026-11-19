@@ -12,8 +12,15 @@ type Props = {
 export const dynamic = "force-dynamic";
 
 export async function generateStaticParams() {
-  const jobs = await getPublicJobOpenings();
-  return jobs.map((j) => ({ slug: j.slug }));
+  // The page is force-dynamic, so pre-rendering params is only an optimisation.
+  // Never let a database hiccup (or a schema that is not synced yet) fail the build.
+  try {
+    const jobs = await getPublicJobOpenings();
+    return jobs.map((j) => ({ slug: j.slug }));
+  } catch (error) {
+    console.error("[careers] generateStaticParams skipped:", error);
+    return [];
+  }
 }
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
