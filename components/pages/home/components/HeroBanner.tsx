@@ -10,6 +10,13 @@ import { ArrowRight, Check, ChevronDown, Layers, Package, Play, RefreshCw, Zap }
 const HERO_POSTER = "/assets/hero/hero-poster.webp";
 const HERO_VIDEO = "/assets/hero/egead-warehouse-hero.webm";
 
+// Full-bleed background loop (H.264 MP4, 1920x1080, muted, seamless loop). The poster is its first frame.
+const HERO_BG_VIDEO = "/assets/hero/hero-bg.mp4";
+const HERO_BG_POSTER = "/assets/hero/hero-bg-poster.webp";
+
+// The isometric warehouse scene (and its two floating chips) on the right of the hero. Hidden for now.
+const SHOW_3D_STAGE = false;
+
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
 const PILLARS = [
@@ -33,6 +40,7 @@ const PILLARS = [
 export default function HeroBanner() {
   const reduceMotion = useReducedMotion();
   const videoRef = useRef<HTMLVideoElement>(null);
+  const bgVideoRef = useRef<HTMLVideoElement>(null);
   const [videoPlaying, setVideoPlaying] = useState(false);
   // Safari ignores the alpha channel of VP9 WebM (it would draw a solid box), so it keeps the static poster.
   const [supportsAlphaVideo, setSupportsAlphaVideo] = useState(true);
@@ -49,6 +57,18 @@ export default function HeroBanner() {
     if (!video) return;
     if (reduceMotion) {
       video.pause();
+      return;
+    }
+    video.play().catch(() => {});
+  }, [reduceMotion]);
+
+  // Background loop: with reduced motion it stays on the poster instead of playing.
+  useEffect(() => {
+    const video = bgVideoRef.current;
+    if (!video) return;
+    if (reduceMotion) {
+      video.pause();
+      video.currentTime = 0;
       return;
     }
     video.play().catch(() => {});
@@ -74,10 +94,30 @@ export default function HeroBanner() {
       id="big__banner"
       className="big__banner relative isolate flex min-h-screen w-full items-center overflow-hidden bg-[#040A0D] font-montserrat text-white select-none"
     >
-      {/* Background layers */}
+      {/* Background video loop */}
+      <video
+        ref={bgVideoRef}
+        autoPlay={!reduceMotion}
+        muted
+        loop
+        playsInline
+        preload="auto"
+        poster={HERO_BG_POSTER}
+        aria-hidden="true"
+        tabIndex={-1}
+        className="pointer-events-none absolute inset-0 -z-20 h-full w-full object-cover lg:left-auto lg:right-0 lg:w-[80%] lg:[-webkit-mask-image:linear-gradient(to_right,transparent,#000_25%)] lg:[mask-image:linear-gradient(to_right,transparent,#000_25%)]"
+      >
+        <source src={HERO_BG_VIDEO} type="video/mp4" />
+      </video>
+      {/* Scrim for the white copy. Small screens: the copy sits on the footage, so tint it evenly. */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(60%_55%_at_78%_58%,rgba(16,231,116,0.16),transparent_70%),radial-gradient(40%_40%_at_8%_4%,rgba(255,255,255,0.07),transparent_70%),radial-gradient(50%_50%_at_20%_100%,rgba(16,231,116,0.1),transparent_70%)]"
+        className="pointer-events-none absolute inset-0 -z-10 bg-[#040A0D]/80 lg:hidden"
+      />
+      {/* Large screens: solid dark behind the copy on the left, fading out so the footage shows clearly on the right */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 -z-10 hidden bg-[linear-gradient(to_right,rgba(4,10,13,0.95)_0%,rgba(4,10,13,0.95)_30%,rgba(4,10,13,0.1)_58%,rgba(4,10,13,0.1)_100%)] lg:block"
       />
 
       <div className="grid w-full items-center gap-12 px-6 pb-20 pt-28 sm:px-10 lg:grid-cols-[1.04fr_0.96fr] lg:gap-16 lg:px-14 lg:pb-24 xl:px-16">
@@ -164,7 +204,8 @@ export default function HeroBanner() {
           </motion.ul>
         </div>
 
-        {/* ============ 3D stage ============ */}
+        {/* ============ 3D stage (hidden: set SHOW_3D_STAGE to true to bring it back) ============ */}
+        {SHOW_3D_STAGE && (
         <motion.div
           initial={{ opacity: 0, y: 30, scale: 0.97 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -249,6 +290,7 @@ export default function HeroBanner() {
             </div>
           </motion.div>
         </motion.div>
+        )}
       </div>
 
       {/* Bottom Center: Scroll Button */}
