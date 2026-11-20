@@ -136,7 +136,8 @@ function SubMembersGroup({
     );
   };
 
-  if (members.length <= 2) {
+  // 2 or 3 members: a single row so they all sit at the same level
+  if (members.length <= 3) {
     return (
       <div className="flex flex-col items-center w-full">
         {/* Vertical stem from parent into the pair bus */}
@@ -146,20 +147,30 @@ function SubMembersGroup({
     );
   }
 
-  // 3 or 4 members: 2 rows of 2 with seamless vertical connection between rows
-  const row1 = members.slice(0, 2);
-  const row2 = members.slice(2);
+  // 4+ members: wrap into rows (2 per row for exactly 4, otherwise 3 per row)
+  // with a seamless vertical connection between rows
+  const perRow = members.length === 4 ? 2 : 3;
+  const rows: SubChildNode[][] = [];
+  for (let i = 0; i < members.length; i += perRow) {
+    rows.push(members.slice(i, i + perRow));
+  }
 
   return (
     <div className="flex flex-col items-center w-full">
       {/* Vertical stem from parent into row 1 bus */}
       <div className="w-px h-6 bg-emerald-500/40 mx-auto" />
-      {renderPair(row1, 'row1')}
-
-      {/* Vertical stem connecting row 1 to row 2 bus */}
-      <div className="w-px h-8 bg-emerald-500/40 mx-auto mt-2" />
-      <div className="w-2 h-2 rounded-full bg-emerald-400 ring-2 ring-emerald-400/20 mx-auto -mt-1 z-10" />
-      {renderPair(row2, 'row2')}
+      {rows.map((row, rIdx) => (
+        <div key={`row-wrap-${rIdx}`} className="flex flex-col items-center w-full">
+          {rIdx > 0 && (
+            <>
+              {/* Vertical stem connecting the previous row to this row's bus */}
+              <div className="w-px h-8 bg-emerald-500/40 mx-auto mt-2" />
+              <div className="w-2 h-2 rounded-full bg-emerald-400 ring-2 ring-emerald-400/20 mx-auto -mt-1 z-10" />
+            </>
+          )}
+          {renderPair(row, `row${rIdx + 1}`)}
+        </div>
+      ))}
     </div>
   );
 }
@@ -194,8 +205,10 @@ export default function LeaderTreeMap({
           {branches.map((childNode, bIdx) => {
             const isFirst = bIdx === 0;
             const isLast = bIdx === branches.length - 1;
-            const hasMultipleChildren = childNode.children && childNode.children.length > 1;
-            const columnWidth = hasMultipleChildren ? 720 : 360;
+            const childCount = childNode.children ? childNode.children.length : 0;
+            // 1 child: 360px; 2 or 4 children (rows of 2): 720px; 3 or 5+ children (rows of 3): 1080px
+            const columnWidth =
+              childCount === 3 || childCount >= 5 ? 1080 : childCount > 1 ? 720 : 360;
 
             return (
               <div
