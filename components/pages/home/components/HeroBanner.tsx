@@ -19,19 +19,6 @@ const HERO_BG_POSTER = "/assets/hero/hero-bg-poster.webp";
 // The isometric warehouse scene (and its two floating chips) on the right of the hero. Hidden for now.
 const SHOW_3D_STAGE = false;
 
-/** Lighter file for phones, weak machines, Save-Data and slow connections; full 1080p otherwise. */
-function pickBackgroundSource(): string {
-  const nav = navigator as Navigator & {
-    deviceMemory?: number;
-    connection?: { saveData?: boolean; effectiveType?: string };
-  };
-  const slowNetwork =
-    nav.connection?.saveData === true || /(^|-)2g|3g/.test(nav.connection?.effectiveType ?? "");
-  const weakDevice = (nav.hardwareConcurrency ?? 8) <= 4 || (nav.deviceMemory ?? 8) <= 4;
-  const smallScreen = window.matchMedia("(max-width: 767px)").matches;
-  return smallScreen || weakDevice || slowNetwork ? HERO_BG_VIDEO_LITE : HERO_BG_VIDEO;
-}
-
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
 const PILLARS = [
@@ -57,6 +44,8 @@ export default function HeroBanner() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const bgVideoRef = useRef<HTMLVideoElement>(null);
   const [videoPlaying, setVideoPlaying] = useState(false);
+  // Picked on the client so phones and weak machines never download the 1080p file. Until then the poster shows.
+  const [bgSrc, setBgSrc] = useState<string | null>(null);
   // Safari ignores the alpha channel of VP9 WebM (it would draw a solid box), so it keeps the static poster.
   const [supportsAlphaVideo, setSupportsAlphaVideo] = useState(true);
 
@@ -77,16 +66,25 @@ export default function HeroBanner() {
     video.play().catch(() => {});
   }, [reduceMotion]);
 
+  // Pick the background source once, on the client.
+  useEffect(() => {
+    const nav = navigator as Navigator & {
+      deviceMemory?: number;
+      connection?: { saveData?: boolean; effectiveType?: string };
+    };
+    const slowNetwork =
+      nav.connection?.saveData === true || /(^|-)2g|3g/.test(nav.connection?.effectiveType ?? "");
+    const weakDevice = (nav.hardwareConcurrency ?? 8) <= 4 || (nav.deviceMemory ?? 8) <= 4;
+    const smallScreen = window.matchMedia("(max-width: 767px)").matches;
+    setBgSrc(smallScreen || weakDevice || slowNetwork ? HERO_BG_VIDEO_LITE : HERO_BG_VIDEO);
+  }, []);
+
   // Background loop. It is decorative, slow footage, so it also plays with "reduce motion" on (Windows with
   // animation effects off is common on weak PCs and used to leave visitors with only the poster).
   // If the browser blocks autoplay (iOS Low Power Mode, strict site settings) retry on first interaction.
   useEffect(() => {
     const video = bgVideoRef.current;
-    if (!video) return;
-
-    // The source is chosen on the client so phones and weak machines never download the 1080p file
-    // (the poster shows until then).
-    video.src = pickBackgroundSource();
+    if (!video || !bgSrc) return;
 
     const events = ["pointerdown", "touchstart", "keydown", "scroll", "wheel"] as const;
     const detach = () => events.forEach((e) => window.removeEventListener(e, tryPlay));
@@ -107,7 +105,7 @@ export default function HeroBanner() {
       detach();
       video.removeEventListener("canplay", tryPlay);
     };
-  }, []);
+  }, [bgSrc]);
 
   const scrollToServices = () => {
     const el =
@@ -132,6 +130,7 @@ export default function HeroBanner() {
       {/* Background video loop */}
       <video
         ref={bgVideoRef}
+        src={bgSrc ?? undefined}
         autoPlay
         muted
         loop
