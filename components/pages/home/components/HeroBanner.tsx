@@ -12,10 +12,25 @@ const HERO_VIDEO = "/assets/hero/egead-warehouse-hero.webm";
 
 // Full-bleed background loop (H.264 MP4, 1920x1080, muted, seamless loop). The poster is its first frame.
 const HERO_BG_VIDEO = "/assets/hero/hero-bg.mp4";
+// Lighter 720p / H.264 Main copy (~0.5 MB) for phones, weak machines, Save-Data and slow connections.
+const HERO_BG_VIDEO_LITE = "/assets/hero/hero-bg-720.mp4";
 const HERO_BG_POSTER = "/assets/hero/hero-bg-poster.webp";
 
 // The isometric warehouse scene (and its two floating chips) on the right of the hero. Hidden for now.
 const SHOW_3D_STAGE = false;
+
+/** Lighter file for phones, weak machines, Save-Data and slow connections; full 1080p otherwise. */
+function pickBackgroundSource(): string {
+  const nav = navigator as Navigator & {
+    deviceMemory?: number;
+    connection?: { saveData?: boolean; effectiveType?: string };
+  };
+  const slowNetwork =
+    nav.connection?.saveData === true || /(^|-)2g|3g/.test(nav.connection?.effectiveType ?? "");
+  const weakDevice = (nav.hardwareConcurrency ?? 8) <= 4 || (nav.deviceMemory ?? 8) <= 4;
+  const smallScreen = window.matchMedia("(max-width: 767px)").matches;
+  return smallScreen || weakDevice || slowNetwork ? HERO_BG_VIDEO_LITE : HERO_BG_VIDEO;
+}
 
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
@@ -62,17 +77,37 @@ export default function HeroBanner() {
     video.play().catch(() => {});
   }, [reduceMotion]);
 
-  // Background loop: with reduced motion it stays on the poster instead of playing.
+  // Background loop. It is decorative, slow footage, so it also plays with "reduce motion" on (Windows with
+  // animation effects off is common on weak PCs and used to leave visitors with only the poster).
+  // If the browser blocks autoplay (iOS Low Power Mode, strict site settings) retry on first interaction.
   useEffect(() => {
     const video = bgVideoRef.current;
     if (!video) return;
-    if (reduceMotion) {
-      video.pause();
-      video.currentTime = 0;
-      return;
+
+    // The source is chosen on the client so phones and weak machines never download the 1080p file
+    // (the poster shows until then).
+    video.src = pickBackgroundSource();
+
+    const events = ["pointerdown", "touchstart", "keydown", "scroll", "wheel"] as const;
+    const detach = () => events.forEach((e) => window.removeEventListener(e, tryPlay));
+    function tryPlay() {
+      if (!video) return;
+      const p = video.play();
+      if (p && typeof p.then === "function") {
+        p.then(detach).catch(() => {
+          /* still blocked: wait for the next interaction */
+        });
+      }
     }
-    video.play().catch(() => {});
-  }, [reduceMotion]);
+
+    tryPlay();
+    events.forEach((e) => window.addEventListener(e, tryPlay, { passive: true }));
+    video.addEventListener("canplay", tryPlay);
+    return () => {
+      detach();
+      video.removeEventListener("canplay", tryPlay);
+    };
+  }, []);
 
   const scrollToServices = () => {
     const el =
@@ -97,7 +132,7 @@ export default function HeroBanner() {
       {/* Background video loop */}
       <video
         ref={bgVideoRef}
-        autoPlay={!reduceMotion}
+        autoPlay
         muted
         loop
         playsInline
@@ -106,9 +141,7 @@ export default function HeroBanner() {
         aria-hidden="true"
         tabIndex={-1}
         className="pointer-events-none absolute inset-0 -z-20 h-full w-full object-cover lg:left-auto lg:right-0 lg:w-[80%] lg:[-webkit-mask-image:linear-gradient(to_right,transparent,#000_25%)] lg:[mask-image:linear-gradient(to_right,transparent,#000_25%)]"
-      >
-        <source src={HERO_BG_VIDEO} type="video/mp4" />
-      </video>
+      />
       {/* Scrim for the white copy. Small screens: the copy sits on the footage, so tint it evenly. */}
       <div
         aria-hidden="true"

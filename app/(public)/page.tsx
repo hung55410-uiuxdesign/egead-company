@@ -1,6 +1,5 @@
 import { HomeView } from '@/components/pages/home';
-import { getHomeSectionByKey } from '@/lib/services/home-section.service';
-import { getAllPosts } from '@/lib/blogs';
+import { getCachedHomeSectionByKey, getCachedLatestPosts } from '@/lib/cache/public-data';
 import { getLocale } from '@/lib/i18n/server';
 
 export default async function HomePage() {
@@ -12,11 +11,11 @@ export default async function HomePage() {
     testimonialsSection,
     latestPosts,
   ] = await Promise.all([
-    getHomeSectionByKey('marketplaces-partners').catch(() => null),
-    getHomeSectionByKey('services-capabilities').catch(() => null),
-    getHomeSectionByKey('why-brands-ship').catch(() => null),
-    getHomeSectionByKey('testimonials').catch(() => null),
-    getAllPosts({ status: 'published', limit: 10, locale }).catch(() => []),
+    getCachedHomeSectionByKey('marketplaces-partners').catch(() => null),
+    getCachedHomeSectionByKey('services-capabilities').catch(() => null),
+    getCachedHomeSectionByKey('why-brands-ship').catch(() => null),
+    getCachedHomeSectionByKey('testimonials').catch(() => null),
+    getCachedLatestPosts(locale, 10).catch(() => []),
   ]);
 
   return (

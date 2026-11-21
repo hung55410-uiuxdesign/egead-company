@@ -49,17 +49,26 @@ export default function GridBackground() {
     let rafId = 0;
     let width = window.innerWidth;
     let height = window.innerHeight;
-    let dpr = Math.min(window.devicePixelRatio || 1, 2);
+    // The grid is soft, thin lines: rendering at 1x is visually the same but 2-4x cheaper to paint.
+    const dpr = 1;
+
+    const nav = navigator as Navigator & { deviceMemory?: number };
+    const lowEnd = (nav.hardwareConcurrency ?? 8) <= 4 || (nav.deviceMemory ?? 8) <= 4;
+    const reduceMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches ?? false;
+    // Cap the frame rate: the grid drifts slowly, 30 fps (24 on weak machines) is indistinguishable from 60.
+    const frameInterval = 1000 / (lowEnd ? 24 : 30);
 
     const resize = () => {
       width = window.innerWidth;
       height = window.innerHeight;
-      dpr = Math.min(window.devicePixelRatio || 1, 2);
       canvas.width = Math.round(width * dpr);
       canvas.height = Math.round(height * dpr);
       canvas.style.width = `${width}px`;
       canvas.style.height = `${height}px`;
+      // With reduced motion there is no loop, so repaint the static frame after a resize.
+      if (reduceMotion && drawFrame) drawFrame(performance.now());
     };
+    let drawFrame: ((now: number) => void) | null = null;
     resize();
 
     // Mouse target (-1..1), smoothed value, scroll target and smoothed scroll.
@@ -93,9 +102,8 @@ export default function GridBackground() {
       phase: Math.random() * Math.PI * 2,
     }));
 
-    const reduceMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches ?? false;
-
     let lastTime = performance.now();
+    let lastDrawn = 0;
     let travel = 0; // forward drift of the grid
 
     // Camera state for the current frame, used by `project`.
@@ -122,8 +130,8 @@ export default function GridBackground() {
       };
     };
 
-    const frame = (now: number) => {
-      const dt = Math.min((now - lastTime) / 1000, 0.05);
+    const draw = (now: number) => {
+      const dt = Math.min((now - lastTime) / 1000, 0.1);
       lastTime = now;
       const time = now * 0.001;
 
@@ -243,12 +251,39 @@ export default function GridBackground() {
         ctx.fill();
       }
 
-      rafId = requestAnimationFrame(frame);
     };
-    rafId = requestAnimationFrame(frame);
+    drawFrame = draw;
+
+    const loop = (now: number) => {
+      rafId = requestAnimationFrame(loop);
+      // Small tolerance so a display refreshing at ~30 Hz does not lose every other frame to jitter.
+      if (now - lastDrawn < frameInterval * 0.85) return;
+      lastDrawn = now;
+      draw(now);
+    };
+
+    if (reduceMotion) {
+      // Static grid, no animation loop at all.
+      draw(performance.now());
+    } else {
+      rafId = requestAnimationFrame(loop);
+    }
+
+    // Stop painting while the tab is hidden and resume (without a big time jump) when it is back.
+    const onVisibility = () => {
+      if (reduceMotion) return;
+      if (document.hidden) {
+        cancelAnimationFrame(rafId);
+      } else {
+        lastTime = performance.now();
+        rafId = requestAnimationFrame(loop);
+      }
+    };
+    document.addEventListener('visibilitychange', onVisibility);
 
     return () => {
       cancelAnimationFrame(rafId);
+      document.removeEventListener('visibilitychange', onVisibility);
       window.removeEventListener('resize', resize);
       window.removeEventListener('pointermove', onPointerMove);
       window.removeEventListener('scroll', onScroll);
