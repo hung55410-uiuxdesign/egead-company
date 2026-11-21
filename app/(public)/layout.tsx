@@ -4,9 +4,11 @@ import Footer from '@/components/footer';
 import SmoothScroll from '@/components/SmoothScroll';
 import GridBackground from '@/components/background/GridBackground';
 import QueryProvider from '@/components/providers/QueryProvider';
-import { getCategoriesWithCount } from '@/lib/services/category.service';
-import { getHomeSectionByKey } from '@/lib/services/home-section.service';
-import { getFooterConfig } from '@/lib/services/footer-config.service';
+import {
+  getCachedCategoriesWithCount,
+  getCachedFooterConfig,
+  getCachedHomeSectionByKey,
+} from '@/lib/cache/public-data';
 import { LocaleProvider } from '@/components/providers/LocaleProvider';
 import { getLocale } from '@/lib/i18n/server';
 import { getDictionary } from '@/lib/i18n/dictionaries';
@@ -19,9 +21,9 @@ export default async function PublicLayout({
   const locale = await getLocale();
   const dict = getDictionary(locale);
   const [categories, headerServicesSection, footerConfig] = await Promise.all([
-    getCategoriesWithCount(),
-    getHomeSectionByKey('header-services-menu').catch(() => null),
-    getFooterConfig().catch(() => null),
+    getCachedCategoriesWithCount(),
+    getCachedHomeSectionByKey('header-services-menu').catch(() => null),
+    getCachedFooterConfig().catch(() => null),
   ]);
 
   return (

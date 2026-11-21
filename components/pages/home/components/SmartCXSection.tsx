@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import type { SmartCXSectionData } from "@/lib/services/home-section.service";
+import { getOptimizedImageUrl } from "@/lib/utils/image";
 
 export interface SmartCXSectionProps {
   title?: string;
@@ -47,8 +48,10 @@ function PhotoCard({
       className="relative aspect-square sm:aspect-auto sm:min-h-[340px] overflow-hidden bg-[#181d1f] border border-white/10 hover:border-[#6CE8C3]/50 rounded-xl group transition-all duration-300 shadow-lg cursor-pointer"
     >
       <img
-        src={photo.image || fallback}
+        src={getOptimizedImageUrl(photo.image || fallback, { width: 800 })}
         alt={photo.alt || fallbackAlt}
+        loading="lazy"
+        decoding="async"
         className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
       />
       <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
@@ -183,8 +186,10 @@ export default function SmartCXSection({
             className="relative w-full h-[280px] sm:h-[340px] xl:h-full min-h-[260px] overflow-hidden bg-[#181d1f] border border-white/10 hover:border-[#6CE8C3]/50 rounded-xl group transition-all duration-300 shadow-lg cursor-pointer"
           >
             <img
-              src={widePhoto.image || "/assets/success_warehouse.jpg"}
+              src={getOptimizedImageUrl(widePhoto.image || "/assets/success_warehouse.jpg", { width: 1400 })}
               alt={widePhoto.alt || "Warehouse fulfillment"}
+              loading="lazy"
+              decoding="async"
               className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />

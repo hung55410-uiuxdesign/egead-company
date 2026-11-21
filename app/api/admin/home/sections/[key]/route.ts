@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { revalidatePath } from 'next/cache';
+import { revalidatePath, revalidateTag } from 'next/cache';
+import { PUBLIC_DATA_TAG } from '@/lib/cache/public-data';
 import {
   getHomeSectionByKey,
   updateHomeSection,
@@ -47,6 +48,8 @@ export async function PUT(request: NextRequest, { params }: RouteContext) {
     revalidatePath('/admin/home');
     revalidatePath(`/admin/home/${key}`);
     revalidatePath('/', 'layout');
+    // Drop the cached public-site reads (header menu, footer, home sections) so the edit shows at once.
+    revalidateTag(PUBLIC_DATA_TAG, { expire: 0 });
 
     return NextResponse.json({
       success: true,
